@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/jglke/Downloads/index_2.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>비뇨기 결석 안내 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./비뇨기 결석 안내 · 위케어동물의료센터_files/css2" rel="stylesheet">
+<style>
+:root {
+  --navy: #10335E;
+  --navy-dark: #0a2240;
+  --navy-mid: #1a4a7a;
+  --navy-light: #e8eef6;
+  --navy-xlight: #f2f6fb;
+  --accent: #2d6cc0;
+  --accent-light: #dde9f8;
+  --text: #1a2a3a;
+  --text-mid: #4a5a6a;
+  --text-muted: #8a9aaa;
+  --border: #d0dae6;
+  --bg: #f5f8fc;
+  --white: #ffffff;
+  --warn-bg: #fdf8ee;
+  --warn-border: #e8d48a;
+  --warn-text: #5a3e00;
+  --danger-bg: #fdf0f0;
+  --danger-border: #e8aaaa;
+  --danger-text: #6a1010;
+  --ok-bg: #f0f8f0;
+  --ok-border: #aad8aa;
+  --ok-text: #1a5a1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+
+/* ── HEADER ── */
+.topbar{background:var(--navy);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-img{height:34px;width:auto;filter:brightness(0) invert(1)}
+.logo-text{color:#fff;font-size:13px;font-weight:500;letter-spacing:.01em;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.7;letter-spacing:.08em}
+.topbar-btns{display:flex;gap:.5rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:hover{background:rgba(255,255,255,.22)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+
+/* ── HERO ── */
+.hero{background:var(--navy);padding:2.5rem 1.5rem 0;border-bottom:none}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:.75rem}
+.hero h1{font-size:28px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.75rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:2rem}
+
+/* ── SELECTOR (attached to hero) ── */
+.selector-bar{background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.1);padding:1.25rem 1.5rem}
+.selector-inner{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+.sel-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.sel-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;color:rgba(255,255,255,.45);text-transform:uppercase;min-width:56px;flex-shrink:0}
+.pill-group{display:flex;gap:.4rem;flex-wrap:wrap}
+.pill{padding:6px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:rgba(255,255,255,.6);transition:all .15s}
+.pill:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.pill.active{background:#fff;border-color:#fff;color:var(--navy)}
+.stone-group{display:flex;gap:.4rem;flex-wrap:wrap}
+.stab{padding:6px 15px;border-radius:6px;border:1px solid rgba(255,255,255,.2);font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:rgba(255,255,255,.6);transition:all .15s}
+.stab:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.stab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* ── MAIN ── */
+.main{max-width:760px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+#placeholder{text-align:center;padding:4rem 1.5rem;color:var(--text-muted)}
+#placeholder .ph-icon{font-size:36px;margin-bottom:1rem;opacity:.4}
+#placeholder p{font-size:14px}
+#placeholder strong{color:var(--navy);font-weight:600}
+
+/* ── SECTION ── */
+.sec{margin-bottom:2.5rem}
+.sec-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem;padding-bottom:.75rem;border-bottom:2px solid var(--navy-light)}
+.sec-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:16px;font-weight:700;color:var(--navy)}
+.sec-tag{margin-left:auto;font-size:10px;letter-spacing:.12em;color:var(--text-muted);font-weight:500;text-transform:uppercase}
+
+/* ── OVERVIEW TEXT ── */
+.ov-text{font-size:13px;line-height:1.85;color:var(--text-mid);margin-bottom:1rem;padding:1rem 1.1rem;background:var(--navy-xlight);border-left:3px solid var(--navy);border-radius:0 8px 8px 0}
+.ov-text strong{color:var(--navy);font-weight:600}
+
+/* ── STAT GRID ── */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-bottom:1rem}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.stat-card .s-lbl{font-size:11px;color:var(--text-muted);font-weight:500;margin-bottom:.3rem}
+.stat-card .s-val{font-size:13px;font-weight:700;color:var(--navy)}
+
+/* ── CALLOUT ── */
+.callout{border-radius:9px;padding:.875rem 1rem;margin-bottom:.9rem;font-size:13px;line-height:1.75;display:flex;gap:.7rem;align-items:flex-start}
+.callout .ci{font-size:17px;flex-shrink:0;margin-top:1px}
+.callout.info{background:var(--accent-light);color:#1a3a6a;border:1px solid #b0ccee}
+.callout.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border)}
+.callout.danger{background:var(--danger-bg);color:var(--danger-text);border:1px solid var(--danger-border)}
+.callout strong{font-weight:600}
+
+/* ── GUIDE LIST ── */
+ul.gl{list-style:none;padding:0;font-size:13px;line-height:1.85;color:var(--text-mid)}
+ul.gl li{padding:.3rem 0 .3rem 1.2rem;position:relative;border-bottom:1px solid var(--navy-xlight)}
+ul.gl li:last-child{border-bottom:none}
+ul.gl li::before{content:'';position:absolute;left:0;top:.75rem;width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.35}
+ul.gl strong{color:var(--text);font-weight:600}
+
+/* ── TAG GRID ── */
+.tag-cols{display:grid;grid-template-columns:1fr 1fr;gap:.875rem;margin-top:1rem}
+.tag-col-lbl{font-size:11px;color:var(--text-muted);font-weight:500;margin-bottom:.45rem;letter-spacing:.04em}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.tag{font-size:11px;padding:4px 9px;border-radius:5px;font-weight:500}
+.tag.no{background:var(--danger-bg);color:#8a2020;border:1px solid var(--danger-border)}
+.tag.ok{background:var(--ok-bg);color:#1a5a1a;border:1px solid var(--ok-border)}
+
+/* ── FOOD TABLE ── */
+.food-wrap{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-top:.5rem}
+table.ft{width:100%;border-collapse:collapse;font-size:13px;background:var(--white)}
+table.ft th{text-align:left;padding:8px 12px;font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--text-muted);background:var(--navy-xlight);border-bottom:1px solid var(--border)}
+table.ft td{padding:8px 12px;border-bottom:1px solid #eef2f8;color:var(--text-mid)}
+table.ft tr:last-child td{border-bottom:none}
+.bw{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600}
+.bw.high{background:var(--danger-bg);color:#a01010;border:1px solid var(--danger-border)}
+.bw.mid{background:var(--warn-bg);color:#7a5000;border:1px solid var(--warn-border)}
+.bw.low{background:var(--ok-bg);color:#1a6a1a;border:1px solid var(--ok-border)}
+
+/* ── FOOTER ── */
+.foot{background:var(--navy);padding:2.5rem 1.5rem}
+.foot-inner{max-width:760px;margin:0 auto}
+.foot-disc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:1.25rem}
+.foot-disc strong{color:rgba(255,255,255,.8);font-weight:500}
+.foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.foot-ref{margin-top:1.25rem;font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.03em}
+
+.hidden{display:none!important}
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .tag-cols{grid-template-columns:1fr}
+  .topbar-btns .tbtn.call span{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-wrap">
+      <img class="logo-img" src="data:image/jpeg;base64," alt="위케어동물의료센터 로고" onerror="this.style.display=&#39;none&#39;" style="display: none;">
+      <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    </div>
+    <div class="topbar-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 보호자 안내 자료</div>
+    <h1>우리 아이의 결석,<br>지금부터 <span>함께 관리해요</span></h1>
+    <p class="hero-desc">결석 종류에 따라 관리 방법이 완전히 다릅니다.<br>아래에서 아이의 종과 결석 유형을 선택하시면 맞춤 정보를 보여드립니다.</p>
+  </div>
+</div>
+
+<div class="selector-bar">
+  <div class="selector-inner">
+    <div class="sel-row">
+      <span class="sel-lbl">아이 종류</span>
+      <div class="pill-group">
+        <button class="pill active" onclick="setAnimal(&#39;dog&#39;,this)">🐶 강아지</button>
+        <button class="pill" onclick="setAnimal(&#39;cat&#39;,this)">🐱 고양이</button>
+      </div>
+    </div>
+    <div class="sel-row">
+      <span class="sel-lbl">결석 유형</span>
+      <div class="stone-group">
+        <button class="stab" onclick="setStone(&#39;st&#39;,this)">St · 스트루바이트</button>
+        <button class="stab" onclick="setStone(&#39;ox&#39;,this)">Ox · 옥살산칼슘</button>
+        <button class="stab" onclick="setStone(&#39;ur&#39;,this)">Ur · 유레이트</button>
+        <button class="stab" onclick="setStone(&#39;cy&#39;,this)">Cy · 시스틴</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<div id="placeholder">
+  <div class="ph-icon">🔬</div>
+  <p>위에서 <strong>결석 유형</strong>을 선택해 주세요.<br><br>
+  <span style="font-size:12px;color:var(--text-muted)">결석 종류를 모르시면 진료 후 담당 수의사에게 확인해 주세요.</span></p>
+</div>
+
+<!-- ═══════════════ STRUVITE ═══════════════ -->
+<div id="content-st" class="hidden">
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">스트루바이트 결석이란?</span><span class="sec-tag">Overview</span></div>
+    <div id="st-ov-dog">
+      <div class="ov-text">스트루바이트는 <strong>식이 처방만으로 녹일 수 있는</strong> 결석입니다. 강아지의 경우 대부분 방광 세균 감염(UTI)이 원인이기 때문에, 처방식과 함께 <strong>항생제 치료를 반드시 병행</strong>해야 합니다.</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="s-lbl">치료 방향</div><div class="s-val">처방식으로 용해 가능</div></div>
+        <div class="stat-card"><div class="s-lbl">평균 용해 기간</div><div class="s-val">약 8주</div></div>
+        <div class="stat-card"><div class="s-lbl">소변 pH 특성</div><div class="s-val">알칼리성에서 형성</div></div>
+      </div>
+      <div class="callout warn"><span class="ci">⚠️</span><span>결석이 녹는 과정에서 내부 세균이 소변으로 흘러나올 수 있습니다. 임상 증상이 좋아지더라도 <strong>항생제를 임의로 중단하지 마세요.</strong> 결석이 완전히 사라진 것을 영상으로 확인한 뒤 중단 여부를 결정합니다.</span></div>
+    </div>
+    <div id="st-ov-cat" class="hidden">
+      <div class="ov-text">스트루바이트는 <strong>식이 처방만으로 녹일 수 있는</strong> 결석입니다. 고양이는 세균 감염 없이 생기는 <strong>무균성(sterile) 스트루바이트</strong>가 대부분이어서, 항생제 없이 처방식만으로도 치료할 수 있습니다.</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="s-lbl">치료 방향</div><div class="s-val">처방식 단독 치료</div></div>
+        <div class="stat-card"><div class="s-lbl">평균 용해 기간</div><div class="s-val">약 4~8주</div></div>
+        <div class="stat-card"><div class="s-lbl">소변 pH 특성</div><div class="s-val">알칼리성에서 형성</div></div>
+      </div>
+      <div class="callout info"><span class="ci">ℹ️</span><span>고양이는 항생제 없이 처방식만으로 치료합니다. 결석이 다 녹은 뒤에도 <strong>재발 방지를 위해 처방식을 꾸준히 유지</strong>하는 것이 중요합니다.</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">집에서 이렇게 챙겨주세요</span><span class="sec-tag">Diet &amp; Care</span></div>
+    <ul class="gl">
+      <li><strong>처방식이 치료의 핵심입니다.</strong> 힐스 c/d, 로얄캐닌 유리너리 SO 등 담당 수의사가 처방한 사료만 급여해 주세요.</li>
+      <li><strong>일반 사료나 간식을 섞지 마세요.</strong> 처방식의 미네랄 조절 효과가 떨어집니다. 하루 열량의 10%를 초과하는 간식은 금지입니다.</li>
+      <li id="st-extra-dog"><strong>결석이 완전히 녹고 감염이 해결되면</strong> 일반식으로 전환 가능한 경우도 있습니다. 단, 항생제 종료 후 소변·영상 검사로 확인이 된 뒤에만 가능합니다.</li>
+      <li id="st-extra-cat" class="hidden"><strong>고양이는 처방식을 장기적으로 유지하길 권장합니다.</strong> 소변 조성 자체가 원인이기 때문에 일반식으로 돌아가면 재발하는 사례가 많습니다.</li>
+      <li><strong>수분 섭취를 늘려주세요.</strong> 습식 캔 사료, 분수형 급수기, 물그릇 여러 개를 활용해 소변을 희석시키는 것이 매우 중요합니다.</li>
+    </ul>
+    <div class="tag-cols">
+      <div><div class="tag-col-lbl">가급적 피해주세요</div><div class="tags"><span class="tag no">우유·치즈</span><span class="tag no">멸치·뼈 간식</span><span class="tag no">소금 간 음식</span><span class="tag no">미네랄 보충제</span></div></div>
+      <div><div class="tag-col-lbl">소량은 괜찮아요</div><div class="tags"><span class="tag ok">삶은 닭가슴살</span><span class="tag ok">계란 흰자</span><span class="tag ok">흰살 생선(저염)</span></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">이런 증상이 보이면 바로 연락 주세요</span><span class="sec-tag">When to Call</span></div>
+    <div class="callout danger"><span class="ci">🚨</span><span id="st-emerg"><strong>혈뇨, 소변량 감소, 잦은 화장실 출입, 배뇨 시 통증</strong>이 다시 나타나면 즉시 연락 주세요. 항생제 복용 중에 증상이 재발한다면 약 교체가 필요할 수 있습니다.</span></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ OXALATE ═══════════════ -->
+<div id="content-ox" class="hidden">
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">옥살산칼슘 결석이란?</span><span class="sec-tag">Overview</span></div>
+    <div class="ov-text">옥살산칼슘은 <strong>식이만으로는 녹일 수 없는 결석</strong>입니다. 한 번 생기면 수술이나 처치로 제거해야 하고, <strong>재발률이 상당히 높아</strong> 평소 꾸준한 관리가 특히 중요합니다.</div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="s-lbl">치료 방향</div><div class="s-val">물리적 제거 필요</div></div>
+      <div class="stat-card"><div class="s-lbl">소변 pH 특성</div><div class="s-val">산성에서 형성</div></div>
+      <div class="stat-card" id="ox-breed"><div class="s-lbl">주의 품종</div><div class="s-val">요키·슈나우저·시츄·푸들</div></div>
+    </div>
+    <div class="callout warn"><span class="ci">🔄</span><span>제거 후 1년 이내 재발률이 30%를 넘기도 합니다. 처방식과 수분 관리를 <strong>장기적으로 유지</strong>하는 것이 재발 예방의 핵심입니다.</span></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">주의해야 할 식품</span><span class="sec-tag">Foods</span></div>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:.6rem">옥살산과 칼슘 함량이 모두 낮은 식품을 선택하는 것이 좋습니다. 옥살산이 많은 채소는 삶아 조리 후 삶은 물을 버리면 섭취량을 줄일 수 있습니다.</p>
+    <div class="food-wrap">
+      <table class="ft">
+        <tbody><tr><th>식품</th><th>옥살산</th><th>칼슘</th></tr>
+        <tr><td>시금치</td><td><span class="bw high">높음</span></td><td><span class="bw mid">중간</span></td></tr>
+        <tr><td>고구마</td><td><span class="bw high">높음</span></td><td><span class="bw low">낮음</span></td></tr>
+        <tr><td>두부·대두</td><td><span class="bw high">높음</span></td><td><span class="bw mid">중간</span></td></tr>
+        <tr><td>셀러리·오이·가지</td><td><span class="bw high">높음</span></td><td><span class="bw low">낮음</span></td></tr>
+        <tr><td>브로콜리</td><td><span class="bw mid">중간</span></td><td><span class="bw high">높음</span></td></tr>
+        <tr><td>생선류·연어</td><td><span class="bw low">낮음</span></td><td><span class="bw low">낮음</span></td></tr>
+        <tr><td>소·돼지고기</td><td><span class="bw low">낮음</span></td><td><span class="bw mid">중간</span></td></tr>
+        <tr><td>치즈·우유·요구르트</td><td><span class="bw low">낮음</span></td><td><span class="bw high">높음</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="callout info" style="margin-top:.75rem"><span class="ci">✅</span><span><strong>상대적으로 안전한 식품</strong> — 옥수수, 청경채, 케일, 양배추, 계란, 닭고기, 오리고기, 쌀, 감자(껍질 제거 후 삶음·소량)</span></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">집에서 이렇게 챙겨주세요</span><span class="sec-tag">Daily Care</span></div>
+    <ul class="gl">
+      <li>힐스 c/d, 로얄캐닌 유리너리 SO 등 <strong>처방식을 꾸준히 급여</strong>해 주세요.</li>
+      <li><strong>수분 섭취가 가장 중요합니다.</strong> 습식 사료, 분수형 급수기, 여러 개의 물그릇을 활용해 평소보다 수분 섭취량을 1.5~2배 늘려주세요.</li>
+      <li id="ox-toilet"><strong>소변을 오래 참지 않도록</strong> 화장실 접근성과 산책 환경을 개선해 주세요.</li>
+    </ul>
+    <div class="callout danger" style="margin-top:1rem"><span class="ci">🚨</span><span id="ox-emerg"><strong>혈뇨, 잦은 화장실 출입, 소변량 감소, 배뇨 시 통증</strong>이 보이면 즉시 연락 주세요.</span></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ URATE ═══════════════ -->
+<div id="content-ur" class="hidden">
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">유레이트 결석이란?</span><span class="sec-tag">Overview</span></div>
+    <div id="ur-ov-dog">
+      <div class="ov-text">유레이트는 단백질과 퓨린이 대사되면서 만들어지는 결석입니다. 강아지에서는 <strong>달마시안·잉글리쉬 불독</strong> 같은 유전적으로 취약한 품종이나, <strong>간문맥 단락(PSS)·만성 간 질환</strong>이 있는 아이에게 잘 발생합니다.</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="s-lbl">치료 방향</div><div class="s-val">식이 + 약물로 용해</div></div>
+        <div class="stat-card"><div class="s-lbl">처방식</div><div class="s-val">힐스 u/d 등 저단백</div></div>
+        <div class="stat-card"><div class="s-lbl">약물</div><div class="s-val">알로푸리놀 (처방)</div></div>
+      </div>
+    </div>
+    <div id="ur-ov-cat" class="hidden">
+      <div class="ov-text">유레이트는 단백질과 퓨린이 대사되면서 만들어지는 결석입니다. 고양이에서는 드물게 발생하며, 대부분 <strong>간문맥 단락(PSS) 등 간 질환</strong>이 동반된 경우입니다.</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="s-lbl">치료 방향</div><div class="s-val">수술 후 식이로 예방</div></div>
+        <div class="stat-card"><div class="s-lbl">처방식</div><div class="s-val">신장 처방식(k/d·레날)</div></div>
+        <div class="stat-card"><div class="s-lbl">주의</div><div class="s-val">알로푸리놀 권장 안 함</div></div>
+      </div>
+    </div>
+    <div class="callout info" style="margin-top:.75rem"><span class="ci">🏥</span><span>간 질환이나 PSS가 함께 있다면 그 원인 치료도 동시에 진행해야 합니다. 근본 원인을 해결하지 않으면 결석은 반드시 재발합니다.</span></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">퓨린 함량별 식품 정보</span><span class="sec-tag">Foods</span></div>
+    <div class="food-wrap">
+      <table class="ft">
+        <tbody><tr><th>식품</th><th>퓨린 함량</th></tr>
+        <tr><td>생선류·연어·어패류</td><td><span class="bw high">높음</span></td></tr>
+        <tr><td>거위고기</td><td><span class="bw high">높음</span></td></tr>
+        <tr><td>소·돼지고기</td><td><span class="bw mid">중간</span></td></tr>
+        <tr><td>시금치·아스파라거스·콜리플라워</td><td><span class="bw mid">중간</span></td></tr>
+        <tr><td>콩류·버섯</td><td><span class="bw mid">중간</span></td></tr>
+        <tr><td>두부·셀러리·오이·브로콜리</td><td><span class="bw low">낮음</span></td></tr>
+        <tr><td>과일류</td><td><span class="bw low">낮음</span></td></tr>
+        <tr><td>치즈·우유</td><td><span class="bw low">낮음</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="tags" style="margin-top:.75rem;gap:.35rem">
+      <span class="tag no">간·심장·콩팥(내장육)</span><span class="tag no">멸치·정어리·고등어</span><span class="tag no">새우·홍합·조개류</span><span class="tag no">육수·고기 끓인 물</span><span class="tag no">효모·이스트 보충제</span>
+    </div>
+    <div class="tags" style="margin-top:.5rem;gap:.35rem">
+      <span class="tag ok">계란</span><span class="tag ok">치즈 소량</span><span class="tag ok">두부 소량</span><span class="tag ok">쌀·감자</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">집에서 이렇게 챙겨주세요</span><span class="sec-tag">Daily Care</span></div>
+    <ul class="gl">
+      <li><strong>저단백·알칼리화 처방식</strong>을 기본으로 유지해 주세요. 임의로 일반 사료로 바꾸지 마세요.</li>
+      <li id="ur-allo-dog"><strong>알로푸리놀은 정해진 용량을 반드시 지켜주세요.</strong> 단백질 제한 없이 약만 사용하면 잔틴 결석이 새로 생길 수 있습니다.</li>
+      <li id="ur-allo-cat" class="hidden"><strong>고양이는 알로푸리놀이 권장되지 않습니다.</strong> 수술적 제거 후 식이 관리로 재발을 막는 것이 중심입니다.</li>
+      <li>소변이 농축될수록 결석 형성이 쉬워집니다. <strong>수분 섭취를 충분히</strong> 유지해 주세요.</li>
+    </ul>
+    <div class="callout danger" style="margin-top:1rem"><span class="ci">🚨</span><span><strong>혈뇨, 잦은 화장실 출입, 소변량 감소, 배뇨 시 통증</strong>이 보이면 즉시 연락 주세요.</span></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════ CYSTINE ═══════════════ -->
+<div id="content-cy" class="hidden">
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">시스틴 결석이란?</span><span class="sec-tag">Overview</span></div>
+    <div id="cy-ov-dog">
+      <div class="ov-text">시스틴 결석은 신장의 <strong>아미노산 재흡수 장애로 생기는 유전성 결석</strong>입니다. <strong>잉글리쉬 불독·뉴파운드랜드·닥스훈트</strong> 등에서 주로 발생하고, 중성화하지 않은 수컷에게서 더 자주 나타납니다.</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="s-lbl">치료 방향</div><div class="s-val">식이 + 약물로 용해</div></div>
+        <div class="stat-card"><div class="s-lbl">목표 소변 pH</div><div class="s-val">알칼리성 (≥7.2)</div></div>
+        <div class="stat-card"><div class="s-lbl">중성화 효과</div><div class="s-val">일부 품종에서 효과적</div></div>
+      </div>
+      <div class="callout info"><span class="ci">✂️</span><span>마스티프·아이리쉬 테리어 등 일부 품종에서는 중성화 후 결석 형성이 멈추는 사례가 보고됩니다. 담당 수의사와 상의해 보세요.</span></div>
+    </div>
+    <div id="cy-ov-cat" class="hidden">
+      <div class="ov-text">시스틴 결석은 신장의 <strong>아미노산 재흡수 장애로 생기는 유전성 결석</strong>입니다. 고양이에서는 <strong>매우 드물게</strong> 발생하며, 약물 사용에 제한이 있어 식이 관리와 수술적 제거가 치료의 중심이 됩니다.</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="s-lbl">치료 방향</div><div class="s-val">식이 관리 + 수술</div></div>
+        <div class="stat-card"><div class="s-lbl">목표 소변 pH</div><div class="s-val">알칼리성 유지</div></div>
+        <div class="stat-card"><div class="s-lbl">약물 주의</div><div class="s-val">D-페니실라민 불가</div></div>
+      </div>
+      <div class="callout warn"><span class="ci">⚠️</span><span><strong>고양이는 D-페니실라민·티오프로닌을 사용할 수 없습니다.</strong> Heinz body 빈혈 위험이 있기 때문입니다. 수술적 제거 후 식이로 재발을 예방합니다.</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">식이 관리</span><span class="sec-tag">Diet</span></div>
+    <ul class="gl">
+      <li><strong>저단백 처방식(힐스 u/d 등)</strong>을 기본으로 합니다. 단백질 보충제나 고단백 간식은 피해주세요.</li>
+      <li><strong>메티오닌·시스틴 함량이 높은 식품</strong>(달걀 과량 급여, 유제품 등)의 섭취를 줄여주세요.</li>
+      <li>소변 알칼리화를 위해 수의사 처방에 따라 <strong>포타슘 시트레이트</strong> 같은 보조제를 사용할 수 있습니다.</li>
+      <li id="cy-drug-dog"><strong>사용 가능한 약물은 D-페니실라민</strong>입니다(국내 티오프로닌 단종). 공복에 복용 시 흡수가 더 잘 됩니다.</li>
+      <li id="cy-drug-cat" class="hidden"><strong>고양이는 D-페니실라민·티오프로닌 사용이 불가합니다.</strong> 식이 관리와 수술적 제거로 접근합니다.</li>
+    </ul>
+    <div class="tags" style="margin-top:.875rem;gap:.35rem">
+      <span class="tag no">육포·치즈</span><span class="tag no">달걀 다량 급여</span><span class="tag no">단백질 보충제</span><span class="tag no">생선 통조림</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">집에서 이렇게 챙겨주세요</span><span class="sec-tag">Daily Care</span></div>
+    <ul class="gl">
+      <li><strong>수분 섭취를 최대한 늘려주세요.</strong> 습식 사료와 분수형 급수기를 적극 활용해 주세요.</li>
+      <li><strong>약물은 정해진 시간과 용량</strong>을 반드시 지켜주세요. D-페니실라민은 공복 복용이 흡수에 유리합니다.</li>
+      <li id="cy-neuter"><strong>중성화도 고려해 보세요.</strong> 일부 품종에서는 중성화가 재발 방지에 큰 도움이 됩니다.</li>
+      <li>소변 pH와 영상 검사를 통한 <strong>정기 추적 검사</strong>가 필수입니다. 결석이 사라진 후에도 재발 가능성이 있어 평생 관리가 필요합니다.</li>
+    </ul>
+    <div class="callout danger" style="margin-top:1rem"><span class="ci">🚨</span><span><strong>혈뇨, 배뇨 곤란, 소변량 감소, 심한 통증</strong>이 보이면 즉시 연락 주세요.</span></div>
+  </div>
+
+</div>
+</div><!-- /main -->
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      이 자료는 일반적인 보호자 교육을 위해 제작된 안내문으로, 개별 환자의 진단과 치료를 대신하지 않습니다.<br>
+      식이 변경이나 약물 조절은 반드시 <strong>담당 수의사와 상의</strong> 후 진행해 주세요.<br>
+      <strong>혈뇨, 배뇨 곤란, 소변량 감소, 심한 통증</strong>이 보이면 즉시 병원으로 연락 주세요.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">Reference · Small Animal Clinical Nutrition 5th ed., Ch.39–40 · WECARE Animal Medical Center</p>
+  </div>
+</div>
+
+<script>
+let cAnimal='dog', cStone=null;
+
+function setAnimal(a,btn){
+  cAnimal=a;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  if(cStone) render();
+}
+function setStone(s,btn){
+  cStone=s;
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function s(id){const e=document.getElementById(id);if(e)e.classList.remove('hidden')}
+function h(id){const e=document.getElementById(id);if(e)e.classList.add('hidden')}
+
+function render(){
+  ['st','ox','ur','cy'].forEach(x=>h('content-'+x));
+  h('placeholder');
+  s('content-'+cStone);
+  const dog=cAnimal==='dog';
+
+  if(cStone==='st'){
+    dog?s('st-ov-dog'):h('st-ov-dog');
+    dog?h('st-ov-cat'):s('st-ov-cat');
+    dog?s('st-extra-dog'):h('st-extra-dog');
+    dog?h('st-extra-cat'):s('st-extra-cat');
+    const em=document.getElementById('st-emerg');
+    if(em) em.innerHTML=dog
+      ?'<strong>혈뇨, 소변량 감소, 잦은 화장실 출입, 배뇨 시 통증</strong>이 다시 나타나면 즉시 연락 주세요. 항생제 복용 중에 증상이 재발한다면 약 교체가 필요할 수 있습니다.'
+      :'<strong>수컷 고양이가 소변을 전혀 보지 못하는 경우는 응급 상황입니다.</strong> 요도 폐색이 의심되면 즉시 연락 주세요. 혈뇨, 잦은 화장실 출입, 배뇨 시 통증이 보여도 내원해 주세요.';
+  }
+  if(cStone==='ox'){
+    const bc=document.getElementById('ox-breed');
+    if(bc) bc.querySelector('.s-val').textContent=dog?'요키·슈나우저·시츄·푸들':'페르시안·버미스·히말라얀';
+    const ot=document.getElementById('ox-toilet');
+    if(ot) ot.innerHTML=dog
+      ?'<strong>소변을 오래 참지 않도록</strong> 화장실 접근성과 산책 환경을 개선해 주세요.'
+      :'<strong>소변을 오래 참지 않도록</strong> 화장실을 여러 곳에 배치하고 자주 청소해 주세요.';
+    const em=document.getElementById('ox-emerg');
+    if(em) em.innerHTML=dog
+      ?'<strong>혈뇨, 잦은 화장실 출입, 소변량 감소, 배뇨 시 통증</strong>이 보이면 즉시 연락 주세요.'
+      :'<strong>수컷 고양이가 소변을 전혀 보지 못하는 경우는 응급 상황입니다.</strong> 즉시 연락 주세요. 혈뇨, 잦은 화장실 출입, 통증도 내원 신호입니다.';
+  }
+  if(cStone==='ur'){
+    dog?s('ur-ov-dog'):h('ur-ov-dog');
+    dog?h('ur-ov-cat'):s('ur-ov-cat');
+    dog?s('ur-allo-dog'):h('ur-allo-dog');
+    dog?h('ur-allo-cat'):s('ur-allo-cat');
+  }
+  if(cStone==='cy'){
+    dog?s('cy-ov-dog'):h('cy-ov-dog');
+    dog?h('cy-ov-cat'):s('cy-ov-cat');
+    dog?s('cy-drug-dog'):h('cy-drug-dog');
+    dog?h('cy-drug-cat'):s('cy-drug-cat');
+    const cn=document.getElementById('cy-neuter');
+    if(cn) cn.style.display=dog?'':'none';
+  }
+}
+</script>
+
+
+</body></html>
