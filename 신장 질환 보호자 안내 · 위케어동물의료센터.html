@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)file:///C:/Users/jglke/Downloads/kidney_1.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신장 질환 보호자 안내 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./신장 질환 보호자 안내 · 위케어동물의료센터_files/css2" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-mid:#1a4a7a;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --warn-bg:#fdf8ee;--warn-border:#e8d48a;--warn-text:#5a3e00;
+  --danger-bg:#fdf0f0;--danger-border:#e8aaaa;--danger-text:#6a1010;
+  --ok-bg:#f0f8f0;--ok-border:#aad8aa;--ok-text:#1a5a1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+
+.topbar{background:var(--navy);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.7;letter-spacing:.08em}
+.topbar-btns{display:flex;gap:.5rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:hover{background:rgba(255,255,255,.22)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);font-size:11px}
+.tbtn.back:hover{background:rgba(255,255,255,.15)}
+
+.hero{background:var(--navy);padding:2.25rem 1.5rem 0}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.75rem}
+.hero h1{font-size:26px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.75rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:2rem}
+
+.sel-bar{background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.1);padding:1.25rem 1.5rem}
+.sel-inner{max-width:760px;margin:0 auto}
+.sel-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.sel-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase;min-width:56px;flex-shrink:0}
+.pill-group{display:flex;gap:.4rem;flex-wrap:wrap}
+.pill{padding:6px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:rgba(255,255,255,.6);transition:all .15s}
+.pill:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.pill.active{background:#fff;border-color:#fff;color:var(--navy)}
+
+.main{max-width:760px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+.sec{margin-bottom:2.5rem}
+.sec-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem;padding-bottom:.75rem;border-bottom:2px solid var(--navy-light)}
+.sec-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:16px;font-weight:700;color:var(--navy)}
+.sec-tag{margin-left:auto;font-size:10px;letter-spacing:.12em;color:var(--text-muted);font-weight:500;text-transform:uppercase}
+
+.ov-text{font-size:13px;line-height:1.85;color:var(--text-mid);margin-bottom:1rem;padding:1rem 1.1rem;background:var(--navy-xlight);border-left:3px solid var(--navy);border-radius:0 8px 8px 0}
+.ov-text strong{color:var(--navy);font-weight:600}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-bottom:1rem}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.stat-card .s-lbl{font-size:11px;color:var(--text-muted);font-weight:500;margin-bottom:.3rem}
+.stat-card .s-val{font-size:13px;font-weight:700;color:var(--navy)}
+
+/* IRIS TABLE */
+.iris-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1rem}
+table.iris{width:100%;border-collapse:collapse;font-size:12px;background:var(--white)}
+table.iris th{text-align:left;padding:8px 10px;font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--text-muted);background:var(--navy-xlight);border-bottom:1px solid var(--border)}
+table.iris td{padding:8px 10px;border-bottom:1px solid #eef2f8;color:var(--text-mid);vertical-align:middle}
+table.iris tr:last-child td{border-bottom:none}
+.iris-badge{display:inline-block;font-size:11px;padding:3px 10px;border-radius:5px;font-weight:700;min-width:28px;text-align:center}
+.ib1{background:#f0f8f0;color:#1a6a1a;border:1px solid #aad8aa}
+.ib2{background:#e8f4ff;color:#1a4a8a;border:1px solid #aaccee}
+.ib3{background:#fff8e0;color:#7a5500;border:1px solid #e8d48a}
+.ib4{background:#fdf0f0;color:#8a1010;border:1px solid #e8aaaa}
+
+/* PROGNOSIS CARDS */
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;margin-bottom:1rem}
+.prog-card{border-radius:10px;padding:.875rem 1rem;border:1px solid var(--border)}
+.prog-card.s1{background:#f0f8f0;border-color:#aad8aa}
+.prog-card.s2{background:#e8f4ff;border-color:#aaccee}
+.prog-card.s3{background:#fff8e0;border-color:#e8d48a}
+.prog-card.s4{background:#fdf0f0;border-color:#e8aaaa}
+.prog-stage{font-size:11px;font-weight:700;letter-spacing:.06em;margin-bottom:.3rem}
+.prog-card.s1 .prog-stage{color:#1a6a1a}
+.prog-card.s2 .prog-stage{color:#1a4a8a}
+.prog-card.s3 .prog-stage{color:#7a5500}
+.prog-card.s4 .prog-stage{color:#8a1010}
+.prog-survival{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:.25rem;line-height:1.3}
+.prog-desc{font-size:11px;color:var(--text-muted);line-height:1.5}
+
+.callout{border-radius:9px;padding:.875rem 1rem;margin-bottom:.9rem;font-size:13px;line-height:1.75;display:flex;gap:.7rem;align-items:flex-start}
+.callout .ci{font-size:17px;flex-shrink:0;margin-top:1px}
+.callout.info{background:var(--accent-light);color:#1a3a6a;border:1px solid #b0ccee}
+.callout.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border)}
+.callout.danger{background:var(--danger-bg);color:var(--danger-text);border:1px solid var(--danger-border)}
+.callout.neutral{background:var(--navy-xlight);color:var(--text-mid);border:1px solid var(--border)}
+.callout strong{font-weight:600}
+
+ul.gl{list-style:none;padding:0;font-size:13px;line-height:1.85;color:var(--text-mid)}
+ul.gl li{padding:.3rem 0 .3rem 1.2rem;position:relative;border-bottom:1px solid var(--navy-xlight)}
+ul.gl li:last-child{border-bottom:none}
+ul.gl li::before{content:'';position:absolute;left:0;top:.75rem;width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.35}
+ul.gl strong{color:var(--text);font-weight:600}
+
+.symptom-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem}
+.sym-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:.6rem}
+.sym-icon{font-size:20px;flex-shrink:0}
+.sym-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.2rem}
+.sym-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+/* SUBCUTANEOUS FLUID BOX */
+.fluid-box{background:var(--navy);border-radius:14px;padding:1.75rem;margin-bottom:1rem;color:#fff}
+.fb-top{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+.fb-icon{font-size:28px}
+.fb-title{font-size:16px;font-weight:700;color:#fff}
+.fb-title small{display:block;font-size:11px;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-top:2px}
+.fb-when{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem}
+.fb-when-card{background:rgba(255,255,255,.08);border-radius:8px;padding:.7rem .875rem;font-size:12px;color:rgba(255,255,255,.75);line-height:1.5}
+.fb-when-card strong{color:#fff;display:block;margin-bottom:2px;font-size:11px;letter-spacing:.04em}
+.fb-caution{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);border-radius:8px;padding:.7rem 1rem;font-size:12px;color:#ffb3b3;margin-top:.875rem;display:flex;align-items:flex-start;gap:.5rem;line-height:1.6}
+
+.drug-cards{display:flex;flex-direction:column;gap:.6rem}
+.drug-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.drug-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+.drug-desc{font-size:12px;color:var(--text-mid);line-height:1.7}
+.drug-note{display:inline-flex;align-items:center;gap:4px;font-size:11px;margin-top:.4rem;padding:3px 9px;border-radius:999px;font-weight:500}
+.drug-note.ok{color:var(--ok-text);background:var(--ok-bg);border:1px solid var(--ok-border)}
+.drug-note.opt{color:#7a5500;background:#fff8e0;border:1px solid #e8d48a}
+.drug-note.no{color:#8a1010;background:var(--danger-bg);border:1px solid var(--danger-border)}
+
+.emerg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem}
+.emerg-card{background:var(--danger-bg);border:1px solid var(--danger-border);border-radius:10px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:.6rem}
+.emerg-icon{font-size:20px;flex-shrink:0}
+.emerg-name{font-size:13px;font-weight:600;color:var(--danger-text);margin-bottom:.2rem}
+.emerg-desc{font-size:12px;color:#8a3030;line-height:1.5}
+
+.foot{background:var(--navy);padding:2.5rem 1.5rem}
+.foot-inner{max-width:760px;margin:0 auto}
+.foot-disc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:1.25rem}
+.foot-disc strong{color:rgba(255,255,255,.8);font-weight:500}
+.foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.foot-ref{margin-top:1.25rem;font-size:11px;color:rgba(255,255,255,.25)}
+
+.hidden{display:none!important}
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .topbar-btns .tbtn.call span{display:none}
+  .prog-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="file:///C:/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 신장 질환 보호자 안내</div>
+    <h1>우리 아이의 신장,<br>지금부터 <span>함께 지켜봐요</span></h1>
+    <p class="hero-desc">신장 질환은 조기 발견과 꾸준한 관리가 삶의 질과 수명을 크게 바꿉니다.<br>아래에서 아이의 종을 선택하시면 맞춤 정보를 보여드립니다.</p>
+  </div>
+</div>
+
+<div class="sel-bar">
+  <div class="sel-inner">
+    <div class="sel-row">
+      <span class="sel-lbl">아이 종류</span>
+      <div class="pill-group">
+        <button class="pill active" onclick="setAnimal(&#39;dog&#39;,this)">🐶 강아지</button>
+        <button class="pill" onclick="setAnimal(&#39;cat&#39;,this)">🐱 고양이</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ① 신장 질환이란? -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">신장 질환이란?</span><span class="sec-tag">Overview</span></div>
+
+    <div id="ov-dog">
+      <div class="ov-text">강아지의 만성 신장 질환(CKD)은 <strong>신장 기능이 서서히 떨어지는 질환</strong>으로, 한번 손상된 신장 세포는 회복되지 않습니다. 그러나 남은 신장 기능을 최대한 보존하는 관리로 <strong>삶의 질을 유지하고 진행 속도를 늦출 수 있습니다.</strong></div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="s-lbl">주요 원인</div><div class="s-val">노화, 감염, 독소, 면역질환</div></div>
+        <div class="stat-card"><div class="s-lbl">호발 연령</div><div class="s-val">중·노령견 (7세 이상)</div></div>
+        <div class="stat-card"><div class="s-lbl">진단 기준</div><div class="s-val">IRIS 스테이지 1~4</div></div>
+      </div>
+    </div>
+
+    <div id="ov-cat" class="hidden">
+      <div class="ov-text">고양이의 만성 신장 질환(CKD)은 <strong>15세 이상 고양이의 약 30~50%에서 발견될 정도로 매우 흔한 질환</strong>입니다. 초기에는 증상이 거의 없어 발견이 늦는 경우가 많고, 정기 검진이 특히 중요합니다.</div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="s-lbl">유병률</div><div class="s-val">노령 고양이의 30~50%</div></div>
+        <div class="stat-card"><div class="s-lbl">호발 연령</div><div class="s-val">9세 이상, 특히 15세↑</div></div>
+        <div class="stat-card"><div class="s-lbl">진단 기준</div><div class="s-val">IRIS 스테이지 1~4</div></div>
+      </div>
+    </div>
+
+    <!-- IRIS TABLE (공통) -->
+    <p style="font-size:12px;color:var(--text-muted);margin:.75rem 0 .5rem">IRIS CKD 스테이지 기준</p>
+    <div class="iris-wrap">
+      <table class="iris">
+        <tbody><tr><th>단계</th><th>크레아티닌 (개)</th><th>크레아티닌 (고양이)</th><th>SDMA</th><th>상태</th></tr>
+        <tr>
+          <td><span class="iris-badge ib1">1</span></td>
+          <td>&lt; 1.4 mg/dL</td><td>&lt; 1.6 mg/dL</td><td>&lt; 18 μg/dL</td>
+          <td style="color:#1a6a1a;font-weight:600">기능 저하 초기, 무증상</td>
+        </tr>
+        <tr>
+          <td><span class="iris-badge ib2">2</span></td>
+          <td>1.4–2.8 mg/dL</td><td>1.6–2.8 mg/dL</td><td>18–35 μg/dL</td>
+          <td style="color:#1a4a8a;font-weight:600">경도 신부전, 증상 미미</td>
+        </tr>
+        <tr>
+          <td><span class="iris-badge ib3">3</span></td>
+          <td>2.9–5.0 mg/dL</td><td>2.9–5.0 mg/dL</td><td>36–54 μg/dL</td>
+          <td style="color:#7a5500;font-weight:600">중등도, 증상 나타남</td>
+        </tr>
+        <tr>
+          <td><span class="iris-badge ib4">4</span></td>
+          <td>&gt; 5.0 mg/dL</td><td>&gt; 5.0 mg/dL</td><td>&gt; 54 μg/dL</td>
+          <td style="color:#8a1010;font-weight:600">중증, 적극적 관리 필요</td>
+        </tr>
+      </tbody></table>
+    </div>
+    <div class="callout neutral"><span class="ci">ℹ️</span><span>혈압·단백뇨 수치에 따라 같은 스테이지 안에서도 세부 등급(substage)이 나뉩니다. 담당 수의사가 종합적으로 판단해 관리 방향을 결정합니다.</span></div>
+  </div>
+
+  <!-- ② 예후·기대 수명 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">예후와 기대 수명</span><span class="sec-tag">Prognosis</span></div>
+
+    <div id="prog-dog">
+      <div class="ov-text">아래 수치는 <strong>연구상 중앙생존기간</strong>으로, 실제로는 관리 수준·동반 질환·개체 차이에 따라 크게 달라집니다. 수치보다는 <strong>"지금 할 수 있는 관리를 최선으로 하는 것"</strong>이 더 중요합니다.</div>
+      <div class="prog-grid">
+        <div class="prog-card s1">
+          <div class="prog-stage">STAGE 1</div>
+          <div class="prog-survival">수년 이상 가능</div>
+          <div class="prog-desc">정기 모니터링으로 진행 속도를 늦출 수 있습니다</div>
+        </div>
+        <div class="prog-card s2">
+          <div class="prog-stage">STAGE 2</div>
+          <div class="prog-survival">중앙 약 400일↑</div>
+          <div class="prog-desc">처방식·수분 관리 시작이 중요한 시점</div>
+        </div>
+        <div class="prog-card s3">
+          <div class="prog-stage">STAGE 3</div>
+          <div class="prog-survival">중앙 약 200일 내외</div>
+          <div class="prog-desc">적극적인 약물·식이 관리로 연장 가능</div>
+        </div>
+        <div class="prog-card s4">
+          <div class="prog-stage">STAGE 4</div>
+          <div class="prog-survival">중앙 약 14~80일</div>
+          <div class="prog-desc">삶의 질 유지와 증상 완화에 집중합니다</div>
+        </div>
+      </div>
+      <div class="callout info"><span class="ci">💙</span><span>같은 스테이지라도 <strong>꾸준히 관리받은 아이와 그렇지 않은 아이의 차이는 매우 큽니다.</strong> 오늘의 관리가 내일을 바꿉니다.</span></div>
+    </div>
+
+    <div id="prog-cat" class="hidden">
+      <div class="ov-text">아래 수치는 <strong>연구상 중앙생존기간</strong>으로, 실제로는 관리 수준·동반 질환·개체 차이에 따라 크게 달라집니다. 고양이는 강아지보다 CKD 진행이 상대적으로 느린 편입니다.</div>
+      <div class="prog-grid">
+        <div class="prog-card s1">
+          <div class="prog-stage">STAGE 1</div>
+          <div class="prog-survival">수년 이상 가능</div>
+          <div class="prog-desc">정기 검진으로 조기 진행을 막을 수 있습니다</div>
+        </div>
+        <div class="prog-card s2">
+          <div class="prog-stage">STAGE 2</div>
+          <div class="prog-survival">중앙 약 1,150일</div>
+          <div class="prog-desc">고양이 CKD 중 가장 긴 생존 기간이 보고됩니다</div>
+        </div>
+        <div class="prog-card s3">
+          <div class="prog-stage">STAGE 3</div>
+          <div class="prog-survival">중앙 약 770일 내외</div>
+          <div class="prog-desc">적극적인 관리로 충분히 좋은 삶의 질 유지 가능</div>
+        </div>
+        <div class="prog-card s4">
+          <div class="prog-stage">STAGE 4</div>
+          <div class="prog-survival">중앙 약 35~100일</div>
+          <div class="prog-desc">삶의 질 유지와 편안함에 집중합니다</div>
+        </div>
+      </div>
+      <div class="callout info"><span class="ci">💙</span><span>고양이 CKD는 <strong>진행이 느리고 관리 반응이 좋은 경우가 많습니다.</strong> 포기하지 말고 꾸준히 관리해 주세요.</span></div>
+    </div>
+  </div>
+
+  <!-- ③ 관찰해야 할 증상 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">집에서 관찰해야 할 증상</span><span class="sec-tag">Symptoms</span></div>
+
+    <div id="sym-dog">
+      <div class="symptom-grid">
+        <div class="sym-card"><span class="sym-icon">💧</span><div><div class="sym-name">음수량·소변량 변화</div><div class="sym-desc">물을 갑자기 많이 마시거나 소변량이 크게 늘거나 줄어요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">🍽️</span><div><div class="sym-name">식욕 저하</div><div class="sym-desc">밥을 잘 안 먹거나 평소보다 급격히 줄어들어요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">🤢</span><div><div class="sym-name">구토·구역질</div><div class="sym-desc">특히 공복에 노란 액체를 토하거나 자주 구역질해요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">⚖️</span><div><div class="sym-name">체중 감소</div><div class="sym-desc">근육이 빠지고 등뼈·갈비뼈가 두드러지게 느껴져요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">😴</span><div><div class="sym-name">무기력·활동량 감소</div><div class="sym-desc">산책을 싫어하거나 하루 종일 누워만 있어요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">👄</span><div><div class="sym-name">구취·구내염</div><div class="sym-desc">암모니아 냄새 또는 입안에 궤양이 생기기도 해요</div></div></div>
+      </div>
+    </div>
+
+    <div id="sym-cat" class="hidden">
+      <div class="callout neutral"><span class="ci">ℹ️</span><span>고양이는 <strong>아픈 것을 잘 숨기는 동물</strong>이에요. 행동의 미묘한 변화를 포착하는 것이 무엇보다 중요합니다.</span></div>
+      <div class="symptom-grid">
+        <div class="sym-card"><span class="sym-icon">💧</span><div><div class="sym-name">음수량·소변량 변화</div><div class="sym-desc">물을 갑자기 많이 마시거나, 화장실 모래가 평소보다 많이 젖어요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">🍽️</span><div><div class="sym-name">식욕 저하</div><div class="sym-desc">좋아하던 캔도 안 먹거나 한두 번 핥고 떠나요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">🤢</span><div><div class="sym-name">구토</div><div class="sym-desc">헤어볼이 아닌 노란 액체나 거품을 자주 토해요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">⚖️</span><div><div class="sym-name">체중·근육량 감소</div><div class="sym-desc">등뼈가 선명하게 느껴지고 전체적으로 야위어 보여요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">🐱</span><div><div class="sym-name">털 상태 변화</div><div class="sym-desc">그루밍을 안 해서 털이 엉키거나 윤기를 잃어요</div></div></div>
+        <div class="sym-card"><span class="sym-icon">🙈</span><div><div class="sym-name">숨기 행동 증가</div><div class="sym-desc">평소 안 가던 구석에 숨거나 혼자 있으려 해요</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 피하수액 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">4</span><span class="sec-title">피하수액</span><span class="sec-tag">Subcutaneous Fluids</span></div>
+    <div class="fluid-box">
+      <div class="fb-top">
+        <span class="fb-icon">💉</span>
+        <div>
+          <div class="fb-title">피하수액이란?<small>SUBCUTANEOUS FLUID THERAPY</small></div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:1rem;line-height:1.7">피부 아래 공간에 수액을 주입해 탈수를 교정하고 신장에 수분을 공급하는 방법입니다. 병원에서 교육받은 후 가정에서 직접 시행하는 경우도 있습니다.</p>
+      <div class="fb-when">
+        <div class="fb-when-card"><strong>언제 필요한가요?</strong>IRIS 스테이지 3~4, 또는 2단계라도 탈수·구토·식욕부진이 심할 때 수의사 판단 하에 시작합니다</div>
+        <div class="fb-when-card"><strong>얼마나 자주?</strong>주 2~3회 또는 매일, 용량과 빈도는 담당 수의사가 개별적으로 결정합니다</div>
+        <div class="fb-when-card"><strong>가정 시행 전</strong>반드시 병원에서 충분한 교육을 받은 뒤 시행해야 합니다. 임의로 용량을 늘리지 마세요</div>
+      </div>
+      <div class="fb-caution">⚠️ <span><strong>주의사항</strong> — 심장 질환이 있는 경우 피하수액이 오히려 위험할 수 있습니다. 반드시 심장 상태 확인 후 시행 여부를 결정해야 합니다. 주사 부위가 붓거나 열감이 있으면 즉시 연락 주세요.</span></div>
+    </div>
+  </div>
+
+  <!-- ⑤ 식이 관리 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">5</span><span class="sec-title">식이 관리</span><span class="sec-tag">Diet</span></div>
+    <div class="callout info"><span class="ci">🥣</span><span>신장 처방식은 <strong>인·단백질·나트륨을 제한</strong>하도록 설계되어 있습니다. 스테이지 2 이상부터는 처방식으로의 전환을 강력히 권장합니다.</span></div>
+    <ul class="gl">
+      <li><strong>인(phosphorus) 제한이 가장 중요합니다.</strong> 인이 쌓이면 신장 손상이 빨라집니다. 생선·유제품·내장육·뼈 간식은 인 함량이 매우 높으니 피해주세요.</li>
+      <li><strong>단백질은 무조건 줄이는 것이 아닙니다.</strong> 양보다 질이 중요합니다. 처방식은 고품질 단백질을 적정량 제공하도록 설계되어 있어요.</li>
+      <li><strong>나트륨을 제한해 주세요.</strong> 짠 간식, 사람 음식, 염분이 높은 캔은 피해주세요. 혈압 관리에도 영향을 줍니다.</li>
+      <li><strong>수분 섭취를 최대한 늘려주세요.</strong> 습식 캔, 처방식 습식, 분수형 급수기, 물그릇 여러 개를 활용하세요. 건식 사료에 물을 섞어 주셔도 좋습니다.</li>
+      <li id="diet-cat" class="hidden"><strong>고양이는 억지로 먹이지 마세요.</strong> 식욕이 없을 때 억지로 급여하면 오히려 음식 혐오가 생길 수 있습니다. 처방식을 거부하면 담당 수의사와 상의해 주세요.</li>
+      <li><strong>처방식으로 급격히 바꾸지 마세요.</strong> 1~2주에 걸쳐 서서히 전환해야 거부감 없이 적응할 수 있습니다.</li>
+    </ul>
+    <div class="callout warn" style="margin-top:.75rem"><span class="ci">⚠️</span><span>처방식을 거부한다고 일반 사료나 사람 음식으로 대체하면 신장 손상이 빨라질 수 있습니다. 반드시 담당 수의사와 대안을 상의해 주세요.</span></div>
+  </div>
+
+  <!-- ⑥ 약물 및 보조제 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">6</span><span class="sec-title">약물 및 보조제</span><span class="sec-tag">Medication</span></div>
+    <div class="drug-cards">
+      <div class="drug-card">
+        <div class="drug-name">인 흡착제</div>
+        <div class="drug-desc">장에서 음식 속 인이 흡수되는 것을 막아줍니다. <strong>반드시 식사와 함께</strong> 급여해야 효과가 있습니다. 식사량에 따라 용량 조절이 필요합니다.</div>
+        <span class="drug-note ok">✓ 식사와 함께 급여</span>
+      </div>
+      <div class="drug-card">
+        <div class="drug-name">혈압 강하제</div>
+        <div class="drug-desc">신장 질환 환자는 고혈압이 동반되는 경우가 많습니다. 혈압을 조절해 신장으로 가는 혈류 부담을 줄여줍니다. 단백뇨 감소에도 효과가 있습니다.</div>
+        <span class="drug-note ok">✓ 정기적인 혈압 모니터링 필요</span>
+      </div>
+      <div class="drug-card">
+        <div class="drug-name">조혈 호르몬제 / 철분제</div>
+        <div class="drug-desc">신장 기능이 떨어지면 적혈구를 만드는 호르몬이 감소해 빈혈이 생깁니다. 빈혈이 심한 경우 이를 보조하는 주사제 또는 경구약을 사용합니다.</div>
+        <span class="drug-note ok">✓ 혈액 검사로 필요 여부 판단</span>
+      </div>
+      <div class="drug-card">
+        <div class="drug-name">구토 억제제 / 위장 보호제</div>
+        <div class="drug-desc">요독증으로 인한 구토·구역질·위장 불편감을 줄여줍니다. 식욕 개선에도 도움이 됩니다.</div>
+        <span class="drug-note ok">✓ 증상에 따라 처방</span>
+      </div>
+      <div class="drug-card" style="border-color:#e8d48a">
+        <div class="drug-name" style="color:#7a5500">신장 보조제 (오메가3·프로바이오틱스·항산화제 등)</div>
+        <div class="drug-desc">일부 보조제가 신장 기능 보호에 도움이 될 수 있다는 보고가 있지만, <strong>현재까지 대규모 임상 논문상 명확한 근거는 충분하지 않습니다.</strong> 선택적으로 사용할 수 있으며, 사용 여부는 담당 수의사와 상의해 결정하는 것을 권장합니다.</div>
+        <span class="drug-note opt">△ 선택사항 · 근거 제한적</span>
+      </div>
+      <div class="drug-card" style="border-color:var(--danger-border)">
+        <div class="drug-name" style="color:var(--danger-text)">⛔ 절대 금지 약물</div>
+        <div class="drug-desc"><strong>소염진통제(NSAIDs)</strong> — 신장 혈류를 감소시켜 급격한 악화를 일으킬 수 있습니다. 타이레놀(아세트아미노펜)도 절대 금지입니다.<br><br>
+        <strong>일부 항생제</strong> — 신장으로 배설되는 항생제는 용량 조절이 필요합니다. 임의로 사람 약이나 다른 동물 약을 먹이지 마세요.<br><br>
+        <strong>조영제·마취제</strong> — 검사나 수술 전 반드시 신장 질환 사실을 알려주세요.</div>
+        <span class="drug-note no">✕ 신장 악화 위험</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑦ 응급 신호 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">7</span><span class="sec-title">이럴 때는 즉시 연락 주세요</span><span class="sec-tag">Emergency</span></div>
+    <div class="emerg-grid">
+      <div class="emerg-card"><span class="emerg-icon">🚫</span><div><div class="emerg-name">소변이 안 나와요</div><div class="emerg-desc">12시간 이상 소변을 보지 못하면 즉시 내원하세요</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🤮</span><div><div class="emerg-name">구토가 멈추지 않아요</div><div class="emerg-desc">하루 3회 이상 또는 물도 못 마실 정도면 응급입니다</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">😵</span><div><div class="emerg-name">심한 무기력·의식 저하</div><div class="emerg-desc">일어나지 못하거나 반응이 없는 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">💨</span><div><div class="emerg-name">호흡 곤란</div><div class="emerg-desc">빠른 호흡, 입 벌리고 숨쉬기, 청색증</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🍽️</span><div><div class="emerg-name">48시간 이상 절식</div><div class="emerg-desc">이틀 이상 아무것도 안 먹으면 꼭 내원해주세요</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">😬</span><div><div class="emerg-name">입에서 심한 암모니아 냄새</div><div class="emerg-desc">요독증 악화 신호일 수 있습니다</div></div></div>
+    </div>
+    <div class="callout danger" style="margin-top:1rem"><span class="ci">🚨</span><span>위 증상 중 하나라도 보인다면 <strong>지체 없이 연락 주세요.</strong> 신장 급성 악화는 빠른 대처가 예후를 크게 바꿉니다.</span></div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      이 자료는 일반적인 보호자 교육을 위해 제작된 안내문으로, 개별 환자의 진단과 치료를 대신하지 않습니다.<br>
+      약물 조절이나 식이 변경은 반드시 <strong>담당 수의사와 상의</strong> 후 진행해 주세요.<br>
+      <strong>소변 불통, 심한 구토, 무기력</strong>이 보이면 즉시 병원으로 연락 주세요.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">Reference · IRIS CKD Guidelines 2023 · ACVIM Consensus Statement · WECARE Animal Medical Center</p>
+  </div>
+</div>
+
+<script>
+let cAnimal='dog';
+function setAnimal(a,btn){
+  cAnimal=a;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function s(id){const e=document.getElementById(id);if(e)e.classList.remove('hidden')}
+function h(id){const e=document.getElementById(id);if(e)e.classList.add('hidden')}
+function render(){
+  const dog=cAnimal==='dog';
+  dog?s('ov-dog'):h('ov-dog');
+  dog?h('ov-cat'):s('ov-cat');
+  dog?s('prog-dog'):h('prog-dog');
+  dog?h('prog-cat'):s('prog-cat');
+  dog?s('sym-dog'):h('sym-dog');
+  dog?h('sym-cat'):s('sym-cat');
+  dog?h('diet-cat'):s('diet-cat');
+}
+render();
+</script>
+
+
+</body></html>

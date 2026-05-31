@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)file:///C:/Users/jglke/Downloads/anesthesia_2.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마취 보호자 안내 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./마취 보호자 안내 · 위케어동물의료센터_files/css2" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --warn-bg:#fdf8ee;--warn-border:#e8d48a;--warn-text:#5a3e00;
+  --danger-bg:#fdf0f0;--danger-border:#e8aaaa;--danger-text:#6a1010;
+  --ok-bg:#f0f8f0;--ok-border:#aad8aa;--ok-text:#1a5a1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+
+.topbar{background:var(--navy);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.7;letter-spacing:.08em}
+.topbar-btns{display:flex;gap:.5rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:hover{background:rgba(255,255,255,.22)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);font-size:11px}
+.tbtn.back:hover{background:rgba(255,255,255,.15)}
+
+.hero{background:var(--navy);padding:2.25rem 1.5rem 2rem}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.75rem}
+.hero h1{font-size:26px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.75rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.75}
+
+.main{max-width:760px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+.sec{margin-bottom:2.5rem}
+.sec-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem;padding-bottom:.75rem;border-bottom:2px solid var(--navy-light)}
+.sec-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:16px;font-weight:700;color:var(--navy)}
+.sec-tag{margin-left:auto;font-size:10px;letter-spacing:.12em;color:var(--text-muted);font-weight:500;text-transform:uppercase}
+
+.ov-text{font-size:13px;line-height:1.85;color:var(--text-mid);margin-bottom:1rem;padding:1rem 1.1rem;background:var(--navy-xlight);border-left:3px solid var(--navy);border-radius:0 8px 8px 0}
+.ov-text strong{color:var(--navy);font-weight:600}
+
+.callout{border-radius:9px;padding:.875rem 1rem;margin-bottom:.9rem;font-size:13px;line-height:1.75;display:flex;gap:.7rem;align-items:flex-start}
+.callout .ci{font-size:17px;flex-shrink:0;margin-top:1px}
+.callout.info{background:var(--accent-light);color:#1a3a6a;border:1px solid #b0ccee}
+.callout.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border)}
+.callout.danger{background:var(--danger-bg);color:var(--danger-text);border:1px solid var(--danger-border)}
+.callout.neutral{background:var(--navy-xlight);color:var(--text-mid);border:1px solid var(--border)}
+.callout.ok{background:var(--ok-bg);color:#1a4a1a;border:1px solid var(--ok-border)}
+.callout strong{font-weight:600}
+
+ul.gl{list-style:none;padding:0;font-size:13px;line-height:1.85;color:var(--text-mid)}
+ul.gl li{padding:.3rem 0 .3rem 1.2rem;position:relative;border-bottom:1px solid var(--navy-xlight)}
+ul.gl li:last-child{border-bottom:none}
+ul.gl li::before{content:'';position:absolute;left:0;top:.75rem;width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.35}
+ul.gl strong{color:var(--text);font-weight:600}
+
+/* FASTING BOX */
+.fast-box{background:var(--navy);border-radius:14px;padding:1.75rem;margin-bottom:1rem}
+.fast-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1.25rem}
+.fast-card{border-radius:10px;padding:1rem 1.1rem;text-align:center}
+.fast-card.no{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4)}
+.fast-card.ok{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3)}
+.fast-icon{font-size:28px;margin-bottom:.4rem}
+.fast-time{font-size:22px;font-weight:700;margin-bottom:.2rem}
+.fast-card.no .fast-time{color:#f0a090}
+.fast-card.ok .fast-time{color:#7ed8a0}
+.fast-label{font-size:12px;font-weight:600;margin-bottom:.3rem}
+.fast-card.no .fast-label{color:#ffb3b3}
+.fast-card.ok .fast-label{color:#a0e8a0}
+.fast-desc{font-size:11px;color:rgba(255,255,255,.55);line-height:1.5}
+.fast-alert{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);border-radius:8px;padding:.75rem 1rem;font-size:12px;color:#ffb3b3;display:flex;align-items:flex-start;gap:.5rem;line-height:1.6}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.chk-item{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;font-size:13px;color:var(--text-mid);display:flex;align-items:center;gap:.75rem}
+.chk-icon{font-size:16px;flex-shrink:0}
+
+/* EXAM CARDS */
+.exam-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem}
+.exam-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.exam-icon{font-size:22px;margin-bottom:.4rem}
+.exam-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.3rem}
+.exam-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+/* PROCESS STEPS */
+.steps{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.step{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:.875rem}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.step-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+/* MONITOR GRID */
+.monitor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin-bottom:1rem}
+.mon-card{background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;text-align:center}
+.mon-icon{font-size:20px;margin-bottom:.3rem}
+.mon-name{font-size:12px;font-weight:600;color:var(--navy)}
+
+/* RISK TABLE */
+.risk-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1rem}
+table.risk{width:100%;border-collapse:collapse;font-size:13px;background:var(--white)}
+table.risk th{text-align:left;padding:9px 12px;font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--text-muted);background:var(--navy-xlight);border-bottom:1px solid var(--border)}
+table.risk td{padding:9px 12px;border-bottom:1px solid #eef2f8;color:var(--text-mid);vertical-align:middle}
+table.risk tr:last-child td{border-bottom:none}
+.rb{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;font-weight:600}
+.rb.low{background:var(--ok-bg);color:#1a6a1a;border:1px solid var(--ok-border)}
+.rb.mid{background:var(--warn-bg);color:#7a5500;border:1px solid var(--warn-border)}
+.rb.high{background:var(--danger-bg);color:#8a1010;border:1px solid var(--danger-border)}
+
+/* SE CARDS */
+.se-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem;margin-bottom:1rem}
+.se-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.se-card.serious{border-color:var(--danger-border);background:var(--danger-bg)}
+.se-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.3rem}
+.se-card.serious .se-name{color:var(--danger-text)}
+.se-desc{font-size:12px;color:var(--text-muted);line-height:1.55}
+.se-card.serious .se-desc{color:#8a3030}
+.se-freq{display:inline-block;font-size:10px;padding:2px 7px;border-radius:999px;font-weight:600;margin-top:.4rem}
+.freq-common{background:var(--warn-bg);color:#7a5500;border:1px solid var(--warn-border)}
+.freq-rare{background:var(--danger-bg);color:#8a1010;border:1px solid var(--danger-border)}
+
+/* BRACHY BOX */
+.brachy-box{background:#fff8f0;border:2px solid #e8a060;border-radius:14px;padding:1.75rem;margin-bottom:1rem}
+.brachy-title{font-size:15px;font-weight:700;color:#8a3a00;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.brachy-desc{font-size:12px;color:#6a3a10;line-height:1.8;margin-bottom:1rem}
+.brachy-breeds{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+.breed-tag{font-size:12px;padding:4px 10px;border-radius:999px;background:#fde8d0;border:1px solid #e8a060;color:#7a3a00;font-weight:500}
+.brachy-risks{display:flex;flex-direction:column;gap:.4rem}
+.brachy-risk{background:#fdf0f0;border:1px solid #e8aaaa;border-radius:8px;padding:.6rem .875rem;font-size:12px;color:#6a1010;display:flex;gap:.5rem;align-items:flex-start;line-height:1.6}
+
+/* HIGH RISK */
+.highrisk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.6rem;margin-bottom:1rem}
+.hr-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.hr-icon{font-size:20px;margin-bottom:.35rem}
+.hr-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.25rem}
+.hr-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+/* AFTERCARE */
+.after-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem}
+.after-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.after-icon{font-size:22px;margin-bottom:.4rem}
+.after-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.3rem}
+.after-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+.emerg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem}
+.emerg-card{background:var(--danger-bg);border:1px solid var(--danger-border);border-radius:10px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:.6rem}
+.emerg-icon{font-size:20px;flex-shrink:0}
+.emerg-name{font-size:13px;font-weight:600;color:var(--danger-text);margin-bottom:.2rem}
+.emerg-desc{font-size:12px;color:#8a3030;line-height:1.5}
+
+.foot{background:var(--navy);padding:2.5rem 1.5rem}
+.foot-inner{max-width:760px;margin:0 auto}
+.foot-disc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:1.25rem}
+.foot-disc strong{color:rgba(255,255,255,.8);font-weight:500}
+.foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.foot-ref{margin-top:1.25rem;font-size:11px;color:rgba(255,255,255,.25)}
+
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .topbar-btns .tbtn.call span{display:none}
+  .fast-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="file:///C:/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 마취 보호자 안내</div>
+    <h1>마취, 제대로 알고<br><span>함께 준비해요</span></h1>
+    <p class="hero-desc">마취는 모든 수술·시술에 필수적이지만, 위험성이 전혀 없는 것은 아닙니다.<br>정확히 알고 준비하는 것이 가장 안전한 마취의 시작입니다.</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ① 마취 전 준비 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">마취 전 준비 — 금식</span><span class="sec-tag">Preparation</span></div>
+
+    <div class="fast-box">
+      <p style="font-size:13px;font-weight:600;color:#fff;margin-bottom:.25rem">내원 전 금식 안내</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);margin-bottom:1.25rem">마취 중 구토로 인한 흡인을 예방하기 위해 반드시 지켜주세요</p>
+      <div class="fast-grid">
+        <div class="fast-card no">
+          <div class="fast-icon">🍗</div>
+          <div class="fast-time">6시간</div>
+          <div class="fast-label">사료·간식 금지</div>
+          <div class="fast-desc">전날 밤 10시 이후 또는 당일 아침 밥은 주지 마세요</div>
+        </div>
+        <div class="fast-card no">
+          <div class="fast-icon">🦴</div>
+          <div class="fast-time">6시간</div>
+          <div class="fast-label">간식·껌·장난감 금지</div>
+          <div class="fast-desc">덴탈껌, 저키, 씹는 장난감도 포함됩니다</div>
+        </div>
+        <div class="fast-card ok">
+          <div class="fast-icon">💧</div>
+          <div class="fast-time">OK</div>
+          <div class="fast-label">물은 마셔도 됩니다</div>
+          <div class="fast-desc">내원 직전까지 물은 자유롭게 마셔도 괜찮아요</div>
+        </div>
+      </div>
+      <div class="fast-alert">⚠️ <span><strong>금식을 못 하고 오셨다면 반드시 미리 연락 주세요.</strong> 금식 여부에 따라 마취 일정이 변경될 수 있습니다. 금식 없이 마취를 진행하면 구토물이 기도로 넘어가는 흡인성 폐렴 위험이 크게 높아집니다.</span></div>
+    </div>
+
+    <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.6rem">내원 전 체크리스트</p>
+    <div class="checklist">
+      <div class="chk-item"><span class="chk-icon">☑️</span>사료·간식 6시간 전부터 금식 완료</div>
+      <div class="chk-item"><span class="chk-icon">☑️</span>물은 내원 직전까지 자유롭게 급여</div>
+      <div class="chk-item"><span class="chk-icon">☑️</span>현재 복용 중인 약물 이름·용량 메모 또는 지참</div>
+      <div class="chk-item"><span class="chk-icon">☑️</span>보호자 연락처 2개 이상 확인 (수술 중 연락 가능한 번호)</div>
+      <div class="chk-item"><span class="chk-icon">☑️</span>기저 질환(심장·신장·간·당뇨 등) 있으면 미리 알려주세요</div>
+      <div class="chk-item"><span class="chk-icon">☑️</span>이전 마취·수술 기록 있으면 공유해 주세요</div>
+    </div>
+  </div>
+
+  <!-- ② 마취 전 검사 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">마취 전 검사</span><span class="sec-tag">Pre-Anesthetic Exam</span></div>
+    <div class="ov-text">단순해 보이는 시술이라도 마취 전 상태를 확인하는 것이 가장 안전한 마취의 시작입니다. 기본 검사는 <strong>마취 비용에 포함</strong>되며, 필요에 따라 추가 검사를 선택하실 수 있습니다.</div>
+
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem">기본 포함 검사</p>
+    <div class="exam-grid">
+      <div class="exam-card">
+        <div class="exam-icon">🩸</div>
+        <div class="exam-name">혈액 검사</div>
+        <div class="exam-desc">간·신장 기능, 빈혈, 전해질 이상 확인. 마취약 대사 능력을 미리 파악합니다</div>
+      </div>
+      <div class="exam-card">
+        <div class="exam-icon">🫀</div>
+        <div class="exam-name">심장 청진</div>
+        <div class="exam-desc">심잡음·부정맥 유무 확인. 심장 이상이 있으면 마취 계획이 달라집니다</div>
+      </div>
+      <div class="exam-card">
+        <div class="exam-icon">🌡️</div>
+        <div class="exam-name">신체 검사</div>
+        <div class="exam-desc">체온·체중·점막 색 확인. 당일 컨디션을 종합적으로 평가합니다</div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem;margin-top:1rem">추가 선택 검사 (별도 비용)</p>
+    <div class="exam-grid">
+      <div class="exam-card" style="border-color:#e8d48a;background:#fffbf0">
+        <div class="exam-icon">🫁</div>
+        <div class="exam-name">흉부 X-ray <span style="font-size:10px;color:#b45309;font-weight:600;margin-left:4px">추가</span></div>
+        <div class="exam-desc">폐·심장 크기·흉강 이상 확인. 노령 동물·호흡기 증상이 있는 경우 권장합니다</div>
+      </div>
+      <div class="exam-card" style="border-color:#e8d48a;background:#fffbf0">
+        <div class="exam-icon">🔊</div>
+        <div class="exam-name">초음파 검사 <span style="font-size:10px;color:#b45309;font-weight:600;margin-left:4px">추가</span></div>
+        <div class="exam-desc">복강 장기·심장 구조를 상세히 확인합니다. 기저 질환이 있거나 고위험군에서 권장합니다</div>
+      </div>
+    </div>
+    <div class="callout warn"><span class="ci">💡</span><span>노령·심장·신장 질환이 있는 경우 <strong>X-ray·초음파 추가 검사를 강력히 권장합니다.</strong> 추가 검사 여부는 내원 후 담당 수의사와 상의해 결정하실 수 있습니다.</span></div>
+    <div class="callout info"><span class="ci">ℹ️</span><span>검사 결과에 따라 마취 약물 종류·용량·모니터링 방식이 달라집니다. 이상이 발견되면 수술 일정을 조정하거나 추가 준비를 할 수 있습니다.</span></div>
+  </div>
+
+  <!-- ③ 마취 과정 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">마취는 어떻게 진행되나요?</span><span class="sec-tag">Process</span></div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <div><div class="step-title">전처치 (Pre-medication)</div><div class="step-desc">진정제·진통제를 투여해 불안을 줄이고 마취 유도를 부드럽게 합니다. 전처치를 통해 전체 마취약 용량을 줄일 수 있습니다.</div></div>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <div><div class="step-title">마취 유도 (Induction)</div><div class="step-desc">정맥 주사로 빠르게 의식을 잃게 합니다. 기도 확보를 위해 기관 내 삽관(튜브 삽입)을 진행합니다.</div></div>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <div><div class="step-title">마취 유지 (Maintenance)</div><div class="step-desc">흡입 마취제로 수술 내내 일정한 마취 깊이를 유지합니다. 심전도·혈압·산소포화도·체온을 실시간으로 모니터링합니다.</div></div>
+      </div>
+      <div class="step">
+        <span class="step-num">4</span>
+        <div><div class="step-title">마취 회복 (Recovery)</div><div class="step-desc">마취제 투여를 중단하고 아이가 스스로 깨어날 때까지 집중 관찰합니다. 체온 유지와 통증 관리가 이 단계에서 특히 중요합니다.</div></div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem;margin-top:.25rem">마취 중 실시간으로 모니터링하는 항목</p>
+    <div class="monitor-grid">
+      <div class="mon-card"><div class="mon-icon">❤️</div><div class="mon-name">심전도 (ECG)</div></div>
+      <div class="mon-card"><div class="mon-icon">🫁</div><div class="mon-name">산소포화도 (SpO₂)</div></div>
+      <div class="mon-card"><div class="mon-icon">🩺</div><div class="mon-name">혈압 (BP)</div></div>
+      <div class="mon-card"><div class="mon-icon">🌡️</div><div class="mon-name">체온</div></div>
+      <div class="mon-card"><div class="mon-icon">💨</div><div class="mon-name">호기말 CO₂</div></div>
+      <div class="mon-card"><div class="mon-icon">🔢</div><div class="mon-name">호흡수</div></div>
+    </div>
+  </div>
+
+  <!-- ④ 부작용·위험성 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">4</span><span class="sec-title">마취 부작용과 위험성</span><span class="sec-tag">Risks</span></div>
+    <div class="ov-text">마취는 <strong>모든 동물에게 일정한 위험이 존재합니다.</strong> 건강한 동물에서도 마취 사망률은 약 0.05~0.1%(1,000마리 중 약 1마리) 수준으로 보고됩니다. 고위험군에서는 이보다 수십 배 높아질 수 있습니다. 이러한 위험성을 솔직하게 알려드리는 것이 보호자님과 함께 최선의 결정을 내리는 첫걸음이라고 생각합니다.</div>
+
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem">흔하게 나타날 수 있는 부작용</p>
+    <div class="se-grid">
+      <div class="se-card">
+        <div class="se-name">저체온</div>
+        <div class="se-desc">마취 중 체온이 떨어지는 현상으로 가장 흔합니다. 보온 패드·담요로 관리하며, 소형견·어린 동물에서 더 두드러집니다.</div>
+        <span class="se-freq freq-common">흔함</span>
+      </div>
+      <div class="se-card">
+        <div class="se-name">저혈압</div>
+        <div class="se-desc">마취약의 혈관 확장 효과로 혈압이 일시적으로 떨어질 수 있습니다. 수액 투여와 약물로 조절합니다.</div>
+        <span class="se-freq freq-common">흔함</span>
+      </div>
+      <div class="se-card">
+        <div class="se-name">회복 지연·흥분</div>
+        <div class="se-desc">마취에서 깨어나는 속도가 느리거나, 반대로 과도하게 흥분하는 경우가 있습니다. 대부분 수 시간 내 안정됩니다.</div>
+        <span class="se-freq freq-common">흔함</span>
+      </div>
+      <div class="se-card">
+        <div class="se-name">구토·메스꺼움</div>
+        <div class="se-desc">마취 회복 중 구역질이나 구토가 나타날 수 있습니다. 금식을 잘 지키면 위험도가 크게 낮아집니다.</div>
+        <span class="se-freq freq-common">간혹</span>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem;margin-top:1rem">드물지만 심각한 부작용</p>
+    <div class="se-grid">
+      <div class="se-card serious">
+        <div class="se-name">흡인성 폐렴</div>
+        <div class="se-desc">구토물이 기도로 넘어가 폐에 염증이 생기는 상태입니다. 금식이 지켜지지 않았을 때 위험이 급격히 높아집니다.</div>
+        <span class="se-freq freq-rare">드묾 · 위험</span>
+      </div>
+      <div class="se-card serious">
+        <div class="se-name">심각한 부정맥</div>
+        <div class="se-desc">마취 중 심장 리듬이 불규칙해질 수 있습니다. 심전도 모니터링으로 즉각 대응합니다.</div>
+        <span class="se-freq freq-rare">드묾 · 위험</span>
+      </div>
+      <div class="se-card serious">
+        <div class="se-name">마취 사망</div>
+        <div class="se-desc">건강한 동물 기준 약 0.05~0.1%. 고위험군(노령·심장·신장 질환·단두종)에서는 이보다 수십 배 높을 수 있습니다.</div>
+        <span class="se-freq freq-rare">매우 드묾</span>
+      </div>
+      <div class="se-card serious">
+        <div class="se-name">악성 고체온증</div>
+        <div class="se-desc">흡입 마취제에 대한 유전적 과반응으로 체온이 급격히 상승합니다. 매우 드물지만 즉각적인 처치가 필요합니다.</div>
+        <span class="se-freq freq-rare">극히 드묾</span>
+      </div>
+    </div>
+
+    <div class="risk-wrap" style="margin-top:1rem">
+      <table class="risk">
+        <tbody><tr><th>분류</th><th>예상 마취 위험도</th></tr>
+        <tr><td>건강한 젊은 동물 (ASA 1~2)</td><td><span class="rb low">낮음 · 0.05~0.1%</span></td></tr>
+        <tr><td>경미한 전신 질환 (ASA 3)</td><td><span class="rb mid">중간 · 0.5~1%</span></td></tr>
+        <tr><td>중증 전신 질환·노령 (ASA 4)</td><td><span class="rb high">높음 · 1~5% 이상</span></td></tr>
+        <tr><td>생명 위협적 상태 (ASA 5)</td><td><span class="rb high">매우 높음 · 개체별 상이</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="callout neutral"><span class="ci">💙</span><span>위험도가 높다고 수술을 포기하는 것이 답이 아닐 수 있습니다. <strong>수술하지 않을 때의 위험</strong>과 비교해 담당 수의사와 충분히 상의 후 결정해 주세요.</span></div>
+  </div>
+
+  <!-- ⑤ 단두종 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">5</span><span class="sec-title">단두종 보호자는 꼭 읽어주세요</span><span class="sec-tag">Brachycephalic</span></div>
+    <div class="brachy-box">
+      <div class="brachy-title">⚠️ 단두종 마취 주의</div>
+      <p class="brachy-desc">납작한 얼굴 구조로 인해 기도가 좁고, 연구개·비공이 비정상적인 경우가 많습니다. 마취 중·후 기도 유지가 훨씬 어렵고, 회복 과정에서 산소포화도가 급격히 떨어질 수 있어 <strong>일반 견종보다 마취 위험이 높습니다.</strong></p></div>
+      <div class="brachy-breeds">
+        <span class="breed-tag">프렌치 불독</span>
+        <span class="breed-tag">영국 불독</span>
+        <span class="breed-tag">퍼그</span>
+        <span class="breed-tag">시츄</span>
+        <span class="breed-tag">페키니즈</span>
+        <span class="breed-tag">보스턴 테리어</span>
+        <span class="breed-tag">복서</span>
+        <span class="breed-tag">페르시안 고양이</span>
+        <span class="breed-tag">엑조틱 숏헤어</span>
+      </div>
+      <div class="brachy-risks">
+        <div class="brachy-risk">😮‍💨 <span><strong>기도 폐색 위험</strong> — 마취 회복 중 기도 근육이 이완되면서 좁은 기도가 더욱 막힐 수 있습니다. 완전히 깨어날 때까지 집중 관찰이 필요합니다.</span></div>
+        <div class="brachy-risk">🌡️ <span><strong>체온 조절 어려움</strong> — 코를 통한 냉각이 잘 안 되어 과열되기 쉽습니다. 마취 전후 스트레스 최소화와 환경 온도 관리가 중요합니다.</span></div>
+        <div class="brachy-risk">⏱️ <span><strong>회복 시간 연장</strong> — 일반 견종보다 회복에 시간이 더 걸릴 수 있으며, 퇴원이 늦어질 수 있습니다.</span></div>
+        <div class="brachy-risk">📋 <span><strong>사전 상담 권장</strong> — 마취 전 기도 구조 확인과 단두종 맞춤 마취 계획이 필요합니다. 내원 전 미리 알려주시면 더 잘 준비할 수 있습니다.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ 고위험군 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">6</span><span class="sec-title">마취 고위험군</span><span class="sec-tag">High Risk</span></div>
+    <div class="callout warn"><span class="ci">⚠️</span><span>아래에 해당하는 경우 <strong>반드시 내원 전에 알려주세요.</strong> 마취 전 추가 검사나 특별한 준비가 필요할 수 있습니다.</span></div>
+    <div class="highrisk-grid">
+      <div class="hr-card"><div class="hr-icon">👴</div><div class="hr-name">노령 동물</div><div class="hr-desc">7세 이상 소형견, 5세 이상 대형견, 10세 이상 고양이는 장기 기능 저하로 위험도가 높습니다</div></div>
+      <div class="hr-card"><div class="hr-icon">🫀</div><div class="hr-name">심장 질환</div><div class="hr-desc">심잡음·심부전·부정맥이 있는 경우 마취 전 심장 전문 평가가 필요합니다</div></div>
+      <div class="hr-card"><div class="hr-icon">🫘</div><div class="hr-name">신장·간 질환</div><div class="hr-desc">마취약 대사·배설이 느려져 회복이 지연되고 부작용 위험이 높아집니다</div></div>
+      <div class="hr-card"><div class="hr-icon">🍬</div><div class="hr-name">당뇨</div><div class="hr-desc">마취 중 혈당 변화가 심할 수 있어 집중 모니터링이 필요합니다</div></div>
+      <div class="hr-card"><div class="hr-icon">⚖️</div><div class="hr-name">비만</div><div class="hr-desc">호흡 기능 저하, 약물 용량 계산 어려움, 회복 지연 등의 위험이 있습니다</div></div>
+      <div class="hr-card"><div class="hr-icon">🤰</div><div class="hr-name">임신·발정</div><div class="hr-desc">혈류 변화로 마취 위험이 높아집니다. 응급 상황이 아니면 가급적 피하는 것이 좋습니다</div></div>
+    </div>
+  </div>
+
+  <!-- ⑦ 마취 후 집에서 관리 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">7</span><span class="sec-title">마취 후 집에서의 관리</span><span class="sec-tag">Aftercare</span></div>
+    <div class="after-grid">
+      <div class="after-card"><div class="after-icon">🌡️</div><div class="after-name">보온</div><div class="after-desc">체온이 낮을 수 있어요. 담요·핫팩(직접 닿지 않게)으로 따뜻하게 해주세요. 찬 바닥은 피해주세요.</div></div>
+      <div class="after-card"><div class="after-icon">😴</div><div class="after-name">안정</div><div class="after-desc">당일은 조용한 환경에서 충분히 쉬게 해주세요. 계단·소파 점프는 하루 이상 제한하세요.</div></div>
+      <div class="after-card"><div class="after-icon">🍚</div><div class="after-name">소량 급여</div><div class="after-desc">귀가 후 2~3시간 뒤 소량의 물과 음식을 주세요. 처음엔 평소의 1/4~1/3 양으로 시작합니다.</div></div>
+      <div class="after-card"><div class="after-icon">🩹</div><div class="after-name">상처 관리</div><div class="after-desc">핥거나 긁지 않도록 넥카라를 유지해 주세요. 붕대가 있으면 젖거나 풀리지 않게 확인하세요.</div></div>
+      <div class="after-card"><div class="after-icon">💊</div><div class="after-name">약 복용</div><div class="after-desc">처방받은 진통제·항생제는 정해진 시간에 꼭 챙겨주세요. 임의로 중단하지 마세요.</div></div>
+      <div class="after-card"><div class="after-icon">👁️</div><div class="after-name">관찰</div><div class="after-desc">24시간 이내는 평소보다 자세히 살펴봐 주세요. 이상하다 싶으면 바로 연락 주세요.</div></div>
+    </div>
+
+    <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.6rem;margin-top:.25rem">이런 증상이 보이면 즉시 연락 주세요</p>
+    <div class="emerg-grid">
+      <div class="emerg-card"><span class="emerg-icon">😮‍💨</span><div><div class="emerg-name">호흡 곤란</div><div class="emerg-desc">빠른 호흡, 입 벌리고 숨쉬기, 청색 잇몸</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🤮</span><div><div class="emerg-name">구토 지속</div><div class="emerg-desc">귀가 후 2회 이상 구토하거나 멈추지 않는 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">💫</span><div><div class="emerg-name">심한 무기력</div><div class="emerg-desc">4시간 이상 깨어나지 못하거나 반응이 없는 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🩸</span><div><div class="emerg-name">상처 출혈</div><div class="emerg-desc">붕대를 적시거나 상처에서 피가 멈추지 않는 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🌡️</span><div><div class="emerg-name">고열·떨림</div><div class="emerg-desc">몸을 심하게 떨거나 체온이 39.5℃ 이상인 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🍽️</span><div><div class="emerg-name">24시간 절식</div><div class="emerg-desc">귀가 후 하루가 지나도 먹지 않거나 마시지 않는 경우</div></div></div>
+    </div>
+  </div>
+
+
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      이 자료는 일반적인 보호자 교육을 위해 제작된 안내문입니다.<br>
+      마취 위험성과 준비 사항은 <strong>담당 수의사와 충분히 상의</strong> 후 결정해 주세요.<br>
+      <strong>금식을 못 하셨거나 기저 질환이 있으시면 반드시 미리 연락 주세요.</strong>
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">Reference · Brodbelt et al. 2008 (CEPSAF) · ASA Physical Status Classification · WECARE Animal Medical Center</p>
+  </div>
+</div>
+
+
+
+</body></html>

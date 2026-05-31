@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///C:/Users/jglke/Downloads/atopy.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>아토피·피부 알레르기 안내 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./아토피·피부 알레르기 안내 · 위케어동물의료센터_files/css2" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --warn-bg:#fdf8ee;--warn-border:#e8d48a;--warn-text:#5a3e00;
+  --danger-bg:#fdf0f0;--danger-border:#e8aaaa;--danger-text:#6a1010;
+  --ok-bg:#f0f8f0;--ok-border:#aad8aa;--ok-text:#1a5a1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+
+.topbar{background:var(--navy);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.7;letter-spacing:.08em}
+.topbar-btns{display:flex;gap:.5rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:hover{background:rgba(255,255,255,.22)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);font-size:11px}
+.tbtn.back:hover{background:rgba(255,255,255,.15)}
+
+.hero{background:var(--navy);padding:2.25rem 1.5rem 0}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.75rem}
+.hero h1{font-size:26px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.75rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.75;margin-bottom:2rem}
+
+.sel-bar{background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.1);padding:1.25rem 1.5rem}
+.sel-inner{max-width:760px;margin:0 auto}
+
+.main{max-width:760px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+.sec{margin-bottom:2.5rem}
+.sec-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem;padding-bottom:.75rem;border-bottom:2px solid var(--navy-light)}
+.sec-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:16px;font-weight:700;color:var(--navy)}
+.sec-tag{margin-left:auto;font-size:10px;letter-spacing:.12em;color:var(--text-muted);font-weight:500;text-transform:uppercase}
+
+.ov-text{font-size:13px;line-height:1.85;color:var(--text-mid);margin-bottom:1rem;padding:1rem 1.1rem;background:var(--navy-xlight);border-left:3px solid var(--navy);border-radius:0 8px 8px 0}
+.ov-text strong{color:var(--navy);font-weight:600}
+
+.callout{border-radius:9px;padding:.875rem 1rem;margin-bottom:.9rem;font-size:13px;line-height:1.75;display:flex;gap:.7rem;align-items:flex-start}
+.callout .ci{font-size:17px;flex-shrink:0;margin-top:1px}
+.callout.info{background:var(--accent-light);color:#1a3a6a;border:1px solid #b0ccee}
+.callout.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border)}
+.callout.danger{background:var(--danger-bg);color:var(--danger-text);border:1px solid var(--danger-border)}
+.callout.neutral{background:var(--navy-xlight);color:var(--text-mid);border:1px solid var(--border)}
+.callout strong{font-weight:600}
+
+ul.gl{list-style:none;padding:0;font-size:13px;line-height:1.85;color:var(--text-mid)}
+ul.gl li{padding:.3rem 0 .3rem 1.2rem;position:relative;border-bottom:1px solid var(--navy-xlight)}
+ul.gl li:last-child{border-bottom:none}
+ul.gl li::before{content:'';position:absolute;left:0;top:.75rem;width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.35}
+ul.gl strong{color:var(--text);font-weight:600}
+
+/* WATER CUP */
+.cup-box{background:var(--navy);border-radius:14px;padding:1.75rem;margin-bottom:1rem}
+.cup-visual{display:flex;align-items:flex-end;justify-content:center;gap:2rem;margin:1.5rem 0}
+.cup-wrap{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.cup-label{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em}
+.cup{width:80px;height:120px;border:2px solid rgba(255,255,255,.3);border-top:none;border-radius:0 0 12px 12px;position:relative;overflow:hidden;background:rgba(255,255,255,.05)}
+.cup-fill{position:absolute;bottom:0;left:0;right:0;border-radius:0 0 10px 10px;transition:height .3s}
+.cup-fill.low{height:35%;background:linear-gradient(to top,#2d6cc0,#4a90d9)}
+.cup-fill.mid{height:65%;background:linear-gradient(to top,#e8a020,#f0c040)}
+.cup-fill.over{height:100%;background:linear-gradient(to top,#c0392b,#e74c3c)}
+.cup-overflow{position:absolute;top:-8px;left:-4px;right:-4px;height:8px;background:#e74c3c;border-radius:4px;display:none}
+.cup-fill.over ~ .cup-overflow{display:block}
+.cup-items{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;max-width:200px}
+.cup-item{font-size:11px;padding:3px 8px;border-radius:999px;font-weight:500}
+.cup-item.food{background:rgba(52,152,219,.25);color:#7eb8f7;border:1px solid rgba(52,152,219,.4)}
+.cup-item.env{background:rgba(46,204,113,.2);color:#7ed8a0;border:1px solid rgba(46,204,113,.35)}
+.cup-item.stress{background:rgba(231,76,60,.2);color:#f0a090;border:1px solid rgba(231,76,60,.35)}
+.cup-item.infect{background:rgba(230,126,34,.2);color:#f0c080;border:1px solid rgba(230,126,34,.35)}
+.cup-arrow{font-size:24px;color:rgba(255,255,255,.3);margin-bottom:40px}
+.cup-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.75;text-align:center;margin-top:.5rem}
+.cup-desc strong{color:#7eb8f7}
+
+/* ALLERGY TYPE CARDS */
+.atype-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1rem}
+.atype-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem}
+.atype-icon{font-size:24px;margin-bottom:.5rem}
+.atype-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+.atype-desc{font-size:12px;color:var(--text-muted);line-height:1.6}
+
+/* SYMPTOM AREA */
+.area-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin-bottom:1rem}
+.area-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;text-align:center}
+.area-icon{font-size:22px;margin-bottom:.3rem}
+.area-name{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:.2rem}
+.area-desc{font-size:11px;color:var(--text-muted);line-height:1.4}
+
+/* FOOD CHALLENGE */
+.challenge-box{background:var(--navy);border-radius:14px;padding:1.75rem;margin-bottom:1rem;color:#fff}
+.cb-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:.3rem}
+.cb-title small{display:block;font-size:11px;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-top:2px;margin-bottom:1rem}
+.cb-period{display:flex;align-items:center;gap:1rem;background:rgba(255,255,255,.08);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.25rem}
+.cb-period-num{font-size:42px;font-weight:700;color:#7eb8f7;line-height:1}
+.cb-period-text{font-size:13px;color:rgba(255,255,255,.7);line-height:1.5}
+.cb-period-text strong{color:#fff;display:block}
+.feed-examples{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.25rem}
+.feed-card{background:rgba(255,255,255,.08);border-radius:8px;padding:.75rem 1rem}
+.feed-brand{font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.5);margin-bottom:.3rem}
+.feed-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:.2rem}
+.feed-type{font-size:11px;color:rgba(255,255,255,.55)}
+.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}
+.do-box,.dont-box{border-radius:10px;padding:.875rem 1rem}
+.do-box{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.3)}
+.dont-box{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.3)}
+.do-title{font-size:12px;font-weight:700;color:#7ed8a0;margin-bottom:.5rem;letter-spacing:.04em}
+.dont-title{font-size:12px;font-weight:700;color:#f0a090;margin-bottom:.5rem;letter-spacing:.04em}
+.do-item,.dont-item{font-size:12px;line-height:1.7;color:rgba(255,255,255,.7);padding-left:.8rem;position:relative;margin-bottom:.2rem}
+.do-item::before{content:'✓';position:absolute;left:0;color:#7ed8a0;font-weight:700}
+.dont-item::before{content:'✕';position:absolute;left:0;color:#f0a090;font-weight:700}
+.cb-alert{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);border-radius:8px;padding:.7rem 1rem;font-size:12px;color:#ffb3b3;display:flex;align-items:flex-start;gap:.5rem;line-height:1.6}
+
+/* ENV CARDS */
+.env-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem}
+.env-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.env-icon{font-size:20px;margin-bottom:.4rem}
+.env-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.3rem}
+.env-tip{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+/* DRUG CARDS */
+.drug-cards{display:flex;flex-direction:column;gap:.6rem}
+.drug-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.drug-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+.drug-desc{font-size:12px;color:var(--text-mid);line-height:1.7}
+.drug-note{display:inline-flex;align-items:center;gap:4px;font-size:11px;margin-top:.4rem;padding:3px 9px;border-radius:999px;font-weight:500}
+.drug-note.ok{color:var(--ok-text);background:var(--ok-bg);border:1px solid var(--ok-border)}
+.drug-note.opt{color:#7a5500;background:#fff8e0;border:1px solid #e8d48a}
+
+/* SEASON */
+.season-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1rem}
+.season-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.75rem;text-align:center}
+.season-icon{font-size:22px;margin-bottom:.3rem}
+.season-name{font-size:11px;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.season-desc{font-size:11px;color:var(--text-muted);line-height:1.4}
+
+.emerg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem}
+.emerg-card{background:var(--danger-bg);border:1px solid var(--danger-border);border-radius:10px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:.6rem}
+.emerg-icon{font-size:20px;flex-shrink:0}
+.emerg-name{font-size:13px;font-weight:600;color:var(--danger-text);margin-bottom:.2rem}
+.emerg-desc{font-size:12px;color:#8a3030;line-height:1.5}
+
+.foot{background:var(--navy);padding:2.5rem 1.5rem}
+.foot-inner{max-width:760px;margin:0 auto}
+.foot-disc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:1.25rem}
+.foot-disc strong{color:rgba(255,255,255,.8);font-weight:500}
+.foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.foot-ref{margin-top:1.25rem;font-size:11px;color:rgba(255,255,255,.25)}
+
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .topbar-btns .tbtn.call span{display:none}
+  .do-dont{grid-template-columns:1fr}
+  .feed-examples{grid-template-columns:1fr}
+  .season-grid{grid-template-columns:repeat(2,1fr)}
+  .cup-visual{gap:1rem}
+  .cup{width:60px;height:90px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="file:///C:/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 피부 질환 보호자 안내</div>
+    <h1>아토피·알레르기,<br><span>원인부터 제대로 알아봐요</span></h1>
+    <p class="hero-desc">알레르기는 단 하나의 원인이 아닌, 여러 자극이 쌓여 나타납니다.<br>원인을 이해하고 관리하면 증상을 훨씬 줄일 수 있어요.</p>
+  </div>
+</div>
+
+<div class="sel-bar">
+  <div class="sel-inner" style="font-size:12px;color:rgba(255,255,255,.5);padding:.25rem 0">
+    🐶 강아지 위주로 구성된 안내입니다. 고양이 알레르기 피부염은 담당 수의사에게 별도로 문의해 주세요.
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ① 물컵 이론 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">아토피란? — 물컵 이론</span><span class="sec-tag">Bucket Theory</span></div>
+    <div class="ov-text">아토피는 단 하나의 원인으로 생기는 병이 아닙니다. <strong>여러 자극이 조금씩 쌓이다가 한계를 넘는 순간 증상이 터집니다.</strong> 이것을 물컵 이론이라고 해요. 치료의 핵심은 단일 원인 제거가 아니라, <strong>전체 부하를 컵이 넘치지 않는 수준으로 줄이는 것</strong>입니다.</div>
+
+    <div class="cup-box">
+      <p style="font-size:13px;font-weight:600;color:#fff;margin-bottom:.25rem;text-align:center">컵이 넘치면 증상이 나타납니다</p>
+      <p style="font-size:12px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:1rem">각 자극이 조금씩 쌓여 한계를 초과하면 가려움·발적이 시작됩니다</p>
+      <div class="cup-visual">
+        <div class="cup-wrap">
+          <div class="cup-label">잘 관리됨</div>
+          <div class="cup">
+            <div class="cup-fill low"></div>
+          </div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:.3rem">😊 증상 없음</div>
+        </div>
+        <div class="cup-arrow">→</div>
+        <div class="cup-wrap">
+          <div class="cup-label">자극 누적</div>
+          <div class="cup">
+            <div class="cup-fill mid"></div>
+          </div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:.3rem">😟 가려움 시작</div>
+        </div>
+        <div class="cup-arrow">→</div>
+        <div class="cup-wrap">
+          <div class="cup-label">한계 초과</div>
+          <div class="cup">
+            <div class="cup-fill over"></div>
+          </div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:.3rem">🔥 심한 증상</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,.55);text-align:center;margin-bottom:1rem">컵을 채우는 것들</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-bottom:.875rem">
+        <span class="cup-item food">🍗 음식 알레르겐</span>
+        <span class="cup-item env">🌿 집먼지진드기</span>
+        <span class="cup-item env">🌸 꽃가루</span>
+        <span class="cup-item env">🍄 곰팡이</span>
+        <span class="cup-item stress">😰 스트레스</span>
+        <span class="cup-item infect">🦠 피부 감염</span>
+        <span class="cup-item env">🧴 샴푸·세제</span>
+        <span class="cup-item stress">🌡️ 계절 변화</span>
+      </div>
+      <div class="cup-desc"><strong>하나를 완전히 없애기 어려워도</strong> 여러 자극을 조금씩 줄이면<br>컵이 넘치지 않아 증상이 나타나지 않을 수 있어요.</div>
+    </div>
+  </div>
+
+  <!-- ② 알레르기 종류 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">알레르기 종류와 주요 증상</span><span class="sec-tag">Types</span></div>
+    <div class="atype-grid">
+      <div class="atype-card">
+        <div class="atype-icon">🍗</div>
+        <div class="atype-name">음식 알레르기</div>
+        <div class="atype-desc">특정 단백질(닭·소·밀 등)에 대한 면역 반응. 연중 내내 증상이 지속되는 경우가 많고, 귀·발·항문 주변에 잘 나타납니다.</div>
+      </div>
+      <div class="atype-card">
+        <div class="atype-icon">🌿</div>
+        <div class="atype-name">환경성 아토피</div>
+        <div class="atype-desc">집먼지진드기·꽃가루·곰팡이 등 흡입 알레르겐이 원인. 계절성으로 악화되는 경우가 많고, 발·겨드랑이·사타구니에 잘 나타납니다.</div>
+      </div>
+      <div class="atype-card">
+        <div class="atype-icon">🐛</div>
+        <div class="atype-name">벼룩 알레르기</div>
+        <div class="atype-desc">벼룩 한 마리의 침에도 반응합니다. 등 뒤쪽·꼬리 근처에 심한 가려움이 생기고, 연중 예방이 가장 중요합니다.</div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem;margin-top:.25rem">주로 증상이 나타나는 부위</p>
+    <div class="area-grid">
+      <div class="area-card"><div class="area-icon">🐾</div><div class="area-name">발·발가락 사이</div><div class="area-desc">갈색 침 착색, 과도한 핥기</div></div>
+      <div class="area-card"><div class="area-icon">👂</div><div class="area-name">귀</div><div class="area-desc">반복되는 외이염, 귀 긁기</div></div>
+      <div class="area-card"><div class="area-icon">🫲</div><div class="area-name">겨드랑이·사타구니</div><div class="area-desc">붉어짐, 피부 두꺼워짐</div></div>
+      <div class="area-card"><div class="area-icon">😮</div><div class="area-name">입 주변·눈 주변</div><div class="area-desc">눈물 착색, 비비기 행동</div></div>
+      <div class="area-card"><div class="area-icon">🐕</div><div class="area-name">배·항문 주변</div><div class="area-desc">항문 긁기, 엉덩이 끌기</div></div>
+    </div>
+
+    <div class="callout warn"><span class="ci">⚠️</span><span><strong>혈액 알레르기 검사(항체 검사)는 정확도가 낮습니다.</strong> 음성이 나와도 알레르기가 없는 게 아닐 수 있고, 양성이 나와도 실제 알레르겐이 아닐 수 있어요. 음식 알레르기의 유일한 진단 방법은 <strong>푸드 챌린지</strong>입니다.</span></div>
+  </div>
+
+  <!-- ③ 푸드 챌린지 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">푸드 챌린지 (식이 제한 시험)</span><span class="sec-tag">Food Trial</span></div>
+    <div class="ov-text">푸드 챌린지는 <strong>음식 알레르기를 진단하는 유일하고 가장 정확한 방법</strong>입니다. 기존에 먹던 모든 음식을 끊고 새로운 단백질원 또는 가수분해 사료만 단독으로 급여하며, 증상의 변화를 관찰합니다.</div>
+
+    <div class="challenge-box">
+      <div class="cb-title">푸드 챌린지<small>FOOD ELIMINATION TRIAL</small></div>
+      <div class="cb-period">
+        <div class="cb-period-num">8~12</div>
+        <div class="cb-period-text"><strong>최소 8주, 권장 12주</strong>이 기간 동안 처방 사료만 단독 급여해야 정확한 결과를 얻을 수 있습니다</div>
+      </div>
+
+      <p style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:.75rem">추천 가수분해 사료 예시</p>
+      <div class="feed-examples">
+        <div class="feed-card">
+          <div class="feed-brand">ROYAL CANIN</div>
+          <div class="feed-name">아나모픽 (Anallergenic)</div>
+          <div class="feed-type">가수분해 깃털 단백질 · 강아지용</div>
+        </div>
+        <div class="feed-card">
+          <div class="feed-brand">HILL'S</div>
+          <div class="feed-name">z/d (Zero Dietary)</div>
+          <div class="feed-type">가수분해 닭 단백질 · 강아지용</div>
+        </div>
+        <div class="feed-card">
+          <div class="feed-brand">ROYAL CANIN</div>
+          <div class="feed-name">하이포알러제닉 (HP)</div>
+          <div class="feed-type">가수분해 대두 단백질 · 강아지용</div>
+        </div>
+        <div class="feed-card">
+          <div class="feed-brand">신규 단백질 사료</div>
+          <div class="feed-name">캥거루·말고기·오리 등</div>
+          <div class="feed-type">기존에 먹어본 적 없는 단백질원</div>
+        </div>
+      </div>
+
+      <div class="do-dont">
+        <div class="do-box">
+          <div class="do-title">✅ 올바른 방법</div>
+          <div class="do-item">처방 사료만 단독으로 급여</div>
+          <div class="do-item">물만 허용 (생수·정수 모두 OK)</div>
+          <div class="do-item">최소 8주 이상 꾸준히 유지</div>
+          <div class="do-item">증상 일지를 기록해두기</div>
+          <div class="do-item">호전 후 기존 사료로 재도전해 확인</div>
+        </div>
+        <div class="dont-box">
+          <div class="dont-title">❌ 흔한 실수</div>
+          <div class="dont-item">사료 바꾸고 간식은 그대로</div>
+          <div class="dont-item">로얄캐닌·힐스 번갈아 급여</div>
+          <div class="dont-item">영양제·오메가3·유산균 병행</div>
+          <div class="dont-item">씹는 장난감·덴탈껌 계속 사용</div>
+          <div class="dont-item">4~5주 만에 효과 없다고 포기</div>
+          <div class="dont-item">사람 음식 한 번쯤은 괜찮겠지</div>
+        </div>
+      </div>
+
+      <div class="cb-alert">⚠️ <span><strong>챌린지 실패의 가장 흔한 원인은 간식·보조제입니다.</strong> 아주 소량의 알레르겐도 결과를 무효로 만들 수 있어요. 영양제·오메가3·유산균도 챌린지 기간에는 중단해야 합니다.</span></div>
+    </div>
+
+    <div class="callout info"><span class="ci">💡</span><span>로얄캐닌과 힐스 알러지 사료를 <strong>번갈아 급여하는 것은 푸드 챌린지가 아닙니다.</strong> 두 사료 모두 각각 단독으로 최소 8주씩 시험해야 결과를 판단할 수 있어요.</span></div>
+  </div>
+
+  <!-- ④ 환경 알레르기 관리 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">4</span><span class="sec-title">환경 알레르기 관리</span><span class="sec-tag">Environment</span></div>
+    <div class="env-grid">
+      <div class="env-card">
+        <div class="env-icon">🛏️</div>
+        <div class="env-name">집먼지진드기 관리</div>
+        <div class="env-tip">침구·방석을 주 1회 이상 60℃ 이상 세탁. 아이 전용 방석에 진드기 방지 커버 사용</div>
+      </div>
+      <div class="env-card">
+        <div class="env-icon">🪟</div>
+        <div class="env-name">꽃가루 시즌</div>
+        <div class="env-tip">봄·가을 외출 후 발과 몸을 물로 닦아주세요. 산책 후 귀가 시 바로 씻겨주는 것이 효과적</div>
+      </div>
+      <div class="env-card">
+        <div class="env-icon">🚿</div>
+        <div class="env-name">목욕 주기</div>
+        <div class="env-tip">아토피 전용 저자극 샴푸로 주 1~2회. 너무 잦은 목욕은 피부 장벽을 약화시켜요</div>
+      </div>
+      <div class="env-card">
+        <div class="env-icon">🐾</div>
+        <div class="env-name">발 닦기</div>
+        <div class="env-tip">산책 후 발가락 사이를 따뜻한 물로 씻고 완전히 건조. 수건으로 습기 제거 필수</div>
+      </div>
+      <div class="env-card">
+        <div class="env-icon">💨</div>
+        <div class="env-name">실내 환경</div>
+        <div class="env-tip">공기청정기·제습기 활용. 실내 습도 40~50% 유지가 진드기 억제에 효과적</div>
+      </div>
+      <div class="env-card">
+        <div class="env-icon">🐛</div>
+        <div class="env-name">벼룩 예방</div>
+        <div class="env-tip">연중 벼룩 예방약 사용. 벼룩 알레르기는 한 마리만으로도 심한 반응이 나타나요</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑤ 약물 및 보조제 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">5</span><span class="sec-title">약물 및 보조제</span><span class="sec-tag">Medication</span></div>
+    <div class="drug-cards">
+      <div class="drug-card">
+        <div class="drug-name">IL-31 항체 주사 (생물학적 제제)</div>
+        <div class="drug-desc">가려움을 유발하는 사이토카인을 직접 차단합니다. 4~8주 간격으로 병원에서 맞는 주사로, 부작용이 적고 효과가 빠른 편입니다. 현재 아토피 치료의 가장 표준적인 방법 중 하나입니다.</div>
+        <span class="drug-note ok">✓ 장기 사용 안전성 높음</span>
+      </div>
+      <div class="drug-card">
+        <div class="drug-name">JAK 억제제 (경구)</div>
+        <div class="drug-desc">가려움·염증 신호를 세포 내에서 차단합니다. 복용 후 빠르게 효과가 나타나고, 매일 복용이 필요합니다. 정기적인 혈액 검사 모니터링이 권장됩니다.</div>
+        <span class="drug-note ok">✓ 빠른 효과, 정기 모니터링 필요</span>
+      </div>
+      <div class="drug-card">
+        <div class="drug-name">스테로이드</div>
+        <div class="drug-desc">강한 항염 효과로 급성 증상 완화에 효과적입니다. 단기 사용은 안전하지만 장기 사용 시 부작용(다음·다뇨·면역 저하 등)이 생길 수 있어 주의가 필요합니다.</div>
+        <span class="drug-note opt">△ 단기 사용 권장, 장기 주의</span>
+      </div>
+      <div class="drug-card">
+        <div class="drug-name">면역 치료 (알레르기 백신)</div>
+        <div class="drug-desc">환경 알레르겐이 확인된 경우, 해당 알레르겐을 조금씩 노출시켜 면역계를 훈련하는 치료입니다. 효과가 나타나기까지 6~12개월 이상 걸리지만 근본적인 치료에 가장 가깝습니다.</div>
+        <span class="drug-note ok">✓ 장기적으로 가장 근본적인 치료</span>
+      </div>
+      <div class="drug-card" style="border-color:#e8d48a">
+        <div class="drug-name" style="color:#7a5500">오메가3 (EPA·DHA)</div>
+        <div class="drug-desc">피부 장벽 강화와 항염 효과에 대한 연구 근거가 비교적 충분합니다. 다른 보조제보다 <strong>적극적으로 권장</strong>할 수 있는 편입니다. 단, 푸드 챌린지 기간에는 중단해야 합니다.</div>
+        <span class="drug-note ok">✓ 근거 있음, 적극 권장</span>
+      </div>
+      <div class="drug-card" style="border-color:#e8d48a">
+        <div class="drug-name" style="color:#7a5500">프로바이오틱스·보습제·기타 보조제</div>
+        <div class="drug-desc">일부 도움이 될 수 있다는 보고가 있으나, <strong>현재까지 대규모 임상 논문상 명확한 근거는 충분하지 않습니다.</strong> 사용 여부는 담당 수의사와 상의 후 결정하는 것을 권장합니다.</div>
+        <span class="drug-note opt">△ 선택사항 · 근거 제한적</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ 재발 관리 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">6</span><span class="sec-title">재발 관리·계절별 주의</span><span class="sec-tag">Relapse</span></div>
+    <div class="season-grid">
+      <div class="season-card">
+        <div class="season-icon">🌸</div>
+        <div class="season-name">봄</div>
+        <div class="season-desc">꽃가루 급증. 산책 후 바로 씻기, 외출 자제</div>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">☀️</div>
+        <div class="season-name">여름</div>
+        <div class="season-desc">습도·곰팡이 증가. 제습 관리, 귀 건조 중요</div>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">🍂</div>
+        <div class="season-name">가을</div>
+        <div class="season-desc">꽃가루 재증가. 진드기 활동 활발, 예방약 유지</div>
+      </div>
+      <div class="season-card">
+        <div class="season-icon">❄️</div>
+        <div class="season-name">겨울</div>
+        <div class="season-desc">난방으로 건조함 증가. 보습 관리, 실내 습도 유지</div>
+      </div>
+    </div>
+    <ul class="gl">
+      <li><strong>증상 일지를 기록해두세요.</strong> 어떤 날, 어떤 환경에서 가려움이 심해지는지 파악하면 원인을 좁히는 데 큰 도움이 됩니다.</li>
+      <li><strong>가려움이 갑자기 심해지면</strong> 환경 변화(새 사료·간식·샴푸·침구 교체 등)가 있었는지 먼저 확인해 주세요.</li>
+      <li><strong>2차 감염에 주의하세요.</strong> 긁어서 생긴 상처에 세균·효모가 감염되면 증상이 급격히 악화됩니다. 피부가 붉고 냄새가 나면 내원해 주세요.</li>
+      <li><strong>약을 임의로 줄이거나 끊지 마세요.</strong> 증상이 좋아진 것은 약이 효과를 내고 있다는 신호입니다. 담당 수의사와 상의 후 조절해 주세요.</li>
+    </ul>
+
+    <div class="emerg-grid" style="margin-top:1rem">
+      <div class="emerg-card"><span class="emerg-icon">🩸</span><div><div class="emerg-name">긁어서 피가 남</div><div class="emerg-desc">2차 감염 위험, 빠른 내원 필요</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">😮‍💨</span><div><div class="emerg-name">얼굴 붓기·호흡 곤란</div><div class="emerg-desc">급성 알레르기 반응, 즉시 내원</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🦠</span><div><div class="emerg-name">피부에서 냄새·진물</div><div class="emerg-desc">세균·효모 2차 감염 의심</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">👁️</span><div><div class="emerg-name">눈 충혈·눈물 급증</div><div class="emerg-desc">결막염 동반 가능, 확인 필요</div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      이 자료는 일반적인 보호자 교육을 위해 제작된 안내문으로, 개별 환자의 진단과 치료를 대신하지 않습니다.<br>
+      푸드 챌린지 사료 선택 및 약물 조절은 반드시 <strong>담당 수의사와 상의</strong> 후 진행해 주세요.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">Reference · ICADA Guidelines · Olivry et al. 2015 · WECARE Animal Medical Center</p>
+  </div>
+</div>
+
+
+
+</body></html>

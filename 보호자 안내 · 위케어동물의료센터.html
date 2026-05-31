@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///C:/Users/jglke/Downloads/index_9.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보호자 안내 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./보호자 안내 · 위케어동물의료센터_files/css2" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;min-height:100vh}
+
+.topbar{background:var(--navy);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.7;letter-spacing:.08em}
+.topbar-btns{display:flex;gap:.5rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:hover{background:rgba(255,255,255,.22)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+
+/* HERO */
+.hero{background:var(--navy);padding:3rem 1.5rem 2.5rem}
+.hero-inner{max-width:760px;margin:0 auto;text-align:center}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-size:28px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:.875rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.8}
+
+/* DOCTOR */
+.doctor{background:var(--navy-dark);padding:2.5rem 1.5rem;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.doctor-inner{max-width:760px;margin:0 auto}
+.doctor-label{font-size:11px;font-weight:500;letter-spacing:.14em;color:rgba(255,255,255,.35);text-transform:uppercase;margin-bottom:1.1rem}
+.doctor-quote{font-size:15px;font-weight:500;color:#fff;line-height:1.65;margin-bottom:1.25rem;padding-left:1rem;border-left:3px solid #7eb8f7}
+.doctor-quote em{font-style:normal;color:#7eb8f7}
+.doctor-bio{font-size:12px;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:1.25rem}
+.doctor-bio strong{color:rgba(255,255,255,.75);font-weight:500}
+.doctor-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.dtag{font-size:11px;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.55);background:rgba(255,255,255,.06)}
+
+/* GUIDE SECTION */
+.guide{padding:2.5rem 1.5rem 3.5rem}
+.guide-inner{max-width:760px;margin:0 auto}
+.guide-label{font-size:11px;font-weight:500;letter-spacing:.14em;color:var(--text-muted);text-transform:uppercase;margin-bottom:1.25rem;text-align:center}
+.guide-title{font-size:20px;font-weight:700;color:var(--navy);text-align:center;margin-bottom:.5rem}
+.guide-sub{font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:2rem;line-height:1.7}
+
+/* DISEASE CARDS */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-bottom:2rem}
+.dcard{background:var(--white);border:1px solid var(--border);border-radius:16px;overflow:hidden;text-decoration:none;color:var(--text);transition:all .2s;display:block;cursor:pointer;position:relative;z-index:1}
+.dcard:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(16,51,94,.12);border-color:#b0ccee}
+.dcard-top{padding:1.75rem 1.5rem 1.25rem;border-bottom:1px solid var(--border)}
+.dcard-icon{font-size:36px;margin-bottom:.875rem;display:block}
+.dcard-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:4px;background:var(--navy-light);color:var(--navy);margin-bottom:.6rem}
+.dcard-name{font-size:19px;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+.dcard-desc{font-size:13px;color:var(--text-muted);line-height:1.65}
+.dcard-bottom{padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.dcard-topics{display:flex;flex-wrap:wrap;gap:.35rem}
+.dtopic{font-size:11px;padding:3px 8px;border-radius:4px;background:var(--navy-xlight);color:var(--navy);font-weight:500}
+.dcard-arrow{font-size:18px;color:var(--accent);flex-shrink:0}
+
+/* COMING SOON */
+.dcard.soon{opacity:.55;pointer-events:none;cursor:default}
+.dcard.soon:hover{transform:none;box-shadow:none}
+.soon-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:4px;background:#f0f0f0;color:#888;margin-bottom:.6rem}
+
+/* NOTICE */
+.notice{background:var(--navy-xlight);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;display:flex;gap:.75rem;align-items:flex-start;font-size:13px;color:var(--text-mid);line-height:1.7}
+.notice strong{color:var(--navy);font-weight:600}
+
+/* FOOTER */
+.foot{background:var(--navy);padding:2rem 1.5rem}
+.foot-inner{max-width:760px;margin:0 auto}
+.foot-disc{font-size:12px;color:rgba(255,255,255,.45);line-height:1.85;margin-bottom:1.25rem}
+.foot-disc strong{color:rgba(255,255,255,.7);font-weight:500}
+.foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.foot-ref{margin-top:1rem;font-size:11px;color:rgba(255,255,255,.2)}
+
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .card-grid{grid-template-columns:1fr}
+  .topbar-btns .tbtn.call span{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 보호자 안내 자료</div>
+    <h1>우리 아이의 건강,<br><span>제대로 알고 함께 관리해요</span></h1>
+    <p class="hero-desc">위케어동물의료센터가 직접 만든 질환별 보호자 안내 자료입니다.<br>아래에서 궁금한 질환을 선택해 주세요.</p>
+  </div>
+</div>
+
+<div class="doctor">
+  <div class="doctor-inner">
+    <div class="doctor-label">의료진 소개</div>
+    <div class="doctor-quote">
+      정확한 진단과 책임 있는 치료, 그리고<br>
+      <em>아이를 진심으로 아끼는 마음을 최우선 가치로 삼습니다.</em>
+    </div>
+    <p class="doctor-bio">
+      내과 수의학에서 가장 넓고, 가장 복잡한 분야를 다루며, 가장 까다로운 요구를 받는 분야입니다.<br>
+      위케어동물의료센터는 대학병원급 진단 프로토콜을 기반으로 <strong>심장질환, 신장질환, 내분비·면역매개성 난치성 질환, 중증 내과 케이스를 직접 진단하고 치료</strong>하는 동물병원입니다.<br><br>
+      수년간 다양한 중증 환자 케이스를 직접 관리하며 심장초음파, 신장 참가(UPC·SDMA·IRIS), 내분비 평가, 면역질환 감별 그리고 복잡한 환자의 장기별 상호작용 분석까지 한 번에 보고 해석할 수 있는 임상 경험과 내과적 판단 능력을 갖추고 있습니다.<br><br>
+      <strong>위케어는 단순히 검사 수치를 보는 병원이 아닙니다.<br>병의 '맥락'을 읽고, 예후를 미리 판단하며, 악화를 멈추는 진료를 목표로 합니다.</strong>
+    </p>
+    <div class="doctor-tags">
+      <span class="dtag">심장초음파</span>
+      <span class="dtag">ACVIM 회원</span>
+      <span class="dtag">내분비·면역매개 질환</span>
+      <span class="dtag">중증 내과</span>
+      <span class="dtag">WVAC 참가</span>
+      <span class="dtag">Osaka Metropolitan Univ. 연수</span>
+      <span class="dtag">UPC·SDMA·IRIS 평가</span>
+    </div>
+  </div>
+</div>
+
+<div class="guide">
+  <div class="guide-inner">
+    <div class="guide-label">질환별 안내</div>
+    <div class="guide-title">어떤 질환이 궁금하신가요?</div>
+    <p class="guide-sub">질환을 선택하시면 식이·생활·약물 관리 등<br>집에서 바로 활용할 수 있는 정보를 확인하실 수 있어요.</p>
+
+    <div class="card-grid">
+      <div class="dcard" onclick="location.href=&#39;/wecarevet/heart.html&#39;">
+        <div class="dcard-top">
+          <span class="dcard-icon">🫀</span>
+          <div class="dcard-tag">내과 · 순환기</div>
+          <div class="dcard-name">심장 질환</div>
+          <p class="dcard-desc">승모판 질환(MMVD), 심근병증(HCM·RCM) 등 심장 질환 보호자를 위한 수면 호흡수 측정법, 약물 관리, 응급 신호 안내</p>
+        </div>
+        <div class="dcard-bottom">
+          <div class="dcard-topics">
+            <span class="dtopic">수면 호흡수</span>
+            <span class="dtopic">약물 관리</span>
+            <span class="dtopic">생활 관리</span>
+            <span class="dtopic">응급 신호</span>
+          </div>
+          <span class="dcard-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="dcard" onclick="location.href=&#39;/wecarevet/urology.html&#39;">
+        <div class="dcard-top">
+          <span class="dcard-icon">🫘</span>
+          <div class="dcard-tag">내과 · 비뇨기</div>
+          <div class="dcard-name">비뇨기 결석</div>
+          <p class="dcard-desc">스트루바이트·옥살산칼슘·유레이트·시스틴 결석 종류별 식이 관리, 주의 식품, 가정 관리 안내</p>
+        </div>
+        <div class="dcard-bottom">
+          <div class="dcard-topics">
+            <span class="dtopic">결석 4종류</span>
+            <span class="dtopic">식이 관리</span>
+            <span class="dtopic">주의 식품</span>
+            <span class="dtopic">응급 신호</span>
+          </div>
+          <span class="dcard-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="dcard" onclick="location.href=&#39;/wecarevet/kidney.html&#39;">
+        <div class="dcard-top">
+          <span class="dcard-icon">🫘</span>
+          <div class="dcard-tag">내과 · 신장</div>
+          <div class="dcard-name">신장 질환 (CKD)</div>
+          <p class="dcard-desc">IRIS 스테이지별 예후·기대 수명, 피하수액, 식이 관리, 절대 금지 약물 등 만성 신장 질환 보호자 안내</p>
+        </div>
+        <div class="dcard-bottom">
+          <div class="dcard-topics">
+            <span class="dtopic">IRIS 스테이지</span>
+            <span class="dtopic">예후·수명</span>
+            <span class="dtopic">피하수액</span>
+            <span class="dtopic">식이 관리</span>
+          </div>
+          <span class="dcard-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="dcard" onclick="location.href=&#39;/wecarevet/atopy.html&#39;">
+        <div class="dcard-top">
+          <span class="dcard-icon">🐾</span>
+          <div class="dcard-tag">피부 · 알레르기</div>
+          <div class="dcard-name">아토피·피부 알레르기</div>
+          <p class="dcard-desc">물컵 이론, 푸드 챌린지 올바른 방법, 환경 관리, 흔한 실수까지 — 강아지 아토피 보호자 안내</p>
+        </div>
+        <div class="dcard-bottom">
+          <div class="dcard-topics">
+            <span class="dtopic">물컵 이론</span>
+            <span class="dtopic">푸드 챌린지</span>
+            <span class="dtopic">환경 관리</span>
+            <span class="dtopic">재발 관리</span>
+          </div>
+          <span class="dcard-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="dcard" onclick="location.href=&#39;/wecarevet/anesthesia.html&#39;">
+        <div class="dcard-top">
+          <span class="dcard-icon">💉</span>
+          <div class="dcard-tag">마취 · 수술 전 안내</div>
+          <div class="dcard-name">마취 보호자 안내</div>
+          <p class="dcard-desc">금식 방법, 마취 전 검사, 부작용·위험성, 단두종 주의사항, 마취 후 집에서 관리까지 — 수술 전 필독 안내</p>
+        </div>
+        <div class="dcard-bottom">
+          <div class="dcard-topics">
+            <span class="dtopic">금식 안내</span>
+            <span class="dtopic">마취 위험성</span>
+            <span class="dtopic">단두종 주의</span>
+            <span class="dtopic">회복 관리</span>
+          </div>
+          <span class="dcard-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="notice">
+      <span style="font-size:18px;flex-shrink:0">💡</span>
+      <span>이 자료는 <strong>일반 보호자 교육용</strong>으로 제작된 안내문입니다. 개별 환자의 진단·치료를 대신하지 않으며, 약물 조절이나 식이 변경은 반드시 담당 수의사와 상의 후 진행해 주세요.</span>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      문의사항이 있으시면 언제든지 연락 주세요.<br>
+      <strong>응급 상황(호흡 곤란, 소변 불통, 실신 등)</strong>은 즉시 병원으로 연락 주세요.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">WECARE Animal Medical Center · wecarevet.github.io/wecarevet</p>
+  </div>
+</div>
+
+
+
+</body></html>
