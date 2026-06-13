@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>만성 장질환(CIE) 보호자 안내 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --warn-bg:#fdf8ee;--warn-border:#e8d48a;--warn-text:#5a3e00;
+  --danger-bg:#fdf0f0;--danger-border:#e8aaaa;--danger-text:#6a1010;
+  --ok-bg:#f0f8f0;--ok-border:#aad8aa;--ok-text:#1a5a1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+
+.topbar{background:var(--navy);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.7;letter-spacing:.08em}
+.topbar-btns{display:flex;gap:.5rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:hover{background:rgba(255,255,255,.22)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);font-size:11px}
+.tbtn.back:hover{background:rgba(255,255,255,.15)}
+
+.hero{background:var(--navy);padding:2.25rem 1.5rem 2rem}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.75rem}
+.hero h1{font-size:26px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.75rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.75}
+
+.main{max-width:760px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+.sec{margin-bottom:2.5rem}
+.sec-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem;padding-bottom:.75rem;border-bottom:2px solid var(--navy-light)}
+.sec-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:16px;font-weight:700;color:var(--navy)}
+.sec-tag{margin-left:auto;font-size:10px;letter-spacing:.12em;color:var(--text-muted);font-weight:500;text-transform:uppercase}
+
+.ov-text{font-size:13px;line-height:1.85;color:var(--text-mid);margin-bottom:1rem;padding:1rem 1.1rem;background:var(--navy-xlight);border-left:3px solid var(--navy);border-radius:0 8px 8px 0}
+.ov-text strong{color:var(--navy);font-weight:600}
+
+.callout{border-radius:9px;padding:.875rem 1rem;margin-bottom:.9rem;font-size:13px;line-height:1.75;display:flex;gap:.7rem;align-items:flex-start}
+.callout .ci{font-size:17px;flex-shrink:0;margin-top:1px}
+.callout.info{background:var(--accent-light);color:#1a3a6a;border:1px solid #b0ccee}
+.callout.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border)}
+.callout.danger{background:var(--danger-bg);color:var(--danger-text);border:1px solid var(--danger-border)}
+.callout.neutral{background:var(--navy-xlight);color:var(--text-mid);border:1px solid var(--border)}
+.callout.ok{background:var(--ok-bg);color:#1a4a1a;border:1px solid var(--ok-border)}
+.callout strong{font-weight:600}
+
+ul.gl{list-style:none;padding:0;font-size:13px;line-height:1.85;color:var(--text-mid)}
+ul.gl li{padding:.3rem 0 .3rem 1.2rem;position:relative;border-bottom:1px solid var(--navy-xlight)}
+ul.gl li:last-child{border-bottom:none}
+ul.gl li::before{content:'';position:absolute;left:0;top:.75rem;width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.35}
+ul.gl strong{color:var(--text);font-weight:600}
+
+/* TERM BOX */
+.term-box{background:var(--navy);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1rem}
+.term-row{display:flex;align-items:center;gap:1rem;margin-bottom:.75rem}
+.term-old{font-size:14px;color:rgba(255,255,255,.4);text-decoration:line-through}
+.term-arrow{color:rgba(255,255,255,.3);font-size:16px}
+.term-new{font-size:18px;font-weight:700;color:#7eb8f7}
+.term-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.7}
+
+/* PHENOTYPE CARDS */
+.pheno-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem;margin-bottom:1rem}
+.pheno-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem}
+.pheno-card.fr{border-color:var(--ok-border);background:var(--ok-bg)}
+.pheno-card.ir{border-color:var(--warn-border);background:var(--warn-bg)}
+.pheno-card.ple{border-color:var(--danger-border);background:var(--danger-bg)}
+.pheno-name{font-size:14px;font-weight:700;margin-bottom:.3rem}
+.pheno-card.fr .pheno-name{color:#1a6a1a}
+.pheno-card.ir .pheno-name{color:#7a5500}
+.pheno-card.ple .pheno-name{color:#8a1010}
+.pheno-pct{font-size:20px;font-weight:700;margin-bottom:.3rem}
+.pheno-card.fr .pheno-pct{color:#2a8a2a}
+.pheno-card.ir .pheno-pct{color:#b48500}
+.pheno-card.ple .pheno-pct{color:#c03030}
+.pheno-desc{font-size:12px;color:var(--text-mid);line-height:1.6}
+
+/* DIAGNOSTIC FLOW */
+.flow-steps{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.flow-step{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:.875rem}
+.flow-num{width:28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.flow-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:.2rem}
+.flow-desc{font-size:12px;color:var(--text-muted);line-height:1.55}
+
+/* TEST GRID */
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;margin-bottom:1rem}
+.test-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;text-align:center}
+.test-icon{font-size:20px;margin-bottom:.3rem}
+.test-name{font-size:12px;font-weight:600;color:var(--navy);margin-bottom:.2rem}
+.test-desc{font-size:11px;color:var(--text-muted);line-height:1.4}
+
+/* FOOD TRIAL BOX */
+.trial-box{background:var(--navy);border-radius:14px;padding:1.75rem;margin-bottom:1rem;color:#fff}
+.trial-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:.3rem}
+.trial-sub{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-bottom:1.25rem}
+.trial-timeline{display:flex;align-items:center;margin-bottom:1.25rem;overflow-x:auto}
+.trial-step{flex:1;min-width:90px;text-align:center;position:relative}
+.trial-step::after{content:'';position:absolute;top:20px;right:-1px;width:calc(100% - 20px);height:2px;background:rgba(255,255,255,.15);z-index:0}
+.trial-step:last-child::after{display:none}
+.trial-dot{width:40px;height:40px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-bottom:.4rem;position:relative;z-index:1;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.25);color:#7eb8f7}
+.trial-week{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:.2rem}
+.trial-label{font-size:11px;color:rgba(255,255,255,.65);font-weight:500}
+.diet-options{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1rem}
+.diet-card{background:rgba(255,255,255,.08);border-radius:8px;padding:.75rem 1rem}
+.diet-name{font-size:13px;font-weight:600;color:#fff;margin-bottom:.2rem}
+.diet-desc{font-size:11px;color:rgba(255,255,255,.55);line-height:1.5}
+.trial-alert{background:rgba(231,76,60,.15);border:1px solid rgba(231,76,60,.4);border-radius:8px;padding:.7rem 1rem;font-size:12px;color:#ffb3b3;display:flex;align-items:flex-start;gap:.5rem;line-height:1.6}
+
+/* DRUG CARDS */
+.drug-cards{display:flex;flex-direction:column;gap:.6rem}
+.drug-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.drug-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+.drug-desc{font-size:12px;color:var(--text-mid);line-height:1.7}
+.drug-note{display:inline-flex;align-items:center;gap:4px;font-size:11px;margin-top:.4rem;padding:3px 9px;border-radius:999px;font-weight:500}
+.drug-note.ok{color:var(--ok-text);background:var(--ok-bg);border:1px solid var(--ok-border)}
+.drug-note.opt{color:#7a5500;background:#fff8e0;border:1px solid #e8d48a}
+.drug-note.no{color:#8a1010;background:var(--danger-bg);border:1px solid var(--danger-border)}
+
+/* MONITOR */
+.monitor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin-bottom:1rem}
+.mon-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.mon-icon{font-size:20px;margin-bottom:.35rem}
+.mon-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.2rem}
+.mon-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+.emerg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem}
+.emerg-card{background:var(--danger-bg);border:1px solid var(--danger-border);border-radius:10px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:.6rem}
+.emerg-icon{font-size:20px;flex-shrink:0}
+.emerg-name{font-size:13px;font-weight:600;color:var(--danger-text);margin-bottom:.2rem}
+.emerg-desc{font-size:12px;color:#8a3030;line-height:1.5}
+
+.foot{background:var(--navy);padding:2.5rem 1.5rem}
+.foot-inner{max-width:760px;margin:0 auto}
+.foot-disc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:1.25rem}
+.foot-disc strong{color:rgba(255,255,255,.8);font-weight:500}
+.foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.foot-ref{margin-top:1.25rem;font-size:11px;color:rgba(255,255,255,.25)}
+
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .topbar-btns .tbtn.call span{display:none}
+  .diet-options{grid-template-columns:1fr}
+  .term-row{flex-direction:column;align-items:flex-start;gap:.4rem}
+}
+
+.sel-bar{background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.1);padding:1.25rem 1.5rem}
+.sel-inner{max-width:760px;margin:0 auto}
+.sel-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.sel-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase;min-width:56px;flex-shrink:0}
+.pill-group{display:flex;gap:.4rem;flex-wrap:wrap}
+.pill{padding:6px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:rgba(255,255,255,.6);transition:all .15s}
+.pill:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.pill.active{background:#fff;border-color:#fff;color:var(--navy)}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 만성 장질환 보호자 안내</div>
+    <h1>오래가는 구토·설사,<br><span>원인부터 차근차근 알아봐요</span></h1>
+    <p class="hero-desc">2026년 ACVIM 최신 가이드라인을 기반으로, 만성 위장관 질환의 진단 과정과 식이 관리 방법을 안내해 드립니다.<br>아래에서 아이의 종을 선택해 주세요.</p>
+  </div>
+</div>
+
+<div class="sel-bar">
+  <div class="sel-inner">
+    <div class="sel-row">
+      <span class="sel-lbl">아이 종류</span>
+      <div class="pill-group">
+        <button class="pill active" onclick="setAnimal('dog',this)">🐶 강아지</button>
+        <button class="pill" onclick="setAnimal('cat',this)">🐱 고양이</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ① CIE란? -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">CIE란? (구 "IBD")</span><span class="sec-tag">Overview</span></div>
+
+    <div class="term-box">
+      <div class="term-row">
+        <span class="term-old">IBD (염증성 장질환)</span>
+        <span class="term-arrow">→</span>
+        <span class="term-new">CIE (만성 염증성 장병증)</span>
+      </div>
+      <p class="term-desc">2026년 ACVIM 최신 가이드라인은 사람의 IBD와 혼동을 피하기 위해 <strong style="color:#fff">CIE(Chronic Inflammatory Enteropathy)</strong> 용어 사용을 권장합니다. 사람의 IBD와 비슷해 보이지만 완전히 같은 질환은 아니며, 동물에서는 <strong style="color:#fff">치료 반응에 따라 분류</strong>한다는 점이 가장 큰 차이입니다.</p>
+    </div>
+
+    <div class="ov-text">CIE는 <strong>한 가지 원인으로 정의되는 단일 질환이 아니라</strong>, 만성적인 구토·설사·식욕 변화·체중 감소 등을 일으키는 위장관 염증을 통칭하는 용어입니다. 유전적 요인, 면역계 이상, 장내 미생물 불균형, 환경적 요인이 복합적으로 작용하는 것으로 알려져 있습니다.</div>
+
+    <div id="ov-dog">
+      <div class="ov-text"><strong>중년 강아지에서 흔하지만 어린 강아지에서도 발생할 수 있으며</strong>, 저먼 셰퍼드·소프트코티드 휘튼테리어·샤페이 등에서 호발 품종으로 보고됩니다.</div>
+    </div>
+    <div id="ov-cat" class="hidden">
+      <div class="ov-text">고양이는 <strong>췌장염·담관염과 함께 동반되는 "삼중염(Triaditis)"</strong> 형태로 나타나는 경우가 많아, 단순 장 문제로만 보고 넘어가기 쉽습니다. 또한 노령 고양이에서는 <strong>갑상선기능항진증·만성 신장질환</strong>도 비슷한 증상(체중 감소·구토·식욕 변화)을 보일 수 있어 감별이 중요합니다. 고양이 CIE는 흔히 <strong>소화기형 림프종과의 감별</strong>이 핵심 과제이기도 합니다.</div>
+    </div>
+
+    <div class="callout info"><span class="ci">📊</span><span>전체 동물병원 방문의 <strong>20~30%가 구토 또는 설사와 관련</strong>되어 있을 정도로 매우 흔한 증상입니다. CIE는 <strong>배제 진단(diagnosis of exclusion)</strong>입니다 — 즉, 다른 원인이 될 수 있는 질환들을 하나씩 제외해 나가는 과정을 통해 진단합니다.</span></div>
+  </div>
+
+  <!-- ② 진단 과정 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">진단은 어떻게 진행되나요?</span><span class="sec-tag">Diagnosis</span></div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <span class="flow-num">1</span>
+        <div><div class="flow-title">기본 검사로 다른 질환 배제</div><div class="flow-desc">혈액 검사, 전해질, 분변 검사(기생충), 소변 검사를 통해 신장·간·췌장·내분비 질환 등 비슷한 증상을 보이는 다른 질환을 먼저 확인합니다.</div></div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">2</span>
+        <div><div class="flow-title">추가 검사 (필요시)</div><div class="flow-desc">코발라민(비타민B12), 엽산, 췌장 효소(TLI·췌장 특이 리파아제), 코티솔 농도 등을 확인해 동반 질환이나 영양 결핍을 평가합니다.</div></div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">3</span>
+        <div><div class="flow-title">복부 초음파</div><div class="flow-desc">장벽 두께, 림프절, 복수 등을 확인합니다. 체중 감소·저알부민혈증·식이 시험 무반응 시 특히 권장됩니다.</div></div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">4</span>
+        <div><div class="flow-title">식이 시험 (1차 진단·치료)</div><div class="flow-desc"><strong>가장 먼저 시도하는 방법입니다.</strong> 침습적 검사 전에 식이 시험을 먼저 진행하도록 권장됩니다. 자세한 내용은 아래 섹션에서 확인해 주세요.</div></div>
+      </div>
+      <div class="flow-step">
+        <span class="flow-num">5</span>
+        <div><div class="flow-title">내시경·생검 (식이 시험 무반응 시)</div><div class="flow-desc">최소 3가지의 적절한 식이 시험에도 반응이 없으면, 마취 하에 내시경으로 위·소장·대장 점막을 직접 보고 조직 검사를 진행합니다.</div></div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem">신체 검사에서 함께 확인하는 것들</p>
+    <div class="test-grid">
+      <div class="test-card"><div class="test-icon">⚖️</div><div class="test-name">체형 점수(BCS)</div><div class="test-desc">영양 상태 평가</div></div>
+      <div class="test-card"><div class="test-icon">💪</div><div class="test-name">근육량 점수(MCS)</div><div class="test-desc">근손실 정도 확인</div></div>
+      <div class="test-card"><div class="test-icon">🫃</div><div class="test-name">복수·부종</div><div class="test-desc">단백소실 의심 신호</div></div>
+      <div class="test-card"><div class="test-icon">📋</div><div class="test-name">CIBDAI 점수</div><div class="test-desc">증상 중증도 평가</div></div>
+    </div>
+  </div>
+
+  <!-- ③ 표현형 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">CIE의 분류 — 치료 반응에 따라</span><span class="sec-tag">Phenotypes</span></div>
+    <div class="ov-text">CIE는 진단 시점에 종류를 정확히 알 수 없습니다. <strong>치료에 대한 반응을 보면서 분류</strong>하게 됩니다. 다행히 <strong>대부분의 아이들은 식이 반응성</strong>에 해당하며, 식이 조절만으로 장기간 안정적으로 관리할 수 있습니다.</div>
+    <div class="pheno-grid">
+      <div class="pheno-card fr">
+        <div class="pheno-name">식이 반응성 (CIE-FR)</div>
+        <div class="pheno-pct">38~89%</div>
+        <div class="pheno-desc">적절한 식이만으로 증상이 개선되는 가장 흔한 형태. 많은 아이들이 식이 관리만으로 3개월 이상 장기 관해를 유지합니다.</div>
+      </div>
+      <div class="pheno-card ir">
+        <div class="pheno-name">면역억제 반응성 (CIE-IR)</div>
+        <div class="pheno-pct">일부</div>
+        <div class="pheno-desc">식이 시험에 반응하지 않아 면역억제제(스테로이드 등)가 필요한 경우. 보통 5일 이내 빠르게 반응합니다.</div>
+      </div>
+      <div class="pheno-card ple">
+        <div class="pheno-name">단백소실성 장병증 (PLE)</div>
+        <div class="pheno-pct">중증 표현형</div>
+        <div class="pheno-desc">장에서 단백질이 새어나가 저알부민혈증·복수·부종이 생기는 더 심각한 형태. 약 2/3가 진단 시 이미 영양 불량 상태입니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 식이 시험 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">4</span><span class="sec-title">식이 시험 (Food Trial)</span><span class="sec-tag">Diet Trial</span></div>
+    <div class="ov-text">2026년 가이드라인은 <strong>침습적 검사보다 식이 시험을 먼저</strong> 시도하도록 강력히 권장합니다. 단, 식욕부진이 심하거나 전신 상태가 불안정한 경우는 제외됩니다.</div>
+
+    <div class="trial-box">
+      <div class="trial-title">식이 시험 타임라인</div>
+      <div class="trial-sub">DIETARY TRIAL TIMELINE</div>
+      <div class="trial-timeline">
+        <div class="trial-step">
+          <div class="trial-dot">0주</div>
+          <div class="trial-week">시작</div>
+          <div class="trial-label">처방식 단독 급여</div>
+        </div>
+        <div class="trial-step">
+          <div class="trial-dot">2주</div>
+          <div class="trial-week">최소 평가 시점</div>
+          <div class="trial-label">반응 확인 (최소 2주)</div>
+        </div>
+        <div class="trial-step">
+          <div class="trial-dot">10~14일</div>
+          <div class="trial-week">반응 시점</div>
+          <div class="trial-label">대부분 이 시기에 호전</div>
+        </div>
+        <div class="trial-step">
+          <div class="trial-dot">12주</div>
+          <div class="trial-week">유지 권장</div>
+          <div class="trial-label">반응 시 최소 12주 유지</div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,.6);margin-bottom:.75rem">선택 가능한 처방식 종류</p>
+      <div class="diet-options">
+        <div class="diet-card"><div class="diet-name">가수분해 단백 사료</div><div class="diet-desc">단백질을 작게 분해해 면역 반응을 줄인 사료</div></div>
+        <div class="diet-card"><div class="diet-name">신규 단백 사료</div><div class="diet-desc">기존에 먹어본 적 없는 단일 단백질원 사료</div></div>
+        <div class="diet-card"><div class="diet-name">고섬유·저지방 사료</div><div class="diet-desc">장 운동·소화 흡수에 도움을 주는 처방식</div></div>
+        <div class="diet-card"><div class="diet-name">자연식(홈메이드)</div><div class="diet-desc">수의사와 상담 후 영양 균형을 맞춘 자연식</div></div>
+      </div>
+      <div class="trial-alert">⚠️ <span><strong>한 가지 사료로 효과가 없다고 끝이 아닙니다.</strong> 가이드라인은 <strong>최소 3가지의 다른 처방식을 시도</strong>해볼 것을 권장합니다. 일부 아이들은 여러 번의 시도 끝에 맞는 식이를 찾기도 합니다.</span></div>
+    </div>
+
+    <div id="trial-cat" class="hidden">
+      <div class="callout warn"><span class="ci">🐱</span><span><strong>고양이는 새로운 사료에 대한 거부감이 강할 수 있습니다.</strong> 갑자기 사료를 바꾸면 먹지 않고 굶는 경우가 있어, 며칠에 걸쳐 기존 사료와 섞어가며 천천히 전환해 주세요. 식욕부진이 길어지면(특히 비만 고양이) 지방간 위험이 있어 무리하게 굶기지 말고 바로 연락 주세요.</span></div>
+    </div>
+    <ul class="gl">
+      <li><strong>시험 중에는 처방식만 단독으로 급여해야 합니다.</strong> 간식·영양제·다른 사료를 섞으면 결과를 정확히 판단할 수 없습니다.</li>
+      <li><strong>반응이 있으면 최소 12~14주간 유지</strong>한 뒤 천천히 일반식 전환을 시도합니다. 전환 후 31~79%의 아이들이 장기 관해를 유지한다고 보고됩니다.</li>
+      <li><strong>PLE(단백소실성 장병증)의 경우</strong> 효과가 있는 식이를 장기적으로 유지하는 것이 더 유리할 수 있습니다.</li>
+      <li>프로바이오틱스·프리바이오틱스는 <strong>식이 시험에 반응이 불완전한 경우 보조적으로</strong> 고려할 수 있습니다. 단독 효과는 제한적입니다.</li>
+    </ul>
+  </div>
+
+  <!-- ⑤ 약물 치료 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">5</span><span class="sec-title">약물 치료</span><span class="sec-tag">Medication</span></div>
+    <div class="drug-cards">
+      <div class="drug-card">
+        <div class="drug-name">면역억제제 (스테로이드 등)</div>
+        <div class="drug-desc">식이 시험에 반응하지 않는 CIE-IR에서 사용합니다. <strong>대부분 5일 이내</strong>로 빠르게 반응을 보입니다. 단, 시작 전에 감염성 질환이나 림프종 같은 다른 원인을 배제하는 것이 중요합니다.</div>
+        <span class="drug-note ok">✓ 식이 시험 무반응 시 고려</span>
+      </div>
+      <div class="drug-card">
+        <div class="drug-name">프로바이오틱스 / 프리바이오틱스</div>
+        <div class="drug-desc">장내 미생물 균형 개선에 도움을 줄 수 있습니다. 일부 특정 균주 조합은 면역억제제와 비슷한 효과를 보였다는 연구도 있으나, 일반적으로는 <strong>식이·약물 치료의 보조 역할</strong>입니다.</div>
+        <span class="drug-note opt">△ 보조적 사용</span>
+      </div>
+      <div class="drug-card" style="border-color:var(--danger-border)">
+        <div class="drug-name" style="color:var(--danger-text)">항생제 단독 사용 — 권장하지 않음</div>
+        <div class="drug-desc">예전에는 항생제(타일로신 등)를 흔히 사용했지만, <strong>최신 가이드라인은 CIE 의심 환자에서 경험적 항생제 단독 사용을 권장하지 않습니다.</strong> 효과가 일시적이고, 중단 후 재발률이 높으며, 장내 미생물 불균형이 장기적으로 남을 수 있습니다.</div>
+        <span class="drug-note no">✕ 경험적 단독 사용 비권장</span>
+      </div>
+      <div class="drug-card">
+        <div class="drug-name">코발라민(비타민B12) 보충</div>
+        <div class="drug-desc">CIE 환자의 19~61%에서 코발라민 결핍이 동반되며, 예후에 영향을 줄 수 있습니다. 혈액 검사로 확인 후 부족하면 주사 또는 경구로 보충합니다.</div>
+        <span class="drug-note ok">✓ 검사 결과에 따라 보충</span>
+      </div>
+    </div>
+    <div class="callout warn"><span class="ci">⚠️</span><span><strong>설사가 계속된다고 자체적으로 항생제를 구해 먹이지 마세요.</strong> 진단되지 않은 감염성 질환이나 림프종을 가릴 수 있고, 장내 미생물 불균형을 악화시킬 수 있습니다.</span></div>
+  </div>
+
+  <!-- ⑥ 집에서 관찰할 것 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">6</span><span class="sec-title">집에서 관찰해야 할 것</span><span class="sec-tag">Monitoring</span></div>
+    <div class="monitor-grid">
+      <div class="mon-card"><div class="mon-icon">⚖️</div><div class="mon-name">체중·체형</div><div class="mon-desc">갈비뼈·등뼈가 만져지는 정도, 허리 라인 변화를 주기적으로 확인해 주세요</div></div>
+      <div class="mon-card"><div class="mon-icon">💩</div><div class="mon-name">변 상태</div><div class="mon-desc">묽기·색·점액·혈액 여부, 빈도를 기록해두면 진료에 큰 도움이 됩니다</div></div>
+      <div class="mon-card"><div class="mon-icon">🍽️</div><div class="mon-name">식욕·식이 순응도</div><div class="mon-desc">처방식을 잘 먹는지, 다른 음식을 먹은 적이 있는지 확인해 주세요</div></div>
+      <div class="mon-card"><div class="mon-icon">🫃</div><div class="mon-name">복부·부종</div><div class="mon-desc">배가 갑자기 불러오거나 다리가 붓는 경우 PLE 진행을 의심할 수 있습니다</div></div>
+      <div class="mon-card"><div class="mon-icon">🐾</div><div class="mon-name">활동량·털 상태</div><div class="mon-desc">무기력함이나 털이 푸석해지는 것도 영양 상태를 반영합니다</div></div>
+      <div class="mon-card"><div class="mon-icon">📅</div><div class="mon-name">증상 일지</div><div class="mon-desc">CIBDAI 점수는 주 1회 정도 체크하면 치료 반응을 추적하는 데 유용합니다</div></div>
+      <div class="mon-card hidden" id="mon-cat"><div class="mon-icon">🙈</div><div class="mon-name">그루밍·숨기 행동</div><div class="mon-desc">고양이는 아픈 것을 잘 숨깁니다. 그루밍을 안 해 털이 푸석해지거나 숨는 행동이 늘면 통증·불편감의 신호일 수 있습니다</div></div>
+    </div>
+    <div class="callout info"><span class="ci">💡</span><span>식이 시험에 반응한다고 해서 바로 모든 약을 끊거나 일반식으로 돌아가지 마세요. <strong>최소 12주 유지 후 담당 수의사와 함께 전환 계획</strong>을 세우는 것이 재발을 막는 데 중요합니다.</span></div>
+  </div>
+
+  <!-- ⑦ 응급 신호 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">7</span><span class="sec-title">이럴 때는 즉시 연락 주세요</span><span class="sec-tag">Emergency</span></div>
+    <div class="emerg-grid">
+      <div class="emerg-card"><span class="emerg-icon">🩸</span><div><div class="emerg-name">혈변·흑색변</div><div class="emerg-desc">선홍색 혈변이나 검고 끈적한 변이 보이는 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🤮</span><div><div class="emerg-name">구토 지속·탈수</div><div class="emerg-desc">하루 여러 번 구토하거나 물도 못 마시는 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">⚖️</span><div><div class="emerg-name">급격한 체중 감소</div><div class="emerg-desc">짧은 기간 안에 눈에 띄게 살이 빠진 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🫃</span><div><div class="emerg-name">복수·다리 부종</div><div class="emerg-desc">배가 갑자기 불러오거나 다리가 붓는 경우 (PLE 진행 의심)</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">😵</span><div><div class="emerg-name">심한 무기력</div><div class="emerg-desc">평소와 다르게 축 처지고 반응이 둔한 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🍽️</span><div><div class="emerg-name">24시간 이상 절식</div><div class="emerg-desc">하루 이상 아무것도 먹지 않는 경우</div></div></div>
+    </div>
+    <div class="callout danger" style="margin-top:1rem"><span class="ci">🚨</span><span>특히 <strong>PLE(단백소실성 장병증)는 빠르게 악화될 수 있는 표현형</strong>입니다. 복수나 부종이 새로 생기거나 심해지면 즉시 연락 주세요.</span></div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      이 자료는 일반적인 보호자 교육을 위해 제작된 안내문으로, 개별 환자의 진단과 치료를 대신하지 않습니다.<br>
+      식이 시험·약물 조절은 반드시 <strong>담당 수의사와 상의</strong> 후 진행해 주세요.<br>
+      <strong>혈변, 지속적인 구토, 복수·부종</strong>이 보이면 즉시 병원으로 연락 주세요.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">Reference · ACVIM Consensus Statement on CIE in Dogs, JVIM 2026 (Heilmann et al.) · WECARE Animal Medical Center</p>
+  </div>
+</div>
+
+
+<script>
+let cAnimal='dog';
+function setAnimal(a,btn){
+  cAnimal=a;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function s(id){const e=document.getElementById(id);if(e)e.classList.remove('hidden')}
+function h(id){const e=document.getElementById(id);if(e)e.classList.add('hidden')}
+function render(){
+  const dog=cAnimal==='dog';
+  dog?s('ov-dog'):h('ov-dog');
+  dog?h('ov-cat'):s('ov-cat');
+  dog?h('trial-cat'):s('trial-cat');
+  dog?h('mon-cat'):s('mon-cat');
+}
+render();
+</script>
+</body>
+</html>

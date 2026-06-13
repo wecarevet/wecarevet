@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>항암 치료 보호자 안내 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --warn-bg:#fdf8ee;--warn-border:#e8d48a;--warn-text:#5a3e00;
+  --danger-bg:#fdf0f0;--danger-border:#e8aaaa;--danger-text:#6a1010;
+  --ok-bg:#f0f8f0;--ok-border:#aad8aa;--ok-text:#1a5a1a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+
+.topbar{background:var(--navy);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.7;letter-spacing:.08em}
+.topbar-btns{display:flex;gap:.5rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:hover{background:rgba(255,255,255,.22)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);font-size:11px}
+.tbtn.back:hover{background:rgba(255,255,255,.15)}
+
+.hero{background:var(--navy);padding:2.25rem 1.5rem 2rem}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.75rem}
+.hero h1{font-size:26px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.75rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.75}
+
+.sel-bar{background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.1);padding:1.25rem 1.5rem}
+.sel-inner{max-width:760px;margin:0 auto}
+.sel-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.sel-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase;min-width:56px;flex-shrink:0}
+.pill-group{display:flex;gap:.4rem;flex-wrap:wrap}
+.pill{padding:6px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-size:12px;font-weight:500;cursor:pointer;background:transparent;color:rgba(255,255,255,.6);transition:all .15s}
+.pill:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.pill.active{background:#fff;border-color:#fff;color:var(--navy)}
+
+.main{max-width:760px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+.sec{margin-bottom:2.5rem}
+.sec-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem;padding-bottom:.75rem;border-bottom:2px solid var(--navy-light)}
+.sec-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:16px;font-weight:700;color:var(--navy)}
+.sec-tag{margin-left:auto;font-size:10px;letter-spacing:.12em;color:var(--text-muted);font-weight:500;text-transform:uppercase}
+
+.ov-text{font-size:13px;line-height:1.85;color:var(--text-mid);margin-bottom:1rem;padding:1rem 1.1rem;background:var(--navy-xlight);border-left:3px solid var(--navy);border-radius:0 8px 8px 0}
+.ov-text strong{color:var(--navy);font-weight:600}
+
+.callout{border-radius:9px;padding:.875rem 1rem;margin-bottom:.9rem;font-size:13px;line-height:1.75;display:flex;gap:.7rem;align-items:flex-start}
+.callout .ci{font-size:17px;flex-shrink:0;margin-top:1px}
+.callout.info{background:var(--accent-light);color:#1a3a6a;border:1px solid #b0ccee}
+.callout.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border)}
+.callout.danger{background:var(--danger-bg);color:var(--danger-text);border:1px solid var(--danger-border)}
+.callout.neutral{background:var(--navy-xlight);color:var(--text-mid);border:1px solid var(--border)}
+.callout.ok{background:var(--ok-bg);color:#1a4a1a;border:1px solid var(--ok-border)}
+.callout strong{font-weight:600}
+
+ul.gl{list-style:none;padding:0;font-size:13px;line-height:1.85;color:var(--text-mid)}
+ul.gl li{padding:.3rem 0 .3rem 1.2rem;position:relative;border-bottom:1px solid var(--navy-xlight)}
+ul.gl li:last-child{border-bottom:none}
+ul.gl li::before{content:'';position:absolute;left:0;top:.75rem;width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.35}
+ul.gl strong{color:var(--text);font-weight:600}
+
+/* PURPOSE CARDS */
+.purpose-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1rem}
+.purpose-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem;text-align:center}
+.purpose-icon{font-size:28px;margin-bottom:.5rem}
+.purpose-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.purpose-desc{font-size:12px;color:var(--text-muted);line-height:1.55}
+
+/* CANCER TYPE CARDS */
+.cancer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem;margin-bottom:1rem}
+.cancer-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem}
+.cancer-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:4px;margin-bottom:.5rem}
+.cb-dog{background:var(--navy-light);color:var(--navy)}
+.cb-cat{background:#f0e8f8;color:#5a1a8a}
+.cb-both{background:#e8f4ff;color:#1a4a8a}
+.cancer-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.cancer-survival{font-size:12px;font-weight:600;color:#2d6cc0;margin-bottom:.3rem}
+.cancer-desc{font-size:12px;color:var(--text-muted);line-height:1.55}
+
+/* CHEMO TYPE */
+.chemo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1rem}
+.chemo-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem}
+.chemo-icon{font-size:24px;margin-bottom:.5rem}
+.chemo-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.chemo-desc{font-size:12px;color:var(--text-muted);line-height:1.6}
+.chemo-note{display:inline-flex;align-items:center;gap:4px;font-size:11px;margin-top:.4rem;padding:3px 9px;border-radius:999px;font-weight:500;background:var(--navy-xlight);color:var(--navy);border:1px solid var(--border)}
+
+/* SIDE EFFECT */
+.se-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.6rem;margin-bottom:1rem}
+.se-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.se-icon{font-size:20px;margin-bottom:.35rem}
+.se-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.3rem}
+.se-desc{font-size:12px;color:var(--text-muted);line-height:1.55}
+.se-tip{font-size:11px;color:var(--ok-text);background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:5px;padding:3px 8px;display:inline-block;margin-top:.4rem;font-weight:500}
+
+/* NADIR BOX */
+.nadir-box{background:var(--navy);border-radius:14px;padding:1.75rem;margin-bottom:1rem;color:#fff}
+.nadir-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:.3rem}
+.nadir-sub{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-bottom:1rem}
+.nadir-timeline{display:flex;align-items:center;gap:0;margin-bottom:1rem;overflow-x:auto;padding-bottom:.25rem}
+.nadir-step{flex:1;min-width:80px;text-align:center;position:relative}
+.nadir-step::after{content:'';position:absolute;top:20px;right:-1px;width:calc(100% - 20px);height:2px;background:rgba(255,255,255,.15);z-index:0}
+.nadir-step:last-child::after{display:none}
+.nadir-dot{width:40px;height:40px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-bottom:.4rem;position:relative;z-index:1}
+.nd-normal{background:rgba(46,204,113,.2);border:2px solid rgba(46,204,113,.5);color:#7ed8a0}
+.nd-warn{background:rgba(231,180,60,.2);border:2px solid rgba(231,180,60,.5);color:#f0d080}
+.nd-danger{background:rgba(231,76,60,.2);border:2px solid rgba(231,76,60,.5);color:#f0a090}
+.nadir-day{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:.2rem}
+.nadir-label{font-size:11px;color:rgba(255,255,255,.65);font-weight:500}
+.nadir-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.7}
+
+/* SAFETY BOX */
+.safety-box{background:#0a2a0a;border:1px solid #2a6a2a;border-radius:14px;padding:1.75rem;margin-bottom:1rem}
+.safety-title{font-size:15px;font-weight:700;color:#a0e8a0;margin-bottom:.5rem}
+.safety-desc{font-size:12px;color:rgba(160,232,160,.65);line-height:1.8;margin-bottom:1rem}
+.safety-items{display:flex;flex-direction:column;gap:.4rem}
+.safety-item{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.25);border-radius:8px;padding:.65rem .875rem;font-size:12px;color:#a0e8a0;display:flex;gap:.5rem;align-items:flex-start;line-height:1.6}
+
+/* NUTRITION */
+.nutrition-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem}
+.nut-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.nut-icon{font-size:20px;margin-bottom:.35rem}
+.nut-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.3rem}
+.nut-desc{font-size:12px;color:var(--text-muted);line-height:1.55}
+
+/* EMERG */
+.emerg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem}
+.emerg-card{background:var(--danger-bg);border:1px solid var(--danger-border);border-radius:10px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:.6rem}
+.emerg-icon{font-size:20px;flex-shrink:0}
+.emerg-name{font-size:13px;font-weight:600;color:var(--danger-text);margin-bottom:.2rem}
+.emerg-desc{font-size:12px;color:#8a3030;line-height:1.5}
+
+.foot{background:var(--navy);padding:2.5rem 1.5rem}
+.foot-inner{max-width:760px;margin:0 auto}
+.foot-disc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:1.25rem}
+.foot-disc strong{color:rgba(255,255,255,.8);font-weight:500}
+.foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.foot-ref{margin-top:1.25rem;font-size:11px;color:rgba(255,255,255,.25)}
+
+.hidden{display:none!important}
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .topbar-btns .tbtn.call span{display:none}
+  .nadir-timeline{gap:0}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 항암 치료 보호자 안내</div>
+    <h1>항암 치료 중인<br><span>우리 아이를 위한 안내</span></h1>
+    <p class="hero-desc">항암 치료는 두렵고 낯설지만, 제대로 알고 함께 준비하면 훨씬 잘 헤쳐나갈 수 있습니다.<br>치료 과정과 집에서의 관리 방법을 안내해 드립니다.</p>
+  </div>
+</div>
+
+<div class="sel-bar">
+  <div class="sel-inner">
+    <div class="sel-row">
+      <span class="sel-lbl">아이 종류</span>
+      <div class="pill-group">
+        <button class="pill active" onclick="setAnimal('dog',this)">🐶 강아지</button>
+        <button class="pill" onclick="setAnimal('cat',this)">🐱 고양이</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ① 항암 치료란? -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">항암 치료란?</span><span class="sec-tag">Overview</span></div>
+    <div class="ov-text">동물의 항암 치료는 <strong>사람과 목표가 다릅니다.</strong> 사람은 완치를 목표로 고용량 항암을 사용하는 경우가 많지만, 동물 항암은 <strong>삶의 질을 최대한 유지하면서 수명을 연장</strong>하는 것을 우선으로 합니다. 그래서 부작용이 사람보다 훨씬 적고, 대부분의 아이들이 치료 중에도 평소와 크게 다르지 않은 생활을 할 수 있습니다.</div>
+    <div class="purpose-grid">
+      <div class="purpose-card">
+        <div class="purpose-icon">🎯</div>
+        <div class="purpose-name">완치 목표</div>
+        <div class="purpose-desc">일부 종양에서 가능. 림프종 등 항암 반응이 좋은 경우 완전 관해를 기대할 수 있습니다</div>
+      </div>
+      <div class="purpose-card">
+        <div class="purpose-icon">⏳</div>
+        <div class="purpose-name">수명 연장</div>
+        <div class="purpose-desc">완치가 어려워도 진행을 늦춰 더 오랜 시간을 함께할 수 있습니다</div>
+      </div>
+      <div class="purpose-card">
+        <div class="purpose-icon">💙</div>
+        <div class="purpose-name">삶의 질 유지</div>
+        <div class="purpose-desc">통증·증상을 줄이고 편안한 일상을 유지하는 것이 가장 중요한 목표입니다</div>
+      </div>
+    </div>
+    <div class="callout info"><span class="ci">💡</span><span>항암 치료를 선택하지 않는 것도 하나의 선택입니다. <strong>치료 여부와 방향은 담당 수의사와 충분히 상의 후 결정</strong>해 주세요. 어떤 선택을 하든 최선의 방향을 함께 찾겠습니다.</span></div>
+  </div>
+
+  <!-- ② 종양 종류별 설명 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">흔한 종양과 예후</span><span class="sec-tag">Cancer Types</span></div>
+    <div class="ov-text">아래 수치는 <strong>연구상 중앙생존기간</strong>으로, 실제로는 병기·치료 반응·개체 차이에 따라 크게 달라집니다. 수치보다는 <strong>지금 할 수 있는 최선의 관리</strong>에 집중해 주세요.</div>
+
+    <div id="cancer-dog">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem">강아지에서 흔한 종양</p>
+      <div class="cancer-grid">
+        <div class="cancer-card">
+          <div class="cancer-badge cb-dog">강아지</div>
+          <div class="cancer-name">림프종 (Lymphoma)</div>
+          <div class="cancer-survival">항암 치료 시 중앙생존 약 12개월</div>
+          <div class="cancer-desc">가장 흔한 종양 중 하나. 항암 반응이 좋아 치료 효과가 크고, 완전 관해에 도달하는 경우도 있습니다. 치료 없이는 약 4~6주 생존이 보고됩니다.</div>
+        </div>
+        <div class="cancer-card">
+          <div class="cancer-badge cb-dog">강아지</div>
+          <div class="cancer-name">비만세포종 (MCT)</div>
+          <div class="cancer-survival">등급에 따라 수개월~수년</div>
+          <div class="cancer-desc">피부에 가장 흔하게 발생. 저등급은 수술 단독으로 완치 가능한 경우도 있으며, 고등급은 항암이 필요합니다.</div>
+        </div>
+        <div class="cancer-card">
+          <div class="cancer-badge cb-dog">강아지</div>
+          <div class="cancer-name">골육종 (Osteosarcoma)</div>
+          <div class="cancer-survival">수술+항암 시 중앙생존 약 10~12개월</div>
+          <div class="cancer-desc">대형견 사지에 많이 발생. 수술(절단)과 항암을 병행하면 생존 기간이 유의미하게 늘어납니다. 통증 관리가 매우 중요합니다.</div>
+        </div>
+        <div class="cancer-card">
+          <div class="cancer-badge cb-dog">강아지</div>
+          <div class="cancer-name">혈관육종 (HSA)</div>
+          <div class="cancer-survival">수술+항암 시 중앙생존 약 4~6개월</div>
+          <div class="cancer-desc">비장·심장에 많이 발생. 예후가 불량한 편이며, 파열 시 응급 상황이 올 수 있습니다. 조기 발견이 중요합니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cancer-cat" class="hidden">
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem">고양이에서 흔한 종양</p>
+      <div class="cancer-grid">
+        <div class="cancer-card">
+          <div class="cancer-badge cb-cat">고양이</div>
+          <div class="cancer-name">림프종 (Lymphoma)</div>
+          <div class="cancer-survival">소화기형: 항암 시 중앙생존 약 2년↑</div>
+          <div class="cancer-desc">고양이에서 가장 흔한 종양. 소화기형은 예후가 비교적 좋고, 종격동형(흉강)은 진행이 빠를 수 있습니다. FeLV 감염과 연관이 있습니다.</div>
+        </div>
+        <div class="cancer-card">
+          <div class="cancer-badge cb-cat">고양이</div>
+          <div class="cancer-name">비만세포종 (MCT)</div>
+          <div class="cancer-survival">비장형: 수술 후 중앙생존 약 1~2년</div>
+          <div class="cancer-desc">고양이 비만세포종은 강아지와 달리 비장에 더 많이 발생합니다. 비장 제거 후 예후가 비교적 좋은 편입니다.</div>
+        </div>
+        <div class="cancer-card">
+          <div class="cancer-badge cb-cat">고양이</div>
+          <div class="cancer-name">편평세포암 (SCC)</div>
+          <div class="cancer-survival">위치·병기에 따라 다양</div>
+          <div class="cancer-desc">구강·코·귀에 많이 발생. 햇빛 노출과 연관되며, 흰 고양이에서 더 흔합니다. 조기 발견 시 수술로 치료 가능합니다.</div>
+        </div>
+        <div class="cancer-card">
+          <div class="cancer-badge cb-cat">고양이</div>
+          <div class="cancer-name">유선종양</div>
+          <div class="cancer-survival">악성 비율 높음 (약 85%)</div>
+          <div class="cancer-desc">중성화하지 않은 암컷에서 주로 발생. 강아지보다 악성 비율이 훨씬 높아 조기 수술이 중요합니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 항암 종류 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">항암 치료 방법</span><span class="sec-tag">Treatment Types</span></div>
+    <div class="chemo-grid">
+      <div class="chemo-card">
+        <div class="chemo-icon">💉</div>
+        <div class="chemo-name">정맥 항암 (IV Chemo)</div>
+        <div class="chemo-desc">병원 방문 시 정맥으로 투여합니다. 보통 1~3주 간격으로 진행하며, 투여 시간은 30분~수 시간입니다. 당일 퇴원이 대부분 가능합니다.</div>
+        <span class="chemo-note">🏥 병원 방문 필요</span>
+      </div>
+      <div class="chemo-card">
+        <div class="chemo-icon">💊</div>
+        <div class="chemo-name">경구 항암 (Oral Chemo)</div>
+        <div class="chemo-desc">집에서 먹이는 항암약입니다. 편리하지만 취급 시 보호자 안전 수칙을 반드시 지켜야 합니다. 맨손으로 만지지 마세요.</div>
+        <span class="chemo-note">🏠 가정 투여 · 주의 필요</span>
+      </div>
+      <div class="chemo-card">
+        <div class="chemo-icon">☢️</div>
+        <div class="chemo-name">방사선 치료</div>
+        <div class="chemo-desc">특정 부위 종양에 방사선을 조사합니다. 전문 장비가 있는 대학병원에서 진행하며, 매일 또는 주 수회 방문이 필요합니다.</div>
+        <span class="chemo-note">🏛️ 전문 기관 의뢰</span>
+      </div>
+      <div class="chemo-card">
+        <div class="chemo-icon">🎯</div>
+        <div class="chemo-name">표적 치료제</div>
+        <div class="chemo-desc">특정 암세포 신호를 차단하는 약물입니다. 비만세포종 등 일부 종양에서 효과적이며, 경구로 복용합니다.</div>
+        <span class="chemo-note">💊 경구 복용</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 부작용 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">4</span><span class="sec-title">흔한 부작용과 대처법</span><span class="sec-tag">Side Effects</span></div>
+    <div class="callout ok"><span class="ci">✅</span><span>동물 항암은 사람보다 용량을 낮게 사용하기 때문에 <strong>70~80%의 아이들은 심각한 부작용 없이 치료를 잘 견뎌냅니다.</strong> 부작용이 생기더라도 대부분 일시적이고 관리 가능합니다.</span></div>
+    <div class="se-grid">
+      <div class="se-card">
+        <div class="se-icon">🤢</div>
+        <div class="se-name">구토·식욕 저하</div>
+        <div class="se-desc">투여 후 1~3일 사이에 나타나는 경우가 많습니다. 소량씩 자주 급여하고, 처방받은 구토 억제제를 사용하세요.</div>
+        <span class="se-tip">✓ 소량·자주·부드러운 음식</span>
+      </div>
+      <div class="se-card">
+        <div class="se-icon">😴</div>
+        <div class="se-name">무기력·활동량 감소</div>
+        <div class="se-desc">투여 후 며칠간 처져 보일 수 있습니다. 대부분 1주일 내 회복됩니다. 억지로 운동시키지 마세요.</div>
+        <span class="se-tip">✓ 충분한 휴식·안정</span>
+      </div>
+      <div class="se-card">
+        <div class="se-icon">🦠</div>
+        <div class="se-name">골수 억제 (백혈구 감소)</div>
+        <div class="se-desc">항암 후 7~10일이 가장 위험한 시기(나디르)입니다. 이 시기에 발열이 생기면 즉시 내원이 필요합니다.</div>
+        <span class="se-tip">⚠️ 나디르 기간 특별 주의</span>
+      </div>
+      <div class="se-card">
+        <div class="se-icon">💇</div>
+        <div class="se-name">탈모</div>
+        <div class="se-desc">강아지는 탈모가 드문 편이지만, 푸들·슈나우저 등 지속 성장 털을 가진 품종은 털이 얇아질 수 있습니다. 고양이는 수염이 빠지기도 합니다.</div>
+        <span class="se-tip">✓ 대부분 치료 후 회복</span>
+      </div>
+      <div class="se-card">
+        <div class="se-icon">💧</div>
+        <div class="se-name">설사</div>
+        <div class="se-desc">장 점막 세포에 영향을 줄 수 있습니다. 묽은 변이 하루 이상 지속되면 연락 주세요. 수분 섭취를 늘려주세요.</div>
+        <span class="se-tip">✓ 수분 섭취 유지</span>
+      </div>
+      <div class="se-card">
+        <div class="se-icon">👄</div>
+        <div class="se-name">구내염·점막 손상</div>
+        <div class="se-desc">일부 항암제는 구강 점막에 영향을 줍니다. 밥 먹기 힘들어하거나 침을 많이 흘리면 내원해 주세요.</div>
+        <span class="se-tip">✓ 부드러운 음식으로 전환</span>
+      </div>
+    </div>
+
+    <!-- NADIR BOX -->
+    <div class="nadir-box">
+      <div class="nadir-title">나디르(Nadir) — 가장 주의해야 할 시기</div>
+      <div class="nadir-sub">BONE MARROW SUPPRESSION TIMELINE</div>
+      <div class="nadir-timeline">
+        <div class="nadir-step">
+          <div class="nadir-dot nd-normal">D+0</div>
+          <div class="nadir-day">투여일</div>
+          <div class="nadir-label">항암 투여</div>
+        </div>
+        <div class="nadir-step">
+          <div class="nadir-dot nd-warn">D+3</div>
+          <div class="nadir-day">3일 후</div>
+          <div class="nadir-label">감소 시작</div>
+        </div>
+        <div class="nadir-step">
+          <div class="nadir-dot nd-danger">D+7</div>
+          <div class="nadir-day">7~10일</div>
+          <div class="nadir-label">최저점</div>
+        </div>
+        <div class="nadir-step">
+          <div class="nadir-dot nd-warn">D+14</div>
+          <div class="nadir-day">2주 후</div>
+          <div class="nadir-label">회복 중</div>
+        </div>
+        <div class="nadir-step">
+          <div class="nadir-dot nd-normal">D+21</div>
+          <div class="nadir-day">3주 후</div>
+          <div class="nadir-label">다음 투여</div>
+        </div>
+      </div>
+      <p class="nadir-desc">항암 후 <strong style="color:#f0a090">7~10일이 백혈구가 가장 낮은 시기(나디르)</strong>입니다. 이 시기에는 면역력이 크게 떨어져 작은 감염도 위험해질 수 있습니다. <strong style="color:#fff">체온이 39.5℃ 이상이거나 갑자기 기운이 없어지면 즉시 연락 주세요.</strong></p>
+    </div>
+  </div>
+
+  <!-- ⑤ 집에서의 안전 관리 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">5</span><span class="sec-title">집에서의 안전 관리</span><span class="sec-tag">Safety</span></div>
+    <div class="safety-box">
+      <div class="safety-title">⚗️ 항암제 취급 보호자 안전 수칙</div>
+      <p class="safety-desc">항암제는 강력한 약물로, 아이의 소변·대변·구토물에도 약물이 포함될 수 있습니다. 보호자의 안전을 위해 아래 수칙을 반드시 지켜주세요.</p>
+      <div class="safety-items">
+        <div class="safety-item">🧤 <span><strong>경구 항암제</strong>는 반드시 장갑을 끼고 다루세요. 맨손으로 만지거나 부수지 마세요.</span></div>
+        <div class="safety-item">🚽 <span>투여 후 <strong>48시간 동안</strong> 소변·대변·구토물 처리 시 장갑을 착용하고, 화장실 청소 후 손을 꼼꼼히 씻어주세요.</span></div>
+        <div class="safety-item">🤰 <span><strong>임산부·수유 중인 분</strong>은 항암제 취급과 배설물 처리를 피해주세요.</span></div>
+        <div class="safety-item">👶 <span><strong>어린이</strong>가 항암제나 처리 전 배설물에 접촉하지 않도록 주의해 주세요.</span></div>
+        <div class="safety-item">🗑️ <span>사용한 장갑·패드는 <strong>밀봉하여 일반 쓰레기</strong>로 버려주세요.</span></div>
+        <div class="safety-item">🛁 <span>투여 후 48시간 동안은 아이가 핥은 부위나 배설 후 <strong>목욕을 시키는 경우 장갑 착용</strong>을 권장합니다.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⑥ 영양 관리 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">6</span><span class="sec-title">영양 관리</span><span class="sec-tag">Nutrition</span></div>
+    <div class="ov-text">항암 중 <strong>체중과 근육량 유지</strong>가 매우 중요합니다. 체중이 감소하면 항암 내성과 삶의 질이 모두 떨어집니다. 암세포는 탄수화물을 주 에너지원으로 쓰기 때문에 <strong>고단백·저탄수화물 식이</strong>가 도움이 될 수 있습니다.</div>
+    <div class="nutrition-grid">
+      <div class="nut-card">
+        <div class="nut-icon">🥩</div>
+        <div class="nut-name">고단백 식이</div>
+        <div class="nut-desc">근육 손실을 막기 위해 양질의 단백질을 충분히 공급해 주세요. 항암 전용 처방식도 있습니다.</div>
+      </div>
+      <div class="nut-card">
+        <div class="nut-icon">🐟</div>
+        <div class="nut-name">오메가3</div>
+        <div class="nut-desc">항염 효과와 식욕 개선에 도움이 됩니다. 항암 중에도 지속 사용을 권장합니다.</div>
+      </div>
+      <div class="nut-card">
+        <div class="nut-icon">💧</div>
+        <div class="nut-name">수분 섭취</div>
+        <div class="nut-desc">구토·설사로 탈수가 올 수 있어요. 습식 사료·분수형 급수기로 수분 섭취를 늘려주세요.</div>
+      </div>
+      <div class="nut-card">
+        <div class="nut-icon">🍚</div>
+        <div class="nut-name">먹기 힘들 때</div>
+        <div class="nut-desc">식욕이 없으면 소량씩 자주, 따뜻하게 데워서 주세요. 좋아하는 음식으로 유도해도 됩니다.</div>
+      </div>
+    </div>
+    <div class="callout warn"><span class="ci">⚠️</span><span><strong>항산화 보충제(비타민C·E 고용량 등)는 항암 효과를 떨어뜨릴 수 있습니다.</strong> 항암 중 보조제 추가는 반드시 담당 수의사와 상의 후 결정해 주세요.</span></div>
+  </div>
+
+  <!-- ⑦ 응급 신호 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">7</span><span class="sec-title">이럴 때는 즉시 연락 주세요</span><span class="sec-tag">Emergency</span></div>
+    <div class="emerg-grid">
+      <div class="emerg-card"><span class="emerg-icon">🌡️</span><div><div class="emerg-name">발열 (39.5℃ 이상)</div><div class="emerg-desc">나디르 기간 발열은 패혈증 위험. 즉시 내원 필요</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🤮</span><div><div class="emerg-name">구토 3회 이상</div><div class="emerg-desc">하루 3회 이상 구토하거나 물도 못 마시는 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🩸</span><div><div class="emerg-name">출혈·멍</div><div class="emerg-desc">잇몸 출혈, 혈변, 혈뇨, 피부 멍이 갑자기 생긴 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">😵</span><div><div class="emerg-name">극심한 무기력</div><div class="emerg-desc">일어나지 못하거나 반응이 없는 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">😮‍💨</span><div><div class="emerg-name">호흡 곤란</div><div class="emerg-desc">빠른 호흡, 입 벌리고 숨쉬기, 청색 잇몸</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🍽️</span><div><div class="emerg-name">48시간 이상 절식</div><div class="emerg-desc">이틀 이상 아무것도 먹지 않는 경우</div></div></div>
+    </div>
+    <div class="callout danger" style="margin-top:1rem"><span class="ci">🚨</span><span>항암 중 발열은 <strong>절대 가볍게 보지 마세요.</strong> 백혈구가 낮은 상태의 감염은 수 시간 내 위험해질 수 있습니다. 밤이나 주말이라도 즉시 연락 주세요.</span></div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      이 자료는 일반적인 보호자 교육을 위해 제작된 안내문으로, 개별 환자의 진단과 치료를 대신하지 않습니다.<br>
+      항암 치료 방향과 약물 조절은 반드시 <strong>담당 수의사와 상의</strong> 후 진행해 주세요.<br>
+      <strong>발열·출혈·극심한 무기력</strong>이 보이면 즉시 병원으로 연락 주세요.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">Reference · Vail et al. Withrow & MacEwen's Small Animal Clinical Oncology · VCOG Guidelines · WECARE Animal Medical Center</p>
+  </div>
+</div>
+
+<script>
+let cAnimal='dog';
+function setAnimal(a,btn){
+  cAnimal=a;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function s(id){const e=document.getElementById(id);if(e)e.classList.remove('hidden')}
+function h(id){const e=document.getElementById(id);if(e)e.classList.add('hidden')}
+function render(){
+  const dog=cAnimal==='dog';
+  dog?s('cancer-dog'):h('cancer-dog');
+  dog?h('cancer-cat'):s('cancer-cat');
+}
+render();
+</script>
+</body>
+</html>
