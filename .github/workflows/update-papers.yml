@@ -33,4 +33,4 @@ jobs:
           git reset --hard origin/main
           git add papers.json
           git diff --cached --quiet || git commit -m "논문 자동 업데이트: $(date +'%Y-%m-%d')"
-          git push origin main
+          git push --force origin main
