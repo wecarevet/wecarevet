@@ -1,0 +1,966 @@
+{
+  "updated": "2026-07-03 11:27 UTC",
+  "total": 120,
+  "papers": [
+    {
+      "id": "42099195",
+      "title": "What Is Your Diagnosis? Blood Smear From a Mixed-Breed Dog.",
+      "authors": "Peres LS, Bilhalva LC, Mello CBE, Silva AG, Santos AP",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 May 8",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42099195/"
+    },
+    {
+      "id": "42364140",
+      "title": "Multisite sampling improves consensus cytologic interpretation in bone marrow evaluation of dogs.",
+      "authors": "Smiley KM, Rosser MF, Schnelle AN, Connolly SL, Raskin R",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42364140/"
+    },
+    {
+      "id": "42361327",
+      "title": "Use of C-peptide and homeostasis model assessment of insulin resistance to assess insulin resistance in dogs.",
+      "authors": "Torsahakul C, Rodprasert W, Simphaisarn K, Kanthathong N, Kaonarsanga S",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361327/"
+    },
+    {
+      "id": "42348907",
+      "title": "Care-pathway decision support improves non-specialist vet clinical decision making in dogs with myelopathy.",
+      "authors": "Fox K, Alves L, Harris G, Monforte Monteiro S, Restif O",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42348907/"
+    },
+    {
+      "id": "42341219",
+      "title": "Neuron-specific enolase enzymatic activity as a biomarker to discriminate neurologic and orthopedic gait abnormalities in dogs.",
+      "authors": "Huynh A, Byron MJ, Lenfest MI, Mukhtarov F, Yasmin R",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42341219/"
+    },
+    {
+      "id": "42330250",
+      "title": "Targeted proteomic analyses during combined angiotensin-converting enzyme inhibitor and mineralocorticoid receptor antagonist administration (CARDALIS®) in healthy dogs.",
+      "authors": "Ward JL, Goodman J, Blondel T, Zdyrski C, Manson E",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42330250/"
+    },
+    {
+      "id": "42315194",
+      "title": "Clinical characteristics, advanced imaging findings, and long-term outcomes in 50 dogs with calvarial multilobular tumor of bone treated with craniectomy.",
+      "authors": "Murthy VD, White LA, Rossmeisl J, Robertson JL, Kenny PJ",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42315194/"
+    },
+    {
+      "id": "42315193",
+      "title": "Use of the dual tyrosine kinase inhibitor lapatinib for the treatment of vulvovaginal squamous cell carcinoma in a dog.",
+      "authors": "Vardanega MJ, Longo T, Aceino A, Alexander CK",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42315193/"
+    },
+    {
+      "id": "42315192",
+      "title": "Steroidal response following intravenous administration of long-term frozen tetracosactide acetate in healthy Beagles.",
+      "authors": "Vilcot M, Docquier N, Blazy A, Peeters D, Ledeck J",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42315192/"
+    },
+    {
+      "id": "42302767",
+      "title": "Urine sodium concentration and diuretic responsiveness in dogs receiving orally administered loop diuretics for chronic congestive heart failure.",
+      "authors": "Rollins A, Adin DB, Crooks AV, Siess S, Cho Y",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42302767/"
+    },
+    {
+      "id": "42302766",
+      "title": "Heart rate variability in dogs with brachycephalic obstructive airway syndrome evaluated during wakefulness and sleep.",
+      "authors": "Buriticá EF, Tuleski GLR, Santos JF, Endrighi M, Sousa MG",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42302766/"
+    },
+    {
+      "id": "42284442",
+      "title": "Metanephrine-secreting adrenocortical carcinoma in a dog with clinical and biochemical features suggestive of pheochromocytoma.",
+      "authors": "Kim D, Park SG, Moon J, O IS, Kim MS",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42284442/"
+    },
+    {
+      "id": "42271636",
+      "title": "Acute kidney injury is associated with decreased platelet function in domestic cats.",
+      "authors": "Kornya MR, Blois SL, Abrams-Ogg ACG",
+      "journal": "JVIM",
+      "date": "2026 May 4",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42271636/"
+    },
+    {
+      "id": "42076787",
+      "title": "Persistent Erythrocytosis in a Dog With a Spinal Sclerosing Paraganglioma.",
+      "authors": "Neal SV, Sommer SL, Golconda S, Hostnik ET, Sakacs R",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 May 3",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42076787/"
+    },
+    {
+      "id": "42308590",
+      "title": "Incidentally diagnosed non-dissecting thoracic aortic aneurysm in a dog with suspected aortic valve abnormality.",
+      "authors": "Harada K, Murahata Y, Ide W, Osaki T, Tsujino K",
+      "journal": "JVCS",
+      "date": "2026 May 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42308590/"
+    },
+    {
+      "id": "42270470",
+      "title": "Cardiac computed tomography of the canine mitral and tricuspid valves.",
+      "authors": "Scansen BA",
+      "journal": "JVCS",
+      "date": "2026 May 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42270470/"
+    },
+    {
+      "id": "42263445",
+      "title": "Impaired left ventricular systolic function assessed by endocardial global longitudinal strain imaging in cats with restrictive cardiomyopathy.",
+      "authors": "Schoebel J, Zablotski Y, Wess G",
+      "journal": "JVCS",
+      "date": "2026 May 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42263445/"
+    },
+    {
+      "id": "42263444",
+      "title": "Lipomatous hypertrophy of the interatrial septum in a dog: echocardiographic, gross pathologic, and histologic findings.",
+      "authors": "Romito G, Morini M",
+      "journal": "JVCS",
+      "date": "2026 May 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42263444/"
+    },
+    {
+      "id": "42157618",
+      "title": "Establishment of Haemonetics TEG 6s Reference Interval in Healthy Dogs.",
+      "authors": "Whetstone K, Heinz J, Grantham LE 2nd, Stavropoulos M, Hall C",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 May 19",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42157618/"
+    },
+    {
+      "id": "42068092",
+      "title": "Analytical Validation of an Automated Point-of-Care Immunoassay for the Measurement of Canine Pancreatic Lipase Immunoreactivity Concentration (Vcheck cPL 2.0).",
+      "authors": "Mendoza-White I, Steiner JM, Cridge H",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 May 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42068092/"
+    },
+    {
+      "id": "41792857",
+      "title": "Letter to the Editor Re: Unusual Electrophoretic Pattern in a Dog Infected With Angiostrongylus vasorum.",
+      "authors": "Rattanapitoon NK, Charoenphon N, Arunsan P, Rattanapitoon SK",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Mar 6",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41792857/"
+    },
+    {
+      "id": "41797002",
+      "title": "Assessment of Biological Variation of Hemostatic Parameters in Healthy Dogs Using a Point-Of-Care Viscoelastic Coagulometer.",
+      "authors": "Dröes FC, Jeffery U, Rutter CR, Suchodolski JS, Steiner JM",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Mar",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41797002/"
+    },
+    {
+      "id": "41794405",
+      "title": "Comparison of the Calibrated Automated Thrombogram Using Standard and Low Plasma Volumes in Dogs.",
+      "authors": "Phillips EM, Blois SL, Monteith G, Abrams-Ogg ACG, Wood RD",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Mar",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41794405/"
+    },
+    {
+      "id": "41749414",
+      "title": "Cytologic Grading of Canine Mammary Tumors by Robinson's System Adapted to Romanowsky-Type Rapid Staining: Prognostic Implications.",
+      "authors": "Cavalcante KF, Cavalcante FEP, Nascimento IRB, Silva LDM, Faustino AMR",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Mar",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41749414/"
+    },
+    {
+      "id": "41741968",
+      "title": "Malignant Follicular Tumors With Myxoid Mucopolysaccharide-Like Stroma on Cytology and Histology in a Cat.",
+      "authors": "Quilez E, Chambers JK, Ueda R, Donahoe SL",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Mar",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41741968/"
+    },
+    {
+      "id": "41732135",
+      "title": "Cytologic, Histologic, and Ultrasonographic Features of Hepatic Intravascular Lymphoma in a Dog.",
+      "authors": "Bilhalva LC, Biedak NR, Brinker EJ, Lovelace NL, Schwarz LA",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Mar",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41732135/"
+    },
+    {
+      "id": "41612543",
+      "title": "Comparison of Haptoglobin Concentrations Between Microfilaremic and Amicrofilaremic Dogs Infected by Dirofilaria immitis.",
+      "authors": "Chocobar MLE, Eckersall DP, Panarese R, Weir W, Schmidt EMS",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Mar",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41612543/"
+    },
+    {
+      "id": "41546140",
+      "title": "Comparison of Three Procedures for Cytochemical Detection of Leukocyte Alkaline Phosphatase Activity in Dogs With Leukemia.",
+      "authors": "Stokol T, Kosko AM, Bienzle D, Meichner K, Springer NL",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Mar",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41546140/"
+    },
+    {
+      "id": "42361659",
+      "title": "Transvenous occlusion of a patent ductus arteriosus in a cat with the Amplatzer™ Vascular Plug II.",
+      "authors": "Brennan C, Gunasekaran T",
+      "journal": "JVCS",
+      "date": "2026 Jun 6",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361659/"
+    },
+    {
+      "id": "42379217",
+      "title": "Oral administration of a live-attenuated Bordetella bronchiseptica vaccine (Vanguard B Oral) induces protective immunity against challenge 7 days after vaccination in dogs.",
+      "authors": "Wappel S, Velineni S, King V, Abma E, Hoevers J",
+      "journal": "AJVR",
+      "date": "2026 Jun 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42379217/"
+    },
+    {
+      "id": "42379387",
+      "title": "Brain mineral concentrations in canine cognitive dysfunction.",
+      "authors": "Larrán B, López-Alonso M, Miranda M, González-Martínez Á, Rosado B",
+      "journal": "Vet J",
+      "date": "2026 Jun 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42379387/"
+    },
+    {
+      "id": "42379386",
+      "title": "Effects and safety analysis of diets with different Omega-3:Omega-6 ratios on postoperative recovery indicators in cats with feline chronic gingivostomatitis (FCGS).",
+      "authors": "Luo Y, Xiao X",
+      "journal": "Vet J",
+      "date": "2026 Jun 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42379386/"
+    },
+    {
+      "id": "42381034",
+      "title": "Molecular characterization and risk factors analyses of zoonotic gastrointestinal nematodes in pet and semi-pet dogs in Haryana, India.",
+      "authors": "Rani S, Moudgil P, Gupta R, Agnihotri D, Kumar M",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42381034/"
+    },
+    {
+      "id": "42365894",
+      "title": "Artificial intelligence in veterinary diagnostic imaging: A narrative review of the state of the art and its applications.",
+      "authors": "Barillaro G, Minniti S, Mezzatesta S, Macrì F, Torino C",
+      "journal": "Vet J",
+      "date": "2026 Jun 28",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42365894/"
+    },
+    {
+      "id": "42365892",
+      "title": "Keeping an eye on pain: Characterization of pain behaviours in cats undergoing ophthalmic surgery.",
+      "authors": "Marangoni S, Frank D, Chow D, Bukhari SSUH, Steagall PV",
+      "journal": "Vet J",
+      "date": "2026 Jun 28",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42365892/"
+    },
+    {
+      "id": "42364870",
+      "title": "An evaluation of osteoarthrosis in specific anatomic locations of the canine stifle joint treated with tibial plateau leveling osteotomy and tibial tuberosity advancement.",
+      "authors": "Pinna S, Tassani C",
+      "journal": "Vet J",
+      "date": "2026 Jun 27",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42364870/"
+    },
+    {
+      "id": "42365334",
+      "title": "Correction: Feasibility and usefulness of inhospital and at-home salivary sampling in healthy dogs and trilostane-treated dogs with Cushing's syndrome: a prospective observational study.",
+      "authors": "Meunier SM, Voegel CD, Neubert E, Harburger LA, Riond B",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 27",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42365334/"
+    },
+    {
+      "id": "42362104",
+      "title": "Computer-aided image analysis for PD-L1 assessment in canine urothelial carcinoma.",
+      "authors": "Muscatello LV, Bacci B, Brigandì E, Tugnoli C, Avallone G",
+      "journal": "Vet J",
+      "date": "2026 Jun 26",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42362104/"
+    },
+    {
+      "id": "42348344",
+      "title": "Clinical outcomes of lateral ear canal resection performed in routine clinical practice for chronic otitis externa in dogs: a retrospective descriptive study of 58 ears (2016-2025).",
+      "authors": "Kiriki K, Yabuzoe A, Iyori K",
+      "journal": "JSAP",
+      "date": "2026 Jun 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42348344/"
+    },
+    {
+      "id": "42345856",
+      "title": "Accuracy and agreement of a wearable device for heart rate and oxygen saturation monitoring in awake dogs.",
+      "authors": "Melek Ş, Orhun ÖT, Şenocak MG, Arslan T",
+      "journal": "JSAP",
+      "date": "2026 Jun 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42345856/"
+    },
+    {
+      "id": "42349633",
+      "title": "Three-dimensional cranial geometric morphometrics of syringomyelia in toy breed dogs.",
+      "authors": "Nakata K, Ono T, Kobatake Y, Nagumo T, Hoshino Y",
+      "journal": "Vet J",
+      "date": "2026 Jun 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42349633/"
+    },
+    {
+      "id": "42349632",
+      "title": "Feline bocaparvovirus in domestic cats with gastrointestinal disease.",
+      "authors": "Salvaggiulo A, Pellegrini F, Camero M, Gatta G, Rodi N",
+      "journal": "Vet J",
+      "date": "2026 Jun 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42349632/"
+    },
+    {
+      "id": "42349630",
+      "title": "Prognostic factors in cats with squamous cell carcinoma treated with electrochemotherapy.",
+      "authors": "Holanda AGA, Fonseca-Alves CE, Ambrósio AM, Sá LRM, Rangel MMM",
+      "journal": "Vet J",
+      "date": "2026 Jun 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42349630/"
+    },
+    {
+      "id": "42337613",
+      "title": "Exploratory analysis of risk factors associated with antimicrobial resistance in urinary Escherichia coli from dogs in the United States (2018-2024).",
+      "authors": "Ojasanya RA, Weese JS, Sobkowich KE, Deckert A, Szlosek D",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 24",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337613/"
+    },
+    {
+      "id": "42337734",
+      "title": "Assessment of pharmacokinetic parameters, oral bioavailability, and physiological effects of amantadine in horses.",
+      "authors": "Riley HL, Mama KR, Jacobs ME, McKemie DS, Kass PH",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337734/"
+    },
+    {
+      "id": "42337531",
+      "title": "Unilateral phaeochromocytoma in a dog with pre-existing, long-standing primary hypoadrenocorticism: a case report.",
+      "authors": "Tan SK, Hosgood GL, Curnow M",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337531/"
+    },
+    {
+      "id": "42337529",
+      "title": "Multilayered nucleotide organization reveals purifying selection and host-driven adaptation in CPV and FPV.",
+      "authors": "Feng X, Xu L, Zhang C, Zhou J, Bai X",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337529/"
+    },
+    {
+      "id": "42337527",
+      "title": "Epidemiological patterns of animal bites in urban and rural areas of Sarakhs County, Iran: a cross-sectional study (2017-2024).",
+      "authors": "Lael-Monfared E, Paydar M, Nabizadeh SM, Farkhani EM, Mohammadi M",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337527/"
+    },
+    {
+      "id": "42332686",
+      "title": "Short-term outcomes and mortality predictors in 41 dogs undergoing cholecystectomy for gallbladder mucocele: a single referral centre study.",
+      "authors": "Pagani G, Ferraris EI, Montinaro V, Buracco P, Capra G",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 22",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42332686/"
+    },
+    {
+      "id": "42323604",
+      "title": "Multifocal non-epitheliotrophic cutaneous B-cell Lymphoma in a dog: cytologic, histopathologic, immunophenotypic, and molecular findings.",
+      "authors": "Jeong Y, Lee MJ, Choi S, Kim DY, Chung JY",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42323604/"
+    },
+    {
+      "id": "42311163",
+      "title": "Retrospective study on diagnostic yield and medical impact of diagnostic imaging in dogs with immune-mediated haemolytic anaemia in Belgium.",
+      "authors": "Vlassenbroek R, Peeters D, Matthewman L, François C, Bolen G",
+      "journal": "JSAP",
+      "date": "2026 Jun 18",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42311163/"
+    },
+    {
+      "id": "42314866",
+      "title": "Vascular ultrasonographic findings in canine and feline patients with leishmaniosis.",
+      "authors": "Martín NG, Verdejo JIC, Chacón RB, Perarnau CZ, Carrasco FJD",
+      "journal": "Vet J",
+      "date": "2026 Jun 18",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42314866/"
+    },
+    {
+      "id": "42303168",
+      "title": "Hemodynamic responses to intravenous maropitant in anesthetized dogs depend on premedication protocol.",
+      "authors": "Callejas-Astiz U, Rubial-Aller R, Soto-López MV, Millán L, Altónaga JR",
+      "journal": "Vet J",
+      "date": "2026 Jun 16",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42303168/"
+    },
+    {
+      "id": "42304343",
+      "title": "Exploratory analysis of gut microbiota and its association with peripheral blood immune cell populations in canine myxomatous mitral valve disease.",
+      "authors": "Cimerman M, Papić B, Nemec Svete A, Avberšek J, Kušar D",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 16",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42304343/"
+    },
+    {
+      "id": "42298610",
+      "title": "Comparison of canine adrenal gland size assessment using ultrasonography and computed tomography.",
+      "authors": "Žel MK, Kočevar UU, Pogorevc E, Jagodič M, Pavlin D",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 15",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42298610/"
+    },
+    {
+      "id": "42288880",
+      "title": "Xanthogranulomatous pyelonephritis presenting as a mass-like renal lesion mimicking neoplasia in a dog: first documented case and diagnostic considerations.",
+      "authors": "Moosavian H, Jamshidi S, Pedram MS, Kumar N, Mahdipour M",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 13",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42288880/"
+    },
+    {
+      "id": "42281407",
+      "title": "Kinetics of Regenerating Protein 3E and C-Reactive Protein in Healthy Dogs, Dogs Undergoing Tibial Plateau Leveling Osteotomy, and Dogs With Sepsis.",
+      "authors": "Gentilini L, Rompf J, Howard J, Schuller S, Peters LM",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Jun 12",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42281407/"
+    },
+    {
+      "id": "42276157",
+      "title": "Regional airway fat distribution and its association with brachycephalic obstructive airway syndrome severity in pugs with varying body condition.",
+      "authors": "Huang E, Ladlow JF, Liu NC",
+      "journal": "Vet J",
+      "date": "2026 Jun 11",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42276157/"
+    },
+    {
+      "id": "42276156",
+      "title": "In vitro compatibility of type-B feline blood with canine blood of different DEA 1 phenotypes and with type-A feline blood.",
+      "authors": "Spada E, Perego R, Di Giancamillo M, Giudice C, Longo M",
+      "journal": "Vet J",
+      "date": "2026 Jun 11",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42276156/"
+    },
+    {
+      "id": "42276155",
+      "title": "Machine learning-assisted gait analysis for lameness detection in heterogeneous dog populations.",
+      "authors": "Mitchell L, Scott M, Häusler K, Adami C, Sutcliffe M",
+      "journal": "Vet J",
+      "date": "2026 Jun 11",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42276155/"
+    },
+    {
+      "id": "42277760",
+      "title": "Pilot evaluation of a liquid biopsy test for longitudinal monitoring of disease status in dogs undergoing treatment for multicentric lymphoma.",
+      "authors": "Nascimento A, Peterson S, Connell D, Helm Z, Leeth C",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jun 11",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42277760/"
+    },
+    {
+      "id": "42270044",
+      "title": "Evaluation of maropitant's analgesic and tissue relaxation effects during ovariohysterectomy in bitches.",
+      "authors": "Pedro F, Raquel R, Cristian A, Kseniia I, Miguel B",
+      "journal": "Vet J",
+      "date": "2026 Jun 10",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42270044/"
+    },
+    {
+      "id": "42066639",
+      "title": "Comparison of temporary pacing techniques in dogs undergoing permanent pacemaker implantation.",
+      "authors": "Prado Checa I, Culshaw GJ, Martinez Pereira Y",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42066639/"
+    },
+    {
+      "id": "41921274",
+      "title": "Isorhythmic atrioventricular dissociation in an alert normothermic cat.",
+      "authors": "Salvati M, Wotton P, Ivasovic F",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41921274/"
+    },
+    {
+      "id": "41863192",
+      "title": "Fresh autologous pericardial patch for surgical repair of mitral valve leaflet degeneration in a dog.",
+      "authors": "Isayama N, Mizuno T, Suzuki S, Sasaki K, Maeda E",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41863192/"
+    },
+    {
+      "id": "41863191",
+      "title": "Effect of non-ionic contrast media on invasive pressure measurements during minimally invasive occlusion of patent ductus arteriosus and balloon valvuloplasty for valvular pulmonic stenosis in dogs.",
+      "authors": "Saavedra AD, Karnia J, Leach SB, Petroski GF, Nafe L",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41863191/"
+    },
+    {
+      "id": "41844437",
+      "title": "Prevalence of mitral valve regurgitation in 102 apparently healthy Dachshunds.",
+      "authors": "Sjöbring O, Jakobsson E, Tidholm A",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41844437/"
+    },
+    {
+      "id": "41812342",
+      "title": "Outcomes of transcatheter closure of patent ductus arteriosus in 22 small-breed dogs using the Amplatzer™ Vascular Plug 4.",
+      "authors": "McManamey A, Dos Santos L, Hogan D",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41812342/"
+    },
+    {
+      "id": "41762926",
+      "title": "The utility of continuous high-enhanced-contrast electrocardiography-gated cardiac computed tomography method evaluating accurate minimal ductal diameter and ductus arteriosus morphology in a dog with patent ductus arteriosus.",
+      "authors": "Takeda M, Shiozawa N, Ishikawa C, Goya S",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41762926/"
+    },
+    {
+      "id": "41722518",
+      "title": "Successful treatment of feline infectious peritonitis with pericardiectomy and GS-441524.",
+      "authors": "Whelchel BD, Kline S, Rosa FB, Solano M, Berg AN",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41722518/"
+    },
+    {
+      "id": "41720066",
+      "title": "Third-degree atrioventricular block from metastatic poorly differentiated sarcoma suggestive of osteosarcoma in a dog.",
+      "authors": "Moy-Trigilio KE, Coffin HR, Taylor RP, Hsue W",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41720066/"
+    },
+    {
+      "id": "41720065",
+      "title": "Prevention of blood dilution during cardiopulmonary bypass surgery in a cat with ventricular septal defect.",
+      "authors": "Kanno N, Suzuki H, Yamada S, Yotsuida H",
+      "journal": "JVCS",
+      "date": "2026 Jun",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41720065/"
+    },
+    {
+      "id": "42394457",
+      "title": "Predictive utility of computed tomography-derived renal parenchymal volume for long-term postoperative renal function in cats with hydronephrosis.",
+      "authors": "Nagumo T, Hoshino Y, Kobayashi S, Fujiwara R, Yamasaki M",
+      "journal": "JSAP",
+      "date": "2026 Jul 3",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42394457/"
+    },
+    {
+      "id": "42393008",
+      "title": "The Animal Trauma Triage Score outperforms the VetCOT score in cats with high-rise syndrome.",
+      "authors": "Alemany A, Girol AM, Herrería V",
+      "journal": "JSAP",
+      "date": "2026 Jul 2",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42393008/"
+    },
+    {
+      "id": "42393672",
+      "title": "Molecular prevalence and clinical profiles of canine babesiosis in northern India.",
+      "authors": "Kumari A, Agnihotri D, Nehra AK, Moudgil AD",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jul 2",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42393672/"
+    },
+    {
+      "id": "42385782",
+      "title": "Plasma formiminoglutamic acid shows potential as a functional marker of folate deficiency in cats and dogs: development and validation of a liquid chromatography-tandem mass spectrometry method.",
+      "authors": "Cohn-Urbach M, Ruaux CG",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42385782/"
+    },
+    {
+      "id": "42385769",
+      "title": "Spot urinary electrolytes are associated with decongestion and duration of hospitalization in dogs with acute left-sided congestive heart failure secondary to myxomatous mitral valve disease.",
+      "authors": "Cho J, Kim M, Choi M, Lee J, Park C",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42385769/"
+    },
+    {
+      "id": "42019541",
+      "title": "Tolvaptan substitution for torsemide is associated with improved renal biomarkers in dogs with advanced myxomatous mitral valve disease and concurrent azotemia.",
+      "authors": "Park SS, Park J, Hyun C",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42019541/"
+    },
+    {
+      "id": "41999729",
+      "title": "Lumbosacral junction pedicle-probing technique for implant corridors in cats: feasibility and limitations.",
+      "authors": "Mullins RA, Marirrodriga Larrocha I, Ortega Jusdado C, Hoey S, Kraus KH",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41999729/"
+    },
+    {
+      "id": "41999727",
+      "title": "Retrospective evaluation of outpatient management following parathyroidectomy for treatment of primary hyperparathyroidism in dogs.",
+      "authors": "Duke SM, Prpich CY",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41999727/"
+    },
+    {
+      "id": "41999725",
+      "title": "Traumatic brain injury clinical score (TBICS) predicts survival outcomes in dogs and cats with acute traumatic brain injury.",
+      "authors": "Levy A, Rapoport K, Klainbart S, Yagil-Kelmer E, Shamir MH",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41999725/"
+    },
+    {
+      "id": "41985523",
+      "title": "Enucleations performed by the ophthalmology service have lower complication rates when compared to enucleations performed by the emergency service.",
+      "authors": "Byrne SH, Pumphrey S, Rozanski EA, Berlin N",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41985523/"
+    },
+    {
+      "id": "41946378",
+      "title": "Patient safety investigative methods identify contributors to canine magnetic resonance imaging dermatologic thermal injuries in an academic hospital.",
+      "authors": "Adin D, Stockhaus C, Reyes T, Santoro D, Sanchez C",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41946378/"
+    },
+    {
+      "id": "41946374",
+      "title": "Serum protein alterations characterize feline chronic gingivostomatitis: a case-control study of electrophoresis, immunoglobulin, and cytokine profiles.",
+      "authors": "Tetlow ER, Wentlent LA, Carney PC, Byron MJ, Fiani N",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41946374/"
+    },
+    {
+      "id": "41894846",
+      "title": "Neck flexion to 60° maximizes cisternal subarachnoid space for cerebrospinal fluid collection in dogs.",
+      "authors": "Kim J, Sung T, Nam C, Lee I, Son WG",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41894846/"
+    },
+    {
+      "id": "41886824",
+      "title": "Center of pressure metrics are repeatable and reliable in healthy cats walking on a pressure-sensitive treadmill.",
+      "authors": "Mille MA, Weissig D, Dobenecker B, Mille EB, Zablotski Y",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41886824/"
+    },
+    {
+      "id": "41886816",
+      "title": "Dexmedetomidine constant-rate infusion suppresses insulin secretion and impairs glucose tolerance in healthy dogs.",
+      "authors": "Maeda K, Inada M, Iwai S, Okano S",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41886816/"
+    },
+    {
+      "id": "41831400",
+      "title": "Vessel-sealing devices may be safely used for hepatic surgery in dogs with a low rate of severe complications.",
+      "authors": "Yoon J, Montinaro V, Chiti LE, Rossanese M, Cinti F",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41831400/"
+    },
+    {
+      "id": "41831398",
+      "title": "Comparison of coagulation patterns in dogs with Cushing syndrome and prednisolone treatment assessed by thromboelastography.",
+      "authors": "Koh SR, Ha JH, Chung JY, Ahn JO",
+      "journal": "AJVR",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41831398/"
+    },
+    {
+      "id": "42391601",
+      "title": "Dietary-responsive disseminated eosinophilia in a border terrier.",
+      "authors": "Barton J, Gomes SA, van Lelyveld S, White RN, Richardson S",
+      "journal": "JVIM",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42391601/"
+    },
+    {
+      "id": "42391600",
+      "title": "Clinical features, diagnostic findings, and outcomes of emphysematous cholecystitis in 35 dogs: a retrospective case series.",
+      "authors": "Ullal TV, McLarty E, Cordova AY, Weisbeck B, Shropshire SB",
+      "journal": "JVIM",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42391600/"
+    },
+    {
+      "id": "42384842",
+      "title": "Characterization and outcomes of cats with cardiomyopathy undergoing subcutaneous ureteral bypass device placement.",
+      "authors": "Cassou C, Plante C, Vachon C, Boot G, Juette T",
+      "journal": "JVIM",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42384842/"
+    },
+    {
+      "id": "42384572",
+      "title": "Maine Coons and intestinal intussusception: breed predisposition and clinicopathological features.",
+      "authors": "Dainese M, Petini M, Zoia A",
+      "journal": "JSAP",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42384572/"
+    },
+    {
+      "id": "42385783",
+      "title": "Acute-onset neurologic signs in an indoor/outdoor domestic shorthair cat.",
+      "authors": "Nelissen SR, Belknap CH, Wu TK",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42385783/"
+    },
+    {
+      "id": "41849823",
+      "title": "One-lung ventilation is well tolerated in dogs undergoing thoracoscopic surgery irrespective of device or side of lung blocked.",
+      "authors": "Mastorakis AN, Gibson EA, Barr CA, Stefanovski D, Machado ML",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41849823/"
+    },
+    {
+      "id": "41849815",
+      "title": "Tailored ureteroneocystostomy with tension-relieving techniques for benign ureteral obstruction in cats: a retrospective study of 189 cases (220 ureters).",
+      "authors": "Oyamada K, Sato-Takada K, Motegi T, Minamoto TB, Fujiki M",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41849815/"
+    },
+    {
+      "id": "41849812",
+      "title": "Red blood cell distribution width may help distinguish canine gastrointestinal lymphoma from chronic inflammatory enteropathy and be a prognostic indicator.",
+      "authors": "Horita K, Sakuma H, Fukuoka R, Sakamoto M, Ohmi A",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41849812/"
+    },
+    {
+      "id": "41831399",
+      "title": "Partial cystectomy and adjuvant chemotherapy are associated with prolonged survival in dogs and cats with nontrigonal urothelial carcinoma (2010-2014).",
+      "authors": "Goraya DS, Cray M",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41831399/"
+    },
+    {
+      "id": "41812328",
+      "title": "The Dog Aging Project End of Life Survey reveals owners' perceptions of canine death and highlights areas to improve client education.",
+      "authors": "McNulty KE, Ruple A, Fitzpatrick A, Wilkins V, Dog Aging Project Consortium",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41812328/"
+    },
+    {
+      "id": "41780160",
+      "title": "Dogs with chronic enteropathy and low disease activity show signs consistent with compromised emotional health compared to matched healthy control dogs.",
+      "authors": "Ludvigsson U, Heath S, Tooley C, Olmedal G, Hellgren J",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41780160/"
+    },
+    {
+      "id": "41759296",
+      "title": "Topical oxygen therapy with hyaluronic acid improves wound healing in small animals.",
+      "authors": "Ferrari C, Cola V, Zanardi S, Foglia A, Pisoni L",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41759296/"
+    },
+    {
+      "id": "41759292",
+      "title": "Lignocaine and phenylephrine spray prior to brachycephalic obstructive airway syndrome surgery in dogs reduces postoperative regurgitation: a prospective, randomized, controlled trial.",
+      "authors": "Graham M, King J, Atkinson P, Corfield G",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41759292/"
+    },
+    {
+      "id": "41759290",
+      "title": "Incidence of hypoxemia is associated with echocardiographic findings in dogs with advanced myxomatous mitral valve disease.",
+      "authors": "Seki D, Goya S, Teshima K, Yamaya Y",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41759290/"
+    },
+    {
+      "id": "41740251",
+      "title": "Acute kidney injury is associated with increased mortality in dogs with gastric dilatation and volvulus.",
+      "authors": "Suarez-Rodriguez JI, Lourenço BN, Huang JHC, Brainard BM, Schmiedt CW",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41740251/"
+    },
+    {
+      "id": "41719712",
+      "title": "Complications are more commonly reported for French Bulldogs than Miniature Dachshunds undergoing hemilaminectomy for thoracolumbar intervertebral disk extrusion.",
+      "authors": "Skovola E, De Decker S",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41719712/"
+    },
+    {
+      "id": "41719700",
+      "title": "Intravenous iodinated contrast media transiently increases urine specific gravity and pH without affecting other urinalysis parameters after computed tomography examination in dogs.",
+      "authors": "Barthe S, Dor C, Rault D, Fritz J, Rannou B",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41719700/"
+    },
+    {
+      "id": "41719696",
+      "title": "How does canine atopic dermatitis provide a unique opportunity to study spectrum of care?",
+      "authors": "Gentry CM, Rey L, Teller C, Teller L",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41719696/"
+    },
+    {
+      "id": "41707322",
+      "title": "High fat, high risk? Evaluating the strength of evidence linking dietary fat and pancreatitis in dogs.",
+      "authors": "Yamka R, Sires R, Wakshlag J, Gaylord L, Cridge H",
+      "journal": "JAVMA",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41707322/"
+    },
+    {
+      "id": "42387531",
+      "title": "Veterinarians' attitudes towards the treatment and surgical management of brachycephalic dogs - a survey among small animal veterinarians in Austria.",
+      "authors": "Hebenstreit M, Springer S",
+      "journal": "BMC Vet Res",
+      "date": "2026 Jul 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42387531/"
+    },
+    {
+      "id": "41863391",
+      "title": "Bilateral surgery of humeral intracondylar fissures and humeral condylar fractures is associated with increased complication rates.",
+      "authors": "Mala B, Marrone L, Basinska M, Malkani R, Erwood M",
+      "journal": "JSAP",
+      "date": "2026 Jul",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41863391/"
+    },
+    {
+      "id": "41856954",
+      "title": "Nerve-sparing total prostatectomy with or without adjuvant chemotherapy is associated with a low rate of surgical complications, long-term continence and improved survival in 22 dogs with T1 to T3 prostatic tumours.",
+      "authors": "Salmina AG, Chiti LE, Cinti F, Massari F",
+      "journal": "JSAP",
+      "date": "2026 Jul",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41856954/"
+    },
+    {
+      "id": "41834532",
+      "title": "Multidrug resistance of bacterial pathogens in canine pyometra.",
+      "authors": "Camozzi MGM, Waller SB, Castelhano EC, Neves ALS, Arrais BR",
+      "journal": "JSAP",
+      "date": "2026 Jul",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41834532/"
+    },
+    {
+      "id": "41834273",
+      "title": "Investigation of the palatine approach as a novel technique to block the canine maxillary nerve: a comparative cadaveric study.",
+      "authors": "Antonopoulou I, Fitzmaurice M, Mannion P, Bainbridge D, Adami C",
+      "journal": "JSAP",
+      "date": "2026 Jul",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41834273/"
+    },
+    {
+      "id": "41745571",
+      "title": "Evaluation of safety and efficacy of an ophytrium and seboliance-containing mousse with or without shampoo in cats with keratinisation disorders.",
+      "authors": "Noli C, Dropsy H, Cozar A, De Jaeger X, Kesteman R",
+      "journal": "JSAP",
+      "date": "2026 Jul",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41745571/"
+    },
+    {
+      "id": "41738814",
+      "title": "Ultrasound-guided trigeminal nerve block with contrast-enhanced CT evaluation for extensive oncologic maxillofacial surgery in 7 dogs: a prospective case series.",
+      "authors": "Laffitte R, Ruel Y, Giannettoni G, Zilberstein L",
+      "journal": "JSAP",
+      "date": "2026 Jul",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41738814/"
+    },
+    {
+      "id": "41738779",
+      "title": "Modified cranial closing wedge ostectomy in 169 stifles: considerations on potential factors associated with construct failures.",
+      "authors": "Winter J, Banks C, Jones G, Meeson R",
+      "journal": "JSAP",
+      "date": "2026 Jul",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41738779/"
+    },
+    {
+      "id": "41688875",
+      "title": "Psychogenic polydipsia in dogs - a review of pathogenesis, diagnosis and treatment.",
+      "authors": "Pavlovsky G",
+      "journal": "JSAP",
+      "date": "2026 Jul",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41688875/"
+    },
+    {
+      "id": "41688213",
+      "title": "Histopathological findings of mammary tumours in male dogs and cats from a long-term institutional cohort.",
+      "authors": "Hertel B, Baldassarre V, Gasparini S, Bortolami E, Cinti F",
+      "journal": "JSAP",
+      "date": "2026 Jul",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41688213/"
+    },
+    {
+      "id": "41986991",
+      "title": "Regression Using 20 Samples to Harmonize a Point-of-Care Analyzer With a Commercial Laboratory Analyzer for Feline Plasma Biochemistry Testing.",
+      "authors": "Baral RM, Flatland B, Jaensch SM, Lessels DA, Freeman KP",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Apr 15",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41986991/"
+    },
+    {
+      "id": "41986985",
+      "title": "Codocytosis in the Dog: 345 Cases (2020-2022).",
+      "authors": "Krojanker SM, Jaramillo M, Cingolani BD, Williams FL Jr, Serpa PBS",
+      "journal": "Vet Clin Pathol",
+      "date": "2026 Apr 15",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41986985/"
+    }
+  ]
+}
