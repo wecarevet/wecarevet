@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>최신 수의학 논문 | 위케어동물의료센터</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: #f4f7fb; color: #222; }
+
+  header {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 36px 40px 28px;
+  }
+  header .label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #7ec8e3;
+    margin-bottom: 8px;
+  }
+  header h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+  header p { font-size: 13px; color: #a8c8e0; }
+
+  .filter-bar {
+    background: #fff;
+    border-bottom: 1px solid #e0e8f5;
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .filter-bar span { font-size: 12px; color: #888; margin-right: 4px; }
+  .filter-btn {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid #c8dff5;
+    background: #fff;
+    color: #2e6da8;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: #2e6da8;
+    color: #fff;
+    border-color: #2e6da8;
+  }
+
+  .container { max-width: 900px; margin: 32px auto; padding: 0 20px; }
+
+  .update-info {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .update-dot { width: 7px; height: 7px; border-radius: 50%; background: #4caf82; display: inline-block; }
+
+  .paper-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e8f5;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    transition: box-shadow 0.15s;
+  }
+  .paper-card:hover { box-shadow: 0 4px 16px rgba(46,109,168,0.10); }
+
+  .paper-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .journal-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: #e8f3fb;
+    color: #2e6da8;
+    letter-spacing: 0.5px;
+  }
+  .date-badge { font-size: 11px; color: #aaa; }
+  .new-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #e8f7f0;
+    color: #2a9d6e;
+    font-weight: 700;
+  }
+
+  .paper-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a3a5c;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .paper-title a { color: inherit; text-decoration: none; }
+  .paper-title a:hover { color: #2e6da8; text-decoration: underline; }
+
+  .paper-authors {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .paper-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+  }
+  .pubmed-link {
+    font-size: 12px;
+    color: #2e6da8;
+    text-decoration: none;
+    border: 1px solid #c8dff5;
+    border-radius: 6px;
+    padding: 4px 12px;
+  }
+  .pubmed-link:hover { background: #e8f3fb; }
+
+  .loading {
+    text-align: center;
+    padding: 60px 0;
+    color: #aaa;
+    font-size: 14px;
+  }
+  .loading-spinner {
+    width: 32px; height: 32px;
+    border: 3px solid #e0e8f5;
+    border-top-color: #2e6da8;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .error-box {
+    background: #fff5f5;
+    border: 1px solid #f5c6c6;
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    color: #c0392b;
+    font-size: 13px;
+  }
+  .no-result {
+    text-align: center;
+    padding: 48px 0;
+    color: #aaa;
+    font-size: 14px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px;
+    font-size: 12px;
+    color: #bbb;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="label">WCARE ANIMAL MEDICAL CENTER · RESEARCH</div>
+  <h1>소동물 최신 수의학 논문</h1>
+  <p>PubMed 주요 저널에서 매일 자동으로 업데이트됩니다</p>
+</header>
+
+<div class="filter-bar">
+  <span>분야 필터</span>
+  <button class="filter-btn active" onclick="filterBy(this, 'all')">전체</button>
+  <button class="filter-btn" onclick="filterBy(this, 'cardiology')">심장</button>
+  <button class="filter-btn" onclick="filterBy(this, 'internal')">내과</button>
+  <button class="filter-btn" onclick="filterBy(this, 'oncology')">종양</button>
+  <button class="filter-btn" onclick="filterBy(this, 'surgery')">외과</button>
+  <button class="filter-btn" onclick="filterBy(this, 'neurology')">신경</button>
+  <button class="filter-btn" onclick="filterBy(this, 'dermatology')">피부</button>
+</div>
+
+<div class="container">
+  <div class="update-info">
+    <span class="update-dot"></span>
+    <span id="update-time">논문을 불러오는 중...</span>
+  </div>
+  <div id="paper-list">
+    <div class="loading">
+      <div class="loading-spinner"></div>
+      논문 목록을 불러오는 중입니다...
+    </div>
+  </div>
+</div>
+
+<footer>© 위케어동물의료센터 · 데이터 출처: PubMed (NCBI)</footer>
+
+<script>
+const CATEGORY_KEYWORDS = {
+  cardiology: ['cardiac','heart','mitral','cardiomyopathy','arrhythmia','torsemide','tolvaptan','diuretic','valve','congestive'],
+  internal:   ['kidney','renal','liver','hepatic','diabetes','endocrine','azotemia','pancreatitis','gastro','intestin'],
+  oncology:   ['tumor','cancer','neoplasia','lymphoma','mast cell','sarcoma','oncology','malignant'],
+  surgery:    ['surgery','surgical','fracture','orthopedic','laparoscopy','wound','repair','resection'],
+  neurology:  ['neuro','epilepsy','seizure','spinal','brain','vestibular','disc','cerebell'],
+  dermatology:['skin','dermatitis','atopy','pruritus','alopecia','allergy','dermatology','otitis'],
+};
+
+let allPapers = [];
+let currentFilter = 'all';
+
+function categorize(paper) {
+  const text = (paper.title + ' ' + (paper.authors || '')).toLowerCase();
+  for (const [cat, kws] of Object.entries(CATEGORY_KEYWORDS)) {
+    if (kws.some(k => text.includes(k))) return cat;
+  }
+  return 'other';
+}
+
+function isNew(dateStr) {
+  if (!dateStr) return false;
+  const d = new Date(dateStr);
+  return (Date.now() - d) < 14 * 24 * 60 * 60 * 1000;
+}
+
+function renderPapers() {
+  const list = document.getElementById('paper-list');
+  const filtered = currentFilter === 'all'
+    ? allPapers
+    : allPapers.filter(p => categorize(p) === currentFilter);
+
+  if (!filtered.length) {
+    list.innerHTML = '<div class="no-result">해당 분야의 최신 논문이 없습니다.</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(p => `
+    <div class="paper-card">
+      <div class="paper-meta">
+        <span class="journal-badge">${p.journal}</span>
+        <span class="date-badge">${p.date || ''}</span>
+        ${isNew(p.date) ? '<span class="new-badge">NEW</span>' : ''}
+      </div>
+      <div class="paper-title">
+        <a href="${p.url}" target="_blank" rel="noopener">${p.title}</a>
+      </div>
+      <div class="paper-authors">${p.authors || ''}</div>
+      <div class="paper-footer">
+        <a class="pubmed-link" href="${p.url}" target="_blank" rel="noopener">PubMed에서 보기 →</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterBy(btn, cat) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPapers();
+}
+
+async function init() {
+  try {
+    const res = await fetch('papers.json');
+    if (!res.ok) throw new Error('papers.json 없음');
+    const data = await res.json();
+    allPapers = data.papers || [];
+    document.getElementById('update-time').textContent =
+      `마지막 업데이트: ${data.updated} · 총 ${data.total}편`;
+    renderPapers();
+  } catch (e) {
+    document.getElementById('paper-list').innerHTML =
+      '<div class="error-box">논문 데이터를 불러올 수 없습니다.<br>papers.json 파일이 저장소에 있는지 확인해주세요.</div>';
+    document.getElementById('update-time').textContent = '업데이트 정보 없음';
+  }
+}
+
+init();
+</script>
+</body>
+</html>
