@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>진료비용 안내 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+
+.topbar{background:var(--navy);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.7;letter-spacing:.08em}
+.topbar-btns{display:flex;gap:.5rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:hover{background:rgba(255,255,255,.22)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);font-size:11px}
+
+.hero{background:var(--navy);padding:2.5rem 1.5rem 2rem;text-align:center}
+.hero-inner{max-width:900px;margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.75rem}
+.hero h1{font-size:24px;font-weight:700;color:#fff;margin-bottom:.6rem}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.75}
+
+.notice-bar{background:var(--navy-xlight);border-bottom:1px solid var(--border);padding:.875rem 1.5rem;text-align:center;font-size:12px;color:var(--text-mid)}
+.notice-bar strong{color:var(--navy);font-weight:600}
+
+.main{max-width:900px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+/* GRID LAYOUT */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+.price-grid.single{grid-template-columns:1fr}
+.price-grid.triple{grid-template-columns:1fr 1fr 1fr}
+
+/* PRICE CARD */
+.pcard{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.pcard-head{background:var(--navy);color:#fff;padding:.75rem 1.25rem;font-size:13px;font-weight:700;letter-spacing:.04em;text-align:center}
+.pcard-body{padding:.25rem 0}
+
+/* PRICE ROW */
+.prow{display:flex;align-items:center;justify-content:space-between;padding:.55rem 1.25rem;border-bottom:1px solid var(--navy-xlight);font-size:13px}
+.prow:last-child{border-bottom:none}
+.prow:hover{background:var(--navy-xlight)}
+.prow-label{color:var(--text-mid);flex:1}
+.prow-sub{font-size:11px;color:var(--text-muted);margin-left:.5rem}
+.prow-price{font-weight:600;color:var(--navy);white-space:nowrap;margin-left:1rem}
+.prow-range{font-weight:600;color:var(--navy);white-space:nowrap;margin-left:1rem;font-size:12px}
+
+/* SECTION DIVIDER inside card */
+.psec{padding:.5rem 1.25rem .25rem;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--navy-xlight)}
+
+/* NOTE */
+.pnote{font-size:11px;color:var(--text-muted);padding:.5rem 1.25rem .6rem;text-align:right;font-style:italic}
+
+/* PARASITE TABLE - 3 column */
+.para-table{width:100%;border-collapse:collapse;font-size:12px}
+.para-table th{text-align:left;padding:7px 10px;font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--text-muted);background:var(--navy-xlight);border-bottom:1px solid var(--border)}
+.para-table td{padding:6px 10px;border-bottom:1px solid var(--navy-xlight);color:var(--text-mid)}
+.para-table tr:last-child td{border-bottom:none}
+.para-table tr:hover td{background:var(--navy-xlight)}
+.para-table td:last-child{font-weight:600;color:var(--navy);text-align:right}
+.para-name{font-weight:600;color:var(--text)}
+
+.foot{background:var(--navy);padding:2rem 1.5rem;margin-top:1rem}
+.foot-inner{max-width:900px;margin:0 auto}
+.foot-disc{font-size:12px;color:rgba(255,255,255,.45);line-height:1.9;margin-bottom:1.25rem}
+.foot-disc strong{color:rgba(255,255,255,.7);font-weight:500}
+.foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+
+@media(max-width:600px){
+  .price-grid{grid-template-columns:1fr}
+  .price-grid.triple{grid-template-columns:1fr}
+  .hero h1{font-size:20px}
+  .topbar-btns .tbtn.call span{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 진료비용 안내</div>
+    <h1>진찰 및 검사, 진료비용 게시</h1>
+    <p class="hero-desc">수의사법 제13조의2에 따라 주요 진료항목의 비용을 게시합니다.<br>표시된 금액은 부가세 포함 기준이며, 동물의 상태에 따라 달라질 수 있습니다.</p>
+  </div>
+</div>
+
+<div class="notice-bar">
+  <strong>※ 안내</strong> · 표시 금액은 <strong>7kg 이하 기준</strong>이며, 체중·상태에 따라 변동될 수 있습니다. 정확한 비용은 내원 후 상담 시 안내드립니다.
+</div>
+
+<div class="main">
+
+
+  <!-- CALCULATOR -->
+  <div class="price-grid single" style="margin-bottom:1.25rem">
+    <div class="pcard">
+      <div class="pcard-head">💊 체중별 비용 계산기</div>
+      <div class="pcard-body" style="padding:1.25rem">
+        <p style="font-size:13px;color:var(--text-mid);margin-bottom:1.25rem;line-height:1.7">아이의 체중을 입력하시면 항목별 예상 비용을 자동으로 계산해드립니다.<br>
+        <span style="font-size:12px;color:var(--text-muted)">* 중성화·입원 등 7kg 초과 시 kg당 10,000원이 추가됩니다.</span></p>
+
+        <!-- 체중 입력 -->
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap">
+          <label style="font-size:13px;font-weight:600;color:var(--navy);white-space:nowrap">체중 입력</label>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <input type="number" id="weightInput" min="0.1" max="80" step="0.1" placeholder="예: 5.2"
+              style="width:100px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--navy);outline:none;transition:border-color .15s"
+              oninput="calcAll()" onfocus="this.style.borderColor='#10335E'" onblur="this.style.borderColor='var(--border)'">
+            <span style="font-size:13px;color:var(--text-mid)">kg</span>
+          </div>
+          <div id="weight-badge" style="display:none;font-size:11px;padding:4px 10px;border-radius:999px;font-weight:600"></div>
+        </div>
+
+        <!-- 결과 테이블 -->
+        <div id="calc-results" style="display:none">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+
+            <!-- 중성화 -->
+            <div style="background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+              <div style="background:var(--navy);color:#fff;padding:.5rem .875rem;font-size:12px;font-weight:700">중성화 수술</div>
+              <div class="calc-row"><span>암컷 중성화</span><span id="c-female">-</span></div>
+              <div class="calc-row"><span>수컷 중성화</span><span id="c-male">-</span></div>
+              <div class="calc-row"><span>스케일링</span><span id="c-scaling">-</span></div>
+            </div>
+
+            <!-- 건강검진 -->
+            <div style="background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+              <div style="background:var(--navy);color:#fff;padding:.5rem .875rem;font-size:12px;font-weight:700">건강검진</div>
+              <div class="calc-row"><span>강아지 0~4세</span><span id="c-dog-young">-</span></div>
+              <div class="calc-row"><span>강아지 5세↑</span><span id="c-dog-old">-</span></div>
+              <div class="calc-row"><span>고양이 0~4세</span><span id="c-cat-young">-</span></div>
+              <div class="calc-row"><span>고양이 5~9세</span><span id="c-cat-mid">-</span></div>
+              <div class="calc-row"><span>고양이 10세↑</span><span id="c-cat-old">-</span></div>
+            </div>
+
+            <!-- 입원비 -->
+            <div style="background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+              <div style="background:var(--navy);color:#fff;padding:.5rem .875rem;font-size:12px;font-weight:700">입원비 (ICU 주간 당일)</div>
+              <div class="calc-row" id="c-icu-row"><span id="c-icu-label">해당 체중</span><span id="c-icu">-</span></div>
+            </div>
+
+            <!-- 기생충 예방 -->
+            <div style="background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;overflow:hidden">
+              <div style="background:var(--navy);color:#fff;padding:.5rem .875rem;font-size:12px;font-weight:700">기생충 예방약</div>
+              <div class="calc-row" id="c-frontline-row"><span>프론트라인</span><span id="c-frontline">-</span></div>
+              <div class="calc-row" id="c-heartgard-row"><span>하트가드</span><span id="c-heartgard">-</span></div>
+              <div class="calc-row" id="c-nexgard-row"><span>넥스가드</span><span id="c-nexgard">-</span></div>
+              <div class="calc-row" id="c-revolution-row"><span>레볼루션</span><span id="c-revolution">-</span></div>
+            </div>
+
+          </div>
+
+          <!-- 추가요금 안내 -->
+          <div id="surcharge-note" style="display:none;margin-top:.875rem;background:#fff8e0;border:1px solid #e8d48a;border-radius:8px;padding:.75rem 1rem;font-size:12px;color:#5a3e00;line-height:1.7">
+            ⚠️ <strong>7kg 초과 추가요금 적용</strong> —
+            중성화·스케일링·건강검진 항목에 <strong id="surcharge-amt"></strong>이 추가되었습니다.
+            (7kg 초과 <span id="surcharge-kg"></span>kg × 10,000원)
+          </div>
+
+          <p style="font-size:11px;color:var(--text-muted);margin-top:.75rem;text-align:center">위 금액은 예상 금액이며, 실제 비용은 진료 후 안내드립니다.</p>
+        </div>
+
+        <div id="calc-placeholder" style="text-align:center;padding:1.5rem;color:var(--text-muted);font-size:13px">
+          체중을 입력하시면 예상 비용이 표시됩니다 🐾
+        </div>
+      </div>
+    </div>
+  </div>
+
+<style>
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:.45rem .875rem;border-bottom:1px solid var(--border);font-size:12px;color:var(--text-mid)}
+.calc-row:last-child{border-bottom:none}
+.calc-row span:last-child{font-weight:600;color:var(--navy)}
+</style>
+
+<script>
+function fmt(n){return n.toLocaleString()+'원'}
+
+function surcharge(base, weight){
+  if(weight <= 7) return base;
+  const extra = Math.ceil((weight - 7)) * 10000;
+  return base + extra;
+}
+
+function calcAll(){
+  const w = parseFloat(document.getElementById('weightInput').value);
+  const res = document.getElementById('calc-results');
+  const ph = document.getElementById('calc-placeholder');
+  const badge = document.getElementById('weight-badge');
+
+  if(!w || w <= 0){
+    res.style.display='none';
+    ph.style.display='block';
+    badge.style.display='none';
+    return;
+  }
+
+  res.style.display='block';
+  ph.style.display='none';
+
+  // 체중 배지
+  badge.style.display='inline-block';
+  badge.textContent = w+'kg';
+  if(w <= 7){
+    badge.style.background='#e8f4ff';
+    badge.style.color='#1a4a8a';
+    badge.style.border='1px solid #aaccee';
+  } else {
+    badge.style.background='#fff8e0';
+    badge.style.color='#7a5500';
+    badge.style.border='1px solid #e8d48a';
+  }
+
+  const extra = w > 7 ? Math.ceil(w-7)*10000 : 0;
+  const surNote = document.getElementById('surcharge-note');
+  if(extra > 0){
+    surNote.style.display='block';
+    document.getElementById('surcharge-amt').textContent = fmt(extra);
+    document.getElementById('surcharge-kg').textContent = (w-7).toFixed(1);
+  } else {
+    surNote.style.display='none';
+  }
+
+  // 중성화
+  document.getElementById('c-female').textContent = fmt(surcharge(399000, w));
+  document.getElementById('c-male').textContent = fmt(surcharge(240000, w));
+  document.getElementById('c-scaling').textContent = fmt(surcharge(340000, w));
+
+  // 건강검진
+  document.getElementById('c-dog-young').textContent = fmt(surcharge(220000, w));
+  document.getElementById('c-dog-old').textContent = fmt(surcharge(340000, w));
+  document.getElementById('c-cat-young').textContent = fmt(surcharge(220000, w));
+  document.getElementById('c-cat-mid').textContent = fmt(surcharge(340000, w));
+  document.getElementById('c-cat-old').textContent = fmt(surcharge(440000, w));
+
+  // 입원비 (7kg 초과 추가 없음 - 체중 구간별)
+  let icu, icuLabel;
+  if(w <= 7){ icu=55000; icuLabel='7kg 이하'; }
+  else if(w <= 14){ icu=66000; icuLabel='7~14kg'; }
+  else if(w <= 21){ icu=77000; icuLabel='14~21kg'; }
+  else { icu=77000; icuLabel='21kg 초과 (별도 문의)'; }
+  document.getElementById('c-icu').textContent = fmt(icu);
+  document.getElementById('c-icu-label').textContent = icuLabel;
+
+  // 프론트라인
+  let fl = '-';
+  if(w <= 10) fl = fmt(16000);
+  else if(w <= 20) fl = fmt(22000);
+  else if(w <= 40) fl = fmt(25000);
+  else fl = '범위 초과';
+  document.getElementById('c-frontline').textContent = fl;
+
+  // 하트가드
+  let hg = '-';
+  if(w <= 11) hg = fmt(10000);
+  else if(w <= 22) hg = fmt(14000);
+  else if(w <= 45) hg = fmt(17000);
+  else hg = '범위 초과';
+  document.getElementById('c-heartgard').textContent = hg;
+
+  // 넥스가드
+  let ng = '-';
+  if(w >= 1.6 && w <= 3.5) ng = fmt(21000);
+  else if(w <= 7) ng = fmt(23000);
+  else if(w <= 15) ng = fmt(26000);
+  else if(w <= 30) ng = fmt(32000);
+  else if(w <= 60) ng = fmt(42000);
+  else ng = '범위 초과';
+  document.getElementById('c-nexgard').textContent = ng;
+
+  // 레볼루션
+  let rv = '-';
+  if(w <= 2.5) rv = fmt(15000);
+  else if(w <= 5) rv = fmt(17000);
+  else if(w <= 10) rv = fmt(19000);
+  else if(w <= 20) rv = fmt(24000);
+  else if(w <= 40) rv = fmt(34000);
+  else rv = '범위 초과';
+  document.getElementById('c-revolution').textContent = rv;
+}
+</script>
+
+  <!-- Row 1: 진찰료 + 접종 -->
+  <div class="price-grid">
+
+    <div class="pcard">
+      <div class="pcard-head">진찰료</div>
+      <div class="pcard-body">
+        <div class="prow"><span class="prow-label">초진 진찰료</span><span class="prow-price">11,000원</span></div>
+        <div class="prow"><span class="prow-label">재진 진찰료</span><span class="prow-price">8,800원</span></div>
+        <div class="prow"><span class="prow-label">진료 상담비</span><span class="prow-price">8,800원</span></div>
+        <div class="prow"><span class="prow-label">타 병원 관련 상담<span class="prow-sub">7kg 이하 기준</span></span><span class="prow-range">20,000~50,000원</span></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-head">접종</div>
+      <div class="pcard-body">
+        <div class="prow"><span class="prow-label">강아지 종합접종</span><span class="prow-price">30,000원</span></div>
+        <div class="prow"><span class="prow-label">강아지 코로나 장염</span><span class="prow-price">25,000원</span></div>
+        <div class="prow"><span class="prow-label">강아지 전염성 기관지염</span><span class="prow-price">25,000원</span></div>
+        <div class="prow"><span class="prow-label">강아지 신종플루</span><span class="prow-price">35,000원</span></div>
+        <div class="prow"><span class="prow-label">강아지 광견병</span><span class="prow-price">25,000원</span></div>
+        <div class="prow"><span class="prow-label">고양이 종합접종</span><span class="prow-price">45,000원</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 2: 검사비용 + 입원비용 -->
+  <div class="price-grid">
+
+    <div class="pcard">
+      <div class="pcard-head">검사비용</div>
+      <div class="pcard-body">
+        <div class="prow"><span class="prow-label">전혈구검사</span><span class="prow-price">44,000원</span></div>
+        <div class="prow"><span class="prow-label">혈액검사 10종</span><span class="prow-price">75,000원</span></div>
+        <div class="prow"><span class="prow-label">혈액검사 17종</span><span class="prow-price">143,000원</span></div>
+        <div class="prow"><span class="prow-label">전해질 검사<span class="prow-sub">나트륨·칼륨·염소</span></span><span class="prow-price">36,300원</span></div>
+        <div class="prow"><span class="prow-label">SDMA <span class="prow-sub">신부전 조기검사</span></span><span class="prow-price">66,000원</span></div>
+        <div class="prow"><span class="prow-label">갑상선 호르몬검사</span><span class="prow-price">66,000원</span></div>
+        <div class="prow"><span class="prow-label">소변검사 <span class="prow-sub">스틱·비중</span></span><span class="prow-price">22,000원</span></div>
+        <div class="prow"><span class="prow-label">단백뇨검사</span><span class="prow-price">38,000원</span></div>
+        <div class="prow"><span class="prow-label">췌장염 검사</span><span class="prow-price">66,000원</span></div>
+        <div class="prow"><span class="prow-label">CRP 검사</span><span class="prow-price">41,000원</span></div>
+        <div class="prow"><span class="prow-label">엑스레이 <span class="prow-sub">1 cut 기준</span></span><span class="prow-price">27,500원</span></div>
+        <div class="prow"><span class="prow-label">복부초음파</span><span class="prow-price">99,000원</span></div>
+        <div class="prow"><span class="prow-label">심장초음파 <span class="prow-sub">초진 기준</span></span><span class="prow-price">195,000원</span></div>
+        <pnote class="pnote">* 영상 촬영 검사는 10kg 이하 기준</pnote>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-head">입원비용</div>
+      <div class="pcard-body">
+        <div class="psec">ICU 주간 (당일)</div>
+        <div class="prow"><span class="prow-label">7kg 이하</span><span class="prow-price">55,000원</span></div>
+        <div class="prow"><span class="prow-label">7kg ~ 14kg</span><span class="prow-price">66,000원</span></div>
+        <div class="prow"><span class="prow-label">14kg ~ 21kg</span><span class="prow-price">77,000원</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Row 3: 심장사상충 및 외부기생충 (wide) -->
+  <div class="price-grid single">
+    <div class="pcard">
+      <div class="pcard-head">심장사상충 및 외부기생충</div>
+      <div class="pcard-body" style="padding:.5rem 1.25rem .75rem">
+        <table class="para-table">
+          <tr>
+            <th style="width:120px">제품명</th>
+            <th>체중</th>
+            <th style="text-align:right">가격</th>
+          </tr>
+          <tr><td class="para-name" rowspan="3">프론트라인</td><td>10kg 이하</td><td>16,000원</td></tr>
+          <tr><td>10~20kg</td><td>22,000원</td></tr>
+          <tr><td>20~40kg</td><td>25,000원</td></tr>
+          <tr><td class="para-name" rowspan="3">하트가드</td><td>11kg 이하</td><td>10,000원</td></tr>
+          <tr><td>12~22kg</td><td>14,000원</td></tr>
+          <tr><td>23~45kg</td><td>17,000원</td></tr>
+          <tr><td class="para-name" rowspan="5">넥스가드</td><td>1.6~3.5kg</td><td>21,000원</td></tr>
+          <tr><td>3.5~7kg</td><td>23,000원</td></tr>
+          <tr><td>7.5~15kg</td><td>26,000원</td></tr>
+          <tr><td>15~30kg</td><td>32,000원</td></tr>
+          <tr><td>30~60kg</td><td>42,000원</td></tr>
+          <tr><td class="para-name">구충제</td><td>-</td><td>3,000원</td></tr>
+          <tr><td class="para-name" rowspan="5">레볼루션</td><td>2.5kg 이하</td><td>15,000원</td></tr>
+          <tr><td>2.5~5kg</td><td>17,000원</td></tr>
+          <tr><td>5~10kg</td><td>19,000원</td></tr>
+          <tr><td>10~20kg</td><td>24,000원</td></tr>
+          <tr><td>20~40kg</td><td>34,000원</td></tr>
+          <tr><td class="para-name">레볼루션 캣</td><td>2.5~7.5kg</td><td>17,000원</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 4: 건강검진 및 중성화 -->
+  <div class="price-grid single">
+    <div class="pcard">
+      <div class="pcard-head">건강검진 및 중성화비용</div>
+      <div class="pcard-body">
+        <div class="psec">중성화 수술</div>
+        <div class="prow"><span class="prow-label">암컷 중성화 <span class="prow-sub">혈액검사·수액·마취 포함</span></span><span class="prow-price">399,000원</span></div>
+        <div class="prow"><span class="prow-label">수컷 중성화 <span class="prow-sub">혈액검사·수액·마취 포함</span></span><span class="prow-price">240,000원</span></div>
+        <div class="prow"><span class="prow-label">스케일링 <span class="prow-sub">치과방사선 포함</span></span><span class="prow-price">340,000원</span></div>
+        <div class="psec">강아지 건강검진</div>
+        <div class="prow"><span class="prow-label">0~4세</span><span class="prow-price">220,000원</span></div>
+        <div class="prow"><span class="prow-label">5세 이상</span><span class="prow-price">340,000원</span></div>
+        <div class="psec">고양이 건강검진</div>
+        <div class="prow"><span class="prow-label">0~4세</span><span class="prow-price">220,000원</span></div>
+        <div class="prow"><span class="prow-label">5~9세</span><span class="prow-price">340,000원</span></div>
+        <div class="prow"><span class="prow-label">10세 이상</span><span class="prow-price">440,000원</span></div>
+        <div class="pnote">* 7kg 이하 기준</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      본 비용 안내는 수의사법 제13조의2에 따른 진료비용 게시 의무에 따라 작성되었습니다.<br>
+      표시된 금액은 <strong>부가세 포함 기준</strong>이며, 동물의 체중·상태·진행 항목에 따라 실제 비용은 달라질 수 있습니다.<br>
+      자세한 비용은 내원 후 진료 전 안내드립니다.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>장요근 재활 안내 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --warn-bg:#fdf8ee;--warn-border:#e8d48a;--warn-text:#5a3e00;
+  --danger-bg:#fdf0f0;--danger-border:#e8aaaa;--danger-text:#6a1010;
+  --ok-bg:#f0f8f0;--ok-border:#aad8aa;--ok-text:#1a5a1a;
+  --phase1:#e8f4ff;--phase2:#f0f8f0;--phase3:#fff8e0;--phase4:#f5f0ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+
+.topbar{background:var(--navy);padding:0 1.5rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.7;letter-spacing:.08em}
+.topbar-btns{display:flex;gap:.5rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:6px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:hover{background:rgba(255,255,255,.22)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);font-size:11px}
+.tbtn.back:hover{background:rgba(255,255,255,.15)}
+
+.hero{background:var(--navy);padding:2.25rem 1.5rem 2rem}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:.18em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.75rem}
+.hero h1{font-size:26px;font-weight:700;color:#fff;line-height:1.35;margin-bottom:.75rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.6);line-height:1.75}
+
+.main{max-width:760px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+.sec{margin-bottom:2.5rem}
+.sec-head{display:flex;align-items:center;gap:.6rem;margin-bottom:1.1rem;padding-bottom:.75rem;border-bottom:2px solid var(--navy-light)}
+.sec-num{width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.sec-title{font-size:16px;font-weight:700;color:var(--navy)}
+.sec-tag{margin-left:auto;font-size:10px;letter-spacing:.12em;color:var(--text-muted);font-weight:500;text-transform:uppercase}
+
+.ov-text{font-size:13px;line-height:1.85;color:var(--text-mid);margin-bottom:1rem;padding:1rem 1.1rem;background:var(--navy-xlight);border-left:3px solid var(--navy);border-radius:0 8px 8px 0}
+.ov-text strong{color:var(--navy);font-weight:600}
+
+.callout{border-radius:9px;padding:.875rem 1rem;margin-bottom:.9rem;font-size:13px;line-height:1.75;display:flex;gap:.7rem;align-items:flex-start}
+.callout .ci{font-size:17px;flex-shrink:0;margin-top:1px}
+.callout.info{background:var(--accent-light);color:#1a3a6a;border:1px solid #b0ccee}
+.callout.warn{background:var(--warn-bg);color:var(--warn-text);border:1px solid var(--warn-border)}
+.callout.danger{background:var(--danger-bg);color:var(--danger-text);border:1px solid var(--danger-border)}
+.callout.ok{background:var(--ok-bg);color:#1a4a1a;border:1px solid var(--ok-border)}
+.callout strong{font-weight:600}
+
+ul.gl{list-style:none;padding:0;font-size:13px;line-height:1.85;color:var(--text-mid)}
+ul.gl li{padding:.3rem 0 .3rem 1.2rem;position:relative;border-bottom:1px solid var(--navy-xlight)}
+ul.gl li:last-child{border-bottom:none}
+ul.gl li::before{content:'';position:absolute;left:0;top:.75rem;width:5px;height:5px;border-radius:50%;background:var(--navy);opacity:.35}
+ul.gl strong{color:var(--text);font-weight:600}
+
+/* ANATOMY CARDS */
+.anatomy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem;margin-bottom:1rem}
+.anatomy-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem}
+.anatomy-icon{font-size:24px;margin-bottom:.5rem}
+.anatomy-name{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.anatomy-desc{font-size:12px;color:var(--text-muted);line-height:1.6}
+
+/* SYMPTOM GRID */
+.symptom-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem}
+.sym-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.sym-icon{font-size:20px;margin-bottom:.35rem}
+.sym-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.2rem}
+.sym-desc{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+/* PHASE BOXES */
+.phase-box{border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1rem;border:1px solid}
+.phase-box.p1{background:var(--phase1);border-color:#aaccee}
+.phase-box.p2{background:var(--phase2);border-color:var(--ok-border)}
+.phase-box.p3{background:var(--phase3);border-color:var(--warn-border)}
+.phase-box.p4{background:var(--phase4);border-color:#c8aaee}
+.phase-header{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.phase-badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:.06em}
+.p1 .phase-badge{background:#1a4a8a;color:#fff}
+.p2 .phase-badge{background:#1a6a1a;color:#fff}
+.p3 .phase-badge{background:#8a6000;color:#fff}
+.p4 .phase-badge{background:#5a1a8a;color:#fff}
+.phase-title{font-size:15px;font-weight:700}
+.p1 .phase-title{color:#1a3a6a}
+.p2 .phase-title{color:#1a4a1a}
+.p3 .phase-title{color:#5a3e00}
+.p4 .phase-title{color:#3a1a6a}
+.phase-week{font-size:12px;margin-left:auto;font-weight:500}
+.p1 .phase-week{color:#3a6aaa}
+.p2 .phase-week{color:#3a8a3a}
+.p3 .phase-week{color:#8a6a00}
+.p4 .phase-week{color:#7a3aaa}
+.phase-goal{font-size:12px;margin-bottom:.875rem;padding:.5rem .75rem;border-radius:6px}
+.p1 .phase-goal{background:rgba(26,74,138,.1);color:#1a3a6a}
+.p2 .phase-goal{background:rgba(26,106,26,.1);color:#1a4a1a}
+.p3 .phase-goal{background:rgba(138,96,0,.1);color:#5a3e00}
+.p4 .phase-goal{background:rgba(90,26,138,.1);color:#3a1a6a}
+
+/* EXERCISE CARDS */
+.ex-list{display:flex;flex-direction:column;gap:.6rem;margin-bottom:.75rem}
+.ex-card{background:rgba(255,255,255,.7);border-radius:10px;padding:.875rem 1rem;border:1px solid rgba(255,255,255,.9)}
+.ex-name{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.25rem}
+.ex-detail{font-size:12px;color:var(--text-mid);line-height:1.6}
+.ex-video{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 10px;border-radius:6px;background:#ff0000;color:#fff;text-decoration:none;margin-top:.4rem;font-weight:500}
+.ex-video:hover{background:#cc0000}
+
+.restriction-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem}
+.rest-box{border-radius:10px;padding:.875rem 1rem}
+.rest-box.no{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.25)}
+.rest-box.ok{background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.25)}
+.rest-title{font-size:12px;font-weight:700;margin-bottom:.4rem}
+.rest-box.no .rest-title{color:#8a1010}
+.rest-box.ok .rest-title{color:#1a6a1a}
+.rest-item{font-size:12px;line-height:1.7;padding-left:.8rem;position:relative;color:var(--text-mid)}
+.rest-item::before{content:'';position:absolute;left:0;top:.55rem;width:4px;height:4px;border-radius:50%}
+.rest-box.no .rest-item::before{background:#c03030}
+.rest-box.ok .rest-item::before{background:#2a8a2a}
+
+/* STRETCH CARDS */
+.stretch-cards{display:flex;flex-direction:column;gap:1rem;margin-bottom:1rem}
+.stretch-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.stretch-num{background:var(--navy);color:#fff;padding:.6rem 1.1rem;font-size:11px;font-weight:700;letter-spacing:.08em;display:flex;align-items:center;gap:.5rem}
+.stretch-body{padding:1rem 1.1rem}
+.stretch-name{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:.5rem}
+.stretch-steps{list-style:none;padding:0;font-size:13px;color:var(--text-mid);line-height:1.8;margin-bottom:.6rem}
+.stretch-steps li{padding:.2rem 0 .2rem 1.4rem;position:relative}
+.stretch-steps li::before{content:counter(step);counter-increment:step;position:absolute;left:0;top:.3rem;width:18px;height:18px;background:var(--navy);color:#fff;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.stretch-steps{counter-reset:step}
+.stretch-result{font-size:12px;color:var(--ok-text);background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:6px;padding:.5rem .75rem;margin-top:.5rem}
+
+/* MASSAGE BOX */
+.massage-box{background:var(--navy-dark);border-radius:14px;padding:1.75rem;margin-bottom:1rem;color:#fff}
+.massage-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:.3rem}
+.massage-sub{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em;margin-bottom:1rem}
+.massage-steps{display:flex;flex-direction:column;gap:.5rem}
+.massage-step{background:rgba(255,255,255,.08);border-radius:8px;padding:.75rem 1rem;font-size:12px;color:rgba(255,255,255,.8);display:flex;gap:.75rem;align-items:flex-start;line-height:1.6}
+.massage-step-num{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+/* RETURN CRITERIA */
+.criteria-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin-bottom:1rem}
+.crit-card{background:var(--white);border:1px solid var(--ok-border);border-radius:10px;padding:.875rem 1rem;text-align:center}
+.crit-icon{font-size:24px;margin-bottom:.35rem}
+.crit-name{font-size:12px;font-weight:600;color:var(--ok-text);line-height:1.4}
+
+.emerg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.6rem}
+.emerg-card{background:var(--danger-bg);border:1px solid var(--danger-border);border-radius:10px;padding:.875rem 1rem;display:flex;align-items:flex-start;gap:.6rem}
+.emerg-icon{font-size:20px;flex-shrink:0}
+.emerg-name{font-size:13px;font-weight:600;color:var(--danger-text);margin-bottom:.2rem}
+.emerg-desc{font-size:12px;color:#8a3030;line-height:1.5}
+
+.foot{background:var(--navy);padding:2.5rem 1.5rem}
+.foot-inner{max-width:760px;margin:0 auto}
+.foot-disc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:1.25rem}
+.foot-disc strong{color:rgba(255,255,255,.8);font-weight:500}
+.foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
+.foot-ref{margin-top:1.25rem;font-size:11px;color:rgba(255,255,255,.25)}
+
+@media(max-width:480px){
+  .hero h1{font-size:22px}
+  .topbar-btns .tbtn.call span{display:none}
+  .restriction-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 근골격 재활 안내</div>
+    <h1>장요근 손상 후 재활,<br><span>단계별로 함께 해요</span></h1>
+    <p class="hero-desc">장요근은 강아지 뒷다리 기능의 핵심 근육입니다.<br>올바른 단계별 재활과 스트레칭으로 더 빠르고 안전하게 회복할 수 있어요.</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ① 장요근이란? -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">장요근이란?</span><span class="sec-tag">Anatomy</span></div>
+    <div class="ov-text">장요근(Iliopsoas muscle)은 <strong>장골근(Iliacus)과 요근(Psoas major)이 합쳐진 근육</strong>으로, 허리뼈와 골반에서 시작해 대퇴골 소전자에 붙습니다. 뒷다리를 앞으로 내밀거나 들어 올리는 <strong>고관절 굴곡(Hip flexion)</strong>의 핵심 근육이에요. 달리기·점프·계단 오르기 등 거의 모든 뒷다리 동작에 관여하며, 손상되면 보행 이상·통증·운동 기피로 이어집니다.</div>
+    <div class="anatomy-grid">
+      <div class="anatomy-card">
+        <div class="anatomy-icon">📍</div>
+        <div class="anatomy-name">위치</div>
+        <div class="anatomy-desc">허리뼈(L2~L5)와 골반 장골 → 대퇴골 소전자(lesser trochanter)에 부착</div>
+      </div>
+      <div class="anatomy-card">
+        <div class="anatomy-icon">⚡</div>
+        <div class="anatomy-name">주요 기능</div>
+        <div class="anatomy-desc">고관절 굴곡 (앞발 내밀기), 척추 안정화, 달리기·점프·계단 보조</div>
+      </div>
+      <div class="anatomy-card">
+        <div class="anatomy-icon">🔍</div>
+        <div class="anatomy-name">손상 원인</div>
+        <div class="anatomy-desc">과도한 운동·급격한 방향 전환·슬개골 탈구 수술 후·만성 과사용</div>
+      </div>
+      <div class="anatomy-card">
+        <div class="anatomy-icon">⚠️</div>
+        <div class="anatomy-name">주의사항</div>
+        <div class="anatomy-desc">심부 근육이라 진단이 늦는 경우가 많고, 방치하면 만성 통증·보상 손상으로 이어짐</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ② 주요 증상 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">이런 증상이 보이면 의심해 주세요</span><span class="sec-tag">Symptoms</span></div>
+    <div class="symptom-grid">
+      <div class="sym-card"><div class="sym-icon">🐾</div><div class="sym-name">뒷다리 파행</div><div class="sym-desc">특히 운동 후 또는 기상 시 한쪽 뒷다리를 절거나 들어 올려요</div></div>
+      <div class="sym-card"><div class="sym-icon">🪑</div><div class="sym-name">앉기·일어서기 거부</div><div class="sym-desc">바닥에 앉거나 일어서는 걸 힘들어하거나 꺼려해요</div></div>
+      <div class="sym-card"><div class="sym-icon">🏔️</div><div class="sym-name">계단·점프 기피</div><div class="sym-desc">계단이나 소파 점프를 갑자기 거부하거나 망설여요</div></div>
+      <div class="sym-card"><div class="sym-icon">🤚</div><div class="sym-name">촉진 통증</div><div class="sym-desc">허리·골반 부위를 만지거나 눌렀을 때 몸을 움츠리거나 피해요</div></div>
+      <div class="sym-card"><div class="sym-icon">🔄</div><div class="sym-name">뒷다리 신전 제한</div><div class="sym-desc">뒷다리를 뒤로 뻗는 범위가 반대쪽보다 줄어들어 있어요</div></div>
+      <div class="sym-card"><div class="sym-icon">😴</div><div class="sym-name">운동 후 악화</div><div class="sym-desc">활동 중에는 괜찮다가 운동 후나 다음날 아침에 더 심해져요</div></div>
+    </div>
+    <div class="callout info"><span class="ci">▶</span><span>장요근에 대해 더 자세히 알고 싶다면 아래 영상을 참고해 주세요.<br>
+    <a href="https://www.youtube.com/watch?v=2u2ITNj10Is" target="_blank" style="color:#2d6cc0;font-weight:600">📺 Understanding the Iliopsoas Muscle in Dogs (Laurie Edge-Hughes, 한국어 자막 없음)</a></span></div>
+
+    <div class="callout warn"><span class="ci">⚠️</span><span>장요근 손상은 <strong>영상 검사(X-ray)에서 잘 안 보이는 경우가 많습니다.</strong> 초음파 또는 MRI로 확인하는 것이 더 정확하며, 촉진 검사와 함께 종합적으로 판단합니다.</span></div>
+  </div>
+
+  <!-- ③ 4단계 재활 프로토콜 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">4단계 재활 프로토콜</span><span class="sec-tag">Rehab Protocol</span></div>
+    <div class="callout info"><span class="ci">💡</span><span>각 단계의 기간은 <strong>개체마다 다를 수 있습니다.</strong> 다음 단계로 넘어가기 전에 반드시 통증 없음·보행 정상화를 확인하세요. 억지로 단계를 앞당기면 재손상 위험이 높아집니다.</span></div>
+
+    <!-- Phase 1 -->
+    <div class="phase-box p1">
+      <div class="phase-header">
+        <span class="phase-badge">PHASE 1</span>
+        <span class="phase-title">보호·염증 관리기</span>
+        <span class="phase-week">0~2주</span>
+      </div>
+      <div class="phase-goal">🎯 목표: 통증 감소, 2차 손상 방지</div>
+      <div class="restriction-grid">
+        <div class="rest-box no">
+          <div class="rest-title">❌ 하지 마세요</div>
+          <div class="rest-item">급회전·점프·뛰기 금지</div>
+          <div class="rest-item">수동 스트레칭 금지 (재손상 위험)</div>
+          <div class="rest-item">계단·소파 오르기 제한</div>
+          <div class="rest-item">리드 없이 자유 활동 금지</div>
+        </div>
+        <div class="rest-box ok">
+          <div class="rest-title">✅ 허용 활동</div>
+          <div class="rest-item">리드 산책 5~10분, 하루 2~3회</div>
+          <div class="rest-item">냉찜질 10분, 하루 2회 (급성기)</div>
+          <div class="rest-item">평지 느린 보행</div>
+          <div class="rest-item">자세 유지 가볍게</div>
+        </div>
+      </div>
+      <div class="callout warn" style="margin-bottom:0"><span class="ci">🧊</span><span>냉찜질은 수건으로 감싼 아이스팩을 사용하고, 직접 피부에 닿지 않게 해주세요. <strong>급성기에는 따뜻한 찜질을 사용하지 마세요</strong> — 염증이 악화될 수 있습니다.</span></div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-box p2">
+      <div class="phase-header">
+        <span class="phase-badge">PHASE 2</span>
+        <span class="phase-title">신경·근 활성화기</span>
+        <span class="phase-week">2~4주</span>
+      </div>
+      <div class="phase-goal">🎯 목표: 장요근 재활성화 + 코어 안정화</div>
+      <p style="font-size:12px;color:#2a5a2a;margin-bottom:.6rem;font-weight:500">원칙: 통증 없는 범위에서, 저강도·고빈도로</p>
+      <div class="ex-list">
+        <div class="ex-card">
+          <div class="ex-name">Weight Shifting (체중 이동)</div>
+          <div class="ex-detail">평지에 세운 상태에서 몸을 좌우·전후로 살살 밀어 체중이 각 다리로 이동하도록 유도합니다. 10~15회 × 2~3세트. 아이가 스스로 버티려 하는 것이 목표입니다.</div>
+          <a class="ex-video" href="https://youtu.be/rBW65UdgMo0" target="_blank">▶ 영상 보기</a>
+        </div>
+        <div class="ex-card">
+          <div class="ex-name">Static Stand Hold (정적 기립 유지)</div>
+          <div class="ex-detail">네 다리로 바르게 선 자세를 유지하게 합니다. 20~30초 × 3~5회. 발이 고른 간격으로 놓이도록 유도하고, 한쪽으로 치우치면 바로잡아 주세요.</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-name">Cavaletti (낮은 장애물 걷기)</div>
+          <div class="ex-detail">낮은 봉(장난감·막대 등)을 보폭 간격으로 4~6개 배치하고 천천히 걷게 합니다. 2~3회 왕복. 다리를 의식적으로 들어 올리는 근신경 연결에 도움이 됩니다.</div>
+          <a class="ex-video" href="https://www.youtube.com/watch?v=px3_kS-K_Jw" target="_blank">▶ 영상 보기 (Cavaletti 기법)</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-box p3">
+      <div class="phase-header">
+        <span class="phase-badge">PHASE 3</span>
+        <span class="phase-title">강화기</span>
+        <span class="phase-week">4~6주</span>
+      </div>
+      <div class="phase-goal">🎯 목표: 장요근·고관절 굴곡 협응 강화</div>
+      <p style="font-size:12px;color:#6a5000;margin-bottom:.6rem;font-weight:500">원칙: 느리게, 대칭 유지, 통증 없는 범위</p>
+      <div class="ex-list">
+        <div class="ex-card">
+          <div class="ex-name">Sit-to-Stand (앉았다 일어서기)</div>
+          <div class="ex-detail">앉은 자세에서 천천히 일어서게 유도합니다. 6~10회 × 2~3세트. 간식을 코 앞에서 위로 천천히 올려 자연스럽게 일어서도록 유도하세요. 장요근과 고관절 굴근을 동시에 강화합니다.</div>
+          <a class="ex-video" href="https://youtu.be/zpHeeJGpuzE" target="_blank">▶ 영상 보기</a>
+        </div>
+        <div class="ex-card">
+          <div class="ex-name">Hill Walking (완만한 경사 보행)</div>
+          <div class="ex-detail">완만한 오르막을 천천히 걷게 합니다. 5~10분. 오르막 보행은 장요근과 뒷다리 전체 근육을 자연스럽게 강화하고 보폭 대칭을 훈련하는 데 효과적입니다.</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-name">Balance Pad / Bosu (밸런스 패드 정적 유지)</div>
+          <div class="ex-detail">불안정한 표면 위에 두 앞발 또는 네 발을 올리고 20~30초 × 3회 유지합니다. 코어 근육과 고관절 주변 안정화 근육을 동시에 활성화합니다.</div>
+          <a class="ex-video" href="https://www.youtube.com/watch?v=_Ll4snXzIhw" target="_blank">▶ 영상 보기 (FitPaws Balance)</a>
+          <a class="ex-video" href="https://www.youtube.com/watch?v=Qaxc0kPDzwA" target="_blank" style="background:#1a5a9a;margin-left:.4rem">▶ 영상 보기 (Core & Iliopsoas)</a>
+        </div>
+        <div class="ex-card">
+          <div class="ex-name">Figure-8 보행</div>
+          <div class="ex-detail">큰 원 2개를 8자로 배치하고 천천히 걷게 합니다. 큰 원부터 시작해 점차 좁혀 나가세요. 방향 전환 시 장요근과 고관절 측면 안정화 근육이 활성화됩니다.</div>
+          <a class="ex-video" href="https://youtu.be/6-DZpkeSdf4" target="_blank">▶ 영상 보기</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="phase-box p4">
+      <div class="phase-header">
+        <span class="phase-badge">PHASE 4</span>
+        <span class="phase-title">기능 복귀기</span>
+        <span class="phase-week">6~8주</span>
+      </div>
+      <div class="phase-goal">🎯 목표: 일상·스포츠 완전 복귀</div>
+      <div class="ex-list">
+        <div class="ex-card">
+          <div class="ex-name">Trotting Interval (속보 인터벌)</div>
+          <div class="ex-detail">30~60초 속보 → 휴식 → 반복, 3~5회. 빠르게 걷는 속보(트롯)는 장요근의 기능적 강도를 높이는 마지막 단계입니다.</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-name">Direction Change (방향 전환 보행)</div>
+          <div class="ex-detail">저속에서 좌우 방향 전환을 유도합니다. Phase 3의 Figure-8보다 반경을 좁혀서 진행하세요.</div>
+        </div>
+        <div class="ex-card">
+          <div class="ex-name">Hip Hinge 훈련 (점프 준비 단계)</div>
+          <div class="ex-detail">낮은 표면(계단 한 칸, 낮은 박스)에 앞발을 올렸다가 내리는 동작을 반복합니다. 점프 전 단계로 고관절 굴곡·신전의 협응을 훈련합니다.</div>
+        </div>
+      </div>
+      <div class="callout ok" style="margin-bottom:0"><span class="ci">✅</span><span><strong>복귀 기준 — 아래 세 가지를 모두 충족해야 일상 복귀가 가능합니다.</strong></span></div>
+      <div class="criteria-grid" style="margin-top:.6rem">
+        <div class="crit-card"><div class="crit-icon">🤚</div><div class="crit-name">촉진 통증 없음</div></div>
+        <div class="crit-card"><div class="crit-icon">🔄</div><div class="crit-name">고관절 신전 범위 좌우 대칭</div></div>
+        <div class="crit-card"><div class="crit-icon">🏃</div><div class="crit-name">운동 후 통증 잔존 없음</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ 스트레칭 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">4</span><span class="sec-title">집에서 할 수 있는 스트레칭</span><span class="sec-tag">Stretching</span></div>
+    <div class="callout warn"><span class="ci">⚠️</span><span><strong>스트레칭은 Phase 2 이후(2주~)부터 시작하세요.</strong> 급성기(Phase 1)에 수동 스트레칭을 하면 재손상이 빈번하게 일어납니다. 항상 <strong>천천히, 부드럽게</strong> — 저항이 느껴지는 지점에서 멈추고 절대 무리하게 당기지 마세요.</span></div>
+
+    <div class="stretch-cards">
+
+      <div class="stretch-card">
+        <div class="stretch-num">STRETCH 1 · 장요근·고관절 굴근 스트레칭 (Hip Flexor Stretch)</div>
+        <div class="stretch-body">
+          <div class="stretch-name">뒷다리 신전 스트레칭</div>
+          <ol class="stretch-steps">
+            <li>강아지를 서 있는 자세로 세웁니다.</li>
+            <li>한쪽 뒷다리를 무릎 바로 위를 잡아 천천히 뒤쪽으로 뻗어 올립니다.</li>
+            <li>저항이 느껴지는 지점에서 멈추고 <strong>15~30초 유지</strong>합니다. 절대 더 당기지 마세요.</li>
+            <li>천천히 원래 자세로 되돌립니다.</li>
+            <li>양쪽 각 2~3회 반복합니다.</li>
+          </ol>
+          <div class="stretch-result">✅ 효과: 장요근·고관절 굴근 이완, 허리·골반 유연성 향상, 통증 감소</div>
+          <a class="ex-video" href="https://www.youtube.com/watch?v=yFrn2xy9BdI" target="_blank">▶ 영상 보기 (Iliopsoas Stretch)</a>
+          <a class="ex-video" href="https://www.youtube.com/watch?v=o9R1M13fYS8" target="_blank" style="background:#1a5a9a;margin-left:.4rem">▶ 영상 보기 (Cato Platform 활용)</a>
+        </div>
+      </div>
+
+      <div class="stretch-card">
+        <div class="stretch-num">STRETCH 2 · 어깨·흉추 스트레칭 (Shoulder Flexor Stretch)</div>
+        <div class="stretch-body">
+          <div class="stretch-name">앞다리 신전 스트레칭</div>
+          <ol class="stretch-steps">
+            <li>강아지를 서 있는 자세로 세웁니다.</li>
+            <li>한쪽 앞다리 팔꿈치 바로 위를 한 손으로 잡고, 다른 손은 팔꿈치 아래를 받쳐 안정시킵니다.</li>
+            <li>앞다리를 천천히 앞쪽으로 내밀어, 저항이 느껴지는 지점에서 <strong>15~30초 유지</strong>합니다.</li>
+            <li>천천히 원래 자세로 되돌립니다.</li>
+            <li>양쪽 각 2~3회 반복합니다.</li>
+          </ol>
+          <div class="stretch-result">✅ 효과: 어깨·흉추 가동 범위 향상, 호흡 용량 증가, 보상 손상 예방</div>
+        </div>
+      </div>
+
+      <div class="stretch-card">
+        <div class="stretch-num">STRETCH 3 · 척추 측면 스트레칭 (Back / Lateral Stretch)</div>
+        <div class="stretch-body">
+          <div class="stretch-name">C자 척추 스트레칭</div>
+          <ol class="stretch-steps">
+            <li>강아지를 서 있는 자세로 세웁니다.</li>
+            <li>간식을 코 앞에 두고, 몸통 옆면을 따라 천천히 꼬리 쪽으로 유도합니다.</li>
+            <li>머리만 돌리고 몸이 C자 모양으로 구부러지는 지점에서 <strong>15~30초 유지</strong>하고 간식을 줍니다.</li>
+            <li>반대편도 동일하게 2~3회 반복합니다.</li>
+          </ol>
+          <div class="stretch-result">✅ 효과: 척추 가동성 향상, 장요근 연결 근육 이완, 측면 유연성 개선</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ⑤ 마사지 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">5</span><span class="sec-title">천골·척추 마사지</span><span class="sec-tag">Massage</span></div>
+    <div class="massage-box">
+      <div class="massage-title">천골·등 마사지 (Back & Sacrum Massage)</div>
+      <div class="massage-sub">매일 2~3분, 스트레칭 전후에 해주면 더욱 효과적입니다</div>
+      <div class="massage-steps">
+        <div class="massage-step"><span class="massage-step-num">1</span><span>꼬리 뿌리와 골반 사이의 <strong>천골(Sacrum)</strong>을 먼저 찾습니다. 납작하고 단단한 뼈 표면입니다.</span></div>
+        <div class="massage-step"><span class="massage-step-num">2</span><span>가벼운 압력으로 <strong>원을 그리듯 천천히</strong> 천골 위를 마사지합니다. 10~15초 정도.</span></div>
+        <div class="massage-step"><span class="massage-step-num">3</span><span>같은 방법으로 척추를 따라 <strong>천천히 앞쪽(머리 방향)으로</strong> 이동합니다. 척추 뼈 위에 직접 강한 압력을 주지 마세요.</span></div>
+        <div class="massage-step"><span class="massage-step-num">4</span><span>목까지 도달한 뒤, 다시 꼬리 방향으로 내려오며 반복합니다. 전체 2~3분.</span></div>
+      </div>
+      <div style="margin-top:1rem;font-size:12px;color:rgba(255,255,255,.55);line-height:1.7">✅ 효과: 척수액 흐름 개선, 척추·골반 가동성 향상, 긴장 완화, 불안감 감소</div>
+    </div>
+  </div>
+
+  <!-- ⑥ 응급 신호 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">6</span><span class="sec-title">이럴 때는 즉시 연락 주세요</span><span class="sec-tag">Emergency</span></div>
+    <div class="emerg-grid">
+      <div class="emerg-card"><span class="emerg-icon">🦵</span><div><div class="emerg-name">갑자기 다리를 못 써요</div><div class="emerg-desc">재활 중 갑자기 다리에 힘이 빠지거나 질질 끄는 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">😣</span><div><div class="emerg-name">운동 후 심하게 악화</div><div class="emerg-desc">재활 운동 후 다음날 절뚝임이 훨씬 심해진 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🤚</span><div><div class="emerg-name">만지면 극심하게 아파해요</div><div class="emerg-desc">허리·골반 주변 촉진 시 강하게 저항하거나 공격성이 생긴 경우</div></div></div>
+      <div class="emerg-card"><span class="emerg-icon">🚽</span><div><div class="emerg-name">대소변 이상</div><div class="emerg-desc">소변·대변 실금이 생기거나 배변을 못 하는 경우 — 신경 손상 의심</div></div></div>
+    </div>
+    <div class="callout danger" style="margin-top:1rem"><span class="ci">🚨</span><span>재활 중 <strong>단계를 무리하게 앞당기거나 통증이 있는 상태로 운동을 계속하면 재손상 위험이 매우 높아집니다.</strong> 의심스러우면 바로 연락 주세요.</span></div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      이 자료는 일반적인 보호자 교육을 위해 제작된 안내문으로, 개별 환자의 재활 계획을 대신하지 않습니다.<br>
+      재활 운동 강도와 단계 조절은 반드시 <strong>담당 수의사와 상의</strong> 후 진행해 주세요.<br>
+      <strong>운동 후 급격한 악화·다리 힘 빠짐·배변 이상</strong>이 보이면 즉시 연락 주세요.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">Reference · St. Clair J. Top 3 Stretches for Arthritic Dogs, TopDog Health · Canine Rehabilitation Institute Guidelines · WECARE Animal Medical Center</p>
+  </div>
+</div>
+
+</body>
+</html>
