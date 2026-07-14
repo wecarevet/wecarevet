@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-14 09:16 UTC",
+  "updated": "2026-07-14 09:36 UTC",
   "total": 176,
   "papers": [
     {
@@ -8,7 +8,9 @@
       "authors": "Lindholm Heidemann P, Egeberg E, Skov M, Winnerby M, Rohdin C",
       "journal": "Vet J",
       "date": "2026 May 30",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42217769/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42217769/",
+      "abstract": "The current study aimed at characterizing idiopathic epilepsy in a referral population of Golden Retrievers regarding signalment, seizure frequency, post-ictal signs, treatment response, survival time, and cause of death retrospectively. Data was extracted from medical records from two Scandinavian veterinary referral hospitals. Median survival time was calculated for the overall group and for male and female, respectively, using Kaplan-Meier survival curves and compared using the Log-rank (Mant",
+      "summary_ko": ""
     },
     {
       "id": "42217461",
@@ -16,7 +18,9 @@
       "authors": "Park J, Jeong D, Seo K, Kang S",
       "journal": "AJVR",
       "date": "2026 May 29",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42217461/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42217461/",
+      "abstract": "To describe a nonsurgical treatment for superficial corneal epithelial inclusion cysts (CEICs) in dogs and to characterize their clinical and diagnostic features using ultrasound biomicroscopy (UBM) and optical coherence tomography (OCT). 4 client-owned dogs with superficial CEICs. Complete ophthalmic examinations and diagnostic imaging using UBM and/or OCT were performed on smooth, fluctuant, painless masses protruding from vascularized corneas. For superficial CEICs, needle lancing was perform",
+      "summary_ko": ""
     },
     {
       "id": "42216029",
@@ -24,7 +28,9 @@
       "authors": "Shi Y, Ding W, He Z, Zhang H, Sun P",
       "journal": "BMC Vet Res",
       "date": "2026 May 29",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42216029/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42216029/",
+      "abstract": "Canine mammary tumors (CMTs) are the most common neoplasms in intact female dogs. Although the number of publications on CMTs has increased steadily over recent decades, a comprehensive overview of the knowledge structure, research hotspots, and evolutionary trends in this field is still lacking. Publications related to CMTs were retrieved from the Web of Science Core Collection without restrictions on language or document type. Bibliometric and visualization analyses were conducted using CiteSp",
+      "summary_ko": ""
     },
     {
       "id": "42208593",
@@ -32,7 +38,9 @@
       "authors": "Daugherty E, Codd C, Howard J",
       "journal": "AJVR",
       "date": "2026 May 28",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42208593/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42208593/",
+      "abstract": "To evaluate preoperative parathyroid hormone (PTH) concentration as a predictor of moderate to severe postoperative hypocalcemia following parathyroidectomy in dogs with primary hyperparathyroidism. Retrospective analysis of dogs undergoing parathyroidectomy for primary hyperparathyroidism and excluding dogs receiving prophylactic calcitriol. Preoperative serum PTH measurement was stratified into groups by multiples of the assay-specific upper limit of normal (ULN). Whole blood ionized calcium (",
+      "summary_ko": ""
     },
     {
       "id": "42208589",
@@ -40,7 +48,9 @@
       "authors": "Chew ZH, White JD",
       "journal": "AJVR",
       "date": "2026 May 28",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42208589/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42208589/",
+      "abstract": "To determine the short-term effect of sedation on GFR markers in cats with chronic kidney disease (CKD). This was a prospective observational study involving client-owned cats with CKD undergoing abdominal sonography. Each cat received 50 mg oral gabapentin, 0.3 mg/kg butorphanol, and 0.3 mg/kg midazolam IM followed by 1 mg/kg alfaxalone IV to effect. Presedation blood tests included hematology and biochemistry. A second blood test for GFR markers (symmetric dimethylarginine [SDMA] and creatinin",
+      "summary_ko": ""
     },
     {
       "id": "42210038",
@@ -48,7 +58,9 @@
       "authors": "Hatzav M, Zemer O, Benzioni-Bar H, Biton E, Gibson I",
       "journal": "JSAP",
       "date": "2026 May 28",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42210038/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42210038/",
+      "abstract": "A Belgian Malinois dog developed advanced gastroparesis with gastric atony and progressive dilatation following surgical correction of gastric dilatation-volvulus. Following gastric dilatation-volvulus, the dog developed recurrent gastric distension, vomiting of undigested food and progressive weight loss. Imaging and endoscopy demonstrated a markedly enlarged, static stomach with a patent pylorus, refractory to prokinetic therapy. Exploratory laparotomy revealed global gastric atony, and a radi",
+      "summary_ko": ""
     },
     {
       "id": "42202851",
@@ -56,7 +68,9 @@
       "authors": "Quinn KA, Lorge C, Zersen KM, Guillaumin J",
       "journal": "AJVR",
       "date": "2026 May 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42202851/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42202851/",
+      "abstract": "To compare the accuracy of 2 Doppler and 2 oscillometric devices to invasive blood pressure (IBP) measurements in conscious dogs at 2 cuff locations using the American College of Veterinary Internal Medicine (ACVIM) validation criteria. 8 Beagles had dorsal pedal arterial catheters placed under anesthesia on November 13 and 18, 2024. Once conscious, paired non-IBP and IBP measurements were collected at the tail and forelimb for all devices. Bias, SD, percentage of values within 10 and 20 mm Hg o",
+      "summary_ko": ""
     },
     {
       "id": "42202865",
@@ -64,7 +78,9 @@
       "authors": "Hoel ME, Gimenez AR, Elbe A, Horecka K, Alvarez E",
       "journal": "JAVMA",
       "date": "2026 May 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42202865/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42202865/",
+      "abstract": "To evaluate commercially available oral capsules providing fecal microbial transplant (FMT) as a practical option for adjunctive treatment of canine parvovirus (CPV) in an outpatient setting. We hypothesized that treatment with FMT capsules would improve survival and hasten resolution of clinical signs compared to placebo. This blinded, randomized controlled trial evaluated oral FMT capsules in shelter dogs with CPV treated with an outpatient protocol (September 2022 to August 2024). Eligible do",
+      "summary_ko": ""
     },
     {
       "id": "42208888",
@@ -72,7 +88,9 @@
       "authors": "Ortiz-Gutiérrez J, Daza MÁ, Fominaya HL, Portero-Fuentes M",
       "journal": "Vet J",
       "date": "2026 May 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42208888/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42208888/",
+      "abstract": "Renal resistive index (RRI) and pulsatility index (RPI) are valuable tools for the early diagnosis and monitoring of acute and chronic kidney injury, yet age-specific reference values in non-azotemic healthy dogs have not been clearly defined. This study aimed to establish these reference values by evaluating 85 healthy, client-owned dogs, which were divided into five age groups (juvenile, young adult, adult, senior, and geriatric), with 17 dogs per group. Each dog underwent blood tests and phys",
+      "summary_ko": ""
     },
     {
       "id": "42190712",
@@ -80,7 +98,9 @@
       "authors": "Lu M, Picavet PP, Chou PY, Marcellin-Little DJ",
       "journal": "AJVR",
       "date": "2026 May 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42190712/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42190712/",
+      "abstract": "To characterize lumbar, sacral, and pelvic orientation in dogs in a standardized standing position, quantify interindividual variability, and assess relationships between pelvic geometry and acetabular orientation. The study was conducted from April 12, 2024, through November 20, 2025. Full-length lateral radiographs of the pelvic limbs were obtained in 17 standing, healthy, client-owned dogs using a standardized positioning technique. Composite images were generated from stitched radiographs. S",
+      "summary_ko": ""
     },
     {
       "id": "42191661",
@@ -88,7 +108,9 @@
       "authors": "Rigo M, Cinti F",
       "journal": "JSAP",
       "date": "2026 May 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42191661/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42191661/",
+      "abstract": "To describe the use of N-butyl cyanoacrylate as an additional method for haemostasis after caudal vena cava venotomy closure during adrenalectomy and to evaluate associated morbidity, mortality and complications in five dogs. Medical records from a single referral centre were retrospectively reviewed (January 2022 to August 2025) including dogs undergoing adrenalectomy with caudal vena cava venotomy where N-butyl cyanoacrylate was applied post-suturing. Collected data included signalment, clinic",
+      "summary_ko": ""
     },
     {
       "id": "42186907",
@@ -96,7 +118,9 @@
       "authors": "Thibaud J, Devereux S, Cuddy LC",
       "journal": "JSAP",
       "date": "2026 May 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42186907/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42186907/",
+      "abstract": "To describe the feasibility of intraoperative needlescopy during open cystotomy for retrieval of bladder and urethral uroliths in dogs and cats. Observational retrospective study. Dogs and cats undergoing open cystotomy for retrieval of uroliths followed by needlescopy between November 2023 and September 2025. Clinical data including signalment, preoperative imaging, urolith analysis, estimated urethral length, complications, and outcomes were recorded. A total of 17 dogs and two cats met the in",
+      "summary_ko": ""
     },
     {
       "id": "42203067",
@@ -104,7 +128,9 @@
       "authors": "Weese JS, Weese HE",
       "journal": "Vet J",
       "date": "2026 May 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42203067/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42203067/",
+      "abstract": "To better characterize emphysematous cystitis and support evidence-based guideline development, a scoping review was performed to identify available evidence pertaining to risk factors, diagnosis, clinical management and outcome of emphysematous cystitis in dogs and cats. After deduplication and screening, 28 references were eligible for data extraction, describing disease in 101 (93%) dogs and 8 (7.1%) cats. The median age was 8.5&#x202f;y (range 1-13&#x202f;y) from the 42 animals for which age",
+      "summary_ko": ""
     },
     {
       "id": "42192500",
@@ -112,7 +138,9 @@
       "authors": "Usta M, Karaman M, İlhan F, Özen H",
       "journal": "BMC Vet Res",
       "date": "2026 May 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42192500/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42192500/",
+      "abstract": "Feline infectious peritonitis (FIP) is a fatal, immune-mediated disease caused by the mutagenic variants of feline coronavirus and manifests as effusive (wet) and non-effusive (dry) clinical forms with distinct pathological features. Although necrosis is a common histopathological finding in FIP, the contribution of specific regulated cell death (RCD) pathway-associated protein expression patterns to tissue injury across different clinical forms remains poorly understood. This study aimed to con",
+      "summary_ko": ""
     },
     {
       "id": "42186056",
@@ -120,7 +148,9 @@
       "authors": "de Sousa FG, Ferreira NS, de Oliveira CF, Dos Reis SA, Canta GN",
       "journal": "BMC Vet Res",
       "date": "2026 May 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42186056/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42186056/",
+      "abstract": "Veterinary examinations in cats are essential for clinical assessment; however, stress often interferes with handling and data reliability. This study evaluated the cardiovascular and behavioral effects of a synthetic feline facial pheromone (F3) during cardiovascular examinations. A prospective repeated-measurements study was performed with 21 healthy mixed-breed cats over one year of age, non-aggressive and free of comorbidities. Each cat was assessed without pheromone exposure (T0) and after ",
+      "summary_ko": ""
     },
     {
       "id": "42308590",
@@ -128,7 +158,9 @@
       "authors": "Harada K, Murahata Y, Ide W, Osaki T, Tsujino K",
       "journal": "JVCS",
       "date": "2026 May 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42308590/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42308590/",
+      "abstract": "A thoracic aortic aneurysm (TAA) is a relatively common cardiovascular disorder in humans. However, it is rarely reported in dogs. To date, several reported canine cases are associated with clinical signs and severe complications, such as aortic dissection and rupture. Herein, we report an incidentally diagnosed TAA in an asymptomatic elderly dog with suspected aortic valve abnormality. A 12-year-old spayed female Shiba Inu was referred for the evaluation of anorexia and vomiting. It was subsequ",
+      "summary_ko": ""
     },
     {
       "id": "42191061",
@@ -136,7 +168,9 @@
       "authors": "Bhanpattanakul S, Tharasanit T, Sailasuta A, Nakagawa T, Kaewamatawong T",
       "journal": "Vet J",
       "date": "2026 May 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42191061/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42191061/",
+      "abstract": "Canine cutaneous mast cell tumors (MCTs) exhibit heterogeneous biological behaviors, with increasing evidence implicating the tumor immune microenvironment (TIME) in disease progression. This study evaluated biopsy-confirmed cases of canine MCTs to investigate associations between tumor grade and host factors, and to characterize grade-related differences in immune marker expression. Tumors were histologically graded by the Kiupel system and analyzed using immunohistochemistry for CD4, CD8, CD25",
+      "summary_ko": ""
     },
     {
       "id": "42185848",
@@ -144,7 +178,9 @@
       "authors": "Szewczuk MA, Zych S, Stankiewicz T, Błaszczyk B, Ochmian I",
       "journal": "BMC Vet Res",
       "date": "2026 May 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42185848/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42185848/",
+      "abstract": "Staphylococcus pseudintermedius is a natural component of the normal microbiota of the skin and mucous membranes of dogs. However, it can also act as a causative agent of pyoderma and otitis externa. The emergence of multidrug-resistant strains of this staphylococcus has prompted the search for new antimicrobial agents. The so-called \"Thieves\" blend, a relatively little-known mixture of essential oils, is based on a medieval recipe and comprises the following essential oils (EOs): cinnamon, clov",
+      "summary_ko": ""
     },
     {
       "id": "42178858",
@@ -152,7 +188,9 @@
       "authors": "Jessen LR, Moberg FS, Langhorn R, Gravgaard AS, Dupont N",
       "journal": "JSAP",
       "date": "2026 May 24",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42178858/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42178858/",
+      "abstract": "To investigate the discriminatory potential of serum amyloid A, neutrophil:lymphocyte ratio, monocyte:lymphocyte ratio and assess renal tubular injury in cats with pyelonephritis. Diagnostic accuracy study using samples from prospectively enrolled cats and stored material. Cats were classified according to diagnosis as pyelonephritis, ureteral obstruction, chronic kidney disease, subclinical bacteriuria, cystitis, or healthy. Serum amyloid A, neutrophil:lymphocyte ratio, monocyte:lymphocyte rati",
+      "summary_ko": ""
     },
     {
       "id": "42178715",
@@ -160,7 +198,9 @@
       "authors": "Martin-Flores M, Lorenzutti AM, Pelligand L",
       "journal": "JSAP",
       "date": "2026 May 24",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42178715/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42178715/",
+      "abstract": "Metoclopramide is used for prevention or treatment of emesis and gastroesophageal reflux in dogs. Historically, it has been administered three to four times a day. However, reports of adverse reactions associated with intravenous boluses raise concerns. A more modern trend is to administer the total daily dose as a constant rate infusion of 1 to 2&#x2009;mg/kg/day. A loading dose prior to the infusion is often omitted, which can delay the onset of action. Adequate loading doses for these constan",
+      "summary_ko": ""
     },
     {
       "id": "42178139",
@@ -168,7 +208,9 @@
       "authors": "David M, Giraud L, Dumont R, Gibert S, Dunié-Mérigot A",
       "journal": "JSAP",
       "date": "2026 May 24",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42178139/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42178139/",
+      "abstract": "Surgical lateralisation is the gold standard for treating laryngeal paralysis in dogs; however, it remains invasive and expensive with possible life-threatening complications. This study evaluated the outcome of a non-surgical technique, laryngeal stent placement, for the treatment of laryngeal paralysis and other laryngeal conditions in dogs. A retrospective single-centre descriptive analysis of medical records was performed for dogs treated with a laryngeal silicone stent between 2022 and 2025",
+      "summary_ko": ""
     },
     {
       "id": "42177939",
@@ -176,7 +218,9 @@
       "authors": "Lienert M, Stadler L, Kipfer N, Bettschart-Wolfensberger R, Heitzmann V",
       "journal": "Vet J",
       "date": "2026 May 23",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42177939/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42177939/",
+      "abstract": "To investigate the effect of electroacupuncture on postoperative analgesia in dogs undergoing Tibial Tuberosity Advancement surgery. We hypothesise that acupuncture will reduce pain scores and the need for rescue analgesia compared to the control group. 31 client-owned dogs were enroled in this prospective, blinded, randomised, controlled clinical study conducted in a small animal private practice. Dogs scheduled for TTA surgery were allocated to an electroacupuncture group (n&#x202f;=&#x202f;15",
+      "summary_ko": ""
     },
     {
       "id": "42173154",
@@ -184,7 +228,9 @@
       "authors": "Park FJ, Lepiz ML, Baetge C, Moreno K, Watanabe R",
       "journal": "JAVMA",
       "date": "2026 May 22",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42173154/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42173154/",
+      "abstract": "To evaluate whether laparoscopic-induced pneumoperitoneum (8 to 10 mm Hg) in reverse Trendelenburg (RT) impairs ventilation and oxygenation, and whether pressure-controlled ventilation (PCV) with low positive end-expiratory pressure (PEEP; 3 cm H2O [PEEP-3] or 5 cm H2O [PEEP-5]) improves these variables in sevoflurane-anesthetized large-breed dogs. Cardiopulmonary variables were recorded before (T0) and 15 minutes after insufflation in RT (T1) during spontaneous ventilation (SV) and again 45 min",
+      "summary_ko": ""
     },
     {
       "id": "42174611",
@@ -192,7 +238,9 @@
       "authors": "Dembowski M, Pütsch K, Delling C, Bauer C, Kalenyak K",
       "journal": "BMC Vet Res",
       "date": "2026 May 22",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42174611/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42174611/",
+      "abstract": "The metastrongyloid nematode Angiostrongylus vasorum, known as \"French Heartworm\", is an emerging concern in canine health in Europe. Foxes are considered the main reservoir hosts, and affected carnivores predominantly show cardiovascular and respiratory signs. However, a disseminated course of infection can have diverse and severe consequences, including fatal outcomes. A six-year-old male Labrador Retriever was presented to the clinic with progressive episodes of stupor lasting a few seconds a",
+      "summary_ko": ""
     },
     {
       "id": "42270470",
@@ -200,7 +248,9 @@
       "authors": "Scansen BA",
       "journal": "JVCS",
       "date": "2026 May 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42270470/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42270470/",
+      "abstract": "Cardiac computed tomography (cCT) has emerged as a valuable imaging modality in veterinary cardiology and can be used to visualize and understand diseases that affect the mitral and tricuspid valves of dogs. While echocardiography remains the primary diagnostic tool for atrioventricular valve disease, cCT offers excellent spatial and temporal resolution, at the same time overcoming the limitations posed by acoustic windows. This review article describes the technical aspects of cCT in dogs empha",
+      "summary_ko": ""
     },
     {
       "id": "42263445",
@@ -208,7 +258,9 @@
       "authors": "Schoebel J, Zablotski Y, Wess G",
       "journal": "JVCS",
       "date": "2026 May 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42263445/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42263445/",
+      "abstract": "Restrictive cardiomyopathy (RCM), the second most common cardiomyopathy in cats, is known to induce primary diastolic dysfunction. Little is known about systolic function in cats with RCM. The aim of this study was to evaluate systolic function using two-dimensional speckle-tracking echocardiography-derived endocardial global longitudinal strain (GLS) in a population of cats with RCM. Twenty-five adult cats diagnosed with RCM as well as 25 healthy control cats were included in the present study.",
+      "summary_ko": ""
     },
     {
       "id": "42263444",
@@ -216,7 +268,9 @@
       "authors": "Romito G, Morini M",
       "journal": "JVCS",
       "date": "2026 May 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42263444/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42263444/",
+      "abstract": "A 12-year-old, 20-kg, Cocker spaniel was evaluated for the recent onset of marked weakness. Cardiologic assessment revealed myxomatous degeneration of the atrioventricular valves, moderate left atrial dilation, and a sustained narrow QRS complex tachycardia primarily consistent with focal atrial tachycardia. Moreover, two-dimensional imaging of the interatrial septum showed a hyperechoic, multifocal thickening (maximum thickness: 10 mm). Differential diagnoses included neoplastic infiltration, i",
+      "summary_ko": ""
     },
     {
       "id": "42263443",
@@ -224,7 +278,9 @@
       "authors": "Gomez P, Ward J, Manson E, Fasina O",
       "journal": "JVCS",
       "date": "2026 May 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42263443/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42263443/",
+      "abstract": "Hypereosinophilic syndrome is a rare systemic disorder in cats characterized by sustained eosinophilia and eosinophil-mediated tissue injury. A three-year-old castrated male domestic shorthair cat was presented for acute onset dyspnea and was diagnosed with left-sided congestive heart failure. Echocardiography revealed concentric left ventricular hypertrophy with hyperechoic and irregular endomyocardium, large irregular oscillating lesions involving the mitral valve apparatus, and severe left at",
+      "summary_ko": ""
     },
     {
       "id": "42161311",
@@ -232,7 +288,9 @@
       "authors": "Bronko SE, Harvey AM, Bell CM, Soukup JW, Lewis JR",
       "journal": "JAVMA",
       "date": "2026 May 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42161311/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42161311/",
+      "abstract": "To determine diagnostic agreement between frozen sectioning (FS) and formalin-fixed, paraffin-embedded (FFPE) tissue-processing methods for veterinary oral tumors and to chronicle the method and time required to perform FS sample processing in a private practice setting. 27 canine and feline oral tumor samples were collected between October 2024 and February 2025 and processed in 2 ways: (1) in-house using FS and (2) conventional FFPE. All biopsies were interpreted by 2 veterinary pathologists, ",
+      "summary_ko": ""
     },
     {
       "id": "42161306",
@@ -240,7 +298,9 @@
       "authors": "Rishniw M",
       "journal": "JAVMA",
       "date": "2026 May 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42161306/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42161306/",
+      "abstract": "To examine the effectiveness of crowdfunding by veterinary clients hoping to defray the costs of pacemaker implantation in dogs. Data were collected from all fundraising campaigns on the GoFundMe website looking to help cover costs of canine pacemaker implantation. Efficacy was defined as the percentage of the target amount raised, and success was defined as raising &#x2265; 80% of the target amount. Relationships between the target amount or campaign age and percentage raised and the target amo",
+      "summary_ko": ""
     },
     {
       "id": "42161303",
@@ -248,7 +308,9 @@
       "authors": "Levitis S, Lopez D, Liu L, Buote N",
       "journal": "JAVMA",
       "date": "2026 May 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42161303/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42161303/",
+      "abstract": "To quantify the financial impact of surgical site infections (SSIs) following clean-contaminated abdominal surgery in dogs, as well as to evaluate perioperative risk factors in this patient population. This case-control retrospective study evaluated canine patients undergoing gastrointestinal or urogenital clean-contaminated surgery at a university hospital (2021 to 2024) that either developed an SSI (case) or did not develop an SSI (control). Surgical site infection-positive cases were identifi",
+      "summary_ko": ""
     },
     {
       "id": "42157618",
@@ -256,7 +318,9 @@
       "authors": "Whetstone K, Heinz J, Grantham LE 2nd, Stavropoulos M, Hall C",
       "journal": "Vet Clin Pathol",
       "date": "2026 May 19",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42157618/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42157618/",
+      "abstract": "A thromboelastogram viscoelastic monitor (the TEG 6s) has recently become available for use in veterinary patients. It is therefore necessary to establish reference intervals for the new device in each species where it is employed. This study aimed to establish accurate and acceptable reference intervals for the TEG 6s in dogs. The goal of this study was to establish dog reference intervals (RIs) for the TEG 6s by sampling healthy adult dogs from a variety of breeds. One hundred and thirty dogs ",
+      "summary_ko": ""
     },
     {
       "id": "42152592",
@@ -264,7 +328,9 @@
       "authors": "Paterson R, McKenna C, Kadler G, Arsenault M, Mallet G",
       "journal": "JSAP",
       "date": "2026 May 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42152592/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42152592/",
+      "abstract": "To describe the clinical and electroencephalographic findings associated with absence seizures in a population of Cavalier King Charles Spaniels. This was a retrospective descriptive case series of Cavalier King Charles Spaniels diagnosed with absence seizures at two veterinary referral hospitals between 2016 and 2025, whereby at least one ambulatory video-electroencephalography study was available. Data from eight dogs were included for review. The mean video-electroencephalography study durati",
+      "summary_ko": ""
     },
     {
       "id": "42140270",
@@ -272,7 +338,9 @@
       "authors": "Ahn J, Jeong D, Jang Y",
       "journal": "JAVMA",
       "date": "2026 May 15",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42140270/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42140270/",
+      "abstract": "This study aimed to describe clinical characteristics, prognosis, and therapeutic approaches for central corneal degeneration syndrome (CCDS) in dogs. 11 eyes from 9 client-owned dogs diagnosed with CCDS between 2015 and 2024. CCDS was diagnosed on the basis of the presence of central corneal facets that progressively deepened and widened in the absence of corneal ulceration. The mean age at diagnosis was 14.2 years (range, 10 to 17 years). At the time of diagnosis, the facet depth was &lt; 50% ",
+      "summary_ko": ""
     },
     {
       "id": "42265906",
@@ -280,7 +348,9 @@
       "authors": "Blois SL, Collier AJ, Sanz S, Chun I",
       "journal": "JSAP",
       "date": "2026 Jun 9",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42265906/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42265906/",
+      "abstract": "It is recommended that all cats, regardless of transfusion history, undergo major crossmatch prior to blood product administration to decrease the likelihood of immunological transfusion reactions. A reliable and user-friendly point-of-care crossmatch test would help make crossmatch testing more accessible. The primary objective of this study was to assess agreement between two antiglobulin-enhanced major crossmatch test methods, a laboratory-based tube crossmatch method and a point-of-care gel ",
+      "summary_ko": ""
     },
     {
       "id": "42361659",
@@ -288,7 +358,9 @@
       "authors": "Brennan C, Gunasekaran T",
       "journal": "JVCS",
       "date": "2026 Jun 6",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42361659/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361659/",
+      "abstract": "A three-month-old male intact domestic shorthair cat was presented to Michigan State University for evaluation of a heart murmur and was diagnosed with a left-to-right shunting patent ductus arteriosus (PDA) via transthoracic echocardiography. The patient returned at eight months of age, and the PDA was successfully occluded with the Amplatzer&#x2122; Vascular Plug II using a transjugular approach. There are limited reports regarding non-surgical closure of a PDA in cats, including a single repo",
+      "summary_ko": ""
     },
     {
       "id": "42251375",
@@ -296,7 +368,9 @@
       "authors": "Bhandari M, Bastola S, Gautam R, Shrestha M, Yadav AB",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 6",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42251375/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42251375/",
+      "abstract": "Canine distemper (CD), caused by Morbilivirus canis of Paramyxoviridae family, is a contagious and potentially fatal viral disease affecting a wide range of domestic and wild canid species. This study aimed to determine the seroprevalence of Canine Distemper Virus (CDV) and associated risk factors among free-roaming dogs in the buffer zone of Bardiya National Park (BNP), Nepal. A total of 91 serum samples were collected from free-roaming dogs and tested for CDV-specific IgG antibodies using an i",
+      "summary_ko": ""
     },
     {
       "id": "42297016",
@@ -304,7 +378,9 @@
       "authors": "Tipirneni Y, Arzi B, Blandino A, Skouritakis CT, Goldschmidt S",
       "journal": "AJVR",
       "date": "2026 Jun 5",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42297016/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42297016/",
+      "abstract": "To evaluate the feasibility, accuracy, and reproducibility of an AR interface for enhancing spatial surface-level tracking on a canine head hologram. We hypothesized that spatial accuracy improves when virtual guides are overlayed directly onto the head rather than when annotations are transferred from a separate screen. We developed an augmented reality (AR) application in Unity compatible with XREAL's glasses that allowed users to annotate and interact with a realistic 3-D hologram of a dog he",
+      "summary_ko": ""
     },
     {
       "id": "42248206",
@@ -312,7 +388,9 @@
       "authors": "Pullens BJ, Ly C, Ebrahimie E, Dehcheshmeh MM, Hedgespeth BA",
       "journal": "AJVR",
       "date": "2026 Jun 5",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42248206/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42248206/",
+      "abstract": "To determine whether serum biomarkers, BUN-to-albumin ratio (BAR) and creatinine-to-albumin ratio (CAR), have prognostic utility in dogs. A retrospective, single-center study utilizing signalment, clinicopathological, and mortality data collected from medical records of dogs presented to a referral hospital from September 2022 through June 2025. Dogs were stratified based on mortality. 327 cases were included. Nonsurvivors (n = 92) had significantly elevated BAR (median, 6.62; 95% CI, 5.69 to 7.",
+      "summary_ko": ""
     },
     {
       "id": "42248198",
@@ -320,7 +398,9 @@
       "authors": "Kornreich BG, Diel DG, Detar LG, Frye EA, Goodman LB",
       "journal": "AJVR",
       "date": "2026 Jun 5",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42248198/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42248198/",
+      "abstract": "",
+      "summary_ko": ""
     },
     {
       "id": "42248196",
@@ -328,7 +408,9 @@
       "authors": "Perry T, Shiau DS",
       "journal": "AJVR",
       "date": "2026 Jun 5",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42248196/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42248196/",
+      "abstract": "To determine whether a presurgical aquapuncture intervention can reduce intraoperative bleeding during female dog ovariohysterectomy (OVH) procedures. Female dogs admitted for OVH procedure were enrolled and randomly assigned to group T (receiving vitamin B12 injections at the acupoint point GV-5), group SC (receiving vitamin B12 injections at GV-14, an acupoint without hemostatic indications), or group NC (receiving no B12 injections). Vitamin B12 injections (dose determined by weight) were giv",
+      "summary_ko": ""
     },
     {
       "id": "42248174",
@@ -336,7 +418,9 @@
       "authors": "Kahn SE, Marturello DM, West-Sommer AB, Rutherford S, Perry KL",
       "journal": "AJVR",
       "date": "2026 Jun 5",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42248174/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42248174/",
+      "abstract": "To evaluate the accuracy of 3 femoral craniocaudal radiographic techniques in assessment of femoral morphology using CT scans as the imaging modality of choice. Candidates were assessed from September 2024 through October 2025, and those with a normal orthopedic examination were enrolled. Extended limb, sitting position, and horizontal beam radiographs and CT scans were evaluated for frontal plane alignment, with the following measurements completed by 2 investigators independently: anatomic lat",
+      "summary_ko": ""
     },
     {
       "id": "42244488",
@@ -344,7 +428,9 @@
       "authors": "Weese JS, Soltero-Rivera M, Weese HE, Scahill K",
       "journal": "JSAP",
       "date": "2026 Jun 5",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42244488/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42244488/",
+      "abstract": "To identify and describe available evidence pertaining to the local and systemic infectious complications in dogs and cats that have undergone dental procedures and the impact of peri-procedural antimicrobial prophylaxis. A systematic review was performed based on Preferred Reporting Items for Systematic Reviews and MetaAnalysis guidelines. No studies clearly reported the incidence of sepsis or infective endocarditis data associated with dental procedures. The pooled prevalence of post-dental pr",
+      "summary_ko": ""
     },
     {
       "id": "42249348",
@@ -352,7 +438,9 @@
       "authors": "Choe KH, Kim SE, Jo HM",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 5",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42249348/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42249348/",
+      "abstract": "Feline chronic gingivostomatitis (FCGS) is a debilitating inflammatory condition characterized by severe caudal oral mucosal inflammation and frequently necessitates extensive dental extractions. Full-mouth extraction (FME) or partial-mouth extraction (PME) is considered standard therapy; however, reported clinical remission rates vary widely, ranging from 51.8% to 67.3%, and many affected cats require long-term immunomodulatory treatment. Although inflammation is typically bilateral, a subset o",
+      "summary_ko": ""
     },
     {
       "id": "42240562",
@@ -360,7 +448,9 @@
       "authors": "McConomy R, Pinnok H, Adami C",
       "journal": "JSAP",
       "date": "2026 Jun 4",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
+      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement ab",
+      "summary_ko": ""
     },
     {
       "id": "42248237",
@@ -368,7 +458,9 @@
       "authors": "Guadix-Ureña Z, Aprea F, Domínguez JM, Morgaz J, Cipollini C",
       "journal": "Vet J",
       "date": "2026 Jun 4",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42248237/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42248237/",
+      "abstract": "This prospective, randomized, blinded and non-inferiority clinical study was conducted to assess the analgesic efficacy of ultrasound-guided transversus abdominis plane (TAP) block compared with administration of methadone in dogs undergoing laparoscopic ovariectomy. After intramuscular premedication with dexmedetomidine and methadone, dogs were randomly assigned to receive an ultrasound-guided TAP block with ropivacaine 0.25% (0.25&#x202f;ml/kg per point; group R, n&#x202f;=&#x202f;22) or 0.9% ",
+      "summary_ko": ""
     },
     {
       "id": "42243796",
@@ -376,7 +468,9 @@
       "authors": "Ekstrand C, Löwgren M, Erkas M, Devreese M, De Baere S",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 4",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42243796/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42243796/",
+      "abstract": "Potentiated sulphonamides, combining trimethoprim (TMP) with a sulphonamide such as sulfadiazine (SDZ) or sulfamethoxazole (SMX), are widely used in canine medicine. The standard 1:5 dose ratio was initially designed to achieve a plasma concentration ratio of approximately 1:19 in humans, considered optimal for antibacterial synergy. However, species differences in pharmacokinetics may influence whether this ratio is achieved and maintained in dogs. Updated pharmacokinetic data based on modern a",
+      "summary_ko": ""
     },
     {
       "id": "42237202",
@@ -384,7 +478,9 @@
       "authors": "Tozon Mask N, Lampreht Tratar U, Milevoj N, De Terlizzi F, Birk T",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 4",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42237202/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42237202/",
+      "abstract": "Electrochemotherapy (ECT) is a local ablative treatment and in veterinary oncology, evidence supporting ECT efficacy is mainly derived from case reports and small case series, underscoring the need for standardized, multicentric data collection comparable to human oncology registries. The primary aim of this study was to establish VetInspECT, a veterinary clinical registry adapted from the human InspECT platform, to enable standardized reporting and multicentre data collection for ECT. The secon",
+      "summary_ko": ""
     },
     {
       "id": "42379217",
@@ -392,7 +488,9 @@
       "authors": "Wappel S, Velineni S, King V, Abma E, Hoevers J",
       "journal": "AJVR",
       "date": "2026 Jun 30",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42379217/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42379217/",
+      "abstract": "To evaluate the onset of immunity 7 days after administration of a live-attenuated Bordetella bronchiseptica (Bb) vaccine (Vanguard B Oral) in dogs. In a randomized, blinded, controlled study conducted at an animal research facility in 2022, forty 8-week-old Beagle puppies were randomly assigned to 2 groups (n = 20/group) and administered a single oral dose of either placebo or vaccine on day 0. On day 7 after vaccination, all dogs were challenged with aerosolized virulent Bb. Clinical observati",
+      "summary_ko": ""
     },
     {
       "id": "42379387",
@@ -400,7 +498,9 @@
       "authors": "Larrán B, López-Alonso M, Miranda M, González-Martínez Á, Rosado B",
       "journal": "Vet J",
       "date": "2026 Jun 30",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42379387/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42379387/",
+      "abstract": "Canine cognitive dysfunction (CCD) is a prevalent age-related neurodegenerative condition in dogs that shares several features with Alzheimer's disease (AD). Although mineral dyshomeostasis has been implicated in the pathogenesis of AD, its role in CCD remains largely unexplored. This retrospective study aimed to investigate regional brain mineral concentrations in 24 dogs with CCD and 15 dogs exhibiting successful cognitive aging (non-CCD). CCD diagnosis was based on the results of caregiver qu",
+      "summary_ko": ""
     },
     {
       "id": "42379386",
@@ -408,7 +508,9 @@
       "authors": "Luo Y, Xiao X",
       "journal": "Vet J",
       "date": "2026 Jun 30",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42379386/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42379386/",
+      "abstract": "Feline chronic gingivostomatitis (FCGS) is a severe, chronic inflammatory oral disease that substantially impairs the quality of life of affected cats. This study aimed to investigate the effect of dietary supplementation with different Omega-3:Omega-6 ratios on postoperative recovery in FCGS cats. A total of 24 client-owned FCGS cats requiring full-mouth extraction were randomly divided into three groups (control group, 1:4 group, 1:10 group) and fed diets with different Omega-3:Omega-6 ratios ",
+      "summary_ko": ""
     },
     {
       "id": "42381034",
@@ -416,7 +518,9 @@
       "authors": "Rani S, Moudgil P, Gupta R, Agnihotri D, Kumar M",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 30",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42381034/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42381034/",
+      "abstract": "Dogs play an important role in the transmission of zoonotic parasites to humans. Among these, gastrointestinal (GI) helminths are widely prevalent and pose a significant public health risk. This study investigated the prevalence, molecular characterization and risk factors analyses of gastrointestinal nematodes in pet and semi-pet dogs in Haryana, India, to assess their potential zoonotic relevance. A total of 310 faecal samples were collected from pet and semi-pet dogs from five randomly select",
+      "summary_ko": ""
     },
     {
       "id": "42242285",
@@ -424,7 +528,9 @@
       "authors": "Westbrook M, Boscan P, Monnet E, Marvel SJ",
       "journal": "JAVMA",
       "date": "2026 Jun 3",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42242285/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42242285/",
+      "abstract": "To describe the complications and short-term outcome following the use of perioperative nasotracheal oxygen administered through a nasotracheal tube (NTT) placed prophylactically or as a rescue during anesthetic recovery for brachycephalic dogs. 35 brachycephalic dogs were included in this retrospective study. Medical records were searched between January 2017 and September 2025 for dogs with brachycephalic obstructive airway syndrome that received supplemental oxygen through an NTT during the a",
+      "summary_ko": ""
     },
     {
       "id": "42242283",
@@ -432,7 +538,9 @@
       "authors": "Kurogochi K, Stern JA, DeFrancesco TC, Ueda Y",
       "journal": "JAVMA",
       "date": "2026 Jun 3",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42242283/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42242283/",
+      "abstract": "The T-wave peak-end (TpTe) interval and its ratio to the QT interval (TpTe:QT) are ECG markers of myocardial repolarization dispersion. We hypothesized that these markers are associated with echocardiographic indices reflecting structural remodeling in dogs with the dilated cardiomyopathy (DCM) phenotype and are minimally influenced by heart rate (HR). A cross-sectional study was conducted in dogs with an echocardiographic subtype of DCM, excluding sighthound breeds, between July 2021 and June 2",
+      "summary_ko": ""
     },
     {
       "id": "42365894",
@@ -440,7 +548,9 @@
       "authors": "Barillaro G, Minniti S, Mezzatesta S, Macrì F, Torino C",
       "journal": "Vet J",
       "date": "2026 Jun 28",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42365894/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42365894/",
+      "abstract": "Artificial intelligence (AI) is transforming veterinary diagnostic imaging, improving the accuracy, speed, and efficiency of complex data analysis. This emerging field could respond to the growing demand for radiologists, optimizing workflow and automating image interpretation. This narrative review explores the current state of AI use in veterinary diagnostics. We reviewed recent literature focusing on the application of AI in medical imaging, including magnetic resonance, computed tomography, ",
+      "summary_ko": ""
     },
     {
       "id": "42365892",
@@ -448,7 +558,9 @@
       "authors": "Marangoni S, Frank D, Chow D, Bukhari SSUH, Steagall PV",
       "journal": "Vet J",
       "date": "2026 Jun 28",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42365892/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42365892/",
+      "abstract": "This study characterized the duration and frequency of ocular pain behaviours in cats before and after the administration of analgesia pre- and post- ophthalmic surgery. Thirty adult cats (13 female and 17 male neutered; 6.6&#xa0;&#xb1;&#xa0;4.4 years; 4.2&#xa0;&#xb1;&#xa0;1.0&#x202f;kg), including brachycephalic (n&#x202f;=&#x202f;24) and non-brachycephalic breeds (n&#x202f;=&#x202f;6), were enrolled in a prospective, controlled, blinded study. Surgeries included lamellar keratectomy (n&#xa0;=&",
+      "summary_ko": ""
     },
     {
       "id": "42364870",
@@ -456,7 +568,9 @@
       "authors": "Pinna S, Tassani C",
       "journal": "Vet J",
       "date": "2026 Jun 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42364870/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42364870/",
+      "abstract": "The aim of this study was to evaluate changes in osteoarthrosis (OA) in specific anatomic locations of the stifle joints of dogs with cranial cruciate ligament (CrCL) rupture, and to observe differences at these locations after tibial plateau leveling osteotomy (TPLO) and tibial tuberosity advancement (TTA) procedures. The radiographic OA scoring system used in this study involved 14 anatomic locations each of which was evaluated and analyzed individually. The radiographs of 55 dogs treated with",
+      "summary_ko": ""
     },
     {
       "id": "42365334",
@@ -464,7 +578,9 @@
       "authors": "Meunier SM, Voegel CD, Neubert E, Harburger LA, Riond B",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42365334/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42365334/",
+      "abstract": "",
+      "summary_ko": ""
     },
     {
       "id": "42361384",
@@ -472,7 +588,9 @@
       "authors": "Lashlee T, Tollefson CR, Pigott AM, Thielen L, De Silva M",
       "journal": "JAVMA",
       "date": "2026 Jun 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42361384/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361384/",
+      "abstract": "To determine the feasibility of measuring caudal vena cava (CVC) and aorta size in non-contrast-enhanced CT scans of rabbits, variations in size and circularity depending on anatomical location, factors and conditions affecting the CVC-to-aorta (CVC:Ao) ratios, and changes of CVC:Ao ratios in hemodynamically unstable rabbits. This retrospective cohort study included consecutive client-owned rabbits that presented to the Cornell University Hospital for Animals between June 2022 and October 2024 a",
+      "summary_ko": ""
     },
     {
       "id": "42361375",
@@ -480,7 +598,9 @@
       "authors": "Albers P, Ullal T, Shropshire S, Tolbert MK, Lee AM",
       "journal": "JAVMA",
       "date": "2026 Jun 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42361375/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361375/",
+      "abstract": "To compare signalment, laboratory, and imaging findings in dogs with intrahepatic portal hypertension (PH) secondary to congenital hepatic disorders or chronic hepatitis (idiopathic or copper associated). This was a multi-institutional retrospective study (January 1, 2013, to August 25, 2024). Dogs were included if they had clinical evidence of PH (multiple portosystemic shunts, peritoneal effusion, or both) and evidence of liver dysfunction. Dogs were classified as having congenital disease or ",
+      "summary_ko": ""
     },
     {
       "id": "42361374",
@@ -488,7 +608,9 @@
       "authors": "Schindler S, Lane M, Woodard M, Baron-Chapman M",
       "journal": "JAVMA",
       "date": "2026 Jun 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42361374/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361374/",
+      "abstract": "To evaluate the efficacy and safety of a modified percutaneous ultrasound-guided ethanol ablation technique for the treatment of primary hyperparathyroidism in dogs. This prospective observational study was conducted at a single veterinary referral center. Dogs with persistent ionized hypercalcemia, normal/increased parathyroid hormone concentrations, normal/undetectable parathyroid hormone-related protein concentrations, and ultrasonographic identification of &#x2265; 1 presumed hyperfunctionin",
+      "summary_ko": ""
     },
     {
       "id": "42361372",
@@ -496,7 +618,9 @@
       "authors": "von Pfeil DJF, Adams RJ, Clark L, Dewey CW, Brunke MW",
       "journal": "JAVMA",
       "date": "2026 Jun 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42361372/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361372/",
+      "abstract": "Bedinvetmab (Librela/Beransa) is a canine anti-nerve growth factor monoclonal antibody (aNGFmAb) approved for the management of osteoarthritis pain. By neutralizing NGF, it reduces nociceptive signaling and improves comfort. However, NGF plays critical roles in neural, bone, and cartilage homeostasis across species. Multiple studies indicate that NGF contributes to bone remodeling and cartilage repair by modulating osteoblast, osteoclast, and chondrocyte activity, processes that are highly activ",
+      "summary_ko": ""
     },
     {
       "id": "42361369",
@@ -504,7 +628,9 @@
       "authors": "Tollefson CR, Merkhassine M, Duhamel GE, Chambers BM, Miller M",
       "journal": "JAVMA",
       "date": "2026 Jun 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42361369/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361369/",
+      "abstract": "To describe ultrasonographic features of gastric mucosal abnormalities in dogs receiving chronic omeprazole therapy. Medical records from a veterinary teaching hospital were retrospectively reviewed to identify dogs evaluated between 2020 and 2026 with a history of chronic (&#x2265; 5 months) omeprazole administration that had undergone abdominal ultrasonography. Dogs were included if ultrasonography demonstrated gastric wall abnormalities consistent with a defined pattern. Nine dogs met the inc",
+      "summary_ko": ""
     },
     {
       "id": "42361364",
@@ -512,7 +638,9 @@
       "authors": "Díaz R, Maureira F",
       "journal": "JAVMA",
       "date": "2026 Jun 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42361364/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361364/",
+      "abstract": "To provide a detailed technical tutorial on large-bore thoracostomy tube placement in small animals. The procedure is demonstrated using a veterinary simulation model designed to support safe acquisition of procedural skills and hands-on training. Any dog or cat requiring therapeutic drainage of the pleural space due to recurrent pleural effusion, pneumothorax, or the need for pleural lavage, such as in cases of pyothorax. Placement of a large-bore thoracostomy tube is demonstrated, including cr",
+      "summary_ko": ""
     },
     {
       "id": "42362104",
@@ -520,7 +648,9 @@
       "authors": "Muscatello LV, Bacci B, Brigandì E, Tugnoli C, Avallone G",
       "journal": "Vet J",
       "date": "2026 Jun 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42362104/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42362104/",
+      "abstract": "The programmed cell death-1/programmed cell death ligand-1 (PD-1/PD-L1) pathway contributes to tumor immune evasion and represents an emerging topic in canine oncology. In canine urothelial carcinoma (UC), PD-L1 immunohistochemical evaluation may be challenging because of staining heterogeneity, and only membranous labeling is considered specific. This study assessed the feasibility of a computer-aided image analysis workflow incorporating supervised classification tools for PD-L1 scoring on who",
+      "summary_ko": ""
     },
     {
       "id": "42349497",
@@ -528,7 +658,9 @@
       "authors": "Nishi R, Kinoshita K, Cridge H, Toshima A, Park YT",
       "journal": "AJVR",
       "date": "2026 Jun 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42349497/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42349497/",
+      "abstract": "To compare CT-derived liver volume and noncontrast hepatic attenuation between dogs with histologically confirmed cirrhosis and dogs without liver disease and describe qualitative CT findings in dogs with cirrhosis. This retrospective, multi-institutional, cross-sectional study included 8 dogs with histologically confirmed cirrhosis and 121 dogs without liver disease from a previously published CT liver volume reference interval cohort. Noncontrast CT images were used for manual hepatic volumetr",
+      "summary_ko": ""
     },
     {
       "id": "42348344",
@@ -536,7 +668,9 @@
       "authors": "Kiriki K, Yabuzoe A, Iyori K",
       "journal": "JSAP",
       "date": "2026 Jun 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42348344/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42348344/",
+      "abstract": "To retrospectively evaluate the long-term clinical outcomes of lateral ear canal resection performed as part of routine clinical practice for chronic otitis externa in dogs, and to re-evaluate the practical utility of lateral ear canal resection from the perspective of contemporary treatment goals emphasising long-term maintenance of a manageable condition. A retrospective descriptive study was conducted involving 40 dogs (58 ears) that underwent lateral ear canal resection performed by a single",
+      "summary_ko": ""
     },
     {
       "id": "42345856",
@@ -544,7 +678,9 @@
       "authors": "Melek Ş, Orhun ÖT, Şenocak MG, Arslan T",
       "journal": "JSAP",
       "date": "2026 Jun 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42345856/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42345856/",
+      "abstract": "The present study evaluated the accuracy and agreement of heart rate and peripheral oxygen saturation measurements obtained using the Owlet Smart Sock in awake dogs with low activity levels, using a veterinary patient monitor as the reference method. Clinically healthy dogs underwent simultaneous heart rate and peripheral oxygen saturation measurements with Owlet Smart Sock and a veterinary patient monitor during routine preoperative evaluation. Method comparison was performed using Pearson corr",
+      "summary_ko": ""
     },
     {
       "id": "42349633",
@@ -552,7 +688,9 @@
       "authors": "Nakata K, Ono T, Kobatake Y, Nagumo T, Hoshino Y",
       "journal": "Vet J",
       "date": "2026 Jun 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42349633/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42349633/",
+      "abstract": "Syringomyelia (SM) is a neurological disorder characterized by fluid accumulation within the spinal cord and is frequently observed in toy breed dogs. Cranial malformations associated with Chiari-like malformation are considered a major cause; however, previous studies have relied mainly on midsagittal imaging, and breed-specific cranial differences have not been fully examined. This study aimed to identify breed-specific cranial abnormalities associated with SM using three-dimensional (3D) geom",
+      "summary_ko": ""
     },
     {
       "id": "42349632",
@@ -560,7 +698,9 @@
       "authors": "Salvaggiulo A, Pellegrini F, Camero M, Gatta G, Rodi N",
       "journal": "Vet J",
       "date": "2026 Jun 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42349632/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42349632/",
+      "abstract": "Feline bocaparvoviruses (FeBoVs) have been detected in association with gastrointestinal disease in domestic cats. This study investigated the prevalence and genetic characteristics of FeBoVs in Italy by screening 126 rectal swabs from cats with acute gastroenteritis, collected between 2023 and 2025. The samples were analyzed using a pan-bocaparvovirus consensus PCR and novel type-specific quantitative assays for FeBoV-1, -2, and -3. The overall prevalence of FeBoV DNA was 22.2% (28/126). FeBoV-",
+      "summary_ko": ""
     },
     {
       "id": "42349630",
@@ -568,7 +708,9 @@
       "authors": "Holanda AGA, Fonseca-Alves CE, Ambrósio AM, Sá LRM, Rangel MMM",
       "journal": "Vet J",
       "date": "2026 Jun 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42349630/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42349630/",
+      "abstract": "Electrochemotherapy (ECT) has emerged as a valuable therapeutic option for feline cutaneous squamous cell carcinoma (SCC). However, the influence of clinicopathological variables on treatment outcomes remains insufficiently defined. This study included 35 cats with histopathologically confirmed SCC that underwent electrochemotherapy following intravenous administration of bleomycin (15,000 IU/m&#xb2;). Animals were followed up, and clinicopathological data were collected, including muscle condit",
+      "summary_ko": ""
     },
     {
       "id": "42341827",
@@ -576,7 +718,9 @@
       "authors": "Stoneburner RM, Lassinger LB, Hayes G, Bleedorn JA, Karlin WM",
       "journal": "AJVR",
       "date": "2026 Jun 24",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42341827/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42341827/",
+      "abstract": "To compare CT measurements of radial geometry obtained using computer-aided design (CAD) software to those obtained using multiplanar reconstruction (MPR) and to compare their intraobserver reliability. We hypothesized that CAD and MPR measurements would be different and that the CAD method would have higher reliability. CT images from normal thoracic limbs of dogs scanned from January 1, 2018, through March 1, 2023, were retrospectively collected and analyzed. The CAD and MPR-based measurements",
+      "summary_ko": ""
     },
     {
       "id": "42341817",
@@ -584,7 +728,9 @@
       "authors": "Kong L, Harada Y, Hara Y",
       "journal": "AJVR",
       "date": "2026 Jun 24",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42341817/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42341817/",
+      "abstract": "To characterize hind limb extensor muscle activation timing during trotting in clinically normal Beagles using surface electromyography (EMG) within the context of canine gait analysis and to evaluate whether event-based kinematic reference points provide a physiologically meaningful framework for interpreting activation timing. An observational exploratory study was conducted in 4 clinically normal Beagles. Synchronized surface EMG (1,000 Hz) and 3-D motion capture (240 Hz) were recorded from 8",
+      "summary_ko": ""
     },
     {
       "id": "42337613",
@@ -592,7 +738,9 @@
       "authors": "Ojasanya RA, Weese JS, Sobkowich KE, Deckert A, Szlosek D",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 24",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42337613/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337613/",
+      "abstract": "Bacterial cystitis, predominantly caused by Escherichia coli, is a leading cause for antimicrobial prescriptions in dogs. The use of antimicrobials contributes to selection pressure for antimicrobial resistance (AMR), a growing concern for veterinary and public health. This study examined risk factors for resistance in urinary E. coli isolates from dogs in the United States, focusing on prior positive cultures and other host, socioeconomic, and geographic factors using data from a national comme",
+      "summary_ko": ""
     },
     {
       "id": "42335959",
@@ -600,7 +748,9 @@
       "authors": "Stanford K, Cain RM, Millis D, Drum M, Richards J",
       "journal": "AJVR",
       "date": "2026 Jun 23",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42335959/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42335959/",
+      "abstract": "To identify the effects of incline and decline treadmill trotting on forelimb muscle activity in dogs using electromyography (EMG). Data were collected for a prospective within-subject, repeated-measures study in January and February of 2025 where subjects were trotted on a level treadmill, 5% incline, 10% incline, 5% decline, and 10% decline. Surface EMG data were collected bilaterally from the scapular portion of the deltoideus, lateral head of the triceps brachii, and biceps brachii, and fine",
+      "summary_ko": ""
     },
     {
       "id": "42337734",
@@ -608,7 +758,9 @@
       "authors": "Riley HL, Mama KR, Jacobs ME, McKemie DS, Kass PH",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 23",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42337734/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337734/",
+      "abstract": "Without adequate pain management, central nervous system plasticity can result in acute or adaptive pain developing into chronic or maladaptive pain. This is difficult to manage and often unresponsive to traditional analgesics. An important mechanism associated with maladaptive pain is central sensitization which results in part from increased NMDA (N-methyl-D-aspartate) receptor activation. Amantadine is an NMDA receptor antagonist that has been used in combination with opioids and NSAIDs in hu",
+      "summary_ko": ""
     },
     {
       "id": "42337531",
@@ -616,7 +768,9 @@
       "authors": "Tan SK, Hosgood GL, Curnow M",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 23",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42337531/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337531/",
+      "abstract": "This is a rare occurrence of a phaeochromocytoma in a dog with pre-existing, long-standing primary hypoadrenocorticism that underwent successful surgical intervention with a favourable outcome. The objective of this case report is to describe the diagnosis, management and outcome for unilateral phaeochromocytoma in a dog with pre-existing chronic adrenal insufficiency and atrophy. A 14-year-old neutered female Jack Russell Terrier had a 1-week history of hyporexia, lethargy and progressive weigh",
+      "summary_ko": ""
     },
     {
       "id": "42337529",
@@ -624,7 +778,9 @@
       "authors": "Feng X, Xu L, Zhang C, Zhou J, Bai X",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 23",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42337529/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337529/",
+      "abstract": "Since feline panleukopenia virus (FPV) is considered the most likely ancestor of canine parvovirus (CPV), comprehensive comparisons of nucleotide organization in corresponding viral genes between CPV and FPV may provide novel insights into the evolutionary dynamics underlying the divergence of these two viruses. Here, we characterize the evolutionary patterns of CPV and FPV genes across multiple levels of nucleotide organization. Both viruses exhibited highly conserved nucleotide usage at nonsyn",
+      "summary_ko": ""
     },
     {
       "id": "42337527",
@@ -632,7 +788,9 @@
       "authors": "Lael-Monfared E, Paydar M, Nabizadeh SM, Farkhani EM, Mohammadi M",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 23",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42337527/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42337527/",
+      "abstract": "Animal bites are a significant public health concern, particularly in regions with high exposure to domestic and wild animals. Understanding their epidemiological patterns and determinants is essential for effective rabies prevention and control. This study aimed to investigate the epidemiological patterns and determinants of animal bites in urban and rural areas of Sarakhs County, Iran, from 2017 to 2024. This cross-sectional descriptive-analytical study analyzed 6,371 recorded cases of animal ",
+      "summary_ko": ""
     },
     {
       "id": "42330999",
@@ -640,7 +798,9 @@
       "authors": "Yager R, Regan D, Outcalt C",
       "journal": "AJVR",
       "date": "2026 Jun 22",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42330999/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42330999/",
+      "abstract": "",
+      "summary_ko": ""
     },
     {
       "id": "42332686",
@@ -648,7 +808,9 @@
       "authors": "Pagani G, Ferraris EI, Montinaro V, Buracco P, Capra G",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 22",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42332686/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42332686/",
+      "abstract": "Gallbladder mucocele (GBM) in dogs is a challenging disease associated with variable surgical outcomes. Several prognostic factors have been proposed, but predictors of short-term mortality remain incompletely defined. This retrospective study aimed to report the 30-day mortality rate following cholecystectomy for GBM and to evaluate potential prognostic factors in a population of client-owned dogs treated at a referral centre between 2016 and 2022. Forty-one dogs met the inclusion criteria. The",
+      "summary_ko": ""
     },
     {
       "id": "42323604",
@@ -656,7 +818,9 @@
       "authors": "Jeong Y, Lee MJ, Choi S, Kim DY, Chung JY",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42323604/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42323604/",
+      "abstract": "Cutaneous B-cell lymphoma is extremely rare in dogs; only few cases have been reported in veterinary literature, and its clinicopathological characteristics, biological behavior, and classification remain incompletely characterized. A 12-year-old spayed female Shih Tzu presented with extensive, multifocal subcutaneous nodules. Histopathology revealed infiltration of neoplastic lymphoid cells within the dermis and subcutaneous tissue without epidermal involvement. Immunohistochemistry revealed st",
+      "summary_ko": ""
     },
     {
       "id": "41999726",
@@ -664,7 +828,9 @@
       "authors": "Marcellin-Little DJ, Levine D, Skouritakis CT",
       "journal": "JAVMA",
       "date": "2026 Jun 2",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41999726/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41999726/",
+      "abstract": "To describe the anatomic landmarks and demonstrate the method used to collect goniometric measurements of dog and cat joints. Dogs and cats evaluated for joint and bone problems, as shown in the video. A goniometer is used to measure flexion and extension to detect joint disease and monitor response to therapy and disease progression. The dog or cat is placed in lateral recumbency. A hinged plastic goniometer with 2 arms adapted to the pet size is used. The proximal arm is stationary. The distal",
+      "summary_ko": ""
     },
     {
       "id": "42320522",
@@ -672,7 +838,9 @@
       "authors": "Hitt M, Phipps W",
       "journal": "JAVMA",
       "date": "2026 Jun 19",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42320522/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42320522/",
+      "abstract": "To report the proportion, pathogenic bacterial isolates (PBIs), and colonization rate of open, appendicular fractures in dogs and cats. To evaluate whether the time to antibiotic administration and to definitive surgical debridement was associated with colonization rate, number of PBIs, complication rate, or complication severity. The electronic medical records of patients transferred to a veterinary referral center's surgery department between September 2019 and August 2024 were reviewed. Data ",
+      "summary_ko": ""
     },
     {
       "id": "42314736",
@@ -680,7 +848,9 @@
       "authors": "Crosby H, Seger C, Ballash G, Simons P, Lerche P",
       "journal": "AJVR",
       "date": "2026 Jun 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42314736/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42314736/",
+      "abstract": "To provide an overview of contemporary perianesthetic management practices for brachycephalic dogs and to identify areas in which research may improve patient safety and outcomes. We developed an online survey that was made available from December 8, 2025, through January 4, 2026, that included questions regarding respondent and patient demographics, perianesthetic management practices, and perianesthetic complications in brachycephalic dogs. The survey was distributed to licensed veterinarians ",
+      "summary_ko": ""
     },
     {
       "id": "42311163",
@@ -688,7 +858,9 @@
       "authors": "Vlassenbroek R, Peeters D, Matthewman L, François C, Bolen G",
       "journal": "JSAP",
       "date": "2026 Jun 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42311163/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42311163/",
+      "abstract": "To assess the incidence of associative immune-mediated haemolytic anaemia in dogs diagnosed with immune-mediated haemolytic anaemia and to evaluate whether performing diagnostic imaging, specifically thoracic radiographs and abdominal ultrasound, influences outcomes in non-associative immune-mediated haemolytic anaemia. Medical records (2017 to 2023) were reviewed for dogs diagnosed with immune-mediated haemolytic anaemia. Dogs were classified as associative immune-mediated haemolytic anaemia or",
+      "summary_ko": ""
     },
     {
       "id": "42314866",
@@ -696,7 +868,9 @@
       "authors": "Martín NG, Verdejo JIC, Chacón RB, Perarnau CZ, Carrasco FJD",
       "journal": "Vet J",
       "date": "2026 Jun 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42314866/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42314866/",
+      "abstract": "Leishmaniosis is a protozoal disease that may induce systemic vasculitis, portal hypertension and thromboembolic complications in dogs and cats. Vascular ultrasonography is widely used to assess vasculitis in people, but veterinary data on vascular wall changes associated with leishmaniosis are limited. This study aimed to establish reference values for abdominal vascular wall thickness in healthy dogs and cats and to characterise ultrasonographic vascular abnormalities in patients with leishman",
+      "summary_ko": ""
     },
     {
       "id": "42302839",
@@ -704,7 +878,9 @@
       "authors": "Garrick A, Moore AR, Chornarm N, Hawley J, Dixon N",
       "journal": "AJVR",
       "date": "2026 Jun 16",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42302839/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42302839/",
+      "abstract": "Experiment 1 assessed the stability of C-reactive protein (CRP) when stored at -80 &#xb0;C and compared the results of 3 commercially available CRP assays. For experiment 2, 2 assays were used to assess CRP during infection and treatment of experimental hemoparasite and H3N2 influenza infections. We predicted CRP would degrade with prolonged storage and that it would trend with clinical markers of disease and inflammation in the experimentally infected dogs. Archived serum from dogs with inflamm",
+      "summary_ko": ""
     },
     {
       "id": "42303168",
@@ -712,7 +888,9 @@
       "authors": "Callejas-Astiz U, Rubial-Aller R, Soto-López MV, Millán L, Altónaga JR",
       "journal": "Vet J",
       "date": "2026 Jun 16",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42303168/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42303168/",
+      "abstract": "To evaluate the hemodynamic effects of intravenous maropitant in dogs under general anaesthesia premedicated with dexmedetomidine or acepromazine. Prospective randomized clinical study. Twenty-six healthy Spanish Greyhounds. Dogs were randomly premedicated with dexmedetomidine (DEX; 4&#x202f;&#x3bc;g/kg) or acepromazine (ACP; 20&#x202f;&#x3bc;g/kg), both combined with methadone (0.3&#x202f;mg/kg) administered intramuscularly. Anesthesia was induced with propofol and midazolam and maintained with",
+      "summary_ko": ""
     },
     {
       "id": "42304343",
@@ -720,7 +898,9 @@
       "authors": "Cimerman M, Papić B, Nemec Svete A, Avberšek J, Kušar D",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 16",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42304343/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42304343/",
+      "abstract": "There is increasing evidence that gut microbiota is associated with cardiovascular health. In this exploratory study, the 16&#xa0;S rRNA amplicon sequencing was employed to investigate the composition and differential abundances of bacterial gut microbiota of dogs at different stages of myxomatous mitral valve disease (MMVD): dogs with congestive heart failure (CHF, n&#x2009;=&#x2009;38), dogs in the preclinical stage of the disease (non-CHF, n&#x2009;=&#x2009;23) and healthy controls with no ap",
+      "summary_ko": ""
     },
     {
       "id": "42442331",
@@ -728,7 +908,9 @@
       "authors": "Ishizaka M, Nagura A, Ogawa-Yasumura M, Hsu HH, Miyagawa Y",
       "journal": "JVCS",
       "date": "2026 Jun 15",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42442331/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42442331/",
+      "abstract": "Pulmonary stenosis (PS) is a common congenital heart disease in dogs, often associated with poststenotic dilation of the pulmonary trunk or main pulmonary artery (MPA). We hypothesized that vertebrae-based radiographic measurement of the MPA might identify dogs with PS and potentially assess its severity. A retrospective cohort study of 29 dogs with PS, 30 normal dogs, and 30 dogs with myxomatous mitral valve disease was conducted. Vertebral main pulmonary artery size (VMPS) was measured using d",
+      "summary_ko": ""
     },
     {
       "id": "42298610",
@@ -736,7 +918,9 @@
       "authors": "Žel MK, Kočevar UU, Pogorevc E, Jagodič M, Pavlin D",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 15",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42298610/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42298610/",
+      "abstract": "In humans, cats, and dogs, adrenal gland size appears slightly larger when measured by computed tomography (CT) compared to ultrasonography. However, CT measurement values have only been compared with ultrasound reference values retrospectively. This study aimed to directly compare CT and ultrasonographic measurement values of adrenal glands in dogs performed on the same day, under possible mimetic conditions. Thirty client-owned dogs without suspected adrenal disease scheduled for abdominal CT ",
+      "summary_ko": ""
     },
     {
       "id": "42287022",
@@ -744,7 +928,9 @@
       "authors": "Ruel J, Ternisien T, Conversy B, Bedard C, Lemieux C",
       "journal": "JSAP",
       "date": "2026 Jun 13",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42287022/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42287022/",
+      "abstract": "A 3-month-old male Bernese Mountain dog was presented with a 10-day history of vomiting, vocalisation and abdominal discomfort following vaccination. Physical examination revealed subtle peripheral lymphadenopathy. Haematological testing revealed borderline anaemia, thrombocytopenia and moderate lymphocytosis with a high proportion of reactive or atypical lymphocytes. Cytology of the spleen and lymph nodes showed lymphoid hyperplasia, and PCR for antigen receptor rearrangement confirmed a polycl",
+      "summary_ko": ""
     },
     {
       "id": "42288880",
@@ -752,7 +938,9 @@
       "authors": "Moosavian H, Jamshidi S, Pedram MS, Kumar N, Mahdipour M",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 13",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42288880/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42288880/",
+      "abstract": "Xanthogranulomatous pyelonephritis (XGP) in humans is a rare and severe form of chronic renal inflammation, characterized by extensive destruction of renal parenchyma and the formation of granulomatous tissue with lipid-laden macrophages. We present the case of a 6-year-old male Pomeranian dog exhibiting mild lethargy over the past month. Imaging studies, including abdominal ultrasonography and an abdominal computed tomography (CT) scan, revealed a markedly enlarged right kidney with multiple hy",
+      "summary_ko": ""
     },
     {
       "id": "42285144",
@@ -760,7 +948,9 @@
       "authors": "Cummings KJ, Carney PC, Goggs R, Siler JD, Sen P",
       "journal": "AJVR",
       "date": "2026 Jun 12",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42285144/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42285144/",
+      "abstract": "To estimate the prevalence of Campylobacter jejuni infection among apparently healthy dogs versus dogs with acute diarrhea in central New York, identify risk factors for infection among dogs, and characterize the isolates to evaluate potential risk to public health. In this prospective study, fecal samples were collected from dogs from January 2022 through September 2023. Exposure data on each dog were obtained via client questionnaire. Real-time PCR was used to detect C jejuni, and positive sam",
+      "summary_ko": ""
     },
     {
       "id": "42285142",
@@ -768,7 +958,9 @@
       "authors": "Andrews C, Case JB, Sheets CC, Porter LT, Gilor C",
       "journal": "AJVR",
       "date": "2026 Jun 12",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42285142/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42285142/",
+      "abstract": "To compare the frequency of thoracic duct (TD) enhancement, time to enhancement, and quality after metatarsal pad (MTP) and perirectal region (PR) administration of iohexol in cats undergoing CT lymphangiography (CTLA). Purpose-bred, healthy cats underwent 2 sedated CTLA at a veterinary teaching hospital between August and October 2025, during which MTP or PR iohexol was administered in a cross-over, randomized design. Frequency of TD enhancement, time to enhancement, quality of enhancement, and",
+      "summary_ko": ""
     },
     {
       "id": "42285146",
@@ -776,7 +968,9 @@
       "authors": "Wawrzyniak NR, Tromblee TC",
       "journal": "JAVMA",
       "date": "2026 Jun 12",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42285146/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42285146/",
+      "abstract": "",
+      "summary_ko": ""
     },
     {
       "id": "42285129",
@@ -784,7 +978,9 @@
       "authors": "Severac L, Juette T, Conversy B",
       "journal": "JAVMA",
       "date": "2026 Jun 12",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42285129/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42285129/",
+      "abstract": "To identify the most frequent underlying causes of chylothorax in cats and to assess whether clinical and laboratory findings at presentation could predict etiology and outcome. Cats diagnosed with chylothorax were retrospectively enrolled in 2 veterinary centers between 2006 and 2022. Data collected for each case included signalment, history, physical examination findings, pleural effusion analysis, hematologic and imaging results, etiology, treatment (medical and/or surgical), and survival tim",
+      "summary_ko": ""
     },
     {
       "id": "42281407",
@@ -792,7 +988,9 @@
       "authors": "Gentilini L, Rompf J, Howard J, Schuller S, Peters LM",
       "journal": "Vet Clin Pathol",
       "date": "2026 Jun 12",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42281407/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42281407/",
+      "abstract": "Serial measurements of acute-phase proteins help monitor the development of and recovery from sepsis in people and dogs. To date, the kinetics of regenerating protein (REG) 3E, a novel biomarker for inflammation in dogs, are unknown. The goal of our study was to assess changes in the concentrations of REG3E and compare these to C-reactive protein (CRP) concentrations over 48-72&#x2009;h in different cohorts of dogs. Plasma REG3E concentrations were measured using an ELISA on 3-4 consecutive days",
+      "summary_ko": ""
     },
     {
       "id": "42276124",
@@ -800,7 +998,9 @@
       "authors": "Akers NM, Harmon AC, Dugas T, Dirikolu L, Gaschen F",
       "journal": "AJVR",
       "date": "2026 Jun 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42276124/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42276124/",
+      "abstract": "To evaluate the effects of metoclopramide and azithromycin on liquid-phase gastric emptying (GE) in a clonidine-induced delayed GE model using the acetaminophen absorption test (AAT). This was a randomized crossover study of healthy, purpose-bred, mixed-breed dogs performed in a controlled laboratory setting from May through July 2023. Dogs received 1 of 4 treatments 1 hour before ingesting a liquid meal containing 25% of their resting energy requirement and 20 mg/kg acetaminophen: no treatment ",
+      "summary_ko": ""
     },
     {
       "id": "42276123",
@@ -808,7 +1008,9 @@
       "authors": "Huang JHC, Lourenço BN, Coleman AE, Berghaus LJ, Whitfield-Cargile C",
       "journal": "AJVR",
       "date": "2026 Jun 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42276123/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42276123/",
+      "abstract": "To develop a sandwich ELISA that measures angiotensinogen concentration in urine samples from domestic cats. Recombinant feline angiotensinogen and antibodies against it were generated by a commercial source. Angiotensinogen protein sequence was confirmed through tandem mass spectrometry. A sandwich ELISA was developed and validated for precision, limit of quantification, dilutional linearity, recovery, and crossreactivity with feline albumin and angiotensin II. Fresh voided urine samples collec",
+      "summary_ko": ""
     },
     {
       "id": "42276122",
@@ -816,7 +1018,9 @@
       "authors": "Mizuno R, Mori T",
       "journal": "AJVR",
       "date": "2026 Jun 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42276122/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42276122/",
+      "abstract": "To evaluate whether adjunctive toceranib phosphate improves survival time in dogs with nasal tumors treated with megavoltage radiation therapy using a simplified 2-tier, CT-based staging system. The medical records of 279 client-owned dogs with nasal tumors that underwent CT and megavoltage radiation therapy from 2015 through 2024 were retrospectively reviewed. Dogs were classified as stage I (no cribriform plate destruction) or stage II (cribriform plate destruction present). Survival time was ",
+      "summary_ko": ""
     },
     {
       "id": "42276157",
@@ -824,7 +1028,9 @@
       "authors": "Huang E, Ladlow JF, Liu NC",
       "journal": "Vet J",
       "date": "2026 Jun 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42276157/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42276157/",
+      "abstract": "Obesity is a recognised risk factor for brachycephalic obstructive airway syndrome (BOAS) in pugs; however, the mechanisms linking obesity to BOAS remain unclear. Previous veterinary studies have primarily focused on tongue fat, with limited evaluation of other airway regions. This study aimed to investigate the associations between body condition score (BCS) and regional airway fat, and their relationship with BOAS functional grades. Client-owned pugs undergoing BOAS assessment and pre-operativ",
+      "summary_ko": ""
     },
     {
       "id": "42276156",
@@ -832,7 +1038,9 @@
       "authors": "Spada E, Perego R, Di Giancamillo M, Giudice C, Longo M",
       "journal": "Vet J",
       "date": "2026 Jun 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42276156/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42276156/",
+      "abstract": "Canine xenotransfusion may be a temporary emergency option for type-B cats when compatible feline blood is unavailable, but the in vitro compatibility of type-B feline blood with canine blood has not been fully characterized. This study evaluated and compared the slide-agglutination crossmatch compatibility of type-B feline blood with canine blood with different dog erythrocyte antigen (DEA) 1 phenotypes and with type-A feline blood. Blood samples were obtained from 70 type-B cats, 17 type-A cat",
+      "summary_ko": ""
     },
     {
       "id": "42276155",
@@ -840,7 +1048,9 @@
       "authors": "Mitchell L, Scott M, Häusler K, Adami C, Sutcliffe M",
       "journal": "Vet J",
       "date": "2026 Jun 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42276155/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42276155/",
+      "abstract": "Definitively detecting the presence and location of pain and lameness in a dog can be challenging. Clinical gait analysis can be a useful tool to understand, diagnose, monitor, rehabilitate, and design treatment plans for a variety of musculoskeletal and neurological abnormalities. However its use to detect and distinguish abnormalities can still be limited, particularly in cases of subclinical lameness or multi-limb involvement. This study aimed to develop a proof-of-concept model for machine l",
+      "summary_ko": ""
     },
     {
       "id": "42277760",
@@ -848,7 +1058,9 @@
       "authors": "Nascimento A, Peterson S, Connell D, Helm Z, Leeth C",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42277760/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42277760/",
+      "abstract": "Canine lymphoma is a common malignancy with an annual incidence rate of 160 cases per 100,000 dogs. The primary therapeutic protocol in clinical use is treatment with cyclophosphamide, doxorubicin, vincristine, and prednisone (CHOP); however, relapses remain frequent, and early detection of recurrence is challenging. IDEXX Cancer Dx&#x2122; testing is a commercially available, blood-based test developed for the detection of canine lymphoma and may also have utility as a minimally invasive tool f",
+      "summary_ko": ""
     },
     {
       "id": "42269682",
@@ -856,7 +1068,9 @@
       "authors": "Kim SA, Anderson KH",
       "journal": "JAVMA",
       "date": "2026 Jun 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42269682/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42269682/",
+      "abstract": "",
+      "summary_ko": ""
     },
     {
       "id": "42269679",
@@ -864,7 +1078,9 @@
       "authors": "Aicher KM, Gookin JL, Mathews KG, Stowe DM",
       "journal": "JAVMA",
       "date": "2026 Jun 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42269679/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42269679/",
+      "abstract": "To evaluate the diagnostic utility of abdominal fluid bilirubin concentration-to-serum bilirubin concentration ratio (AFB:SB) measurement in detecting biliary tract rupture or leakage in dogs with gallbladder mucocele (GBM; GBM group) versus no GBM (non-GBM group). For this retrospective cross-sectional study, a search of medical records identified dogs with concurrent measurements of abdominal fluid bilirubin and serum bilirubin concentrations prior to surgery or postmortem examination for bili",
+      "summary_ko": ""
     },
     {
       "id": "42269678",
@@ -872,7 +1088,9 @@
       "authors": "Bryant R, Kroll J, Codd CM, Williams R, Wallace ML",
       "journal": "JAVMA",
       "date": "2026 Jun 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42269678/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42269678/",
+      "abstract": "To describe the clinical presentation, perioperative variables, surgical management, and outcomes in cats that underwent surgery for biliary cystadenomas. 21 cats met inclusion criteria. These cats had surgery for biliary cystadenomas between 2008 and 2023, with a corresponding histopathologic diagnosis. Cats were reported as domestic shorthair (15 of 21), domestic longhair (3 of 21), Himalayan (1 of 21), Ragdoll (1 of 21), and Persian (1 of 21). This included 13 neutered males and 8 spayed fema",
+      "summary_ko": ""
     },
     {
       "id": "42269671",
@@ -880,7 +1098,9 @@
       "authors": "Robertson J, Issa AS, Dervisis N, McGuire K, Tuohy J",
       "journal": "JAVMA",
       "date": "2026 Jun 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42269671/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42269671/",
+      "abstract": "Liquid biopsy (LBx) is the analysis of fluids such as blood, urine, saliva, or secretions to detect cancer biomarkers and circulating tumor cells. It is becoming a common investigational tool in human oncology, but less so in veterinary medicine. Liquid biopsy is less invasive and has fewer complications than tissue biopsy, but it is not intended to replace tissue biopsy. In human oncology, LBx is primarily used as an investigational tool because of the cost and technology requirements. Liquid b",
+      "summary_ko": ""
     },
     {
       "id": "42269667",
@@ -888,7 +1108,9 @@
       "authors": "Beard MC, Cooper L, Grimes JA, Yankin I, Glamann S",
       "journal": "JAVMA",
       "date": "2026 Jun 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42269667/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42269667/",
+      "abstract": "To describe clinical progression of dogs with physiologic degloving injuries, including bloodwork abnormalities, nutritional management, wound care, and the need for advanced care such as blood products. Medical records of client-owned dogs with physiologic degloving injuries between 2011 and 2025 were retrospectively reviewed. Data collected included clinical presentation, bloodwork, wound progression, diagnostic imaging, and treatment interventions. Dogs were grouped based on survival to disch",
+      "summary_ko": ""
     },
     {
       "id": "42269666",
@@ -896,7 +1118,9 @@
       "authors": "Dewey CW, Rojas CA, Pomeroy C, Gerardi J, Ganz HH",
       "journal": "JAVMA",
       "date": "2026 Jun 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42269666/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42269666/",
+      "abstract": "To investigate potential effects of fecal microbiota transplantation (FMT) on cognitive scores and bacterial microbiota composition in dogs with suspected canine cognitive dysfunction (CCD). The study was conducted from September 19, 2024, to September 11, 2025. Dogs with presumptive CCD were given oral FMT capsules daily for 90 days. Each dog received 1 FMT capsule every 12 hours. Fecal samples and cognitive (disorientation, impaired social interactions, sleep disturbance, house soiling, learni",
+      "summary_ko": ""
     },
     {
       "id": "42270044",
@@ -904,7 +1128,9 @@
       "authors": "Pedro F, Raquel R, Cristian A, Kseniia I, Miguel B",
       "journal": "Vet J",
       "date": "2026 Jun 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42270044/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42270044/",
+      "abstract": "This prospective, randomized, blinded clinical study aimed to compare the intraoperative and postoperative analgesic effects of maropitant versus methadone in female dogs undergoing elective ovariohysterectomy and to evaluate whether maropitant facilitates ovarian ligament exteriorization, potentially through modulation of visceral tone. Seventy-two healthy bitches were randomly assigned to receive dexmedetomidine with either methadone (Group M, n&#x202f;=&#x202f;34) or maropitant (Group MAR, n&",
+      "summary_ko": ""
     },
     {
       "id": "42161301",
@@ -912,7 +1138,9 @@
       "authors": "Reesink HL, Levine D, Marcellin-Little DJ",
       "journal": "JAVMA",
       "date": "2026 Jun 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42161301/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42161301/",
+      "abstract": "",
+      "summary_ko": ""
     },
     {
       "id": "42226244",
@@ -920,7 +1148,9 @@
       "authors": "Hahaj-Siembida A, Nowakiewicz A, Greguła-Kania M, Trościańczyk A, Osińska M",
       "journal": "BMC Vet Res",
       "date": "2026 Jun 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42226244/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42226244/",
+      "abstract": "Microorganisms such as Staphylococcus spp., in particular coagulase-positive strains, continue to pose a serious challenge to human and veterinary medicine. These bacteria can be a component of the natural biota of the body but can also cause infections in companion animals, including dogs and cats. Therefore, the aim of this study was to analyze the occurrence of Staphylococcus bacteria in companion animals, with particular emphasis on predilection sites, and to characterize these strains in th",
+      "summary_ko": ""
     },
     {
       "id": "42066639",
@@ -928,7 +1158,9 @@
       "authors": "Prado Checa I, Culshaw GJ, Martinez Pereira Y",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42066639/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42066639/",
+      "abstract": "Temporary cardiac pacing, particularly transvenous temporary pacing (TVTP) and transthoracic temporary pacing (TTTP), is commonly used prior to permanent pacemaker implantation. We hypothesized that use of TTTP not only decreases procedure and fluoroscopy times compared to TVTP but also increases the risk of failure to capture in larger dogs. Sixty dogs that underwent permanent pacemaker implantation were included in the study. A retrospective study was conducted. Demographic and clinical data, ",
+      "summary_ko": ""
     },
     {
       "id": "41921274",
@@ -936,7 +1168,9 @@
       "authors": "Salvati M, Wotton P, Ivasovic F",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41921274/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41921274/",
+      "abstract": "An 11-year-old male neutered Birman cat was referred for investigation of pyelonephritis. On physical examination, gallop sounds and bradycardia were noted. There was mild azotaemia and marked neutrophilia, attributed to the pyelonephritis. Transthoracic echocardiography revealed a non-specific cardiomyopathy phenotype with biatrial enlargement. Electrocardiography showed wide QRS complexes, bradycardia and synchronous dissociation between atrial and ventricular activity. During the first examin",
+      "summary_ko": ""
     },
     {
       "id": "41863192",
@@ -944,7 +1178,9 @@
       "authors": "Isayama N, Mizuno T, Suzuki S, Sasaki K, Maeda E",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41863192/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41863192/",
+      "abstract": "An eight-year-old, 2.2-kg, spayed female Toy poodle presented with stage D heart failure that was unresponsive to medical management. Echocardiography revealed severe mitral regurgitation (left atrial-to-aorta ratio, 2.4; normalized left ventricular internal dimension in diastole, 2.2; and ratio of regurgitant jet area signal to the left atrial area [ARJ/LAA], 65%), anterior leaflet prolapses, and valve billowing. Mitral valve surgery was recommended based on clinical signs and echocardiographic",
+      "summary_ko": ""
     },
     {
       "id": "41863191",
@@ -952,7 +1188,9 @@
       "authors": "Saavedra AD, Karnia J, Leach SB, Petroski GF, Nafe L",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41863191/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41863191/",
+      "abstract": "Hemodynamic effects of non-ionic contrast (iohexol) administration on invasive pressure measurements in dogs have not been evaluated. The objective of the present study was to evaluate effects of iohexol on invasive pressure assessment in dogs undergoing patent ductus arteriosus (PDA) occlusion or balloon valvuloplasty for pulmonic stenosis (PS). This is a prospective observational study. Client-owned dogs undergoing PDA occlusion (N=14) or balloon valvuloplasty (N=12) were included in the study",
+      "summary_ko": ""
     },
     {
       "id": "41844437",
@@ -960,7 +1198,9 @@
       "authors": "Sjöbring O, Jakobsson E, Tidholm A",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41844437/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41844437/",
+      "abstract": "Mitral regurgitation (MR) is one of the main features of myxomatous mitral valve disease which affects Dachshunds. This study aims to investigate the prevalence of MR and tricuspid regurgitation, valvular thickening, and prolapse based on echocardiography in apparently healthy Dachshunds. One-hundred two privately owned, apparently healthy Dachshunds, recruited via the Swedish Dachshund Club,a were included in the study. It is a prospective observational study, where the presence of a cardiac mu",
+      "summary_ko": ""
     },
     {
       "id": "41812342",
@@ -968,7 +1208,9 @@
       "authors": "McManamey A, Dos Santos L, Hogan D",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41812342/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41812342/",
+      "abstract": "Patent ductus arteriosus (PDA) is a common congenital heart disease in small-breed dogs. Small femoral vascular size is a limitation to transarterial occlusion using common Amplatzer&#x2122; Vascular Access Plug Type devices. The aim of the study was to determine if the Amplatzer&#x2122; Vascular Plug Type 4 (AVP4) can be delivered and provide short-term occlusion of a PDA in a reproducible and reliable manner. Complications associated with the AVP4 were documented. Twenty-two small-breed dogs w",
+      "summary_ko": ""
     },
     {
       "id": "41762926",
@@ -976,7 +1218,9 @@
       "authors": "Takeda M, Shiozawa N, Ishikawa C, Goya S",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41762926/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41762926/",
+      "abstract": "A three-year-old, 4.1-kg, female Shih tzu was referred for investigation of exercise intolerance and heart murmurs. At the first visit, the dog was diagnosed with patent ductus arteriosus and a suspected persistent left cranial vena cava using echocardiography. Electrocardiography (ECG)-gated non-helical, stationary 320-slice multidetector cardiac computed tomography (CCT) was performed to classify the morphology and to measure the minimal ductal diameter. However, the ductal ostium at the pulmo",
+      "summary_ko": ""
     },
     {
       "id": "41722518",
@@ -984,7 +1228,9 @@
       "authors": "Whelchel BD, Kline S, Rosa FB, Solano M, Berg AN",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41722518/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41722518/",
+      "abstract": "A five-year-old male castrated domestic shorthair cat was referred for respiratory distress and pleural effusion. Echocardiography identified a moderate to severe volume of echogenic pericardial effusion (PCE), pericardial thickening, and a mild volume of anechoic pleural effusion. Computed tomography with intravenous contrast confirmed a large volume of PCE with concurrent pericardial thickening; a pericardiectomy was subsequently performed. Cytological analysis of the PCE was consistent with p",
+      "summary_ko": ""
     },
     {
       "id": "41720066",
@@ -992,7 +1238,9 @@
       "authors": "Moy-Trigilio KE, Coffin HR, Taylor RP, Hsue W",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41720066/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41720066/",
+      "abstract": "A nine-year-old, female spayed, mixed-breed dog was presented with a history of lethargy, anorexia, and bradycardia. Diagnostic evaluation revealed third-degree atrioventricular (AV) block secondary to an infiltrative mass in the septal AV junctional region, with additional masses and nodules in the right third rib, lungs, and kidneys. Necropsy confirmed multifocal neoplastic lesions within the pericardium, myocardium, septal AV junction, rib, kidneys, pancreas, and mesentery. Histopathological ",
+      "summary_ko": ""
     },
     {
       "id": "41720065",
@@ -1000,7 +1248,9 @@
       "authors": "Kanno N, Suzuki H, Yamada S, Yotsuida H",
       "journal": "JVCS",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41720065/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41720065/",
+      "abstract": "A six-month-old, 3.3-kg, intact male American shorthair cat with a ventricular septal defect (VSD) underwent open-heart surgery using total cardiopulmonary bypass. Repair of the VSD was performed via a right fifth intercostal thoracotomy using a right atrial approach. To avoid excessive blood dilution, blood cardioplegia, retrograde autologous priming, conventional ultrafiltration, and modified ultrafiltration were used. After surgery, the shunted flow through the VSD resolved. The cat was alive",
+      "summary_ko": ""
     },
     {
       "id": "41834218",
@@ -1008,7 +1258,9 @@
       "authors": "Kouklaki E, Konstantinidis A, Meletis E, Kostoulas P, Saridomichelakis MN",
       "journal": "JSAP",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41834218/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41834218/",
+      "abstract": "To compare the prevalence and severity of polyuria and polydipsia in dogs receiving once-daily or divided-daily oral prednisolone regimens. In a randomised, crossover trial, 12 client-owned dogs with diseases requiring oral prednisolone were treated with a daily dose &#x2265;1.5&#x2009;mg/kg, administered once-daily or divided-daily. The initial dosing regimen was administered for 14&#x2009;days and then switched to the alternative regimen for an additional 14&#x2009;days. Daily water intake, ur",
+      "summary_ko": ""
     },
     {
       "id": "41692678",
@@ -1016,7 +1268,9 @@
       "authors": "Badham H, Cathrall G, Cockburn E, Das S",
       "journal": "JSAP",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41692678/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41692678/",
+      "abstract": "To report the medium- to long-term outcomes and complications of a larger case series of patients undergoing combined phallopexy and preputial advancement for treatment of paraphimosis of unknown aetiology. Retrospective case series: Medical records of a single small animal referral centre were searched for male dogs treated for idiopathic paraphimosis with combined phallopexy and preputial advancement between January 2010 and October 2023. Data collected included signalment, presenting clinical",
+      "summary_ko": ""
     },
     {
       "id": "42162896",
@@ -1024,7 +1278,9 @@
       "authors": "Hanai D, Kimura R, Mitsui I, Miyamae J, Matsuda A",
       "journal": "Vet J",
       "date": "2026 Jun",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42162896/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42162896/",
+      "abstract": "Mast cell tumors (MCTs) are common skin neoplasms in dogs. They are graded histologically, and dogs with high-grade MCT have poorer prognosis. Canine MCTs express mRNA for programmed cell death-1 ligand 2 (PD-L2), which regulates T cell activity and serves as a prognostic indicator for various human tumors. We hypothesized that PD-L2 contributes to immune evasion and affects the prognosis of canine MCTs. PD-L2 expression was evaluated by immunohistochemistry in 38 canine MCTs, including 15 Kiupe",
+      "summary_ko": ""
     },
     {
       "id": "42425398",
@@ -1032,7 +1288,9 @@
       "authors": "Livingstone S, Rowe S, Ho D, Stewart B, Muller C",
       "journal": "Vet J",
       "date": "2026 Jul 9",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42425398/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42425398/",
+      "abstract": "Despite many decades of research into the underlying pathophysiology of thromboembolic disease in cats with cardiomyopathy, findings across the literature are still limited with inconsistencies across study findings. The aim of this scoping review is to describe the literature evaluating thromboembolic disease in cats with cardiomyopathy, to identify coagulation pathways that are involved, and their respective findings and limitations. All studies except two had a healthy control cat group for c",
+      "summary_ko": ""
     },
     {
       "id": "42420192",
@@ -1040,7 +1298,9 @@
       "authors": "Travail V, Walton-Clark M, Motta C, Serrani D, Pilati F",
       "journal": "JSAP",
       "date": "2026 Jul 8",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42420192/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42420192/",
+      "abstract": "This study aimed to evaluate the prevalence of urolithiasis in dogs with primary portal vein hypoplasia and to compare clinicopathological changes and clinical signs between dogs with and without uroliths. The clinical records of 15 UK referral hospitals were searched for dogs diagnosed with primary portal vein hypoplasia between 2010 and 2023. Dogs lacking a histopathological diagnosis and those without comprehensive diagnostic imaging to exclude congenital extrahepatic or intrahepatic portosys",
+      "summary_ko": ""
     },
     {
       "id": "42419388",
@@ -1048,7 +1308,9 @@
       "authors": "Gruber DR, Doornink MT, Urie BK",
       "journal": "JAVMA",
       "date": "2026 Jul 8",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42419388/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42419388/",
+      "abstract": "The objective of this study was to determine the incidence of postoperative incisional complications following excision of cutaneous and subcutaneous mast cell tumors (MCTs) in dogs receiving neoadjuvant intralesional triamcinolone (NIT) within 30 days of surgery. Retrospective study of dogs undergoing MCT excision at a tertiary referral hospital from January 2018 to February 2026. Inclusion required histologically confirmed MCT, NIT within 30 days of surgery, and sufficient medical record docum",
+      "summary_ko": ""
     },
     {
       "id": "42419368",
@@ -1056,7 +1318,9 @@
       "authors": "Clark JS, Faletti TM, Taylor J, McChesney DM, Hawthorne JC",
       "journal": "JAVMA",
       "date": "2026 Jul 8",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42419368/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42419368/",
+      "abstract": "To compare outcomes of full-thickness skin grafting in dogs treated with vacuum-assisted closure (VAC) versus standard bandaging (SB), and to determine whether there is a difference between splinted and staged cases. In this single-private practice retrospective observational study, records from January 2012 to December 2025 were reviewed. Dogs with free meshed skin grafts treated with VAC versus SB and that had &#x2265; 14 days' follow-up were included. Signalment, comorbidities, wound characte",
+      "summary_ko": ""
     },
     {
       "id": "42419365",
@@ -1064,7 +1328,9 @@
       "authors": "Wallace RM, Müller T, Freuling C, Seetahal JFR, Slavinski S",
       "journal": "JAVMA",
       "date": "2026 Jul 8",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42419365/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42419365/",
+      "abstract": "To evaluate immunogenicity, persistence of antibodies, survival after challenge, and anamnestic response following extralabel parenteral rabies vaccination across mammalian species compared with benchmarks from on-label canine vaccination. Mammals described in published studies of extralabel parenteral rabies vaccination. A structured literature review (1980 to 2025) identified studies reporting serologic or challenge outcomes after extralabel parenteral rabies vaccination. Extracted data includ",
+      "summary_ko": ""
     },
     {
       "id": "42421062",
@@ -1072,7 +1338,9 @@
       "authors": "Yang Y, Fu H, Chang M, Zhang M, Zhou J",
       "journal": "BMC Vet Res",
       "date": "2026 Jul 8",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42421062/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42421062/",
+      "abstract": "Feline infectious peritonitis (FIP) is a fatal infectious disease caused by feline infectious peritonitis virus (FIPV) which causes death of young cats less than 2 years old. Until now, few drugs are available for treatment of FIP. Here, we developed a modified FIPV expressing eGFP reporter gene by reverse genetics to evaluate the ability of Chinese herbal polysaccharides on inhibition of FIPV infection in Crandell-Rees feline kidney (CRFK) cells. The results demonstrated that the recombinant FI",
+      "summary_ko": ""
     },
     {
       "id": "42413564",
@@ -1080,7 +1348,9 @@
       "authors": "Rostami S, Woodruff KA, McBride A, Smith DR",
       "journal": "AJVR",
       "date": "2026 Jul 7",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42413564/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42413564/",
+      "abstract": "To estimate a reference interval (RI) for eye temperature (ET) in apparently healthy shelter dogs and to provide a comparative RI for rectal temperature (RT). This cross-sectional study was conducted at a municipal shelter over a 2-month period. We included apparently healthy dogs and excluded those with illness history, respiratory symptoms, or ocular discharge. Using a handheld thermal camera, ET was obtained under standardized procedures. Rectal temperature measurements were obtained from the",
+      "summary_ko": ""
     },
     {
       "id": "42413557",
@@ -1088,7 +1358,9 @@
       "authors": "Dequaine A, Gordon-Evans WJ",
       "journal": "AJVR",
       "date": "2026 Jul 7",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42413557/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42413557/",
+      "abstract": "To improve testing methods to develop clinically applicable return-to-sport assessments in dogs by evaluating hind limb push-off symmetry while jumping onto a platform from a stationary position. The hypothesis was that normal dogs would demonstrate &gt; 90% symmetry when performing the newly proposed jump tests. Jump tests included sit-to-withers-height jump, stand-to-head-height jump, and stand-to-withers-height jump with side rails. This was a prospective, methodological study in which orthop",
+      "summary_ko": ""
     },
     {
       "id": "42414994",
@@ -1096,7 +1368,9 @@
       "authors": "Pakhawala J",
       "journal": "BMC Vet Res",
       "date": "2026 Jul 7",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42414994/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42414994/",
+      "abstract": "Calcium oxalate (CaOx) urolithiasis is a common and recurrent condition in dogs, typically managed with dietary modification, thiazide diuretics, and potassium citrate. In human medicine, sodium-glucose cotransporter 2 (SGLT2) inhibitors such as dapagliflozin are increasingly used to manage diabetes mellitus and chronic kidney disease and have been shown to alter urinary factors associated with nephrolithiasis. Their effects in veterinary patients, however, remain uncharacterized. This case repo",
+      "summary_ko": ""
     },
     {
       "id": "42410421",
@@ -1104,7 +1378,9 @@
       "authors": "Carrasco-Martin M, Viñeta C, Martí-Carreras J, Roura X, Ferrer L",
       "journal": "BMC Vet Res",
       "date": "2026 Jul 7",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42410421/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42410421/",
+      "abstract": "Treatment response in canine leishmaniosis is driven by the dog host, the Leishmania parasite, and pharmacological factors, with drug resistance increasingly undermining the effectiveness of therapy. Current methods for assessing antileishmanial drug resistance rely on culture-based approaches, which are slow and technically demanding. A direct quantitative PCR test (LeishGenR&#x2122;) was applied to 104 clinical samples from 95 dogs in the Mediterranean area diagnosed with leishmaniosis in vete",
+      "summary_ko": ""
     },
     {
       "id": "42409076",
@@ -1112,7 +1388,9 @@
       "authors": "Rostami S, Woodruff KA, McBride A, Smith DR",
       "journal": "AJVR",
       "date": "2026 Jul 6",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42409076/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42409076/",
+      "abstract": "To estimate the sensitivity and specificity of eye temperature (ET) and rectal temperature (RT) for detecting abnormal temperature in dogs. This single-shelter observational study enrolled dogs without clinical ocular disease. Tests were dichotomized using prespecified reference intervals. A hierarchical Bayesian latent-class model included 2 subpopulations (puppy and adult), dog-level random intercept, and between-test dependence terms. Posterior draws estimated predictive values across pretest",
+      "summary_ko": ""
     },
     {
       "id": "42401208",
@@ -1120,7 +1398,9 @@
       "authors": "Abbate JM, Giosa D, Anjomanibenisi M, Arfuso F, Giannetto A",
       "journal": "Vet J",
       "date": "2026 Jul 4",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42401208/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42401208/",
+      "abstract": "Angiogenesis, a hallmark of cancer, supports tumour growth and metastasis by establishing an abnormal vascular network, and microRNAs (miRNAs) regulate this process post-transcriptionally. Because evidence in canine mammary tumours (CMTs) remains limited, we profiled 24 putative pro- and anti-angiogenic miRNAs by RT-qPCR in benign and malignant CMTs compared with normal mammary glands, and we predicted angiogenesis-related targets using multiMiR followed by Gene Ontology and KEGG pathway enrichm",
+      "summary_ko": ""
     },
     {
       "id": "42394457",
@@ -1128,7 +1408,9 @@
       "authors": "Nagumo T, Hoshino Y, Kobayashi S, Fujiwara R, Yamasaki M",
       "journal": "JSAP",
       "date": "2026 Jul 3",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42394457/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42394457/",
+      "abstract": "To evaluate the utility of preoperative feline renal parenchymal volume derived from computed tomography in predicting the serum creatinine concentration during the long-term postoperative period. In this retrospective clinical study, we included 13 client-owned cats with normal kidneys and 24 cats with hydronephrosis (16 with chronic kidney disease and 8 without chronic kidney disease). The renal parenchymal volume was derived from CT images and normalised to the body weight. The reference inte",
+      "summary_ko": ""
     },
     {
       "id": "42393008",
@@ -1136,7 +1418,9 @@
       "authors": "Alemany A, Girol AM, Herrería V",
       "journal": "JSAP",
       "date": "2026 Jul 2",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42393008/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42393008/",
+      "abstract": "To evaluate the prognostic utility of the canine-derived Veterinary Committee on Trauma score in cats suffering from high-rise syndrome and to compare it with the Animal Trauma Triage Score. To date, no trauma score has been developed exclusively from feline-derived data, and existing systems are adaptations or validations of scores originally created for other or mixed species. Retrospective observational study of 60 cats with high-rise syndrome. Recorded variables on admission were age, breed,",
+      "summary_ko": ""
     },
     {
       "id": "42393672",
@@ -1144,7 +1428,9 @@
       "authors": "Kumari A, Agnihotri D, Nehra AK, Moudgil AD",
       "journal": "BMC Vet Res",
       "date": "2026 Jul 2",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42393672/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42393672/",
+      "abstract": "Canine babesiosis is a significant and emerging tick-borne disease caused by Babesia spp. This study investigated the molecular prevalence, hematobiochemical profiles, and risk factors for B. vogeli and B. gibsoni infections in dogs in northern India, addressing the molecular research on babesiosis prevalence in this region. An overall prevalence of canine babesiosis by microscopy and PCR was 12.5% (27/216) and 27.78% (60/216), respectively. The prevalence rates for B. vogeli by microscopy and c",
+      "summary_ko": ""
     },
     {
       "id": "42442409",
@@ -1152,7 +1438,9 @@
       "authors": "Garrett KB, Yabsley MJ, Felty SR, Gise BT, Jimenez Castro P",
       "journal": "AJVR",
       "date": "2026 Jul 13",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42442409/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42442409/",
+      "abstract": "The objective of this study was to compare 4 different fecal diagnostic methods for detection and recovery of Echinococcus multilocularis eggs. Four methods were compared: passive fecal float, centrifugal fecal float, mini-FLOTAC, and the KeyScreen GI PCR Parasite panel (Antech Diagnostics). Domestic dog feces were spiked with 8 egg concentrations (0, 10, 25, 50, 60, 100, 200, and 500 eggs/g). Each concentration had 10 replicates. Detection frequency (ability to detect &#x2265; 1 egg) and mean e",
+      "summary_ko": ""
     },
     {
       "id": "42442655",
@@ -1160,7 +1448,9 @@
       "authors": "Silva LF, de Moraes LAM, Caye P, Iepsen LB, de Oliveira Cavalcanti GA",
       "journal": "Vet J",
       "date": "2026 Jul 13",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42442655/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42442655/",
+      "abstract": "Dioctophymosis is a zoonotic disease caused by Dioctophyme renale, a nematode that can reach up to 100cm in length and is commonly known as the \"giant kidney worm.\" The parasite shows a marked predilection for the right kidney, and ultrasonography is the diagnostic method of choice, allowing visualization of characteristic tubular structures within the renal parenchyma. Surgical intervention remains the only established treatment, with nephrectomy being the most commonly performed procedure, alt",
+      "summary_ko": ""
     },
     {
       "id": "42443886",
@@ -1168,7 +1458,9 @@
       "authors": "Halajian Z, Khoshnegah J, Parham A",
       "journal": "BMC Vet Res",
       "date": "2026 Jul 13",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42443886/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42443886/",
+      "abstract": "Alopecia X (AX)-also referred to as hair cycle arrest or Alopecia X-like syndrome-is a non-inflammatory disorder common in Pomeranians, though it frequently affects other breeds such as Alaskan Malamutes, Chow Chows, Schipperkes, and Poodles. Historically known by various names including growth hormone-responsive alopecia, castration-responsive alopecia and congenital adrenal hyperplasia-like syndrome, this condition represents a complex follicular arrest of \"plush-coated\" breeds. The etiopathog",
+      "summary_ko": ""
     },
     {
       "id": "42438176",
@@ -1176,7 +1468,9 @@
       "authors": "Kyle C, Deutsch J",
       "journal": "JSAP",
       "date": "2026 Jul 12",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42438176/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42438176/",
+      "abstract": "The objective of the study was to evaluate agreement between tongue-based oscillometric and invasive arterial blood pressure in anaesthetised dogs, assess performance against American College of Veterinary Internal Medicine and Association for the Advancement of Medical Instrumentation/European Society of Hypertension/International Organization for Standardization validation criteria and examine proportional bias overall and by body size and phenotype. Prospective observational study of 89 clien",
+      "summary_ko": ""
     },
     {
       "id": "42437631",
@@ -1184,7 +1478,9 @@
       "authors": "Taşdemir M, Pekmezci D",
       "journal": "Vet J",
       "date": "2026 Jul 12",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42437631/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42437631/",
+      "abstract": "Feline panleukopenia virus (FPV) infection is a highly contagious and potentially fatal disease of cats, characterized by intestinal injury, bone marrow suppression and systemic inflammatory alterations. This study evaluated the diagnostic utility of serum procalcitonin (PCT), serum amyloid A (SAA), selected biochemical variables and hematology-derived inflammatory indices in cats naturally infected with FPV. Fifty-nine cats were enrolled between February 2024 and December 2025, including 28 cat",
+      "summary_ko": ""
     },
     {
       "id": "42433161",
@@ -1192,7 +1488,9 @@
       "authors": "Shuttleworth A, Adami C",
       "journal": "JSAP",
       "date": "2026 Jul 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42433161/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42433161/",
+      "abstract": "Preparing clients for their pet to undergo general anaesthesia is an important and common task for veterinary professionals. The aims of this study were to better understand referral client anxiety relating to general anaesthesia and to determine their level of knowledge in this area. Pet owners attending a UK referral centre whose dog or cat had undergone general anaesthesia between February 6, 2022 and February 6, 2025 were invited to take part in an online survey. The questionnaire comprised ",
+      "summary_ko": ""
     },
     {
       "id": "42435983",
@@ -1200,7 +1498,9 @@
       "authors": "Fontana K, Ascione F, Battaglia G, Cardinali P, Ventura L",
       "journal": "Vet J",
       "date": "2026 Jul 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42435983/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42435983/",
+      "abstract": "This retrospective cohort study evaluated the intraoperative analgesic efficacy and complications of bilateral quadratus lumborum block (QLB) in dogs undergoing abdominal laparotomy between January 2022 and April 2023. Dogs were assigned to either a QLB group, receiving loco-regional ropivacaine, or a systemic analgesic (SA) group, treated with fentanyl, lidocaine, or ketamine via boluses and/or continuous infusion. Data collected included demographics, American Society of Anaesthesiologists (AS",
+      "summary_ko": ""
     },
     {
       "id": "42433153",
@@ -1208,7 +1508,9 @@
       "authors": "Hanson TA, Rosser MF, Blair B, Doodnaught GM, Carter CC",
       "journal": "Vet Clin Pathol",
       "date": "2026 Jul 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42433153/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42433153/",
+      "abstract": "Creatine kinase (CK) is typically associated with skeletal muscle injury, but elevated CK in blood or cerebrospinal fluid (CSF) may also be reflective of central nervous system damage. Previous research has therefore explored the role of CK as a biomarker of neurologic disease in veterinary patients. However, the literature regarding this biomarker is somewhat incomplete, as control groups or reference populations have not always been included in previous studies. This study aimed to further eva",
+      "summary_ko": ""
     },
     {
       "id": "42431230",
@@ -1216,7 +1518,9 @@
       "authors": "Rowland AJ, Zepeda CI, Murphy LA, Tansey C, Piscitelli N",
       "journal": "AJVR",
       "date": "2026 Jul 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42431230/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42431230/",
+      "abstract": "To evaluate vertebral heart size (VHS) and vertebral left atrial size (VLAS) reference intervals in 8 dog breeds: Australian Cattle Dogs, Shih Tzus, Maltese, Dachshunds, Greyhounds, French Bulldogs, Norwich Terriers, and Brittany Spaniels. Dogs were included if they had 2- or 3-view thoracic radiographs performed and no cardiopulmonary or systemic disease. The same board-certified cardiologist performed the VHS and VLAS measurements in all dogs. The reference interval for Australian Cattle Dogs ",
+      "summary_ko": ""
     },
     {
       "id": "42429078",
@@ -1224,7 +1528,9 @@
       "authors": "Barth SI, DeMonaco SM, Conner BJ, Serpa PBS, Wilkinson AR",
       "journal": "JSAP",
       "date": "2026 Jul 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42429078/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42429078/",
+      "abstract": "A disintegrin and metalloproteinase with thrombospondin type 1 motif, member 13 is a von Willebrand factor cleaving enzyme that is associated with prothrombotic/hypercoagulable states in humans. In people, A disintegrin and metalloproteinase with thrombospondin type 1 motif, member 13 activity is reduced with inflammatory bowel disease. Objectives of the study were to measure plasma A disintegrin and metalloproteinase with thrombospondin type 1 motif, member 13 activity, von Willebrand factor an",
+      "summary_ko": ""
     },
     {
       "id": "42431236",
@@ -1232,7 +1538,9 @@
       "authors": "Toth DD, Hamon M, Márquez CB, Pritchard A, Roush JK",
       "journal": "JAVMA",
       "date": "2026 Jul 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42431236/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42431236/",
+      "abstract": "To radiographically evaluate patellar tendon thickness (PTT) following tibial plateau leveling osteotomy (TPLO) performed with or without joint inspection, and to assess the effect of osteotomy positioning (distally centered osteotomy [DCO] vs ideally centered osteotomy [ICO]) on PTT. Medical records of client-owned dogs following TPLO between January 1, 2023, and December 31, 2023, were reviewed retrospectively. Joint intervention was categorized as mini medial arthrotomy (MA) or no arthrotomy ",
+      "summary_ko": ""
     },
     {
       "id": "42431357",
@@ -1240,7 +1548,9 @@
       "authors": "Pickering M, McWhorter T, Hazel S",
       "journal": "Vet J",
       "date": "2026 Jul 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42431357/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42431357/",
+      "abstract": "This scoping review examined existing research on the oral administration of anxiolytic, sedative, hypnotic, dissociative, and anaesthetic medications in domestic cats, with the aim of identifying agents that could reduce stress, fear, and defensive behaviours during capture and handling. Thirty-seven studies from 1908 to 2024 were included, encompassing domestic cats sourced from pharmaceutical and university research colonies, animal shelters, client-owned and free-roaming semi-owned and unown",
+      "summary_ko": ""
     },
     {
       "id": "42431356",
@@ -1248,7 +1558,9 @@
       "authors": "İlgün M, Eren E, Kibar B, Okur S, Aktaş MS",
       "journal": "Vet J",
       "date": "2026 Jul 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42431356/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42431356/",
+      "abstract": "Splenic diseases in dogs and cats present significant diagnostic challenges, particularly in differentiating benign from malignant lesions using conventional clinical and imaging modalities. While histopathology remains the gold standard, artificial intelligence, especially large language models (LLMs), offers emerging diagnostic support capabilities. This two-center, retrospective diagnostic-accuracy study compared the performance of two state-of-the-art LLMs (ChatGPT-5 and Gemini 1.5 Pro) with",
+      "summary_ko": ""
     },
     {
       "id": "42413860",
@@ -1256,7 +1568,9 @@
       "authors": "Kim Y, Lee SG, Tark D",
       "journal": "Vet J",
       "date": "2026 Jul 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42413860/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42413860/",
+      "abstract": "This study investigated the molecular characteristics of canine coronavirus (CCoV) circulating in animal shelters in Korea, focusing on phylogenetic characterization of the partial spike (S) gene. A total of 339 rectal swabs were analyzed to assess the prevalence and phylogenetic relationships of circulating strains. Among these, 20 and 13 samples were identified as CCoV-I and CCoV-IIa, respectively, indicating one co-infection case. Phylogenetic analysis demonstrated that Korean isolates exhibi",
+      "summary_ko": ""
     },
     {
       "id": "42432684",
@@ -1264,7 +1578,9 @@
       "authors": "Obi CF, Ezeokonkwo RC",
       "journal": "BMC Vet Res",
       "date": "2026 Jul 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42432684/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42432684/",
+      "abstract": "Trypanocide resistance is an escalating threat to African animal trypanosomosis control, yet how dogs are actually treated for trypanosomosis, by who, with what drugs, and under what oversight, remains poorly characterized despite the documented presence of resistant trypanosome populations in this neglected host compartment. In a cross-sectional survey interpreted within a One Health framework, grounded in data from Enugu North Senatorial Zone, Southeastern Nigeria, we integrate previously publ",
+      "summary_ko": ""
     },
     {
       "id": "42385782",
@@ -1272,7 +1588,9 @@
       "authors": "Cohn-Urbach M, Ruaux CG",
       "journal": "AJVR",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42385782/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42385782/",
+      "abstract": "To evaluate formiminoglutamic acid (FIGLU) as a potential marker of folate deficiency in cats and dogs by (1) establishing a liquid chromatography-tandem mass spectrometry (LC-MS-MS) method for the quantification of FIGLU in feline and canine plasma, and (2) reporting plasma FIGLU concentrations in clinically normal cats and dogs. An LC-MS-MS method for FIGLU quantitation was developed and analytically validated. Clinically normal cats and dogs were prospectively included for plasma FIGLU and se",
+      "summary_ko": ""
     },
     {
       "id": "42385769",
@@ -1280,7 +1598,9 @@
       "authors": "Cho J, Kim M, Choi M, Lee J, Park C",
       "journal": "AJVR",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42385769/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42385769/",
+      "abstract": "To determine whether urinary electrolyte indices measured after IV furosemide administration are associated with clinical outcomes in dogs with left-sided acute congestive heart failure (CHF) secondary to myxomatous mitral valve disease (MMVD). In this multicenter retrospective study, client-owned dogs with acute left-sided CHF caused by MMVD presenting to 3 referral hospitals between January 2024 and December 2025 were evaluated. All dogs received a single IV bolus of furosemide (2 mg/kg) at pr",
+      "summary_ko": ""
     },
     {
       "id": "42424598",
@@ -1288,7 +1608,9 @@
       "authors": "Hunt A, Maxwell AD, Lulich JP, Bailey MR, Contreras K",
       "journal": "JVIM",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42424598/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42424598/",
+      "abstract": "Ureteroliths are a major source of morbidity and mortality in cats, and limited non-surgical options are available for their treatment. Ultrasound-guided, burst wave lithotripsy (BWL) is approved by the Food and Drug Administration to fragment renal and ureteral calculi noninvasively in awake human patients. Assess the safety and efficacy of a veterinary BWL device for the treatment of obstructive ureteroliths in cats. Eleven client-owned cats; 10 with unilateral ureteral obstruction and 1 with ",
+      "summary_ko": ""
     },
     {
       "id": "42418836",
@@ -1296,7 +1618,9 @@
       "authors": "Murtagh K, Kelly P, Shiel R, O'Neill EJ, Mooney C",
       "journal": "JVIM",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42418836/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42418836/",
+      "abstract": "Dogs with chronic inflammatory enteropathy (CIE) are common in companion animal practice. Neutrophilic inflammatory enteropathy (NIE) is a subtype of CIE that is uncommonly reported, posing a dilemma in terms of etiology, treatment, and prognosis. To describe historical, clinical, clinicopathological, imaging findings, treatment, and survival in dogs with histologically confirmed NIE. Twenty-seven client-owned dogs with NIE. Retrospective interrogation of the hospital database between January 20",
+      "summary_ko": ""
     },
     {
       "id": "42407251",
@@ -1304,7 +1628,9 @@
       "authors": "Stumpf C, Pape C, Zablotski Y, Busch K",
       "journal": "JVIM",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42407251/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42407251/",
+      "abstract": "Chronic enteropathy (CE) in dogs requires lifelong management and may cause caregiver burden (CB), potentially affecting owner well-being and, indirectly, veterinarians. We aimed to determine whether owners of dogs with CE experience CB compared to owners of healthy dogs and to assess emotional, social, and financial aspects, as well as the owner-dog relationship. The questionnaire was completed by 223 owners of dogs with CE and 447 owners of healthy dogs. Cross-sectional study using an owner-re",
+      "summary_ko": ""
     },
     {
       "id": "42391601",
@@ -1312,7 +1638,9 @@
       "authors": "Barton J, Gomes SA, van Lelyveld S, White RN, Richardson S",
       "journal": "JVIM",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42391601/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42391601/",
+      "abstract": "Eosinophilia with multi-organ infiltration is rarely reported in dogs. Successful treatment of previous cases has relied on a combination of prednisolone and hydroxyurea. A 15-month-old, intact, male Border terrier was presented at a referral hospital with a 6-month history of recurrent, acute episodic abdominal pain, trembling, vomiting, soft feces, and persistent marked eosinophilia. Computed tomography (CT) disclosed abdominal lymphadenomegaly, and cytological evaluation of fine needle aspira",
+      "summary_ko": ""
     },
     {
       "id": "42391600",
@@ -1320,7 +1648,9 @@
       "authors": "Ullal TV, McLarty E, Cordova AY, Weisbeck B, Shropshire SB",
       "journal": "JVIM",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42391600/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42391600/",
+      "abstract": "Emphysematous cholecystitis (EC) is a rare and severe variant of acute cholecystitis in dogs. Published data regarding EC are limited. To retrospectively describe the clinical presentation, relevant laboratory values, ultrasonographic findings, bile cytology, bacterial culture and susceptibility results, gallbladder histopathology, treatment, and outcomes in a group of dogs diagnosed with EC. Thirty-five client-owned dogs diagnosed with EC. A retrospective review of medical records from 4 referr",
+      "summary_ko": ""
     },
     {
       "id": "42384842",
@@ -1328,7 +1658,9 @@
       "authors": "Cassou C, Plante C, Vachon C, Boot G, Juette T",
       "journal": "JVIM",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42384842/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42384842/",
+      "abstract": "Limited data exist on the characterization and outcomes of cats with cardiomyopathy and benign ureteral obstruction treated by subcutaneous ureteral bypass (SUB) placement. Characterize cardiomyopathies, assess perioperative and long-term outcomes, and determine if an association exists between left atrial size and fluid overload (FO) or survival. Ninety-four cats presented for SUB placement between 2010 and 2022 at the Veterinary Teaching Hospital of the University of Montreal. Retrospective re",
+      "summary_ko": ""
     },
     {
       "id": "42384572",
@@ -1336,7 +1668,9 @@
       "authors": "Dainese M, Petini M, Zoia A",
       "journal": "JSAP",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42384572/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42384572/",
+      "abstract": "To evaluate Maine Coon predisposition to intestinal intussusception and compare clinical and biochemical features with non-Maine Coon cats. Cross-sectional study (2004 to 2023) comparing Maine Coons with age-, sex- and weight-matched sick non-Maine Coon controls. Moreover, Maine Coons and unmatched non-Maine Coons with intestinal intussusception presented during the same period were also compared. A total of 371 sick Maine Coons were included. Age and sex were similar to matched controls, but Ma",
+      "summary_ko": ""
     },
     {
       "id": "42385783",
@@ -1344,7 +1678,9 @@
       "authors": "Nelissen SR, Belknap CH, Wu TK",
       "journal": "JAVMA",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42385783/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42385783/",
+      "abstract": "",
+      "summary_ko": ""
     },
     {
       "id": "42387531",
@@ -1352,7 +1688,9 @@
       "authors": "Hebenstreit M, Springer S",
       "journal": "BMC Vet Res",
       "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42387531/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42387531/",
+      "abstract": "The rising popularity of flat-faced dog breeds has intensified discussions around brachycephaly and its associated health risks. The structural shortening of the skull coupled with a lack of a concurrent reduction in the volume of the soft tissues in these breeds often results in chronic health issues, notably Brachycephalic Obstructive Airway Syndrome (BOAS), which remains incurable but may be alleviated through corrective surgical interventions. In light of these challenges, veterinarians are ",
+      "summary_ko": ""
     },
     {
       "id": "41863391",
@@ -1360,7 +1698,9 @@
       "authors": "Mala B, Marrone L, Basinska M, Malkani R, Erwood M",
       "journal": "JSAP",
       "date": "2026 Jul",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41863391/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41863391/",
+      "abstract": "To compare the postoperative complication rates and outcomes of client-owned dogs treated surgically for humeral intracondylar fissures and/or humeral condylar fractures either as unilateral or bilateral simultaneous procedures. Hospital records from a single referral centre in the United Kingdom were reviewed retrospectively. Dogs were categorised into the unilateral and bilateral groups and then further subdivided according to the surgical procedure performed. Clinical follow-up and a client e",
+      "summary_ko": ""
     },
     {
       "id": "41856954",
@@ -1368,7 +1708,9 @@
       "authors": "Salmina AG, Chiti LE, Cinti F, Massari F",
       "journal": "JSAP",
       "date": "2026 Jul",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41856954/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41856954/",
+      "abstract": "To evaluate surgical outcomes, urinary continence and survival in dogs with stage T&#x2009;&lt;&#x2009;4 prostatic tumours or preneoplastic lesions treated with nerve-sparing total prostatectomy. A retrospective review of 22 dogs that underwent nerve-sparing total prostatectomy between 2018 and 2024 was conducted. Inclusion criteria included histologically confirmed prostatic neoplasia or preneoplastic lesions, complete preoperative staging (contrast-enhanced CT and urethrocystoscopy), absence o",
+      "summary_ko": ""
     },
     {
       "id": "41834532",
@@ -1376,7 +1718,9 @@
       "authors": "Camozzi MGM, Waller SB, Castelhano EC, Neves ALS, Arrais BR",
       "journal": "JSAP",
       "date": "2026 Jul",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41834532/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41834532/",
+      "abstract": "To characterise multidrug antimicrobial resistance and pathogenicity profiles of bacteria isolated from different anatomical sites in bitches with pyometra, emphasising their clinical relevance for diagnosis and therapeutic decision-making in small animal practice. Bacteria were obtained from the faeces, urine, uterus and vagina of 23 dogs diagnosed with pyometra undergoing ovariohysterectomy. Antimicrobial resistance profiles were analysed for all identified isolates, together with phylogenetic",
+      "summary_ko": ""
     },
     {
       "id": "41834273",
@@ -1384,7 +1728,9 @@
       "authors": "Antonopoulou I, Fitzmaurice M, Mannion P, Bainbridge D, Adami C",
       "journal": "JSAP",
       "date": "2026 Jul",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41834273/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41834273/",
+      "abstract": "To develop a palatine approach to the canine maxillary nerve and compare its feasibility and the spread of dye and contrast medium with that of the infraorbital technique. Ten canine cadaveric heads were used in this study. The maxillary nerve was approached bilaterally by inserting hypodermic needles into either the infraorbital or the palatine foramen on each side. Dye/contrast injections (1:1 solution) were followed by CT and anatomical dissections, performed to isolate the maxillary nerves a",
+      "summary_ko": ""
     },
     {
       "id": "41745571",
@@ -1392,7 +1738,9 @@
       "authors": "Noli C, Dropsy H, Cozar A, De Jaeger X, Kesteman R",
       "journal": "JSAP",
       "date": "2026 Jul",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41745571/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41745571/",
+      "abstract": "This study aimed to assess the effectiveness of a protocol involving the application of topical products (DOUXO&#xae; S3 SEB Shampoo and Mousse; Ceva Sant&#xe9; Animale) containing ophytrium for managing feline keratinisation disorders. Nineteen client-owned cats with a history of keratinisation disorders exhibited greasy or dry seborrhoea. Cats were treated with either a shampoo or mousse on day 0 (D0) and subsequently with the mousse every 48 to 72&#x2009;hours for 3&#x2009;weeks. Clinical sig",
+      "summary_ko": ""
     },
     {
       "id": "41738814",
@@ -1400,7 +1748,9 @@
       "authors": "Laffitte R, Ruel Y, Giannettoni G, Zilberstein L",
       "journal": "JSAP",
       "date": "2026 Jul",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41738814/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41738814/",
+      "abstract": "This study aimed to (1) describe an ultrasound-guided trigeminal nerve injection technique in client-owned dogs undergoing extensive oncologic maxillofacial surgery; (2) characterise the distribution of a local anaesthetic-contrast mixture using CT; and (3) confirm the absence of intracranial distribution of the injectate on CT images in clinical patients. A secondary objective was to describe intraoperative nociceptive responses under a multimodal anaesthetic protocol. This prospective case ser",
+      "summary_ko": ""
     },
     {
       "id": "41738779",
@@ -1408,7 +1758,9 @@
       "authors": "Winter J, Banks C, Jones G, Meeson R",
       "journal": "JSAP",
       "date": "2026 Jul",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41738779/"
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41738779/",
+      "abstract": "The purpose of this study was to evaluate risk factors for construct failure in dogs undergoing unilateral modified cranial closing wedge ostectomy for cranial cruciate ligament disease. Hospital and radiographic data were collected retrospectively. A sub-group for construct failure analysis was formed consisting of construct failure stifles and weight and plate matched control stifles. The following factors were assessed in relation to construct failure: plate size, plate position, proximal tib",
+      "summary_ko": ""
     }
   ]
 }
