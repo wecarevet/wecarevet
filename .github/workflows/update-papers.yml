@@ -20,7 +20,9 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 논문 수집 실행
+      - name: 논문 수집 및 한글 요약
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python fetch_papers.py
 
       - name: 변경사항 커밋 및 푸시
