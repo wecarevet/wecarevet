@@ -31,4 +31,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add papers.json
           git commit -m "논문 자동 업데이트: $(date +'%Y-%m-%d')" || echo "변경사항 없음"
-          git push --force origin main
+          git push origin main
