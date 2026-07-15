@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)file:///C:/Users/jglke/Downloads/cri_calculator_1.html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRI 계산기 | 위케어동물의료센터</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: #f0f4f8; color: #1a2b3c; min-height: 100vh; }
+
+  header {
+    background: #1a3a5c; color: #fff;
+    padding: 24px 32px; display: flex; align-items: center; justify-content: space-between;
+  }
+  header h1 { font-size: 20px; font-weight: 700; }
+  header p { font-size: 12px; color: #7ec8e3; margin-top: 4px; }
+
+  .weight-bar {
+    background: #fff; border-bottom: 1px solid #dde8f5;
+    padding: 16px 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .weight-bar label { font-size: 14px; font-weight: 600; color: #1a3a5c; }
+  .weight-input {
+    width: 90px; padding: 8px 12px; border: 2px solid #2e6da8; border-radius: 8px;
+    font-size: 18px; font-weight: 700; color: #1a3a5c; text-align: center;
+    background: #e8f3fb; outline: none;
+  }
+  .weight-unit { font-size: 14px; color: #666; }
+  .warning {
+    margin-left: auto; font-size: 11.5px; color: #c0392b;
+    background: #fff5f5; border: 1px solid #f5c6c6; border-radius: 6px; padding: 6px 14px;
+  }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px; padding: 24px 32px; max-width: 1400px; margin: 0 auto;
+  }
+
+  .card { background: #fff; border-radius: 14px; border: 1px solid #dde8f5; overflow: hidden; }
+  .card-header { padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
+  .drug-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .dose-range { font-size: 10.5px; color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.15); border-radius: 4px; padding: 3px 8px; text-align: right; line-height: 1.5; }
+
+  .conc-bar {
+    background: rgba(0,0,0,0.15); padding: 8px 18px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .conc-bar label { font-size: 11px; color: rgba(255,255,255,0.8); white-space: nowrap; }
+  .conc-input {
+    width: 80px; padding: 4px 8px; border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 6px; font-size: 13px; font-weight: 700;
+    color: #fff; background: rgba(255,255,255,0.15); outline: none; text-align: center;
+  }
+  .conc-input:focus { border-color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.25); }
+  .conc-unit { font-size: 11px; color: rgba(255,255,255,0.7); }
+  .conc-default { font-size: 10px; color: rgba(255,255,255,0.5); margin-left: auto; }
+
+  .card-body { padding: 16px 18px; }
+  .input-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .input-group label { display: block; font-size: 10px; color: #888; margin-bottom: 4px; font-weight: 600; letter-spacing: 0.5px; }
+  .input-group input {
+    width: 100%; padding: 8px 10px; border: 1.5px solid #c8dff5; border-radius: 8px;
+    font-size: 14px; font-weight: 600; color: #1a3a5c; background: #e8f3fb; outline: none;
+  }
+  .input-group input:focus { border-color: #2e6da8; }
+
+  .result-box {
+    background: #f8f9fa; border-radius: 10px; padding: 12px 14px;
+    font-size: 13px; color: #444; line-height: 1.8; border-left: 3px solid #9b7fe8;
+  }
+  .result-box strong { color: #5b21b6; }
+  .result-box.green { border-left-color: #4caf82; }
+  .result-box.green strong { color: #166534; }
+
+  .alert-note { font-size: 11.5px; color: #c0392b; margin-top: 8px; padding: 6px 10px; background: #fff5f5; border-radius: 6px; }
+  .info-note { font-size: 11.5px; color: #166534; margin-top: 8px; padding: 6px 10px; background: #f0fbf6; border-radius: 6px; }
+
+  .section-title {
+    grid-column: 1 / -1; font-size: 13px; font-weight: 700; color: #1a3a5c;
+    letter-spacing: 1.5px; padding: 8px 0 4px; border-bottom: 2px solid #1a3a5c; margin-bottom: 4px;
+  }
+
+  .blue .card-header, .blue .conc-bar   { background: #1a3a5c; }
+  .teal .card-header, .teal .conc-bar   { background: #0e7490; }
+  .purple .card-header, .purple .conc-bar { background: #6d28d9; }
+  .red .card-header, .red .conc-bar     { background: #b91c1c; }
+  .green2 .card-header, .green2 .conc-bar { background: #166534; }
+  .orange .card-header, .orange .conc-bar { background: #b45309; }
+  .gray .card-header, .gray .conc-bar   { background: #374151; }
+
+  footer { text-align: center; padding: 24px; font-size: 12px; color: #aaa; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>💉 CRI 계산기</h1>
+    <p>위케어동물의료센터 · 농도 직접 입력 가능 · 체중 입력 시 전체 자동 계산</p>
+  </div>
+  <a href="file:///C:/Users/jglke/Downloads/research.html" style="font-size:12px;color:#1a3a5c;background:#7ec8e3;border-radius:6px;padding:6px 16px;text-decoration:none;font-weight:700;white-space:nowrap;">← 논문 페이지로</a>
+</header>
+
+<div class="weight-bar">
+  <label>체중</label>
+  <input class="weight-input" type="number" id="weight" value="10" min="0.1" step="0.1" oninput="calcAll()">
+  <span class="weight-unit">kg</span>
+  <div class="warning">⚠️ 약물 농도(mg/ml)를 병원 보유 약물에 맞게 수정 후 사용하세요!</div>
+</div>
+
+<div class="grid">
+
+  <div class="section-title">🫀 심혈관계 (Cardiovascular)</div>
+
+  <!-- Dobutamine -->
+  <div class="card blue">
+    <div class="card-header">
+      <div class="drug-name">Dobutamine</div>
+      <div class="dose-range">개: 5~20 μg/kg/min<br>고양이: 1~5 μg/kg/min</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="dobu-conc" value="12.5" step="0.1" oninput="calcDobu()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 12.5 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (μg/kg/min)</label><input type="number" id="dobu-dose" value="5" oninput="calcDobu()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="dobu-vol" value="50" oninput="calcDobu()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="dobu-rate" value="5" oninput="calcDobu()"></div>
+      </div>
+      <div class="result-box" id="dobu-result">수액 <strong>47.60 ml</strong>에 Dobutamine <strong>2.40 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+    </div>
+  </div>
+
+  <!-- Norepinephrine -->
+  <div class="card blue">
+    <div class="card-header">
+      <div class="drug-name">Norepinephrine</div>
+      <div class="dose-range">0.05~2 μg/kg/min</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="norepi-conc" value="1" step="0.1" oninput="calcNorepi()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 1 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (μg/kg/min)</label><input type="number" id="norepi-dose" value="0.1" step="0.01" oninput="calcNorepi()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="norepi-vol" value="50" oninput="calcNorepi()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="norepi-rate" value="5" oninput="calcNorepi()"></div>
+      </div>
+      <div class="result-box" id="norepi-result">수액 <strong>49.40 ml</strong>에 Norepinephrine <strong>0.60 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+    </div>
+  </div>
+
+  <!-- Vasopressin -->
+  <div class="card teal">
+    <div class="card-header">
+      <div class="drug-name">Vasopressin</div>
+      <div class="dose-range">0.5~4 mU/kg/min<br>최대 0.04 U/min 초과 금지</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="vaso-conc" value="20" step="1" oninput="calcVaso()">
+      <span class="conc-unit">IU/ml</span>
+      <span class="conc-default">기본값: 20 IU/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (mU/kg/min)</label><input type="number" id="vaso-dose" value="0.5" step="0.1" oninput="calcVaso()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="vaso-vol" value="50" oninput="calcVaso()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="vaso-rate" value="5" oninput="calcVaso()"></div>
+      </div>
+      <div class="result-box" id="vaso-result">수액 <strong>49.85 ml</strong>에 Vasopressin <strong>0.15 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+      <div class="alert-note" id="vaso-warn" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- Nitroprusside -->
+  <div class="card teal">
+    <div class="card-header">
+      <div class="drug-name">Nitroprusside</div>
+      <div class="dose-range">1~10 μg/kg/min · 차광 필수</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="nitro-conc" value="25" step="1" oninput="calcNitro()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 25 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (μg/kg/min)</label><input type="number" id="nitro-dose" value="1" oninput="calcNitro()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="nitro-vol" value="100" oninput="calcNitro()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="nitro-rate" value="5" oninput="calcNitro()"></div>
+      </div>
+      <div class="result-box" id="nitro-result">수액 <strong>99.52 ml</strong>에 Nitroprusside <strong>0.48 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+    </div>
+  </div>
+
+  <!-- Diltiazem -->
+  <div class="card teal">
+    <div class="card-header">
+      <div class="drug-name">Diltiazem</div>
+      <div class="dose-range">CRI: 1~8 μg/kg/min<br>Loading: 0.125~0.25 mg/kg IV</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="dilt-conc" value="5" step="0.1" oninput="calcDilt()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 5 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (μg/kg/min)</label><input type="number" id="dilt-dose" value="2" oninput="calcDilt()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="dilt-vol" value="50" oninput="calcDilt()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="dilt-rate" value="5" oninput="calcDilt()"></div>
+      </div>
+      <div class="result-box" id="dilt-result">수액 <strong>47.60 ml</strong>에 Diltiazem <strong>2.40 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+      <div class="info-note" id="dilt-load" style="display: block;">Loading: 0.125~0.25 mg/kg → <strong>0.25~0.50 ml</strong> IV (1~5분)</div>
+    </div>
+  </div>
+
+  <div class="section-title">💧 이뇨제 / 전해질 (Diuretics / Electrolytes)</div>
+
+  <!-- Furosemide -->
+  <div class="card green2">
+    <div class="card-header">
+      <div class="drug-name">Furosemide</div>
+      <div class="dose-range">0.2~1 mg/kg/hr</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="furo-conc" value="10" step="0.1" oninput="calcFuro()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 10 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (mg/kg/hr)</label><input type="number" id="furo-dose" value="0.5" step="0.1" oninput="calcFuro()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="furo-vol" value="50" oninput="calcFuro()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="furo-rate" value="5" oninput="calcFuro()"></div>
+      </div>
+      <div class="result-box green" id="furo-result">수액 <strong>45.00 ml</strong>에 Furosemide <strong>5.00 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+    </div>
+  </div>
+
+  <!-- KCl -->
+  <div class="card green2">
+    <div class="card-header">
+      <div class="drug-name">KCl</div>
+      <div class="dose-range">최대 0.5 mEq/kg/hr 절대 금지!</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="kcl-conc-drug" value="2" step="0.1" oninput="calcKcl()">
+      <span class="conc-unit">mEq/ml</span>
+      <span class="conc-default">기본값: 2 mEq/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>목표 농도 (mEq/L)</label><input type="number" id="kcl-conc" value="20" oninput="calcKcl()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="kcl-vol" value="500" oninput="calcKcl()"></div>
+        <div class="input-group"><label>투여 속도 (ml/hr)</label><input type="number" id="kcl-rate" value="10" oninput="calcKcl()"></div>
+      </div>
+      <div class="result-box green" id="kcl-result">수액 <strong>495.00 ml</strong>에 KCl <strong>5.00 ml</strong>을 넣고 <strong>10.00 ml/hr</strong>로 투여</div>
+      <div class="alert-note" id="kcl-warn" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- Bicarbonate -->
+  <div class="card green2">
+    <div class="card-header">
+      <div class="drug-name">Bicarbonate (NaHCO₃)</div>
+      <div class="dose-range">요구량 1/4~1/2 · 1~4시간 공급</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="bicarb-conc" value="1" step="0.1" oninput="calcBicarb()">
+      <span class="conc-unit">mEq/ml</span>
+      <span class="conc-default">기본값: 1 mEq/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>BE (음수 입력)</label><input type="number" id="bicarb-be" value="-8" oninput="calcBicarb()"></div>
+        <div class="input-group" style="grid-column:span 2"><label>총 요구량 (ml)</label><input type="number" id="bicarb-total" readonly="" style="background:#f0ebff;border-color:#9b7fe8;color:#5b21b6;"></div>
+      </div>
+      <div class="result-box" id="bicarb-result">총 요구량 <strong>24.00 ml</strong> → 실제 투여 <strong>6.00~12.00 ml</strong>을 1~4시간에 걸쳐 공급</div>
+    </div>
+  </div>
+
+  <!-- Calcium Gluconate -->
+  <div class="card green2">
+    <div class="card-header">
+      <div class="drug-name">10% Calcium Gluconate</div>
+      <div class="dose-range">2.5~3.5 mg/kg/hr</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="ca-conc" value="9.3" step="0.1" oninput="calcCa()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 9.3 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (mg/kg/hr)</label><input type="number" id="ca-dose" value="3" step="0.5" oninput="calcCa()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="ca-vol" value="50" oninput="calcCa()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="ca-rate" value="5" oninput="calcCa()"></div>
+      </div>
+      <div class="result-box green" id="ca-result">수액 <strong>17.74 ml</strong>에 10% Calcium <strong>32.26 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+    </div>
+  </div>
+
+  <div class="section-title">💊 진정 / 항경련 (Sedation / Anticonvulsants)</div>
+
+  <!-- Midazolam -->
+  <div class="card purple">
+    <div class="card-header">
+      <div class="drug-name">Midazolam</div>
+      <div class="dose-range">0.05~0.5 mg/kg/hr (최대 2)</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="mida-conc" value="1" step="0.1" oninput="calcMida()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 1 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (mg/kg/hr)</label><input type="number" id="mida-dose" value="0.2" step="0.05" oninput="calcMida()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="mida-vol" value="50" oninput="calcMida()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="mida-rate" value="5" oninput="calcMida()"></div>
+      </div>
+      <div class="result-box" id="mida-result">수액 <strong>30.00 ml</strong>에 Midazolam <strong>20.00 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+    </div>
+  </div>
+
+  <!-- Diazepam -->
+  <div class="card purple">
+    <div class="card-header">
+      <div class="drug-name">Diazepam</div>
+      <div class="dose-range">0.1~2 mg/kg/hr · PVC-free line 권장</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="diaz-conc" value="5" step="0.1" oninput="calcDiaz()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 5 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (mg/kg/hr)</label><input type="number" id="diaz-dose" value="0.5" step="0.1" oninput="calcDiaz()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="diaz-vol" value="100" oninput="calcDiaz()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="diaz-rate" value="5" oninput="calcDiaz()"></div>
+      </div>
+      <div class="result-box" id="diaz-result">수액 <strong>80.00 ml</strong>에 Diazepam <strong>20.00 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+    </div>
+  </div>
+
+  <div class="section-title">⚡ 항부정맥제 (Antiarrhythmics)</div>
+
+  <!-- Lidocaine Dog -->
+  <div class="card orange">
+    <div class="card-header">
+      <div class="drug-name">Lidocaine (개)</div>
+      <div class="dose-range">CRI: 25~100 μg/kg/min<br>Loading: 1~2 mg/kg IV (1~4분)</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="lido-dog-conc" value="20" step="1" oninput="calcLidoDog()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 20 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (μg/kg/min)</label><input type="number" id="lido-dog-dose" value="50" oninput="calcLidoDog()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="lido-dog-vol" value="100" oninput="calcLidoDog()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="lido-dog-rate" value="10" oninput="calcLidoDog()"></div>
+      </div>
+      <div class="result-box" id="lido-dog-result">수액 <strong>85.00 ml</strong>에 Lidocaine <strong>15.00 ml</strong>을 넣고 <strong>10.00 ml/hr</strong>로 투여</div>
+      <div class="info-note" id="lido-dog-load" style="display: block;">Loading: 1~2 mg/kg → <strong>0.50~1.00 ml</strong> IV (1~4분)</div>
+    </div>
+  </div>
+
+  <!-- Lidocaine Cat -->
+  <div class="card orange">
+    <div class="card-header">
+      <div class="drug-name">Lidocaine (고양이)</div>
+      <div class="dose-range">CRI: 10~20 μg/kg/min<br>Loading: 0.25~0.5 mg/kg IV (1~4분)</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="lido-cat-conc" value="20" step="1" oninput="calcLidoCat()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 20 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (μg/kg/min)</label><input type="number" id="lido-cat-dose" value="10" oninput="calcLidoCat()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="lido-cat-vol" value="50" oninput="calcLidoCat()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="lido-cat-rate" value="5" oninput="calcLidoCat()"></div>
+      </div>
+      <div class="result-box" id="lido-cat-result">수액 <strong>47.00 ml</strong>에 Lidocaine <strong>3.00 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+      <div class="info-note" id="lido-cat-load" style="display: block;">Loading: 0.25~0.5 mg/kg → <strong>0.13~0.25 ml</strong> IV (1~4분)</div>
+    </div>
+  </div>
+
+  <div class="section-title">🩺 기타 (Others)</div>
+
+  <!-- Metoclopramide -->
+  <div class="card gray">
+    <div class="card-header">
+      <div class="drug-name">Metoclopramide</div>
+      <div class="dose-range">0.01~0.09 mg/kg/hr</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="meto-conc" value="5" step="0.1" oninput="calcMeto()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 5 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (mg/kg/hr)</label><input type="number" id="meto-dose" value="0.05" step="0.01" oninput="calcMeto()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="meto-vol" value="50" oninput="calcMeto()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="meto-rate" value="5" oninput="calcMeto()"></div>
+      </div>
+      <div class="result-box" id="meto-result">수액 <strong>49.00 ml</strong>에 Metoclopramide <strong>1.00 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+    </div>
+  </div>
+
+  <!-- Hydrocortisone -->
+  <div class="card red">
+    <div class="card-header">
+      <div class="drug-name">Hydrocortisone</div>
+      <div class="dose-range">CRI: 0.08~0.15 mg/kg/hr</div>
+    </div>
+    <div class="conc-bar">
+      <label>농도</label>
+      <input class="conc-input" type="number" id="hc-conc" value="100" step="1" oninput="calcHc()">
+      <span class="conc-unit">mg/ml</span>
+      <span class="conc-default">기본값: 100 mg/ml</span>
+    </div>
+    <div class="card-body">
+      <div class="input-row">
+        <div class="input-group"><label>용량 (mg/kg/hr)</label><input type="number" id="hc-dose" value="0.1" step="0.01" oninput="calcHc()"></div>
+        <div class="input-group"><label>수액 총량 (ml)</label><input type="number" id="hc-vol" value="50" oninput="calcHc()"></div>
+        <div class="input-group"><label>CRI 속도 (ml/hr)</label><input type="number" id="hc-rate" value="5" oninput="calcHc()"></div>
+      </div>
+      <div class="result-box" id="hc-result">수액 <strong>49.90 ml</strong>에 Hydrocortisone <strong>0.10 ml</strong>을 넣고 <strong>5.00 ml/hr</strong>로 투여</div>
+    </div>
+  </div>
+
+</div>
+<footer>© 위케어동물의료센터 · 계산 결과는 반드시 임상적 판단과 함께 사용하세요.</footer>
+
+<script>
+function bw() { return parseFloat(document.getElementById('weight').value) || 0; }
+function v(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function fmt(n) { return isNaN(n)||!isFinite(n) ? '—' : n.toFixed(2); }
+
+function showResult(resultId, drug_ml, fluid_ml, rate, drugName, isGreen=false) {
+  const el = document.getElementById(resultId);
+  if (!bw()) { el.innerHTML = '체중을 입력하세요.'; return; }
+  if (!isFinite(drug_ml) || drug_ml <= 0 || fluid_ml < 0) { el.innerHTML = '⚠️ 입력값을 확인하세요.'; return; }
+  el.className = 'result-box' + (isGreen ? ' green' : '');
+  el.innerHTML = `수액 <strong>${fmt(fluid_ml)} ml</strong>에 ${drugName} <strong>${fmt(drug_ml)} ml</strong>을 넣고 <strong>${fmt(rate)} ml/hr</strong>로 투여`;
+}
+
+function cri_ugmin(dose, vol, rate, conc) {
+  const drug_ml = (dose * bw() * vol * 60) / (conc * 1000 * rate);
+  return { drug_ml, fluid_ml: vol - drug_ml };
+}
+function cri_mghr(dose, vol, rate, conc) {
+  const drug_ml = (dose * bw() * vol) / (conc * rate);
+  return { drug_ml, fluid_ml: vol - drug_ml };
+}
+
+function calcDobu() {
+  const {drug_ml,fluid_ml} = cri_ugmin(v('dobu-dose'),v('dobu-vol'),v('dobu-rate'),v('dobu-conc'));
+  showResult('dobu-result',drug_ml,fluid_ml,v('dobu-rate'),'Dobutamine');
+}
+function calcNorepi() {
+  const {drug_ml,fluid_ml} = cri_ugmin(v('norepi-dose'),v('norepi-vol'),v('norepi-rate'),v('norepi-conc'));
+  showResult('norepi-result',drug_ml,fluid_ml,v('norepi-rate'),'Norepinephrine');
+}
+function calcVaso() {
+  const dose=v('vaso-dose'),vol=v('vaso-vol'),rate=v('vaso-rate'),conc=v('vaso-conc');
+  const drug_ml=(dose*bw()*vol*60)/(conc*1000*rate);
+  const fluid_ml=vol-drug_ml;
+  showResult('vaso-result',drug_ml,fluid_ml,rate,'Vasopressin');
+  const warn=document.getElementById('vaso-warn');
+  const actualRate=(dose*bw())/1000;
+  if(bw()&&actualRate>0.04){warn.style.display='block';warn.innerHTML=`⚠️ 실제 투여속도 ${fmt(actualRate)} U/min → 최대 허용량 0.04 U/min 초과!`;}
+  else warn.style.display='none';
+}
+function calcNitro() {
+  const {drug_ml,fluid_ml} = cri_ugmin(v('nitro-dose'),v('nitro-vol'),v('nitro-rate'),v('nitro-conc'));
+  showResult('nitro-result',drug_ml,fluid_ml,v('nitro-rate'),'Nitroprusside');
+}
+function calcDilt() {
+  const {drug_ml,fluid_ml} = cri_ugmin(v('dilt-dose'),v('dilt-vol'),v('dilt-rate'),v('dilt-conc'));
+  showResult('dilt-result',drug_ml,fluid_ml,v('dilt-rate'),'Diltiazem');
+  const load=document.getElementById('dilt-load');
+  if(bw()){const c=v('dilt-conc');load.style.display='block';load.innerHTML=`Loading: 0.125~0.25 mg/kg → <strong>${fmt(0.125*bw()/c)}~${fmt(0.25*bw()/c)} ml</strong> IV (1~5분)`;}
+}
+function calcFuro() {
+  const {drug_ml,fluid_ml} = cri_mghr(v('furo-dose'),v('furo-vol'),v('furo-rate'),v('furo-conc'));
+  showResult('furo-result',drug_ml,fluid_ml,v('furo-rate'),'Furosemide',true);
+}
+function calcKcl() {
+  const target=v('kcl-conc'),vol=v('kcl-vol'),rate=v('kcl-rate'),conc=v('kcl-conc-drug');
+  const drug_ml=(target*vol)/(conc*1000);
+  const fluid_ml=vol-drug_ml;
+  showResult('kcl-result',drug_ml,fluid_ml,rate,'KCl',true);
+  const warn=document.getElementById('kcl-warn');
+  const actualRate=(rate*target)/1000;
+  const maxRate=0.5*bw();
+  if(bw()&&actualRate>maxRate){warn.style.display='block';warn.innerHTML=`⚠️ 실제 투여속도 ${fmt(actualRate)} mEq/hr → 최대 허용량 ${fmt(maxRate)} mEq/hr 초과!`;}
+  else warn.style.display='none';
+}
+function calcBicarb() {
+  const be=v('bicarb-be'),bw_=bw();
+  if(!bw_)return;
+  const total=Math.abs(be)*bw_*0.3/v('bicarb-conc');
+  document.getElementById('bicarb-total').value=fmt(total);
+  document.getElementById('bicarb-result').innerHTML=`총 요구량 <strong>${fmt(total)} ml</strong> → 실제 투여 <strong>${fmt(total/4)}~${fmt(total/2)} ml</strong>을 1~4시간에 걸쳐 공급`;
+}
+function calcCa() {
+  const {drug_ml,fluid_ml} = cri_mghr(v('ca-dose'),v('ca-vol'),v('ca-rate'),v('ca-conc'));
+  showResult('ca-result',drug_ml,fluid_ml,v('ca-rate'),'10% Calcium',true);
+}
+function calcMida() {
+  const {drug_ml,fluid_ml} = cri_mghr(v('mida-dose'),v('mida-vol'),v('mida-rate'),v('mida-conc'));
+  showResult('mida-result',drug_ml,fluid_ml,v('mida-rate'),'Midazolam');
+}
+function calcDiaz() {
+  const {drug_ml,fluid_ml} = cri_mghr(v('diaz-dose'),v('diaz-vol'),v('diaz-rate'),v('diaz-conc'));
+  showResult('diaz-result',drug_ml,fluid_ml,v('diaz-rate'),'Diazepam');
+}
+function calcLidoDog() {
+  const {drug_ml,fluid_ml} = cri_ugmin(v('lido-dog-dose'),v('lido-dog-vol'),v('lido-dog-rate'),v('lido-dog-conc'));
+  showResult('lido-dog-result',drug_ml,fluid_ml,v('lido-dog-rate'),'Lidocaine');
+  const load=document.getElementById('lido-dog-load');
+  if(bw()){const c=v('lido-dog-conc');load.style.display='block';load.innerHTML=`Loading: 1~2 mg/kg → <strong>${fmt(bw()/c)}~${fmt(2*bw()/c)} ml</strong> IV (1~4분)`;}
+}
+function calcLidoCat() {
+  const {drug_ml,fluid_ml} = cri_ugmin(v('lido-cat-dose'),v('lido-cat-vol'),v('lido-cat-rate'),v('lido-cat-conc'));
+  showResult('lido-cat-result',drug_ml,fluid_ml,v('lido-cat-rate'),'Lidocaine');
+  const load=document.getElementById('lido-cat-load');
+  if(bw()){const c=v('lido-cat-conc');load.style.display='block';load.innerHTML=`Loading: 0.25~0.5 mg/kg → <strong>${fmt(0.25*bw()/c)}~${fmt(0.5*bw()/c)} ml</strong> IV (1~4분)`;}
+}
+function calcMeto() {
+  const {drug_ml,fluid_ml} = cri_mghr(v('meto-dose'),v('meto-vol'),v('meto-rate'),v('meto-conc'));
+  showResult('meto-result',drug_ml,fluid_ml,v('meto-rate'),'Metoclopramide');
+}
+function calcHc() {
+  const {drug_ml,fluid_ml} = cri_mghr(v('hc-dose'),v('hc-vol'),v('hc-rate'),v('hc-conc'));
+  showResult('hc-result',drug_ml,fluid_ml,v('hc-rate'),'Hydrocortisone');
+}
+
+function calcAll() {
+  calcDobu();calcNorepi();calcVaso();calcNitro();calcDilt();
+  calcFuro();calcKcl();calcBicarb();calcCa();
+  calcMida();calcDiaz();calcLidoDog();calcLidoCat();
+  calcMeto();calcHc();
+}
+calcAll();
+</script>
+
+
+</body></html>
