@@ -1,137 +1,93 @@
 {
-  "updated": "2026-08-30 02:59 UTC",
-  "total": 296,
+  "updated": "2026-08-31 02:50 UTC",
+  "total": 253,
   "papers": [
     {
-      "id": "42618894",
-      "title": "Use of Canine Fresh Frozen Plasma Xenotransfusions Administered to Eight Cats With Clinical Coagulopathy (2017-2024).",
-      "authors": "Kamat TA, Dolan CB, Santo-Domingo NE",
-      "journal": "JVECC",
+      "id": "42624280",
+      "title": "Tail wounds in military working dogs: Clinical characterization and a randomized sham-controlled trial of photobiomodulation.",
+      "authors": "Fishelson Y, Hirschberg RE, Raizman R, Zori T, Olshinka N",
+      "journal": "Vet J",
       "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42618894/",
-      "abstract": "To describe a population of cats with clinical signs of coagulopathy that were treated with the administration of canine fresh frozen plasma (cFFP). A secondary objective was to assess whether cFFP xenotransfusions influenced serum total protein concentration. Retrospective, single-center study conducted in cats receiving cFFP xenotransfusions between 2017 and 2024. Private referral hospital. Eight privately owned cats that received cFFP xenotransfusions to treat clinical coagulopathy were ident",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42624280/",
+      "abstract": "Tail wounds in military working dogs (MWDs) are a clinically significant and challenging condition characterized by recurrent trauma and delayed healing. Photobiomodulation (PBM) has been proposed as a non-invasive therapy to enhance wound repair. To characterize the clinical presentation of tail wounds in MWDs and to evaluate the effect of PBM as an adjunctive treatment. This prospective study included an observational cohort of 21 active MWDs (age 4.1&#x202f;&#xb1;&#x202f;2.2 years; 95% male; ",
       "summary_ko": ""
     },
     {
-      "id": "42605129",
-      "title": "Evaluation of the Correlation of Arterial and Venous Lactate and Glucose Concentrations in Anesthetized Critically Ill Dogs.",
-      "authors": "Tirillini F, Rooster H, Polis I, Devriendt N",
-      "journal": "JVECC",
+      "id": "42571817",
+      "title": "Sleep-wake disturbance in canine cognitive dysfunction: Guardian-reported patterns and a practical screening tool.",
+      "authors": "Taylor TL, Tuke J, Hazel SJ",
+      "journal": "Vet J",
       "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42605129/",
-      "abstract": "To investigate the correlation between arterial and venous concentrations of lactate and glucose and to explore the relationship between hyperlactatemia and hyperglycemia in critically ill dogs. Prospective clinical study. University veterinary teaching hospital. Ninety client-owned dogs presenting for emergency surgery between June 2015 and March 2024. None. Arterial and venous blood samples were collected from the dorsal pedal artery and jugular vein, respectively, &#x2264;5&#xa0;min apart to ",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42571817/",
+      "abstract": "Sleep-wake disturbance is a commonly reported feature of canine cognitive dysfunction (CCD), yet its specific patterns and clinical significance remain poorly characterised. This study aimed to describe guardian-reported sleep disturbances in dogs with CCD, examine their associations with cognitive severity and sensory changes, and develop a practical screening tool to support veterinary consultations. Guardians of dogs aged &#x2265;&#x202f;8 years (n&#x202f;=&#x202f;205) completed an online sur",
       "summary_ko": ""
     },
     {
-      "id": "42599775",
-      "title": "Retrospective Evaluation of Acid-Base Disorders in Dogs With Hyperlactatemia Using Traditional and Semiquantitative Analysis: 3866 Cases.",
-      "authors": "Saint-Pierre LM, Epstein SE, Hopper K",
-      "journal": "JVECC",
+      "id": "42571816",
+      "title": "Evaluating Sacubitril/Valsartan's efficacy in reducing myocardial hypertrophy and fibrosis in feline models.",
+      "authors": "Sun Z, Huang W, Chai X, Hu C, Zhu C",
+      "journal": "Vet J",
       "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42599775/",
-      "abstract": "To characterize acid-base disorders in dogs with hyperlactatemia via traditional and semiquantitative approaches, and to investigate the mechanisms of hyperlactatemia and the prognostic significance of metabolic acidosis in these patients. Retrospective study. University teaching hospital. A total of 3866 dogs with various diseases and a plasma lactate concentration &gt;2&#xa0;mmol/L at any timepoint during hospitalization underwent traditional acid-base analysis. Among these patients, 1755 dogs",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42571816/",
+      "abstract": "Hypertrophic cardiomyopathy is the most common form of feline heart disease, and current therapy is largely supportive with no widely available effective treatment to reverse myocardial hypertrophy or attenuate fibrosis. Sacubitril/valsartan (Sac/Val), an angiotensin receptor-neprilysin inhibitor, has antihypertrophic and antifibrotic effects, but its potential in feline hypertrophic cardiomyopathy remains unclear. The objective of this exploratory pilot study was to evaluate the effects of Sac/",
       "summary_ko": ""
     },
     {
-      "id": "42578319",
-      "title": "Retrospective Characterization of Clot Waveform Analysis in Canine Immune-Mediated Hemolytic Anemia Using the Turbidimetric ACL-TOP 300 Analyzer (2018-2022): 35 Cases.",
-      "authors": "Richter LG, Ludwik TM, Gwynn AD, Rendahl A, Todd JM",
-      "journal": "JVECC",
+      "id": "42567436",
+      "title": "Data mining as a tool for Balearic Islands endangered dog breed conservation and breeding: Analyzing censuses and time gaps between creation and recognition of protection structures.",
+      "authors": "Alanzor Puente JM, Pons Barro ÁL, Delgado Bermejo JV, Navas González FJ",
+      "journal": "Vet J",
       "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42578319/",
-      "abstract": "To characterize clot waveform analysis (CWA) parameters (delta and derivative values), alongside standard coagulation parameters (prothrombin time [PT], activated partial thromboplastin time [aPTT], and fibrinogen) in dogs diagnosed with immune-mediated hemolytic anemia (IMHA) using a turbidimetric optical clot detection-based analyzer. Retrospective study from January 2018 to October 2022. University teaching hospital. Thirty-five client-owned dogs diagnosed with IMHA. CWA parameters were chara",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42567436/",
+      "abstract": "Indigenous dog breeds of the Balearic Islands constitute an essential part of regional biodiversity and cultural heritage, yet many face endangerment due to shrinking population sizes and delayed institutional recognition. This study assessed the usefulness of multivariate statistics and data-mining tools to analyse temporal trends and census evolution in these breeds, with emphasis on the influence of breeder associations and conservation structures. Canonical discriminant analysis effectively ",
       "summary_ko": ""
     },
     {
-      "id": "42572994",
-      "title": "Evaluation of Fibrinolysis by Thromboelastography in Dogs With Hemorrhagic Pericardial Effusion.",
-      "authors": "Ehrlich MR, DeStefano IM, Rozanski EA, Taylor S, de Laforcade AM",
-      "journal": "JVECC",
+      "id": "42567435",
+      "title": "Evaluation of neonatal oral and rectal microbiota in dogs delivered by c-section, from birth to weaning.",
+      "authors": "Cicirelli V, Peruzzo A, Burgio M, Bramante G, Fabbri G",
+      "journal": "Vet J",
       "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42572994/",
-      "abstract": "To evaluate dogs presenting with hemorrhagic pericardial effusion (PCE) for the presence of hyperfibrinolysis. Prospective observational study. Single veterinary teaching hospital. Dogs with PCE had blood samples collected before pericardiocentesis for PCV, total plasma protein and blood lactate concentrations, venous blood gas, and thromboelastography modified with tissue plasminogen activator (tPA-TEG). Fibrinolysis was assessed on tPA-TEG using the percentage of clot lysis at 30 min (LY30) af",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42567435/",
+      "abstract": "In recent years, the role of the microbiota in early-life health has gained increasing attention; however, data on the initial phases of microbial colonization in dogs remain limited. This study investigated the development of oral and rectal microbiota in puppies delivered by cesarean section from birth to weaning, and the contribution of maternal microbial sources. Four French Bulldog dams and their litters (18 puppies) were enrolled under uniform management conditions. Oral and rectal swabs w",
       "summary_ko": ""
     },
     {
-      "id": "42565257",
-      "title": "Severe Gastrointestinal Disease in a Dog Presenting With Hypoadrenocorticism-Like Electrolyte Derangements Due to Protothecosis.",
-      "authors": "Angles RG, Peck CM, Mouser P, Ewing P, Ackley D",
-      "journal": "JVECC",
+      "id": "42532333",
+      "title": "Deep learning for canine cardiac radiography: A comprehensive review of automated vertebral heart score estimation.",
+      "authors": "Buch H, Mayani P",
+      "journal": "Vet J",
       "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42565257/",
-      "abstract": "To describe systemic protothecosis as a novel differential for hypoadrenocorticism-like clinicopathologic findings. A 3-year-old neutered female Labrador Retriever was evaluated for an episode of acute lethargy, hyporexia, and ataxia. The dog had a prior history of chronic gastrointestinal signs with no underlying cause determined. On presentation, the dog had several clinicopathologic changes similar to those seen in cases of hypoadrenocorticism, most notably a severe hyperkalemia and hyponatre",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42532333/",
+      "abstract": "Myxomatous mitral valve disease (MMVD) is the most common acquired cardiac disorder in dogs and represents a large proportion of cases encountered in small animal veterinary practice. Thoracic radiography is routinely used to evaluate cardiac enlargement, with the vertebral heart score (VHS) serving as a widely accepted radiographic measurement. However, VHS assessment depends on manual landmark identification and measurement, which can result in variation between observers. This review summariz",
       "summary_ko": ""
     },
     {
-      "id": "42502877",
-      "title": "Presumptive Acute Post-Hypoxic Myoclonus Following Return of Spontaneous Circulation in a Cat and a Dog.",
-      "authors": "Liatis T, Robertson A, De Stefani A",
-      "journal": "JVECC",
+      "id": "42526683",
+      "title": "Anti-tumour activity of canine activated T-cells and cytokine-induced killer cells against canine malignant melanoma in vitro.",
+      "authors": "Conti LC, Capellero S, Piras L, Morello E, Iurascu S",
+      "journal": "Vet J",
       "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42502877/",
-      "abstract": "To describe the clinical presentation of presumptive acute post-hypoxic myoclonus in a cat and a dog after cardiopulmonary arrest (CPA). In people, acute post-hypoxic myoclonus is a transient focal, multifocal, or generalized rhythmic myoclonus that results from global hypoxic-ischemic brain injury and may be cortical or subcortical in origin, specifically brainstem-generated. Post-hypoxic myoclonus typically presents within 48&#xa0;h of CPA while the patient is still comatose. Although this neu",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42526683/",
+      "abstract": "Adoptive cell transfer (ACT) immunotherapy represents a promising therapeutic approach for cancer treatment, utilising ex vivo-expanded immune effector cells such as T-lymphocytes, natural killer (NK) cells, and cytokine-induced killer (CIK) cells. CIK cells are characterised by dual T-cell and NK cell-like properties, exhibiting high proliferative capacity, cytolytic activity, and non-MHC-restricted tumour recognition. Canine malignant melanoma (CMM) is an aggressive neoplasm with significant t",
       "summary_ko": ""
     },
     {
-      "id": "42502251",
-      "title": "Modified Manual Therapeutic Plasma Exchange Technique as a Successful Treatment for Postattenuation Neurological Signs (PANS) in a Dog.",
-      "authors": "Fumero-Hernández M, Ribas M, Bou P, Torrente C, Bosch L",
-      "journal": "JVECC",
+      "id": "42501791",
+      "title": "Development and validation of PCR-RFLP assays for detection of MYBPC3 variants associated with hypertrophic cardiomyopathy in Maine Coon and Ragdoll cats.",
+      "authors": "Phuong Vu T, Quang Le T, Thi Thanh Truong T, Thi Cam Nguyen G, By KB",
+      "journal": "Vet J",
       "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42502251/",
-      "abstract": "To investigate and describe the therapeutic potential of manual plasma exchange for controlling seizures and neurologic dysfunction in a dog with postattenuation neurologic signs (PANS). A 4-year-old neutered female Yorkshire Terrier was initially diagnosed using computed tomography with a congenital extrahepatic portosystemic shunt involving the left gastric and azygos veins. After diagnosis, surgical correction of the anomaly was performed without complications, and the patient was discharged.",
-      "summary_ko": ""
-    },
-    {
-      "id": "42486506",
-      "title": "Quality Improvement: Evaluation of Team Communication Openness in Specialty and Emergency Veterinarians Who Regularly Use Communication Tools.",
-      "authors": "Stone RH, Adler JA, Larson MJ, Bacek LM, Rosen MA",
-      "journal": "JVECC",
-      "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42486506/",
-      "abstract": "To determine whether the regular use of structured communication tools is associated with greater communication openness among small animal specialty practitioners and emergency providers. A cross-sectional, anonymous, and voluntary survey of veterinary providers. Two hundred forty-seven survey responses were received across three specialty veterinary college email listservs, including the American College of Veterinary Surgeons, the American College of Veterinary Internal Medicine, and the Amer",
-      "summary_ko": ""
-    },
-    {
-      "id": "42438321",
-      "title": "Septic Shock and Prognosis in Dogs and Cats With Sepsis-Consensus Definition and Clinical Criteria.",
-      "authors": "Goggs R, Cortellini S, DeClue AE, Giunti M, Hopper K",
-      "journal": "JVECC",
-      "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42438321/",
-      "abstract": "Death from sepsis results from progressive organ dysfunction. Early recognition of increased illness severity or deterioration in clinical status enables timely interventions that can improve outcomes. We aimed to define septic shock by consensus and to use the existing literature to identify associated clinical and clinicopathologic abnormalities that would aid rapid identification of the most severely affected patients. We systematically reviewed the available data on sepsis in dogs and cats t",
-      "summary_ko": ""
-    },
-    {
-      "id": "42438185",
-      "title": "Sepsis in Dogs and Cats-Consensus Definition and Clinical Criteria.",
-      "authors": "Goggs R, Cortellini S, DeClue AE, Giunti M, Hopper K",
-      "journal": "JVECC",
-      "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42438185/",
-      "abstract": "Sepsis is the clinical syndrome that results from the host response to severe or widespread infection and is a frequent cause of death in veterinary critical care settings. Rapid diagnosis aids early treatment initiation, and hence, how sepsis is defined and identified clinically has implications for patient outcomes. Recent changes in the definitions of sepsis in human adult and pediatric patients have reduced the alignment of veterinary sepsis definitions with those in human medicine. We defin",
-      "summary_ko": ""
-    },
-    {
-      "id": "42433018",
-      "title": "Xenotransfusion in an African Pygmy Hedgehog (Atelerix albiventris) Using Whole Blood From a Domestic Cat (Felis catus).",
-      "authors": "Kunzman H, Chen S, Salazar R, Hottinger H",
-      "journal": "JVECC",
-      "type": "vet",
-      "date": "2026 Jul-Aug",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42433018/",
-      "abstract": "To describe the diagnosis, management, and outcome of a hedgehog that received a xenotransfusion of type A feline whole blood for treatment of severe anemia. A 1-year-old female hedgehog was presented for hematuria and hyporexia. A firm, immobile mass was palpated within the caudal abdomen in the region of the uterus and urinary bladder. Focal ultrasound of the reproductive tract was suspicious for pathology within the uterus. The hedgehog was anemic with a PCV of 14% and total plasma protein co",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42501791/",
+      "abstract": "Hypertrophic cardiomyopathy (HCM) is the most common myocardial disease in domestic cats and breed-associated variants in MYBPC3 have been reported in Maine Coon and Ragdoll cats. This study developed and analytically evaluated two polymerase chain reaction-restriction fragment length polymorphism (PCR-RFLP) assays for detecting the MYBPC3 c.91&#x202f;G&gt;C (A31P) variant in Maine Coon cats and the c.2453&#x202f;C&gt;T (R820W) variant in Ragdoll cats, and applied the assays to a small Vietnames",
       "summary_ko": ""
     },
     {
@@ -198,7 +154,7 @@
       "date": "2026 Jul 31",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42542133/",
       "abstract": "Carbapenemase-producing carbapenem-resistant Enterobacterales (CP-CRE) represent a growing threat to veterinary patients. Although CP-CRE infections in companion animals remain relatively rare, outbreaks in veterinary hospitals are increasingly being reported. Case reports and epidemiologic studies also support CP-CRE transmission between people and animals, making emergence in companion animals both an animal health and public health problem. However, substantial knowledge gaps limit understand",
-      "summary_ko": "# 핵심 요약\n\n카르바페넴분해효소 생성 카르바페넴내성 장내세균(CP-CRE)은 반려동물의 새로운 감염 위협으로, 수의병원 내 집단발생이 증가하고 있으며 인수공통감염 가능성이 입증되고 있다. 현재 반려동물의 CP-CRE 유병률, 보균 역학, 병원 내 획득 위험요인 등이 명확하지 않고, 수의학 감염예방관리 지침의 증거기반 실천 방안이 부족하며, 진단·감시 체계가 분절화되어 있다. 따라서 수의 임상 현장 맞춤형 감염관리 전략 수립과 체계적인 감시체계 구축이 필요하다."
+      "summary_ko": ""
     },
     {
       "id": "42542129",
@@ -209,7 +165,7 @@
       "date": "2026 Jul 31",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42542129/",
       "abstract": "To characterize the total and inorganic serum iodine concentrations of canines with varying thyroid disease status. Leftover serum samples submitted to the Michigan State University Veterinary Diagnostic Laboratory for diagnostic thyroid panel screening between January and June 2023 were utilized for this retrospective study. Thyroglobulin autoantibody was used as a marker for autoimmune thyroiditis. Inorganic and total iodine were measured via an inductively coupled plasma-mass spectrometer. An",
-      "summary_ko": "# 논문 요약\n\n개의 자가면역 갑상선염 및 갑상선기능저하증에서 혈청 요오드 농도는 정상 갑상선 기능을 가진 개와 비교하여 증가하지 않았으며, 통계적으로 두 질환군 간에만 차이를 보였다. 따라서 혈청 요오드 농도 단독으로는 개의 갑상선 질환 진단의 마커로 사용될 수 없으며, 갑상선 질환 진단에는 기존의 갑상선호르몬 검사와 항갑상선글로불린 항체 검사가 여전히 필수적이다."
+      "summary_ko": ""
     },
     {
       "id": "42542130",
@@ -242,17 +198,6 @@
       "date": "2026 Jul 30",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42532508/",
       "abstract": "Feline injection-site sarcoma is a rare but serious adverse event associated with vaccination in cats. Published estimates of feline injection-site sarcoma incidence vary widely, contributing to uncertainty in clinical decision-making and incidence communication. We conducted a systematic review and meta-analysis to estimate the incidence of feline injection-site sarcoma following vaccination in cats and to assess the certainty of the evidence. MEDLINE (via Ovid), CAB Abstracts and Web of Scienc",
-      "summary_ko": ""
-    },
-    {
-      "id": "42532333",
-      "title": "Deep learning for canine cardiac radiography: A comprehensive review of automated vertebral heart score estimation.",
-      "authors": "Buch H, Mayani P",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Jul 30",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42532333/",
-      "abstract": "Myxomatous mitral valve disease (MMVD) is the most common acquired cardiac disorder in dogs and represents a large proportion of cases encountered in small animal veterinary practice. Thoracic radiography is routinely used to evaluate cardiac enlargement, with the vertebral heart score (VHS) serving as a widely accepted radiographic measurement. However, VHS assessment depends on manual landmark identification and measurement, which can result in variation between observers. This review summariz",
       "summary_ko": ""
     },
     {
@@ -308,7 +253,7 @@
       "date": "2026 Jul 29",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42526497/",
       "abstract": "To examine the influence of age, quality of life, illness, and recent veterinary consultation on an owner's perception of pain and/or suffering and consequently end-of-life decision-making for dogs. This retrospective cohort study examined Dog Aging Project end-of-life survey data. Owner and dog demographic characteristics were analyzed by whether pain and/or suffering were listed as a reason for euthanasia. A multivariate logistic regression model assessed associations. Owner surveys from 2020 ",
-      "summary_ko": "# 핵심 요약\n\n본 연구는 7,764마리의 개에서 안락사 전 통증/고통을 인지하는 주요 요인을 분석한 결과, 전체 87%의 보호자가 통증/고통을 안락사 사유로 보고했습니다. 최근 수의과 진료가 통증 인지와 양의 상관관계(OR 1.76)를 보인 반면, 삶의 질 개선은 음의 상관관계(OR 0.90)를 나타냈으며, 만성질환의 존재나 진단 병력 수는 통증 인지와 관련이 없었습니다. 따라서 수의사는 말기 진료 시 보호자에게 통증 징후에 대한 적절한 교육을 제공하여 객관적이고 합리적인 안락사 결정을 돕는 것이 중요합니다."
+      "summary_ko": ""
     },
     {
       "id": "42648162",
@@ -377,17 +322,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42526683",
-      "title": "Anti-tumour activity of canine activated T-cells and cytokine-induced killer cells against canine malignant melanoma in vitro.",
-      "authors": "Conti LC, Capellero S, Piras L, Morello E, Iurascu S",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Jul 29",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42526683/",
-      "abstract": "Adoptive cell transfer (ACT) immunotherapy represents a promising therapeutic approach for cancer treatment, utilising ex vivo-expanded immune effector cells such as T-lymphocytes, natural killer (NK) cells, and cytokine-induced killer (CIK) cells. CIK cells are characterised by dual T-cell and NK cell-like properties, exhibiting high proliferative capacity, cytolytic activity, and non-MHC-restricted tumour recognition. Canine malignant melanoma (CMM) is an aggressive neoplasm with significant t",
-      "summary_ko": ""
-    },
-    {
       "id": "42528171",
       "title": "Cytologic Characteristics of the Feline Ovary at Different Sexual Stages.",
       "authors": "Martí A, Pastor J, Prandi D, Aguilar-Catalan A, Rivera Del Alamo MM",
@@ -399,17 +333,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42524805",
-      "title": "Clinical Considerations in Management of Hypertrophic Cardiomyopathy in Pregnancy: JACC State-of-the-Art Review.",
-      "authors": "Abdelfattah OM, Abdeldayem J, Hassan AA, Gulati M, Phillips S",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 29",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42524805/",
-      "abstract": "Hypertrophic cardiomyopathy (HCM) in pregnancy presents unique hemodynamic and arrhythmic challenges despite generally low maternal mortality. This JACC State-of-the-Art Review synthesizes current evidence on preconception risk stratification, genetic counseling, antepartum surveillance, arrhythmia management, and delivery and postpartum care. Key considerations include assessing left ventricular outflow tract obstruction, systolic function, and arrhythmia burden and applying CARPREG II (Cardiac",
-      "summary_ko": ""
-    },
-    {
       "id": "42520843",
       "title": "Service dogs in a matched survey were more physically active and had higher odds of being fed grain-free diets than companion dogs.",
       "authors": "Otero DK, Wilson K, James TG",
@@ -418,7 +341,7 @@
       "date": "2026 Jul 28",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42520843/",
       "abstract": "There is a strong, bidirectional relation between the health outcomes of service dogs and their human handlers. Despite this relation, limited information is available on service dog health. This study assesses differences in health status, diet, and physical activity among service dogs and companion dogs. We conducted a cross-sectional study of the Dog Aging Project's Health and Life Experiences Survey, using data collected on or before December 31, 2021. Service dogs and companion dogs were ma",
-      "summary_ko": "# 논문 요약\n\n본 연구는 짝짓기 비교 분석을 통해 서비스견이 반려견에 비해 일일 신체활동량이 15% 높고 무곡물 사료 급여 확률이 1.98배 높다는 것을 규명했습니다. 두 그룹 모두 약 50%가 관절 보충제를 복용했으나, 서비스견의 더 높은 활동 수준과 특이한 식이 패턴은 영양학 및 근골격계 건강에 대한 맞춤형 수의학적 모니터링이 필요함을 시사합니다. 서비스견은 높은 신체활동 요구로 인해 일반 반려견과 다른 임상적 관리 전략이 필요할 것으로 판단됩니다."
+      "summary_ko": ""
     },
     {
       "id": "42521502",
@@ -462,7 +385,7 @@
       "date": "2026 Jul 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42508457/",
       "abstract": "To assess the relationship between PaO2 and erythropoietin (EPO) concentrations and between PaO2 and hemoglobin (Hgb) concentrations in healthy brachycephalic (BRACHY) and healthy non-BRACHY dogs acclimatized to an altitude of 1,535 m. The third objective was to validate a human ELISA EPO kit for canine EPO measurement. Dogs were enrolled prospectively from January 2025 through September 2025. Venous samples for CBC, serum biochemistry, and EPO measurement were collected from a peripheral vein, ",
-      "summary_ko": "# 논문 요약\n\n1,535m 고도에 적응한 건강한 단두종 개는 장두종 개보다 혈청 적혈구생성인자(EPO) 농도가 유의하게 높았으나, PaO2와 EPO 사이에는 상관관계가 없었습니다. PaO2와 헤모글로빈 사이에는 중등도의 음의 상관관계가 확인되었으며, 특히 단두종에서 두드러졌습니다. 본 연구는 단두종의 만성 저산소증 상태에서의 생리적 적응 메커니즘을 규명하기 위해 추가 연구의 필요성을 제시하며, EPO와 산소분압, 헤모글로빈 간의 정확한 관계 규명이 향후 과제임을 시사합니다."
+      "summary_ko": ""
     },
     {
       "id": "42508990",
@@ -484,17 +407,6 @@
       "date": "2026 Jul 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42663356/",
       "abstract": "In the BRIGHT-4 trial, among 6,016 patients with ST-segment elevation myocardial infarction (STEMI) undergoing primary percutaneous coronary intervention (PCI) with a radial artery approach, procedural anticoagulation with bivalirudin plus a post-PCI high-dose infusion for 2 to 4 hours reduced the 30-day primary composite outcome of all-cause death or Bleeding Academic Research Consortium (BARC) types 3 to 5 bleeding, as well as death and bleeding individually, compared with heparin monotherapy.",
-      "summary_ko": ""
-    },
-    {
-      "id": "42501791",
-      "title": "Development and validation of PCR-RFLP assays for detection of MYBPC3 variants associated with hypertrophic cardiomyopathy in Maine Coon and Ragdoll cats.",
-      "authors": "Phuong Vu T, Quang Le T, Thi Thanh Truong T, Thi Cam Nguyen G, By KB",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Jul 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42501791/",
-      "abstract": "Hypertrophic cardiomyopathy (HCM) is the most common myocardial disease in domestic cats and breed-associated variants in MYBPC3 have been reported in Maine Coon and Ragdoll cats. This study developed and analytically evaluated two polymerase chain reaction-restriction fragment length polymorphism (PCR-RFLP) assays for detecting the MYBPC3 c.91&#x202f;G&gt;C (A31P) variant in Maine Coon cats and the c.2453&#x202f;C&gt;T (R820W) variant in Ragdoll cats, and applied the assays to a small Vietnames",
       "summary_ko": ""
     },
     {
@@ -627,7 +539,7 @@
       "date": "2026 Jul 21",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42480594/",
       "abstract": "To determine how microRNA (miRNA) levels are altered in serum samples under different storage conditions. Whole blood was collected from 10 healthy dogs and placed into 7 tubes: (Tube 1) a red-top tube (RTT) centrifuged for immediate serum separation and stored at -80 &#xb0;C (control), (Tube 2) room temperature (RT) for 24 to 36 hours, or (Tube 3) refrigerated temperature (FT) for 24 to 36 hours; (Tube 4) an RTT stored at RT for 24 to 36 hours or (Tube 5) FT for 24 to 36 hours; and (Tube 6) a s",
-      "summary_ko": "# 논문 요약\n\n개의 혈청 miRNA 분석을 위해서는 **즉시 혈청 분리 후 4℃에서 24-36시간 보관**하는 것이 miRNA 수치의 변화를 최소화하는 최적의 방법임을 입증했다. 실온 보관이나 미분리 상태의 보관은 유의한 miRNA 변화를 초래하므로 피해야 하며, 냉동 보관 전 냉장 보관 단계가 필수적이다. 이는 다기관 연구에서 2차 채혈 기관으로부터의 표본 수집을 용이하게 할 것으로 예상되나, 보관 조건에 따라 특정 miRNA가 선택적으로 변할 수 있음을 연구자가 인지해야 한다."
+      "summary_ko": ""
     },
     {
       "id": "42580987",
@@ -649,7 +561,7 @@
       "date": "2026 Jul 20",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42480621/",
       "abstract": "To describe epidural injection for neuropathic pain in dogs and cats and report outcome. Medical records of patients presented to an academic pain medicine service from 2015 through 2026 with clinical signs of neuropathic pain and a somatosensory nervous system lesion or disease that underwent epidural injection after failing treatment with at least 2 oral analgesics were reviewed; incomplete records were excluded. Six animals met these criteria. 4 domestic shorthair cats and 2 dogs (Dalmatian a",
-      "summary_ko": "# 논문 핵심 요약\n\n경구 진통제에 반응하지 않는 개와 고양이의 신경병증성 통증에 대해 경막외 주입(triamcinolone + bupivacaine/ropivacaine)을 시행한 결과, 고양이에서는 중앙값 6개월(0.25~8개월), 개에서는 3~6주간 통증이 완화 또는 소실되었다. 절단, 외상, 추간판탈출증, 신경종양 등으로 인한 난치성 신경병증성 통증의 관리에서 경막외 주입이 효과적인 치료 옵션이 될 수 있음을 시사한다."
+      "summary_ko": ""
     },
     {
       "id": "42476592",
@@ -718,17 +630,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42524808",
-      "title": "Compound Exposure to Extreme Heat and Substantial Landscape Fire-Sourced Air Pollution on Cardiovascular Mortality.",
-      "authors": "Wen B, Wu Y, Lavigne E, Coelho M, Xu R",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 19",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42524808/",
-      "abstract": "Climate change is increasing the frequency and co-occurrence of extreme heat and landscape fire-sourced air pollution; yet, evidence on their combined cardiovascular impacts remains limited. The purpose of this study was to examine whether compound exposure to heat waves and substantial fire-sourced air pollution (SFAP) is associated with excess cardiovascular disease (CVD) mortality risk beyond single-hazard exposure and assess potential additive interactions. We conducted a multicountry time-s",
-      "summary_ko": ""
-    },
-    {
       "id": "42468564",
       "title": "Canine gastric polyps are predominantly hyperplastic, and endoscopic polypectomy is a safe and effective treatment associated with no recurrence during follow-up.",
       "authors": "Zanardi S, Cola V, Del Magno S, Sabattini S, Dondi G",
@@ -737,7 +638,7 @@
       "date": "2026 Jul 17",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42468564/",
       "abstract": "To characterize the clinical presentation, endoscopic features, and histopathological findings of gastric polyps in dogs and to evaluate the safety and outcomes of endoscopic polypectomy. Dogs diagnosed with gastric polypoid lesions during upper gastrointestinal endoscopy from January 2020 through December 2024 at the University Veterinary Hospital, University of Bologna (Italy), were retrospectively evaluated. Inclusion criteria were endoscopic identification of gastric polyps; dogs with primar",
-      "summary_ko": "# 핵심 요약\n\n개의 위 용종은 주로 증식성(hyperplastic) 병변이며, 내시경적 용종절제술은 안전하고 효과적한 치료법으로 추적 관찰 중 재발이 없었다. 5년간 574건의 위내시경 중 57건(9.9%)에서 위 용종이 발견되었으며, 모두 조직학적으로 증식성이었고 17례에서 내시경적 절제술을 시행한 결과 수술 중 합병증은 없었고 경미한 술후 합병증만 발생했다. 10mm를 기준으로 전기수술 올가미(electrosurgical snare)와 냉생검집게(cold biopsy forceps)를 구분하여 사용할 수 있으며, 중앙값 16개월의 추적 관찰에서 재발 없이 임상 증상이 완화되었다."
+      "summary_ko": ""
     },
     {
       "id": "42468570",
@@ -803,17 +704,6 @@
       "date": "2026 Jul 16",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42464268/",
       "abstract": "In Central Uganda, animal welfare advocates are increasingly promoting the establishment of animal shelters as a humane alternative to poisoning for controlling free-roaming dog (FRD) populations. However, dogs at these facilities face a number of welfare challenges arising from insufficient resources and substandard management practices. We aimed to assess the welfare of sheltered dogs in Central Uganda by identifying the animal-based welfare issues faced by the dogs, evaluating the housing and",
-      "summary_ko": ""
-    },
-    {
-      "id": "42524804",
-      "title": "Lipoprotein(a) and Cardiovascular Risk Gradient Across Coronary Artery Calcium Strata.",
-      "authors": "Kollias A, Krystallaki D, Tsaganos T",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 16",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42524804/",
-      "abstract": "",
       "summary_ko": ""
     },
     {
@@ -971,391 +861,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42524803",
-      "title": "Reply: Fibrosis in Cardiac Amyloidosis: How Much, How Relevant?",
-      "authors": "Riefolo M, Gillmore JD, Basso C, Cipriani A, Fontana M",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42524803/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42524802",
-      "title": "Fibrosis in Cardiac Amyloidosis: How Much, How Relevant?",
-      "authors": "Pucci A, Aimo A, Castiglione V, Vergaro G, Emdin M",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 10",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42524802/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42658783",
-      "title": "Effect of amiodarone, diltiazem, or both to achieve strict heart rate control in dogs with atrial fibrillation.",
-      "authors": "Tjostheim SS, Kellihan HB, Stepien RL",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42658783/",
-      "abstract": "Dogs with atrial fibrillation (AF) live longer if heart rate is strictly controlled (SHRC, 24-h mean heart rate&#xa0;&#x2264;&#xa0;125&#xa0;beats per minute [bpm]). Amiodarone and diltiazem are used to lower ventricular response rate (VRR) in dogs with AF, but information about their relative efficacy for achieving SHRC is lacking. Describe heart rate response with sequential escalation of amiodarone or diltiazem monotherapy to combination therapy. Thirteen client-owned dogs with AF. Prospective",
-      "summary_ko": "# 논문 요약\n\n개의 심방세동에서 엄격한 심박수 조절(24시간 평균 심박수 ≤125 bpm)을 목표로 아미오다론 또는 딜티아젬 단독요법에서 병용요법으로 단계적으로 확대한 결과, 초기에는 43% (3/7)만이 목표를 달성했으며, 최종적으로 85% (11/13)의 개가 병용요법을 받았음에도 불구하고 64%에서 여전히 심박수 조절 실패(139 bpm)를 보였다. 따라서 아미오다론과 딜티아젬의 단독 및 병용요법만으로는 대부분의 심방세동 환자에서 엄격한 심박수 조절을 달성하지 못하므로, 추가적인 약물(예: 디곡신, 베타차단제) 또는 치료 전략의 개발이"
-    },
-    {
-      "id": "42658782",
-      "title": "Suspected hereditary sensory and autonomic neuropathies: clinical signs and electrodiagnostic findings in eleven dogs.",
-      "authors": "Buffagni V, Gasparinetti N, Furiani N, Attili PL, Belforti F",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42658782/",
-      "abstract": "There is limited information available regarding the electrodiagnostic studies (EDX) features of hereditary sensory and autonomic neuropathies (HSANs) in dogs. To retrospectively describe the clinical and electrodiagnostic findings of dogs with suspected HSAN and to assess whether comprehensive EDX can assist in disease classification and prognostication. Eleven client-owned dogs with early-onset distal sensory loss. Multicentric retrospective observational study (2008-2025). Inclusion criteria ",
-      "summary_ko": "# 논문 요약\n\n개의 의심 유전성 감각-자율신경병증(HSAN) 11례에서 종합적 전기진단검사(EDX)를 수행한 결과, 두 가지 뚜렷한 전기임상 패턴이 도출되었습니다. **패턴 1**은 발가락 자해, 정상 보행, 감소된 감각신경활동전위(SNAP)와 척수등전위(CDP)를 특징으로 하며 안정적 또는 천천히 진행하는 경과를 보였고, **패턴 2**는 사지마비, 고유감각결손, SNAP/CDP 소실 및 운동신경전도 이상을 동반하여 12개월 내 안락사에 이르렀습니다. 종합 EDX는 감각 및 운동신경 기능장애를 정확히 평가하고 예후와 연관된 서로 다른 임상 패턴을 구분"
-    },
-    {
-      "id": "42658781",
-      "title": "Prognostic characteristics of preoperative serum total bilirubin concentration in myxomatous mitral valve disease in dogs undergoing mitral valve repair.",
-      "authors": "Furusato S, Sato K, Nii Y, Tanoshima R, Uechi M",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42658781/",
-      "abstract": "While serum total bilirubin concentration (Tbil) has emerged as a potential prognostic marker in dogs with myxomatous mitral valve disease (MMVD) after mitral valve repair (MVR), its dose-response relationship and underlying pathophysiological mechanisms remain unclear. To characterize the dose-response relationships between preoperative Tbil and 2-year all-cause mortality after MVR and explore the role of right-sided cardiac compromise. Two thousand sixty-three (cohort A) and 301 (cohort B) dog",
-      "summary_ko": "# 핵심 요약\n\n개의 심근증성 승모판막질환(MMVD) 승모판막 수술(MVR) 전 혈청 총빌리루빈(Tbil) 수치는 정상범위 내에서도 선형적으로 증가할수록 수술 후 30일 이내 사망률이 높아지며, 이는 우심 과부하와 관련이 있으나 간 울혈과는 연관이 없는 것으로 나타났다. Tbil은 저렴하고 간편한 예후 예측 지표로 고위험 환자 선별에 도움이 될 수 있으나, 빌리루빈 상승과 수술 후 예후를 연결하는 병태생리적 메커니즘은 아직 명확하지 않다."
-    },
-    {
-      "id": "42658780",
-      "title": "Dogs evaluated in a home environment show decreased arterial blood pressure and stress levels.",
-      "authors": "Queiroz FSF, de Sousa FG, Faria SA, Mattoso CRS, Veado JCC",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42658780/",
-      "abstract": "Stress may influence blood pressure (BP), making home-based measurements potentially more reliable. Compare BP, stress, and clinical laboratory results obtained from dogs in 2 environments. Forty client-owned healthy dogs. A crossover observational study evaluated 40 healthy dogs after acclimatization in hospital and home settings. The BP was measured using Doppler and oscillometry, and clinical laboratory and stress-related variables were recorded. Blood and urine samples, including for cortiso",
-      "summary_ko": "# 핵심 요약\n\n가정 환경에서 측정한 개의 혈압이 동물병원 환경보다 평균 46~48 mmHg 낮았으며, 스트레스 점수와 혈청/뇨 코르티솔 농도도 현저히 감소했다. 이는 병원 환경의 스트레스가 혈압과 호르몬 수치에 유의한 영향을 미침을 시사하므로, 고혈압 진단 시 가정 환경 측정을 고려해야 한다."
-    },
-    {
-      "id": "42647817",
-      "title": "Effect of simethicone on visualization quality and capsule transit time during video capsule endoscopy in healthy dogs.",
-      "authors": "Jeong W, Kim GH, Kim SH, Ryu MO, Seo KW",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42647817/",
-      "abstract": "Simethicone enhances visualization quality (VQ) during video capsule endoscopy (VCE) in humans, but its effects on VQ and capsule transit time (CTT) in dogs remain unclear. Evaluate the effects of simethicone on VQ and CTT in dogs undergoing VCE. Fifteen client-owned healthy dogs weighing 3-10&#xa0;kg. Prospective, blinded, randomized crossover study. Each dog underwent VCE twice: once with 20&#xa0;mg (1&#xa0;mL) simethicone administered 30&#xa0;minutes before capsule ingestion, and once with 1&",
-      "summary_ko": "# 논문 요약\n\n비디오 캡슐 내시경(VCE) 검사에서 시메티콘 20mg을 30분 전 투여하면 건강한 개의 소장, 특히 근위부 소장의 시각화 질(visualization quality)을 유의하게 개선하였으나, 위와 원위부 소장, 캡슐 통과 시간에는 영향을 미치지 않았다. 이는 개의 VCE 검사에서 소장 병변 진단 정확도를 향상시킬 수 있는 간단한 전처치 방법으로서 임상적 가치가 있을 수 있음을 시사한다."
-    },
-    {
-      "id": "42641071",
-      "title": "Acute hydrated nucleus pulposus extrusion in dogs with severe neurologic status: comparison between conservative and surgical treatment.",
-      "authors": "Di Tosto M, Toni C, Contiero B, Cozzi F, Marioni-Henry K",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42641071/",
-      "abstract": "Hydrated nucleus pulposus extrusion (HNPE) is associated with favorable outcome after conservative or surgical treatment. However, optimal management for dogs with severe neurologic deficits remains unclear. Compare conservative vs surgical treatment in nonambulatory paretic or plegic dogs with HNPE, focusing on recovery of unassisted ambulation and voluntary urination, and identify prognostic factors. Eighty-six dogs with severe neurologic impairment and a presumptive magnetic resonance imaging",
-      "summary_ko": "# 핵심 요약\n\n급성 수화핵수질탈출(HNPE)로 인한 중증 신경학적 결손을 보이는 비보행성 개에서 보존적 치료는 수술적 치료와 비교하여 85% vs 100%의 만족스러운 결과(자발적 배뇨 및 독립적 보행 회복)를 보였으며, 회복 시간은 보존적 치료 7일, 수술 9일로 유사하였다. 비연골이형성 품종, MRI 척수내 T2 고신호강도, 물리치료가 회복 기간 연장과 관련이 있었으며, 비척추 품종 및 MRI 소견이 치료 방식 선택의 지표가 되어야 한다."
-    },
-    {
-      "id": "42641070",
-      "title": "Serum peptidomic profiling identifies systemic JAK-STAT and PI3K-Akt pathway dysregulation in cats with chronic gingivostomatitis.",
-      "authors": "Ploypetch S, Pornthummawat A, Aruvornlop P, Roytrakul S, Jaresitthikunchai J",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42641070/",
-      "abstract": "Chronic gingivostomatitis in cats is a debilitating inflammatory disease marked by severe oral pain and systemic immune dysregulation. Although localized oral pathology is well-documented, the systemic peptidomic profile remains largely unclear. Characterize the serum peptidomic profiles of cats with feline chronic gingivostomatitis (FCGS) and identify systemic biomarkers and signaling hubs that drive disease pathogenesis and therapeutic interactions. Client-owned cats with clinically and histop",
-      "summary_ko": "# 논문 요약\n\n고양이 만성 치은구내염(FCGS)의 혈청 펩티드 프로파일링 분석 결과, JAK-STAT 및 PI3K-Akt 신호전달 경로의 전신적 이상을 확인했습니다. IL-6, IFN-γ 등 13개의 염증 단백질이 증가하고 gastrin, IL-18이 감소했으며, 8개의 핵심 단백질(p21, CASP1, IL-6 등)이 현재 치료제와 상호작용하는 것으로 나타났습니다. 이러한 발견은 FCGS의 분자생물학적 기전을 규명하고 IL-6/JAK-STAT 및 PI3K-Akt 경로를 새로운 치료 표적으로 제시하며, 환자 모니터링을 위한 생물마커 근거를 제공합니다."
-    },
-    {
-      "id": "42636475",
-      "title": "Prognosis and associated risk factors after conservative management of dogs with liver tumors.",
-      "authors": "Coffey SR, Weisse CWC, Ferrari JT, DeJesus AA, King AP",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42636475/",
-      "abstract": "Information is limited regarding prognosis for conservatively managed hepatic tumors in dogs. Report prognosis and identify prognostic factors in dogs with conservatively managed hepatic tumors. Client-owned dogs (n&#xa0;=&#xa0;49) with hepatic tumors characterized by computed tomography (CT) without directed treatment that had died or were euthanized by the time of analysis. Retrospective, single institutional study utilizing the Schwarzman Animal Medical Center medical record system to identif",
-      "summary_ko": "# 논문 요약\n\n보존적 관리를 받은 개의 간종양에서 중앙 생존 기간은 313일이며, **체중 감소, 복부 삼출액, 다발성 간종괴, 상승된 AST, 저헤마토크릿이 불량한 예후인자**로 확인되었다. 특히 체중 감소와 복부 삼출액이 있는 환자는 각각 128일, 227일의 중앙 생존 기간을 보여 유의하게 짧았으며, 다발성 종괴(209.5일)도 단일 종괴(346일)에 비해 현저히 나쁜 예후를 나타냈다."
-    },
-    {
-      "id": "42636345",
-      "title": "Fluoroscopic characterization of pectus excavatum in dogs: a cross-sectional study.",
-      "authors": "Kwon M, Park N, Choi Y, Choi J, Yoon J",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42636345/",
-      "abstract": "The dynamic respiratory abnormalities in dogs with pectus excavatum are incompletely characterized. To characterize fluoroscopic findings in dogs with pectus excavatum and evaluate their associations with clinical severity. Fifty-three client-owned dogs with pectus excavatum. Cross-sectional study. Dogs were classified into low-severity or high-severity groups based on respiratory signs and treatment. Fluoroscopic examinations were evaluated for pectus excavatum-intrinsic findings and concurrent",
-      "summary_ko": "# 논문 요약\n\n개의 흉곽함몰증에서 역설적 흉골 운동(paradoxical sternal movement)과 흉곽 높이 감소가 임상적 심각도와 독립적으로 연관되어 있으며, 이는 호흡 증상의 예후 판단에 유용한 지표가 될 수 있다. 형광투시 검사상 전체 환자에서 주기관지 허탈(100%)과 대부분에서 경추 폐엽 탈출(94%)이 관찰되어, 흉곽함몰증이 이러한 기도 이상과 밀접한 연관성을 가진다. 따라서 호흡 증상을 보이는 흉곽함몰증 환자의 형광투시 검사에서 역설적 흉골 운동의 유무와 정도는 임상적 중증도 평가에 중요한 보조 지표로 활용될 수 있다."
-    },
-    {
-      "id": "42636344",
-      "title": "Assessment of CD3+ T cell density in the intestinal mucosa of dogs with inflammatory bowel disease.",
-      "authors": "Bouillet G, Méric T, Gonel G, Darnis E, Mendoza B",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42636344/",
-      "abstract": "T lymphocytes play a central role in the intestinal immune response in dogs with immunomodulator-responsive enteropathy (IRE), but the clinical relevance of mucosal T-cell infiltration remains unclear. Compare mucosal CD3+ T-cell density between dogs with IRE and healthy comparison dogs across intestinal segments, and assess associations with clinical, biochemical, and histologic severity markers. Forty-two client-owned dogs with IRE and 12 healthy research dogs. Retrospective multicenter study.",
-      "summary_ko": "# 핵심 요약\n\n면역조절제반응성장염(IRE) 환자견의 장점막에서 CD3+ T림프구 밀도는 건강견 대비 십이지장, 회장, 결장 모두에서 유의하게 높았으나, 임상증상의 심각도나 혈청 알부민 농도, 조직병리학적 점수와는 상관관계가 없었다. CD3+ 정량화는 질병 모니터링의 단독 도구로는 부적합하며, 만성염증성장질환의 면역표현형 분류에 보조적으로 기여할 수 있다."
-    },
-    {
-      "id": "42636342",
-      "title": "Prolonged survival of 3 dogs with Prototheca bovis infection treated with posaconazole.",
-      "authors": "Langner KFA, Higgins A, Roser M, Bunn TA, Lam A",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42636342/",
-      "abstract": "Primary enteric or disseminated infections with Prototheca bovis in dogs typically are associated with short survival times despite treatment. We describe the extended clinical course of 3 dogs diagnosed with enteric P. bovis infection treated with antifungal therapy incorporating posaconazole. One dog was alive 45&#xa0;months after starting treatment, exhibiting only mild, intermittent diarrhea and no detectable algae on rectal cytology. This dog also received SC amphotericin B (AMB) infusions ",
-      "summary_ko": ""
-    },
-    {
-      "id": "42636340",
-      "title": "Bartonella vinsonii subsp. berkhoffii genotype III in a dog with recurrent fever and panniculitis coinfected with Babesia odocoilei-like sp.",
-      "authors": "Daravigka A, Soubasis N, Ygeionomakis P, Mylonakis ME, Saridomichelakis MN",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42636340/",
-      "abstract": "A 2-year-old, spayed female, mixed breed dog presented for evaluation of recurrent febrile episodes over 5 months, intermittently accompanied by the development of SC nodules. Histopathologic examination of the SC lesions was indicative of panniculitis. Bartonella vinsonii subsp. berkhoffii genotype III DNA was amplified and sequenced from an excised SC nodule. Indirect immunofluorescence antibody titer was 1:64, whereas Bartonella blood PCR was negative. Babesia odocoilei-like species DNA was a",
-      "summary_ko": ""
-    },
-    {
-      "id": "42627936",
-      "title": "Rethinking clinical response criteria in trials of chronic enteropathy in dogs: what change is truly meaningful?",
-      "authors": "Méric T, Vérollet C, Darnis E, Rhimi M, Hernandez J",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42627936/",
-      "abstract": "Rethinking response criteria of treatment of chronic enteropathy in dog is necessary, as clinical activity indices are widely used as primary endpoints despite substantial variability in how \"response,\" \"remission,\" and \"relapse\" are defined. Across recent studies, response thresholds range from modest relative reductions (eg, &#x2265;25%) to stringent targets (eg, &#x2265;75%), absolute score cut-offs, shifts between severity categories, or binary resolution of clinical signs. This methodologic",
-      "summary_ko": ""
-    },
-    {
-      "id": "42593949",
-      "title": "Sepsis in critically ill dogs: identification of clinical and laboratory risk factors and evaluation of sepsis scoring systems.",
-      "authors": "Castelain D, Pas ML, Skotarek M, Boyen F, Pardon B",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42593949/",
-      "abstract": "Being a life-threatening syndrome, rapid detection of sepsis in critically ill dogs is mandatory. Determine risk factors associated with sepsis in critically ill dogs and evaluate diseases and scoring systems associated with sepsis or mortality. One hundred thirty critically ill dogs. Prospective single-center cohort study. Logistic regression and classification and regression tree (CART) analysis were performed to assess clinical and laboratory variables as risk factors for sepsis. Diagnostic a",
-      "summary_ko": ""
-    },
-    {
-      "id": "42585565",
-      "title": "Evaluation of plasma kynurenine 3-monooxygenase and Ki-67 as screening biomarkers for neoplasia in dogs.",
-      "authors": "Sio KM, Ke CH, Lin CS",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42585565/",
-      "abstract": "Early detection of tumors might prolong the survival of dogs. Kynurenine 3-monooxygenase (KMO) and Ki-67 are tumor biomarkers, but few studies have described the clinical value of KMO and Ki-67 in veterinary medicine. This study aims to compare the activity of KMO and the concentration of Ki-67 between healthy dogs and dogs with neoplasms. A total of 162 dogs with different types of tumors were included. Forty-six tumor-free individuals were included as the control group. This is a case-control ",
-      "summary_ko": ""
-    },
-    {
-      "id": "42585564",
-      "title": "Presumed cervical subperiosteal vertebral hemorrhage in nine greyhounds.",
-      "authors": "Orgonikova I, Mallol C, Gutierrez-Quintana R, Aige-Gil V, Amengual Batle P",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42585564/",
-      "abstract": "Spontaneous subperiosteal vertebral hemorrhages (SSVHs) are rarely documented in veterinary literature, with only a few cases reported in dogs. Describe the clinical presentation, imaging findings, and outcome of presumptive cervical SSVHs in dogs and perform a prospective cadaveric study describing the morphology of lesions. Nine greyhounds presented with acute onset of cervical myelopathy. Multicenter descriptive study. The databases were searched for dogs that underwent magnetic resonance ima",
-      "summary_ko": ""
-    },
-    {
-      "id": "42575087",
-      "title": "Assessment of gastrointestinal health and the coagulation system in dogs with right-sided heart disease: an exploratory study.",
-      "authors": "Shropshire S, Jablonski S, Scansen BA",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42575087/",
-      "abstract": "Right-sided heart disease (RHD) affects gastrointestinal function and hemostasis. Dogs with progressively severe RHD have impaired gastrointestinal function and altered hemostasis. Eighteen client-owned dogs with RHD; group 1: 6 dogs without hepatic venous congestion, group 2: 6 dogs with hepatic venous congestion but no ascites, and group 3: 6 dogs with ascites. Prospective, cross-sectional, exploratory study. Dogs underwent routine blood, urine, and fecal testing, measures of gastrointestinal ",
-      "summary_ko": ""
-    },
-    {
-      "id": "42561146",
-      "title": "Clinical and imaging findings after antiviral treatment in cats with presumptive neurologic feline infectious peritonitis: 9 cases (2020-2024).",
-      "authors": "Santos Hernández C, Martínez García I, Gutiérrez-Quintana R, Santifort K, Suñol Iniesta A",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42561146/",
-      "abstract": "Limited information is available regarding comparison between clinical outcomes and post-treatment imaging findings in cats with the neurologic form of feline infectious peritonitis (FIP). Describe post-treatment imaging findings and clinical outcomes in cats with neurologic FIP treated with antiviral drugs. Nine cats with a presumptive diagnosis of neurologic FIP undergoing advanced imaging before and after antiviral treatment (GS-441524, remdesivir, or both). Medical records from 8 institution",
-      "summary_ko": ""
-    },
-    {
-      "id": "42561145",
-      "title": "Survival of dogs with glomerular disease in Europe: insights from the European Veterinary Renal Pathology Service.",
-      "authors": "Zini E, Rossi F, Benali SL, Nicolo A, Gelli D",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42561145/",
-      "abstract": "Although glomerular disorders contribute to chronic kidney disease in dogs, few studies have evaluated the usefulness of renal biopsy for predicting outcome. Investigate morphologic diagnoses, clinicopathological findings, comorbidities, treatment, and their associations with survival in dogs after renal biopsy. One hundred ten client-owned dogs with glomerular disease. Retrospective cohort study of medical records from the European Veterinary Renal Pathology Service (2018-2023). Data were obtai",
-      "summary_ko": ""
-    },
-    {
-      "id": "42561144",
-      "title": "Prevalence of disease in 549 older cats undergoing health screening at two United Kingdom-based veterinary clinics.",
-      "authors": "Bestwick JP, Elliott J, Orriss IR, Lötter N, Geddes RF",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42561144/",
-      "abstract": "Risk of some diseases of cats increases with age, including chronic kidney disease (CKD) and hyperthyroidism, but clinical signs can be dismissed by caregivers as age-related changes. Quantify the prevalence of disease and other major clinical findings in older cats. Data from cats (&#x2265;8&#x2009;years old) that underwent routine health screening at 2 United Kingdom (UK)-based primary care veterinary clinics over a 52-month period (October 2, 2018 to February 14, 2023) were analyzed. At scree",
-      "summary_ko": ""
-    },
-    {
-      "id": "42544490",
-      "title": "Association of hypoalbuminemia with disease and survival in 1664 cats presenting to a tertiary teaching hospital: a retrospective case-control study.",
-      "authors": "Hayes CC, Zhu X, Pazzi P, Schmid SM",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42544490/",
-      "abstract": "Hypoalbuminemia (HA) is associated with a higher case fatality rate in people. To describe the affected organ systems and pathoetiologies in cats with mild (2.5-2.9&#xa0;g/dL), moderate (2-2.4&#xa0;g/dL), or severe (&lt; 2&#xa0;g/dL) HA, and compare hospitalization and survival times to cats without HA (wHA; &#x2265; 3&#xa0;g/dL). Eight hundred thirty-two HA and 832 wHA cats. Retrospective case-control study of cats with plasma albumin concentrations measured between 2017 and 2023. Diagnoses wer",
-      "summary_ko": ""
-    },
-    {
-      "id": "42544488",
-      "title": "Retrospective evaluation of C-reactive protein for discriminating between lower urinary tract infections and acute pyelonephritis in dogs.",
-      "authors": "Fidanzio F, Colombo G, Vasylyeva K, Tirolo A, Sabetti MC",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42544488/",
-      "abstract": "The role of C-reactive protein (CRP) in differentiating pyelonephritis from other types of urinary tract infection in dogs is not well defined. Compare serum CRP concentrations at diagnosis in dogs with acute pyelonephritis (APy), acute prostatitis (APr), and bacterial cystitis (BC). Serum CRP concentration is hypothesized to be higher in APy and APr than in BC. One hundred fifteen client-owned dogs were included: 56 with BC, 32 with APy, 23 with APr, and 4 with both APy and APr. Retrospective o",
-      "summary_ko": ""
-    },
-    {
-      "id": "42531050",
-      "title": "Dachshund spinal health by coat and size type.",
-      "authors": "Hopper M, Liu CC, Embersics C, Otamendi A, Sullivan S",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42531050/",
-      "abstract": "A prior report demonstrated that intervertebral disc disease (IVDD) risk varies in dachshunds by size-coat type, suggesting that coat and size genes affect IVDD risk. The furnishings (wire) coat gene, R-spondin-2, affects disc health in dogs, making such a role plausible. Identify differences in spinal health metrics (SHMs): by coat type, within a coat type by size, and by size-coat type. Dachshunds (n&#xa0;=&#xa0;4295) with known SHMs. Retrospective study reporting SHMs by coat and size type in",
-      "summary_ko": ""
-    },
-    {
-      "id": "42525883",
-      "title": "Survival outcomes of dogs with multicentric lymphoma treated with sequential half-body radiotherapy and L-CHOP without maintenance chemotherapy.",
-      "authors": "Colosi J, Kent MS, Close NC, Lawrence J, Skorupski KA",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42525883/",
-      "abstract": "L-CHOP (L-asparaginase, cyclophosphamide, doxorubicin, vincristine, prednisone) is the standard therapy for lymphoma in dogs, but relapse and limited long-term survival are common. Given the radiosensitivity of lymphoma, sequential half-body radiotherapy (HBRT) has been investigated to improve outcomes. Evaluate progression-free survival (PFS), overall survival (OS), and adverse events in dogs treated with a no-maintenance L-CHOP protocol combined with low-dose-rate (LDR, 6&#xa0;Gy; 8-14&#xa0;cG",
-      "summary_ko": ""
-    },
-    {
-      "id": "42501363",
-      "title": "Clinical, magnetic resonance imaging, and neuropathological features of suspected inborn methylmalonic aciduria in a domestic shorthair kitten.",
-      "authors": "Fisher C, Degl'Innocenti S, Ortiz A, Major A, Rawson F",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42501363/",
-      "abstract": "A 10-month-old domestic shorthair kitten was evaluated for progressive neurological dysfunction characterized by ataxia, episodic opisthotonus, impaired vision, dysphagia and seizures. Clinicopathological findings included marked hypocobalaminemia and abnormal concentrations of urinary methylmalonic acid, methylcitrate, and propionylglycine. Magnetic resonance imaging revealed generalized cerebral and cerebellar atrophy, with mild ventriculomegaly. Despite dietary modification, cobalamin supplem",
-      "summary_ko": ""
-    },
-    {
-      "id": "42492061",
-      "title": "Effects of cow placenta extract on cognitive function in aged dogs: a randomized controlled trial.",
-      "authors": "Lu J, Lu W, Qian XL",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42492061/",
-      "abstract": "Cow placenta extract (CPE) has demonstrated beneficial effects in antiaging; however, its effect on age-related cognitive decline remains unclear. To evaluate the potential therapeutic benefits of CPE in improving cognitive function in aged dogs. The aged dogs (&#x2265;7&#xa0;years) with a Canine Social and Learning Behavior Survey (CSLB) score of &#x2265; 30 owned by clients. A 6-month randomized controlled trial. Eighty-eight dogs received CPE (n&#xa0;=&#xa0;45) or placebo (n&#xa0;=&#xa0;43). ",
-      "summary_ko": ""
-    },
-    {
-      "id": "42485626",
-      "title": "Lung ultrasound interpretation using deep learning for the detection of B-lines in dogs.",
-      "authors": "Ward JL, VanBerlo B, Huggard B, Smith D, Arntfield R",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42485626/",
-      "abstract": "Deep learning (DL) shows promise for interpretation of lung ultrasound (LUS) images in humans, but its performance in animals remains underexplored. Assess performance of a B-line detection algorithm (BLDA) trained on LUS images from humans when applied to images from dogs. A total of 1,950 clips collected from 201 LUS examinations in 90 dogs across 4 studies. Ultrasound clips were collated and labeled with A-line or B-line profiles by an expert reviewer. A DL model previously trained on LUS ima",
-      "summary_ko": ""
-    },
-    {
-      "id": "42485625",
-      "title": "Successful treatment of severe iatrogenic hypercalcemia and acute kidney injury with hemodialysis in a cat.",
-      "authors": "DelMaestro LA, Bernstein RT, Chapman PS, Chalifoux NV",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42485625/",
-      "abstract": "A 4-year-old male castrated domestic shorthair cat was diagnosed with a urethral obstruction after presenting for vomiting, inappetence, and inappropriate urination. The cat developed iatrogenic hypercalcemia (ionized calcium &gt;&#x2009;4&#xa0;mmol/L, total calcium 57&#xa0;mg/dL) and an acute kidney injury (creatinine 9.81&#xa0;mg/dL) suspected to be a consequence of an overdose of calcium gluconate. Approximately 12&#xa0;h after admission, the cat became comatose and developed cardiovascular i",
-      "summary_ko": ""
-    },
-    {
-      "id": "42485624",
-      "title": "Prevalence of incidental and causative otitis in 380 client-owned dogs undergoing brain magnetic resonance imaging for signs of vestibular and non-vestibular disease.",
-      "authors": "Durr BJ, Taylor AR, Werre S",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42485624/",
-      "abstract": "Middle ear abnormalities are frequently observed in brachycephalic dogs due to their anatomical variation, and the prevalence of these abnormalities may be influenced by modern breed popularity. We hypothesized that 10% of dogs with signs of neurologic disease will have incidental otitis media (OM) and that brachycephalic breeds will have a higher occurrence of OM. Three hundred eighty client-owned dogs that underwent magnetic resonance imaging (MRI) of the head for any signs of neurologic disea",
-      "summary_ko": ""
-    },
-    {
-      "id": "42476551",
-      "title": "Association of brachycephaly, sleep-disordered breathing, and inflammatory response in dogs.",
-      "authors": "Niinikoski I, Rajamäki MM",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42476551/",
-      "abstract": "Sleep is fundamental to the welfare of all animals, including dogs. Various important processes take place during sleep, and while complete sleeplessness leads to death, sleep fragmentation is also harmful. Brachycephaly, the severely shortened snout and skull in the absence of a concurrent decrease in the volume of the soft tissues of the upper airways, causes many welfare concerns, including sleep-disordered breathing (SDB). In obstructive SDB, the most common form of SDB in dogs, repeated epi",
-      "summary_ko": ""
-    },
-    {
-      "id": "42384572",
-      "title": "Maine Coons and intestinal intussusception: breed predisposition and clinicopathological features.",
-      "authors": "Dainese M, Petini M, Zoia A",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42384572/",
-      "abstract": "To evaluate Maine Coon predisposition to intestinal intussusception and compare clinical and biochemical features with non-Maine Coon cats. Cross-sectional study (2004 to 2023) comparing Maine Coons with age-, sex- and weight-matched sick non-Maine Coon controls. Moreover, Maine Coons and unmatched non-Maine Coons with intestinal intussusception presented during the same period were also compared. A total of 371 sick Maine Coons were included. Age and sex were similar to matched controls, but Ma",
-      "summary_ko": ""
-    },
-    {
-      "id": "42387531",
-      "title": "Veterinarians' attitudes towards the treatment and surgical management of brachycephalic dogs - a survey among small animal veterinarians in Austria.",
-      "authors": "Hebenstreit M, Springer S",
-      "journal": "BMC Vet Res",
-      "type": "vet",
-      "date": "2026 Jul 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42387531/",
-      "abstract": "The rising popularity of flat-faced dog breeds has intensified discussions around brachycephaly and its associated health risks. The structural shortening of the skull coupled with a lack of a concurrent reduction in the volume of the soft tissues in these breeds often results in chronic health issues, notably Brachycephalic Obstructive Airway Syndrome (BOAS), which remains incurable but may be alleviated through corrective surgical interventions. In light of these challenges, veterinarians are ",
-      "summary_ko": ""
-    },
-    {
-      "id": "41863391",
-      "title": "Bilateral surgery of humeral intracondylar fissures and humeral condylar fractures is associated with increased complication rates.",
-      "authors": "Mala B, Marrone L, Basinska M, Malkani R, Erwood M",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Jul",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/41863391/",
-      "abstract": "To compare the postoperative complication rates and outcomes of client-owned dogs treated surgically for humeral intracondylar fissures and/or humeral condylar fractures either as unilateral or bilateral simultaneous procedures. Hospital records from a single referral centre in the United Kingdom were reviewed retrospectively. Dogs were categorised into the unilateral and bilateral groups and then further subdivided according to the surgical procedure performed. Clinical follow-up and a client e",
-      "summary_ko": ""
-    },
-    {
       "id": "42571871",
       "title": "Faecal IgA but not salivary IgA is associated with canine atopic dermatitis.",
       "authors": "Campbell A, Nuttall T, Robinson V, Soutter F",
@@ -1364,28 +869,6 @@
       "date": "2026 Aug 9",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42571871/",
       "abstract": "To characterise immunoglobulin A (IgA) levels in the faeces and saliva of dogs with canine atopic dermatitis (CAD) and healthy breed matched controls. Dogs with canine atopic dermatitis were recruited based on history, clinical examination and diagnostic testing where appropriate. Control dogs were over 4&#x2009;years of age with no history of skin disease. Saliva samples were obtained using chewable synthetic swabs with saliva extracted by centrifugation. Faecal samples were collected from the ",
-      "summary_ko": ""
-    },
-    {
-      "id": "42571817",
-      "title": "Sleep-wake disturbance in canine cognitive dysfunction: Guardian-reported patterns and a practical screening tool.",
-      "authors": "Taylor TL, Tuke J, Hazel SJ",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Aug 9",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42571817/",
-      "abstract": "Sleep-wake disturbance is a commonly reported feature of canine cognitive dysfunction (CCD), yet its specific patterns and clinical significance remain poorly characterised. This study aimed to describe guardian-reported sleep disturbances in dogs with CCD, examine their associations with cognitive severity and sensory changes, and develop a practical screening tool to support veterinary consultations. Guardians of dogs aged &#x2265;&#x202f;8 years (n&#x202f;=&#x202f;205) completed an online sur",
-      "summary_ko": ""
-    },
-    {
-      "id": "42571816",
-      "title": "Evaluating Sacubitril/Valsartan's efficacy in reducing myocardial hypertrophy and fibrosis in feline models.",
-      "authors": "Sun Z, Huang W, Chai X, Hu C, Zhu C",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Aug 9",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42571816/",
-      "abstract": "Hypertrophic cardiomyopathy is the most common form of feline heart disease, and current therapy is largely supportive with no widely available effective treatment to reverse myocardial hypertrophy or attenuate fibrosis. Sacubitril/valsartan (Sac/Val), an angiotensin receptor-neprilysin inhibitor, has antihypertrophic and antifibrotic effects, but its potential in feline hypertrophic cardiomyopathy remains unclear. The objective of this exploratory pilot study was to evaluate the effects of Sac/",
       "summary_ko": ""
     },
     {
@@ -1411,28 +894,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42567436",
-      "title": "Data mining as a tool for Balearic Islands endangered dog breed conservation and breeding: Analyzing censuses and time gaps between creation and recognition of protection structures.",
-      "authors": "Alanzor Puente JM, Pons Barro ÁL, Delgado Bermejo JV, Navas González FJ",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Aug 7",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42567436/",
-      "abstract": "Indigenous dog breeds of the Balearic Islands constitute an essential part of regional biodiversity and cultural heritage, yet many face endangerment due to shrinking population sizes and delayed institutional recognition. This study assessed the usefulness of multivariate statistics and data-mining tools to analyse temporal trends and census evolution in these breeds, with emphasis on the influence of breeder associations and conservation structures. Canonical discriminant analysis effectively ",
-      "summary_ko": ""
-    },
-    {
-      "id": "42567435",
-      "title": "Evaluation of neonatal oral and rectal microbiota in dogs delivered by c-section, from birth to weaning.",
-      "authors": "Cicirelli V, Peruzzo A, Burgio M, Bramante G, Fabbri G",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Aug 7",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42567435/",
-      "abstract": "In recent years, the role of the microbiota in early-life health has gained increasing attention; however, data on the initial phases of microbial colonization in dogs remain limited. This study investigated the development of oral and rectal microbiota in puppies delivered by cesarean section from birth to weaning, and the contribution of maternal microbial sources. Four French Bulldog dams and their litters (18 puppies) were enrolled under uniform management conditions. Oral and rectal swabs w",
-      "summary_ko": ""
-    },
-    {
       "id": "42567185",
       "title": "Transcatheter arterial embolization for massive hepatocellular carcinoma in 18 dogs (2020-2025).",
       "authors": "Kadowaki K, Nishimura S, Toyoda A, Yamamoto R",
@@ -1441,7 +902,7 @@
       "date": "2026 Aug 6",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42567185/",
       "abstract": "To report tumor response, complications, outcomes, and extrahepatic collateral arterial supply presence in dogs with massive hepatocellular carcinoma (HCC) treated with transcatheter arterial embolization (TAE). 18 dogs diagnosed with massive HCC. All dogs underwent contrast-enhanced CT and pretreatment histopathologic confirmation by laparoscopic biopsy (n = 1) or ultrasound-guided needle core biopsy (17). Tumor response was assessed using percentage of change in tumor volume on CT before TAE a",
-      "summary_ko": "# 핵심 요약\n\n개의 거대 간세포암종에 대한 경카테터 동맥 색전술(TAE)은 50%의 부분관해율과 중앙생존시간 447일을 달성했으며, 72%의 증례에서 간외측부 동맥 공급(위장대망동맥, 횡격막동맥 등)이 확인되어 재색전술이나 수술적 절제를 고려해야 한다. 주요 합병증은 경미한 설사와 식욕부진이었고 담낭경색은 무증상이었으나, 색전술 후 2주 내 사망은 11.1%로 발생했다. 따라서 TAE는 신중하게 선별된 거대 간세포암종 환자에서 질병 조절의 유용한 치료 옵션이 될 수 있다."
+      "summary_ko": ""
     },
     {
       "id": "42563163",
@@ -1488,6 +949,17 @@
       "summary_ko": ""
     },
     {
+      "id": "42669069",
+      "title": "Influence of Disease-Modifying Therapy on the Efficacy of Vutrisiran in Transthyretin Cardiac Amyloidosis.",
+      "authors": "Abovich A, Fontana M, Claggett B, Gillmore JD, Cappelli F",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 5",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669069/",
+      "abstract": "Vutrisiran, an RNA interference therapeutic, reduced all-cause mortality and recurrent cardiovascular events in patients with transthyretin amyloid cardiomyopathy (ATTR-CM) in the HELIOS-B trial. Whether concomitant disease-modifying or heart failure therapy modifies the efficacy of vutrisiran has not been described. We aimed to characterize patterns of concomitant therapy use in HELIOS-B, describe medication initiation rates by treatment arm, and evaluate whether concomitant therapy modified vu",
+      "summary_ko": ""
+    },
+    {
       "id": "42551864",
       "title": "Needle bevel orientation does not affect the cranial spread of injectate in a lumbosacral epidural in canine cadavers.",
       "authors": "Harris O, Ferreira TH, Loeber S, Hughes S, Bartholomew KJ",
@@ -1496,7 +968,7 @@
       "date": "2026 Aug 4",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42551864/",
       "abstract": "To investigate the cranial and circumferential spread of iohexol (240 mg/mL) diluted 1:3 with saline injected at the lumbosacral junction in canine cadavers using 0.1- and 0.2-mL/kg volumes administered with a cranial- or caudal-facing Tuohy bevel direction. Lumbosacral epidurals were performed with a cranial- or caudal-facing needle bevel. The median vertebrae reached and the estimated percentage of the spinal cord surrounded with injectate were assessed via CT after administering two 0.1-mL/kg",
-      "summary_ko": "# 논문 요약\n\n개의 요천추부(lumbosacral) 경막외 주입에서 바늘 베벨 방향(두개측 vs 미측)은 조영제의 두개측 확산에 영향을 미치지 않으며, 0.1-0.2 mL/kg 용량 모두에서 두개측 확산 범위와 척수주위 피복 정도가 유사했다. 따라서 미측 베벨 방향이 두개측 확산을 제한하는 데 이점이 없으며, 임상적 권장사항 조정을 위해서는 생체 환자 연구가 필요하다."
+      "summary_ko": ""
     },
     {
       "id": "42549582",
@@ -1543,6 +1015,193 @@
       "summary_ko": ""
     },
     {
+      "id": "42669057",
+      "title": "Effect of Anselamimab on Cardiac Structure and Function in Patients With Light Chain Amyloidosis: Insights From the CARES Clinical Trials.",
+      "authors": "Wang X, Fontana M, Claggett B, Jering KS, Skali H",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669057/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42668442",
+      "title": "Multimodal Collaborative Care for Heart Failure in Resource-Limited Settings.",
+      "authors": "Gupta R",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42668442/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42668440",
+      "title": "Advancing the Science of Nurse-Led Collaborative Care in Heart Failure.",
+      "authors": "Kitko LA",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42668440/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42668439",
+      "title": "Effectiveness of Nurse-Coordinated, Digital-Supported Collaborative Care Model in Reducing Hospital Stay and Mortality Among Patients With Heart Failure: TIME-HF Cluster RCT India.",
+      "authors": "Jeemon P, Ganapathi S, Anikkady N, Ismail S, Unni G",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42668439/",
+      "abstract": "Heart failure with reduced ejection fraction causes high mortality and recurrent hospitalizations in India. We evaluated the effectiveness of the collaborative care model in improving days alive and out of the hospital and overall survival. We conducted a parallel-group, cluster-randomized controlled trial involving 1507 adults with heart failure with reduced ejection fraction across 22 centers in India (CTRI/2021/11/037797). Centers were randomized 1:1 to the intervention or usual care. Partici",
+      "summary_ko": ""
+    },
+    {
+      "id": "42668430",
+      "title": "Oral Relaxin Receptor Agonist AZD5462 in Participants With Chronic Heart Failure: Primary Results From the LUMINARA Trial.",
+      "authors": "Januzzi JL Jr, Rosenmeier JB, Ely Pizzato P, Quintana-Hayashi MP, Chan LM",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42668430/",
+      "abstract": "Stimulation of the relaxin family peptide receptor 1 experimentally reduces systemic vascular resistance and afterload, improves organ perfusion, and fosters reverse cardiac remodeling. We hypothesized that AZD5462, an oral once-daily relaxin family peptide receptor 1 agonist, may benefit individuals with chronic heart failure (HF). In this international, multicenter, double-blind, placebo-controlled, dose-ranging trial, adults with chronic HF and left ventricular ejection fraction &#x2264;35% (",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669073",
+      "title": "Targeted Therapy for ATTR-CM Amidst a Rapidly Evolving Landscape: A Moving Goalpost?",
+      "authors": "Rushakoff JA, Grodin JL, Inciardi RM, Sperry BW, Selvaraj S",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669073/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669072",
+      "title": "Combination Therapy in ATTR Cardiomyopathy: Hypothesis-Generating, Not Yet Practice-Changing.",
+      "authors": "Alexander KM, Urey MA",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669072/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669071",
+      "title": "Short-Term Anticoagulant Therapy and Subclinical Leaflet Thickening in Transcatheter Aortic Valves: The NOTION-4 Trial.",
+      "authors": "Jørgensen TH, Larsen AF, Jensen JM, Jensen RV, Willemen Y",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669071/",
+      "abstract": "Following transcatheter aortic valve replacement (TAVR), subclinical leaflet thrombosis-visualized on cardiac computed tomography (CT) as hypoattenuated leaflet thickening (HALT)-is common and might be associated with thromboembolic events. The NOTION-4 trial investigates different antithrombotic treatment strategies for the prevention of HALT. NOTION-4 was a randomized controlled trial enrolling patients without an indication for oral anticoagulation shortly after successful TAVR. Patients were",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669070",
+      "title": "Effect of Vutrisiran According to Baseline Tafamidis Use in Transthyretin Amyloidosis With Cardiomyopathy: Insights From HELIOS-B.",
+      "authors": "Hamatani Y, Claggett BL, Cuddy SAM, Sarswat N, Vaishnav J",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669070/",
+      "abstract": "Vutrisiran, an RNA interference therapeutic that suppresses hepatic transthyretin production, improved survival and cardiovascular outcomes in transthyretin amyloidosis with cardiomyopathy (ATTR-CM) in HELIOS-B (A Study to Evaluate Vutrisiran in Patients With Transthyretin Amyloidosis With Cardiomyopathy). Tafamidis, a transthyretin stabilizer, also improves clinical outcomes. Although combining these therapies is mechanistically appealing, clinical evidence supporting this approach is limited. ",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669132",
+      "title": "Adipose tissue-dependent, left ventricle-independent left atrial myopathy is a primary driver of heart failure with preserved ejection fraction: a hypothesis.",
+      "authors": "Packer M, Burkhoff D, Borlaug BA",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669132/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669127",
+      "title": "Tricuspid regurgitation and outcomes in arrhythmogenic right ventricular cardiomyopathy: role of tricuspid annulus dilatation.",
+      "authors": "Donati TG, Agbariah A, Benz DC, Hebeisen M, Saguner AM",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669127/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669125",
+      "title": "Tricuspid regurgitation in arrhythmogenic right ventricular cardiomyopathy: marker, mediator, or both?",
+      "authors": "Martini M, Bauce B",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669125/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669062",
+      "title": "Antithrombotic therapy after percutaneous coronary intervention in patients with atrial fibrillation: an individual patient data network meta-analysis.",
+      "authors": "Chiarito M, Mehran R, Gibson MC, Cannon CP, Lopes RD",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669062/",
+      "abstract": "Randomized trials demonstrated that in patients with atrial fibrillation (AF) undergoing percutaneous coronary intervention (PCI) direct oral anticoagulants (DOAC) and a P2Y12 inhibitor reduce bleeding compared with vitamin K antagonist (VKA) plus dual antiplatelet therapy (DAPT) with no increase in ischemic risk; however, important gaps in knowledge remain, limiting certainty and generalizability of these findings. In this patient-level meta-analysis of randomized trials evaluating antithrombot",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669052",
+      "title": "Finerenone in hypertensive non-diabetic chronic kidney disease: a FIND-CKD subgroup analysis.",
+      "authors": "Heerspink HJL, Beernink JM, Agarwal R, Cherney DZI, Lam CSP",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669052/",
+      "abstract": "Hypertension is a common attributable cause of chronic kidney disease (CKD). Mineralocorticoid receptor overactivation can lead to hypertension and contributes to CKD progression. In FIND-CKD, finerenone reduced kidney function decline in participants with CKD without diabetes. This prespecified FIND-CKD analysis assessed finerenone efficacy and safety in participants with hypertensive nephropathy. Adults with estimated glomerular filtration rate (eGFR) 25-&amp;lt;90 mL/min/1.73 m2 and urinary a",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669033",
+      "title": "Safety of withdrawal of pharmacological treatment after recovery from HER2 therapy-related cardiac dysfunction: the HER-SAFE trial.",
+      "authors": "Dowsing B, Dehbi HM, Andres MS, Chung R, Oashou A",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669033/",
+      "abstract": "Heart failure therapy (HFT) is routinely continued in breast cancer survivors after recovery from anti-HER2 cancer therapy-related cardiac dysfunction (CTRCD), despite limited evidence. HER-SAFE is the first randomised trial to assess HFT withdrawal in this population. In this open-label, multicentre, randomised controlled trial, breast cancer survivors with recovered anti-HER2 CTRCD (asymptomatic, left ventricular ejection fraction [LVEF] &#x2265;50%, normalised biomarkers) were randomised to H",
+      "summary_ko": ""
+    },
+    {
+      "id": "42668425",
+      "title": "Increasing plasma potassium and risk of atrial fibrillation: the POTCAST trial.",
+      "authors": "Zheng C, Winsløw UCG, Danielsen EM, Sakthivel T, Iversen KK",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42668425/",
+      "abstract": "Hypokalaemia and low-normal plasma potassium levels are associated with increased risk of atrial fibrillation. This study examined if potassium-increasing treatment reduces the risk of atrial fibrillation-related clinical events. This is a prespecified analysis of the POTCAST trial. Adults with an implantable cardioverter-defibrillator (ICD) or cardiac resynchronization therapy-defibrillator (CRT-D) and plasma potassium &#x2264;4.3&#x2005;mmol/L were randomized to potassium-increasing treatment ",
+      "summary_ko": ""
+    },
+    {
+      "id": "42668424",
+      "title": "Adrenomedullin system dysregulation predicts cardiogenic shock and mortality in acute coronary syndromes.",
+      "authors": "Wang Y, Danchin N, Simon T, Zeller M, Ilina Y",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 30",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42668424/",
+      "abstract": "Cardiogenic shock (CS) is the most dreadful complication of acute coronary syndromes (ACS). Endothelial dysfunction and vascular leakage are hallmarks of CS pathophysiology; however, biomarkers reflecting these early processes are lacking. The adrenomedullin (ADM) system-the inactive precursor glycine-extended ADM (ADM-Gly), the activating enzyme peptidylglycine &#x3b1;-amidating monooxygenase (PAM), and biologically active ADM (bio-ADM)-modulates vascular tone and permeability. This study inves",
+      "summary_ko": ""
+    },
+    {
       "id": "42542132",
       "title": "Reference intervals for myocardial T1, T2, and extracellular volume in clinically normal dogs and cats at 3-Tesla magnetic resonance imaging: a single-center study.",
       "authors": "Fries RC, Kadotani S, Toborowsky C, Javery EA",
@@ -1551,7 +1210,7 @@
       "date": "2026 Aug 3",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42542132/",
       "abstract": "To establish species-specific reference values for myocardial native T1, native T2, and extracellular volume fraction (ECV) in clinically normal dogs and cats using a 3-Tesla (3-T) cardiac MRI (CMRI) and to provide a description of image acquisition and analysis suitable for veterinary clinical and research applications. Cardiac examinations were performed between 2015 and 2024 using a 3-T system with ECG gating under general anesthesia on clinically normal client-owned dogs and cats. Native T1 ",
-      "summary_ko": "# 논문 요약\n\n3-Tesla 심장 MRI를 이용하여 정상 개와 고양이의 심근 native T1, native T2, 세포외액 용적분율(ECV)에 대한 종(種) 특이적 참고범위를 확립한 연구입니다. 개(n=54)의 참고범위는 native T1 1,057-1,152 ms, native T2 42.0-60.9 ms, ECV 19.3-25.7%이며, 고양이(n=60)는 각각 1,066-1,172 ms, 34.2-61.6 ms, 21.8-30.3%입니다. 이 연구는 수의 임상에서 심근 조직 특성화를 객관적으로 정량화할 수 있는 기준을 제공하며, 심근병증 등 심질환의 진단과 추적관찰에 MRI 조직 분석의 임상적 적용을 가능하게 합니다."
+      "summary_ko": ""
     },
     {
       "id": "42545105",
@@ -1892,7 +1551,7 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660198/",
       "abstract": "To compare urinary angiotensinogen, a proposed biomarker for intrarenal renin-angiotensinogen system (RAS) activity, between cats with surgically induced chronic kidney disease (CKD) and healthy cats and explore its correlation with select clinical and circulating renin-angiotensin-aldosterone system (RAAS) markers. Urine was banked from September 2022 through April 2023 during a study comparing circulating RAAS markers between cats with induced CKD and sex- and life stage-matched healthy cats. ",
-      "summary_ko": "# 핵심 요약\n\n고양이의 수술 유발 만성신질환(CKD)에서 요중 angiotensinogen(단백질 또는 크레아티닌으로 보정)이 건강한 고양이보다 유의하게 높으며, CKD 고양이에서는 혈청 크레아티닌과 양의 상관관계를 보였다. 이는 CKD에서 신내 renin-angiotensin system(RAS)이 활성화되며, 순환 RAAS와 역의 조절 관계를 가지므로, CKD의 완전한 평가를 위해서는 요중 angiotensinogen을 순환 RAAS 표지자와 함께 평가해야 함을 시사한다."
+      "summary_ko": ""
     },
     {
       "id": "42660193",
@@ -1903,7 +1562,7 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660193/",
       "abstract": "To describe the clinical presentation, diagnostic findings, management, and short- and long-term outcomes of dogs with caudal mediastinal paraesophageal abscesses (CMPA) in a multi-institutional retrospective cohort. 12 client-owned dogs with CMPA confirmed on CT and/or surgery. The most common presenting complaints were inappetence and lethargy. Tachypnea and dyspnea were frequent physical examination findings at presentation. All 12 dogs underwent CT. The CMPA was located within the mediastina",
-      "summary_ko": "# 요약\n\n개의 후미 종격동 식도주변농양(CMPA)은 식욕부진과 무기력증을 주로 보이며, 호흡곤란과 빈호흡이 흔한 신체검사 소견이다. CT가 진단의 필수 영상검사이며, 특히 식도이물이 동반된 경우 농양과 식도관강의 통신이 관찰될 수 있다. 외과적 배농, 소파술 및 항생제 치료의 복합 치료로 양호한 예후를 기대할 수 있으며, 추적관찰 가능한 모든 증례에서 재발이 없었다."
+      "summary_ko": ""
     },
     {
       "id": "42660187",
@@ -1914,7 +1573,7 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660187/",
       "abstract": "To evaluate the effects of 4 oxygen driving flows on carbon dioxide rebreathing and ventilation in healthy sedated dogs receiving helmet continuous positive airway pressure (CPAP). This prospective experimental crossover study included 7 healthy adult Beagles sedated using a standardized protocol. Dogs received helmet CPAP (approx 5 cm H2O) through a Venturi valve system. Following stabilization at 15 L/min, dogs underwent evaluation at 4 oxygen driving flows (5, 10, 15, and 20 L/min), with flow",
-      "summary_ko": "# 논문 요약\n\n헬멧 CPAP를 착용한 진정된 비글견에서 4가지 산소 유량(5, 10, 15, 20 L/min)을 비교한 결과, 흡입 CO2 농도는 통계적으로 유의한 차이를 보였으나 임상적으로는 미미했으며(최대 2 mmHg), PaCO2, 호기말 CO2, 호흡수 및 국소 환기 분포에는 차이가 없었다. 따라서 벤투리 기반 헬멧 CPAP 시스템에서 건강한 진정 개에 5 L/min의 낮은 산소 유량도 적절한 헬멧 세척을 제공하며 CO2 재호흡의 임상적 위험은 최소화된다."
+      "summary_ko": ""
     },
     {
       "id": "42660184",
@@ -1925,7 +1584,7 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660184/",
       "abstract": "To determine the effectiveness of canine parvovirus (CPV-2) monoclonal antibody (CPMA) to prevent CPV-2 disease after an experimental challenge to support a label claim for prophylactic use. 25 Beagle pups aged 7 to 8 weeks were randomized to CPMA-treated (n = 20) or PBS-treated control (5) groups. One day after SC administration of PBS or CPMA (0.1 mL/kg) on study day (SD) 0, all pups were challenged by intranasal administration of virulent CPV-2b. Personnel masked to treatment groups monitored",
-      "summary_ko": "# 논문 핵심 요약\n\n개파보바이러스(CPV-2) 단클론항체(CPMA)를 사전 투여한 결과, 대조군의 5마리 모두 파보바이러스병을 발병한 반면 치료군 20마리 중 19마리는 질병 정의 기준 4가지 중 1가지 이하만 나타나 완전한 예방 효과를 입증했다. 따라서 CPMA의 사전 투여는 파보바이러스 발생 고위험 상황(집단발생 등)에서 면역 미성숙 자견의 수동면역 보호에 합리적 기대를 제공하는 임상적 수단으로 활용 가능하다."
+      "summary_ko": ""
     },
     {
       "id": "42660709",
@@ -1980,7 +1639,7 @@
       "date": "2026 Aug 26",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42648343/",
       "abstract": "To investigate the efficacy of synthetically derived activated carbon hemoperfusion (cHP) by measuring serum meloxicam concentration in dogs with meloxicam toxicosis. 5 dogs with meloxicam overdose that underwent cHP at 3 teaching hospitals between January 2023 and March 2026 were identified. Dogs that had serum meloxicam concentrations measured were included. For case 1, in-series cHP and hemodialysis were performed. Based on case 1 data, standalone cHP was used for cases 2 to 5. Serum meloxica",
-      "summary_ko": "# 논문 요약\n\n**멜록시캄 중독견에서 활성탄 혈액관류(cHP)는 혈청 멜록시캄 농도를 현저히 감소**시켰으며, 치료 중 반감기를 0.4~1시간으로 단축했고 청소율을 13.8배 증가시켰습니다. cHP 후 약 5시간에 47.2% 농도 반등 현상이 관찰되었지만, 적시에 치료받은 모든 개는 72시간 내 퇴원했고 1례의 급성 신장손상만 발생하여 지지요법으로 회복되었습니다. **고용량 멜록시캄 중독견에서 cHP는 효과적인 제거 방법으로 조기 시행이 권장**됩니다."
+      "summary_ko": ""
     },
     {
       "id": "42648892",
@@ -2236,17 +1895,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42633894",
-      "title": "Focus on heart failure: Second Universal Definition, optimal potassium levels, phenotyping of pulmonary hypertension, hereditary transthyretin amyloidosis, and the challenge of a total artificial heart.",
-      "authors": "Crea F",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 24",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42633894/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
       "id": "42633879",
       "title": "A low dose of dexmedetomidine reduces behavioral activity and visual attention to aggressive faces in dogs.",
       "authors": "Törnqvist H, Koskela A, Somppi S, Vainio O, Lyyra P",
@@ -2310,7 +1958,7 @@
       "date": "2026 Aug 21",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42633780/",
       "abstract": "To determine the prevalence and associated risk factors of postoperative rotational instability following tibial plateau-leveling osteotomy (TPLO) in dogs with cranial cruciate ligament (CrCL) rupture. A retrospective analysis of medical records was performed for dogs undergoing TPLO for CrCL rupture at a single referral institution from 2018 through 2025. Rotational instability was defined as persistence of a positive tibial pivot test (TPT) after TPLO requiring placement of an antirotational s",
-      "summary_ko": "# 논문 요약\n\nTPLO 시술 후 회전 불안정성은 312개 관절 중 24.6%에서 발생했으며, **급성 전방십자인대 완전 파열**(OR 23.48)과 **반월판 손상**(OR 2.68)이 주요 위험인자였다. 반대로 만성 발현은 회전 불안정성의 위험을 감소시켰다. 따라서 급성 완전 파열이나 반월판 손상이 있는 환자는 술중 tibial compression pivot test로 회전 불안정성을 세심히 평가하고 필요시 항회전 봉합을 고려해야 한다."
+      "summary_ko": ""
     },
     {
       "id": "42633783",
@@ -2357,28 +2005,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42625526",
-      "title": "Periodontitis and coronary heart disease: inflamed gums, diseased arteries?",
-      "authors": "McCarthy CP, Whelton H, McEvoy JW",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 21",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42625526/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42625521",
-      "title": "Beyond the cardiomyocyte: the endothelial connection to fibrosis in LMNA cardiomyopathy.",
-      "authors": "Vincenzo L",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 21",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42625521/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
       "id": "42633785",
       "title": "A newly derived formula outperforms published formulae for estimating urine osmolality in healthy dogs receiving intravenous fluids.",
       "authors": "Jeong Y, Qu Y, Kim MS, Her J",
@@ -2387,17 +2013,6 @@
       "date": "2026 Aug 20",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42633785/",
       "abstract": "To derive a formula to estimate urine osmolality (Uosm) in dogs with urine sodium, potassium, glucose, and urea nitrogen and to compare the performance of the derived formula with published formulae. A prospective observational study was conducted using purpose-bred Beagles housed at a university research facility. Healthy dogs, confirmed by physical examination and laboratory testing, received isotonic or hypotonic IV fluids in a randomized sequence for 48 hours, with a 10-day washout period be",
-      "summary_ko": "# 논문 요약\n\n본 연구에서는 개의 뇨 나트륨, 칼륨, 포도당, 요소질소로부터 뇨삼투압을 추정하는 새로운 공식(Uosm = 2×Na + 1.8×K + 요소질소2.5 + 포도당3.9)을 도출했으며, 기존 공식들과 비교했을 때 일치도(CCC 0.96)가 현저히 우수했습니다. 이 공식은 정맥수액 투여를 받는 건강한 개에서 뇨삼투압을 신뢰성 있게 추정할 수 있으며, 직접 측정이 불가능할 때 신장의 농축 능력과 체액 균형 평가에 임상적으로 유용합니다."
-    },
-    {
-      "id": "42624280",
-      "title": "Tail wounds in military working dogs: Clinical characterization and a randomized sham-controlled trial of photobiomodulation.",
-      "authors": "Fishelson Y, Hirschberg RE, Raizman R, Zori T, Olshinka N",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Aug 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42624280/",
-      "abstract": "Tail wounds in military working dogs (MWDs) are a clinically significant and challenging condition characterized by recurrent trauma and delayed healing. Photobiomodulation (PBM) has been proposed as a non-invasive therapy to enhance wound repair. To characterize the clinical presentation of tail wounds in MWDs and to evaluate the effect of PBM as an adjunctive treatment. This prospective study included an observational cohort of 21 active MWDs (age 4.1&#x202f;&#xb1;&#x202f;2.2 years; 95% male; ",
       "summary_ko": ""
     },
     {
@@ -2420,39 +2035,6 @@
       "date": "2026 Aug 20",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42624276/",
       "abstract": "Over the past two decades, the use of mesenchymal stem cells (MSCs) in veterinary medicine has expanded rapidly, although the clinical evidence remains in its early stages. This review discusses clinical studies involving client-owned animals with naturally occurring diseases in which MSCs or MSC-derived extracellular vesicles (EVs) were used as treatments. It covers musculoskeletal disorders, including osteoarthritis, tendon and ligament injuries, and bone diseases; soft-tissue and oral mucosal",
-      "summary_ko": ""
-    },
-    {
-      "id": "42619253",
-      "title": "Weekly Journal Scan: Revisiting the role of digitalis glycosides in the management of heart failure.",
-      "authors": "Pedicino D, Volpe M",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42619253/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42619250",
-      "title": "Heart transplantation allograft survival: donor atherosclerotic disease risk vs coronary angiography.",
-      "authors": "Gnesin F, Mehra MR, Thomalla J, Lyass A, Itoh A",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42619250/",
-      "abstract": "Guidelines recommend coronary angiography in heart donors at increased risk of coronary artery disease (age &gt;45 years, diabetes, tobacco, or drug use), but the yield is often low. The aim of this study was to evaluate the importance of estimated donor 10-year atherosclerotic cardiovascular disease (ASCVD) risk (&#x2264;5% vs &gt;5%) vs coronary angiogram testing for predicting short- to mid-term survival free from graft failure in adult heart transplant recipients. Adult heart transplant reci",
-      "summary_ko": ""
-    },
-    {
-      "id": "42619244",
-      "title": "Multi-marker inflammatory risk assessment after acute coronary syndrome.",
-      "authors": "Stroes ESG, Annink ME",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42619244/",
-      "abstract": "",
       "summary_ko": ""
     },
     {
@@ -2530,7 +2112,7 @@
       "date": "2026 Aug 18",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42612701/",
       "abstract": "To compare the biomechanical stability of 4 fixation techniques for proximal humeral physeal fractures in skeletally immature canines using 3-D-printed models. This experimental in vitro study was conducted from September 25, 2025, through April 22, 2026. To strictly control biological variability, identical 3-D-printed models of juvenile canine proximal humeral Salter-Harris type 1 fractures (CT-derived from a 6-month-old 26-kg Labrador Retriever) were evaluated across 4 groups: pin and tension",
-      "summary_ko": "# 핵심 요약\n\n3D 프린팅 모델을 이용한 견의 근위상완골 Salter-Harris type 1 골절 고정 연구에서, **완전나선골수강내정(FTHCS) + Kirschner wire 조합(D군)이 1mm, 2mm 변위 저항력에서 다른 고정법들(핀-장력대선, 부분나선골수강내정, FTHCS 단독)보다 유의하게 우수**했습니다. FTHCS 군은 근위부 골 소실 없이 원위부에서 실패한 반면, 부분나선 골수강내정은 근위부 압괴 및 함몰을 보여 생역학적 우월성이 확인되었습니다. 따라서 **FTHCS-K wire 조합은 미성숙견의 근위상완골 물리골절에서 조기 재활을 허용할 정도의 충분한 안정성을 제공하는"
+      "summary_ko": ""
     },
     {
       "id": "42612694",
@@ -2541,7 +2123,7 @@
       "date": "2026 Aug 18",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42612694/",
       "abstract": "To compare perfusion characteristics in morphologically normal canine brains with dynamic susceptibility contrast (DSC) MRI following manual versus automated contrast medium injection. Client-owned dogs undergoing routine 3-tesla brain MRI protocol including DSC were prospectively enrolled, randomly allocated to manual or automated contrast medium injection between November 2023 and February 2025. Gadoteric acid (0.1 mmol/kg) was injected at weight-dependent rates: 1 mL/s (1 to 5 kg), 2 mL/s (6 ",
-      "summary_ko": "# 핵심 요약\n\n개의 뇌 DSC-MRI에서 **자동 조영제 주입이 수동 주입보다 더 일관성 있는 관류 곡선을 생성**하며, 수동 주입 시 T0, TTP, MTT가 연장되고 relCBF는 감소하는 경향을 보였다. 자동 주입이 재현성 면에서 우수하지만, 수동 주입도 임상적으로 가능하며 **곡선의 형태 차이를 고려하여 적절한 참고값을 설정해야 한다**."
+      "summary_ko": ""
     },
     {
       "id": "42612685",
@@ -2552,7 +2134,7 @@
       "date": "2026 Aug 18",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42612685/",
       "abstract": "To evaluate the frequency and type of vehicular restraint use in dogs transported to a veterinary teaching hospital and to identify factors associated with restraint use. This prospective, survey-based study was conducted at a veterinary teaching hospital from May 28 to August 2, 2024. Dog owners presenting their dog for emergency, sick, or wellness visits completed a questionnaire regarding transportation practices, including restraint use, type of restraint, travel duration, anxiety level, and",
-      "summary_ko": "# 논문 요약\n\n본 연구는 동물병원 내원견의 63.4%가 차량 운송 중 보호장치 없이 이동하고 있으며, 체중이 증가할수록 보호장치 사용이 감소하는 경향을 보였다. 사전 약물투여와 반려동물 보험 가입이 보호장치 사용과 연관이 있었으나, 내원 사유, 여행 시간, 불안 수준 등은 영향을 미치지 않았다. 수의사는 차량 운송 중 안전한 보호장치 사용에 대한 보호자 교육을 강화하여 교통사고 시 반려견의 손상 위험을 감소시킬 필요가 있다."
+      "summary_ko": ""
     },
     {
       "id": "42610277",
@@ -2610,39 +2192,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42607121",
-      "title": "Using the New Universal Definition of Heart Failure in Clinical Practice.",
-      "authors": "Wicks EC, Velmurugan S",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Aug 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42607121/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42607119",
-      "title": "Preventable Majority: Global Health Implications of the Second Universal Definition of Heart Failure.",
-      "authors": "Tromp J",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Aug 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42607119/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42607118",
-      "title": "Activation of Glucose-6-Phosphate Dehydrogenase Promotes Cardiomyocyte Cell Cycle.",
-      "authors": "Li F, Son Y, Qiu H, Zhang A, Qiu H",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Aug 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42607118/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
       "id": "42615443",
       "title": "The Opportunities and Challenges in AI Opportunistic Disease Detection in General Populations.",
       "authors": "Sahashi Y, Mishell J, Ouyang D",
@@ -2662,17 +2211,6 @@
       "date": "2026 Aug 18",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42615442/",
       "abstract": "Artificial intelligence (AI) diagnostic models are typically developed in hospital-based populations enriched for disease prevalence and severity, where distinctions between health and disease are pronounced. When deployed in community-dwelling populations with lower prevalence and milder phenotypes, these distinctions may become less well-defined, raising questions about transportability and the impact of disease spectrum on model performance. The purpose of this study was to evaluate how diffe",
-      "summary_ko": ""
-    },
-    {
-      "id": "42610431",
-      "title": "Finerenone benefits in patients with cardio-kidney-metabolic syndrome with or without history of cancer: the FINE-HEART pooled analysis.",
-      "authors": "Ruppert M, Vaduganathan M, Claggett BL, Desai AS, Jhund PS",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42610431/",
-      "abstract": "In cardio-kidney-metabolic (CKM) syndrome, comorbid cancer is common due to shared risk factors and overlapping pathophysiologic mechanisms. Whether treatment of CKM conditions with the non-steroidal mineralocorticoid receptor antagonist finerenone may influence or be influenced by comorbid cancer is unknown. Hence, this study aimed to describe clinical features, outcomes, and treatment responses to finerenone in patients with CKM conditions and history of cancer. This was a post hoc analysis of",
       "summary_ko": ""
     },
     {
@@ -2764,17 +2302,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42596600",
-      "title": "Immunological risk identified by single-cell multi-omics and cardiovascular outcomes.",
-      "authors": "Horstmann H, Anto Michel N, Losert C, Abogunloko T, Peikert A",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 14",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42596600/",
-      "abstract": "While inflammation and (auto-)immunity are modifiers of atherosclerosis, immunological determinants of cardiovascular risk beyond the established inflammatory markers, high-sensitivity C-reactive protein (hsCRP) and interleukin-6 (IL-6) remain incompletely defined in humans. This exploratory proof-of-concept study aimed to detect immunological signals enriched in patients with increased cardiovascular risk. A nested case-control study was performed within the Ludwigshafen Risk and Cardiovascular",
-      "summary_ko": ""
-    },
-    {
       "id": "42594946",
       "title": "Targeted quantitative polymerase chain reaction-based bacterial and fecal metabolite markers show early stability in healthy puppies after 8 weeks of age.",
       "authors": "Birk D, Weidinger AK, Schmidt T, Bachmann S, Spring I",
@@ -2783,7 +2310,7 @@
       "date": "2026 Aug 13",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42594946/",
       "abstract": "To assess longitudinal stability of targeted quantitative PCR (qPCR)-based fecal microbial and metabolomic markers in healthy puppies from 8 weeks to 1 year of age. This prospective longitudinal cohort study was conducted at the Clinic for Small Animal Internal Medicine, Vetsuisse Faculty, University of Zurich, Switzerland, from August 2023 to January 2025. Clinically healthy client-owned puppies were sampled at 8 to 12 weeks, 16 weeks, 6 months, and 1 year. Eligible dogs had no gastrointestinal",
-      "summary_ko": "# 논문 핵심 요약\n\n건강한 강아지에서 8주령 이후 대변 미생물의 dysbiosis index와 선택된 세균 taxa는 1년령까지 안정적으로 유지되었으며, 대부분의 대사산물(담즙산, 장쇄지방산, 스테롤) 프로파일도 연령 관련 변화를 보이지 않았다. 따라서 qPCR 기반 마커들은 8주령부터 기능적으로 성숙하며, 이러한 연령별 기준값은 어린 개의 위장관 질환 진단 및 해석에 임상적으로 유용할 수 있다."
+      "summary_ko": ""
     },
     {
       "id": "42590796",
@@ -2794,7 +2321,7 @@
       "date": "2026 Aug 12",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42590796/",
       "abstract": "To determine the pharmacokinetics of IM and IV tranexamic acid (TXA) in healthy dogs. There were 6 healthy client-owned dogs that received TXA (20 mg/kg) in a randomized crossover study design with a 6-week washout period between IM and IV administration. Venous blood samples were collected from baseline to 8 hours after injection. Plasma TXA concentrations were measured using LC-MS-MS. For IM administration, mean &#xb1; SD maximum plasma concentration (Cmax) was 46.8 &#xb1; 26.6 &#x3bc;g/mL, to",
-      "summary_ko": "# 요약\n\n건강한 개에서 트라넥삼산(TXA)의 근육주사(IM) 투여는 정맥주사(IV)에 비해 최고혈장농도(Cmax)는 현저히 낮으나(IV의 약 39%), 생물학적이용률이 120.9%로 높아 전체 전신흡수는 비슷한 수준을 보였다. IM 투여는 최고혈장농도 도달 시간이 1.6시간으로 길어 응급상황에는 제한적이지만, 정맥로 확보 전 병원 외 치료가 필요한 경우 임상적으로 유용할 수 있으며, 임상 적용을 위해서는 추가적인 용량 최적화 연구가 필요하다."
+      "summary_ko": ""
     },
     {
       "id": "42590792",
@@ -2805,7 +2332,7 @@
       "date": "2026 Aug 12",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42590792/",
       "abstract": "To develop and evaluate a workflow for generating a patient-specific canine head phantom with intracranial pathology from clinical CT and MRI data using digital anatomy printing and to assess its anatomic accuracy and imaging fidelity for veterinary neurosurgical planning and training. This experimental proof-of-concept study used historical clinical CT and MRI data from a canine patient diagnosed with a brain glioma. A multimaterial head phantom was created using image segmentation, computer-ai",
-      "summary_ko": "# 핵심 요약\n\n임상 CT/MRI 데이터를 기반으로 3D 프린팅 기술을 이용하여 뇌종양이 있는 환자맞춤형 개 두부 팬텀을 제작하고, 신경외과 수술 계획 및 교육용으로의 활용 가능성을 입증한 연구이다. 제작된 팬텀은 원본 환자 영상과 비교하여 해부학적 정확성과 영상학적 신실성을 만족스럽게 재현했으며, 특히 뇌생검 등 두개강내 시술의 접근경로 계획 및 신경외과 수술 훈련에 실질적인 모델로 활용될 수 있음을 보여주었다."
+      "summary_ko": ""
     },
     {
       "id": "42590798",
@@ -2860,7 +2387,7 @@
       "date": "2026 Aug 11",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42580781/",
       "abstract": "To investigate the analgesic and anti-inflammatory effects of intraoperative IV magnesium sulfate (MgSO4) continuous rate infusion in dogs undergoing thoracolumbar hemilaminectomy for intervertebral disk extrusion (IVDE). 30 client-owned dogs presented at the Ontario Veterinary College Health Sciences Centre were enrolled from October 2022 through October 2023. Prospective, randomized, double-blind, controlled clinical trial dogs received either MgSO4 (magnesium group) or an equal volume of sali",
-      "summary_ko": "# 핵심 요약\n\n흉요추부 추간판탈출증 수술을 받는 개에서 수술 중 정맥주사 황산마그네슘(MgSO4) 지속주입은 글래스고 통증척도와 IL-6 수치로 평가한 결과 위약군과 비교하여 진통 또는 항염증 효과를 나타내지 않았다. 다만 마그네슘군에서 마취 회복이 더 원활했으며 부작용은 보고되지 않았으므로, 현재 근거상 이 적응증에서 마그네슘 투여의 임상적 이점은 제한적이다."
+      "summary_ko": ""
     },
     {
       "id": "42580779",
@@ -2871,7 +2398,7 @@
       "date": "2026 Aug 11",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42580779/",
       "abstract": "To evaluate oxidative stress biomarkers (malondialdehyde [MDA] and total oxidant status [TOS]), selected nonenzymatic endogenous (glutathione [GSH], albumin, and bilirubin), and, for the first time, exogenous (ascorbic acid, &#x3b1;-tocopherol, &#x3b2;-carotene, and retinol) antioxidants together with hematobiochemical alterations in canine pyometra. 33 bitches were classified into pyometra (n = 17) or control (16) groups based on clinical and hematological evaluations. Ascorbic acid was measure",
-      "summary_ko": "# 논문 요약\n\n개에서 자궁축농증은 산화적 스트레스를 유발하여 MDA와 TOS가 대조군 대비 유의하게 증가하며, GSH는 보상적으로 상승하는 경향을 보였으나 다른 항산화제(비타민 C, E, A, β-카로틴)는 큰 변화가 없었다. 이는 단순한 항산화제 고갈이 아닌 보다 복잡한 조절 기전을 시사하며, 자궁축농증 환자에서 백혈구 증가, 호중구 증다, 빈혈 및 간효소 상승 등의 전신적 혈액생화학 변화를 동반한다. 향후 질병 중증도 분류와 조직 수준의 효소적·비효소적 항산화제 평가가 필요하다."
+      "summary_ko": ""
     },
     {
       "id": "42580778",
@@ -2882,7 +2409,7 @@
       "date": "2026 Aug 11",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42580778/",
       "abstract": "To compare CT-derived liver volume and noncontrast attenuation variables between dogs with histopathologic findings compatible with primary hypoplasia of the portal vein (PHPV) and dogs without liver disease. Medical records were retrospectively reviewed for dogs with abdominal CT and liver histopathology compatible with PHPV. Controls were 121 dogs without liver disease from a published CT reference cohort and were not matched by breed, age, sex, or body weight. Liver volume was evaluated with ",
-      "summary_ko": "# 논문 요약\n\n원발성 문맥 저형성증(PHPV) 진단을 위해 CT로 측정한 간 용적을 평가한 연구로, PHPV 조직학적 소견이 있는 26마리 개와 정상 대조군 121마리를 비교 분석한 결과 체중 보정 후 두 군 간 간 용적에 유의미한 차이가 없었다. 특히 PHPV 개들이 대조군보다 현저히 작은 체중을 보였기 때문에 이 결과는 신중히 해석해야 하며, **CT상 간 크기 정상이라는 소견만으로 PHPV를 배제할 수 없음**을 시사한다. 따라서 CT 간 용적 측정 시 체중, 혈관 영상, 임상 소견 및 조직검사를 함께 고려하여 종합적으로 진단해야 한다."
+      "summary_ko": ""
     },
     {
       "id": "42580770",
@@ -2893,28 +2420,6 @@
       "date": "2026 Aug 11",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42580770/",
       "abstract": "To identify specific metabolomic changes in dogs showing signs of hepatic encephalopathy (HE) compared to those not showing obvious neurological signs and to follow these changes following medical treatment. In this prospective observational study, we recruited 10 client-owned dogs diagnosed with congenital portosystemic shunt (from March 2021 through October 2022). The sera of dogs with or without signs of HE at the time of diagnosis of congenital portosystemic shunt and following medical treat",
-      "summary_ko": "# 논문 요약\n\n선천성 門脈-全身短絡(portosystemic shunt)으로 인한 간성뇌증(HE)을 보이는개에서 대사체 분석 결과, 타우린, 크레아틴, 구아닌의 혈청 농도 저하와 3-hydroxybenzaldehyde의 증가가 관찰되었으며, 이는 미토콘드리아 항상성 이상을 시사한다. 약물 치료로 신경학적 증상이 개선되면서 이상 대사체들이 정상화되었으므로, HE의 치료 전략으로 미토콘드리아 기능 지원이 유망한 치료 방향이 될 수 있다."
-    },
-    {
-      "id": "42578282",
-      "title": "Mechanosensitive Endothelial METTL7A Regulates Internal m(7)G mRNA Methylation and Protects Against Atherosclerosis.",
-      "authors": "Shentu TP, Wu T, Zhou Z, Li J, Yeh CF",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Aug 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42578282/",
-      "abstract": "Internal N7-methylguanosine (m7G) is a recently identified chemical modification of mammalian mRNA. Although the epitranscriptome plays a key role in regulating RNA metabolism and cellular function, the specific contribution of internal m7G to cardiovascular disease remains unknown. Atherosclerosis preferentially develops at sites of disturbed blood flow, which promotes endothelial activation; however, whether internal m7G regulates endothelial mechanotransduction and atherogenesis remains uncle",
-      "summary_ko": ""
-    },
-    {
-      "id": "42578265",
-      "title": "YAP Promotes Microtubule Growth to Facilitate Sarcomere Disassembly in Adult Cardiomyocytes.",
-      "authors": "Zhang F, Cusick JK, Liang J, Wang F, Fernandes AT",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Aug 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42578265/",
-      "abstract": "Mature mammalian cardiomyocytes (CMs) develop compact sarcomeric structures that inhibit proliferation. Consequently, CMs must dedifferentiate to a fetus-like state, which is accompanied by sarcomere disassembly, to enable successful cytokinesis. However, the regulation and coordination of CM dedifferentiation, cell cycle progression, and sarcomere reorganization remain unclear. We generated adenovirus and adeno-associated virus (MyoAAV) vectors expressing YAP5SA and YAP5SA-S94A under Xon contro",
       "summary_ko": ""
     },
     {
@@ -2959,7 +2464,7 @@
       "date": "2026 Aug 10",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42575156/",
       "abstract": "To compare sedation, intraocular pressure (IOP), mean pupil diameter, and recovery profiles after IM or SC administration at the governing vessel 20 (GV20) acupuncture point of medetomidine in cats. This prospective, randomized, controlled clinical study was conducted at the Animal Hospital of Ataturk University in April and May of 2026. Cats undergoing elective castration received medetomidine (70 &#xb5;g/kg) either IM or SC at GV20. Sedation score, IOP, and mean pupil diameter were recorded be",
-      "summary_ko": "# 논문 요약\n\n**GV20 경혈에서의 피하 주입 메데토미딘은 근육주입보다 빠른 초기 진정을 제공하면서도 안압에 영향을 주지 않습니다.** 고양이 16마리를 대상으로 한 연구에서 GV20 경혈 피하주입군이 주입 후 5, 10분에 더 높은 진정점수를 보였으나, 20분 이후로는 두 군 간 차이가 없었고, 안압 변화는 통계적으로 유의하지 않았습니다. **따라서 GV20 피하주입은 건강한 고양이에서 빠른 초기 진정이 필요한 경우 유용한 대안이 될 수 있으나, 초기 회복 과정을 모니터링해야 합니다.**"
+      "summary_ko": ""
     },
     {
       "id": "42575151",
@@ -2970,7 +2475,7 @@
       "date": "2026 Aug 10",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42575151/",
       "abstract": "To describe the use and determine the feasibility and user reliability of a commercially available digital palpation device, a myotonometer, on the canine patellar tendon (PT). In this prospective clinical feasibility study, client-owned dogs with no history of pelvic limb lameness were eligible for study enrollment from September through December of 2025 and included if their stifles were considered normal based upon physical examination and radiographic findings. Dogs were sedated, and a myoto",
-      "summary_ko": "# 논문 요약\n\n개의 슬개건에 대한 디지털 촉진 장치(myotonometer)를 이용한 tendotonometry는 진정 상태의 개에서 건의 긴장도, 경직도, 탄성, 이완, 크리프 등 생역학적 매개변수를 비침습적으로 측정할 수 있는 새로운 방법으로, 본 연구에서 정상 슬개골관절을 가진 20마리의 개에서 400개 측정값을 획득하며 안전성과 실행 가능성이 입증되었습니다. 관찰자 내 반복성은 우수하였으나 좌우측 간에는 중등도 이하의 반복성을 보여, 추가 표준화 작업이 필요하지만 건 손상 치유 평가 및 신경근 질환의 치료 반응 모니터링 등 정형외과 임상에 활용할 수"
+      "summary_ko": ""
     },
     {
       "id": "42664783",
@@ -3069,6 +2574,28 @@
       "date": "2026 Aug",
       "url": "https://pubmed.ncbi.nlm.nih.gov/41863286/",
       "abstract": "Myxomatous mitral valve disease, an acquired valvular degeneration, is the most common cardiac disorder in dogs, affecting approximately 10% of dogs in primary care veterinary practice. Dogs with myxomatous mitral valve disease frequently require anaesthesia for routine procedures. The American Society of Anesthesiologists physical status classification system shows increasing mortality with higher grades, but its subjectivity limits risk stratification in dogs with preclinical myxomatous mitral",
+      "summary_ko": ""
+    },
+    {
+      "id": "41856678",
+      "title": "Risk assessment of canine periodontal disease: insights from owner-reported health questionnaires.",
+      "authors": "Jemmett AA, Salt C, Perry LA, O'Flynn C",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Aug",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41856678/",
+      "abstract": "To identify risk factors associated with periodontal disease in pet dogs, based on detailed owner-reported demographic, health and behaviour survey data. A total of 12,753 pet owners completed a one-time questionnaire that included questions concerning their pet's demographics and health. Overall periodontal disease prevalence was 50.5% (95% CI 0.50 to 0.51). Multivariable logistic regression analysis identified age, breed characteristics, oral diagnoses, symptoms and oral care habits as key ris",
+      "summary_ko": ""
+    },
+    {
+      "id": "41850733",
+      "title": "Fulkerson-based oblique novel technique (FONT) to treat concurrent cranial cruciate ligament disease and medial patellar luxation in the dog.",
+      "authors": "Agüera-Espejo P, Fontalba-Navas JL, Calvo I, Senis-Alvarez E, Artiles-Vizcaino A",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Aug",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41850733/",
+      "abstract": "To assess the theoretical and morphometric effects of a novel oblique tibial tuberosity osteotomy technique designed to enable simultaneous advancement and lateralisation of the tibial tuberosity using a tibial tuberosity advancement cage for the surgical treatment of concurrent cranial cruciate ligament disease and medial patellar luxation in dogs. Computational modelling and ex vivo cadaveric study. Fourteen pelvic limbs from mixed-breed dog cadavers (15.8 to 25.3&#x2009;kg). Theoretical calcu",
       "summary_ko": ""
     },
     {
