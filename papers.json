@@ -1,7 +1,18 @@
 {
-  "updated": "2026-08-31 02:50 UTC",
-  "total": 253,
+  "updated": "2026-09-01 03:00 UTC",
+  "total": 252,
   "papers": [
+    {
+      "id": "42672326",
+      "title": "Left Circumflex Coronary-Pulmonary Arterial Collaterals in Chronic Thromboembolic Pulmonary Hypertension.",
+      "authors": "Lynch PT, Makkapati S, George JC, Vaidya A",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Sep",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42672326/",
+      "abstract": "",
+      "summary_ko": ""
+    },
     {
       "id": "42624280",
       "title": "Tail wounds in military working dogs: Clinical characterization and a randomized sham-controlled trial of photobiomodulation.",
@@ -201,28 +212,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42584385",
-      "title": "Acute Effects of Cannabis Inhalation on Cardiac Ectopy, Physical Activity, Sleep, and Glucose.",
-      "authors": "Elias A, Montenegro GC, Oo HH, Peña IJ, Lowe DA",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 30",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42584385/",
-      "abstract": "Inhaled cannabis is widely legal in the United States. Data regarding cardiovascular effects are conflicting and generally arise from observational studies. The goal was to evaluate the acute effects of cannabis inhalation on cardiac ectopy. We conducted a prospective, randomized, crossover trial to assess effects of inhaled cannabis on cardiac ectopy, mean glucose levels, step counts, and sleep durations. Adults who smoked or vaped cannabis on a regular basis without a history of cardiac arrhyt",
-      "summary_ko": ""
-    },
-    {
-      "id": "42584383",
-      "title": "Intravenous Nicorandil in Patients With ST-Segment Elevation Myocardial Infarction Undergoing Primary PCI: The CLEAN Randomized Clinical Trial.",
-      "authors": "Huang D, Wu H, Lu Y, Liu Q, Cai H",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 30",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42584383/",
-      "abstract": "Nicorandil, an adenosine triphosphate-sensitive potassium-channel opener with nitrate-like properties, may reduce reperfusion injury and microvascular obstruction in ST-segment elevation myocardial infarction (STEMI), but large-scale randomized evidence on long-term clinical outcomes is inconclusive. The CLEAN trial aimed to assess whether adjunctive intravenous nicorandil improves 12-month clinical outcomes in patients with STEMI undergoing primary percutaneous coronary intervention. In this mu",
-      "summary_ko": ""
-    },
-    {
       "id": "42492422",
       "title": "A retrospective (2020-2025), multicenter study of myxomatous mitral valve disease in Chihuahuas from Italy, Sweden, and the United States of America.",
       "authors": "Spalla I, Bjerknaes MB, Bertuccini T, Menciotti G, Showers A",
@@ -363,17 +352,6 @@
       "date": "2026 Jul 28",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42663361/",
       "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42554527",
-      "title": "Impact of Left Ventricular Unloading on Hemodynamics and Stunning in Complex PCI: A CHIP-BCIS3 Substudy.",
-      "authors": "Ezad SM, Ryan M, Khan SQ, Panoulas VF, Ladwiniec A",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 28",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42554527/",
-      "abstract": "Elective left ventricular (LV) unloading during high-risk percutaneous coronary intervention (PCI) is hypothesized to mitigate hemodynamic instability and myocardial stunning, but has not been evaluated in a randomized trial. This prespecified substudy of the CHIP-BCIS3 (Controlled Trial of High-risk Coronary Intervention With Percutaneous Left Ventricular Unloading) trial evaluated whether elective LV unloading with a microaxial flow pump (mAFP) reduces hemodynamic instability and postprocedura",
       "summary_ko": ""
     },
     {
@@ -520,17 +498,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42554528",
-      "title": "Pulsatility, Protection, and the Price of Twelve Rounds.",
-      "authors": "Ali ZA",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 22",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42554528/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
       "id": "42480594",
       "title": "Immediate separation and storage of serum at a refrigerated temperature for 24 to 36 hours leads to minimal alterations in circulating microRNA levels in dogs.",
       "authors": "Grimes JA, Webb B",
@@ -586,28 +553,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42393008",
-      "title": "The Animal Trauma Triage Score outperforms the VetCOT score in cats with high-rise syndrome.",
-      "authors": "Alemany A, Girol-Piner AM, Herrería-Bustillo V",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Jul 2",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42393008/",
-      "abstract": "To evaluate the prognostic utility of the canine-derived Veterinary Committee on Trauma score in cats suffering from high-rise syndrome and to compare it with the Animal Trauma Triage Score. To date, no trauma score has been developed exclusively from feline-derived data, and existing systems are adaptations or validations of scores originally created for other or mixed species. Retrospective observational study of 60 cats with high-rise syndrome. Recorded variables on admission were age, breed,",
-      "summary_ko": ""
-    },
-    {
-      "id": "42393672",
-      "title": "Molecular prevalence and clinical profiles of canine babesiosis in northern India.",
-      "authors": "Kumari A, Agnihotri D, Nehra AK, Moudgil AD",
-      "journal": "BMC Vet Res",
-      "type": "vet",
-      "date": "2026 Jul 2",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42393672/",
-      "abstract": "Canine babesiosis is a significant and emerging tick-borne disease caused by Babesia spp. This study investigated the molecular prevalence, hematobiochemical profiles, and risk factors for B. vogeli and B. gibsoni infections in dogs in northern India, addressing the molecular research on babesiosis prevalence in this region. An overall prevalence of canine babesiosis by microscopy and PCR was 12.5% (27/216) and 27.78% (60/216), respectively. The prevalence rates for B. vogeli by microscopy and c",
-      "summary_ko": ""
-    },
-    {
       "id": "42473271",
       "title": "Anaesthetic management of dogs with myxomatous mitral valve disease: results of a questionnaire survey of veterinary anaesthesiologists.",
       "authors": "Vettorato E, Bell S, Benjamin EJ, Estrada AH, Köster L",
@@ -660,17 +605,6 @@
       "date": "2026 Jul 17",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42468557/",
       "abstract": "To evaluate indices of hemodynamic instability (HDI) in dogs and evaluate the effects of phenoxybenzamine (PBZ) on HDI and short-term survival in dogs undergoing adrenalectomy for pheochromocytoma. A retrospective medical record review of all dogs that underwent adrenalectomy at a single institution between 1996 and 2024. Dogs were included if the mass was confirmed to be a pheochromocytoma on histopathology and excluded if they received &#x3b1; antagonists other than PBZ, had incomplete medical",
-      "summary_ko": ""
-    },
-    {
-      "id": "42524810",
-      "title": "Health Status Outcomes 7 Years After Transcatheter or Surgical Aortic Valve Replacement in Low-Surgical Risk Patients With Aortic Stenosis.",
-      "authors": "Brener MI, Cohen DJ, Kodali SK, Hahn RT, Thourani VH",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Jul 17",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42524810/",
-      "abstract": "Transcatheter aortic valve replacement (TAVR) results in early improvements in health status outcomes relative to surgical aortic valve replacement (SAVR) in low-surgical risk patients with symptomatic severe aortic stenosis. However, long-term data comparing the detailed health status outcomes of these 2 treatments are lacking. The purpose of this study was to compare long-term health status outcomes between TAVR and SAVR in low-risk patients and explore heterogeneity of treatment effect. The P",
       "summary_ko": ""
     },
     {
@@ -993,25 +927,157 @@
       "summary_ko": ""
     },
     {
-      "id": "42554386",
-      "title": "Preventing Heart Failure: At-Risk Populations and the Role of Biomarkers.",
-      "authors": "Petrie MC, Januzzi JL, Harrington J, Taub P, Bayes-Genis A",
-      "journal": "JACC",
+      "id": "42670293",
+      "title": "Effects of Evolocumab on Mortality Outcomes in Patients Without Previous Myocardial Infarction or Stroke: A Prespecified Analysis of the VESALIUS-CV Randomized Clinical Trial.",
+      "authors": "Giugliano RP, Bohula EA, Bellavia A, De Ferrari GM, Leiter A",
+      "journal": "Circulation",
       "type": "human",
-      "date": "2026 Aug 4",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42554386/",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670293/",
+      "abstract": "Evolocumab, a PCSK9 (proprotein convertase subtilisin-kexin type 9) inhibitor, significantly reduced the risk of cardiovascular events in patients without previous myocardial infarction or stroke in the VESALIUS-CV trial (Effect of Evolocumab in Patients at High Cardiovascular Risk without Prior Myocardial Infarction or Stroke). However, mortality results have yet to be fully characterized. VESALIUS-CV was a double-blind study of 12 257 patients (median age, 66 years [interquartile range, 60-71]",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670292",
+      "title": "Preventing the First Event … and the Last? Lessons From VESALIUS-CV.",
+      "authors": "Rodriguez F, Shapiro MD",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670292/",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "42554385",
-      "title": "Liver for the Cardiologist: Why the Liver Belongs in the Cardiometabolic Workflow (CKM to CKML).",
-      "authors": "Fudim M",
+      "id": "42671370",
+      "title": "Protocol-Based Implementation of Early Intensive Lipid Management After Acute Coronary Syndrome: The BRIDGE Trial.",
+      "authors": "Oyama K, Takahashi J, Funaki T, Oyamada S, Horiguchi S",
       "journal": "JACC",
       "type": "human",
-      "date": "2026 Aug 4",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42554385/",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42671370/",
+      "abstract": "Although guideline-recommended intensive lipid-lowering therapy (LLT) reduces recurrent cardiovascular events after acute coronary syndrome (ACS), timely implementation of intensive LLT and achievement of low-density lipoprotein cholesterol (LDL-C) target remain suboptimal in routine clinical practice. The purpose of this study was to determine whether a protocol-based implementation strategy improves timely achievement of guideline-recommended LDL-C target after ACS. We conducted a cluster-rand",
+      "summary_ko": ""
+    },
+    {
+      "id": "42671369",
+      "title": "Hospital Costs of Microaxial Flow Pump Therapy in Cardiogenic Shock: A DanGer Shock Trial Analysis.",
+      "authors": "Borregaard B, Gidsel RH, Siebert U, Jahn B, Beske RP",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42671369/",
       "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42671161",
+      "title": "Patients with angina and non-obstructive coronary artery disease undergoing comprehensive invasive coronary function testing: long-term clinical outcomes.",
+      "authors": "Crooijmans C, Adriaansen FW, Meeder JG, Beijk MAM, Yosofi B",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42671161/",
+      "abstract": "Comprehensive evaluation by invasive coronary function test (CFT) of patients with angina and non-obstructive coronary artery disease is recommended in current guidelines. The prognosis of patients with CFT-proven coronary vasomotor dysfunction (CVDys) is less well-known. Patients that provided consent for the previously published NL-CFT registry who underwent clinically indicated invasive CFT between February 1st, 2019 and June 1st, 2024 were included. Patients with CVDys defined as an abnormal",
+      "summary_ko": ""
+    },
+    {
+      "id": "42671122",
+      "title": "Apolipoprotein B-containing lipoproteins: distinct roles in atherosclerosis revealed by plasma proteomic profiling.",
+      "authors": "Morze J, Björnson E, Mi MY, Adiels M, Melloni GE",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42671122/",
+      "abstract": "All apolipoprotein B-containing lipoproteins are established causal factors for coronary artery disease (CAD). This study aimed to identify robust proteomic signatures of low-density lipoprotein (LDL), triglyceride-rich lipoproteins (TRL), and lipoprotein(a) [Lp(a)] and to evaluate whether these signatures illuminate biological processes underlying differences in per-particle atherogenicity. Plasma proteins associated with LDL, TRL, and Lp(a) concentrations were identified using multivariable-ad",
+      "summary_ko": ""
+    },
+    {
+      "id": "42671117",
+      "title": "Pacemaker-implantation and atrioventricular-node ablation vs pulmonary vein isolation for elderly patients with persistent atrial fibrillation: the ABLATE versus PACE trial.",
+      "authors": "Boehmer AA, Eckardt L, Rothe M, Kaess BM, Doldi F",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42671117/",
+      "abstract": "Population aging is increasing atrial fibrillation (AF) prevalence. In elderly patients with persistent AF, pulmonary-vein isolation (PVI) has limited success, but is widely used. Pacemaker-implantation with atrioventricular-node ablation (PM+AVNA) provides effective symptom control, but the relative effects of PM+AVNA versus PVI on hospitalisations and other outcomes in the elderly remain unknown. This investigator-initiated, multicentre, open-label trial randomised patients aged&#x2265;75 year",
+      "summary_ko": ""
+    },
+    {
+      "id": "42671042",
+      "title": "Mapping organ fat distribution and body composition: towards precision profiling of cardiometabolic disease risk.",
+      "authors": "Kway YM, Raisi-Estabragh Z, Vavilis G, Antoniades C, Petersen SE",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42671042/",
+      "abstract": "Adiposity exerts multisystem insults that influence multiple organs and physiological pathways. This underscores the need for a systems-level framework integrating key organ fat measurements to disentangle the heterogeneous pathways through which adiposity shapes differential cardiometabolic risk profiles. Such an approach could advance mechanistic understanding and enable more precise risk stratification. In the UK Biobank, 24 935 participants without overt cardiac disease were studied. Six adi",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670954",
+      "title": "Half-dose rivaroxaban vs antiplatelet therapy for preventing silent cerebral embolism after left atrial appendage occlusion: the HALO-SCE trial.",
+      "authors": "Wang K, Shi L, Ruan Z, Chen H, Liu H",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670954/",
+      "abstract": "The optimal long-term antithrombotic strategy after left atrial appendage occlusion (LAAO) remains undetermined. The present study aimed to investigate whether half-dose rivaroxaban (10 mg daily) could better reduce silent cerebral embolic lesions (SCEs) and preserve cognitive function compared to antiplatelet therapy after successful LAAO. In this investigator-initiated, prospective, multicenter, randomized controlled trial, patients with successful LAAO confirmed 45 days post-procedure were as",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670881",
+      "title": "Intravenous dexrazoxane for haemorrhagic myocardial infarction: the SHIELD-MI study.",
+      "authors": "Vora KP, Bhatt K, Doshi S, Poptani V, Kumar A",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670881/",
+      "abstract": "Intramyocardial hemorrhage (IMH) after reperfused ST-elevation myocardial infarction (STEMI) is associated with adverse outcomes, yet no therapy specifically targets it. Dexrazoxane (DXZ) may mitigate iron-mediated injury from IMH. SHIELD-MI was a single-center, non-randomized, placebo-controlled, sequential-cohort phase IIa study with participants and the cardiac MRI (CMR) core laboratory blinded to treatment. Twenty-five patients received intravenous DXZ 250 mg before primary PCI and at 4, 8, ",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670784",
+      "title": "Auto-regulated bioprosthetic total artificial heart as bridge to transplantation: the EFICAS study.",
+      "authors": "Vincentelli A, Martin AC, Guihaire J, Bouchot O, Lebreton G",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670784/",
+      "abstract": "Refractory advanced biventricular heart failure (RAHF) has a poor prognosis, and many patients are ineligible for left ventricular assist device (LVAD) support. The \"historical\" total artificial heart (TAH) is associated with high rates of stroke, bleeding, and haemolysis. The bioprosthetic TAH (bio-TAH), a pulsatile, autoregulated, and haemocompatible device, was assessed here as a bridge to transplantation. EFICAS (NCT04475393) was a prospective, multicentre trial conducted at 10 French centre",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670759",
+      "title": "Takotsubo syndrome diagnosis: the biomarker-based BioTAK score.",
+      "authors": "Wenzl FA, Schweiger V, Smolle MA, Zech D, Akhmedov A",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670759/",
+      "abstract": "Takotsubo syndrome (TTS) closely mimics acute coronary syndrome (ACS). Early differentiation remains challenging because diagnosis currently relies on medical, psychiatric, and neurological history, repeated cardiac imaging, and exclusion of a culprit epicardial coronary artery lesion, generally with invasive coronary angiography (ICA). The aim of this study was to develop and externally validate a biomarker-based diagnostic score supporting the early differentiation of TTS from ACS before ICA. ",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670204",
+      "title": "Completeness of revascularization in coronary three-vessel disease and outcomes in the FAME 3 trial.",
+      "authors": "Otsuki H, Takahashi K, Kobayashi Y, Zimmermann FM, El Farissi M",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670204/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42669566",
+      "title": "Cardiovascular disease burden at cancer diagnosis: temporal trends in a national study from England.",
+      "authors": "Alshahrani AA, Kontopantelis E, Morgan C, Martin GP, Ravindrarajah R",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Aug 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42669566/",
+      "abstract": "Advances in cancer care have improved survival, increasing the importance of comorbidities at diagnosis for longer-term outcomes. Pre-existing cardiovascular disease (CVD) can complicate management and prognosis, yet its long-term trends and future burden at cancer diagnosis are unclear. This study aimed to quantify temporal trends in pre-existing CVD among patients with newly diagnosed cancer and project prevalence through 2050. Linked primary care, cancer registry, and hospitalization records ",
       "summary_ko": ""
     },
     {
@@ -1257,6 +1323,28 @@
       "summary_ko": ""
     },
     {
+      "id": "42670735",
+      "title": "Stent Retriever Thrombectomy in Patients With Myocardial Infarction The Open-label, Multicenter NATURE Superiority trial.",
+      "authors": "Valgimigli M, Frigoli E, Landi A, Covani M, Biscaglia S",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 29",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670735/",
+      "abstract": "Patients with myocardial infarction and large thrombus burden face greater infarct size and higher mortality, yet no effective therapy exists for this high-risk subgroup. To investigate the effects of stent-retriever thrombectomy in addition to conventional percutaneous coronary intervention (PCI) versus conventional PCI alone on infarct size. In this open-label, multicenter, superiority trial, 160 patients with ST-segment elevation myocardial infarction and large thrombus burden at angiography ",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670733",
+      "title": "Effectiveness of Bivalent RSV Prefusion F Protein-based Vaccine in Individuals With and Without Atrial Fibrillation: A Prespecified Analysis of the DAN-RSV Trial.",
+      "authors": "Espersen C, Højbjerg Lassen MC, Yafasov M, Pareek M, Christensen SH",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 29",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670733/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
       "id": "42667303",
       "title": "High-dose vs. standard-dose influenza vaccine in heart failure: the FLUNITY-HD trial.",
       "authors": "Johansen ND, Modin D, Pardo-Seco J, Rodriguez-Tenreiro-Sánchez C, Loiacono MM",
@@ -1341,7 +1429,7 @@
       "type": "human",
       "date": "2026 Aug 28",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42663125/",
-      "abstract": "",
+      "abstract": "From bench to bedside&#x2014;how basic science in myosin function and structure informed the development of precision therapy for hypertrophic cardiomyopathy ELC, essential light chain; HCM, hypertrophic cardiomyopathy; KCCQ, Kansas City Cardiomyopathy Questionnaire; LV, left ventricular; LVOT, LV outflow tract; MyBPC, myosin-binding protein C; nonobs HCM, nonobstructive hypertrophic cardiomyopathy; NT-proBNP, N-terminal pro-B-type natriuretic peptide; NYHA, New York Heart Association Functional",
       "summary_ko": ""
     },
     {
@@ -1408,6 +1496,39 @@
       "date": "2026 Aug 28",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42661452/",
       "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670736",
+      "title": "When Normal Is Not Normal: Hemoglobin in Heart Failure Revisited.",
+      "authors": "Anker SD, Coats AJS, Lainscak M, von Haehling S, Butler J",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 28",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670736/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670734",
+      "title": "Vericiguat for the treatment of coronary vasospasm (ViVA): a double-blind placebo-controlled randomized cross-over trial.",
+      "authors": "Namba HF, de Jong EAM, Dimitriu-Leen AC, Meuwissen M, Heestermans TACM",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 28",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670734/",
+      "abstract": "Coronary vasospasm is highly prevalent in patients with angina and no obstructive coronary arteries (ANOCA). A central mechanism of vasospasm in these patients arises from endothelial dysfunction and smooth muscle hyper-reactivity that disrupt the nitric oxide-soluble guanylate cyclase (sGC)-cyclic guanosine monophosphate pathway governing vasodilation. Vericiguat, an sGC stimulator that enhances sGC sensitivity to nitric oxide, may therefore be a therapeutic option for patients with coronary va",
+      "summary_ko": ""
+    },
+    {
+      "id": "42670732",
+      "title": "Addition of Computed Tomography-derived Fractional Flow Reserve in the diagnostic pathway of patients with stable coronary artery disease: the FUSION randomized controlled trial.",
+      "authors": "Sharma SP, Budde RPJ, Marc van der Zee P, Gürlek C, Mihl C",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 28",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670732/",
+      "abstract": "Computed Tomography-derived Fractional Flow Reserve (FFRct) integrates anatomical and functional information, which is particularly useful for stable coronary artery disease (CAD) patients with at least intermediate stenosis. We investigated the impact of adding FFRct to the diagnostic pathway of CAD patients with a 50-90% stenosis on Coronary Computed Tomography Angiography (CCTA). FUSION is an investigator-initiated, multicenter, randomized controlled trial involving patients with 50-90% steno",
       "summary_ko": ""
     },
     {
@@ -1532,17 +1653,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42661418",
-      "title": "2026 ESC Guidelines on cardiac rehabilitation.",
-      "authors": "Bäck M, Wilhelm M, Marcin T, Machado FVC, Sandberg A",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 28",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42661418/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
       "id": "42660198",
       "title": "Urinary angiotensinogen indexed to creatinine or protein is higher in cats with surgically induced chronic kidney disease compared to healthy cats.",
       "authors": "Huang JHC, Lourenço BN, Schmiedt CW",
@@ -1620,17 +1730,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42658047",
-      "title": "Great debate: clopidogrel should now replace aspirin for long-term secondary prevention of coronary artery disease.",
-      "authors": "Berry C, Valgimigli M, Patrono C, Gragnano F, Landi A",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42658047/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
       "id": "42648343",
       "title": "Carbon hemoperfusion markedly reduces serum meloxicam concentrations in dogs with meloxicam toxicosis.",
       "authors": "Shin PT, Zhao L, Vigh Z, Johnson TE, Enomoto H",
@@ -1694,94 +1793,6 @@
       "date": "2026 Aug 26",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42655878/",
       "abstract": "C-reactive protein (CRP) is a biomarker of systemic inflammation in dogs. There is limited data on inter-laboratory comparability of the results or the effects of long-term storage. (1) Compare CRP measurements across three institutions utilizing the same assay. (2) Evaluate 2-year stability of CRP in canine serum stored at -80&#xb0;C. Canine serum was collected and pooled to obtain 100 samples, which were distributed among three veterinary clinical pathology laboratories and evaluated using the",
-      "summary_ko": ""
-    },
-    {
-      "id": "42644344",
-      "title": "Aerobic exercise attenuates peri-infarct fibrosis and improves fitness early after acute myocardial infarction: a randomized trial.",
-      "authors": "Bai B, Cao L, Lin K, Luo C, Chang J",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42644344/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42643161",
-      "title": "Potassium in heart failure: prognostic associations and clinical implications.",
-      "authors": "Ono R, McMurray JJV",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42643161/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42643152",
-      "title": "The vagus nerve in myocardial infarction.",
-      "authors": "Heusch G, Kleinbongard P, Gourine AV",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42643152/",
-      "abstract": "Myocardial infarction can result from and leads to sympathetic activation, whereas vagal engagement provides a counter-regulatory influence that can limit ischaemic injury. This article reviews the organization of vagal sensory and efferent pathways, their transmitters and receptors, and their targets within the myocardium, coronary and systemic vasculature, and other organs including the intestine and spleen. Atrial mechanosensitive afferents mediate the Bainbridge reflex, resulting in tachycar",
-      "summary_ko": ""
-    },
-    {
-      "id": "42643129",
-      "title": "Hypokalaemia and hyperkalaemia in heart failure: risk factor or risk marker?",
-      "authors": "Lund LH, Szabo-Söderberg B",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42643129/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42643101",
-      "title": "Weekly Journal Scan: Prevalence and prognostic significance of coronary microvascular dysfunction across the spectrum of coronary artery disease.",
-      "authors": "Vergallo R, Leone AM",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42643101/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42643097",
-      "title": "Anticoagulation in patients with atrial fibrillation and Alzheimer's disease: lessons from a Swedish nationwide registry.",
-      "authors": "Dichgans M, Filler J",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42643097/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42643086",
-      "title": "Paediatric-to-adult transition in inherited arrhythmia syndromes.",
-      "authors": "Sardana M, MacIntyre C, Giudicessi JR, Ackerman MJ",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42643086/",
-      "abstract": "Inherited arrhythmia syndromes (IAS)-including long QT syndrome (LQTS), catecholaminergic polymorphic ventricular tachycardia (CPVT), and Brugada syndrome (BrS)-are important causes of sudden cardiac death in the young. Although molecular diagnosis and cascade screening have improved prevention, adolescence and emerging adulthood remain vulnerable periods. Transition (planned readiness building) and transfer (handoff to adult services) are frequently complicated by loss to follow-up, medication ",
-      "summary_ko": ""
-    },
-    {
-      "id": "42643065",
-      "title": "Pursuing physiological resynchronization in heart failure with reduced ejection fraction and left bundle branch block.",
-      "authors": "Hatala R, Margitfalvi P",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Aug 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42643065/",
-      "abstract": "",
       "summary_ko": ""
     },
     {
@@ -1873,14 +1884,14 @@
       "summary_ko": ""
     },
     {
-      "id": "42610248",
-      "title": "Association of Clonal Hematopoiesis With Silent Brain Lesions and Cognitive Decline in Patients With Atrial Fibrillation.",
-      "authors": "Meyre PB, Ahn HJ, Ehlert CA, Dederichs TS, Aeschbacher S",
-      "journal": "Circulation",
+      "id": "42670731",
+      "title": "The Opening Gambit: Thrombectomy to Guide Strategy in STEMI.",
+      "authors": "Ali ZA",
+      "journal": "JACC",
       "type": "human",
       "date": "2026 Aug 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42610248/",
-      "abstract": "Clonal hematopoiesis of indeterminate potential (CHIP) has been associated with cardiovascular disease, but its relationship with silent brain lesions and cognitive decline in patients with atrial fibrillation (AF) is unclear. In this prospective, multicenter cohort study, we included 1572 patients with AF enrolled between 2014 and 2017. All participants underwent deep-targeted sequencing for CHIP-associated sequence variations, brain magnetic resonance imaging, and standardized cognitive assess",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42670731/",
+      "abstract": "",
       "summary_ko": ""
     },
     {
@@ -2170,28 +2181,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42610264",
-      "title": "Bempedoic Acid and First and Recurrent Limb Outcomes in Statin-Intolerant Patients With Peripheral Artery Disease: Insights From the CLEAR Outcomes Trial.",
-      "authors": "Bonaca MP, Canonico ME, Li N, Sasiela WJ, Nissen SE",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Aug 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42610264/",
-      "abstract": "Patients with peripheral artery disease (PAD) are at high risk of major adverse limb events (MALEs) and major adverse cardiovascular events (MACEs). Recently, bempedoic acid was shown to reduce MACEs in primary and secondary prevention patients. Whether bempedoic acid reduces the risk of MALE in patients with PAD is unknown. CLEAR Outcomes (Cholesterol Lowering via Bempedoic Acid [ETC1002], an ACL-Inhibiting Regimen) randomized 13&#x2009;970 patients to bempedoic acid 180 mg or placebo from Dece",
-      "summary_ko": ""
-    },
-    {
-      "id": "42610249",
-      "title": "Myeloid Cell Expansion Propels Right Ventricular Dysfunction in HFpEF Through Sterile Inflammation.",
-      "authors": "Jaeschke L, Koçana C, Chitroceanu AM, Winkler A, Kleitke H",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Aug 18",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42610249/",
-      "abstract": "The role of leukocytes in the pathogenesis of right ventricular (RV) dysfunction (RVD) associated with heart failure with preserved ejection fraction (HFpEF) remains poorly defined, partially due to the lack of suitable small animal models. Here, we followed a translational research approach by establishing a murine HFpEF model developing manifest RVD and analyzed human HFpEF cohorts to study the mechanistic link between leukocytes and RVD in HFpEF. Young (&lt;20-week-old) and aged (&gt;80-week-",
-      "summary_ko": ""
-    },
-    {
       "id": "42615443",
       "title": "The Opportunities and Challenges in AI Opportunistic Disease Detection in General Populations.",
       "authors": "Sahashi Y, Mishell J, Ouyang D",
@@ -2302,6 +2291,17 @@
       "summary_ko": ""
     },
     {
+      "id": "42671371",
+      "title": "All-Cause Mortality Up to 20 Years After PCI or CABG for Left Main Disease.",
+      "authors": "Desch S, Pugachova S, de Waha S, Thevathasan T, Freyer L",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Aug 14",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42671371/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
       "id": "42594946",
       "title": "Targeted quantitative polymerase chain reaction-based bacterial and fecal metabolite markers show early stability in healthy puppies after 8 weeks of age.",
       "authors": "Birk D, Weidinger AK, Schmidt T, Bachmann S, Spring I",
@@ -2368,17 +2368,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42584380",
-      "title": "TEMPORARY REMOVAL: Rethinking Disease Progression in Transthyretin Amyloid Cardiomyopathy: Toward Mechanism-Specific Monitoring and Therapeutic Response Assessment.",
-      "authors": "Fontana M, Solomon SD, Hawkins PN, Gillmore JD",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Aug 12",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42584380/",
-      "abstract": "The publisher regrets that this article has been temporarily removed. A replacement will appear as soon as possible in which the reason for the removal of the article will be specified, or the article will be reinstated. The full Elsevier Policy on Article Withdrawal can be found at https://www.elsevier.com/about/policies-and-standards/article-withdrawal.",
-      "summary_ko": ""
-    },
-    {
       "id": "42580781",
       "title": "A randomized controlled trial of intravenous magnesium sulfate shows no analgesic or anti-inflammatory benefit in dogs undergoing thoracolumbar disk herniation surgery.",
       "authors": "Mallet G, Gaitero L, Sanchez A, James FMK, Wood G",
@@ -2442,17 +2431,6 @@
       "date": "2026 Aug 11",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42615958/",
       "abstract": "Heart failure (HF) is a common cardiovascular complication of diabetes. Early identification of unrecognized HF enables initiation of disease-modifying therapies. International diabetes and HF clinical practice guidelines are inconsistent with respect to recommendations for screening for HF in people with diabetes. The purpose of this trial was to evaluate the diagnostic yield of a natriuretic peptide-based HF screening strategy in people with diabetes and HF risk factors. TARTAN-HF (Targeted As",
-      "summary_ko": ""
-    },
-    {
-      "id": "42583989",
-      "title": "Risk Reclassification Beyond BMI by Waist Circumference and Waist-to-Hip Ratio Across 9 Cardiovascular Outcomes: Results From the Cross-Cohort Collaboration.",
-      "authors": "Dardari ZA, Yao Z, Zhang J, Bakoyannis G, Nan H",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Aug 11",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42583989/",
-      "abstract": "Body mass index (BMI) is commonly used to assess total adiposity, yet does not provide insight into overall body composition, potentially obscuring meaningful heterogeneity in cardiovascular disease (CVD) risk. Waist circumference (WC) and waist-to-hip ratio (WHR) are surrogate measures of central adiposity that are commonly discordant with BMI and may provide additional prognostic information. The purpose of this study was to quantify the reclassification and misclassification of traditional no",
       "summary_ko": ""
     },
     {
@@ -2596,6 +2574,17 @@
       "date": "2026 Aug",
       "url": "https://pubmed.ncbi.nlm.nih.gov/41850733/",
       "abstract": "To assess the theoretical and morphometric effects of a novel oblique tibial tuberosity osteotomy technique designed to enable simultaneous advancement and lateralisation of the tibial tuberosity using a tibial tuberosity advancement cage for the surgical treatment of concurrent cranial cruciate ligament disease and medial patellar luxation in dogs. Computational modelling and ex vivo cadaveric study. Fourteen pelvic limbs from mixed-breed dog cadavers (15.8 to 25.3&#x2009;kg). Theoretical calcu",
+      "summary_ko": ""
+    },
+    {
+      "id": "41850732",
+      "title": "Modified transpapillary temporary biliary tube fixation with two-tier anchoring in small dogs.",
+      "authors": "Myung H, Eom T, Son D",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Aug",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41850732/",
+      "abstract": "",
       "summary_ko": ""
     },
     {
