@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-19 02:48 UTC",
-  "total": 286,
+  "updated": "2026-10-20 02:56 UTC",
+  "total": 285,
   "papers": [
     {
       "id": "42830405",
@@ -220,7 +220,7 @@
       "date": "2026 Sep 8",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42710537/",
       "abstract": "To investigate the nasal carriage of Cryptococcus-related and other opportunistic yeasts in dogs, molecularly characterize the recovered isolates, and evaluate the epidemiological characteristics of Naganishia albida carriage. Nasal swab samples were collected from July through December 2023 from 100 dogs receiving boarding or hospitalization services at private veterinary clinics and animal hospitals in 4 provinces of T&#xfc;rkiye. Yeast isolates were identified using phenotypic methods, intern",
-      "summary_ko": "# 논문 핵심 요약\n\n터키의 입원/보육 중인 개 100마리를 대상으로 비강 면봉을 채취하여 진균 배양한 결과, **Naganishia albida가 12%, Papiliotrema laurentii가 1%에서 검출되었으며, Cryptococcus neoformans/gattii는 분리되지 않았습니다.** N. albida는 건강한 개뿐 아니라 호흡기·피부·전신 임상증상을 보이는 개에서도 검출되었으나, 역학적 변수와의 유의미한 연관성은 없었습니다. 본 연구는 개의 비강 내 다양한 기회감염 진균의 보균 현황을 제시하며, 임상에서 진균 배양 결과 해석 시 기준점을 제공합니다."
+      "summary_ko": ""
     },
     {
       "id": "42710535",
@@ -231,7 +231,7 @@
       "date": "2026 Sep 8",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42710535/",
       "abstract": "To compare itraconazole therapeutic drug monitoring (TDM) results by culture-based bioassay versus liquid chromatography-mass spectrometry (LC-MS) in dogs with blastomycosis and determine how the choice of assay might influence dosage adjustments. This was a retrospective study. Ninety-seven samples from 14 client-owned dogs with blastomycosis were collected from October 2023 through May 2025 and analyzed by bioassay and 3 LC-MS-derived variables: itraconazole alone (ITZ), the hydroxyitraconazol",
-      "summary_ko": "# 핵심 요약\n\n개의 블라스토마이세스증 치료 시 이트라코나졸 치료약물 모니터링(TDM)에서 배양 기반 생물검정법과 액체크로마토그래피-질량분석법(LC-MS)의 결과가 상이하며, 두 방법 간 상관도가 약~중등도(r²=0.40~0.48)로 낮아 용량 조정 권고가 36%에서 불일치했다. 이트라코나졸 용량은 혈청 농도를 신뢰성 있게 예측하지 못하므로, 두 방법 중 하나를 치료 전 과정에 일관되게 선택하여 TDM을 수행해야 장기 치료의 유효성을 확보할 수 있다."
+      "summary_ko": ""
     },
     {
       "id": "42710534",
@@ -242,7 +242,7 @@
       "date": "2026 Sep 8",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42710534/",
       "abstract": "To characterize CT perfusion (CTP) in canine massive hepatocellular carcinoma (HCC) and explore associations with descriptive histomorphologic differentiation categories. This retrospective study included 20 client-owned dogs with surgically excised, histopathologically confirmed HCC of the massive gross phenotype and interpretable preoperative CTP datasets. Hepatic arterial flow (HAF), portal venous flow (PVF), and hepatic perfusion index (HPI) were calculated with a dual-input maximum-slope me",
-      "summary_ko": "# 논문 요약\n\n개의 대규모 간세포암종(HCC)은 CT 관류 영상에서 문맥정맥류 관류의 현저한 감소와 상대적 동맥 우위를 보이며, 이는 종양의 동맥 혈관화 증가보다는 문맥정맥류 관류 감소에 의해 주로 나타난다. 분화도에 따라 동맥류 및 문맥정맥류 관류에 차이가 있었으나, 저분화 종양의 표본 수가 적어 해석에 주의가 필요하다. CT 관류는 동맥 및 문맥 관류의 정량적 정보를 제공할 수 있으나 형태학적 영상, 수술 소견, 조직학적 분류, 전이 가능성 또는 예후 예측을 대체할 수 없다."
+      "summary_ko": ""
     },
     {
       "id": "42710546",
@@ -363,7 +363,7 @@
       "date": "2026 Sep 30",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42815534/",
       "abstract": "To characterize CT perfusion (CTP)-derived time to highest observed adrenal tissue enhancement (T-peak) and arterial blood flow (AF), evaluate associations with triple-phase CT findings, and assess the diagnostic performance of T-peak, AF, and the tumor-to-contralateral adrenal AF ratio for differentiating pheochromocytomas from adrenocortical tumors. Historical CTP data from 5 healthy Beagles served as controls. Client-owned dogs evaluated from November 21, 2024, through May 31, 2026, underwent",
-      "summary_ko": "# 논문 핵심 요약\n\n**개의 부신 종양 감별진단에서 CT 관류(CTP) 매개변수의 임상적 가치를 평가한 연구입니다.** 22개 종양(부신피질종양 15개, 갈색세포종 7개)을 대상으로 한 결과, 최고 조영 도달 시간(T-peak < 36.0초)과 동맥 혈류량(AF > 100.60 mL/min/100 mL)이 두 종양군을 높은 민감도와 특이도(각각 100%, 85.7%)로 감별할 수 있었으며, 특히 편측 종양의 경우 종양/대측 부신의 혈류량 비가 완벽한 감별을 제공했습니다. **CTP는 술전 부신 종양 특성 파악의 보조적 정보로 유용하나, 제시된 기준값은 더 큰 규모의 독"
+      "summary_ko": ""
     },
     {
       "id": "42815528",
@@ -374,7 +374,7 @@
       "date": "2026 Sep 30",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42815528/",
       "abstract": "To compare blood glucose concentrations measured by a veterinary portable blood glucose meter (v-PBGM; AlphaTrak3; Zoetis Inc), a human portable blood glucose meter (h-PBGM; FreeStyle Precision Neo; Abbott Diabetes Care), and a point-of-care chemistry analyzer (reference analyzer; VetScan VS2; Zoetis Inc) in client-owned ferrets. Residual heparinized jugular venous blood samples from ferrets undergoing unrelated veterinary evaluations were analyzed from June 2025 through April 2026 within 10 min",
-      "summary_ko": "# 페릿의 저혈당 진단에서 휴대용 혈당계의 신뢰성 평가\n\n휴대용 혈당계(수의용 AlphaTrak3, 인간용 FreeStyle Precision Neo)와 포인트오브케어 분석기(VetScan VS2)를 비교한 결과, 모든 휴대용 혈당계는 광범위한 측정 오차를 보였으며, 특히 저혈강증 진단 시 신뢰성이 부족했습니다(≤60 mg/dL에서 정확도 58-79%). 수의용 혈당계의 개 및 고양이 설정이 인간용 혈당계보다 나았으나, 저혈당증의 진단이나 치료 결정을 휴대용 혈당계 단독으로는 할 수 없습니다. 따라서 페릿에서 낮거나 의외의 혈당값이 나올 경우 반드시 포"
+      "summary_ko": ""
     },
     {
       "id": "42813598",
@@ -715,7 +715,7 @@
       "date": "2026 Sep 24",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42785357/",
       "abstract": "To describe a novel technology, Urine Molecular Fingerprinting (UMF), for analyzing the composition of urine and its application for neoplastic/nonneoplastic diseases in dogs. Voided urine samples from clinically healthy Bernese Mountain Dogs (n = 263), Golden Retrievers (214), West Highland White Terriers (79), German Shepherd Dogs (21), and other breeds (245). Samples were analyzed using Raman spectroscopy and computational statistics. To illustrate the clinical relevance of UMF, samples from ",
-      "summary_ko": "# 논문 핵심 요약\n\n**라만 분광법 기반의 요분자지문분석(UMF) 기술**은 개의 종양 및 비종양성 질환 검출에 유망한 액체생검 방법입니다. 건강한 개의 요에서 품종 간 분자지문 차이가 확인되었으며, 암 및 비종양성 질환 환자의 UMF 패턴이 건강한 대조군과 유의하게 달랐습니다. 이 기술은 임상 검사실에서 기존의 임상·실험실·영상 진단 정보를 보완하는 진단 도구로 활용될 수 있는 가능성을 제시합니다."
+      "summary_ko": ""
     },
     {
       "id": "42785356",
@@ -726,7 +726,7 @@
       "date": "2026 Sep 24",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42785356/",
       "abstract": "To evaluate the feasibility of the ForeSight tissue oximetry system for assessing regional cerebral and renal tissue oxygen saturation in anesthetized dogs across 3 oxygenation states. 6 anesthetized Beagles were included. ForeSight tissue oximetry sensors were applied to the cranium and left lateral abdomen to estimate regional cerebral oxygen saturation (rScO2) and regional renal oxygen saturation (rSrO2). The left dorsal pedal artery, right femoral vein, and right jugular vein were cannulated",
-      "summary_ko": "# 논문 요약\n\nForeSight 조직산소포화도 모니터링 시스템은 마취견의 **뇌조직산소포화도(rScO2)는 중등도의 상관관계**를 보여 추세 모니터링에 임상적 가치가 있으나, **신장조직산소포화도(rSrO2)는 신뢰성이 떨어져** 신장 모니터링에는 부적절한 것으로 나타났다. 따라서 본 시스템은 마취 중 뇌산소화 상태의 보조적 실시간 평가 도구로 활용 가능하지만, 정확한 절대값 해석보다는 **추세 변화 모니터링**에 초점을 두어야 한다."
+      "summary_ko": ""
     },
     {
       "id": "42785358",
@@ -773,17 +773,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42770221",
-      "title": "Prognostic Value of Coronary Computed Tomography Angiography-Derived Fractional Flow Reserve From a Large Nationwide Cohort.",
-      "authors": "Bell JS, Nicol E, Venugopal V, Mullen L, Tidbury L",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Sep 22",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42770221/",
-      "abstract": "The diagnostic value of coronary computed tomography angiography-derived fractional flow reserve (FFR-CT) in stable coronary artery disease is well established. The prognostic value of predicting future cardiovascular events is less clear, as studies are limited by small populations, variable measurement points, composite outcomes, and short follow-up. A nationwide cohort of coronary computed tomography angiography with 3-year follow-up was used to examine the association between FFR-CT measurem",
-      "summary_ko": ""
-    },
-    {
       "id": "42770220",
       "title": "Novel mTORC1 Booster LAPTM4A Potentiates Pathological Cardiac Hypertrophy.",
       "authors": "Hu Y, Li W, Hu M, Tian S, Zhou S",
@@ -792,28 +781,6 @@
       "date": "2026 Sep 22",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42770220/",
       "abstract": "Excessive unnecessary protein accumulation in cardiomyocyte is a leading contributor for pathological cardiac hypertrophy and has been found closely regulated by the mTORC1 (mechanistic target of rapamycin complex 1) signaling and lysosome transmembrane proteins. However, the precise regulatory mechanism stratifying mTORC1 signaling and the specific functions of lysosomal proteins in protein homeostasis of cardiomyocytes remain largely unidentified. We screened lysosomal genes conserved in mice,",
-      "summary_ko": ""
-    },
-    {
-      "id": "42770216",
-      "title": "ALKBH5-Dependent m(6)A Demethylation Promotes Cardiac Aging Through SLC38A3 Reduction and Glutamine Metabolic Alteration.",
-      "authors": "Liu K, Liang CQ, Li HJ, Li C, Huang QY",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Sep 22",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42770216/",
-      "abstract": "N6-methyladenosine (m6A) modification has been linked to various types of physiological and pathological bioprocesses. However, the exact role of m6A mRNA methylation in cardiac aging is largely unknown. Here, we show that ALKBH5 (alpha-ketoglutarate-dependent dioxygenase AlkB homolog 5), an m6A demethylase, plays a critical role in regulating cardiac aging. Physiologically aged and paraquat-induced mouse models of cardiac aging as well as senescent cardiomyocyte cell cultures were used to evalu",
-      "summary_ko": ""
-    },
-    {
-      "id": "42770210",
-      "title": "Asb2-KIF11 Axis Protects Against Heart Failure by Restoring Lysosomal Distribution and Mitochondrial Homeostasis.",
-      "authors": "Lv Y, Sha Z, Peng S, Duan Z, Zeng Q",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Sep 22",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42770210/",
-      "abstract": "Heart failure remains a leading cause of mortality globally, driven by persistent mitochondrial dysfunction and maladaptive cardiac hypertrophy. Although impaired autophagic flux contributes to cardiac deterioration, the precise molecular mechanisms are still unclear. The ubiquitin-proteasome system serves as a critical regulator linking protein ubiquitination to autophagic flux and mitochondrial homeostasis. Asb2 (ankyrin repeat-containing protein with suppressor of cytokine signaling box 2), a",
       "summary_ko": ""
     },
     {
@@ -979,7 +946,7 @@
       "date": "2026 Sep 17",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42753789/",
       "abstract": "To compare the biomechanical effects of hemilaminectomy (HL) and mini-hemilaminectomy (mHL) on the stability of the feline lumbar spine at L4-L5. 20 cadaveric feline vertebral columns were collected from June 26, 2021, through September 15, 2022; the biomechanical testing was conducted from November 23, 2023, through March 6, 2024. Lumbar spines were screened radiographically and by CT, tested in the native state, and then randomly assigned to HL or mHL at L4-L5. Nondestructive cyclic bending in",
-      "summary_ko": "# 논문 요약\n\n고양이 요추 L4-L5 부위에서 반척추궁절제술(hemilaminectomy)과 소형 반척추궁절제술(mini-hemilaminectomy)은 **생체역학적 안정성에 유의미한 차이를 보이지 않았다**. 다만 표준 반척추궁절제술이 소형 반척추궁절제술보다 더 많은 운동 변수에서 일관되게 안정성 감소를 야기했으나, 두 기법 간 직접적인 임상적 우월성 차이는 입증되지 않았다. 따라서 소형 반척spurança궁절제술의 임상적 이점은 현재로서 증명되지 않았으며, 술자의 선호도나 접근성에 따라 양쪽 기법 모두 사용 가능할 것으로 판단된다."
+      "summary_ko": ""
     },
     {
       "id": "42843177",
@@ -1122,7 +1089,7 @@
       "date": "2026 Sep 15",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42743987/",
       "abstract": "To report the behavior of the main parameters used in the evaluation of cardiac pacemakers (PMs) in dogs, associated complications, and survival times. This retrospective cohort study evaluated dogs that received PMs (from 2016 through 2023) at a veterinary teaching hospital. Dogs of various breeds, ages, and sexes with at least 1 baseline assessment were included. The PM parameters pacing threshold amplitude, impedance (or conductance), and estimated battery life were assessed immediately after",
-      "summary_ko": "# 핵심 요약\n\n본 연구는 개의 심박동기 이식 후 주요 매개변수(페이싱 역치, 임피던스, 배터리 수명)의 변화와 합병증을 추적한 결과, 임피던스는 시간 경과에 따라 유의하게 감소하지만 페이싱 역치와 배터리 수명은 유의한 변화를 보이지 않았으며, 합병증 발생률은 낮고 생존 기간의 중앙값은 30개월이었다. 임상적으로는 정상범위 대비 절대값보다 개인별 기저값을 기준으로 종적 추적(longitudinal monitoring)을 통해 매개변수의 추이를 평가하는 것이 심박동기 기능 평가에 더 중요함을 시사한다."
+      "summary_ko": ""
     },
     {
       "id": "42742627",
@@ -1144,7 +1111,7 @@
       "date": "2026 Sep 14",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42735725/",
       "abstract": "To evaluate outcomes of modified tibial plateau-leveling osteotomy (TPLO) using a precontoured plate in small-breed dogs with concurrent cranial cruciate ligament (CrCL) rupture and medial patellar luxation (MPL) compared with conventional TPLO. Medical records from March 2023 to March 2026 were retrospectively reviewed for dogs treated with TPLO using a 1.5/2.0 locking plate. Stifles were assigned to the modified TPLO group when concurrent MPL was corrected using a precontoured plate or to the ",
-      "summary_ko": "# 논문 요약\n\n소형견에서 전전방십자인대 파열과 내측슬개골탈구가 동시에 발생한 경우, 특수 설계된 금속판을 이용한 수정된 경골고원평탄화절골술(modified TPLO)이 한 번의 수술로 두 질환을 모두 교정할 수 있으며, 기존 TPLO와 비교하여 뼈 유합 시간, 임상 개선도, 보행 분석상 유의한 차이가 없었다. 수정된 TPLO는 경골 내측 전위에도 불구하고 증상 재탈구 2례를 제외하고 추가 수술이 필요한 합병증이 없어 소형견의 동시성 질환 치료에 안전하고 효율적인 수술 선택지가 될 수 있다."
+      "summary_ko": ""
     },
     {
       "id": "42735724",
@@ -1155,7 +1122,7 @@
       "date": "2026 Sep 14",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42735724/",
       "abstract": "To determine whether some cats with epilepsy and temporal lobe epilepsy (TLE)-like seizures have dentate gyrus neuropathologic changes consistent with TLE, including hilar neuron loss and mossy fiber sprouting. Postmortem hippocampal tissue from 5 cats with a history of seizures and 6 control cats was evaluated. Nissl-stained sections were used to estimate hilar neuron populations within the dentate gyrus by optical fractionator stereology. Timm-stained sections were scored by masked investigato",
-      "summary_ko": "# 논문 핵심 요약\n\n고양이 측두엽 간질(TLE) 유사 발작을 보이는 개체에서 해마 이랑(dentate gyrus)의 신경세포 손실과 이끼섬유 발아(mossy fiber sprouting)가 확인되었으며, 특히 1마리에서 인간 TLE와 유사한 조직학적 변화가 관찰되었다. 이는 고양이에서 자연 발생성 TLE의 존재 가능성을 시사하므로, 향후 생전 진단 기법 개발을 통해 수술 또는 레이저 절제술 등의 고급 치료 옵션을 제공할 수 있을 것으로 기대된다."
+      "summary_ko": ""
     },
     {
       "id": "42735705",
@@ -1166,7 +1133,7 @@
       "date": "2026 Sep 14",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42735705/",
       "abstract": "To compare Norberg angle (NA) measurements and hip dysplasia (HD) grades obtained from the same radiographs using the F&#xe9;d&#xe9;ration Cynologique Internationale (FCI) 2022 (FCI22) and FCI 2006 methods (FCI06). This retrospective observational study included radiographs submitted for canine HD screening from March 17, 2023, through September 27, 2024. Radiographs meeting FCI quality standards were evaluated under both methods, with NA measurements and HD grades recorded accordingly. Grade ch",
-      "summary_ko": "# 핵심 요약\n\n2022년 FCI 고관절 이형성증 평가 방법은 2006년 방법 대비 노르베르그 각도를 평균 0.7° 낮게 측정하지만, 전체 고관절의 68.3%에서 등급 변화가 없었다. 등급 변화는 주로 D 등급(초경계 범주) 고관절(82.4%)에서 발생했으며, 견종별로 차이를 보여 오스트랄리안 셰퍼드는 17.2% 상향 조정, 복서는 29.4% 하향 조정되었다. 새로운 FCI22 방법이 이들 견종의 HD 선별검사 결과를 획기적으로 변경시키지는 않지만, 경계값 근처의 고관절과 견종 특이적 해부학적 차이는 개별 평가에 영향을 미칠 수 있다."
+      "summary_ko": ""
     },
     {
       "id": "42735743",
@@ -1232,7 +1199,7 @@
       "date": "2026 Sep 11",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42727605/",
       "abstract": "To characterize MRI findings, including arterial spin labeling (ASL) perfusion features, in dogs and cats with ischemic cerebrovascular accidents (ICVAs) and to identify prognostic factors. Retrospective, single-center observational study of dogs and cats presenting with acute, nonprogressive brain dysfunction from 2018 through 2024, with MRI findings consistent with ICVA and available ASL perfusion imaging. Ischemic cerebrovascular accidents subtypes; MRI findings, including ASL perfusion chara",
-      "summary_ko": "# 논문 요약\n\n본 연구는 개와 고양이의 허혈성 뇌혈관사고(ICVA) 환자에서 MRI와 동맥 스핀 레이블링(ASL) 관류 영상의 특징을 분석하여, 새로운 '악성 ICVA' 아형(complete territorial ICVA with moderate-to-severe mass effect)을 규명했으며, 이는 조기 사망과 강한 연관성(OR 400)을 보였다. 비열공 경색은 ASL에서 저관류를 보이나 허혈 반음영 식별 능력은 제한적이므로, 경색 범위와 mass effect가 조기 예후 판정 및 임상 의사결정의 중요한 지표이다."
+      "summary_ko": ""
     },
     {
       "id": "42722190",
@@ -1276,7 +1243,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42685790/",
       "abstract": "To adapt and partially validate the accuracy and precision of serum exchangeable copper and 3-kDa ultrafiltered urinary copper concentrations as an analytical prerequisite to investigate the clinical utility of relative exchangeable copper and urinary small copper carrier-to-creatinine ratio as noninvasive biomarkers in dogs with copper-associated hepatitis. Serum exchangeable copper and 3-kDa ultrafiltered urinary copper concentrations of surplus samples of dogs submitted for diagnostic purpose",
-      "summary_ko": "# 핵심 요약\n\n본 연구는 개에서 혈청 교환가능 구리(exchangeable copper)와 3-kDa 초여과 뇨 구리 농도 측정 방법을 성공적으로 확립하고 검증했으며, 최적 원심분리 조건은 혈청 5,000×g, 뇨 4,000×g이고 회수율 97.9~120%, 반복성 계수변이 2.6~10.8%로 모두 허용기준 내였다. 이는 향후 구리관련 간염의 비침습적 진단 바이오마커로서 상대 교환가능 구리와 뇨 소형 구리운반단백의 임상적 유용성을 검증하기 위한 분석적 기초를 제공한다."
+      "summary_ko": ""
     },
     {
       "id": "42873829",
@@ -1287,7 +1254,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42873829/",
       "abstract": "Evaluation of current antimicrobial prescribing practices can inform antimicrobial stewardship efforts. Our primary objective was to describe current antibiotic prescribing practice in veterinary schools. Medical records from 1800 animals (1403 dogs, 397 cats) at 31 US and Canadian veterinary schools were included. Hospitals collected data from medical records of animals evaluated on a single date in August 2022. Data included patient signalment, hospitalization status, clinical condition(s), di",
-      "summary_ko": "# 논문 핵심 요약\n\n2022년 미국과 캐나다 수의대 31개 기관에서 1,800마리(개 1,403마리, 고양이 397마리)를 대상으로 한 조사 결과, 전체 30.4%의 동물에서 항생제가 처방되었으며, 외과적 처치(27.3%), 요로 감염(11.9%), 호흡기 질환(11.6%)이 주요 처방 사유였다. 가장 많이 처방된 항생제는 aminopenicillin-beta-lactamase inhibitor, 1세대 cephalosporin, fluoroquinolone이었다. 산발성 세균성 방광염에서 first-line 항생제 미사용, 외과적 예방 항생제의 과다 사용, fluoroquinolone의 부적절한 사용이 항균제 적절성 개선 영역으로 지적되었으며, 항생제 사용 데이터의"
+      "summary_ko": ""
     },
     {
       "id": "42873828",
@@ -1298,7 +1265,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42873828/",
       "abstract": "Idiopathic facial neuropathy (IFN) is commonly described in dogs, but information in cats is lacking. Describe clinical presentation, magnetic resonance imaging (MRI) findings and outcome in cats diagnosed with IFN. Thirteen cats with presumptive diagnosis of IFN. Multicenter retrospective descriptive study with questionnaire-based follow-up. Magnetic resonance imaging was assessed by a single author blinded to clinical signs. Median age was 30&#xa0;months (range, 6-142). Median time of onset to",
-      "summary_ko": "# 논문 요약\n\n**고양이의 특발성 안면신경병증(IFN)**은 개에서는 흔하지만 고양이에서의 임상 정보는 부족한 상황이다. 본 연구는 13마리 고양이를 대상으로 한 후향적 다기관 연구로, 편측 또는 양측 안면마비, 안검반사 소실/감소, 전정기관 증상(두부경사, 안진 등)이 주요 임상증상이었으며, MRI에서 안면신경의 비후 또는 조영증강, 이복근 위축이 관찰되었다. 대부분 자연 회복되었으나(중앙값 20주) 일부에서 영구적 신경학적 결손이 남았고, 스테로이드 투여는 제한적으로 사용되었다."
+      "summary_ko": ""
     },
     {
       "id": "42870559",
@@ -1320,7 +1287,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42867939/",
       "abstract": "Myoclonus consists of brief, shock-like jerks and is not reported in dogs as a neurological manifestation of hypoglycemia. To describe hypoglycemia-associated myoclonus in dogs and report diagnostic findings, treatment, and outcome. Ten dogs presenting myoclonus and concurrent hypoglycemia. Multicenter, retrospective study of dogs presenting hypoglycemia-related myoclonus. All dogs presented with myoclonus. Neurological examination was abnormal in 5/10 (50%). Myoclonus was generalized in 8/10 (8",
-      "summary_ko": "# 논문 요약\n\n저혈당증으로 인한 근간대경련(myoclonus)은 개에서 흔히 인식되지 않은 신경학적 증상으로, 10례 중 9례에서 인슐린종이 원인이었으며 80%에서 전신성 경련으로 진행되었다. 혈당 측정을 통한 조기 진단이 필수적이며, 프레드니솔론, 디아족사이드, 식이요법 등의 의료적 치료 또는 수술적 치료가 단기적 호전을 유도하였으나, 장기 예후는 기저 원인에 따라 결정되었다. 따라서 저혈당 증상을 보이는 개에서 근간대경련의 가능성을 고려하여 혈당을 측정하고 인슐린종 스크리닝을 시행해야 한다."
+      "summary_ko": ""
     },
     {
       "id": "42867938",
@@ -1342,7 +1309,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42858362/",
       "abstract": "Idiopathic epilepsy (IE) in Golden Retrievers (GRs) has a suspected genetic basis with several endogenous risk factors potentially affecting the disease, including sex, breed subtypes, and chronic comorbidities. A subdivision into working (W-GRs) and show (S-GRs) Golden Retrievers presents a unique opportunity to investigate possible line-related risk factors. Define prevalence and investigate risk factors for IE in a population of Swedish GRs. We hypothesized a high prevalence of IE in GRs char",
-      "summary_ko": "# 논문 요약\n\n스웨덴 골든 리트리버에서 특발성 뇌전증(IE)의 유병률은 3.9%이며, 환자의 48.2%가 군집성 발작을 보였다. 수컷, 위장관계 질환, 그리고 무곡물 식이가 IE의 유의미한 위험 인자로 확인되었으나, 작업견과 쇼견 그룹 간 유병률 차이는 없었다. IE와 위장관계 질환의 연관성이 발견되어 새로운 치료 전략 개발의 가능성을 제시하며, 이에 대한 추가 연구가 필요하다."
+      "summary_ko": ""
     },
     {
       "id": "42858360",
@@ -1353,7 +1320,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42858360/",
       "abstract": "Dilated cardiomyopathy (DCM) in Doberman Pinschers (DPs) often initially manifests as ventricular arrhythmias (stage B1) without echocardiographic evidence of cardiac remodeling (stage B2). Global longitudinal strain (GLS) is a sensitive echocardiographic variable for detecting early systolic dysfunction. To assess whether GLS detects systolic dysfunction in DPs with arrhythmogenic stage B1 and to evaluate the association between arrhythmic burden and GLS. Sixty-three DPs with arrhythmogenic sta",
-      "summary_ko": "# 논문 요약\n\n도베르만 핀셔에서 정상 심초음파 측정치를 보이면서 심실부정맥이 있는 확장성 심근병증(DCM) stage B1 환자들에서 스페클 추적 심초음파(STE)를 이용한 global longitudinal strain(GLS) 측정이 조기 수축기 기능 부전을 민감하게 감지할 수 있음을 입증했다. Stage B1 군의 GLS(-16.80%)는 정상 대조군(-20.22%)에 비해 유의하게 저하되었으며, 특히 높은 등급의 심실 조기 수축(HGvpc)을 보이는 환자에서 더욱 심한 GLS 감소를 나타냈다. 따라서 GLS는 기존 심초음파로는 발견되지 않는 초기 심근 기능 부전을 선별 검사로서 추가적으로 활용할 수 있"
+      "summary_ko": ""
     },
     {
       "id": "42858358",
@@ -1364,7 +1331,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42858358/",
       "abstract": "A 4-month-old female-intact German Shepherd mixed breed dog was evaluated for polyuria, polydipsia, oral discomfort, tachypnea, and pyrexia. Blood testing documented total and ionized hypercalcemia with an increased parathyroid hormone concentration. Computed tomography identified bone abnormalities of the mandibule and mild, diffuse pulmonary changes. Ultrasonography of the neck documented one mildly enlarged parathyroid gland that was surgically removed. Histopathology indicated diffuse chief ",
-      "summary_ko": "# 핵심 요약\n\n4개월령 저먼셰퍼드 믹스견에서 고칼슘혈증, 부갑상선호르몬 상승으로 확진된 원발성 부갑상선기능항진증 사례로, 영상검사에서 하악골 이상소견과 폐 변화가 관찰되었다. 부갑상선 적출술 후 조직검사에서 미만성 주세포 과형성이 확인되었으며, 수술 후 7일 내 이온화 칼슘이 정상화되었다."
+      "summary_ko": ""
     },
     {
       "id": "42855437",
@@ -1375,7 +1342,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42855437/",
       "abstract": "Paroxysmal dyskinesia (PD) in dogs comprises episodic, involuntary, nonepileptic movement disorders. Recent evidence suggests that PD may be associated with gluten sensitivity, paralleling human gluten-related neurologic syndromes. Characterize clinical features, gastrointestinal comorbidities, gluten-related serology, and response to a gluten-free diet (GFD) in dogs with presumptive gluten-sensitive PD. We hypothesized that dietary modification would decrease episode frequency, particularly in ",
-      "summary_ko": "# 논문 핵심 요약\n\n개의 발작성운동이상증(paroxysmal dyskinesia, PD) 41례를 대상으로 글루텐 불내증과의 연관성을 조사한 결과, 글루텐 무함유식(GFD) 전환 후 58.5%에서 완전 관해, 36.6%에서 부분 반응을 보였으며, 항글리아딘·항트랜스글루타미나제-2 항체 양성 여부나 위장관 임상증상 동반 여부와 무관하게 대부분의 환자가 호전되었다. 이는 글루텐 불내증과 PD의 연관성, 그리고 장-뇌 축의 병인적 역할을 시사하며, GFD만으로도 다양한 품종의 PD 관리에 임상적 효과가 있음을 보여준다."
+      "summary_ko": ""
     },
     {
       "id": "42855436",
@@ -1386,7 +1353,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42855436/",
       "abstract": "Viscoelastic testing provides whole-blood assessment of coagulation, but clinical data on the performance of the ClotPro in dogs with naturally occurring diseases are limited. To evaluate pathway coherence of ClotPro variables with routine coagulation tests and to explore disease-associated viscoelastic phenotypes, fibrinolysis, and hypercoagulability. Eighty-four client-owned dogs admitted to a university hospital. Retrospective cohort study. ClotPro variables (clotting time, amplitude at 10&#x",
-      "summary_ko": "# 논문 요약\n\nClotPro 점탄성 검사는 PT/aPTT, 혈소판 수, D-dimer와 경로 특이적 상관관계를 보였으나, 개의 자연발생 질환에서는 질환 간 명확한 점탄성 표현형 차이가 없어 개별 사례 해석이 필요함을 시사한다. 과섬유소용해는 간질환과 출혈성 설사에서 낮은 빈도(각 33%, 21%)로 나타났으며, 고응고능 지수(HCI)는 질환 간 차이를 보였으나 혈소판/피브린 보정 잔여 응고력은 구별력이 없었다. 따라서 ClotPro는 전혈액 응고 평가에 유용하나, 임상 응용 시 개별 환자 수준의 해석과 기존 응고 검사의 병행이 권장된다."
+      "summary_ko": ""
     },
     {
       "id": "42855435",
@@ -1397,7 +1364,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42855435/",
       "abstract": "General proprioception deficits (GPD) detected during neurological exams aid in neurologic assessment and steer practitioners to consider neurological differential diagnoses. However, prevalence of GPD in without clinical signs of neurologic disease is limited. That elderly dogs have GPD that might be undetected in dogs not presenting for neurologic concerns and to determine GPD prevalence in dogs presented to a veterinary teaching hospital. The study included 277 client-owned dogs presenting to",
-      "summary_ko": "# 핵심 요약\n\n신경학적 질환이 없는 이유로 내원한 개 277마리를 대상으로 한 연구에서 26%가 일반고유감각결손(GPD)을 보였으며, 이는 연령에 따라 유의하게 증가하여 고령견에서 40% 이상의 유병률을 나타냈다. 성별이나 연골이형성견종의 영향을 받지 않는 이 소견은 경미한 고유감각 변화가 노화의 자연스러운 과정일 수 있음을 시사하며, 임상의의 진단 의사결정에 도움이 될 수 있다."
+      "summary_ko": ""
     },
     {
       "id": "42855434",
@@ -1408,7 +1375,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42855434/",
       "abstract": "Pneumorrhachis (PR), defined as gas within the vertebral canal, is an uncommon finding, and its clinical relevance and relationship to the vacuum phenomenon (VP) have not been systematically evaluated. To characterize the anatomical distribution of PR in dogs and cats undergoing computed tomography (CT) and to assess its relationship with signalment, VP, and concurrent neurological and non-neurological conditions. One hundred nineteen dogs and 6 cats with PR identified on CT between 2015 and 202",
-      "summary_ko": "# 논문 핵심 요약\n\n척수강 내 기체(pneumorrhachis, PR)는 개에서는 주로 추간판탈출증(IVDD)을 포함한 신경학적 질환(50%)과 종양, 호흡기 질환 등 비신경학적 질환(38%)에서 발견되었으며, 진공 현상(VP)과 약 46%에서 동반되었다. 고양이에서는 PR이 IVDD나 VP 없이 신경학적/비신경학적 질환 및 수술 후에서 관찰되었다. PR은 다양한 질환과 연관될 수 있고 임상적으로 항상 의미 있는 척추 질환의 지표는 아니므로, CT 해석 시 이러한 다양한 연관성을 인식하는 것이 중요하다."
+      "summary_ko": ""
     },
     {
       "id": "42842766",
@@ -1419,7 +1386,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42842766/",
       "abstract": "Wet renal diets are considered the best option for managing cats with chronic kidney disease (CKD), but their palatability is a recurrent concern. Assess the palatability of a commercial wet diet formulated for early-stage CKD in cats. Forty-two healthy cats privately owned by 31 caregivers. An open-label in-home feeding trial was conducted over three 6-day phases, during which cats were offered the wet renal diet (Phase 1), their usual wet diet (Phase 2), and both diets simultaneously (Phase 3)",
-      "summary_ko": "# 논문 요약\n\n조기 만성신질환(CKD) 관리용 습식 신장식이의 구강감각적 수용성을 평가한 결과, 42마리의 건강한 고양이 중 69%가 긍정적으로 반응하였으며, 보호자의 관찰에서 식이 섭취량은 기존 식이에 비해 통계적으로 유의하게 낮았으나(P<0.001), 잠복기(latency time)는 유의한 차이가 없었다. 본 단기 급여시험에서 대부분의 고양이가 이 치료식이를 수용하였으며, 처방 시 보호자의 78.6%가 이를 급여하겠다고 응답하여 구강감각적 수용성에 특별한 문제가 없는 것으로 나타났다."
+      "summary_ko": ""
     },
     {
       "id": "42842763",
@@ -1430,7 +1397,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42842763/",
       "abstract": "Low blood butyrylcholinesterase (BChE) activity is associated with obesity, pancreatitis, inflammation, sepsis, and malignancy in people, often with negative prognostic value. The clinical relevance of BChE activity in dogs remains unclear. Describe the prevalence of low BChE activity in a large population of dogs and its association with selected underlying disorders, outcome, and clinicopathological variables. We hypothesized that low BChE activity would be associated with inflammatory disorde",
-      "summary_ko": "# 논문 핵심 요약\n\n개의 혈장 butyrylcholinesterase (BChE) 활성도는 8.7%의 입원견에서 저하되어 있었으며, SIRS와 패혈증 같은 염증성 질환과 연관되어 있으나 C-reactive protein (CRP)보다 진단적 가치가 낮았다. 저하된 입원 시 BChE 활성도는 높은 사망률과 연관되었지만 독립적인 예후 예측인자는 아니었으며, 인간에서 보고된 비만, 급성 췌장염, 악성종양과의 연관성은 확인되지 않았다.\n\n**임상적 의의**: BChE는 염증의 음성 지표로 작용하지만 SIRS/패혈증의 독립적인 진단 도구로서의 유용성은 제한적이므로, 예후 평가 시 CRP 등 다른 염증 표"
+      "summary_ko": ""
     },
     {
       "id": "42842761",
@@ -1441,7 +1408,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42842761/",
       "abstract": "Previous studies have evaluated the association between myxomatous mitral valve disease (MMVD) and pancreatic lipase activity, but medications remain unconsidered. Elevated serum pancreatic lipase activity is related to cardiac medication in dogs with MMVD. Eighty-two client-owned dogs without clinical signs of pancreatitis (MMVD, n&#xa0;=&#xa0;67 [stage B1&#xa0;=&#xa0;24; stage B2&#xa0;=&#xa0;22; non-medicated stage C&#xa0;=&#xa0;9; medicated stage C&#xa0;=&#xa0;12]; controls, n&#xa0;=&#xa0;15)",
-      "summary_ko": "# 논문 요약\n\n점액종성 승모판막질환(MMVD) 개에서 심장약물(특히 푸로세마이드와 ACE억제제) 투여가 혈청 췌장 리파제 활성도를 유의하게 증가시키는 독립적 예측인자임을 확인했다. 약물을 투여받지 않은 MMVD 개에서는 질병 단계에 따른 리파제 활성도 차이가 없었으나, 약물 투여 Stage C 개에서는 대조군 및 다른 단계 개들보다 유의하게 높았으며, 25%(3/12)가 400 U/L 이상(췌장염 의심 기준)을 보였다. 따라서 MMVD 개의 혈청 췌장 리파제 상승을 임상적으로 해석할 때 심장약물 투여 이력을 반드시 고려해야 한다."
+      "summary_ko": ""
     },
     {
       "id": "42832652",
@@ -1452,7 +1419,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42832652/",
       "abstract": "Lipiduria has recognized physiopathological and diagnostic relevance in human medicine, while data regarding its relevance in animals remain limited. To determine the frequency of lipiduria in dogs and cats and to assess whether lipiduria represents an epiphenomenon or is associated with animal-related factors. Urinalysis results from 140 dogs and 74 cats. Retrospective study. Cases were included if complete urinalysis data were available. Animals were classified as lipiduric or non-lipiduric. A",
-      "summary_ko": "# 논문 요약\n\n본 연구는 개 140마리와 고양이 74마리의 요검사 결과를 후향적으로 분석하여 지질뇨의 빈도와 관련 요인을 조사했습니다. 전체 동물의 58%에서 지질뇨가 관찰되었으며, 특히 고양이(82%)에서 개(46%)보다 유의하게 높은 빈도를 보였습니다. 개에서는 암컷(교차비 3.5배)과 높은 요 pH(0.1 단위 증가 시 5% 증가)가 지질뇨와 관련이 있었으며, 스트루바이트 결정뇨와도 유의한 연관성을 보였습니다. 따라서 지질뇨는 특히 고양이에서 흔한 소견이며, 개에서는 성별과 요 pH와의 관련성을 시사합니다."
+      "summary_ko": ""
     },
     {
       "id": "42828555",
@@ -1463,7 +1430,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42828555/",
       "abstract": "Phaeohyphomycosis is an opportunistic mycosis caused by dematiaceous fungi, typically affecting the cutaneous or subcutaneous tissues of the facial region and distal extremities in cats. This report documents a case of Cladophialophora boppii infection in a cat. A 7-year-old neutered male domestic shorthair cat was presented with a chronic, pigmented nasal lesion, non-productive sneezing, and stertor. Computed tomography, rhinoscopy, and tissue sampling were performed. Fungal culture and molecul",
-      "summary_ko": "# 핵심 요약\n\n고양이의 비강 파에오히포마이코시스는 Cladophialophora boppii에 의한 기회감염으로, 색소침착된 비강 병변과 재채기, 천명음을 특징으로 하며 전신 항진균제 단독으로는 효과가 제한적이어서 수술적 제거와 장기간의 항진균 치료의 병합이 필수적이다. 본 증례는 고양이에서 이 신종 진균병의 발생을 보고하며, 조기 적극적 개입의 중요성과 신흥 진균 병원체에 대한 임상적 인식 제고의 필요성을 강조한다."
+      "summary_ko": ""
     },
     {
       "id": "42820725",
@@ -1474,7 +1441,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42820725/",
       "abstract": "Consensus is lacking on which endocardial borders to include when measuring left ventricular wall thickness (LVWT) in cats. The number of endocardial borders included can influence whether an individual cat is classified as having hypertrophic cardiomyopathy (HCM) or not. Fifty-two cats that previously were diagnosed as either healthy, equivocal for HCM, or having an HCM phenotype. Single-center retrospective cross-sectional study. Three observers measured LVWT using 4 different LVWT measurement",
-      "summary_ko": "# 논문 요약\n\n고양이의 좌심실 벽 두께(LVWT) 측정 시 심내막 경계 포함 방식에 따라 측정값이 유의하게 달라지며, 특히 leading edge-to-trailing edge 방법이 trailing edge-to-leading edge 방법보다 약 1.2mm 더 크게 측정되어 비대성 심근병증(HCM) 진단 분류를 달라지게 할 수 있다. 따라서 임상적으로 고양이 HCM 진단의 정확성과 일관성을 위해 LVWT 측정 프로토콜을 표준화해야 한다."
+      "summary_ko": ""
     },
     {
       "id": "42823068",
@@ -1485,7 +1452,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42823068/",
       "abstract": "Propriospinal myoclonus (PSM) is characterized by repetitive, brief jerks of the trunk, hips, and knees in humans and has not been reported in dogs. To describe phenotype, diagnostic findings, treatment, and outcomes in presumptive PSM in dogs. Twenty-seven dogs with presumptive PSM. Multicenter, retrospective study of dogs with myoclonus affecting the limbs and trunk without head involvement, identified through online calls for suspected cases. Median age at onset was 9&#xa0;months (range, 2-44",
-      "summary_ko": "# 논문 핵심 요약\n\n본 연구는 개에서 처음 보고되는 척수고유반사근간대경련(propriospinal myoclonus, PSM)의 임상적 특성을 규명한 것으로, 9개월령 전후의 어린 개들에서 주로 후지의 신근성 간대경련이 횡와 자세 중에 발생하는 특징을 보였습니다. 신경학적 검사와 척수/뇌 MRI 검사는 정상이며 특발성 질환으로 추정되며, 치료 없이도 약 56%에서 자연적 호전을 보여 예후는 양호한 것으로 판단됩니다."
+      "summary_ko": ""
     },
     {
       "id": "42815455",
@@ -1496,7 +1463,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42815455/",
       "abstract": "Marfan syndrome (MFS) is a genetic fibrillin disorder causing cardiac, ocular, and musculoskeletal pathology; it is not well reported on in dogs, with minimal descriptions of antemortem diagnosis. Use whole-genome sequencing (WGS) to diagnose a dog with suspected MFS to guide prognostication and potential treatment. A client-owned, 10-month-old Golden Retriever presented with signs of possible connective tissue disorder. Blood and DNA samples from a non-affected German Shepherd-Beagle mix and 16",
-      "summary_ko": "# 논문 요약\n\nGolden Retriever 개에서 FBN1 유전자의 엑손 24를 포함하는 3,618 bp 결실이 발견되었으며, 이는 Marfan 증후군의 원인 변이로 추정된다. 환자견은 심장 확대, 기흉, 관절 과운동성 등 결합조직 장애의 임상 징후를 보였으며, 전장 유전체 염기서열 분석을 통해 생전 진단이 가능함을 입증하였다. 본 증례는 개에서 Marfan 증후군의 분자유전학적 진단과 임상적 특징을 최초로 상세히 기술한 것으로, 예후 판단 및 치료 방침 수립에 유용하다."
+      "summary_ko": ""
     },
     {
       "id": "42814655",
@@ -1507,7 +1474,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42814655/",
       "abstract": "The clinical manifestations and outcomes in dogs and cats with melioidosis have not been described. Describe the presenting signs, treatment, and outcome of dogs and cats with melioidosis. Fifteen dogs and 3 cats from a hospital in Singapore. Retrospective case series. A hospital database search was performed to identify dogs with melioidosis presenting over a 5-year period. Data collected included signalment, clinical signs, test results, treatment, and outcome. Diagnosis was based on positive ",
-      "summary_ko": "# 핵심 요약\n\n싱가포르의 한 동물병원에서 개 15마리와 고양이 3마리의 메리오이도시스 임상증례를 분석한 결과, 개에서는 화농성 피부병변이나 전립선염(53-40%)이, 고양이에서는 골수염이나 신우신염이 주요 임상징후였으며, 초진시 대부분이 전신염증반응증후군 또는 패혈증 상태였다. 전체 추적관찰 사례의 47%가 이 질환으로 인해 폐사 또는 안락사되었으며, 치료는 세프타지딤 또는 메로페넴 초기 투여 후 3-6개월간 트리메토프림-설폰아미드 병용으로 진행하는 것이 최적인 것으로 나타났다."
+      "summary_ko": ""
     },
     {
       "id": "42806282",
@@ -1518,7 +1485,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42806282/",
       "abstract": "In elderly people, dementia and urinary tract dysfunction often exacerbate one another. Aging dogs also suffer cognitive decline but the relationship between cognitive decline, soiling behaviors, and urinalysis abnormalities has not been explored. Soiling behavior is associated with urinalysis abnormalities and cognitive performance in aging dogs. Eighty-four client-owned dogs enrolled in a longitudinal cohort study of aging. In this prospective observational study, dogs were evaluated biannuall",
-      "summary_ko": "# 논문 핵심 요약\n\n고령견의 배뇨 부적절 행동(soiling)은 요비중(USG) 감소 및 집행기능 저하와 연관되어 있으며, 이는 단순 요로계 질환보다는 **인지기능 저하의 지표**로 해석될 가능성을 시사한다. 84마리 고령견을 대상으로 한 종단 연구에서 배뇨 부적절 행동 점수는 연령 증가 및 요비중 감소와 유의한 상관관계를 보였고, 억제 조절 및 우회 과제 수행 능력 저하와도 유의하게 연관되었다. 따라서 고령견에서 배뇨 부적절 행동은 **인지기능 평가의 임상적 지표**로 활용될 수 있으며, 일반적인 요로계 질환만으로는 설명되지 않는 사례에"
+      "summary_ko": ""
     },
     {
       "id": "42803610",
@@ -1529,7 +1496,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42803610/",
       "abstract": "Intermittent photic stimulation is a standardized activation procedure for electroencephalography in humans that increases the detection of epileptic activity and improves diagnostic yield. However, its application in veterinary medicine remains inconsistent and methodologically heterogeneous. This narrative review synthesizes current knowledge regarding intermittent photic stimulation in dogs, critically evaluates variability in stimulus design, vigilance state, and electrode montage, and propo",
-      "summary_ko": "# 논문 핵심 요약\n\n**간질 진단을 위한 개의 간헐적 광자극(IPS) 뇌파검사:**\n현재 수의학에서 개에게 적용하는 IPS 프로토콜이 매우 불균일하여 진단 민감도가 저하되고 있으며, 깨어있는 상태에서의 기록, 표준화된 광자극 매개변수(주파수, 광도, 점멸 지속시간 등), 그리고 충분한 전극 배열을 통해 광감각 간질 증후군의 진단을 개선할 수 있다. 특히 진정 및 마취는 광자극 반응성을 감소시키므로 깨어있는 상태에서의 검사가 필수적이며, 인간 간질학의 표준화된 방법론을 수의학에 적용하여 프로토콜을 통일하면 개의 뇌파검사의 임"
+      "summary_ko": ""
     },
     {
       "id": "42801332",
@@ -1540,7 +1507,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42801332/",
       "abstract": "Azithromycin has prokinetic effects at low doses in people, cats, and anecdotally, in dogs; however, antibiotics alter the fecal microbiome and metabolome. To prospectively evaluate the effects of low-dose azithromycin, hypothesizing that it would alter the fecal microbiome and fecal bile acids in healthy dogs. Eleven healthy research dogs. Prospective study. Dogs received azithromycin (2&#xa0;mg/kg PO q8h) for 8&#xa0;days. Fecal samples were collected before (day 1), during (day 6), and after a",
-      "summary_ko": "# 논문 요약\n\n저용량 아지스로마이신은 건강한 개에서 8일간 투여 시 대변 미생물군집에 유의한 변화를 유발하며, 특히 *Peptacetobacterium hiranonis*, *Faecalibacterium*, *Fusobacterium* 등 7개 분류군의 감소와 함께 대변 이차 담즙산의 감소(1차 담즙산 증가)를 초래했다. 투여 중단 후 대부분의 미생물군집 변화는 가역적으로 회복되었으나, *Streptococcus*의 감소는 지속되었으며, 담즙산 프로파일도 45일차에 기저치로 복귀했다."
+      "summary_ko": ""
     },
     {
       "id": "42800045",
@@ -1551,7 +1518,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42800045/",
       "abstract": "Long-term thyroid status and survival after radioiodine treatment of hyperthyroid cats are incompletely characterized, particularly for cats developing iatrogenic hypothyroidism. To determine long-term thyroid outcomes and survival after radioiodine treatment, and to assess associations among thyroid status, hypothyroid remission, levothyroxine treatment, and survival. One thousand three hundred forty-four hyperthyroid cats treated with radioiodine. Prospective longitudinal cohort study. Thyroid",
-      "summary_ko": "# 논문 요약\n\n방사성 요오드로 치료받은 고양이 1,344마리를 장기 추적한 결과, 초기 77.9%는 정상갑상선 기능을 유지했으나 17.9%는 무증상 갑상선기능저하증, 4.2%는 현성 갑상선기능저하증을 보였으며, 무증상 갑상선기능저하증의 42.5%는 자연 회복되었습니다. 치료받지 않은 지속적 갑상선기능저하증은 생존 기간 단축과 독립적 연관성을 보인 반면, 레보티록신으로 치료한 경우는 정상 갑상선 기능 고양이와 유사한 생존 기간을 보였습니다. 따라서 방사성 요오드 치료 후 장기간의 갑상선 및 신기능 모니터링과 지속적 갑상선기능저하"
+      "summary_ko": ""
     },
     {
       "id": "42770278",
@@ -1562,7 +1529,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42770278/",
       "abstract": "Hemoglobin A1c (HbA1c) assay validation is essential for establishing analytical reliability, evaluating discrimination between diabetic and non-diabetic (NDM) dogs, and establishing reference intervals. Validate a canine HbA1c point-of-care analyzer (Vet Chroma&#x2122;), evaluate its diagnostic performance, and establish a reference interval in healthy dogs. Fifty-one diabetic, 44 NDM controls, and 42 healthy client-owned dogs. Prospective validation of precision, linearity, interference, and s",
-      "summary_ko": "# 논문 핵심 요약\n\nVet Chroma™ 포인트오브케어 분석기는 개의 당화혈색소(HbA1c)를 측정하는데 양호한 정밀도(급내 변동계수 3.92%, 급간 8.47%)와 임상적 범위에서 우수한 선형성을 보였으며, 냉장 5일 또는 냉동 3개월까지 샘플 안정성이 확보된다. HbA1c >3.22% 컷오프값에서 당뇨병 개와 비당뇨병 개를 90.2% 민감도와 100% 특이도로 구분하였으며, 건강한 어린 개의 참고범위는 1.25-2.75%이다. 다만 고지혈증과 고빌리루빈혈증의 간섭 가능성이 있고 기존 검사실 분석기와는 결과 교환 불가능하므로,"
+      "summary_ko": ""
     },
     {
       "id": "42766861",
@@ -1573,7 +1540,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42766861/",
       "abstract": "Pheochromocytomas (PCCs) in dogs are challenging to diagnose. Plasma proteomics offers a minimally invasive approach to identify circulating biomarkers and disease-relevant pathways. To compare the plasma proteome of dogs with PCC and controls to (1) identify differentially abundant proteins, (2) characterize altered pathways, and (3) nominate candidate circulating biomarkers and therapeutic targets. Plasma from 10 client-owned PCC dogs and 10 healthy controls. Multicenter, retrospective, observ",
-      "summary_ko": "# 논문 요약\n\n개의 갈색세포종에서 혈장 단백질체 분석을 통해 건강한 개와 구별되는 51개의 차별적 발현 단백질을 식별했으며, 특히 세포 접착/이동, 지혈, 세포자멸사 조절 관련 단백질이 증가하고 산화 스트레스 및 대사 과정의 변화를 보였다. CD44, peroxiredoxin-2, peptidyl-prolyl cis-trans isomerase 등이 진단 바이오마커 및 치료 표적 후보로 제시되어, 향후 갈색세포종의 진단과 치료 개발에 임상적 활용이 기대된다."
+      "summary_ko": ""
     },
     {
       "id": "42765741",
@@ -1584,7 +1551,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42765741/",
       "abstract": "Reliable methods for identifying the epileptogenic zone (EZ) in veterinary medicine remain limited. Although intracranial electroencephalography (EEG) is considered the most dependable approach for EZ localization, noninvasive simultaneous EEG and functional magnetic resonance imaging (EEG-fMRI) has been applied in human medicine as an alternative. Develop and evaluate EEG-fMRI methodology for clinical application in veterinary medicine and evaluate the methodological feasibility of EEG-fMRI usi",
-      "summary_ko": "# 논문 요약\n\n가족성 측두엽간질 고양이 모델을 이용한 EEG-fMRI 연구에서, 간질발생영역(EZ) 국소화를 위해 비침습적 동시 두피 EEG와 fMRI를 적용한 결과 모든 세션에서 BOLD 활성화가 탐지되었고 소용량 정정 분석에서 16/30 세션에서 편도체-해마 활성화를 확인했습니다. 다만 개별 환자 수준의 EZ 국소화는 임상 적용에 아직 불충분하여, 방법론 최적화와 수술 대상 환자 데이터 및 다중양식 비교 분석이 필요합니다."
+      "summary_ko": ""
     },
     {
       "id": "42765739",
@@ -1595,7 +1562,7 @@
       "date": "2026 Sep 1",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42765739/",
       "abstract": "A growing body of literature implicates the transforming growth factor (TGF)-&#x3b2; pathway in the progression of chronic kidney disease (CKD) in dogs and cats by promoting renal fibrosis. In rodents and humans, TGF-&#x3b2; is a key player in development of glomerulosclerosis and renal interstitial fibrosis. The pathway is also immunomodulatory, underscoring the complexity of its downstream effects. Recently, evidence for the role of TGF-&#x3b2; in small animal CKD has been presented using mult",
-      "summary_ko": "# 핵심 요약\n\nTGF-β 신호 경로는 개와 고양이의 만성신장질환(CKD) 진행에서 신섬유화를 촉진하는 주요 역할을 하며, 특히 신간질 반흔화에 대한 강력한 근거가 있습니다. 혈청·요중 바이오마커와 신조직의 유전자/단백질 발현 분석을 통해 고양이의 자발성 CKD와 개의 X-연쇄 Alport 모델에서 TGF-β의 역할이 확인되었으나, 활성형 TGF-β를 특이적으로 검출할 수 있는 면역조직화학 항체의 부재와 잠재형과의 교차반응이 해석의 어려움을 야기합니다. TGF-β가 소동물에서 섬유아세포를 활성화하고 사구체 손상을 유발하는 구"
+      "summary_ko": ""
     },
     {
       "id": "42765737",
@@ -2068,7 +2035,7 @@
       "date": "2026 Oct 5",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42833267/",
       "abstract": "To evaluate the efficacy of a bowel preparation protocol consisting of at-home administration of clear broth and polyethylene glycol 3350 followed by colonic flushing immediately before colonoscopy in dogs. In this single-referral-center retrospective study, dogs with complete video documentation of the colon were included. Colonic cleanliness was assessed using the Boston Bowel Preparation Scale (BBPS), which scores the 3 colonic segments individually (total score range, 0 to 9 with higher scor",
-      "summary_ko": "# 논문 핵심 요약\n\n개의 대장내시경 검사에서 자택 투여 투명 육수와 폴리에틸렌글리콜 3350, 그리고 검사 직전 대장 세척으로 구성된 단순한 전처치 프로토콜이 84%의 높은 성공률(BBPS 총점 ≥6)로 진단 수준의 대장 시각화를 달성했다. 상행결장이 하행결장보다 유의하게 낮은 청결도를 보였으나, 복잡하지 않고 보호자 친화적인 이 프로토콜이 실제 임상에서 대장내시경 검사의 활용을 확대하는 데 실질적으로 기여할 수 있음을 시사한다."
+      "summary_ko": ""
     },
     {
       "id": "42833263",
@@ -2079,7 +2046,7 @@
       "date": "2026 Oct 5",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42833263/",
       "abstract": "To describe diagnostic and surgical management of cricopharyngeal achalasia (CA) in dogs and to identify patient or management factors that may contribute to postoperative outcomes. Signalment, diagnostic imaging findings, surgical information, complications, and outcomes were retrospectively obtained. Fisher exact and Wilcoxon rank-sum tests were performed to identify predictors of unsatisfactory outcomes using sex, breed, age, videofluoroscopic swallow study findings, laterality of surgery, an",
-      "summary_ko": "# 논문 요약\n\n개의 후두인두 이완불능증(cricopharyngeal achalasia) 수술 치료는 낮은 사망률(11.5%)을 보이나 임상증상의 재발 또는 지속이 중등도 수준(42.3%)으로 나타났으며, 34.6%에서 초기 회복 후 재발하여 26.9%가 재수술을 받았다. 수술 후 가장 흔한 합병증은 흡인성 폐렴(23%)이므로, 술 전후 모두 흡인 위험 모니터링이 중요하며, 환자에게 장기간의 식이 관리 필요성과 재발 위험성에 대해 충분히 설명해야 한다."
+      "summary_ko": ""
     },
     {
       "id": "42833257",
@@ -2090,7 +2057,7 @@
       "date": "2026 Oct 5",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42833257/",
       "abstract": "To characterize effects of inflammatory cytokine priming on viability, mitochondrial morphology, and extracellular vesicle (EV) cargo in feline placenta-derived mesenchymal stromal cells (MSCs). Feline placenta-derived MSCs from 7 healthy cats were cultured under control, serum-deprived, or cytokine-stimulated (tumor necrosis factor-&#x3b1;, interferon-&#x3b3;, IL-1, IL-6) conditions in vitro. Viability/apoptosis were assessed by flow cytometry and mitochondrial morphology by confocal microscopy",
-      "summary_ko": "# 논문 요약\n\n고양이 태반 유래 중간엽 줄기세포(MSC)를 염증성 사이토카인으로 전처리하면 세포 생존성은 유지하면서 미토콘드리아가 신장형으로 재구성되고, 세포외소낭(EV)의 화물이 면역억제 표현형으로 변화(면역억제 수용체 상향, 항염증 miRNA 풍부)한다. 이러한 변화는 세포 활성화 저하를 동반하지만 T세포 매개 염증질환 치료에서 MSC의 치료 효능을 향상시킬 수 있으므로, 임상 투여 전 사이토카인을 이용한 MSC 전처리가 수의학적 MSC 치료 결과 개선의 전략이 될 수 있음을 시사한다."
+      "summary_ko": ""
     },
     {
       "id": "42833272",
@@ -2214,6 +2181,28 @@
       "summary_ko": ""
     },
     {
+      "id": "42895999",
+      "title": "Radiation Vasculopathy of the Coronary Arteries: State-of-the Art Review.",
+      "authors": "Xia J, Kim J, Sharma A, Yang B, Alluri PG",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Oct 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42895999/",
+      "abstract": "Radiation-associated coronary artery disease (RACAD) is a distinct form of coronary artery disease with several specific biological and clinical aspects as well as key knowledge gaps. RACAD is prevalent in patients with cardiac exposure to radiotherapy. As radiotherapy is integral to the effective treatment of many thoracic malignancies, improved long-term survivorship is coupled with increased risk for RACAD. Ionizing radiation induces free radical generation and activation of proinflammatory c",
+      "summary_ko": ""
+    },
+    {
+      "id": "42770221",
+      "title": "Prognostic Value of Coronary Computed Tomography Angiography-Derived Fractional Flow Reserve From a Large Nationwide Cohort.",
+      "authors": "Bell JS, Nicol E, Venugopal V, Mullen L, Tidbury L",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Oct 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42770221/",
+      "abstract": "The diagnostic value of coronary computed tomography angiography-derived fractional flow reserve (FFR-CT) in stable coronary artery disease is well established. The prognostic value of predicting future cardiovascular events is less clear, as studies are limited by small populations, variable measurement points, composite outcomes, and short follow-up. A nationwide cohort of coronary computed tomography angiography with 3-year follow-up was used to examine the association between FFR-CT measurem",
+      "summary_ko": ""
+    },
+    {
       "id": "42826750",
       "title": "Dogs and cats undergoing surgery for penetrating thoracic trauma have high survival despite frequent complications, and imaging may underestimate injury severity.",
       "authors": "Pathak N, Lozano B, Wang YW, Berns C, Ahn R",
@@ -2291,6 +2280,17 @@
       "summary_ko": ""
     },
     {
+      "id": "42895015",
+      "title": "ICare-FASTER (Improving Care by Faster Risk Stratification Through Use of High-Sensitivity Point-of-Care Troponin in Patients Presenting With Possible Acute Coronary Syndrome in the Emergency Department): A Stepped-Wedge Cluster-Randomized Trial.",
+      "authors": "Than M, Pickering JW, Joyce LR, Buchan V, Florkowski CM",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Oct 19",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42895015/",
+      "abstract": "Point-of-care high-sensitivity cTn (cardiac troponin; hs-cTn) testing has the potential to expedite decision-making and reduce emergency department (ED) length of stay for patients presenting with possible myocardial infarction by ensuring that results are consistently available when sought by clinicians. We assessed the real-life effectiveness and safety of implementing point-of-care hs-cTn testing in the ED. We conducted a pragmatic, stepped-wedge cluster-randomized trial. The control arm was ",
+      "summary_ko": ""
+    },
+    {
       "id": "42885408",
       "title": "Urinary liver-type fatty acid-binding protein in cats with lower urinary tract disease.",
       "authors": "Culha N, Acar A, Ulutas B, Dinler Ay C",
@@ -2321,7 +2321,7 @@
       "date": "2026 Oct 15",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42880347/",
       "abstract": "To compare clinical parameters and medical interventions during the first hour of inhalant anesthesia in dogs administered medetomidine-vatinoxan (Zenalpha [ZEN]) versus dexmedetomidine (DEX) as IM preanesthetic agents. Medical records were searched to identify dogs premedicated with ZEN between August 2022 and January 2025. Dogs administered DEX between July 2021 and May 2026 were then identified and matched with &#x3b1;2-adrenergic receptor agonist dose equivalence prioritized. Generalized est",
-      "summary_ko": "# 핵심 요약\n\n메데토미딘-바티녹산(Zenalpha)은 덱스메데토미딘과 비교하여 흡입마취 중 **더 높은 저혈압 발생률**과 연관되어 있으며, 평균동맥압이 19 mmHg 낮고 수액 볼루스(9.3배) 및 혈관수축제(6.8배) 투여 필요성이 유의하게 증가했다. 따라서 메데토미딘-바티녹산 사용 시 혈역학 모니터링을 강화하고 저혈압에 대한 적극적인 혈압 지지 치료 준비가 필수적이다."
+      "summary_ko": ""
     },
     {
       "id": "42878493",
@@ -2365,7 +2365,7 @@
       "date": "2026 Oct 14",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42874667/",
       "abstract": "To perform a partial validation of a point-of-care assay (Vcheck cardiac troponin I [VC-cTnI; cTnI]) for measurement of cTnI in canine serum and to perform a method comparison between the VC-cTnI and an established chemiluminescent assay (ADVIA Centaur XP High-Sensitivity Troponin I [AC-cTnI-HS]). From September 4, 2024, through August 21, 2025, surplus canine serum was collected from a diagnostic laboratory, and within-day variability, dilutional parallelism, spiking recovery, and the effect of",
-      "summary_ko": "# 논문 요약\n\n개 심근손상 진단을 위한 포인트오브케어 트로포닌 I 검사(Vcheck cardiac troponin I)는 임상적으로 유의한 수준의 심근손상 감지에는 적절한 성능을 보이지만, 낮은 농도에서의 정밀도가 제한적입니다. 검증 결과 0.2 ng/mL 이하의 저농도에서 변동계수가 8.1~43.8%로 높아 정밀도가 부족하고, 정상~의심 범위의 결과 해석이 어려울 수 있습니다. 다만 농도가 높아질수록 정밀도가 향상되고 용혈, 황달, 지질혈증의 간섭이 없으므로, 임상 적용 시 낮은 농도 결과의 해석에 주의가 필요합니다."
+      "summary_ko": ""
     },
     {
       "id": "42874668",
@@ -2453,7 +2453,7 @@
       "date": "2026 Oct 13",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42869081/",
       "abstract": "To assess complications, outcomes, and associated risk factors of cats undergoing CSF collection. This was a single-center retrospective cohort study of client-owned cats presenting to 3 referral hospitals for CSF collection from January 2012 through December 2022. Cats were excluded for nonspecific and/or extraneural presenting complaints. If cats had multiple CSF collection presentations, only the first was included. Records were retrospectively assessed for signalment, physical examination fi",
-      "summary_ko": "# 논문 요약\n\n신경학적 증상을 보이는 고양이의 뇌척수액(CSF) 채취는 합병증 발생률이 5.9%의 저생존율과 7.6%의 합병증(무호흡, 척수손상, Cushing반사 등)으로 비교적 낮은 것으로 보고되었다. 다변량 분석에서 두개내압항진(ICH)이 가장 큰 위험인자로 제시되었으나 통계적 유의성은 없었으며, CSF 채취 전 영상검사를 통한 ICH 관련 이상 확인이 권장된다."
+      "summary_ko": ""
     },
     {
       "id": "42869074",
@@ -2464,7 +2464,7 @@
       "date": "2026 Oct 13",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42869074/",
       "abstract": "To compare maximum failure load among 3-D-printed canine femoral neck models differing in fracture angle and fixation configuration. This experimental biomechanical study was conducted in a university research laboratory from September 10, 2025, through March 10, 2026. Polycarbonate 3-D-printed models were created using left femoral CT data from a 2-year-old 11.9-kg Shiba Inu. The group configurations were a 50&#xb0; femoral neck fracture stabilized with one 2.5-mm fully threaded headless cannul",
-      "summary_ko": "# 논문 요약\n\n3D 프린팅 개 대퇴경부 골절 모델을 이용한 생역학 실험에서, 70° 골절각에서 2개의 headless cannulated screw (HCS) 고정이 1개 HCS와 antirotation pin 고정보다 최대 파괴 하중이 유의하게 높았다(679.2 N vs 502.0 N). 50° 골절각에서는 두 고정 방식 간 차이가 없었으며, 초기 강성(stiffness)은 모든 군에서 차이가 없었다. 따라서 급성 70° 이상의 개 대퇴경부 골절 수술 시 2개 HCS 평행 고정이 단일 나선 고정보다 생역학적으로 우수하다."
+      "summary_ko": ""
     },
     {
       "id": "42866960",
@@ -2651,7 +2651,7 @@
       "date": "2026 Oct 12",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42869070/",
       "abstract": "To compare the biomechanical performance of cerclage fixation constructs in a standardized 3-D-printed canine tibial long-oblique fracture model. 3 fixation constructs-stainless steel wire cerclage (SSW), FiberWire cerclage (FW), and paraosseous clamp-cerclage stabilization (PCCS)-were compared in a standardized 3-D-printed canine tibial long-oblique fracture model. A standardized mid-diaphyseal long-oblique fracture was created in each specimen. Axial compression testing was performed until fai",
-      "summary_ko": "# 논문 요약\n\n견(犬)의 경골 장사면 골절에 대한 세르클라주 고정술의 생체역학적 성능을 비교한 연구로, **FiberWire 세르클라주가 최대 파괴 하중에서 가장 우수한 성능을 보였고(974.3 N), 스테인리스강 와이어와 부위골 클램프-세르클라주 고정술은 초기 변위 저항성에서 유사한 수준**을 보였다. 이는 임상에서 초기 고정 강도가 중요한 경우 SSW나 PCCS를, 최종 강도가 우선인 경우 FW를 선택하는 데 참고할 수 있는 근거를 제공한다."
+      "summary_ko": ""
     },
     {
       "id": "42863523",
@@ -2753,6 +2753,17 @@
       "summary_ko": ""
     },
     {
+      "id": "42580779",
+      "title": "Systemic oxidative stress, selected nonenzymatic exogenous and endogenous antioxidants, and hematologic and biochemical alterations in bitches with pyometra.",
+      "authors": "Peker C, Uçar EH, Ekren Aşıcı GS, Musal B",
+      "journal": "AJVR",
+      "type": "vet",
+      "date": "2026 Oct 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42580779/",
+      "abstract": "To evaluate oxidative stress biomarkers (malondialdehyde [MDA] and total oxidant status [TOS]), selected nonenzymatic endogenous (glutathione [GSH], albumin, and bilirubin), and, for the first time, exogenous (ascorbic acid, &#x3b1;-tocopherol, &#x3b2;-carotene, and retinol) antioxidants together with hematobiochemical alterations in canine pyometra. 33 bitches were classified into pyometra (n = 17) or control (16) groups based on clinical and hematological evaluations. Ascorbic acid was measure",
+      "summary_ko": ""
+    },
+    {
       "id": "42822806",
       "title": "Geometric morphometric analysis of cardiac shape changes associated with myxomatous mitral valve disease in Cavalier King Charles Spaniels.",
       "authors": "Bakıcı C, Vurucu M, Kılıçlı İB, Mavili ED, Batur B",
@@ -2849,7 +2860,7 @@
       "date": "2026 Aug 31",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42674003/",
       "abstract": "To evaluate natural, environmentally safe alternatives for controlling hard ticks in response to emerging resistance against commonly used acaricides. Punica granatum peel ethanolic extract (PPE) was prepared and then chemically characterized using liquid chromatography-electrospray ionization-tandem mass spectrometry. The adult immersion test was used to evaluate the in vitro anti-tick activity of PPE at the concentrations of 12.5, 25, 50, 100, and 200 mg/mL. The effect of PPE on tick counts an",
-      "summary_ko": "# 논문 요약\n\n석류 껍질 에탄올 추출물(PPE)은 플라보노이드와 폴리페놀을 함유하고 있으며, in vitro에서 35 mg/mL 농도로 5분 노출 시 6시간 후 50% 진드기 사멸률을 나타냈다. In vivo 시험에서 PPE 처리 개의 7일차 진드기 수가 대조군 대비 94.3% 감소(4.67 ± 1.53 vs 81.7 ± 5.0)했으며, 항산화 효소 활성도 유의하게 증가했다. 본 연구는 화학 살비제 내성이 증가하는 상황에서 석류 껍질 추출물이 Rhipicephalus sanguineus 방제를 위한 천연 살비제 대안으로 활용될 수 있음을 최초로 입증했다."
+      "summary_ko": ""
     },
     {
       "id": "42674009",
@@ -2915,7 +2926,7 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660198/",
       "abstract": "To compare urinary angiotensinogen, a proposed biomarker for intrarenal renin-angiotensinogen system (RAS) activity, between cats with surgically induced chronic kidney disease (CKD) and healthy cats and explore its correlation with select clinical and circulating renin-angiotensin-aldosterone system (RAAS) markers. Urine was banked from September 2022 through April 2023 during a study comparing circulating RAAS markers between cats with induced CKD and sex- and life stage-matched healthy cats. ",
-      "summary_ko": "# 핵심 요약\n\n수술로 유도한 만성신장질환(CKD) 고양이에서 건강한 고양이보다 뇨중 앙지오텐시노겐(크레아티닌 또는 단백질로 보정)이 유의하게 증가했으며, CKD 고양이에서는 뇨중 앙지오텐시노겐이 혈청 크레아티닌과 양의 상관관계를 보였다. 건강한 고양이에서는 뇨중 앙지오텐시노겐이 순환 RAAS 마커들과 음의 상관관계를 나타낸 반면, CKD 고양이에서는 이러한 역상관관계가 소실되어 신내 레닌-앙지오텐신계 활성화가 CKD의 병태생리에 중요함을 시사한다. 따라서 CKD 고양이의 포괄적 평가를 위해서는"
+      "summary_ko": ""
     },
     {
       "id": "42660193",
@@ -2926,7 +2937,7 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660193/",
       "abstract": "To describe the clinical presentation, diagnostic findings, management, and short- and long-term outcomes of dogs with caudal mediastinal paraesophageal abscesses (CMPA) in a multi-institutional retrospective cohort. 12 client-owned dogs with CMPA confirmed on CT and/or surgery. The most common presenting complaints were inappetence and lethargy. Tachypnea and dyspnea were frequent physical examination findings at presentation. All 12 dogs underwent CT. The CMPA was located within the mediastina",
-      "summary_ko": "# 요약\n\n개의 미주행성 종격동 농양(CMPA)은 식욕부진과 무기력증을 주 증상으로 나타내며, CT 검사가 진단의 필수 영상기법이고, 식도 이물질과의 연관성을 고려해야 한다. 외과적 배농 및 소파술과 항생제 치료의 병행이 표준 치료법이며, 이러한 치료를 받은 환자에서는 양호한 예후와 재발 없음을 보였다."
+      "summary_ko": ""
     },
     {
       "id": "42660187",
@@ -2937,7 +2948,7 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660187/",
       "abstract": "To evaluate the effects of 4 oxygen driving flows on carbon dioxide rebreathing and ventilation in healthy sedated dogs receiving helmet continuous positive airway pressure (CPAP). This prospective experimental crossover study included 7 healthy adult Beagles sedated using a standardized protocol. Dogs received helmet CPAP (approx 5 cm H2O) through a Venturi valve system. Following stabilization at 15 L/min, dogs underwent evaluation at 4 oxygen driving flows (5, 10, 15, and 20 L/min), with flow",
-      "summary_ko": "# 논문 핵심 요약\n\n헬멧 CPAP을 적용받는 진정된 비글견에서 산소 흐름량(5~20 L/min)을 변화시켰을 때, CO₂ 재호흡과 환기 분포는 임상적으로 의미있는 차이를 보이지 않았으며, 최대 흡입 CO₂는 2 mmHg으로 매우 낮게 유지되었다. 따라서 Venturi 기반 헬멧 CPAP 시스템에서는 낮은 산소 흐름량(5 L/min)으로도 효과적인 헬멧 세척이 가능하므로, 임상 현장에서 산소 사용량을 감소시킬 수 있을 것으로 판단된다."
+      "summary_ko": ""
     },
     {
       "id": "42660184",
@@ -2948,7 +2959,7 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660184/",
       "abstract": "To determine the effectiveness of canine parvovirus (CPV-2) monoclonal antibody (CPMA) to prevent CPV-2 disease after an experimental challenge to support a label claim for prophylactic use. 25 Beagle pups aged 7 to 8 weeks were randomized to CPMA-treated (n = 20) or PBS-treated control (5) groups. One day after SC administration of PBS or CPMA (0.1 mL/kg) on study day (SD) 0, all pups were challenged by intranasal administration of virulent CPV-2b. Personnel masked to treatment groups monitored",
-      "summary_ko": "# 핵심 요약\n\n개 파르보바이러스(CPV-2) 단클론항체(CPMA)를 실험적 감염 전 투여하면 100% 예방 효과를 나타내었으며, 대조군의 모든 개(5/5)가 파르보바이러스병을 발병한 반면 CPMA 투여군(19/19)은 질병 기준을 충족하지 않았다. 따라서 CPMA의 예방적 투여는 발병 위험이 높은 상황(예: 질병 발생 상황)에서 미감염 자견에 대한 수동면역 보호를 제공할 수 있는 합리적인 선택지로 판단된다."
+      "summary_ko": ""
     },
     {
       "id": "42660709",
@@ -3014,7 +3025,7 @@
       "date": "2026 Aug 26",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42648343/",
       "abstract": "To investigate the efficacy of synthetically derived activated carbon hemoperfusion (cHP) by measuring serum meloxicam concentration in dogs with meloxicam toxicosis. 5 dogs with meloxicam overdose that underwent cHP at 3 teaching hospitals between January 2023 and March 2026 were identified. Dogs that had serum meloxicam concentrations measured were included. For case 1, in-series cHP and hemodialysis were performed. Based on case 1 data, standalone cHP was used for cases 2 to 5. Serum meloxica",
-      "summary_ko": "# 논문 요약\n\n멜록시캄 중독견에서 활성탄 혈액관류(cHP)는 혈청 멜록시캄 농도를 현저히 감소시키며, 시술 중 약물 반감기를 5.1-16.6시간에서 0.4-1시간으로 단축하고 청소율을 약 13배 증가시켰다. 고용량 멜록시캄 섭취견에서 적시에 cHP를 시행한 모든 견이 72시간 내 퇴원했으며, 1례의 급성신손상만 발생했으므로, 멜록시캄 과다복용의 응급치료법으로 cHP를 적극 고려할 가치가 있다."
+      "summary_ko": ""
     },
     {
       "id": "42648892",
@@ -3124,237 +3135,215 @@
       "date": "2026 Aug 21",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42633780/",
       "abstract": "To determine the prevalence and associated risk factors of postoperative rotational instability following tibial plateau-leveling osteotomy (TPLO) in dogs with cranial cruciate ligament (CrCL) rupture. A retrospective analysis of medical records was performed for dogs undergoing TPLO for CrCL rupture at a single referral institution from 2018 through 2025. Rotational instability was defined as persistence of a positive tibial pivot test (TPT) after TPLO requiring placement of an antirotational s",
-      "summary_ko": "# 논문 요약\n\nTPLO 수술 후 회전 불안정성은 312개 관절 중 24.6%(77개)에서 발생했으며, 급성 전방십자인대 완전단열, 반월판 손상, 높은 파행 중증도가 주요 위험인자로 확인되었다. 반대로 만성 증례는 회전 불안정성 발생 확률이 낮았으며, 연령과 체중, 관절염 정도, 술 전 경골고원각은 독립적 영향을 미치지 않았다. 따라서 급성 완전단열과 반월판 손상이 있는 환자에서는 술 중 경골압축회전검사를 신중히 시행하여 항회전 봉합의 필요성을 판단할 것이 임상적으로 권장된다."
-    },
-    {
-      "id": "42633785",
-      "title": "A newly derived formula outperforms published formulae for estimating urine osmolality in healthy dogs receiving intravenous fluids.",
-      "authors": "Jeong Y, Qu Y, Kim MS, Her J",
-      "journal": "AJVR",
-      "type": "vet",
-      "date": "2026 Aug 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42633785/",
-      "abstract": "To derive a formula to estimate urine osmolality (Uosm) in dogs with urine sodium, potassium, glucose, and urea nitrogen and to compare the performance of the derived formula with published formulae. A prospective observational study was conducted using purpose-bred Beagles housed at a university research facility. Healthy dogs, confirmed by physical examination and laboratory testing, received isotonic or hypotonic IV fluids in a randomized sequence for 48 hours, with a 10-day washout period be",
-      "summary_ko": "# 논문 요약\n\n본 연구는 개의 뇨 나트륨, 칼륨, 포도당, 요소질소를 이용한 새로운 뇨삼투압 추정 공식(Uosm = 2 X Na + 1.8 X K + urea nitrogen2.5 + glucose3.9)을 개발했으며, 이 공식은 기존 공식들보다 우수한 일치도(CCC 0.96)와 최소 고정편향을 보였다. 본 공식은 정상견의 정맥수액 투여 중 신장의 농축능력, 수분 및 전해질 균형 평가에 실용적인 도구로 활용될 수 있으나, 병리적 상태에서의 추가 검증이 필요하다."
-    },
-    {
-      "id": "42760156",
-      "title": "Predominant mitral valve morphology in dogs at different stages of myxomatous mitral valve disease: toward a standardized nomenclature.",
-      "authors": "Bentley A, Fries RC, Kadotani S, Toborowsky C, Javery EA",
-      "journal": "JVCS",
-      "type": "vet",
-      "date": "2026 Aug 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42760156/",
-      "abstract": "Myxomatous mitral valve disease (MMVD) is the most common heart disease in dogs. Echocardiographic markers of cardiac remodeling are used to assess disease severity, but morphological features of the mitral valve are not systematically considered. Conversely, standardized morphological classification schemes are established in human cardiology and are integral to prognosis and therapeutic planning. Our objective was to adapt and apply a mitral valve morphological classification scheme to canine ",
       "summary_ko": ""
     }
   ],
   "clinicians_brief": [
     {
-      "id": "cb_3030869271",
+      "id": "cb_2420599304",
       "title": "Emergency Medicine &amp; Critical Care",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/emergency-medicine-critical-care",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2607946970",
+      "id": "cb_3468691888",
       "title": "Anesthesiology &amp; Pain Management",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/anesthesiology-pain-management",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_1076202076",
+      "id": "cb_3589662010",
       "title": "Dentistry &amp; Periodontology",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/dentistry-periodontology",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2833882396",
+      "id": "cb_3297318200",
       "title": "Endocrinology &amp; Metabolic Diseases",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/endocrinology-metabolic-diseases",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3851848846",
+      "id": "cb_3877473428",
       "title": "Exotic Animal Medicine",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/exotic-animal-medicine",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3282744445",
+      "id": "cb_2391654475",
       "title": "Genetics &amp; Heritable Diseases",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/genetics-heritable-diseases",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2566118485",
+      "id": "cb_135103961",
       "title": "Integrative Medicine",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/integrative-medicine",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2628632069",
+      "id": "cb_2692104505",
       "title": "Respiratory Medicine",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/respiratory-medicine",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_927839074",
+      "id": "cb_3087173139",
       "title": "Surgery, Soft Tissue",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/surgery-soft-tissue",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2236098599",
+      "id": "cb_4129161095",
       "title": "Urology &amp; Nephrology",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/urology-nephrology",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2375224049",
+      "id": "cb_2240451383",
       "title": "Zoonoses &amp; Public Health Concerns",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/clinical-skills/zoonoses-public-health-concerns",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2013075937",
+      "id": "cb_3536475049",
       "title": "Behavior-Modifying Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/behavior-modifying-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_711765433",
+      "id": "cb_2087109876",
       "title": "Cardiorespiratory Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/cardiorespiratory-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2212307469",
+      "id": "cb_3707066591",
       "title": "Immunomodulatory Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/immunomodulatory-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_440917559",
+      "id": "cb_1835335211",
       "title": "Insulin/Hormone Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/insulin-hormone-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2632319336",
+      "id": "cb_3447318835",
       "title": "New Drugs &amp; Updates",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/new-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2048262479",
+      "id": "cb_4039567800",
       "title": "Preventive Medications",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/preventive-medications",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_1001913021",
+      "id": "cb_944283378",
       "title": "Supplements, Nutraceuticals, &amp; Over-the-Counter Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/OTC-supplements-nutraceuticals",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2739783776",
+      "id": "cb_1887583587",
       "title": "Anesthesiology &amp; Pain Management",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 19",
+      "date": "2026 Oct 20",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/anesthesiology-pain-management",
       "abstract": "",
       "summary_ko": ""
