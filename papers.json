@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-23 02:53 UTC",
-  "total": 284,
+  "updated": "2026-10-24 02:50 UTC",
+  "total": 289,
   "papers": [
     {
       "id": "42830405",
@@ -597,17 +597,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42806711",
-      "title": "Potential bone marrow-driven reduction of circulating inflammatory monocytes by semaglutide in Type 2 diabetes.",
-      "authors": "Teunis CJ, Collins TJC, Oostveen RF, Neele AE, de Winther M",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Sep 29",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42806711/",
-      "abstract": "Glucagon-like peptide-1 receptor agonists (GLP-1RAs) reduce cardiovascular disease (CVD) in type 2 diabetes (T2D) and have anti-inflammatory effects in experimental studies, but their mechanism of action in humans remains unclear. This study characterized the cardiovascular-haematopoietic axis in individuals with T2D receiving semaglutide, as a potential mediator of GLP-1RA cardioprotective properties. In 16 individuals with T2D [63.2 &#xb1; 6.1 years, 37.5% female, weight 82.3 &#xb1; 15.3&#x200",
-      "summary_ko": ""
-    },
-    {
       "id": "42841838",
       "title": "FFR(CT): So Close, Yet So Far.",
       "authors": "Kadoya Y, Small GR, Chow BJW",
@@ -648,17 +637,6 @@
       "type": "human",
       "date": "2026 Sep 26",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42841845/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42799541",
-      "title": "Heart failure with mid-range or preserved ejection fraction: temporal trends in an individual patient data meta-analysis of trials.",
-      "authors": "Gori M, Hamatani Y, Claggett BL, Fazzini L, Senni M",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Sep 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42799541/",
       "abstract": "",
       "summary_ko": ""
     },
@@ -1235,6 +1213,17 @@
       "summary_ko": ""
     },
     {
+      "id": "42912657",
+      "title": "The use of cold-stored platelets to provide hemostasis in dogs with thrombocytopenia.",
+      "authors": "Monaco SA, Haines JM, Guess SC, Fiedler SM, Wardrop KJ",
+      "journal": "JVIM",
+      "type": "vet",
+      "date": "2026 Sep 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42912657/",
+      "abstract": "Platelet transfusion can be lifesaving in dogs with severe thrombocytopenia and hemorrhage, but platelet products are limited by short shelf life and contamination risk. Cold-stored platelets (CSP) may provide a practical alternative, but in vivo hemostatic efficacy in dogs is unknown. Evaluate the clinical hemostatic efficacy and safety of CSP transfusions in thrombocytopenic dogs. Twenty-four thrombocytopenic dogs from a veterinary teaching hospital population that received CSP transfusions be",
+      "summary_ko": ""
+    },
+    {
       "id": "42873829",
       "title": "Prevalence of antibiotic use in dogs and cats in US and Canadian veterinary teaching hospitals, 2022.",
       "authors": "Clark H, Bollig ER, Beaudoin AL, Fellman CL, Allano M",
@@ -1554,17 +1543,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42765737",
-      "title": "Response to: citation clarification regarding feline eltrombopag in the ACVIM consensus statement on the treatment of immune thrombocytopenia in dogs and cats.",
-      "authors": "LeVine DN, Goggs R, Kohn B, Mackin AJ, Kidd L",
-      "journal": "JVIM",
-      "type": "vet",
-      "date": "2026 Sep 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42765737/",
-      "abstract": "",
-      "summary_ko": ""
-    },
-    {
       "id": "42772022",
       "title": "Cone reconstruction for severe tricuspid valve dysplasia in a dog.",
       "authors": "Aoki T, Ueshima A, Iwasaki K, Shimoda H, Fukamachi N",
@@ -1749,6 +1727,17 @@
       "date": "2026 Oct 8",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42849777/",
       "abstract": "Hyperthyroidism induces a wide spectrum of cardiovascular changes in cats, yet the factors distinguishing subclinical cardiac involvement from congestive heart failure (CHF) remain poorly defined. Previous studies have focused primarily on structural changes, with limited evaluation of atrial function or right-sided involvement. To compare echocardiographic variables between hyperthyroid cats with subclinical cardiac disease and those presenting in CHF, with emphasis on left atrial remodelling, ",
+      "summary_ko": ""
+    },
+    {
+      "id": "42905034",
+      "title": "Managing Ketogenic Diet-Induced Hypercholesterolemia.",
+      "authors": "Avivi I, Ben-Yehuda O",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Oct 8",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905034/",
+      "abstract": "",
       "summary_ko": ""
     },
     {
@@ -2170,6 +2159,83 @@
       "summary_ko": ""
     },
     {
+      "id": "42910416",
+      "title": "Multidisciplinary Collaboration in the Performance of Aortic Surgery: A Scientific Statement From the American Heart Association.",
+      "authors": "DeAnda A Jr, Steppan J, Boskovski MT, Cherry AD, Dickey RA",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Oct 22",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42910416/",
+      "abstract": "Intraoperative management of a patient undergoing cardiac surgery requires continuous and independent interventions by multiple healthcare professionals, including surgeons, anesthesiologists, and perfusionists, among others. Although each clinician performs tasks based on their training and accepted techniques, guidelines, and protocols, an action by one member of the team can have immediate consequences for other team members. Aortic surgery adds a level of complexity, with the need for interv",
+      "summary_ko": ""
+    },
+    {
+      "id": "42906949",
+      "title": "Acute heart failure in emergency settings.",
+      "authors": "Miró Ò, Masip J, Chioncel O, Polyzogopoulou E, Harjola VP",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Oct 22",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42906949/",
+      "abstract": "Acute heart failure (AHF) represents a major cause of emergency medical care worldwide and continues to carry a substantial burden of morbidity and mortality despite advances in chronic heart failure management. Most patients with AHF present to emergency departments (EDs), where the first hours of care are critical to determine prognosis. Of these, some have been previously evaluated and treated by prehospital emergency medical services before ED arrival. This consensus document summarizes the ",
+      "summary_ko": ""
+    },
+    {
+      "id": "42906597",
+      "title": "Advances in detection canine science at Auburn University.",
+      "authors": "Chester E, Lazarowski L, Wang X, Bartol FF, Johnson CM",
+      "journal": "AJVR",
+      "type": "vet",
+      "date": "2026 Oct 21",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42906597/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42906593",
+      "title": "Sugammadex at 2 mg/kg provides rapid and sustained reversal of moderate rocuronium-induced neuromuscular blockade in isoflurane-anesthetized dogs.",
+      "authors": "Chang RN, Wang HC, Chang CC, Chen IY",
+      "journal": "AJVR",
+      "type": "vet",
+      "date": "2026 Oct 21",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42906593/",
+      "abstract": "To investigate the efficacy of 2 mg/kg sugammadex in reversing moderate rocuronium-induced neuromuscular blockade (NMB) in dogs, focusing on recovery time and recurarization. In this prospective, nonrandomized, unblinded experimental study, 12 healthy adult mixed-breed dogs were evaluated before elective surgery and assigned to a control group (spontaneous recovery; n = 6) or a reversal group (2 mg/kg sugammadex; n = 6). Anesthesia was induced with propofol and maintained with isoflurane without",
+      "summary_ko": ""
+    },
+    {
+      "id": "42906589",
+      "title": "Acute postoperative hypophosphatemia is a potential sequela following hepatectomy in dogs.",
+      "authors": "Bryant RE, Skinner OT, Barchilon M",
+      "journal": "AJVR",
+      "type": "vet",
+      "date": "2026 Oct 21",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42906589/",
+      "abstract": "To describe posthepatectomy hypophosphatemia in dogs and evaluate whether the extent of hepatectomy was associated with postoperative hypophosphatemia. This was a retrospective, observational study of dogs that underwent hepatectomy from January 1, 2019, through December 15, 2025, with serum phosphorus concentrations recorded preoperatively and within 72 hours postoperatively. Dogs with comorbidities or complications expected to influence serum phosphorus were excluded. Data included extent of h",
+      "summary_ko": ""
+    },
+    {
+      "id": "42906618",
+      "title": "Intra-articular 2.5% polyacrylamide hydrogel provides sustained clinical improvement over 1 year in canine elbow osteoarthritis.",
+      "authors": "Corral JA, Levine D, Barnhard JA, Tringali AA, Green MM",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Oct 21",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42906618/",
+      "abstract": "To evaluate the efficacy, safety, and tolerability of IA 2.5% injectable polyacrylamide hydrogel (iPAAG) in dogs with elbow osteoarthritis (OA). We hypothesized that treatment would improve pain and function, with minimal adverse events. This prospective single-site clinical study enrolled client-owned dogs from October 2023 to October 2024. Dogs with elbow OA confirmed by CT received unilateral or bilateral IA injections with 1 mL of 2.5% iPAAG. Assessments were conducted on day 0 (baseline) an",
+      "summary_ko": ""
+    },
+    {
+      "id": "42905436",
+      "title": "Correction: Fifth Universal Definition of Myocardial Infarction (2026): On behalf of the Joint European Society of Cardiology (ESC)/American College of Cardiology (ACC)/American Heart Association (AHA)/World Heart Federation (WHF) Task Force for the Universal Definition of Myocardial InfarctionEndorsed by the European Association for Cardio-Thoracic Surgery (EACTS) and the Society of Thoracic Surgeons (STS)Affirmation of Value by the Society for Cardiovascular Angiography and Interventions (SCAI).",
+      "authors": "",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Oct 21",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42905436/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
       "id": "42899351",
       "title": "Multimodal KCNQ1 Variant-Effect Maps Define Ion Channel Mechanisms and Disease Risk.",
       "authors": "Harvey ML, Osborn E, Lancaster MC, Smith JE, Shen Q",
@@ -2189,17 +2255,6 @@
       "date": "2026 Oct 20",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42895999/",
       "abstract": "Radiation-associated coronary artery disease (RACAD) is a distinct form of coronary artery disease with several specific biological and clinical aspects as well as key knowledge gaps. RACAD is prevalent in patients with cardiac exposure to radiotherapy. As radiotherapy is integral to the effective treatment of many thoracic malignancies, improved long-term survivorship is coupled with increased risk for RACAD. Ionizing radiation induces free radical generation and activation of proinflammatory c",
-      "summary_ko": ""
-    },
-    {
-      "id": "42770221",
-      "title": "Prognostic Value of Coronary Computed Tomography Angiography-Derived Fractional Flow Reserve From a Large Nationwide Cohort.",
-      "authors": "Bell JS, Nicol E, Venugopal V, Mullen L, Tidbury L",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Oct 20",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42770221/",
-      "abstract": "The diagnostic value of coronary computed tomography angiography-derived fractional flow reserve (FFR-CT) in stable coronary artery disease is well established. The prognostic value of predicting future cardiovascular events is less clear, as studies are limited by small populations, variable measurement points, composite outcomes, and short follow-up. A nationwide cohort of coronary computed tomography angiography with 3-year follow-up was used to examine the association between FFR-CT measurem",
       "summary_ko": ""
     },
     {
@@ -2863,6 +2918,72 @@
       "summary_ko": ""
     },
     {
+      "id": "42561469",
+      "title": "Pulmonary valve sinus aneurysm associated with pulmonic stenosis and patent ductus arteriosus in a dog.",
+      "authors": "Vázquez DMP, Rodríguez JEV, Serrano PP",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42561469/",
+      "abstract": "A three-year-old neutered female Bernese mountain dog was referred for evaluation of multiple congenital cardiac abnormalities. Transthoracic echocardiography demonstrated features consistent with type A pulmonic stenosis, including a normal pulmonary valve annulus, an increased transvalvular pressure gradient, systolic doming of thickened and fused pulmonary valve leaflets, and concentric right ventricular hypertrophy. Additionally, a focal aneurysmal dilation arising from the intermediate pulm",
+      "summary_ko": ""
+    },
+    {
+      "id": "42492422",
+      "title": "A retrospective (2020-2025), multicenter study of myxomatous mitral valve disease in Chihuahuas from Italy, Sweden, and the United States of America.",
+      "authors": "Spalla I, Bjerknaes MB, Bertuccini T, Menciotti G, Showers A",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42492422/",
+      "abstract": "Chihuahuas are affected by myxomatous mitral valve disease (MMVD). The aim of this study was to investigate MMVD in Chihuahuas, specifically clinical and echocardiographic characteristics including probability of pulmonary hypertension (PH), disease progression, and survival. A retrospective study of privately owned Chihuahuas with an echocardiographic study compatible with MMVD from four cardiology centers across three countries (2020-2025) was conducted. Differences between signalment, centers",
+      "summary_ko": ""
+    },
+    {
+      "id": "42485707",
+      "title": "Association of component measurement variability and disease severity with variability of calculated mitral regurgitant fraction in dogs with myxomatous mitral valve disease.",
+      "authors": "McAulay G, Singleton D, Rishniw M",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42485707/",
+      "abstract": "Echocardiographic calculation of mitral regurgitant fraction (MR%) may complement variables used to assess myxomatous mitral valve disease (MMVD) severity. The geometric technique of calculating MR% uses four component variable measurements. Calculations using multiple measurements necessarily influence variability. The influence of disease severity on component measurements and MR% variability has not been explored. This study explored the contribution of component measurement variability and t",
+      "summary_ko": ""
+    },
+    {
+      "id": "42462339",
+      "title": "Cor triatriatum sinister resembling Lucas type C1a in a cat.",
+      "authors": "Kim BJ, Song KH",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42462339/",
+      "abstract": "A six-year-old neutered male cat was presented for acute respiratory distress. Transthoracic echocardiography identified a left atrial membrane consistent with cor triatriatum sinister (CTS) and turbulent flow across a single fenestration. Additionally, it was suspected that the distal chamber may receive at least one pulmonary vein. Because respiratory signs improved with corticosteroids but not with a short diuretic trial, and because echocardiography suggested that the distal chamber might re",
+      "summary_ko": ""
+    },
+    {
+      "id": "42442331",
+      "title": "A novel method for evaluating thoracic radiographs in dogs with pulmonary stenosis.",
+      "authors": "Ishizaka M, Nagura A, Ogawa-Yasumura M, Hsu HH, Miyagawa Y",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42442331/",
+      "abstract": "Pulmonary stenosis (PS) is a common congenital heart disease in dogs, often associated with poststenotic dilation of the pulmonary trunk or main pulmonary artery (MPA). We hypothesized that vertebrae-based radiographic measurement of the MPA might identify dogs with PS and potentially assess its severity. A retrospective cohort study of 29 dogs with PS, 30 normal dogs, and 30 dogs with myxomatous mitral valve disease was conducted. Vertebral main pulmonary artery size (VMPS) was measured using d",
+      "summary_ko": ""
+    },
+    {
+      "id": "42361659",
+      "title": "Transvenous occlusion of a patent ductus arteriosus in a cat with the Amplatzer™ Vascular Plug II.",
+      "authors": "Brennan C, Gunasekaran T",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42361659/",
+      "abstract": "A three-month-old male intact domestic shorthair cat was presented to Michigan State University for evaluation of a heart murmur and was diagnosed with a left-to-right shunting patent ductus arteriosus (PDA) via transthoracic echocardiography. The patient returned at eight months of age, and the PDA was successfully occluded with the Amplatzer&#x2122; Vascular Plug II using a transjugular approach. There are limited reports regarding non-surgical closure of a PDA in cats, including a single repo",
+      "summary_ko": ""
+    },
+    {
       "id": "42687403",
       "title": "World Small Animal Veterinary Association Global Dental Guidelines.",
       "authors": "Niemiec B, Gawor J, Nemec A, Chandler M, Mestrinho LA",
@@ -2951,28 +3072,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42673999",
-      "title": "Atypical radiographic changes seen in dogs treated with bedinvetmab (Librela).",
-      "authors": "Budsberg SC, Clements DN, Regan DP, Wennemuth J",
-      "journal": "JAVMA",
-      "type": "vet",
-      "date": "2026 Aug 31",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42673999/",
-      "abstract": "The purpose of this study was to describe adverse clinical and radiographic musculoskeletal findings in dogs treated with bedinvetmab (Librela). Musculoskeletal adverse events in dogs treated with bedinvetmab were obtained from the Zoetis Global Pharmacovigilance database. Case inclusion criteria were adverse event reports that contained a minimum amount of medical information to allow for interpretation of the case along with radiographs or radiology reports. Following initial review, cases wer",
-      "summary_ko": ""
-    },
-    {
-      "id": "42671370",
-      "title": "Protocol-Based Implementation of Early Intensive Lipid Management After Acute Coronary Syndrome: The BRIDGE Trial.",
-      "authors": "Oyama K, Takahashi J, Funaki T, Oyamada S, Horiguchi S",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Aug 31",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42671370/",
-      "abstract": "Although guideline-recommended intensive lipid-lowering therapy (LLT) reduces recurrent cardiovascular events after acute coronary syndrome (ACS), timely implementation of intensive LLT and achievement of low-density lipoprotein cholesterol (LDL-C) target remain suboptimal in routine clinical practice. The purpose of this study was to determine whether a protocol-based implementation strategy improves timely achievement of guideline-recommended LDL-C target after ACS. We conducted a cluster-rand",
-      "summary_ko": ""
-    },
-    {
       "id": "42660198",
       "title": "Urinary angiotensinogen indexed to creatinine or protein is higher in cats with surgically induced chronic kidney disease compared to healthy cats.",
       "authors": "Huang JHC, Lourenço BN, Schmiedt CW",
@@ -2992,28 +3091,6 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660193/",
       "abstract": "To describe the clinical presentation, diagnostic findings, management, and short- and long-term outcomes of dogs with caudal mediastinal paraesophageal abscesses (CMPA) in a multi-institutional retrospective cohort. 12 client-owned dogs with CMPA confirmed on CT and/or surgery. The most common presenting complaints were inappetence and lethargy. Tachypnea and dyspnea were frequent physical examination findings at presentation. All 12 dogs underwent CT. The CMPA was located within the mediastina",
-      "summary_ko": ""
-    },
-    {
-      "id": "42660187",
-      "title": "Different fresh gas flows produce similar rebreathing and regional ventilation during helmet continuous positive airway pressure in sedated Beagles.",
-      "authors": "Mandelbaum R, Albano V, Vicenti C, Ali H, Martin-Flores M",
-      "journal": "AJVR",
-      "type": "vet",
-      "date": "2026 Aug 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42660187/",
-      "abstract": "To evaluate the effects of 4 oxygen driving flows on carbon dioxide rebreathing and ventilation in healthy sedated dogs receiving helmet continuous positive airway pressure (CPAP). This prospective experimental crossover study included 7 healthy adult Beagles sedated using a standardized protocol. Dogs received helmet CPAP (approx 5 cm H2O) through a Venturi valve system. Following stabilization at 15 L/min, dogs underwent evaluation at 4 oxygen driving flows (5, 10, 15, and 20 L/min), with flow",
-      "summary_ko": ""
-    },
-    {
-      "id": "42660184",
-      "title": "Canine parvovirus monoclonal antibody successfully prevented disease when administered before canine parvovirus experimental challenge.",
-      "authors": "Larson L, Akki FE, Ramasami P, Pattee J, George C",
-      "journal": "AJVR",
-      "type": "vet",
-      "date": "2026 Aug 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42660184/",
-      "abstract": "To determine the effectiveness of canine parvovirus (CPV-2) monoclonal antibody (CPMA) to prevent CPV-2 disease after an experimental challenge to support a label claim for prophylactic use. 25 Beagle pups aged 7 to 8 weeks were randomized to CPMA-treated (n = 20) or PBS-treated control (5) groups. One day after SC administration of PBS or CPMA (0.1 mL/kg) on study day (SD) 0, all pups were challenged by intranasal administration of virulent CPV-2b. Personnel masked to treatment groups monitored",
       "summary_ko": ""
     },
     {
@@ -3047,17 +3124,6 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42714360/",
       "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42648343",
-      "title": "Carbon hemoperfusion markedly reduces serum meloxicam concentrations in dogs with meloxicam toxicosis.",
-      "authors": "Shin PT, Zhao L, Vigh Z, Johnson TE, Enomoto H",
-      "journal": "AJVR",
-      "type": "vet",
-      "date": "2026 Aug 26",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42648343/",
-      "abstract": "To investigate the efficacy of synthetically derived activated carbon hemoperfusion (cHP) by measuring serum meloxicam concentration in dogs with meloxicam toxicosis. 5 dogs with meloxicam overdose that underwent cHP at 3 teaching hospitals between January 2023 and March 2026 were identified. Dogs that had serum meloxicam concentrations measured were included. For case 1, in-series cHP and hemodialysis were performed. Based on case 1 data, standalone cHP was used for cases 2 to 5. Serum meloxica",
       "summary_ko": ""
     },
     {
@@ -3114,225 +3180,214 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/42642047/",
       "abstract": "The study aimed (a) to describe the occurrence and nature of new infections in dogs receiving oral ciclosporin and (b) to identify any risk factors associated with the development of a new infection whilst receiving ciclosporin. In this retrospective cohort study, medical records of dogs presented to a private UK referral hospital between March 2015 and September 2022 that received ciclosporin were evaluated. The development of a new infection was classified as confirmed or suspected, based on a",
       "summary_ko": ""
-    },
-    {
-      "id": "42892694",
-      "title": "Spontaneous tumors in dogs and cats in Algeria: a dual-source descriptive study of practitioner-reported patterns and histopathology-submitted cases.",
-      "authors": "Bouchoukh AS, Boukhechem S, Bougherara H, Chaabi AZ",
-      "journal": "BMC Vet Res",
-      "type": "vet",
-      "date": "2026 Aug 24",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42892694/",
-      "abstract": "Algeria has no documented national companion-animal cancer registry, and limited information is available on tumors encountered in veterinary practice or reaching histopathological confirmation. This dual-source descriptive study combined two independently analyzed components: a histopathology-based descriptive case series of diagnostic tumor submissions from dogs and cats, and a cross-sectional questionnaire survey of veterinarians practicing in Algeria. The first component characterized tumors",
-      "summary_ko": ""
     }
   ],
   "clinicians_brief": [
     {
-      "id": "cb_961925251",
+      "id": "cb_4183661324",
       "title": "Emergency Medicine &amp; Critical Care",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/emergency-medicine-critical-care",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3718837879",
+      "id": "cb_2058150809",
       "title": "Anesthesiology &amp; Pain Management",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/anesthesiology-pain-management",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2161258011",
+      "id": "cb_902265414",
       "title": "Dentistry &amp; Periodontology",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/dentistry-periodontology",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3138323265",
+      "id": "cb_2136503037",
       "title": "Endocrinology &amp; Metabolic Diseases",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/endocrinology-metabolic-diseases",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_362436610",
+      "id": "cb_1632225234",
       "title": "Exotic Animal Medicine",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/exotic-animal-medicine",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_277236320",
+      "id": "cb_1065039249",
       "title": "Genetics &amp; Heritable Diseases",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/genetics-heritable-diseases",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2081287151",
+      "id": "cb_1604396125",
       "title": "Integrative Medicine",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/integrative-medicine",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_4024256082",
+      "id": "cb_48030822",
       "title": "Respiratory Medicine",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/respiratory-medicine",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_628044902",
+      "id": "cb_44032079",
       "title": "Surgery, Soft Tissue",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/surgery-soft-tissue",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2930282894",
+      "id": "cb_205667672",
       "title": "Urology &amp; Nephrology",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/urology-nephrology",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_1713550482",
+      "id": "cb_3742126455",
       "title": "Zoonoses &amp; Public Health Concerns",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/clinical-skills/zoonoses-public-health-concerns",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2052267716",
+      "id": "cb_2223495669",
       "title": "Behavior-Modifying Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/behavior-modifying-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3892049277",
+      "id": "cb_562748434",
       "title": "Cardiorespiratory Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/cardiorespiratory-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2000194054",
+      "id": "cb_3085829001",
       "title": "Immunomodulatory Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/immunomodulatory-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_4002933132",
+      "id": "cb_604782692",
       "title": "Insulin/Hormone Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/insulin-hormone-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_1919033889",
+      "id": "cb_1945915921",
       "title": "New Drugs &amp; Updates",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/new-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2952789887",
+      "id": "cb_4047988743",
       "title": "Preventive Medications",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/preventive-medications",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3903429629",
+      "id": "cb_3487607908",
       "title": "Supplements, Nutraceuticals, &amp; Over-the-Counter Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/OTC-supplements-nutraceuticals",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_570159952",
+      "id": "cb_3742127151",
       "title": "Anesthesiology &amp; Pain Management",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 23",
+      "date": "2026 Oct 24",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/anesthesiology-pain-management",
       "abstract": "",
       "summary_ko": ""
