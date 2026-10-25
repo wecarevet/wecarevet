@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-24 02:50 UTC",
-  "total": 289,
+  "updated": "2026-10-25 02:41 UTC",
+  "total": 292,
   "papers": [
     {
       "id": "42830405",
@@ -410,6 +410,17 @@
       "summary_ko": ""
     },
     {
+      "id": "42918707",
+      "title": "A histopathological and immunohistochemical perspective on selected aspects of valvular interstitial and valve endothelial remodelling in canine mitral valve dysplasia and myxomatous degeneration.",
+      "authors": "Janus-Ziółkowska I, Biegańska H, Bubak J, Noszczyk-Nowak A",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Sep 3",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42918707/",
+      "abstract": "Endothelial-to-mesenchymal transformation (EndMT) is a complex process reported in canine myxomatous mitral valve disease (MMVD) but not previously evaluated in congenital mitral valve dysplasia (MD) in dogs. This study aimed to evaluate the EndMT in canine MD compared with MMVD. The present study was conducted on histopathological specimens obtained from 19 dogs divided into three groups: MMVD group (n = 7), MD group (n = 6) and control group (n = 6). The paraffin blocks were retrieved from the",
+      "summary_ko": ""
+    },
+    {
       "id": "42692147",
       "title": "Prevalence, risk factors, and outcome of acute thoracic and lumbar myelopathies in non-chondrodystrophic dogs.",
       "authors": "Comesaña A, de la Fuente C, Viu J, Añor S",
@@ -583,17 +594,6 @@
       "date": "2026 Sep 29",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42813718/",
       "abstract": "The \"2026 AHA/ACC/ACS/ASNC/HRS/SCA/SCCT/SCMR/SVM Guideline for Perioperative Cardiovascular Management for Noncardiac Surgery\" provides recommendations to guide clinicians in the perioperative cardiovascular evaluation and management of adult patients undergoing noncardiac surgery. A comprehensive literature search was conducted from August 2022 to March 2023 to identify clinical studies, reviews, and other evidence conducted on human subjects that were published in English from MEDLINE (through",
-      "summary_ko": ""
-    },
-    {
-      "id": "42806775",
-      "title": "Coronary thrombosis with transiently increased pericoronary adipose tissue attenuation following parvovirus B19 infection.",
-      "authors": "Kato H, Kanda T, Tawarahara K",
-      "journal": "Eur Heart J",
-      "type": "human",
-      "date": "2026 Sep 29",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42806775/",
-      "abstract": "",
       "summary_ko": ""
     },
     {
@@ -1807,6 +1807,28 @@
       "summary_ko": ""
     },
     {
+      "id": "42919707",
+      "title": "Echocardiographic assessment of mitral regurgitation severity in dogs.",
+      "authors": "Visser LC, Potter BM",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Oct 6",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42919707/",
+      "abstract": "Mitral regurgitation (MR) is the most important cardiovascular problem affecting dogs. Transthoracic echocardiography is the most practical imaging modality to characterize the fundamental features of MR, including an assessment of MR severity. The diversity of MR severity in subclinical dogs and advancements in treatments directed at the cause of MR have (re)ignited interest in more comprehensive and quantitative methods of assessing MR severity. This review focuses on evaluating the severity o",
+      "summary_ko": ""
+    },
+    {
+      "id": "42914951",
+      "title": "The use of contrast-enhanced echocardiography in the evaluation of feline left ventricular wall thickness.",
+      "authors": "Javery E, Kadotani S, Toborowsky C, Prabhakar S, Sumerfield T",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Oct 6",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42914951/",
+      "abstract": "Accurate measurement of feline left ventricular wall thickness (LVWT) is challenging due to endocardial and myocardial irregularities, false tendons, and prominent papillary muscles. In human medicine, contrast-enhanced echocardiography (C-Echo) is used to improve left ventricular wall delineation and is more accurate, repeatable, and reliable than standard echocardiography (S-Echo). Our objective was to compare C-Echo and S-Echo measurements of feline LVWT and determine repeatability, reproduci",
+      "summary_ko": ""
+    },
+    {
       "id": "42836268",
       "title": "Short-term changes in photographed dental calculus coverage and pooled supragingival microbiota after baked dental treats containing a pomegranate-propolis blend or sodium hexametaphosphate in dogs.",
       "authors": "Baptista LSM, Santos MKR, Soratto TAT, Wagner G, Hauptli L",
@@ -2156,6 +2178,61 @@
       "date": "2026 Oct 3",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42873167/",
       "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42920285",
+      "title": "Heart failure management and outcomes: what can we learn from Japan?",
+      "authors": "Lindberg F, Savarese G",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Oct 24",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42920285/",
+      "abstract": "",
+      "summary_ko": ""
+    },
+    {
+      "id": "42915569",
+      "title": "Tablet crushing, but not splitting, alters the pharmacokinetics of extended-release levetiracetam in dogs.",
+      "authors": "Mondino A, Nettifee JA, Simon KE, Papich MG, Muñana KR",
+      "journal": "AJVR",
+      "type": "vet",
+      "date": "2026 Oct 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42915569/",
+      "abstract": "To compare the pharmacokinetics of intact, split, and crushed levetiracetam (LEV) extended-release (LEV-XR) tablets in dogs. We hypothesized that splitting produces a pharmacokinetic profile similar to intact tablets, whereas crushing results in earlier and higher maximum concentrations. Healthy research dogs were administered 500 mg LEV-XR orally as intact, split, or crushed tablets in a randomized crossover design. Plasma LEV concentrations were measured over 12 hours by high-pressure liquid c",
+      "summary_ko": ""
+    },
+    {
+      "id": "42915224",
+      "title": "Systematic review supports the idea that no alternative test presently replaces elimination diet test and oral food challenge to diagnose canine adverse food reactions.",
+      "authors": "Morales-Romero R, Gonzalez-Dominguez MS, Roldán-Villalobos W, Correa-Valencia NM",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Oct 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42915224/",
+      "abstract": "Adverse food reactions in dogs are clinically heterogeneous and overlap with canine atopic dermatitis, and diagnosis still relies on an elimination diet test followed by oral food challenge (EDT+OFC). Numerous allergen-specific tests have been proposed, but their diagnostic value remains controversial. Our objective was to identify, synthesize, and critically evaluate the diagnostic tests used or investigated for canine food allergy, with emphasis on their clinical validity, applicability, and a",
+      "summary_ko": ""
+    },
+    {
+      "id": "42915069",
+      "title": "Diagnosis of exocrine pancreatic insufficiency in dogs requires use of a newly adjusted reference range and diagnostic cutoff for measurement of trypsin-like immunoreactivity.",
+      "authors": "Chuang WH, Wu YA, Lidbury JA, Fosgate GT, Chang CH",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Oct 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42915069/",
+      "abstract": "To adjust the reference interval (RI) for a commercially available canine trypsin-like immunoreactivity (cTLI) assay and the cutoff value for the diagnosis of exocrine pancreatic insufficiency (EPI). Lower limit of the RI was calculated based on the fifth percentile of cTLI concentrations in 102 clinically healthy dogs. Questionnaires were sent to clinicians for cases with serum cTLI concentrations &#x2264; 10 &#xb5;g/L. Five board-certified small animal internists blinded to serum cTLI concentr",
+      "summary_ko": ""
+    },
+    {
+      "id": "42914003",
+      "title": "Cytoreduction combined with cryosurgery for the treatment of eyelid neoplasms in dogs: Clinical outcomes and histopathological characterization.",
+      "authors": "de Oliveira R, de Vargas Arigony Braga F, de Moraes LAM, Bohm BC, Valente CL",
+      "journal": "Vet J",
+      "type": "vet",
+      "date": "2026 Oct 22",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42914003/",
+      "abstract": "Eyelid neoplasms are among the most common periocular conditions in dogs and can lead to significant ocular morbidity if left untreated. Although surgical excision with blepharoplasty remains the standard of care, cytoreduction combined with cryosurgery has emerged as a less invasive alternative that preserves eyelid integrity. This prospective study evaluated 30 dogs with eyelid masses treated by cytoreductive excision followed by two freeze-thaw cycles delivered via a contact CO&#x2082; cryosu",
       "summary_ko": ""
     },
     {
@@ -3028,6 +3105,28 @@
       "summary_ko": ""
     },
     {
+      "id": "42348344",
+      "title": "Clinical outcomes of lateral ear canal resection performed in routine clinical practice for chronic otitis externa in dogs: a retrospective descriptive study of 58 ears (2016-2025).",
+      "authors": "Kiriki K, Yabuzoe A, Iyori K",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42348344/",
+      "abstract": "To retrospectively evaluate the long-term clinical outcomes of lateral ear canal resection performed as part of routine clinical practice for chronic otitis externa in dogs, and to re-evaluate the practical utility of lateral ear canal resection from the perspective of contemporary treatment goals emphasising long-term maintenance of a manageable condition. A retrospective descriptive study was conducted involving 40 dogs (58 ears) that underwent lateral ear canal resection performed by a single",
+      "summary_ko": ""
+    },
+    {
+      "id": "42311163",
+      "title": "Retrospective study on diagnostic yield and medical impact of diagnostic imaging in dogs with immune-mediated haemolytic anaemia in Belgium.",
+      "authors": "Vlassenbroek R, Peeters D, Matthewman L, François C, Bolen G",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42311163/",
+      "abstract": "To assess the incidence of associative immune-mediated haemolytic anaemia in dogs diagnosed with immune-mediated haemolytic anaemia and to evaluate whether performing diagnostic imaging, specifically thoracic radiographs and abdominal ultrasound, influences outcomes in non-associative immune-mediated haemolytic anaemia. Medical records (2017 to 2023) were reviewed for dogs diagnosed with immune-mediated haemolytic anaemia. Dogs were classified as associative immune-mediated haemolytic anaemia or",
+      "summary_ko": ""
+    },
+    {
       "id": "42674071",
       "title": "Rabies surveillance in the United States during 2024.",
       "authors": "Keshavamurthy R, Boutelle C, Bonaparte S, Gigante CM, Condori RE",
@@ -3050,28 +3149,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42674009",
-      "title": "Canine parvovirus cases (2010-2023): a retrospective study of 78,977 cases demonstrates declining incidence, but mortality risk remains.",
-      "authors": "Morrison J, George CM, Kollasch TM, Pattee JC, Ryan WG",
-      "journal": "JAVMA",
-      "type": "vet",
-      "date": "2026 Aug 31",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42674009/",
-      "abstract": "To investigate changes in characteristics of dogs diagnosed with canine parvovirus (CPV) disease presenting to a national network of primary care veterinary hospitals. Records were searched from January 1, 2010, through June 30, 2023. Data were collected on signalment, clinical signs, laboratory results, and mortality for CPV-affected dogs. Variables were assessed via stepwise logistic regression models for association with mortality. Across &gt; 1,000 hospitals, CPV was diagnosed in 78,977 dogs",
-      "summary_ko": ""
-    },
-    {
-      "id": "42674007",
-      "title": "Retrospective analysis of 68 domestic ferrets with urethral obstruction shows high rate of euthanasia at presentation despite good survival to discharge.",
-      "authors": "O'Malley B, Sadar MJ, Alexander AB, Bercier M",
-      "journal": "JAVMA",
-      "type": "vet",
-      "date": "2026 Aug 31",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42674007/",
-      "abstract": "To establish a hospital proportional morbidity rate (HPMR) for urethral obstructions (UOs) in domestic ferrets; describe clinical presentation, interventions, and outcomes; and report associations with UO etiologies and survival. In this retrospective, descriptive, epidemiological study, electronic medical records were evaluated from ferrets presenting to 3 academic institutions in the US between 2013 and 2023. Descriptive and bivariate statistical analyses were performed. Parametric and nonpara",
-      "summary_ko": ""
-    },
-    {
       "id": "42660198",
       "title": "Urinary angiotensinogen indexed to creatinine or protein is higher in cats with surgically induced chronic kidney disease compared to healthy cats.",
       "authors": "Huang JHC, Lourenço BN, Schmiedt CW",
@@ -3083,17 +3160,6 @@
       "summary_ko": ""
     },
     {
-      "id": "42660193",
-      "title": "Clinical presentation, diagnosis, and treatment of caudal mediastinal paraesophageal abscesses in dogs: a multi-institutional retrospective study.",
-      "authors": "Biehl K, Williams RW, Orr E, Thieman Mankin K, Piegols H",
-      "journal": "AJVR",
-      "type": "vet",
-      "date": "2026 Aug 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42660193/",
-      "abstract": "To describe the clinical presentation, diagnostic findings, management, and short- and long-term outcomes of dogs with caudal mediastinal paraesophageal abscesses (CMPA) in a multi-institutional retrospective cohort. 12 client-owned dogs with CMPA confirmed on CT and/or surgery. The most common presenting complaints were inappetence and lethargy. Tachypnea and dyspnea were frequent physical examination findings at presentation. All 12 dogs underwent CT. The CMPA was located within the mediastina",
-      "summary_ko": ""
-    },
-    {
       "id": "42660709",
       "title": "Corrigendum to \"Evidence-based medical therapy for mitral regurgitation in dogs\" [J Vet Cardiol (2026) 10.1016/j.jvc.2026.04.006].",
       "authors": "Mochel JP, Ward JL, Stern JA",
@@ -3102,17 +3168,6 @@
       "date": "2026 Aug 27",
       "url": "https://pubmed.ncbi.nlm.nih.gov/42660709/",
       "abstract": "",
-      "summary_ko": ""
-    },
-    {
-      "id": "42660406",
-      "title": "Impact of needle-to-suture ratio and suture diameter on acute leakage pressure in an ex vivo canine jejunal enterotomy model.",
-      "authors": "Li S, Zhao X, Guo Y, Yang R, Zhang Y",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Aug 27",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42660406/",
-      "abstract": "Postoperative intestinal leakage is a serious complication of gastrointestinal surgery; however, the immediate mechanical factors affecting enterotomy sealing remain incompletely understood. This ex vivo study evaluated the association of needle-to-suture ratio (N:S Ratio) and suture diameter with acute leakage pressure in a canine jejunal enterotomy model. Eight needle-suture product groups were tested using 80 fresh jejunal segments obtained from 10 canine cadavers. A randomized complete block",
       "summary_ko": ""
     },
     {
@@ -3158,236 +3213,214 @@
       "url": "https://pubmed.ncbi.nlm.nih.gov/42655878/",
       "abstract": "C-reactive protein (CRP) is a biomarker of systemic inflammation in dogs. There is limited data on inter-laboratory comparability of the results or the effects of long-term storage. (1) Compare CRP measurements across three institutions utilizing the same assay. (2) Evaluate 2-year stability of CRP in canine serum stored at -80&#xb0;C. Canine serum was collected and pooled to obtain 100 samples, which were distributed among three veterinary clinical pathology laboratories and evaluated using the",
       "summary_ko": ""
-    },
-    {
-      "id": "42642056",
-      "title": "Risk factors associated with lipaemic plasma in a cohort of canine blood donors.",
-      "authors": "Treich C, Mailhot SÈ, Juette T, Blais MC",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Aug 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42642056/",
-      "abstract": "To assess the prevalence of lipaemic plasma in healthy canine blood donors, identify predisposing factors, including dietary links and provide recommendations to reduce its occurrence. A total of 296 healthy canine blood donors enrolled in a university blood bank were prospectively included. Health was confirmed through physical examination and complete bloodwork including total T4. After successful blood collection and processing, plasma intended for fresh frozen plasma production was assessed ",
-      "summary_ko": ""
-    },
-    {
-      "id": "42642047",
-      "title": "Occurrence of infections in dogs receiving ciclosporin in a single-centre UK referral population.",
-      "authors": "Dormon S, Walker J, Gallow G, Goonan L, Sparks T",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Aug 25",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42642047/",
-      "abstract": "The study aimed (a) to describe the occurrence and nature of new infections in dogs receiving oral ciclosporin and (b) to identify any risk factors associated with the development of a new infection whilst receiving ciclosporin. In this retrospective cohort study, medical records of dogs presented to a private UK referral hospital between March 2015 and September 2022 that received ciclosporin were evaluated. The development of a new infection was classified as confirmed or suspected, based on a",
-      "summary_ko": ""
     }
   ],
   "clinicians_brief": [
     {
-      "id": "cb_4183661324",
+      "id": "cb_1992514526",
       "title": "Emergency Medicine &amp; Critical Care",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/emergency-medicine-critical-care",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2058150809",
+      "id": "cb_2072943058",
       "title": "Anesthesiology &amp; Pain Management",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/anesthesiology-pain-management",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_902265414",
+      "id": "cb_3271322853",
       "title": "Dentistry &amp; Periodontology",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/dentistry-periodontology",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2136503037",
+      "id": "cb_161035083",
       "title": "Endocrinology &amp; Metabolic Diseases",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/endocrinology-metabolic-diseases",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_1632225234",
+      "id": "cb_2455679978",
       "title": "Exotic Animal Medicine",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/exotic-animal-medicine",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_1065039249",
+      "id": "cb_1463782509",
       "title": "Genetics &amp; Heritable Diseases",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/genetics-heritable-diseases",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_1604396125",
+      "id": "cb_1144784677",
       "title": "Integrative Medicine",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/integrative-medicine",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_48030822",
+      "id": "cb_2103449331",
       "title": "Respiratory Medicine",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/respiratory-medicine",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_44032079",
+      "id": "cb_2918918020",
       "title": "Surgery, Soft Tissue",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/surgery-soft-tissue",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_205667672",
+      "id": "cb_4038901138",
       "title": "Urology &amp; Nephrology",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/urology-nephrology",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3742126455",
+      "id": "cb_4192742155",
       "title": "Zoonoses &amp; Public Health Concerns",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/clinical-skills/zoonoses-public-health-concerns",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_2223495669",
+      "id": "cb_1444951100",
       "title": "Behavior-Modifying Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/behavior-modifying-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_562748434",
+      "id": "cb_2808068110",
       "title": "Cardiorespiratory Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/cardiorespiratory-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3085829001",
+      "id": "cb_3699339940",
       "title": "Immunomodulatory Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/immunomodulatory-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_604782692",
+      "id": "cb_627745883",
       "title": "Insulin/Hormone Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/insulin-hormone-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_1945915921",
+      "id": "cb_676148286",
       "title": "New Drugs &amp; Updates",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/new-drugs",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_4047988743",
+      "id": "cb_2448122460",
       "title": "Preventive Medications",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/preventive-medications",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3487607908",
+      "id": "cb_2435573302",
       "title": "Supplements, Nutraceuticals, &amp; Over-the-Counter Drugs",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/OTC-supplements-nutraceuticals",
       "abstract": "",
       "summary_ko": ""
     },
     {
-      "id": "cb_3742127151",
+      "id": "cb_1439154833",
       "title": "Anesthesiology &amp; Pain Management",
       "authors": "Clinician's Brief",
       "journal": "Clinician's Brief",
       "type": "cb",
-      "date": "2026 Oct 24",
+      "date": "2026 Oct 25",
       "url": "https://www.cliniciansbrief.com/drugs-therapeutics/anesthesiology-pain-management",
       "abstract": "",
       "summary_ko": ""
