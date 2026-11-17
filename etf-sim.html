@@ -59,7 +59,7 @@ h1 .grad{background:linear-gradient(100deg,var(--mint),#7fd3ff 55%,var(--violet)
 .card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh)}
 .card-pad{padding:16px}
 @media(min-width:760px){ .card-pad{padding:20px} }
-.sec{margin:26px 0 12px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sec{scroll-margin-top:78px;margin:26px 0 12px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .sec h2{margin:0;font-size:16.5px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
 .sec h2 .bar{width:3px;height:16px;border-radius:2px;background:linear-gradient(180deg,var(--mint),var(--blue))}
 .sec .hint{color:var(--mut2);font-size:12px}
@@ -188,7 +188,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;bac
 
 /* ---------- chart ---------- */
 .chart-wrap{position:relative;width:100%}
-.chart-wrap canvas{display:block;width:100%;height:260px}
+.chart-wrap canvas{display:block;width:100%;height:260px;cursor:crosshair}
 @media(min-width:760px){ .chart-wrap canvas{height:300px} }
 .chart-wrap.mini canvas{height:110px}
 .tip{position:absolute;pointer-events:none;opacity:0;transform:translate(-50%,-112%);transition:opacity .1s;
@@ -253,8 +253,8 @@ details.acc .body code{background:rgba(255,255,255,.06);padding:1px 5px;border-r
   </header>
 
   <nav class="tabs" role="tablist">
-    <button class="tab on" data-tab="compare" role="tab"><span class="ic">◎</span> ETF 비교 · 계좌 매칭</button>
-    <button class="tab" data-tab="backtest" role="tab"><span class="ic">◈</span> 포트폴리오 백테스트</button>
+    <button class="tab on" data-tab="compare" role="tab">ETF 비교 · 계좌 매칭</button>
+    <button class="tab" data-tab="backtest" role="tab">포트폴리오 백테스트</button>
   </nav>
 
   <!-- ============ TAB 1 ============ -->
@@ -487,8 +487,12 @@ function taxChips(a){
     out.push('<span class="taxchip no">ISA·연금 불가</span>');
   } else {
     out.push('<span class="taxchip">배당소득세 15.4%</span>');
-    out.push('<span class="taxchip ok">ISA·연금 가능</span>');
-    if(a.lev > 1) out.push('<span class="taxchip no">연금 편입 불가</span>');
+    if(a.lev > 1){
+      out.push('<span class="taxchip ok">ISA 가능</span>');
+      out.push('<span class="taxchip no">연금 불가</span>');
+    } else {
+      out.push('<span class="taxchip ok">ISA·연금 가능</span>');
+    }
   }
   return out.join('');
 }
@@ -802,7 +806,8 @@ function simulate(cfg){
     path.push({i, t:k, v:after, inv:invested});
     ddPath.push({i, t:k, v:dd*100});
     if((k+1) % 12 === 0){
-      yearRows.push({label:label(i), v:after, inv:invested, ret:(nav/yearStartNav-1)*100, div:yearDiv});
+      yearRows.push({n:(k+1)/12, from:label(i-11), to:label(i), v:after, inv:invested,
+                     ret:(nav/yearStartNav-1)*100, div:yearDiv});
       yearStartNav = nav; yearDiv = 0;
     }
   }
@@ -837,6 +842,24 @@ function simulate(cfg){
 }
 
 /* ---------- charts ---------- */
+function niceTicks(lo, hi, count){
+  if(!(hi > lo)) { hi = lo + 1; }
+  const raw = (hi-lo)/Math.max(1,count);
+  const mag = Math.pow(10, Math.floor(Math.log10(Math.abs(raw) || 1)));
+  const nrm = raw/mag;
+  const step = (nrm<=1?1:nrm<=2?2:nrm<=2.5?2.5:nrm<=5?5:10)*mag;
+  const out = [];
+  for(let v = Math.floor(lo/step)*step; v <= hi + step*0.001; v += step) out.push(+v.toFixed(10));
+  if(out.length < 2) out.push(out[0] + step);
+  return out;
+}
+function axisFmt(v){
+  const a = Math.abs(v);
+  if(a >= 1e12) return (v/1e12).toFixed(1) + '조';
+  if(a >= 1e8) return (v/1e8).toFixed(a % 1e8 === 0 ? 0 : 1) + '억';
+  if(a >= 1e4) return Math.round(v/1e4).toLocaleString('ko-KR') + '만';
+  return String(Math.round(v));
+}
 function drawChart(cv, tipEl, cfg){
   const dpr = Math.min(2, window.devicePixelRatio || 1);
   const w = cv.clientWidth || cv.parentElement.clientWidth, h = cv.clientHeight;
@@ -845,32 +868,32 @@ function drawChart(cv, tipEl, cfg){
   const ctx = cv.getContext('2d');
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.clearRect(0,0,w,h);
-  const pad = {l: 54, r: 10, t: 10, b: 20};
+  const pad = {l: 46, r: 12, t: 16, b: 20};
   const x0 = pad.l, x1 = w - pad.r, y0 = h - pad.b, y1 = pad.t;
   const n = cfg.n;
   const X = i => n<=1 ? x0 : x0 + (x1-x0) * i/(n-1);
-  let lo = cfg.min, hi = cfg.max;
-  if(hi - lo < 1e-9){ hi = lo + 1; }
-  const Y = v => y0 - (v - lo)/(hi-lo) * (y0-y1);
+  let ticks = niceTicks(cfg.min, cfg.max, cfg.ticks || 4);
+  ticks = ticks.filter(v => v >= cfg.min - 1e-9 || Math.abs(v) < 1e-9);
+  if(ticks.length < 2) ticks = [cfg.min, cfg.max];
+  const lo = ticks[0], hi = ticks[ticks.length-1];
+  const Y = v => y0 - (v - lo)/((hi-lo) || 1) * (y0-y1);
 
-  // grid
-  ctx.strokeStyle = 'rgba(255,255,255,.055)'; ctx.lineWidth = 1;
-  ctx.font = '10px -apple-system,system-ui,sans-serif';
-  ctx.fillStyle = '#5c6f86'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-  const ticks = 4;
-  for(let t=0;t<=ticks;t++){
-    const v = lo + (hi-lo)*t/ticks;
+  ctx.font = '10px -apple-system,system-ui,"Apple SD Gothic Neo",sans-serif';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  ticks.forEach(v => {
     const y = Math.round(Y(v)) + .5;
+    ctx.strokeStyle = Math.abs(v) < 1e-9 ? 'rgba(255,255,255,.12)' : 'rgba(255,255,255,.05)';
+    ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
-    ctx.fillText(cfg.yFmt(v), x0-8, y);
-  }
-  // x labels
+    ctx.fillStyle = '#5c6f86';
+    ctx.fillText(cfg.yFmt ? cfg.yFmt(v) : axisFmt(v), x0-8, y);
+  });
   ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-  const step = Math.max(1, Math.ceil(n/6));
-  for(let i=0;i<n;i+=step){
-    ctx.fillText(cfg.xFmt(i), X(i), y0+6);
-  }
-  // area + line for series
+  (cfg.xTicks || [0, n-1]).forEach(i => {
+    ctx.fillStyle = '#5c6f86';
+    ctx.fillText(cfg.xLabel(i), X(i), y0+6);
+  });
+
   cfg.series.forEach(s => {
     if(!s.data || !s.data.length) return;
     if(s.fill){
@@ -884,23 +907,20 @@ function drawChart(cv, tipEl, cfg){
     ctx.beginPath();
     s.data.forEach((v,i) => i ? ctx.lineTo(X(i), Y(v)) : ctx.moveTo(X(i), Y(v)));
     ctx.strokeStyle = s.color; ctx.lineWidth = s.width || 2;
-    if(s.dash) ctx.setLineDash(s.dash); else ctx.setLineDash([]);
+    ctx.setLineDash(s.dash || []);
     ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-    if(s.glow){ ctx.shadowColor = s.glow; ctx.shadowBlur = 12; }
+    if(s.glow){ ctx.shadowColor = s.glow; ctx.shadowBlur = 10; }
     ctx.stroke();
     ctx.shadowBlur = 0; ctx.setLineDash([]);
     if(s.dot){
       const i = s.data.length-1;
       ctx.beginPath(); ctx.arc(X(i), Y(s.data[i]), 3.2, 0, Math.PI*2);
       ctx.fillStyle = s.color; ctx.fill();
-      ctx.beginPath(); ctx.arc(X(i), Y(s.data[i]), 6, 0, Math.PI*2);
-      ctx.fillStyle = s.color.replace('rgb','rgba').replace(')', ',.22)'); ctx.fill();
     }
   });
   cv._geom = {x0,x1,y0,y1,n,X,Y,cfg};
 }
 function attachTip(cv, tipEl, cfg){
-  let active = false;
   const move = e => {
     const g = cv._geom; if(!g) return;
     const r = cv.getBoundingClientRect();
@@ -908,15 +928,17 @@ function attachTip(cv, tipEl, cfg){
     const i = Math.max(0, Math.min(g.n-1, Math.round((px - g.x0)/(g.x1-g.x0)*(g.n-1))));
     const x = g.X(i);
     tipEl.innerHTML = cfg.tipHtml(i);
-    tipEl.style.left = Math.max(50, Math.min(cv.clientWidth-50, x)) + 'px';
-    tipEl.style.top = Math.min(cv.clientHeight-10, g.Y(cfg.series[0].data[i])) + 'px';
-    tipEl.style.opacity = 1; active = true;
+    tipEl.style.left = Math.max(70, Math.min(cv.clientWidth-70, x)) + 'px';
+    tipEl.style.top = Math.min(cv.clientHeight-6, Math.max(30, g.Y(cfg.series[0].data[i]))) + 'px';
+    tipEl.style.opacity = 1;
   };
-  const out = () => { tipEl.style.opacity = 0; active = false; };
+  const out = () => { tipEl.style.opacity = 0; };
+  if(cv._tipBound) return;
+  cv._tipBound = true;
   cv.addEventListener('mousemove', move);
   cv.addEventListener('mouseleave', out);
-  cv.addEventListener('touchstart', e => { move(e); }, {passive:true});
-  cv.addEventListener('touchmove', e => { move(e); }, {passive:true});
+  cv.addEventListener('touchstart', e => move(e), {passive:true});
+  cv.addEventListener('touchmove', e => move(e), {passive:true});
   cv.addEventListener('touchend', out);
 }
 let lastResult = null;
@@ -924,49 +946,73 @@ function renderCharts(){
   if(!lastResult) return;
   const R = lastResult;
   const nP = R.path.length;
+  const monthOf = i => R.path[i].i;
+  const yearOf = i => 2005 + Math.floor(monthOf(i)/12);
+  const moOf = i => monthOf(i)%12 + 1;
+
+  // x ticks on January boundaries, thinned to ~6
+  let jan = [];
+  for(let i=0;i<nP;i++) if(monthOf(i) % 12 === 0) jan.push(i);
+  const step = Math.max(1, Math.ceil(jan.length/6));
+  let xTicks = jan.filter((_,k) => k % step === 0);
+  if(xTicks.length < 2) xTicks = [0, nP-1];
+
   const ys = R.path.map(p => p.v).concat(R.path.map(p => p.inv));
   let lo = Math.min(...ys), hi = Math.max(...ys);
-  const padY = (hi-lo)*0.08 || 1; lo = Math.max(0, lo - padY); hi = hi + padY;
-  const labels = R.path.map(p => {
-    const i = p.i; const y = 2005 + Math.floor(i/12), mo = i%12 + 1;
-    return {y, mo};
-  });
+  const padY = (hi-lo)*0.10 || 1;
+  lo = Math.max(0, lo - padY*0.4); hi = hi + padY*0.7;
+
   const mainCfg = {
-    n: nP, min: lo, max: hi,
-    yFmt: v => won(v),
-    xFmt: i => `${labels[i].y}`,
+    n: nP, min: lo, max: hi, ticks: 4,
+    xTicks, xLabel: i => String(yearOf(i)),
     series: [
-      {data: R.path.map(p => p.v), color: 'rgb(55,224,178)', width: 2.2, fill:['rgba(55,224,178,.26)','rgba(55,224,178,0)'], glow:'rgba(55,224,178,.5)', dot:true},
-      {data: R.path.map(p => p.inv), color: 'rgba(91,157,255,.85)', width: 1.6, dash:[5,4]}
+      {data: R.path.map(p => p.v), color: 'rgb(55,224,178)', width: 2.2,
+       fill:['rgba(55,224,178,.26)','rgba(55,224,178,0)'], glow:'rgba(55,224,178,.45)', dot:true},
+      {data: R.path.map(p => p.inv), color: 'rgba(91,157,255,.8)', width: 1.5, dash:[5,4]}
     ],
     tipHtml: i => {
-      const p = R.path[i];
-      const gain = p.v - p.inv;
-      return `<div class="t">${labels[i].y}.${String(labels[i].mo).padStart(2,'0')}</div>
+      const p = R.path[i], gain = p.v - p.inv;
+      return `<div class="t">${yearOf(i)}.${String(moOf(i)).padStart(2,'0')}</div>
         <div class="r"><span>평가액</span><b>${won(p.v)}</b></div>
         <div class="r"><span>투입원금</span><b>${won(p.inv)}</b></div>
-        <div class="r"><span>평가손익</span><b style="color:${gain>=0?'#37e0b2':'#ff6470'}">${(gain>=0?'+':'')}${won(gain)}</b></div>`;
+        <div class="r"><span>평가손익</span><b style="color:${gain>=0?'#37e0b2':'#ff6470'}">${(gain>=0?'+':'') + won(gain)}</b></div>`;
     }
   };
   drawChart($('#mainChart'), $('#mainTip'), mainCfg);
   attachTip($('#mainChart'), $('#mainTip'), mainCfg);
 
-  const ddLo = Math.min(...R.ddPath.map(p=>p.v), -1);
+  const ddMin = Math.min(...R.ddPath.map(p=>p.v), -1);
   const ddCfg = {
-    n: nP, min: ddLo*1.12, max: 0.5,
+    n: nP, min: ddMin*1.1, max: 0.6, ticks: 3,
+    xTicks, xLabel: i => String(yearOf(i)),
     yFmt: v => v.toFixed(0) + '%',
-    xFmt: i => `${labels[i].y}`,
-    series: [{data: R.ddPath.map(p=>p.v), color:'rgb(255,100,112)', width:1.6, fill:['rgba(255,100,112,0)','rgba(255,100,112,.30)']}],
-    tipHtml: i => `<div class="t">${labels[i].y}.${String(labels[i].mo).padStart(2,'0')}</div>
+    series: [{data: R.ddPath.map(p=>p.v), color:'rgb(255,100,112)', width:1.5,
+              fill:['rgba(255,100,112,0)','rgba(255,100,112,.30)']}],
+    tipHtml: i => `<div class="t">${yearOf(i)}.${String(moOf(i)).padStart(2,'0')}</div>
       <div class="r"><span>고점 대비</span><b style="color:#ff6470">${R.ddPath[i].v.toFixed(1)}%</b></div>`
   };
   drawChart($('#ddChart'), $('#ddTip'), ddCfg);
   attachTip($('#ddChart'), $('#ddTip'), ddCfg);
 }
+
 let rz;
 window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(renderCharts, 150); });
 
 /* ---------- render results ---------- */
+const SUB = {VOO:'360750', SPY:'360750', QQQ:'133690', QQQM:'133690', SCHD:'458730'};
+function altAlloc(alloc){
+  const out = [], missing = [], conv = [];
+  alloc.forEach(x => {
+    if(!x.id || !x.w) return;
+    const a = A[x.id];
+    if(!a) return;
+    if(a.mk === 'KR'){ out.push({id:x.id, w:x.w}); return; }
+    const sub = SUB[x.id];
+    if(sub){ out.push({id:sub, w:x.w}); conv.push(x.id + '→' + sub); }
+    else missing.push(x.id);
+  });
+  return {out, missing, conv};
+}
 function scenMini(cfg, scen, label, desc){
   const r = simulate(Object.assign({}, cfg, {scen}));
   return {label, desc, r};
@@ -994,13 +1040,29 @@ function run(){
   let wtxt = '';
   if(R.bad.length){
     const names = R.bad.map(a=>a.name.split(' · ')[0]).join(', ');
+    const alt = altAlloc(cfg.alloc);
+    const tail = alt.missing.length
+      ? `<div style="margin-top:6px">국내 상장 대체가 없는 종목: <b>${alt.missing.join(', ')}</b> — 이 종목은 ISA·연금에 담을 수 없습니다.</div>`
+      : (alt.conv.length ? `<div style="margin-top:8px"><button class="btn" id="convBtn">국내 상장으로 자동 전환</button>
+         <span style="font-size:11px;color:var(--mut);margin-left:6px">${alt.conv.join(' · ')}</span></div>` : '');
     wtxt = `<span class="ic">⚠</span><div><b>${ACCMETA[cfg.acc].label}</b>에는 ${names}을(를) 담을 수 없습니다
-      (${ACCMETA[cfg.acc].mk==='KR'?'국내 상장 ETF만 편입 가능':'해외주식 계좌가 필요'}). 아래 값은 세금만 해당 계좌 기준으로 계산한 참고치입니다.</div>`;
+      (${ACCMETA[cfg.acc].mk==='KR'?'국내 상장 ETF만 편입 가능':'해외주식 계좌가 필요'}).${tail}</div>`;
   } else if(R.levBad.length){
-    wtxt = `<span class="ic">⚠</span><div>레버리지 ETF(${R.levBad.map(a=>a.id).join(', ')})는 연금저축·IRP에 편입할 수 없습니다. 일반계좌로 계산해 보세요.</div>`;
+    wtxt = `<span class="ic">⚠</span><div>레버리지 ETF(${R.levBad.map(a=>a.id).join(', ')})는 연금저축·IRP에 편입할 수 없습니다. 일반계좌로 평가하거나 비중을 바꿔보세요.</div>`;
   }
-  if(wtxt){ warn.innerHTML = wtxt; warn.classList.remove('hidden'); warn.className='note'; }
-  else warn.classList.add('hidden');
+  if(wtxt){ warn.innerHTML = wtxt; warn.classList.remove('hidden'); }
+  else { warn.innerHTML=''; warn.classList.add('hidden'); }
+  const cb = $('#convBtn');
+  if(cb) cb.onclick = () => {
+    const alt = altAlloc(state.alloc.map(([id,w]) => ({id, w:+w})));
+    if(alt.missing.length) return;
+    state.alloc = [[null,0],[null,0],[null,0],[null,0],[null,0]];
+    alt.out.forEach(X => {
+      const i = state.alloc.findIndex(v => !v[0]);
+      if(i >= 0) state.alloc[i] = [X.id, X.w];
+    });
+    save(); renderAlloc(); run();
+  };
 
   const totalInv = R.invested;
   const gainRate = totalInv ? (R.gains/totalInv*100) : 0;
@@ -1033,17 +1095,29 @@ function run(){
       <div class="d" style="opacity:.8">${x.desc}</div>
     </div>`).join('');
 
-  // 계좌별
-  const needMk = ACCMETA[cfg.acc].mk;
-  const canHold = !R.assets.some(a => a.mk !== needMk);
+  // 계좌별 (국내 상장 대체 적용)
   const rows = ['us','kr','isa','pen'].map(acc => {
     const m = ACCMETA[acc];
-    const ok = !R.assets.some(a => a.mk !== m.mk) && !(acc==='pen' && R.assets.some(a=>a.lev>1));
-    const rr = simulate(Object.assign({}, cfg, {acc}));
+    let useAlloc = cfg.alloc.map(x => ({id:x.id, w:x.w}));
+    let conv = [], missing = [];
+    if(m.mk === 'KR'){
+      const alt = altAlloc(cfg.alloc);
+      if(alt.missing.length) missing = alt.missing;
+      else { useAlloc = alt.out; conv = alt.conv; }
+    }
+    const levBad = (acc==='pen' || acc==='isa') && useAlloc.some(x => A[x.id] && A[x.id].lev>1);
+    if(missing.length || levBad){
+      const why = missing.length ? '대체 종목 없음: ' + missing.join(', ')
+                                 : '레버리지는 이 계좌에서 편입 불가';
+      return `<tr class="dis"><td><b>${m.label}</b><div class="sub">${why}</div></td>
+        <td>–</td><td>–</td><td>–</td><td>–</td></tr>`;
+    }
+    const rr = simulate(Object.assign({}, cfg, {acc, alloc: useAlloc}));
     const net = rr.value - rr.exitTax;
     const ir = rr.irrNet;
-    return `<tr class="${acc===cfg.acc?'hl':''} ${ok?'':'dis'}">
-      <td><b>${m.label}</b>${ok?'':`<div class="sub">편입 불가 종목 포함</div>`}</td>
+    const sub = conv.length ? `대체 ${conv.join(' · ')}` : (acc === cfg.acc ? '현재 설정' : '');
+    return `<tr class="${acc===cfg.acc?'hl':''}">
+      <td><b>${m.label}</b><div class="sub">${sub}</div></td>
       <td>${rr.divTax>0?'-'+won(rr.divTax):'–'}</td>
       <td>${rr.exitTax>0?'-'+won(rr.exitTax):'–'}</td>
       <td><b>${won(net)}</b></td>
@@ -1051,11 +1125,12 @@ function run(){
     </tr>`;
   });
   $('#accTable').querySelector('tbody').innerHTML = rows.join('');
-  $('#accNote').innerHTML = `현재 배분은 <b>${ACCMETA[cfg.acc].label}</b> 기준으로 시뮬레이션되었습니다(분배금 과세가 성장률에 반영). 회색 행은 해당 계좌에 담을 수 없는 종목이 섞여 있어 참고용입니다. 연금저축·IRP는 수령 시 연금소득세 5.5%와 납입 세액공제(연 900만원 한도 16.5%, 별도 환급)를 함께 보세요.`;
+  $('#accNote').innerHTML = `현재 배분은 <b>${ACCMETA[cfg.acc].label}</b> 기준입니다(분배금 과세가 성장률에 반영). ISA·연금 행은 미국 상장 종목을 <b>같은 지수의 국내 상장 ETF로 바꿔</b> 계산했습니다(VOO·SPY→360750, QQQ·QQM→133690, SCHD→458730). 대체 상품이 없는 종목(TQQQ·SOXL·JEPI·SGOV 등)이 섞이면 그 계좌로는 담을 수 없어 –로 표시합니다. ISA의 레버리지 ETF는 증권사·계좌 유형에 따라 매수 가능 여부가 다릅니다.`;
 
   // 연도표
   $('#yearTable').querySelector('tbody').innerHTML = R.yearRows.map(y => `
-    <tr><td>${y.label}</td><td>${won(y.v)}</td><td>${won(y.inv)}</td>
+    <tr><td><b style="color:var(--txt)">${y.n}년차</b><div class="sub">${y.from.replace('-','.')} – ${y.to.replace('-','.')}</div></td>
+    <td>${won(y.v)}</td><td>${won(y.inv)}</td>
     <td class="${cls(y.ret)}">${pct(y.ret)}</td><td>${y.div>0?won(y.div):'–'}</td></tr>`).join('');
 
   requestAnimationFrame(renderCharts);
