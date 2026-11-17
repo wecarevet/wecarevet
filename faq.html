@@ -63,6 +63,16 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .ec-btn.call{background:#fff;color:var(--navy)}
 .ec-btn.kako{background:#FEE500;color:#1a1a1a}
 
+/* HOURS */
+.hours{background:var(--white);border:1px solid var(--border);border-radius:13px;padding:.95rem 1.05rem;margin-bottom:1.1rem}
+.hours-t{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+.hours-row{display:flex;justify-content:space-between;align-items:center;gap:.6rem;font-size:12px;color:var(--text-mid);padding:.26rem 0;border-bottom:1px dashed var(--navy-light)}
+.hours-row:last-of-type{border-bottom:none}
+.hours-row b{color:var(--navy);font-weight:600;white-space:nowrap}
+.hours-row .closed{color:var(--red);font-weight:700}
+.hours-note{margin-top:.6rem;font-size:11.5px;line-height:1.8;color:var(--text-mid);background:var(--red-bg);border:1px solid var(--red-border);border-radius:8px;padding:.55rem .7rem}
+.hours-note strong{color:var(--red)}
+
 /* TIERS */
 .tier{border-radius:14px;overflow:hidden;margin-bottom:1rem;border:1px solid var(--border);background:#fff}
 .tier-head{display:flex;align-items:center;gap:.7rem;padding:.85rem 1.05rem}
@@ -191,18 +201,29 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
   <!-- 응급 연락 -->
   <div class="emerg-call">
     <div class="ec-t">
-      응급 상황은 시간과 관계없이 먼저 전화 주세요
-      <small>호흡 곤란 · 소변 불통 · 경련 · 실신 · 대량 출혈</small>
+      진료시간 중 응급이면 먼저 전화 주세요
+      <small>호흡 곤란 · 소변 불통 · 경련 · 실신 · 대량 출혈 — 진료는 오후 8시까지, 수요일 휴무</small>
     </div>
     <a class="ec-btn call" href="tel:031-994-6346">📞 031-994-6346</a>
     <a class="ec-btn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡</a>
+  </div>
+
+  <!-- 진료시간 -->
+  <div class="hours">
+    <div class="hours-t">🕐 진료시간</div>
+    <div class="hours-row"><span>월·화·목·토·일</span><b>10:00 – 20:00</b></div>
+    <div class="hours-row"><span>금요일</span><b>10:00 – 16:00</b></div>
+    <div class="hours-row"><span>수요일</span><span class="closed">정기휴무</span></div>
+    <div class="hours-row"><span>점심시간</span><b>13:00 – 14:00</b></div>
+    <div class="hours-row"><span>접수 마감</span><b>평일·주말 19:40 / 금 15:40</b></div>
+    <div class="hours-note">⚠️ <strong>오후 8시(20:00) 이후에는 진료하지 않습니다.</strong> 진료시간이 지난 뒤나 수요일(휴무일)에는 <strong>인근 24시 응급동물병원</strong>을 이용해 주세요. 공휴일과 토·일요일은 정상 진료합니다.</div>
   </div>
 
   <!-- ============ 응급 트리아지 ============ -->
   <div class="sec" id="emerg">
     <div class="sec-label">Emergency Triage</div>
     <div class="sec-title">이럴 땐 바로 내원하세요</div>
-    <p class="sec-sub">같은 증상이라도 아이의 나이·기저질환에 따라 급함이 달라집니다. 아래 빨간 항목 중 하나라도 해당하면 <strong>이동 전에 전화</strong>부터 주세요.</p>
+    <p class="sec-sub">같은 증상이라도 아이의 나이·기저질환에 따라 급함이 달라집니다. 아래 빨간 항목 중 하나라도 해당하면 <strong>진료시간 중에는 이동 전에 전화</strong>부터 주세요. <strong>오후 8시 이후나 수요일(휴무일)에는 인근 24시 응급동물병원</strong>으로 바로 가 주세요.</p>
 
     <div class="tier red">
       <div class="tier-head">
@@ -401,7 +422,8 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 <div class="foot">
   <div class="foot-inner">
     <p class="foot-disc">
-      응급 상황(호흡 곤란, 소변 불통, 경련, 실신 등)은 <strong>지체 없이 병원으로 연락</strong> 주세요.<br>
+      응급 상황(호흡 곤란, 소변 불통, 경련, 실신 등)은 <strong>진료시간 중에는 지체 없이 병원으로 연락</strong> 주세요.<br>
+      진료시간 · 월·화·목·토·일 10:00–20:00 / 금 10:00–16:00 / 수요일 정기휴무 — 오후 8시 이후와 수요일에는 인근 24시 응급동물병원을 이용해 주세요.<br>
       위케어동물의료센터는 대학병원급 진단 프로토콜로 심장·신장·내분비·중증 내과 케이스를 진료합니다.
     </p>
     <div class="foot-btns">
@@ -506,8 +528,8 @@ var FAQ = [
     k:'예방접종 목욕 부작용 이상반응 미열' },
 
   { c:'surg', q:'수술 전 금식은 몇 시간 해야 하나요?',
-    a:'일반적으로 <strong>사료 8~12시간, 물 2~4시간</strong> 전부터 금식합니다. 어린 강아지·고양이는 저혈당 위험이 있어 금식 시간을 줄이는 경우가 있고, 당뇨·간질 환자는 담당 수의사 지시를 따릅니다. <strong>간식·껌·사람 음식도 모두 금지</strong>이며, 물은 안내된 시간 전까지는 마시게 해도 됩니다.',
-    k:'수술 전 금식 시간 사료 물 마취 준비' },
+    a:'위케어에서는 <strong>음식만 금식</strong>하면 됩니다. 사료·간식·덴탈껌·사람 음식은 보통 <strong>6~8시간 전</strong>부터 주지 마세요. <strong>물(음수)은 마취·수술 당일에도 마실 수 있습니다</strong> — 물까지 끊으면 오히려 탈수와 저혈압 위험이 커집니다. 어린 강아지·고양이는 저혈당 위험이 있어 금식 시간을 줄이는 경우가 있고, 당뇨·간질 환자는 담당 수의사 지시를 따릅니다.',
+    k:'수술 전 금식 시간 사료 물 마취 준비 음식만' },
   { c:'surg', q:'수술 당일 아침에 먹이는 약이 있어요.',
     a:'심장약·항경련제·갑상선약 등은 <strong>소량의 물과 함께 복용</strong>하는 경우가 많습니다. 다만 약 종류마다 다르므로 <strong>수술 전 반드시 담당 수의사에게 확인</strong>해 주세요. 임의로 끊으면 위험한 약(심장약, 항경련제)이 있습니다.',
     k:'수술 당일 아침 약 심장약 항경련제 복용' },
@@ -549,9 +571,9 @@ var FAQ = [
   { c:'emg', q:'체온은 몇 도가 정상인가요?',
     a:'개 <strong>38.0~39.0℃</strong>, 고양이 <strong>38.0~39.2℃</strong>가 정상입니다. 39.5℃ 이상이거나 37.5℃ 이하이면 내원이 필요합니다. 집에서 재는 체온계(직장)는 1~2cm만 넣고 부드럽게, 겁을 먹는 아이는 억지로 재지 말고 병원에서 확인하세요.',
     k:'체온 정상 범위 발열 저체온 측정' },
-  { c:'emg', q:'응급실은 언제든 갈 수 있나요?',
-    a:'호흡 곤란·소변 불통·경련·실신·대량 출혈·중독은 <strong>시간과 관계없이 먼저 전화</strong> 주세요. 야간·공휴일 진료 가능 여부와 도착 예정 시간을 알려드리면 준비 후 맞이할 수 있습니다. 이동 중에는 이동장에 고정하고 목줄을 당기지 마세요.',
-    k:'응급실 야간 공휴일 전화 진료시간' },
+  { c:'emg', q:'응급실은 언제든 갈 수 있나요? 진료시간은 어떻게 되나요?',
+    a:'진료시간은 <strong>월·화·목·토·일 10:00–20:00(접수마감 19:40), 금요일 10:00–16:00(접수마감 15:40)</strong>이고 <strong>매주 수요일은 정기휴무</strong>입니다. 공휴일과 토·일요일은 정상 진료합니다. <strong>오후 8시 이후에는 진료하지 않으므로</strong>, 그 이후나 수요일에 응급 상황이 생기면 <strong>인근 24시 응급동물병원</strong>을 이용해 주세요. 진료시간 중이라면 호흡 곤란·소변 불통·경련·실신·대량 출혈·중독은 <strong>이동 전에 먼저 전화</strong> 주세요. 이동 중에는 이동장에 고정하고 목줄을 당기지 마세요.',
+    k:'응급실 야간 공휴일 전화 진료시간 오후 8시 20시 수요일 24시' },
 
   { c:'heart', q:'안정 시 호흡수는 어떻게 재나요?',
     a:'아이가 <strong>잠들었거나 완전히 쉬고 있을 때</strong>, 가슴이 한 번 오르내리는 것을 1회로 셉니다. 30초 동안 세고 ×2 하면 분당 호흡수입니다. 정상은 <strong>30회/분 미만</strong>이며, 30~40회는 다시 측정, <strong>40회 이상</strong>이면 바로 연락 주세요. 하루 중 같은 시간에 재서 기록하면 변화를 빨리 알 수 있습니다.',

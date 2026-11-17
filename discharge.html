@@ -343,14 +343,9 @@ body.guardian .gcard{box-shadow:0 10px 40px rgba(16,51,94,.1)}
                 <option value="12">12시간 전부터</option>
               </select>
             </div>
-            <div class="field">
-              <label for="waterH">물 금식</label>
-              <select id="waterH" onchange="refresh()">
-                <option value="2" selected>2시간 전부터</option>
-                <option value="3">3시간 전부터</option>
-                <option value="4">4시간 전부터</option>
-              </select>
-            </div>
+          </div>
+          <div class="hint" style="font-size:11px;color:var(--text-mid);background:var(--navy-xlight);border-radius:8px;padding:.55rem .7rem;line-height:1.7">
+            💧 <b>물(음수)은 마취·수술 당일에도 마실 수 있습니다.</b> 금식은 음식(사료·간식·껌)만 하면 됩니다.
           </div>
           <div id="fastCalc" style="margin-top:.2rem"></div>
         </div>
@@ -529,7 +524,7 @@ var ITEM_DEFS = {
     { id:'p5', text:'최근 검사 결과지 (타 병원 포함)', detail:false }
   ],
   fast: [
-    { id:'f1', text:'금식 시간을 반드시 지켜주세요', sub:'사료·간식·껌 모두 금지, 물은 안내된 시간까지', detail:false },
+    { id:'f1', text:'금식은 음식만 하면 됩니다', sub:'사료·간식·껌 모두 금지, 물은 당일에도 마실 수 있음', detail:false },
     { id:'f2', text:'수술 당일 아침 복용약', sub:'심장약·항경련제는 소량의 물과 함께 복용 (담당 수의사 지시 시)', detail:true, ph:'예: 심장약은 아침 7시에 소량 물과 함께' },
     { id:'f3', text:'수술 2일 전까지 목욕을 마쳐주세요', sub:'수술 당일은 목욕 금지', detail:false },
     { id:'f4', text:'마취 전 검사 안내', sub:'혈액검사·흉부방사선으로 마취 위험을 먼저 확인합니다', detail:true, ph:'예: 혈액검사 + 흉부방사선 촬영 예정' },
@@ -647,16 +642,14 @@ function fastingTimes(){
   var opD = val('opDate') || todayISO();
   var opT = val('opTime') || '10:00';
   var foodH = parseInt(val('foodH'),10) || 8;
-  var waterH = parseInt(val('waterH'),10) || 2;
   var tp = opT.split(':');
   var base = new Date(parseInt(opD.split('-')[0],10), parseInt(opD.split('-')[1],10)-1, parseInt(opD.split('-')[2],10), parseInt(tp[0],10), parseInt(tp[1],10));
   var food = new Date(base.getTime() - foodH*3600*1000);
-  var water = new Date(base.getTime() - waterH*3600*1000);
   function label(d){
     var iso = d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate());
     return shortDate(iso) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes());
   }
-  return { opD:opD, opT:opT, foodH:foodH, waterH:waterH, food:label(food), water:label(water) };
+  return { opD:opD, opT:opT, foodH:foodH, food:label(food) };
 }
 
 /* =========================================================
@@ -714,7 +707,7 @@ function buildPayload(){
     rows.push(['수술 예정일', fmtDate(ft.opD) + ' ' + ft.opT]);
     if (val('arriveTime')) rows.push(['내원 시각', ft.opD === (val('opDate')||todayISO()) ? shortDate(ft.opD) + ' ' + val('arriveTime') : val('arriveTime')]);
     rows.push(['사료 금식', ft.food + ' 까지 (' + ft.foodH + '시간 전)']);
-    rows.push(['물 금식', ft.water + ' 까지 (' + ft.waterH + '시간 전)']);
+    rows.push(['물', '당일에도 마실 수 있음 (금식 불필요)']);
     blocks.push({ h:'일정', r: rows });
 
     var prep = checkedItems('prep').map(function(it){ return it.d ? it.l + ' — ' + it.d : it.l; });
@@ -801,7 +794,7 @@ function renderCard(p){
     '<div class="gc-body">' + body + '</div>' +
     emerg +
     '<div class="gc-foot">' +
-      '<p>궁금한 점이나 상태 변화가 있으면 언제든지 연락 주세요.<br>응급 상황은 시간과 관계없이 먼저 전화 주세요.</p>' +
+      '<p>궁금한 점이나 상태 변화가 있으면 언제든지 연락 주세요.<br>진료시간(월·화·목·토·일 10:00–20:00, 금 10:00–16:00)에는 먼저 전화 주세요. 오후 8시 이후와 수요일에는 인근 24시 응급동물병원을 이용해 주세요.</p>' +
       '<div class="gc-foot-btns">' +
         '<a class="gc-btn" href="tel:031-994-6346">📞 031-994-6346</a>' +
         '<a class="gc-btn kako" href="' + KAKAO_URL + '" target="_blank" rel="noopener">💬 카카오톡 문의</a>' +
@@ -824,8 +817,8 @@ function refresh(){
   if (ACTIVE_TAB === 'fast'){
     var ft = fastingTimes();
     $('fastCalc').innerHTML = '<div class="gc-note" style="background:var(--amber-bg);border:1px solid var(--amber-border);color:#7a4b00;font-size:12px">' +
-      '<b>먹이 금지:</b> ' + esc(ft.food) + ' 까지 (' + ft.foodH + '시간 전)<br>' +
-      '<b>물 금지:</b> ' + esc(ft.water) + ' 까지 (' + ft.waterH + '시간 전)' +
+      '<b>음식(사료·간식·검) 금지:</b> ' + esc(ft.food) + ' 까지 (' + ft.foodH + '시간 전)<br>' +
+      '<b>물(음수):</b> 당일에도 마셔도 됩니다' +
       '</div>';
   }
   $('linkbox').classList.remove('show');
@@ -910,6 +903,8 @@ function buildText(p){
   EMERGENCY.forEach(function(x){ L.push('· ' + x); });
   L.push('');
   L.push('문의 031-994-6346');
+  L.push('진료시간 월·화·목·토·일 10:00–20:00 / 금 10:00–16:00 / 수요일 휴무');
+  L.push('오후 8시 이후·수요일에는 인근 24시 응급동물병원을 이용해 주세요');
   L.push('카카오톡 ' + KAKAO_URL);
   return L.join('\n');
 }
