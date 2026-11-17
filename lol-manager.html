@@ -346,8 +346,9 @@ main{flex:1;display:flex;flex-direction:column;padding-bottom:calc(var(--tab-h) 
 .score .sd.right{flex-direction:row-reverse}
 .score .sn{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .score .sk{font-size:22px;font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums;flex:0 0 auto}
-.score .mid{text-align:center;flex:0 0 auto;min-width:74px;padding:0 2px}
-.clock{font-size:15px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--gold);letter-spacing:.02em;white-space:nowrap}
+.score .mid{text-align:center;flex:0 0 auto;min-width:88px;padding:0 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.clock{font-size:15px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--gold);letter-spacing:.02em;white-space:nowrap;line-height:1.15}
+.series-score{font-size:9.5px;font-weight:800;color:var(--dim);white-space:nowrap;line-height:1.15}
 .series-score{font-size:10px;font-weight:800;color:var(--dim)}
 .obj-row{display:flex;justify-content:space-between;gap:6px;margin-top:8px}
 .obj{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:9.5px;color:var(--dim2);font-weight:800}
@@ -2420,12 +2421,13 @@ function drawGraph(){
   ctx.strokeStyle='rgba(255,255,255,.06)'; ctx.lineWidth=1;
   for(let i=1;i<4;i++){ const y=h*i/4; ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke(); }
   const hist=M.history.length>1?M.history:[{min:0,diff:0},{min:M.minute,diff:0}];
+  const span=Math.max(30,Math.min(40,Math.ceil((M.minute*1.35)/5)*5));
   const maxAbs=Math.max(2000,...hist.map(p=>Math.abs(p.diff)))*1.2;
-  const X=m=>8+(m/40)*(w-16);
+  const X=m=>8+(m/span)*(w-16);
   const Y=d=>h/2-(d/maxAbs)*(h/2-8);
   // center
   ctx.strokeStyle='rgba(255,255,255,.18)';ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
-  const pts=hist.map(p=>[X(Math.min(p.min,40)),Y(p.diff)]);
+  const pts=hist.map(p=>[X(Math.min(p.min,span)),Y(p.diff)]);
   // area
   const grad=ctx.createLinearGradient(0,0,0,h);
   grad.addColorStop(0,'rgba(37,224,255,.35)');grad.addColorStop(.5,'rgba(37,224,255,.03)');grad.addColorStop(.5,'rgba(255,77,109,.03)');grad.addColorStop(1,'rgba(255,77,109,.35)');
@@ -2440,9 +2442,9 @@ function drawGraph(){
   const last=pts[pts.length-1];
   ctx.beginPath(); ctx.arc(last[0],last[1],3.2,0,7); ctx.fillStyle=M.gold[0]>=M.gold[1]?'#25e0ff':'#ff4d6d'; ctx.fill();
   ctx.fillStyle='rgba(255,255,255,.35)'; ctx.font='9px sans-serif';
-  ctx.fillText('+'+Math.round(maxAbs/1000)+'K',6,14);
-  ctx.fillText('-'+Math.round(maxAbs/1000)+'K',6,h-6);
-  ctx.fillText('40\'',w-20,h-6);
+  ctx.fillText("+"+Math.round(maxAbs/1000)+"K",6,14);
+  ctx.fillText("-"+Math.round(maxAbs/1000)+"K",6,h-6);
+  ctx.fillText(span+"'",w-20,h-6);
 }
 
 /* ============ UI: SERIES RESULT / PLAYOFFS / CHAMPION ============ */
