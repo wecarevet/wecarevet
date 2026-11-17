@@ -597,6 +597,7 @@ button.pers-chip{cursor:pointer}
     <section id="view-playoffs" class="view hidden"></section>
     <section id="view-playoffs2" class="view hidden"></section>
     <section id="view-worlds" class="view hidden"></section>
+    <section id="view-intl" class="view hidden"></section>
     <section id="view-offseason" class="view hidden"></section>
     <section id="view-champion" class="view hidden"></section>
   </main>
@@ -1848,7 +1849,8 @@ function evalComp(picks){
 function createState(teamId, opts){
   opts=opts||{};
   const st={
-    version:2, season:1, week:1, phase:'regular',
+    version:2, season:1, week:1, phase:'regular', split:'spring', playoffSplit:null,
+    springChampion:null, summerChampion:null, msi:null, ewc:null, msiChampion:null, ewcChampion:null,
     userTeam:teamId, teams:{}, players:{},
     schedule:[], results:[], weekAction:'scrim', weekActionTarget:null, actionApplied:false,
     gameplan:null, patchIdx:0, meta:{tier:{},obj:{dragon:1,grub:1,baron:1,tower:1}}, patches:[],
@@ -2090,6 +2092,79 @@ function applyPlayerEdit(oldName, d){
   return {ok:true};
 }
 
+
+/* ---------- 조합 아키타입 & 상성 카운터 ---------- */
+const ARCH_LABEL={dive:'돌진·하드이니시',poke:'포킹·대치',anti:'받아치기·디스인게이지',split:'스플릿',pickoff:'글로벌·픽오프',protect:'보호·뚜벅이',scale:'후반 밸류',skirmish:'교전'};
+const CHAMP_SETS={
+  antiDash:['뽀삐','탈리야','벡스','카시오페아','아지르','브라움','자야','레나타 글라스크','리산드라'],
+  mobility:['리 신','아칼리','르블랑','바이','라칸','암베사','크산테','요네','카밀','이렐리아','야스오','피즈','에코','제드','탈론','카직스','렝가','나피리','제리','아크샨'],
+  immobileMelee:['가렌','다리우스','문도 박사','세트','우르곳','일라오이','모데카이저','나서스','트런들','볼리베어','초가스','사이온','신지드','럼블','말파이트','오른','우디르','워윅'],
+  rangedBully:['제이스','케넨','나르','베인','바루스','케이틀린','애쉬','미스 포츈','제라스','직스','벨코즈','럭스','퀸'],
+  hypercarry:['코그모','징크스','베인','스몰더','아펠리오스','트위치','제리','카이사','자야','이즈리얼','세나'],
+  peelSup:['룰루','나미','소라카','잔나','유미','밀리오','카르마','세라핀','모르가나','타릭','브라움','레나타 글라스크'],
+  hookSup:['블리츠크랭크','쓰레쉬','노틸러스','파이크','레오나','알리스타','렐','라칸'],
+  global:['녹턴','갈리오','트위스티드 페이트','탈리야','쉔','판테온','아우렐리온 솔'],
+  artillery:['제라스','직스','벨코즈','럭스','조이','벡스'],
+};
+function compArchetype(names){
+  const cs=names.map(n=>CHAMP_MAP[n]).filter(Boolean);
+  const s={dive:0,poke:0,anti:0,split:0,pickoff:0,protect:0,scale:0,skirmish:0};
+  cs.forEach(c=>{
+    s.dive += (c.tags.engage||0)*1.2 + (c.cc||0)*0.45 + (c.sigK==='dive'?1.6:0);
+    s.poke += (c.tags.poke||0)*1.3 + (c.sigK==='poke'?1.6:0) + (c.sigK==='turret'?0.7:0);
+    s.anti += (c.cc>=2?0.5:0);
+    s.split += (c.tags.split||0)*1.2 + (c.sigK==='duel'?1.6:0);
+    s.pickoff += (c.sigK==='pickoff'?1.6:0)+(c.sigK==='grab'?0.6:0);
+    s.protect += (c.sigK==='sustain'?1.3:0);
+    s.scale += (c.tags.scale||0)*0.8 + (c.sigK==='scale'?1.6:0);
+    s.skirmish += (c.tags.fight||0)*0.85;
+  });
+  names.forEach(n=>{
+    if(CHAMP_SETS.antiDash.includes(n)) s.anti+=1.7;
+    if(CHAMP_SETS.peelSup.includes(n)) s.protect+=1.5;
+    if(CHAMP_SETS.global.includes(n)) s.pickoff+=1.3;
+    if(CHAMP_SETS.hypercarry.includes(n)) s.scale+=0.8;
+    if(CHAMP_SETS.artillery.includes(n)) s.poke+=0.8;
+  });
+  const arch=Object.keys(s).sort((a,b)=>s[b]-s[a])[0];
+  return {s,arch};
+}
+function archMatchup(a,b){
+  const A=a.arch,B=b.arch; let v=0; const notes=[];
+  if(A==='dive'&&B==='poke'){v+=1;notes.push(['good','상대 포킹·대치 조합에 돌진 하드이니시로 정면 돌파']);}
+  if(A==='poke'&&(B==='anti'||B==='protect')){v+=1;notes.push(['good','상대 받아치기·보호 조합을 포킹으로 압박']);}
+  if(A==='anti'&&B==='dive'){v+=1;notes.push(['good','상대 돌진 조합에 받아치기·디스인게이지로 완벽 카운터']);}
+  if(A==='protect'&&B==='dive'){v+=0.6;notes.push(['good','상대 돌진을 보호 조합으로 받아냅니다']);}
+  if(A==='split'&&B==='scale'){v+=0.8;notes.push(['good','상대 후반 조합에 스플릿으로 템포 압박']);}
+  if(A==='pickoff'&&B==='split'){v+=0.8;notes.push(['good','상대 스플릿에 글로벌·픽오프로 견제']);}
+  if(A==='dive'&&B==='anti'){v-=1;notes.push(['bad','상대 받아치기 조합에 돌진이 막힙니다']);}
+  if(A==='poke'&&B==='dive'){v-=1;notes.push(['bad','상대 돌진에 포킹 조합이 찢깁니다']);}
+  if(A==='scale'&&B==='split'){v-=0.6;notes.push(['bad','상대 스플릿에 후반 밸류를 못 봅니다']);}
+  return {v,notes};
+}
+function kitCounters(myNames,oppNames){
+  let v=0; const notes=[];
+  const cnt=(arr,names)=>arr.filter(n=>names.includes(n));
+  const anti=cnt(CHAMP_SETS.antiDash,myNames), mob=cnt(CHAMP_SETS.mobility,oppNames);
+  if(anti.length&&mob.length){ const x=Math.min(2.4,anti.length*mob.length*0.55); v+=x; notes.push(['good',anti.slice(0,2).join('·')+'의 이동기 차단으로 상대 '+mob.slice(0,2).join('·')+' 돌진 봉쇄']); }
+  const antiOpp=cnt(CHAMP_SETS.antiDash,oppNames), mobMine=cnt(CHAMP_SETS.mobility,myNames);
+  if(antiOpp.length&&mobMine.length){ const x=Math.min(2.4,antiOpp.length*mobMine.length*0.55); v-=x; notes.push(['bad','상대 '+antiOpp.slice(0,2).join('·')+'에게 우리 돌진이 묶입니다']); }
+  const bully=cnt(CHAMP_SETS.rangedBully,myNames), jug=cnt(CHAMP_SETS.immobileMelee,oppNames);
+  if(bully.length&&jug.length){ const x=Math.min(2.0,bully.length*jug.length*0.45); v+=x; notes.push(['good',bully.slice(0,2).join('·')+' 원거리 견제로 상대 뚜벅이 근접을 압박']); }
+  const bullyO=cnt(CHAMP_SETS.rangedBully,oppNames), jugM=cnt(CHAMP_SETS.immobileMelee,myNames);
+  if(bullyO.length&&jugM.length){ const x=Math.min(2.0,bullyO.length*jugM.length*0.45); v-=x; notes.push(['bad','상대 원거리 견제에 우리 근접 탑이 고통받습니다']); }
+  const peelMy=cnt(CHAMP_SETS.peelSup,myNames), hookOpp=cnt(CHAMP_SETS.hookSup,oppNames);
+  if(peelMy.length&&hookOpp.length){ v+=0.8; notes.push(['good',peelMy[0]+' 보호로 상대 '+hookOpp[0]+' 그랩을 무력화']); }
+  const peelOpp=cnt(CHAMP_SETS.peelSup,oppNames), hookMy=cnt(CHAMP_SETS.hookSup,myNames);
+  if(peelOpp.length&&hookMy.length){ v-=0.8; notes.push(['bad','상대 '+peelOpp[0]+' 보호에 우리 '+hookMy[0]+' 이니시가 지워집니다']); }
+  const assassin=cnt(['제드','탈론','카직스','렝가','이블린','나피리','피즈','아칼리','에코'],myNames);
+  const carry=cnt(CHAMP_SETS.hypercarry,oppNames);
+  if(assassin.length&&carry.length&&!peelOpp.length){ v+=1.2; notes.push(['good','상대 무보호 하이퍼캐리 '+carry[0]+'에게 암살 위협']); }
+  const globalMy=cnt(CHAMP_SETS.global,myNames), splitMy=cnt(['피오라','카밀','잭스','트린다미어','요릭','나서스','사이온','이렐리아','케일'],myNames);
+  if(globalMy.length&&splitMy.length){ v+=0.9; notes.push(['good',globalMy[0]+' 글로벌 합류로 '+splitMy[0]+' 스플릿 증폭']); }
+  return {v,notes};
+}
+
 /* ---------- DRAFT (official order + post-draft lane assignment) ---------- */
 /* 공식 대회 밴픽 순서: 블루밴1·레드밴1·블루밴2·레드밴2·블루밴3·레드밴3 →
    블루픽1·레드픽1·레드픽2·블루픽2·블루픽3·레드픽3 →
@@ -2310,15 +2385,20 @@ function evalDraft(){
   let sideBonus=0;
   if(D.mySide==='blue'){ sideBonus+=0.8; if(dMyPicks()[0]&&champTier(dMyPicks()[0])>=4) sideBonus+=0.9; }
   else { sideBonus+=0.8; const opFirst=dOppPicks()[0]; if(opFirst&&champTier(opFirst)>=4) sideBonus-=0.5; }
+  const myArch=compArchetype(dMyPicks()), opArch=compArchetype(dOppPicks());
+  const am=archMatchup(myArch,opArch);
+  const kc=kitCounters(dMyPicks(),dOppPicks());
+  const feedback=[...am.notes,...kc.notes];
   const compDiff=myComp.score-oppComp.score;
   const styleDiff=myStyle-opStyle;
   const myStaff=staffDraftBonus(S.userTeam), opStaff=staffDraftBonus(D.oppId);
   const staffDiff=myStaff-opStaff;
-  const raw=compDiff*0.5 + laneAdv*1.05 + styleDiff*0.35 + sideBonus + staffDiff;
+  const raw=compDiff*0.5 + laneAdv*1.05 + styleDiff*0.35 + sideBonus + staffDiff + am.v*2.4 + kc.v*0.9;
   const myPct=clamp(Math.round((50+raw*0.9)*10)/10,18,82);
   return {lane, myComp, oppComp, laneAdv, sideBonus, compDiff, styleDiff, staffDiff, myStaff, opStaff,
     myScore:myComp.score+laneAdv+styleDiff*0.4, oppScore:oppComp.score-laneAdv-styleDiff*0.4,
     myPct, oppPct:Math.round((100-myPct)*10)/10, assign:{me:myA,opp:opA}, myStyle, opStyle,
+    arch:{me:myArch,opp:opArch,label:ARCH_LABEL}, archV:am.v, kitV:kc.v, feedback,
     staff:{me:staffAll(S.userTeam).map(st=>({name:st.name,role:st.role,rating:st.rating,traits:st.traits.slice()})),
            opp:staffAll(D.oppId).map(st=>({name:st.name,role:st.role,rating:st.rating,traits:st.traits.slice()}))}};
 }
@@ -2467,7 +2547,7 @@ function startMatch(draftResult){
     coach:{me:myCoach,opp:opCoach}, earlyEdge:((myCoach.early||0)-(opCoach.early||0)),
     chem:{me:chemMe,opp:chemOp}, coachFit:{me:fitMe,opp:fitOp},
     mySide, oppId:opp.id, oppName:opp.name, myName:me.name,
-    myComp:draftResult.myComp, oppComp:draftResult.oppComp,
+    myComp:draftResult.myComp, oppComp:draftResult.oppComp, arch:draftResult.arch,
     lane, gp, stance:'standard', focusKey:null, stanceAt:0, focusAt:0,
     history:[], winProb:0.5, series:D.series, gameIdx:D.gameIdx,
     trait:{me:myTrait,opp:opTrait}, assign:{me:myA,opp:opA},
@@ -2686,7 +2766,8 @@ function tick(){
     const hero=pickOf(ROLES);
     const pl=playerAt(team,hero);
     const flavour=pl?styleLine(pl):'';
-    logEvent(team==='me'?'blue':'red', m+'분 · <b>대규모 한타</b> — '+(team==='me'?M.myName:M.oppName)+'이(가) '+n+'킬 스왑'+(flavour?' · '+flavour+'!':'하며 주도권을 가져갑니다.'));
+    const archTag=(M.arch&&M.arch.label)?(' <i>'+M.arch.label[(team==='me'?M.arch.me:M.arch.opp).arch]+'</i>'):'';
+    logEvent(team==='me'?'blue':'red', m+'분 · <b>대규모 한타</b> — '+(team==='me'?M.myName:M.oppName)+archTag+'이(가) '+n+'킬 스왑'+(flavour?' · '+flavour+'!':'하며 주도권을 가져갑니다.'));
   }
   // 바론
   if([20,26,32].includes(m)){
@@ -2800,18 +2881,21 @@ function analyzeGame(game){
 /* ============ SEASON / FLOW ============ */
 const CAL_WEEKS=['1월 3주','2월 1주','2월 4주','3월 3주','4월 2주','5월 4주','7월 1주','8월 1주','8월 4주'];
 const CAL_STAGES=[
-  {k:'regular', month:'1월~8월', label:'LCK 정규시즌', detail:'9주 · 10팀 더블 라운드 로빈', icon:'🗓'},
-  {k:'playoffs', month:'9월', label:'LCK 플레이오프', detail:'6강 → 4강 → 결승 (Bo5)', icon:'🏆'},
-  {k:'swiss', month:'10월', label:'월즈 스위스 스테이지', detail:'16팀 · 3승 진출 / 3패 탈락', icon:'🌍'},
-  {k:'quarters', month:'10월', label:'월즈 8강', detail:'스위스 상위 8팀 · Bo5', icon:'⚔️'},
-  {k:'semis', month:'11월', label:'월즈 4강', detail:'4팀 · Bo5', icon:'🔥'},
-  {k:'final', month:'11월', label:'월즈 결승', detail:'Bo5 · 소환사컵', icon:'👑'},
+  {k:'spring', month:'1~3월', label:'LCK 스프링', detail:'정규 5주 + 플레이오프', icon:'🌸'},
+  {k:'msi',    month:'5월',   label:'MSI', detail:'LCK·LPL·LEC·LCS 8팀 토너먼트', icon:'🌏'},
+  {k:'summer', month:'6~8월', label:'LCK 서머', detail:'정규 4주 + 플레이오프', icon:'☀️'},
+  {k:'ewc',    month:'7월',   label:'EWC 이스포츠 월드컵', detail:'8팀 초청 토너먼트', icon:'🏅'},
+  {k:'worlds', month:'10~11월', label:'롤드컵', detail:'스위스 → 8강 → 4강 → 결승', icon:'🌍'},
+  {k:'offseason', month:'11~12월', label:'스토브리그', detail:'재계약 · FA 이적시장', icon:'💼'},
 ];
 function stagePhase(){ return S?S.phase:'regular'; }
 function calendarNow(){
-  if(!S) return 'regular';
-  if(S.phase==='regular') return 'regular';
-  if(S.phase==='playoffs') return 'playoffs';
+  if(!S) return 'spring';
+  if(S.phase==='msi') return 'msi';
+  if(S.phase==='ewc') return 'ewc';
+  if(S.phase==='offseason') return 'offseason';
+  if(S.phase==='regular') return S.split==='summer'?'summer':'spring';
+  if(S.phase==='playoffs') return S.split==='summer'?'summer':'spring';
   if(S.phase==='worlds'){
     const W=S.worlds;
     if(W){
@@ -2821,7 +2905,7 @@ function calendarNow(){
     }
     return 'swiss';
   }
-  return 'final';
+  return 'worlds';
 }
 function weekCalLabel(w){ return CAL_WEEKS[(w-1)%CAL_WEEKS.length]; }
 
@@ -2942,9 +3026,19 @@ function finishSeries(){
     S.lastSeries={oppId,score:s.score.me+'-'+s.score.opp,win:meWon,stage:'regular'};
     S.week++;
     S.actionApplied=false; S.weekActionTarget=null; S.gameplan=null;
-    if(S.week>ROUNDS){ startPlayoffs(); }
-    else if([4,7].includes(S.week)){ applyPatch(S.week===4?1:2); }
+    if(S.split==='spring'&&S.week>5){ startPlayoffs('spring'); }
+    else if(S.split==='summer'&&S.week>ROUNDS){ startPlayoffs('summer'); }
+    else if([3,4,7].includes(S.week)){ applyPatch(S.week===3?1:S.week===4?2:3); }
+    else if(S.split==='summer'&&S.week===8&&!S.ewc){ startEWC(); }
     S.currentSeries=null; S.seriesMomentum=0;
+  }else if(s.stage==='msi'||s.stage==='ewc'){
+    const m=s.meta.match;
+    if(m){ m.sa=s.score.me; m.sb=s.score.opp; m.winner=s.score.me>s.score.opp?S.userTeam:oppId; m.done=true; }
+    S.lastSeries={oppId,score:s.score.me+'-'+s.score.opp,win:meWon,stage:s.stage};
+    S.currentSeries=null; S.seriesMomentum=0;
+    saveGame();
+    renderIntl();
+    return;
   }else if(s.stage==='worlds'){
     const m=s.meta.match;
     if(m){ m.sa=s.score.me; m.sb=s.score.opp; m.winner=s.score.me>s.score.opp?S.userTeam:oppId; m.done=true; }
@@ -2970,7 +3064,8 @@ function finishSeries(){
 }
 
 /* ---------- playoffs ---------- */
-function startPlayoffs(){
+function startPlayoffs(split){
+  S.playoffSplit=split||S.split||'summer';
   const st=standings();
   const seeds=st.slice(0,6).map(t=>t.id);
   S.playoffs={
@@ -3012,7 +3107,13 @@ function checkPlayoffComplete(){
   S.lckChampion=fin.winner;
   S.lckRunnerUp=fin.winner===fin.a?fin.b:fin.a;
   S.champion=S.lckChampion; S.runnerUp=S.lckRunnerUp;
-  startWorlds();
+  if(S.playoffSplit==='spring'){
+    S.springChampion=fin.winner; S.springRunnerUp=S.lckRunnerUp;
+    startMSI();
+  }else{
+    S.summerChampion=fin.winner; S.summerRunnerUp=S.lckRunnerUp;
+    startWorlds();
+  }
   return true;
 }
 function playoffNext(){
@@ -3047,6 +3148,82 @@ function startPlayoffSeries(match,roundName){
   return s;
 }
 
+/* ================= MSI / EWC 국제 초청 토너먼트 ================= */
+function startMSI(){
+  const st=standings();
+  const lck=[S.springChampion,S.springRunnerUp].filter(id=>id&&S.teams[id]);
+  st.forEach(t=>{ if(lck.length<2&&!lck.includes(t.id)) lck.push(t.id); });
+  const teams=[lck[0],lck[1],'BLG','TES','G2','FNC','FLY','TL'].filter((x,i,a)=>x&&a.indexOf(x)===i);
+  S.msi={kind:'msi',name:'MSI',month:'5월',bo:5,teams,bracket:makeIntlBracket(teams,5,'5월'),
+    done:false,champion:null,runnerUp:null,userIn:teams.includes(S.userTeam)};
+  S.phase='msi';
+  saveGame();
+}
+function startEWC(){
+  const lck=standings().slice(0,2).map(t=>t.id);
+  const teams=[...lck,'BLG','TES','G2','FNC','FLY','TL'].filter((x,i,a)=>x&&a.indexOf(x)===i);
+  S.ewc={kind:'ewc',name:'EWC 이스포츠 월드컵',month:'7월',bo:3,teams,bracket:makeIntlBracket(teams,3,'7월'),
+    done:false,champion:null,runnerUp:null,userIn:teams.includes(S.userTeam)};
+  S.phase='ewc';
+  saveGame();
+}
+function makeIntlBracket(teams,bo,month){
+  const s=teams.slice(0,8);
+  const mk=(a,b)=>({a,b,bo,done:false});
+  return {round:0, rounds:[
+    {name:'8강', month, matches:[mk(s[0],s[7]),mk(s[3],s[4]),mk(s[1],s[6]),mk(s[2],s[5])]},
+    {name:'4강', month, matches:[mk(null,null),mk(null,null)]},
+    {name:'결승', month, matches:[mk(null,null)]},
+  ]};
+}
+function intlNow(){ return S.phase==='msi'?S.msi:(S.phase==='ewc'?S.ewc:null); }
+function simIntlMatch(m,tour){
+  const r=simAIBo(m.a,m.b,m.bo||tour.bo||5);
+  m.sa=r.sa; m.sb=r.sb; m.winner=r.sa>r.sb?m.a:m.b; m.done=true;
+}
+function intlAdvance(tour){
+  const B=tour.bracket; const rd=B.rounds[B.round];
+  if(!rd.matches.every(m=>m.done)) return {action:'pending'};
+  if(B.round>=B.rounds.length-1){
+    const fin=rd.matches[0];
+    tour.done=true; tour.champion=fin.winner; tour.runnerUp=fin.winner===fin.a?fin.b:fin.a;
+    if(tour.kind==='msi'){
+      S.msiChampion=tour.champion;
+      S.split='summer'; S.phase='regular'; S.week=6;
+      S.actionApplied=false; S.weekActionTarget=null; S.gameplan=null;
+      toast('☀️ MSI 종료 — 서머 시즌이 시작됩니다');
+    }else{
+      S.ewcChampion=tour.champion;
+      S.phase='regular';
+      toast('🏅 EWC 종료 — 서머 시즌으로 복귀합니다');
+    }
+    saveGame();
+    return {action:'done'};
+  }
+  const winners=rd.matches.map(m=>m.winner);
+  const next=B.rounds[B.round+1];
+  next.matches.forEach((m,i)=>{ m.a=winners[i*2]||null; m.b=winners[i*2+1]||null; });
+  B.round++;
+  saveGame();
+  return {action:'advanced'};
+}
+function intlNext(){
+  const tour=intlNow(); if(!tour) return {action:'none'};
+  const rd=tour.bracket.rounds[tour.bracket.round];
+  const mine=rd.matches.find(m=>!m.done&&m.a&&m.b&&(m.a===S.userTeam||m.b===S.userTeam));
+  if(mine) return {action:'user',match:mine,roundName:rd.name,tour};
+  rd.matches.forEach(m=>{ if(!m.done&&m.a&&m.b) simIntlMatch(m,tour); });
+  return intlAdvance(tour);
+}
+function intlSeries(match,roundName,tour){
+  const oppId=match.a===S.userTeam?match.b:match.a;
+  const bo=match.bo||tour.bo||5;
+  const s=createSeries(oppId,bo,tour.kind,{match,roundName});
+  s.sides[0]=Math.random()<0.5?'blue':'red';
+  saveGame();
+  return s;
+}
+
 /* ================= WORLDS (롤드컵) ================= */
 const WORLDS_INTL=['BLG','TES','LNG','WBG','G2','FNC','MKOI','KC','FLY','TL','C9','100T'];
 function lckSeeds(){
@@ -3066,7 +3243,10 @@ function lckSeeds(){
   return out.slice(0,4);
 }
 function startWorlds(seedOverride){
-  const seeds=(seedOverride&&seedOverride.length?seedOverride:lckSeeds()).slice(0,4);
+  let seeds=(seedOverride&&seedOverride.length?seedOverride:lckSeeds()).slice(0,4);
+  if(!seedOverride&&S.msiChampion&&T(S.msiChampion)&&T(S.msiChampion).region==='LCK'&&!seeds.includes(S.msiChampion)){
+    seeds=[S.msiChampion,...seeds.slice(0,3)];
+  }
   const teams=[...seeds, ...WORLDS_INTL.filter(id=>!seeds.includes(id)&&T(id))];
   const rec={};
   teams.forEach(id=>{ rec[id]={w:0,l:0,opp:[],region:T(id).region}; });
@@ -3396,7 +3576,7 @@ function badge(team,size){
 }
 function show(name){
   closeModal();
-  ['title','select','hub','draft','plan','match','series','playoffs','champion','worlds','offseason'].forEach(v=>{
+  ['title','select','hub','draft','plan','match','series','playoffs','champion','worlds','intl','offseason'].forEach(v=>{
     const n=$('view-'+v); if(n) n.classList.toggle('hidden', v!==name);
   });
   if(name!=='match') mmStop();
@@ -3452,6 +3632,7 @@ function renderAll(){
   if(S.phase==='end'){ show('champion'); renderChampion(); return; }
   if(S.phase==='offseason'){ show('offseason'); renderOffseason(); return; }
   if(S.phase==='worlds'){ show('worlds'); renderWorlds(); return; }
+  if(S.phase==='msi'||S.phase==='ewc'){ show('intl'); renderIntl(); return; }
   if(S.phase==='playoffs'){ show('playoffs'); renderPlayoffs(); return; }
   if(S.currentSeries && !S.currentSeries.done){ TAB='home'; }
   show('hub'); renderHub();
@@ -3627,7 +3808,7 @@ function homeHTML(){
   return `
     <div class="row between" style="padding:2px 2px 0">
       <div>
-        <div class="tiny" style="letter-spacing:.18em;font-weight:800">REGULAR SEASON · WEEK ${w} · ${weekCalLabel(w)}</div>
+        <div class="tiny" style="letter-spacing:.18em;font-weight:800">${S.split==='summer'?'SUMMER':'SPRING'} · WEEK ${w} · ${weekCalLabel(w)}</div>
         <div style="font-weight:900;font-size:19px;letter-spacing:-.03em;margin-top:2px">${S.season}시즌 · ${rank}위</div>
       </div>
       <div class="chip ${rank<=6?'green':'red'}">${rank<=6?'플레이오프 권':'PO 진출권 밖'}</div>
@@ -4483,6 +4664,13 @@ function assignHTML(myComp,oppComp,me,opp){
       </div>
     </div>
     <div class="card tight">
+      <div class="card-h"><h4>밴픽 상성 진단</h4><span class="k">아키타입 상성</span></div>
+      <div class="row between"><span class="tiny">우리 조합</span><b style="font-size:11.5px;color:var(--cyan)">${ARCH_LABEL[r.arch.me.arch]}</b></div>
+      <div class="row between" style="margin-top:2px"><span class="tiny">상대 조합</span><b style="font-size:11.5px;color:var(--red)">${ARCH_LABEL[r.arch.opp.arch]}</b></div>
+      ${(r.feedback&&r.feedback.length)?`<div class="stack" style="gap:3px;margin-top:6px">${r.feedback.map(f=>`<div class="tiny" style="line-height:1.35;color:${f[0]==='good'?'#8ff0c4':'#ff9aa9'}">${f[0]==='good'?'✅':'⚠️'} ${esc(f[1])}</div>`).join('')}</div>`:''}
+      <div class="row between" style="margin-top:5px"><span class="tiny">상성 보정</span><b style="font-size:11px">${(r.archV*2.4+r.kitV*0.9).toFixed(1)}pt</b></div>
+    </div>
+    <div class="card tight">
       <div class="card-h"><h4>조합 · 성향 시너지</h4><span class="k">${Math.round(myComp.score)} vs ${Math.round(oppComp.score)}</span></div>
       ${compMini(myComp)}
       <div class="divider"></div>
@@ -4517,6 +4705,10 @@ function draftSummaryHTML(myComp,oppComp,me,opp){
       ${laneBars(r.lane)}
       <div class="divider"></div>
       <div class="row between"><span class="tiny">상성 합</span><b style="font-size:11px">${ROLES.reduce((x,rr)=>x+(r.lane[rr].counter||0),0).toFixed(1)}</b></div>
+    </div>
+    <div class="card tight">
+      <div class="card-h"><h4>밴픽 상성 진단</h4><span class="k">${ARCH_LABEL[r.arch.me.arch]} vs ${ARCH_LABEL[r.arch.opp.arch]}</span></div>
+      ${(r.feedback&&r.feedback.length)?`<div class="stack" style="gap:3px">${r.feedback.map(f=>`<div class="tiny" style="line-height:1.35;color:${f[0]==='good'?'#8ff0c4':'#ff9aa9'}">${f[0]==='good'?'✅':'⚠️'} ${esc(f[1])}</div>`).join('')}</div>`:'<div class="tiny">상성상 특이사항 없음</div>'}
     </div>
     <div class="card">
       <div class="card-h"><h4>조합 진단</h4><span class="k">${Math.round(myComp.score)} vs ${Math.round(oppComp.score)}</span></div>
@@ -5383,7 +5575,10 @@ function renderSeriesResult(){
   if(!over && !s.coach) s.coach={msg:'',applied:null};
   const me=T(S.userTeam), opp=T(s.oppId);
   const gd=M.gold[0]-M.gold[1];
-  const stageName=s.stage==='worlds'?'월즈 '+(s.meta.roundName||''):s.stage==='regular'?'LCK 정규시즌':(s.meta.roundName||'플레이오프');
+  const stageName=s.stage==='worlds'?'월즈 '+(s.meta.roundName||''):
+    s.stage==='msi'?'MSI '+(s.meta.roundName||''):
+    s.stage==='ewc'?'EWC '+(s.meta.roundName||''):
+    s.stage==='regular'?('LCK '+(S.split==='summer'?'서머':'스프링')+' 정규시즌'):(s.meta.roundName||'플레이오프');
   $('view-series').innerHTML=`
     <div class="result-hero">
       <div class="rr">${stageName} · ${s.bo}전 ${need}선승</div>
@@ -5529,8 +5724,8 @@ function renderPlayoffs(){
   const resumable=S.currentSeries&&!S.currentSeries.done?S.currentSeries:null;
   $('view-playoffs').innerHTML=`
     <div class="hero" style="padding:16px 14px 4px">
-      <div class="kicker">LCK PLAYOFFS · 9월</div>
-      <h1 style="font-size:26px">${S.season}시즌 플레이오프</h1>
+      <div class="kicker">LCK ${S.playoffSplit==='spring'?'SPRING':'SUMMER'} PLAYOFFS · ${S.playoffSplit==='spring'?'3월':'8월'}</div>
+      <h1 style="font-size:26px">${S.season}시즌 ${S.playoffSplit==='spring'?'스프링':'서머'} 플레이오프</h1>
       <p>6강 단판 시리즈 · 상위 4팀은 롤드컵 진출</p>
     </div>
     <div class="card">
@@ -5773,7 +5968,10 @@ function renderChampion(){
         ${badge(champ,'xl')}
       </div>
       <div class="divider"></div>
-      <div class="kv"><span>LCK 우승</span><b>${esc(lckChamp?lckChamp.name:'-')}</b></div>
+      <div class="kv"><span>LCK 스프링</span><b>${esc(S.springChampion?T(S.springChampion).name:'-')}</b></div>
+      <div class="kv"><span>LCK 서머</span><b>${esc(S.summerChampion?T(S.summerChampion).name:'-')}</b></div>
+      <div class="kv"><span>MSI</span><b>${esc(S.msiChampion?T(S.msiChampion).name:'-')}</b></div>
+      <div class="kv"><span>EWC</span><b>${esc(S.ewcChampion?T(S.ewcChampion).name:'-')}</b></div>
       <div class="kv"><span>월즈</span><b>${W&&W.champion?esc(T(W.champion).tag)+' 우승':'진출 실패'}</b></div>
       <div class="kv"><span>정규시즌</span><b>${myPos}위 · ${myTeam().wins}승 ${myTeam().losses}패</b></div>
       <div class="kv"><span>POG 포인트</span><b>${Object.keys(S.players).filter(n=>S.players[n].team===S.userTeam).reduce((a,n)=>a+(S.pog[n]||0),0)}</b></div>
@@ -5860,6 +6058,100 @@ function renderOffseason(){
   });
   $('startNextSeason').onclick=()=>{ finishOffseason(); toast('새 시즌이 시작됩니다'); };
   show('offseason');
+}
+
+
+/* ---------- MSI / EWC ---------- */
+function intlBracketHTML(tour){
+  return `<div class="bracket">
+    ${tour.bracket.rounds.map((r,ri)=>`<div class="bround">
+      <div class="bl">${esc(r.name)} · ${esc(r.month)}</div>
+      ${r.matches.map(m=>`<div class="bmatch ${tour.bracket.round===ri&&!m.done?'live':''}">
+        <div class="bs ${m.done&&m.winner===m.a?'win':''} ${m.a===S.userTeam?'me':''}">${m.a?badge(T(m.a),'sm')+'<span>'+esc(T(m.a).tag)+'</span>':'<span>TBD</span>'}<span class="bsc">${m.done?m.sa:'—'}</span></div>
+        <div class="bs ${m.done&&m.winner===m.b?'win':''} ${m.b===S.userTeam?'me':''}">${m.b?badge(T(m.b),'sm')+'<span>'+esc(T(m.b).tag)+'</span>':'<span>TBD</span>'}<span class="bsc">${m.done?m.sb:'—'}</span></div>
+      </div>`).join('')}
+    </div>`).join('')}
+  </div>`;
+}
+function intlUserMatch(tour){
+  const rd=tour.bracket.rounds[tour.bracket.round];
+  return rd.matches.find(m=>!m.done&&m.a&&m.b&&(m.a===S.userTeam||m.b===S.userTeam));
+}
+function renderIntl(){
+  const tour=intlNow();
+  if(!tour){ renderAll(); return; }
+  const rd=tour.bracket.rounds[tour.bracket.round];
+  const mine=intlUserMatch(tour);
+  const isMSI=tour.kind==='msi';
+  $('view-intl').innerHTML=`
+    <div class="hero worlds-hero" style="padding:18px 14px 6px">
+      <div class="kicker">${isMSI?'MID-SEASON INVITATIONAL':'ESPORTS WORLD CUP'} · ${tour.month}</div>
+      <h1 style="font-size:26px">${isMSI?'MSI':'EWC'}</h1>
+      <p>${esc(tour.name)} · 8팀 초청 · Bo${tour.bo}</p>
+      <div class="row" style="justify-content:center;gap:6px;margin-top:8px">
+        <span class="chip sm">${tour.teams.map(id=>esc(T(id).tag)).join(' · ')}</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-h"><h4>토너먼트</h4><span class="k">${esc(rd.name)} · ${rd.matches.filter(m=>m.done).length}/${rd.matches.length}</span></div>
+      ${intlBracketHTML(tour)}
+    </div>
+    ${tour.done?`
+      <div class="card glow" style="border-color:rgba(255,201,74,.45)">
+        <div class="row between"><div><div class="tiny">${isMSI?'MSI 우승':'EWC 우승'}</div><div style="font-weight:900;font-size:18px;color:var(--gold)">${esc(T(tour.champion).name)}</div></div>${badge(T(tour.champion),'lg')}</div>
+        <div class="row between" style="margin-top:6px"><span class="tiny">준우승</span><b style="font-size:12px">${esc(T(tour.runnerUp).name)}</b></div>
+        ${isMSI?'<div class="tiny" style="margin-top:6px">MSI 우승 팀이 LCK 소속이면 롤드컵 시드 보너스가 주어집니다</div>':''}
+      </div>
+      <button class="btn primary block" id="intlNext">${isMSI?'서머 시즌 시작 →':'서머 재개 →'}</button>
+    `:`
+      ${mine?`<div class="card" style="border-color:rgba(37,224,255,.5)">
+        <div class="card-h"><h4>${esc(rd.name)} · 우리 경기</h4><span class="k">Bo${mine.bo||tour.bo}</span></div>
+        <div class="row between" style="margin-bottom:10px">
+          <div class="row" style="gap:7px">${badge(myTeam())}<b>${esc(myTeam().tag)}</b></div>
+          <span class="chip sm">VS</span>
+          <div class="row" style="gap:7px"><b>${esc(T(mine.a===S.userTeam?mine.b:mine.a).tag)}</b>${badge(T(mine.a===S.userTeam?mine.b:mine.a))}</div>
+        </div>
+        <button class="btn primary block" id="intlPlay">경기 시작 · 밴픽</button>
+      </div>`:`
+      <div class="card">
+        <div class="card-h"><h4>${tour.userIn?'다음 경기':'관전 모드'}</h4><span class="k">${tour.month}</span></div>
+        <div class="tiny" style="margin-bottom:10px">${tour.userIn?'다른 경기를 시뮬레이션하고 다음 라운드로 진행합니다.':'우리 팀은 초청되지 않았습니다. 대회를 관전하세요.'}</div>
+        <button class="btn primary block" id="intlPlay">경기 진행</button>
+        <button class="btn sm block" id="intlSim" style="margin-top:6px">대회 전체 자동 진행 ⏩</button>
+      </div>`}
+    `}
+    <div class="card">
+      <div class="card-h"><h4>참가팀</h4><span class="k">8팀</span></div>
+      <div class="stack" style="gap:3px">${tour.teams.map(id=>{const t=T(id);return `<div class="kv"><span>${badge(t,'sm')} ${esc(t.name)} <i class="tiny">${esc(t.region)}</i></span><b style="font-size:11px">${esc(teamStar(t))}</b></div>`;}).join('')}</div>
+    </div>
+    <div style="height:10px"></div>`;
+  const p1=$('intlPlay'); if(p1) p1.onclick=()=>intlAction();
+  const p2=$('intlNext'); if(p2) p2.onclick=()=>{ intlAction(); };
+  const p3=$('intlSim'); if(p3) p3.onclick=()=>{ intlSimAll(); };
+  show('intl');
+}
+function intlAction(){
+  const r=intlNext();
+  if(r.action==='user'){
+    const s=intlSeries(r.match,r.roundName,r.tour);
+    saveGame(); startDraft(s); return;
+  }
+  if(r.action==='done' || !intlNow()){ renderAll(); return; }
+  renderIntl();
+}
+function intlSimAll(){
+  let guard=0;
+  while(intlNow()&&guard++<40){
+    const tour=intlNow();
+    const rd=tour.bracket.rounds[tour.bracket.round];
+    let any=false;
+    rd.matches.forEach(m=>{ if(!m.done&&m.a&&m.b){ simIntlMatch(m,tour); any=true; } });
+    if(!any) break;
+    const r=intlAdvance(tour);
+    if(r.action==='done') break;
+  }
+  saveGame();
+  renderAll();
 }
 
 
