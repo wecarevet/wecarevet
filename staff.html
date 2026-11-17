@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>원내 전용 포털 · 위케어동물의료센터</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="위케어동물의료센터 원내 전용 도구 바로가기.">
+<meta name="theme-color" content="#10335E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --green:#166534;--green-bg:#eefaf3;--green-border:#bfe3ce;
+  --amber:#8a5300;--amber-bg:#fff8ea;--amber-border:#f0dcae;
+  --max:900px;--radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;min-height:100vh;-webkit-font-smoothing:antialiased;word-break:keep-all}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
+a{color:inherit}
+::selection{background:var(--accent-light);color:var(--navy)}
+
+/* ── TOPBAR ───────────────────────────── */
+.topbar{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar-inner{max-width:var(--max);margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:58px;gap:.8rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3;white-space:nowrap}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.65;letter-spacing:.08em;margin-top:1px}
+.topbar-btns{display:flex;gap:.4rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s,transform .15s;white-space:nowrap;border:none;font-family:inherit}
+.tbtn.call{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.tbtn.call:hover{background:rgba(255,255,255,.2)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+.tbtn.ghost{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.14);font-size:11px}
+.tbtn.ghost:hover{background:rgba(255,255,255,.14)}
+
+/* ── HERO ─────────────────────────────── */
+.hero{background:var(--navy);padding:1.9rem 1.25rem 2.6rem;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-90px;top:-70px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(126,184,247,.16),rgba(126,184,247,0) 68%)}
+.hero-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#9cc4f0;background:rgba(126,184,247,.13);border:1px solid rgba(126,184,247,.32);border-radius:999px;padding:4px 11px;margin-bottom:.85rem}
+.hero h1{font-size:24px;font-weight:700;color:#fff;line-height:1.45;letter-spacing:-.02em}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{margin-top:.6rem;font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.8}
+
+/* ── SECTION ──────────────────────────── */
+.sec{padding:1.7rem 0 0}
+.sec-head{margin-bottom:.9rem}
+.kicker{display:block;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.3rem}
+.sec-title{font-size:17px;font-weight:700;color:var(--navy);letter-spacing:-.02em;line-height:1.45}
+.sec-sub{margin-top:.25rem;font-size:12px;color:var(--text-muted);line-height:1.7}
+
+/* ── TOOL CARDS ───────────────────────── */
+.tools{display:grid;grid-template-columns:1fr;gap:.75rem}
+@media(min-width:720px){.tools{grid-template-columns:1fr 1fr;gap:.85rem}}
+.tool{display:flex;align-items:flex-start;gap:.9rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.05rem 1.1rem;text-decoration:none;box-shadow:0 10px 26px -20px rgba(16,51,94,.85);transition:transform .18s,box-shadow .18s,border-color .18s;-webkit-tap-highlight-color:transparent}
+.tool:hover,.tool:focus-visible{transform:translateY(-3px);border-color:#b7d0ee;box-shadow:0 18px 34px -18px rgba(16,51,94,.6);outline:none}
+.tool:active{transform:translateY(-1px)}
+.tool-icon{width:46px;height:46px;flex-shrink:0;border-radius:13px;background:var(--navy-xlight);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;line-height:1}
+.tool-body{min-width:0;flex:1}
+.tool-name{display:block;font-size:16px;font-weight:700;color:var(--navy);line-height:1.45;letter-spacing:-.025em}
+.tool-desc{display:block;margin-top:.25rem;font-size:11.5px;color:var(--text-mid);line-height:1.65}
+.tool-meta{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;margin-top:.55rem}
+.tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:5px;background:var(--navy-xlight);border:1px solid var(--border);color:var(--text-muted);line-height:1.6}
+.tag.new{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+.tag.ext{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber)}
+.tool-go{margin-left:auto;font-size:12px;font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0;align-self:center;transition:transform .18s}
+.tool:hover .tool-go{transform:translateX(3px)}
+.tool.wide{grid-column:1/-1}
+@media(max-width:719px){.tool-go{display:none}}
+
+/* ── COPY LIST ────────────────────────── */
+.copybox{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 26px -22px rgba(16,51,94,.8)}
+.copyrow{display:flex;align-items:center;gap:.7rem;padding:.7rem .85rem;border-bottom:1px solid var(--navy-xlight)}
+.copyrow:last-child{border-bottom:none}
+.copyrow:hover{background:#fbfdff}
+.cicon{width:30px;height:30px;flex-shrink:0;border-radius:9px;background:var(--navy-xlight);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1}
+.cbody{min-width:0;flex:1}
+.cname{display:block;font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.45;letter-spacing:-.01em}
+.curl{display:block;font-size:10px;color:var(--text-muted);line-height:1.5;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.copen{font-size:10.5px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:5px 8px;border-radius:6px;flex-shrink:0}
+.copen:hover{color:var(--navy);background:var(--navy-xlight)}
+.cbtn{font-family:inherit;font-size:11px;font-weight:700;color:var(--navy);background:var(--white);border:1px solid var(--border);border-radius:7px;padding:6px 11px;cursor:pointer;flex-shrink:0;transition:background .15s,border-color .15s,color .15s;-webkit-tap-highlight-color:transparent}
+.cbtn:hover{border-color:#b7d0ee;background:var(--navy-xlight)}
+.cbtn.done{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+
+/* ── TIP ──────────────────────────────── */
+.tip{display:grid;grid-template-columns:1fr;gap:.75rem;margin-top:1.7rem}
+@media(min-width:720px){.tip{grid-template-columns:1fr 1fr}}
+.tipcard{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:.95rem 1rem}
+.tipcard h3{font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:.4rem;display:flex;align-items:center;gap:.35rem}
+.tipcard ol,.tipcard ul{margin:0;padding-left:1.05rem}
+.tipcard li{font-size:11.5px;color:var(--text-mid);line-height:1.8;margin-bottom:.2rem}
+.tipcard li:last-child{margin-bottom:0}
+.tipcard li b{color:var(--navy);font-weight:700}
+.tipcard code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;background:var(--navy-xlight);border:1px solid var(--border);border-radius:4px;padding:1px 5px;color:var(--navy);word-break:break-all}
+.tipcard .cbtn{margin-top:.6rem}
+
+/* ── FOOTER ───────────────────────────── */
+.foot{background:var(--navy);margin-top:2.2rem;padding:1.6rem 1.25rem}
+.foot-inner{max-width:var(--max);margin:0 auto}
+.foot-name{color:#fff;font-size:13px;font-weight:500}
+.foot-sub{color:rgba(255,255,255,.45);font-size:10.5px;letter-spacing:.06em;margin-top:2px}
+.foot-disc{margin-top:.9rem;font-size:11px;color:rgba(255,255,255,.42);line-height:1.85}
+.foot-disc strong{color:rgba(255,255,255,.72);font-weight:500}
+.foot-btns{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.9rem}
+.foot-ref{margin-top:.9rem;font-size:10px;color:rgba(255,255,255,.18);letter-spacing:.02em}
+
+/* ── TOAST ────────────────────────────── */
+.toast{position:fixed;left:50%;bottom:32px;transform:translate(-50%,14px);z-index:500;background:var(--navy-dark);color:#fff;font-size:12.5px;font-weight:500;padding:10px 18px;border-radius:999px;box-shadow:0 10px 30px rgba(10,34,64,.35);opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;max-width:88vw;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.warn{background:#b3261e}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media print{.topbar,.hero,.tip,.foot-btns,.cbtn,.copen{display:none !important}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn ghost" href="index.html">보호자 홈</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">🔒 Staff only</span>
+    <h1>원내 전용 <span>도구 포털</span></h1>
+    <p class="hero-desc">
+      진료실에서 쓰는 도구를 한 페이지에 모았습니다. 아래 카드를 누르면 바로 열립니다.<br>
+      이 페이지는 보호자 안내 페이지에서 링크되지 않으며, 검색엔진에도 노출되지 않습니다.
+    </p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ══════════ 원내 도구 ══════════ -->
+  <section class="sec" id="tools" aria-labelledby="tools-title">
+    <div class="sec-head">
+      <span class="kicker">원내 도구</span>
+      <h2 class="sec-title" id="tools-title">한 번에 열기</h2>
+      <p class="sec-sub">카드를 누르면 해당 도구가 열립니다. 바른복약만 새 창에서 열립니다.</p>
+    </div>
+
+    <div class="tools">
+
+      <a class="tool" href="discharge.html">
+        <span class="tool-icon" aria-hidden="true">📋</span>
+        <span class="tool-body">
+          <span class="tool-name">퇴원·투약·수술 안내문 생성기</span>
+          <span class="tool-desc">항목만 체크하면 보호자용 안내 카드가 완성됩니다. 복사해서 카카오톡으로 바로 전송.</span>
+          <span class="tool-meta"><span class="tag">투약</span><span class="tag">수술 전후</span><span class="tag">퇴원 관리</span></span>
+        </span>
+        <span class="tool-go" aria-hidden="true">열기 →</span>
+      </a>
+
+      <a class="tool" href="soap.html">
+        <span class="tool-icon" aria-hidden="true">🩺</span>
+        <span class="tool-body">
+          <span class="tool-name">진료메모 → SOAP·카톡 변환기</span>
+          <span class="tool-desc">진료 중 적은 메모를 SOAP 노트와 보호자용 카톡 문장으로 바꿔 줍니다.</span>
+          <span class="tool-meta"><span class="tag">SOAP</span><span class="tag">차트 정리</span><span class="tag">카톡 발송</span></span>
+        </span>
+        <span class="tool-go" aria-hidden="true">열기 →</span>
+      </a>
+
+      <a class="tool" href="cri_calculator.html">
+        <span class="tool-icon" aria-hidden="true">🧮</span>
+        <span class="tool-body">
+          <span class="tool-name">임상 계산기</span>
+          <span class="tool-desc">CRI · 수액·전해질 · 응급 약물 용량 · 마취 전 체크리스트를 한 화면에서.</span>
+          <span class="tool-meta"><span class="tag">CRI</span><span class="tag">수액</span><span class="tag">응급약물</span><span class="tag">마취 체크</span></span>
+        </span>
+        <span class="tool-go" aria-hidden="true">열기 →</span>
+      </a>
+
+      <a class="tool" href="https://wecarevetp.netlify.app/" target="_blank" rel="noopener">
+        <span class="tool-icon" aria-hidden="true">💊</span>
+        <span class="tool-body">
+          <span class="tool-name">바른복약 100종</span>
+          <span class="tool-desc">약물 100종의 용법·주의사항을 바로 검색. 보호자에게 보여 주며 설명할 때 사용하세요.</span>
+          <span class="tool-meta"><span class="tag ext">외부 사이트</span><span class="tag">새 창</span></span>
+        </span>
+        <span class="tool-go" aria-hidden="true">열기 ↗</span>
+      </a>
+
+      <a class="tool wide" href="research.html">
+        <span class="tool-icon" aria-hidden="true">📚</span>
+        <span class="tool-body">
+          <span class="tool-name">수의학 논문 스터디</span>
+          <span class="tool-desc">소동물 최신 논문을 한글 요약으로 모아 둔 페이지. 매일 자동 업데이트되며, 분야·키워드로 찾아볼 수 있습니다.</span>
+          <span class="tool-meta"><span class="tag new">매일 업데이트</span><span class="tag">한글 요약</span></span>
+        </span>
+        <span class="tool-go" aria-hidden="true">열기 →</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══════════ 보호자 링크 복사 ══════════ -->
+  <section class="sec" id="guardian" aria-labelledby="guardian-title">
+    <div class="sec-head">
+      <span class="kicker">보호자 안내</span>
+      <h2 class="sec-title" id="guardian-title">보호자 페이지 링크 복사</h2>
+      <p class="sec-sub">복사를 누르면 보호자에게 보낼 주소가 복사됩니다. 카카오톡 대화창에 붙여넣기만 하세요.</p>
+    </div>
+
+    <div class="copybox">
+      <div class="copyrow">
+        <span class="cicon" aria-hidden="true">🏠</span>
+        <span class="cbody"><span class="cname">보호자 안내 홈</span><span class="curl">index.html</span></span>
+        <a class="copen" href="index.html" target="_blank" rel="noopener">열기</a>
+        <button type="button" class="cbtn" data-copy="index.html">링크 복사</button>
+      </div>
+      <div class="copyrow">
+        <span class="cicon" aria-hidden="true">📝</span>
+        <span class="cbody"><span class="cname">사전 문진표</span><span class="curl">intake.html</span></span>
+        <a class="copen" href="intake.html" target="_blank" rel="noopener">열기</a>
+        <button type="button" class="cbtn" data-copy="intake.html">링크 복사</button>
+      </div>
+      <div class="copyrow">
+        <span class="cicon" aria-hidden="true">💉</span>
+        <span class="cbody"><span class="cname">예방접종·건강검진 계산기</span><span class="curl">vaccine.html</span></span>
+        <a class="copen" href="vaccine.html" target="_blank" rel="noopener">열기</a>
+        <button type="button" class="cbtn" data-copy="vaccine.html">링크 복사</button>
+      </div>
+      <div class="copyrow">
+        <span class="cicon" aria-hidden="true">🚗</span>
+        <span class="cbody"><span class="cname">내원 전 준비 · 오시는 길</span><span class="curl">visit.html</span></span>
+        <a class="copen" href="visit.html" target="_blank" rel="noopener">열기</a>
+        <button type="button" class="cbtn" data-copy="visit.html">링크 복사</button>
+      </div>
+      <div class="copyrow">
+        <span class="cicon" aria-hidden="true">🚫</span>
+        <span class="cbody"><span class="cname">금지·주의 음식 검색</span><span class="curl">food.html</span></span>
+        <a class="copen" href="food.html" target="_blank" rel="noopener">열기</a>
+        <button type="button" class="cbtn" data-copy="food.html">링크 복사</button>
+      </div>
+      <div class="copyrow">
+        <span class="cicon" aria-hidden="true">⚖️</span>
+        <span class="cbody"><span class="cname">비만도(BCS)·칼로리 계산기</span><span class="curl">bcs.html</span></span>
+        <a class="copen" href="bcs.html" target="_blank" rel="noopener">열기</a>
+        <button type="button" class="cbtn" data-copy="bcs.html">링크 복사</button>
+      </div>
+      <div class="copyrow">
+        <span class="cicon" aria-hidden="true">📈</span>
+        <span class="cbody"><span class="cname">홈 케어 기록지</span><span class="curl">homecare.html</span></span>
+        <a class="copen" href="homecare.html" target="_blank" rel="noopener">열기</a>
+        <button type="button" class="cbtn" data-copy="homecare.html">링크 복사</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 즐겨찾기 팁 ══════════ -->
+  <section class="sec" aria-labelledby="tip-title">
+    <div class="sec-head">
+      <span class="kicker">한 번만 설정</span>
+      <h2 class="sec-title" id="tip-title">이 페이지를 즐겨찾기에 고정하세요</h2>
+    </div>
+
+    <div class="tip">
+      <div class="tipcard">
+        <h3>💻 원내 PC — 즐겨찾기</h3>
+        <ol>
+          <li><b>Chrome</b>은 주소창 오른쪽 <b>☆</b> 클릭 → 이름을 <b>원내 도구</b>로 저장</li>
+          <li>저장한 뒤 <b>북마크 관리자</b>에서 <b>북마크 바에 표시</b>를 켜면 화면 위에 항상 남습니다</li>
+          <li><b>Ctrl + D</b>(Mac은 <b>⌘ + D</b>)만 눌러도 저장됩니다</li>
+        </ol>
+      </div>
+      <div class="tipcard">
+        <h3>📱 휴대폰 — 홈 화면에 추가</h3>
+        <ul>
+          <li><b>Android</b>: Chrome 우측 상단 <b>⋮</b> → <b>홈 화면에 추가</b></li>
+          <li><b>iPhone</b>: Safari 하단 <b>공유</b> → <b>홈 화면에 추가</b></li>
+          <li>홈 화면 아이콘으로 진료실에서 한 번에 열 수 있습니다</li>
+        </ul>
+        <button type="button" class="cbtn" data-copy="staff.html" data-label="이 페이지 주소 복사">이 페이지 주소 복사</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <p class="foot-name">위케어동물의료센터</p>
+    <p class="foot-sub">WECARE Animal Medical Center · 원내 전용 포털</p>
+    <p class="foot-disc">
+      <strong>이 페이지는 원내 전용입니다.</strong> 보호자 안내 페이지(index.html)에서 링크되지 않으며,
+      검색엔진에 노출되지 않도록 설정되어 있습니다. 보호자에게 이 주소를 보내지 마세요.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">WECARE Animal Medical Center · wecarevet.github.io/wecarevet/staff.html</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var BASE = (location.protocol === 'http:' || location.protocol === 'https:')
+    ? new URL('.', location.href).href
+    : 'https://wecarevet.github.io/wecarevet/';
+
+  var toastEl = document.getElementById('toast');
+  var toastTimer = null;
+  function toast(msg, warn){
+    toastEl.textContent = msg;
+    toastEl.className = 'toast' + (warn ? ' warn' : '');
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 1800);
+  }
+
+  function copyText(text){
+    return new Promise(function(resolve){
+      if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(text).then(function(){ resolve(true); })
+          .catch(function(){ resolve(fallback(text)); });
+      } else {
+        resolve(fallback(text));
+      }
+    });
+  }
+  function fallback(text){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.left = '-9999px';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    }catch(e){ return false; }
+  }
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-copy]');
+    if(!btn) return;
+    var file = btn.getAttribute('data-copy');
+    var url = /^https?:\/\//.test(file) ? file : BASE + file;
+    var label = btn.getAttribute('data-label') || '링크 복사';
+
+    copyText(url).then(function(ok){
+      if(ok){
+        var old = btn.textContent;
+        btn.textContent = '✓ 복사됨';
+        btn.classList.add('done');
+        setTimeout(function(){
+          btn.textContent = old === '✓ 복사됨' ? label : old;
+          btn.classList.remove('done');
+        }, 1600);
+        toast('주소가 복사되었습니다 · 카카오톡에 붙여넣기');
+      } else {
+        toast('복사가 막혔습니다. 주소창의 주소를 길게 눌러 복사해 주세요.', true);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
