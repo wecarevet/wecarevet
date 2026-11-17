@@ -766,9 +766,9 @@ function buildSOAP(c, sec){
 var TERMS = [
   [/\bstage\s*([A-D]?\d{0,2})\b/gi, ' $1 단계'],
   [/\bMMVD\b/gi, '심장판막이 제대로 닫히지 않아 생기는 심장병(MMVD)'],
+  [/(?:\bCKD\b|만성\s*신장질환)\s*(?:IRIS\s*)?(\d)\s*기/gi, '만성 신장질환 $1단계'],
   [/\bCKD\b/gi, '만성 신장질환'],
-  [/\bCKD\s*(?:IRIS\s*)?(\d)\s*기/gi, '만성 신장질환 $1단계'],
-  [/\bIRIS\s*(\d)\s*(?:기|단계)/gi, '만성 신장질환 $1단계'],
+  [/\bIRIS\s*(\d)\s*(?:기|단계)/gi, '신장병 $1단계'],
   [/\bLA\/Ao\b/gi, '좌심방 크기(LA/Ao)'],
   [/\bVHS\b/gi, '심장 크기 지수(VHS)'],
   [/\bCRT\b/gi, '잇몸을 눌렀다 뗐을 때 피가 돌아오는 시간'],
