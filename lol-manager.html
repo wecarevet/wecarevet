@@ -767,7 +767,7 @@ function champFit(p,c){
 }
 function laneScore(p,c){
   if(!p) return 55;
-  return (effRating(p)*champFit(p,c)) + (champTier(c)-3)*2.4;
+  return (75+(effRating(p)-75)*0.8)*champFit(p,c) + clamp((champTier(c)-3)*2,-3,3);
 }
 
 /* ---------- comp evaluation ---------- */
@@ -785,7 +785,7 @@ function evalComp(picks){
   const n=Math.max(cs.length,1);
   const curveAvg=curve.map(v=>v/n);
   const tierAvg=cs.reduce((a,c)=>a+champTier(c),0)/n;
-  let score=48+(tierAvg-3)*7+tags.fight*1.15+tags.engage*0.95+tags.scale*0.85+tags.poke*0.5+tags.split*0.45;
+  let score=40+(tierAvg-3)*5+tags.fight*0.9+tags.engage*0.75+tags.scale*0.7+tags.poke*0.4+tags.split*0.35;
   const warnings=[],strengths=[];
   if(ad>=4&&ap===0){score-=7;warnings.push('풀 AD 조합 — 상대 방어막 스택에 취약');}
   else if(ap>=4&&ad===0){score-=7;warnings.push('풀 AP 조합 — 상대 마저 스택에 취약');}
@@ -1076,7 +1076,7 @@ function startMatch(draftResult){
   const lane=draftResult.lane;
   const gp=S.gameplan||{jungle:'mid',laneSwap:false,firstObj:'grub',dive:false};
   const myPower=teamPower(me), oppPower=teamPower(opp);
-  let edge=(myPower-oppPower)*1.15 + (draftResult.myComp.score-draftResult.oppComp.score)*0.35 + draftResult.laneAdv*0.55 + draftResult.sideBonus;
+  let edge=(myPower-oppPower)*0.85 + (draftResult.myComp.score-draftResult.oppComp.score)*0.3 + draftResult.laneAdv*0.25 + draftResult.sideBonus;
   // gameplan effects
   if(gp.jungle==='top'){ edge+=(lane.TOP.my-lane.TOP.opp)*0.06; }
   if(gp.jungle==='bot'){ edge+=(lane.ADC.my-lane.ADC.opp)*0.06; }
@@ -1111,6 +1111,7 @@ function togglePlay(){ if(!M) return; M.running=!M.running; if(M.running&&M.need
 
 function logEvent(kind,text,minute){
   if(!M) return;
+  text=String(text).replace(/^\d+분 · /,'');
   M.events.unshift({kind,text,minute:minute===undefined?M.minute:minute});
   if(M.events.length>90) M.events.pop();
 }
@@ -1128,8 +1129,9 @@ function winProb(){
   const dd=M.dragons[0]-M.dragons[1];
   const bd=M.barons[0]-M.barons[1];
   const cd=curveAt(M.myComp,M.minute)-curveAt(M.oppComp,M.minute);
-  let s=gd/1500 + kd*0.075 + td*0.09 + dd*0.16 + bd*0.45 + cd*0.28 + M.edge*0.045 + (M.tacticEdge||0);
-  return clamp(sig(s),0.02,0.98);
+  const tf=clamp(M.minute/14,0.3,1);
+  let s=(gd/2600)*tf + kd*0.05 + td*0.07 + dd*0.13 + bd*0.4 + cd*0.22 + M.edge*0.032 + (M.tacticEdge||0);
+  return clamp(sig(s),0.03,0.97);
 }
 function sideIdx(team){ return team==='me'?0:1; }
 function addGold(team,amount){ M.gold[sideIdx(team)]+=Math.round(amount); }
@@ -1143,86 +1145,91 @@ function tick(){
   M.minute++;
   const m=M.minute;
   // passive gold (economy edge from lane advantages)
-  const eco=(M.lane ? (M.lane.TOP.my-M.lane.TOP.opp)+(M.lane.ADC.my-M.lane.ADC.opp) : 0)*1.6;
-  addGold('me', 640+eco*1.2+rnd(-40,40));
-  addGold('opp', 640-eco*1.2+rnd(-40,40));
+  const eco=(M.lane ? (M.lane.TOP.my-M.lane.TOP.opp)+(M.lane.ADC.my-M.lane.ADC.opp) : 0)*1.1;
+  addGold('me', 620+eco*1.1+rnd(-35,35));
+  addGold('opp', 620-eco*1.1+rnd(-35,35));
   // tactics prompts
-  if((m===12||m===20||m===28) && !M.tacticAt.includes(m)){
+  if((m===12||m===22) && !M.tacticAt.includes(m)){
     M.needTactic=true; M.running=false;
     logEvent('sys','⏸ '+m+'분 — 미드게임 작전을 지시하세요');
     renderMatch(); return;
   }
   const p=winProb();
+  const killFavor=clamp(0.5+(p-0.5)*0.55,0.12,0.88);
   // individual kills
-  const aggr=1+(M.tactic==='force'?0.55:0)+(M.tactic==='split131'?0.1:0);
-  if(Math.random()<0.52*aggr){
-    const meWins=Math.random()<p;
+  const aggr=1+(M.tactic==='force'?0.35:0)+(M.tactic==='split131'?0.08:0);
+  if(Math.random()<0.30*aggr){
+    const meWins=Math.random()<killFavor;
     const team=meWins?'me':'opp';
     const role=pickOf(ROLES);
-    addGold(team,320); M.kills[sideIdx(team)]++;
+    addGold(team,300); M.kills[sideIdx(team)]++;
     const champ=team==='me'?myChampAt(role):oppChampAt(role);
     const nm=team==='me'?myNameAt(role):oppNameAt(role);
-    if(Math.random()<0.35){
-      logEvent(team==='me'?'blue':'red', m+'분 · <b>'+nm+'</b>('+champ+') 솔로킬! '+ROLE_KR[role]+' 라인 주도권을 잡습니다.');
+    const sideCls=team==='me'?'blue':'red';
+    if(Math.random()<0.4){
+      const victimRole=team==='me'?pickOf(ROLES):pickOf(ROLES);
+      const victim=team==='me'?oppNameAt(victimRole):myNameAt(victimRole);
+      logEvent(sideCls, m+'분 · <b>'+nm+'</b>('+champ+') 솔로킬! '+ROLE_KR[role]+'에서 '+victim+'를 잡아냅니다.');
     }else{
-      const other=pickOf(ROLES.filter(r=>r!==role));
-      logEvent(team==='me'?'blue':'red', m+'분 · '+ROLE_KR[other]+' 갱킹 성공 — <b>'+nm+'</b>의 '+champ+'이(가) 킬을 챙깁니다.');
+      const gankRole=pickOf(ROLES.filter(r=>r!==role));
+      const gankName=team==='me'?myNameAt(gankRole):oppNameAt(gankRole);
+      const gankChamp=team==='me'?myChampAt(gankRole):oppChampAt(gankRole);
+      logEvent(sideCls, m+'분 · '+ROLE_KR[gankRole]+' 갱킹 성공 — <b>'+gankName+'</b>('+gankChamp+')이(가) 킬을 챙깁니다.');
     }
   }
-  // grubs
-  if((m===6||m===10) && M.gp.firstObj==='grub'){
-    const focus=(M.tactic==='trade')?-1.2:(M.gp.jungle==='top'?0.9:0.2);
-    const meWins=Math.random()<clamp(p+focus,0.1,0.9);
+  // grubs (both teams contest regardless of priority)
+  if(m===6||m===10){
+    const focus=(M.tactic==='trade'?-0.9:0)+(M.gp.firstObj==='grub'?0.3:-0.1)+(M.gp.jungle==='top'?0.12:0);
+    const meWins=Math.random()<clamp(killFavor+focus,0.08,0.92);
     const team=meWins?'me':'opp';
-    M.grubs[sideIdx(team)]+=3; addGold(team,300*S.meta.obj.grub);
-    logEvent(team==='me'?'blue':'red', m+'분 · 공허 유충 3스택 — <b>'+(team==='me'?M.myName:M.oppName)+'</b>이(가) 유충을 독식합니다.', m);
+    M.grubs[sideIdx(team)]+=3; addGold(team,190*S.meta.obj.grub);
+    logEvent(team==='me'?'blue':'red', m+'분 · 공허 유충 3스택 — <b>'+(team==='me'?M.myName:M.oppName)+'</b>이(가) 유충을 가져갑니다.');
   }
   // dragons
   const dTimes=[5,11,17,23,29];
   if(dTimes.includes(m)){
-    const dFocus=(M.gp.firstObj==='dragon'?0.5:0)+ (M.tactic==='trade'?-1.5:0) + (M.tactic==='baron'?0.3:0);
-    const dragonBonus=S.meta.obj.dragon;
-    let mep=clamp(p+dFocus+ (M.gp.jungle==='bot'?0.25:0),0.08,0.92);
+    const dFocus=(M.gp.firstObj==='dragon'?0.25:-0.08)+(M.tactic==='trade'?-1.1:0)+(M.tactic==='baron'?0.15:0)+(M.gp.jungle==='bot'?0.1:0);
+    const mep=clamp(killFavor+dFocus,0.08,0.92);
     const meWins=Math.random()<mep;
     const team=meWins?'me':'opp';
     M.dragons[sideIdx(team)]++;
-    addGold(team,420*dragonBonus);
+    addGold(team,380*S.meta.obj.dragon);
     const dn=M.dragons[sideIdx(team)];
-    let txt=m+'분 · '+(dn>=4?'장로 드래곤':'드래곤')+' 처치 — <b>'+(team==='me'?M.myName:M.oppName)+'</b> ('+dn+'스택)';
+    let txt=m+'분 · 드래곤 처치 — <b>'+(team==='me'?M.myName:M.oppName)+'</b> ('+dn+'스택)';
     if(dn>=4) txt=m+'분 · <b>드래곤 소울 획득!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 장로 버프를 확보합니다.';
-    logEvent(team==='me'?'blue':'red',txt,m);
+    logEvent(team==='me'?'blue':'red',txt);
   }
   // towers
-  if(m>=8 && Math.random()<0.22*S.meta.obj.tower){
-    const meWins=Math.random()<clamp(p+ (M.tactic==='split131'?0.1:0)+(M.tactic==='split14'?0.14:0)+(M.tactic==='trade'?0.12:0),0.08,0.95);
+  if(m>=8 && Math.random()<0.20*S.meta.obj.tower){
+    const meWins=Math.random()<clamp(killFavor+(M.tactic==='split131'?0.08:0)+(M.tactic==='split14'?0.1:0)+(M.tactic==='trade'?0.1:0),0.08,0.92);
     const team=meWins?'me':'opp';
     M.towers[sideIdx(team)]++;
-    addGold(team,280);
-    if(M.towers[sideIdx(team)]%2===0) logEvent(team==='me'?'blue':'red', m+'분 · '+(team==='me'?M.myName:M.oppName)+' '+(team==='me'?'외곽':'외곽')+' 타워 철거 — 시야가 넓어집니다.',m);
+    addGold(team,240);
+    if(M.towers[sideIdx(team)]%2===0) logEvent(team==='me'?'blue':'red', m+'분 · '+(team==='me'?M.myName:M.oppName)+' 외곽 타워 철거 — 시야가 넓어집니다.');
   }
   // teamfights
-  if(m>=13 && Math.random()<0.11*(1+(M.tactic==='force'?1.1:0))){
-    const fightEdge=(M.myComp.tags.fight-M.oppComp.tags.fight)*0.02+(M.myComp.front-M.oppComp.front)*0.012+(M.myComp.cc-M.oppComp.cc)*0.008;
-    const meWins=Math.random()<clamp(p+fightEdge+(M.tactic==='force'?0.08:0)-(M.tactic==='split131'?0.1:0),0.05,0.95);
+  if(m>=13 && Math.random()<0.07*(1+(M.tactic==='force'?1.0:0))){
+    const fightEdge=(M.myComp.tags.fight-M.oppComp.tags.fight)*0.015+(M.myComp.front-M.oppComp.front)*0.01+(M.myComp.cc-M.oppComp.cc)*0.006;
+    const meWins=Math.random()<clamp(killFavor+fightEdge+(M.tactic==='force'?0.06:0)-(M.tactic==='split131'?0.08:0),0.05,0.95);
     const team=meWins?'me':'opp';
-    const n=ri(2,4);
-    M.kills[sideIdx(team)]+=n; addGold(team,n*300+250);
+    const n=ri(1,3);
+    M.kills[sideIdx(team)]+=n; addGold(team,n*300+120);
     M.fights[sideIdx(team)]++;
-    logEvent(team==='me'?'blue':'red', m+'분 · <b>대규모 한타</b> — '+(team==='me'?M.myName:M.oppName)+'이(가) '+n+'킬 스왑하며 주도권을 가져옵니다.',m);
+    logEvent(team==='me'?'blue':'red', m+'분 · <b>대규모 한타</b> — '+(team==='me'?M.myName:M.oppName)+'이(가) '+n+'킬 스왑하며 주도권을 가져갑니다.');
   }
   // baron
-  if([20,25,31].includes(m)){
-    const baronFocus=(M.tactic==='baron'?0.9:0)+(M.tactic==='trade'?-1.1:0);
-    const meWins=Math.random()<clamp(p+baronFocus+(M.grubs[0]>M.grubs[1]?0.1:0),0.05,0.95);
+  if([20,26,32].includes(m)){
+    const baronFocus=(M.tactic==='baron'?0.7:0)+(M.tactic==='trade'?-1.0:0);
+    const meWins=Math.random()<clamp(killFavor+baronFocus+(M.grubs[0]>M.grubs[1]?0.06:0),0.05,0.95);
     const team=meWins?'me':'opp';
     M.barons[sideIdx(team)]++;
-    addGold(team,1400*S.meta.obj.baron);
-    logEvent(team==='me'?'blue':'red', m+'분 · <b>바론 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 바론 버프로 압박을 시작합니다.',m);
+    addGold(team,1200*S.meta.obj.baron);
+    logEvent(team==='me'?'blue':'red', m+'분 · <b>바론 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 바론 버프로 압박을 시작합니다.');
   }
   // tactic passive effects
   if(M.tactic==='split131'||M.tactic==='split14'||M.tactic==='trade'){
-    const bonus=M.tactic==='split14'?70:M.tactic==='split131'?55:40;
-    addGold(Math.random()<p?'me':'opp',bonus);
+    const bonus=M.tactic==='split14'?60:M.tactic==='split131'?48:34;
+    addGold(Math.random()<killFavor?'me':'opp',bonus);
   }
   M.vision[0]+=ri(2,4); M.vision[1]+=ri(2,4);
   M.winProb=winProb();
@@ -1285,12 +1292,13 @@ function finishGame(){
 }
 function analyzeGame(game){
   if(!game) return {reasons:[]};
-  const lane=game.lane||{}; const reasons=[];
+  const lane=game.lane||{}; const reasons=[]; const laneR=[];
   ROLES.forEach(r=>{
     const d=(lane[r]?lane[r].my-lane[r].opp:0);
-    if(d<-3) reasons.push({k:'lane',v:-1,txt:ROLE_KR[r]+' 라인전 열세 ('+d.toFixed(1)+')'});
-    if(d>3) reasons.push({k:'lane',v:1,txt:ROLE_KR[r]+' 라인전 우위 (+'+d.toFixed(1)+')'});
+    if(Math.abs(d)>2.5) laneR.push({k:'lane',v:Math.sign(d),d,txt:ROLE_KR[r]+' 라인전 '+(d>0?'우위':'열세')+' ('+(d>0?'+':'')+d.toFixed(1)+')'});
   });
+  laneR.sort((a,b)=>Math.abs(b.d)-Math.abs(a.d));
+  laneR.slice(0,3).forEach(x=>reasons.push(x));
   const myC=game.myComp, opC=game.oppComp;
   if(myC&&opC){
     if(game.win && opC.tags.scale>myC.tags.scale+2) reasons.push({k:'comp',v:1,txt:'후반 밸류 싸움에서 앞섰습니다'});
@@ -2080,7 +2088,7 @@ function laneBars(lane,interactive){
   return `<div class="stack" style="gap:7px">${ROLES.map(r=>{
     const L=lane[r]; if(!L) return '';
     const d=L.my-L.opp;
-    const w=clamp(Math.abs(d)*4,4,50);
+    const w=clamp(Math.abs(d)*2.2,4,50);
     return `<div class="lane-row">
       <span class="lr">${ROLE_KR[r]}</span>
       <div class="lane-bar"><div class="lane-mid"></div><div class="my ${d<0?'neg':''}" style="width:${w}%"></div></div>
