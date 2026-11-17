@@ -3629,7 +3629,9 @@ function finishGame(){
   if(M.mvp && M.mvp.name) S.pog[M.mvp.name]=(S.pog[M.mvp.name]||0)+(meWin?100:60);
   // ---- 실전 경험치 & 성장 ----
   S.lastGrowth=[];
-  const growTeam=(team,won)=>{
+  const growTeam=(teamId,won)=>{
+    const team=(typeof teamId==='string')?T(teamId):teamId;
+    if(!team||!team.lineup) return;
     ROLES.forEach(r=>{
       const p=S.players[team.lineup[r]]; if(!p) return;
       let base=18+(won?8:0)+(p.age<=21?10:p.age<=23?5:0);
@@ -3648,8 +3650,7 @@ function finishGame(){
       }
     });
   };
-  growTeam(S.userTeam,meWin);
-  growTeam(M.oppId,!meWin);
+  try{ growTeam(S.userTeam,meWin); growTeam(M.oppId,!meWin); }catch(e){ S.lastGrowth=S.lastGrowth||[]; }
   const sr=M.series;
   if(meWin) sr.score.me++; else sr.score.opp++;
   S.bestDraftPct=Math.max(S.bestDraftPct||0, M.draftPct||0);
@@ -4680,12 +4681,11 @@ function communityBuild(){
   if(c.community&&c.community.key===key) return c.community;
   const tone=communityTone();
   const pickDistinct=(pool,tag,n)=>{
-    const out=[]; const start=hashN(key+'|'+tag);
-    for(let i=0;i<n&&out.length<pool.length;i++){
-      const idx=(start+i*3+i)%pool.length;
-      const t=pool[idx];
-      if(out.indexOf(t)<0) out.push(t);
-    }
+    const idx=pool.map((_,i)=>i).sort((a,b)=>{
+      const ha=hashN(key+'|'+tag+'|'+a), hb=hashN(key+'|'+tag+'|'+b);
+      return ha-hb;
+    });
+    const out=idx.slice(0,Math.min(n,pool.length)).map(i=>pool[i]);
     while(out.length<n&&pool.length) out.push(pool[out.length%pool.length]);
     return out;
   };
@@ -5212,8 +5212,12 @@ function autoDraftChoose(kind){
     return scored[0].n;
   }
   const myS=dMySigs();
+  const myPicked=typeof dMyPicks==='function'?dMyPicks():[];
+  const covered={};
+  myPicked.forEach(n=>{ const cc=CHAMP_MAP[n]; if(cc&&cc.r) cc.r.forEach(r=>{covered[r]=1;}); });
   const scored=pool.map(ch=>{
     let best=-999;
+    if(ch.r&&!covered[ch.r[0]]) best+=14;
     ROLES.forEach(r=>{
       const p=S.players[myTeam().lineup[r]]; if(!p) return;
       const s=assignScoreFor(p,ch.n,r)+styleSynergy(p,ch,r)*0.9;
@@ -9549,8 +9553,24 @@ function sideColHTML(side){
     </div>`;
   }).join('');
 }
+function mmGuardFinish(){
+  if(!M||!M.over) return;
+  const sr=M.series;
+  if(!sr) return;
+  if(sr.games.length<=M.gameIdx){
+    sr.score[(M.meWin===false)?'opp':'me']++;
+    sr.games.push({win:M.meWin!==false, minute:M.minute, kills:(M.kills||[0,0]).slice(), gold:(M.gold||[0,0]).slice(),
+      mvp:(M.mvp&&M.mvp.name)||'', mvpChamp:(M.mvp&&M.mvp.champ)||'',
+      dragons:(M.dragons||[0,0]).slice(), towers:(M.towers||[0,0]).slice(), barons:(M.barons||[0,0]).slice(),
+      myComp:M.myComp, oppComp:M.oppComp, lane:M.lane, edge:M.edge, history:(M.history||[]).slice(),
+      myPct:M.draftPct, myPicks:(typeof dMyPicks==='function'?dMyPicks().slice():[]), oppPicks:(typeof dOppPicks==='function'?dOppPicks().slice():[]),
+      assign:{me:(D&&D.assign&&D.assign.me)?Object.assign({},D.assign.me):{},opp:(D&&D.assign&&D.assign.opp)?Object.assign({},D.assign.opp):{}}});
+    try{ saveGame(); }catch(e){}
+  }
+}
 function matchPatch(){
   if(!M) return;
+  if(M.over) mmGuardFinish();
   const q=(id)=>document.getElementById(id);
   const c=q('mmClock'); if(c) c.textContent=mmClockStr();
   const k0=q('mmK0'), k1=q('mmK1');
