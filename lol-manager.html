@@ -291,8 +291,8 @@ main{flex:1;display:flex;flex-direction:column;padding-bottom:calc(var(--tab-h) 
 }
 .ban-slot.filled{border-style:solid;border-color:rgba(255,77,109,.45);background:rgba(255,77,109,.08);color:#ffb2be;text-decoration:line-through;text-decoration-color:rgba(255,77,109,.7)}
 .ban-slot.filled.enemy{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#c8d2e8;text-decoration:none}
-.pick-row{display:flex;gap:5px}
-.pick-slot{
+.pick-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+.pick-slot{min-width:0;max-width:110px;overflow:hidden;
   flex:1;border-radius:11px;border:1px solid var(--line);background:rgba(17,23,40,.7);
   overflow:hidden;display:flex;flex-direction:column;align-items:center;position:relative;
   aspect-ratio:3/4;
@@ -580,6 +580,11 @@ button.pers-chip{cursor:pointer}
 .champ-info{margin-top:6px;padding:7px 9px;border-radius:9px;background:rgba(37,224,255,.07);border:1px solid rgba(37,224,255,.18);font-size:10.5px;color:#cfe6f5;line-height:1.4}
 .champ-info b{color:#fff}
 .sig-line{color:#9fe4ff!important;font-size:9px!important}
+
+/* pick slot size guard (wide tablets / Fold) */
+.pick-row .pick-slot{width:100%}
+.pick-row .pick-slot img{width:100%;height:auto;max-height:96px;object-fit:cover}
+@media(min-width:640px){.pick-row{max-width:560px}.pick-row .pick-slot{max-width:104px}}
 
 </style>
 </head>
@@ -4588,7 +4593,8 @@ function banSlots(list, mine){
 }
 function pickSlots(names, mine){
   const roles=D.assign&&D.assign[mine?'me':'opp'];
-  return names.map((n,i)=>{
+  const arr=(names||[]).slice(0,5); while(arr.length<5) arr.push(null);
+  return arr.map((n,i)=>{
     const c=n?CHAMP_MAP[n]:null;
     const roleKey=mine?'me':'opp';
     const role=roles?Object.keys(roles).find(r=>roles[r]===n):null;
