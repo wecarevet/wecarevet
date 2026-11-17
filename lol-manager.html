@@ -609,14 +609,14 @@ body{background:#08090c;color:var(--txt)}
 body::before{background-image:none}
 #app{display:grid;grid-template-columns:74px minmax(0,1fr);max-width:none;margin:0;min-height:100dvh;background:#0a0b0e;border:0;box-shadow:none}
 @media(min-width:900px){#app{box-shadow:none;border:0}}
-.maincol{display:flex;flex-direction:column;min-width:0;min-height:100dvh}
+.maincol{display:flex;flex-direction:column;min-width:0;min-height:100dvh;grid-column:2}
 main{flex:1;min-width:0;padding-bottom:0}
 .view{animation:none}
 h1,h2,h3,h4{letter-spacing:-.02em}
 
 /* ---------- rail ---------- */
 .rail{position:sticky;top:0;height:100dvh;display:flex;flex-direction:column;gap:3px;padding:10px 5px;
-  background:#0c0d11;border-right:1px solid var(--line);z-index:45}
+  background:#0c0d11;border-right:1px solid var(--line);z-index:45;grid-column:1}
 .rail-btn{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
   padding:10px 2px;border-radius:10px;color:#79808f;font-size:9.5px;font-weight:800;letter-spacing:-.02em;transition:.15s}
 .rail-btn .ric{display:grid;place-items:center;opacity:.9}
@@ -627,7 +627,8 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .rdot.gold{background:var(--gold);color:#231a06}
 @media(max-width:900px){
   #app{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 60px}
-  .maincol{order:1}
+  .maincol{grid-column:1;grid-row:1;order:1}
+  .rail{grid-column:1;grid-row:2}
   .rail{order:2;position:fixed;left:0;right:0;bottom:0;height:60px;width:auto;flex-direction:row;justify-content:space-around;
     padding:5px 4px calc(5px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--line);background:#0b0c10}
   .rail-btn{flex:1;padding:5px 0;font-size:9px;border-radius:8px}
@@ -1277,6 +1278,16 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .pc-tro em{font-style:normal;font-size:9.5px;color:#a99a78}
 .auto-draft{font-size:10px;font-weight:900;padding:6px 9px;border-radius:7px;background:rgba(230,196,129,.14);border:1px solid rgba(230,196,129,.42);color:#f0d69b;white-space:nowrap}
 .auto-draft:active{transform:scale(.97)}
+.champ-q{flex:1;min-width:96px;padding:6px 9px;border-radius:8px;background:#15171d;border:1px solid #2a2e37;color:#eceef3;font-size:12px;font-weight:700}
+.champ-q::placeholder{color:#5f6675}
+.champ-q:focus{outline:none;border-color:rgba(230,196,129,.55)}
+.role-tabs{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.aud-slot{border:1px solid #24272f;border-radius:9px;padding:9px;margin-bottom:8px;background:#12141a}
+.aud-h b{font-size:12px;font-weight:900;display:block}
+.aud-h span{font-size:9.5px;color:var(--dim2);font-weight:700}
+.aud-line{display:flex;align-items:center;gap:6px}
+.aud-in{flex:1;padding:7px 9px;border-radius:7px;background:#0d0f14;border:1px solid #2a2e37;color:#eceef3;font-size:11px}
+.aud-file{flex:1;font-size:10px;color:#9aa2b2}
 
 </style>
 </head>
@@ -5362,7 +5373,10 @@ const BGM_PAT={
   chord:[[220,261.6,329.6],[174.6,220,261.6],[196,246.9,293.7],[164.8,196,246.9]],
 };
 function bgmStart(mode){
-  const c=sndCtx(); if(!c||!SND.on) return;
+  if(!SND.on) return;
+  if(typeof bgmStartCustom==='function'&&bgmStartCustom(mode)){ sndWake(); return; }
+  stopCustomBgm();
+  const c=sndCtx(); if(!c) return;
   sndWake();
   if(SND.playing===mode) return;
   SND.playing=mode; SND.step=0; SND.nextAt=c.currentTime+0.06;
@@ -5424,6 +5438,7 @@ function bgmSchedule(spb,mode){
 }
 function bgmStop(){
   SND.playing=null;
+  try{ stopCustomBgm(); }catch(e){}
   if(SND.timer){ clearInterval(SND.timer); SND.timer=null; }
   const c=SND.ctx;
   if(c&&SND.bgmGain){
@@ -5440,6 +5455,53 @@ function sndToggle(){
 }
 function sndLoad(){
   try{ const v=localStorage.getItem('lckManager.snd'); if(v==='0') SND.on=false; }catch(e){}
+}
+
+/* ============ 커스텀 BGM (YouTube / 로컬 파일) ============ */
+const BGMST={draft:{mode:'synth',yt:'',data:'',name:''},worlds:{mode:'synth',yt:'',data:'',name:''}};
+let YTEL=null, FILEEL=null;
+function bgmLoad(){ try{ const v=JSON.parse(localStorage.getItem('lckManager.bgm')||'null'); if(v&&v.draft&&v.worlds){ BGMST.draft=v.draft; BGMST.worlds=v.worlds; } }catch(e){} }
+function bgmSave(){ try{ localStorage.setItem('lckManager.bgm',JSON.stringify(BGMST)); }catch(e){ toast('저장 공간이 부족합니다 — 파일이 너무 큽니다'); } }
+function ytId(url){
+  if(!url) return '';
+  const m=String(url).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{6,})/);
+  if(m) return m[1];
+  if(/^[A-Za-z0-9_-]{6,}$/.test(url)) return url;
+  return '';
+}
+function stopCustomBgm(){
+  if(YTEL){ try{ YTEL.remove(); }catch(e){} YTEL=null; }
+  if(FILEEL){ try{ FILEEL.pause(); FILEEL.currentTime=0; }catch(e){} if(FILEEL.parentElement) FILEEL.parentElement.removeChild(FILEEL); FILEEL=null; }
+}
+function playCustomBgm(ctxKey){
+  const c=BGMST[ctxKey]; if(!c||c.mode==='synth') return false;
+  if(c.mode==='yt'){
+    const id=ytId(c.yt); if(!id) return false;
+    stopCustomBgm();
+    YTEL=document.createElement('iframe');
+    YTEL.setAttribute('allow','autoplay');
+    YTEL.setAttribute('title','custom bgm');
+    YTEL.style.cssText='position:fixed;width:1px;height:1px;left:-9999px;top:-9999px;border:0;opacity:0';
+    YTEL.src='https://www.youtube.com/embed/'+id+'?autoplay=1&loop=1&playlist='+id+'&controls=0&modestbranding=1&playsinline=1';
+    document.body.appendChild(YTEL);
+    return true;
+  }
+  if(c.mode==='file'&&c.data){
+    stopCustomBgm();
+    FILEEL=document.createElement('audio');
+    FILEEL.src=c.data; FILEEL.loop=true; FILEEL.volume=0.85;
+    FILEEL.style.cssText='display:none';
+    document.body.appendChild(FILEEL);
+    const pr=FILEEL.play();
+    if(pr&&pr.catch) pr.catch(()=>{});
+    return true;
+  }
+  return false;
+}
+function bgmStartCustom(mode){
+  const ctxKey=(mode==='worlds'||mode==='final')?'worlds':'draft';
+  if(playCustomBgm(ctxKey)){ SND.playing='custom'; return true; }
+  return false;
 }
 
 /* ============ UI CORE ============ */
@@ -6697,7 +6759,7 @@ function show(name){
     const n=$('view-'+v); if(n) n.classList.toggle('hidden', v!==name);
   });
   if(name!=='match') mmStop();
-  if(name==='draft'){ if(SND.on) { try{ bgmStart('draft'); }catch(e){} } }
+  if(name==='draft'){ if(SND.on){ try{ bgmStart(bgmCtx()); }catch(e){} } }
   else bgmStop();
   const shellish=(S&&(name==='hub'||name==='offseason'||name==='kespa'||name==='press'));
   const tb=$('topbar'); if(tb) tb.classList.toggle('hidden', !shellish);
@@ -6743,9 +6805,11 @@ function renderTopbar(){
       <div class="tb-days" title="시즌 남은 일정">${ico('cal',14)}<span>일정 <b>${seasonDaysLeft()}</b></span></div>
       <div class="tb-money"><span>예산</span><b>${t.budget.toFixed(1)}억</b></div>
       <button class="tb-ic" id="sndBtn" title="사운드">${ico(SND.on?'sound':'mute',18)}</button>
+      <button class="tb-ic" id="setBtn" title="사운드 설정">${ico('gear',18)}</button>
       <button class="tb-go" id="goBtn">진행하기 ${ico('play',12)}</button>
     </div>`;
   const sb=$('sndBtn'); if(sb) sb.onclick=sndToggle;
+  const stb=$('setBtn'); if(stb) stb.onclick=openAudioSettings;
   const gb=$('goBtn'); if(gb) gb.onclick=()=>hubAction('advance');
   tb.querySelectorAll('[data-sub]').forEach(b=>b.onclick=()=>{
     if(TAB==='club') CLUB_TAB=b.dataset.sub;
@@ -6757,6 +6821,15 @@ function renderTopbar(){
   const back=tb.querySelector('[data-nav="home"]'); if(back) back.onclick=()=>{ TAB='home'; renderHub(); };
 }
 
+function bgmCtx(){
+  const s=S.currentSeries;
+  if(!s) return 'draft';
+  const st=s.stage;
+  const rn=(s.meta&&s.meta.roundName)||'';
+  if(st==='worlds'||st==='msi'||st==='ewc') return 'worlds';
+  if(st==='playoffs'&&/결승|파이널/.test(rn)) return 'worlds';
+  return 'draft';
+}
 /* ---------- hub render ---------- */
 function renderHub(){
   if(!S){ show('title'); return; }
@@ -7533,6 +7606,64 @@ function playerCardTab(p,t,c){
     ${p.team===S.userTeam?`<div class="pc-line">${ROLES.map(r=>`<button class="chip ${myTeam().lineup[r]===p.name?'on':''}" data-a="setstarter" data-v="${r}:${esc(p.name)}">${ROLE_KR[r]}</button>`).join('')}</div>`:''}`;
 }
 
+/* ---------- 오디오 설정 (커스텀 BGM) ---------- */
+function openAudioSettings(){
+  const row=(key,label,desc)=>{
+    const c=BGMST[key];
+    return `<div class="aud-slot">
+      <div class="aud-h"><b>${label}</b><span>${desc}</span></div>
+      <div class="seg3" style="margin-bottom:6px">
+        <button class="seg-b ${c.mode==='synth'?'on':''}" data-aud="${key}" data-mode="synth">내장 BGM</button>
+        <button class="seg-b ${c.mode==='yt'?'on':''}" data-aud="${key}" data-mode="yt">YouTube</button>
+        <button class="seg-b ${c.mode==='file'?'on':''}" data-aud="${key}" data-mode="file">파일</button>
+      </div>
+      ${c.mode==='yt'?`<div class="aud-line"><input id="yt_${key}" class="aud-in" placeholder="https://www.youtube.com/watch?v=..." value="${esc(c.yt||'')}"><button class="btn sm" data-aud="${key}" data-act="saveyt">적용</button></div>`:''}
+      ${c.mode==='file'?`<div class="aud-line"><input type="file" id="f_${key}" accept="audio/*" class="aud-file"><span class="tiny">${c.name?esc(c.name):'선택된 파일 없음'}</span></div>`:''}
+      <div class="aud-line"><span class="tiny">${c.mode==='synth'?'내장 신스 BGM 사용 중 (오프라인 OK)':c.mode==='yt'?(c.yt?'YouTube · '+esc(ytId(c.yt)||'—'):'URL을 붙여넣고 적용'):(c.name?esc(c.name):'오디오 파일을 선택하면 자동 재생됩니다')}</span>
+        <button class="btn sm ghost" data-aud="${key}" data-act="test">▶ 테스트</button></div>
+    </div>`;
+  };
+  $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal">
+    <div class="grab"></div>
+    <h3 style="font-size:17px;margin-bottom:4px">🎵 사운드 · BGM 설정</h3>
+    <div class="tiny" style="margin-bottom:10px">밴픽·월즈 결승 BGM을 직접 고를 수 있습니다. 커스텀 BGM이 없으면 내장 신스가 재생됩니다.</div>
+    <div class="row between" style="margin-bottom:8px">
+      <span class="tiny">전체 사운드</span>
+      <button class="btn sm ${SND.on?'gold':''}" id="sndAll">${SND.on?'🔊 켜짐':'🔇 꺼짐'}</button>
+    </div>
+    ${row('draft','밴픽 BGM','BAN/PICK 화면')}
+    ${row('worlds','월즈·결승 BGM','국제대회·결승')}
+    <div class="tiny" style="margin-top:8px">저작권 있는 음원은 포함하지 않습니다. YouTube 링크나 사용자가 가진 파일만 사용합니다.</div>
+    <div style="height:12px"></div>
+    <button class="btn ghost block" id="modalClose">닫기</button>
+  </div></div>`;
+  $('modal').classList.remove('hidden');
+  $('modalClose').onclick=closeModal;
+  $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
+  const sa=$('sndAll'); if(sa) sa.onclick=()=>{ sndToggle(); openAudioSettings(); };
+  $('modal').querySelectorAll('[data-aud]').forEach(b=>b.onclick=()=>{
+    const key=b.dataset.aud;
+    if(b.dataset.mode){ BGMST[key].mode=b.dataset.mode; bgmSave(); openAudioSettings(); return; }
+    const act=b.dataset.act;
+    if(act==='saveyt'){
+      const inp=$('yt_'+key); const id=ytId(inp?inp.value:'');
+      if(!id){ toast('YouTube URL을 확인하세요'); return; }
+      BGMST[key].yt=inp.value; BGMST[key].mode='yt'; bgmSave(); toast('🎵 YouTube BGM을 저장했습니다'); openAudioSettings(); return;
+    }
+    if(act==='test'){ bgmStop(); const cfg=BGMST[key]; const ok=playCustomBgm(key); toast(ok?'재생 중… (브라우저가 막으면 한 번 더)':'재생할 수 없습니다'); return; }
+  });
+  $('modal').querySelectorAll('input[type=file]').forEach(inp=>{
+    inp.onchange=()=>{
+      const key=inp.id.slice(2);
+      const f=inp.files&&inp.files[0]; if(!f) return;
+      if(f.size>3.5*1024*1024){ toast('파일이 너무 큽니다 (3.5MB 이하)'); return; }
+      const rd=new FileReader();
+      rd.onload=()=>{ BGMST[key].data=String(rd.result); BGMST[key].name=f.name; BGMST[key].mode='file'; bgmSave(); toast('🎵 '+f.name+' 저장'); openAudioSettings(); };
+      rd.readAsDataURL(f);
+    };
+  });
+}
+
 /* ============ UI — 마케팅 · 대회 · 기록 · 영입 ============ */
 function mktV3(){
   if(MK_TAB==='meet') return meetingV3();
@@ -7967,7 +8098,10 @@ function renderDraft(){
     const used=dUsed().includes(c.n);
     const banned=dMyBans().includes(c.n)||dOppBans().includes(c.n);
     const matches=D.roleFilter==='ALL'||c.r.includes(D.roleFilter);
+    const q=(D.q||'').trim().toLowerCase();
+    const qok=!q||c.n.toLowerCase().indexOf(q)>=0||String(c.k||'').toLowerCase().indexOf(q)>=0||String(c.sig||'').toLowerCase().indexOf(q)>=0;
     if(!matches&&!banned) return '';
+    if(!qok&&!banned) return '';
     const sig=mySigs().includes(c.n);
     const cls=['champ'];
     if(used) cls.push('used');
@@ -8029,6 +8163,7 @@ function renderDraft(){
       </div>
       <div class="role-tabs">
         ${['ALL',...ROLES].map(r=>`<button class="chip ${D.roleFilter===r?'on':''}" data-rf="${r}">${r==='ALL'?'전체':ROLE_KR[r]}</button>`).join('')}
+        <input class="champ-q" id="champQ" placeholder="챔피언 검색" value="${esc(D.q||'')}" autocomplete="off" spellcheck="false">
       </div>
       <div class="champ-grid">${grid}</div>
       <div class="champ-info" id="champInfo">챔피언을 길게 누르거나 마우스를 올리면 <b>고유 특징</b>이 표시됩니다</div>
@@ -8159,6 +8294,12 @@ function draftSummaryHTML(myComp,oppComp,me,opp){
 function bindDraft(){
   const v=$('view-draft');
   v.querySelectorAll('[data-rf]').forEach(b=>b.onclick=()=>{D.roleFilter=b.dataset.rf;renderDraft();});
+  const cq=$('champQ');
+  if(cq){
+    cq.oninput=()=>{ D.q=cq.value; renderDraft(); };
+    cq.onkeydown=(e)=>{ if(e.key==='Escape'){ D.q=''; renderDraft(); } };
+    if(D.q){ cq.focus(); try{ cq.setSelectionRange(cq.value.length,cq.value.length); }catch(e){} }
+  }
   v.querySelectorAll('[data-champ]').forEach(b=>{
     const showInfo=()=>{ const el=$('champInfo'); if(el){ const c=CHAMP_MAP[b.dataset.champ]; if(c) el.innerHTML='<b>'+esc(c.n)+'</b> · '+esc(c.sig||'')+' — <span class="tiny">'+esc(c.sd||'')+'</span>'; } };
     b.onmouseenter=showInfo; b.onfocus=showInfo;
@@ -9289,7 +9430,7 @@ function mmKdaTick(){
 function mmClockStr(){
   return String(Math.floor(M.minute/60)).padStart(2,'0')+':'+String(M.minute%60).padStart(2,'0');
 }
-function mGoldK(v){ return (v/10).toFixed(1)+'k'; }
+function mGoldK(v){ return (v/1000).toFixed(1)+'k'; }
 function casterLines(){
   const last=(M.events||[]).find(e=>e.kind!=='sys');
   const c1=last?last.text.replace(/<[^>]+>/g,''):'경기가 시작되었습니다';
@@ -9543,39 +9684,39 @@ function openMoreMenu(){
 function buildPstats(){
   const meWin=!!M.meWin;
   const rnd2=(a,b)=>a+Math.random()*(b-a);
-  const side=(s)=>{
-    const win=(s==='me')===meWin;
-    const kills=M.kills[s==='me'?0:1]||0;
-    const deaths=M.kills[s==='me'?1:0]||0;
+  const sideOf=(sd)=>{
+    const win=(sd==='me')===meWin;
+    const kills=M.kills[sd==='me'?0:1]||0;
+    const deaths=M.kills[sd==='me'?1:0]||0;
     const totK=Math.max(1,kills);
-    let kdSum=0, asSum=0;
     const rows=ROLES.map(r=>{
-      const l=lineupAt(s,r);
+      const l=lineupAt(sd,r);
       const p=S.players[l.name];
       const ovr=p?rawOverall(p):70;
-      const w=(ovr-60)/40+ (r==='ADC'||r==='MID'?0.35:0);
-      return {role:r, name:l.name||ROLE_KR[r], champ:l.champ, ovr:ovr, w:Math.max(0.15,w)};
+      const wgt=(ovr-60)/40+(r==='ADC'||r==='MID'?0.35:0);
+      return {role:r, name:l.name||ROLE_KR[r], champ:l.champ, ovr:ovr, w:Math.max(0.15,wgt)};
     });
     const wsum=rows.reduce((a,x)=>a+x.w,0)||1;
     rows.forEach(x=>{
-      x.k=Math.round(totK*x.w/wsum*rnd2(0.8,1.25));
-      x.d=Math.max(0,Math.round(deaths*(r==='SUP'?0.7:r==='TOP'?1.2:1)*rnd2(0.5,1.4)));
+      const role=x.role;
+      x.k=Math.max(0,Math.round(totK*x.w/wsum*rnd2(0.8,1.25)));
+      x.d=Math.max(0,Math.round(deaths*(role==='SUP'?0.7:role==='TOP'?1.2:1)*rnd2(0.5,1.4)));
       x.a=Math.max(0,Math.round(totK*rnd2(0.35,0.85)));
       x.kp=Math.min(100,Math.round((x.k+x.a)/Math.max(1,totK)*100));
-      const roleDpm={TOP:520,JGL:430,MID:640,ADC:700,SUP:180}[r]||500;
+      const roleDpm={TOP:520,JGL:430,MID:640,ADC:700,SUP:180}[role]||500;
       x.dpm=Math.round(roleDpm*(win?1.1:0.92)*rnd2(0.82,1.2)*((x.ovr-65)/22+0.9));
-      x.tc=Math.round(rnd2(45,120)*(r==='TOP'?1:0.6));
-      x.gsr=r==='JGL'?Math.round(rnd2(420,620)):Math.round(rnd2(6,9));
-      x.vc=r==='SUP'?Math.round(rnd2(40,80)):Math.round(rnd2(15,45));
-      x.rating=Math.round(clamp(6+ (x.k*0.5+x.a*0.22-x.d*0.4)/Math.max(1,totK/3) + (win?1.1:0),4,10)*10)/10;
+      x.tc=Math.round(rnd2(45,120)*(role==='TOP'?1:0.6));
+      x.gsr=role==='JGL'?Math.round(rnd2(420,620)):Math.round(rnd2(6,9));
+      x.vc=role==='SUP'?Math.round(rnd2(40,80)):Math.round(rnd2(15,45));
+      x.rating=Math.round(clamp(6+(x.k*0.5+x.a*0.22-x.d*0.4)/Math.max(1,totK/3)+(win?1.1:0),4,10)*10)/10;
     });
     return rows;
   };
-  const me=side('me'), opp=side('opp');
+  const me=sideOf('me'), opp=sideOf('opp');
   const winner=meWin?'me':'opp';
   const pool=(winner==='me'?me:opp).slice().sort((a,b)=>b.rating-a.rating);
   const mvp=pool[0];
-  if(mvp){ mvp.pog=true; }
+  if(mvp) mvp.pog=true;
   M.pstats={me:me, opp:opp, mvp:mvp, win:meWin};
   return M.pstats;
 }
@@ -10363,7 +10504,7 @@ function intlSimAll(){
 
 /* boot */
 window.__game={get S(){return S},get M(){return M},get D(){return D}};
-sndLoad();
+sndLoad();bgmLoad();
 renderTitle();
 
 </script>
