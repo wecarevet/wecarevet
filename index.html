@@ -60,7 +60,7 @@ a{color:inherit}
 
 /* ── QUICK BAR ────────────────────────── */
 .quick{position:relative;z-index:5;margin-top:-2.7rem}
-.quick-inner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
+.quick-inner{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
 .qcard{display:flex;align-items:center;gap:.7rem;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:.9rem 1rem;text-decoration:none;box-shadow:0 12px 28px -18px rgba(16,51,94,.7);transition:transform .18s,box-shadow .18s,border-color .18s}
 .qcard:hover{transform:translateY(-3px);border-color:#b7d0ee;box-shadow:0 18px 34px -18px rgba(16,51,94,.65)}
 .qicon{width:36px;height:36px;border-radius:10px;background:var(--navy-xlight);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;line-height:1;flex-shrink:0}
@@ -205,7 +205,6 @@ a{color:inherit}
     <p class="hero-desc">위케어동물의료센터가 직접 만든 질환별 보호자 안내 자료입니다. <br>아래에서 궁금한 질환을 선택해 주세요.</p>
     <div class="hero-actions">
       <a class="pill pill-primary" href="intake.html">📝 방문 전 사전 문진</a>
-      <a class="pill pill-ghost" href="faq.html">🚨 응급 신호 · FAQ</a>
     </div>
   </div>
 </header>
@@ -215,11 +214,6 @@ a{color:inherit}
     <a class="qcard" href="intake.html">
       <span class="qicon" aria-hidden="true">📝</span>
       <span class="qbody"><span class="qname">사전 문진표</span><span class="qdesc">대기 시간에 미리 작성</span></span>
-      <span class="qarrow" aria-hidden="true">→</span>
-    </a>
-    <a class="qcard" href="faq.html">
-      <span class="qicon" aria-hidden="true">🚨</span>
-      <span class="qbody"><span class="qname">응급 · 단골 FAQ</span><span class="qdesc">지금 가야 할지 헷갈릴 때</span></span>
       <span class="qarrow" aria-hidden="true">→</span>
     </a>
     <a class="qcard" href="pricing.html">
