@@ -1003,19 +1003,22 @@ window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(rend
 
 /* ---------- render results ---------- */
 const SUB = {VOO:'360750', SPY:'360750', QQQ:'133690', QQQM:'133690', SCHD:'458730'};
-function altAlloc(alloc){
+const SUB_BACK = {'360750':'VOO', '133690':'QQQ', '458730':'SCHD', '409820':'QLD'};
+function altAllocTo(alloc, mk){
+  const map = mk === 'KR' ? SUB : SUB_BACK;
   const out = [], missing = [], conv = [];
   alloc.forEach(x => {
     if(!x.id || !x.w) return;
     const a = A[x.id];
     if(!a) return;
-    if(a.mk === 'KR'){ out.push({id:x.id, w:x.w}); return; }
-    const sub = SUB[x.id];
+    if(a.mk === mk){ out.push({id:x.id, w:x.w}); return; }
+    const sub = map[x.id];
     if(sub){ out.push({id:sub, w:x.w}); conv.push(x.id + '→' + sub); }
     else missing.push(x.id);
   });
   return {out, missing, conv};
 }
+function altAlloc(alloc){ return altAllocTo(alloc, 'KR'); }
 function scenMini(cfg, scen, label, desc){
   const r = simulate(Object.assign({}, cfg, {scen}));
   return {label, desc, r};
@@ -1043,7 +1046,7 @@ function run(){
   let wtxt = '';
   if(R.bad.length){
     const names = R.bad.map(a=>a.name.split(' · ')[0]).join(', ');
-    const alt = altAlloc(cfg.alloc);
+    const alt = altAllocTo(cfg.alloc, ACCMETA[cfg.acc].mk);
     const tail = alt.missing.length
       ? `<div style="margin-top:6px">국내 상장 대체가 없는 종목: <b>${alt.missing.join(', ')}</b> — 이 종목은 ISA·연금에 담을 수 없습니다.</div>`
       : (alt.conv.length ? `<div style="margin-top:8px"><button class="btn" id="convBtn">국내 상장으로 자동 전환</button>
@@ -1076,7 +1079,7 @@ function run(){
     {k:'총 투입원금', v:won(totalInv), s:`초기 ${won(cfg.init)} + 월 ${won(cfg.mon)}`},
     {k:'연평균 수익률 (IRR)', v:R.irr==null?'–':pct(R.irr), s:`세후 ${R.irrNet==null?'–':pct(R.irrNet)}`, hero:true},
     {k:'최대 낙폭 (MDD)', v:pct0(R.mdd), s:'납입 영향 제외', danger:true},
-    {k:'누적 분배금', v:won(R.divGross), s:`분배금 과세 ${won(-R.divTax)}`},
+    {k:'누적 분배금', v:won(R.divGross), s:R.divTax>0.5?`분배금 과세 ${won(-R.divTax)}`:'분배금 과세 없음(과세이연)'},
     {k:'원금 대비 수익률', v:pct(gainRate), s:`${cfg.years}년 · 리밸런싱 ${cfg.rebal==='none'?'없음':cfg.rebal==='y'?'연 1회':'분기'}`},
     {k:'연 배당 현금', v:won(R.divGross/Math.max(1,cfg.years)), s:'연평균 수령액(세전)'}
   ];
@@ -1105,8 +1108,8 @@ function run(){
     const m = ACCMETA[acc];
     let useAlloc = cfg.alloc.map(x => ({id:x.id, w:x.w}));
     let conv = [], missing = [];
-    if(m.mk === 'KR'){
-      const alt = altAlloc(cfg.alloc);
+    {
+      const alt = altAllocTo(cfg.alloc, m.mk);
       if(alt.missing.length) missing = alt.missing;
       else { useAlloc = alt.out; conv = alt.conv; }
     }
@@ -1130,7 +1133,7 @@ function run(){
     </tr>`;
   });
   $('#accTable').querySelector('tbody').innerHTML = rows.join('');
-  $('#accNote').innerHTML = `현재 배분은 <b>${ACCMETA[cfg.acc].label}</b> 기준입니다(분배금 과세가 성장률에 반영). ISA·연금 행은 미국 상장 종목을 <b>같은 지수의 국내 상장 ETF로 바꿔</b> 계산했습니다(VOO·SPY→360750, QQQ·QQQM→133690, SCHD→458730). 대체 상품이 없는 종목(TQQQ·SOXL·JEPI·SGOV 등)이 섞이면 그 계좌로는 담을 수 없어 –로 표시합니다. ISA의 레버리지 ETF는 증권사·계좌 유형에 따라 매수 가능 여부가 다릅니다.`;
+  $('#accNote').innerHTML = `현재 배분은 <b>${ACCMETA[cfg.acc].label}</b> 기준입니다(분배금 과세가 성장률에 반영). ISA·연금 행은 미국 상장 종목을 <b>같은 지수의 국내 상장 ETF로 바꿔</b> 계산했습니다(VOO·SPY→360750, QQQ·QQQM→133690, SCHD→458730). 미국 직투 행은 반대로 국내 상장 종목을 미국 상장으로 바꿔 비교합니다(360750→VOO, 133690→QQQ, 458730→SCHD). 대체 상품이 없는 종목(TQQQ·SOXL·JEPI·SGOV 등)이 섞이면 그 계좌로는 담을 수 없어 –로 표시합니다. ISA의 레버리지 ETF는 증권사·계좌 유형에 따라 매수 가능 여부가 다릅니다.`;
 
   // 연도표
   $('#yearTable').querySelector('tbody').innerHTML = R.yearRows.map(y => `
