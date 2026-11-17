@@ -1236,7 +1236,7 @@ function tick(){
   M.history.push({min:m,diff:M.gold[0]-M.gold[1]});
   // end conditions
   const gd=M.gold[0]-M.gold[1];
-  if((m>=25&&Math.abs(gd)>4200)||(m>=29&&Math.abs(gd)>2800)||(m>=34&&Math.abs(gd)>1400)||m>=38){
+  if((m>=27&&Math.abs(gd)>6000)||(m>=31&&Math.abs(gd)>3800)||(m>=35&&Math.abs(gd)>2000)||m>=38){
     finishGame();
     return;
   }
@@ -1283,8 +1283,9 @@ function finishGame(){
   const sr=M.series;
   if(meWin) sr.score.me++; else sr.score.opp++;
   sr.games.push({win:meWin, minute:M.minute, kills:M.kills.slice(), gold:M.gold.slice(),
-    mvp:(M.mvp||{}).name||'', dragons:M.dragons.slice(), towers:M.towers.slice(), barons:M.barons.slice(),
-    myComp:M.myComp, oppComp:M.oppComp, lane:M.lane, edge:M.edge, tactics:M.tacticAt});
+    mvp:(M.mvp||{}).name||'', mvpChamp:(M.mvp||{}).champ||'',
+    dragons:M.dragons.slice(), towers:M.towers.slice(), barons:M.barons.slice(),
+    myComp:M.myComp, oppComp:M.oppComp, lane:M.lane, edge:M.edge, tactics:M.tacticAt, history:M.history.slice()});
   // fearless lock
   if(sr.fearless){ sr.fearlessUsed.push(...D.myPicks.map(p=>p.champ), ...D.oppPicks.map(p=>p.champ)); }
   saveGame();
@@ -2438,7 +2439,7 @@ function renderSeriesResult(){
       <div class="p-avatar" style="background:linear-gradient(150deg,#ffd76a,#ff9e2c);color:#2a1a00">${esc(g.mvp.slice(0,1))}</div>
       <div class="grow"><div class="tiny" style="font-weight:800;letter-spacing:.1em;color:var(--gold)">MATCH MVP</div>
       <div style="font-weight:900;font-size:16px">${esc(g.mvp)}</div>
-      <div class="tiny">${esc((CHAMP_MAP[(g.name||'')]||{}).n||'')} ${esc(meWon?'승리를 이끌었습니다':'분전했습니다')}</div></div>
+      <div class="tiny">${esc(g.mvpChamp||'')} ${esc(meWon?'승리를 이끌었습니다':'분전했습니다')}</div></div>
       <div class="chip gold">+${meWon?100:60} POG</div>
     </div>`:''}
     ${over?`
