@@ -2552,6 +2552,33 @@ const DRAKE_ELEMENTS=[
 const DRAKE_MAP={}; DRAKE_ELEMENTS.forEach(e=>DRAKE_MAP[e.k]=e);
 function drakeIcon(k){ return (DRAKE_MAP[k]||{}).icon||'🐉'; }
 function drakeName(k){ return (DRAKE_MAP[k]||{}).n||'원소'; }
+
+/* ---------- 성향 코멘터리 ---------- */
+const STYLE_LINES={
+  라인전:['라인전 압도','CS 리드','상성 우위'],
+  교전:['한타 클러치','교전 집중력','각을 만드는 플레이'],
+  운영:['운영 설계','사이드 압박','템포 장악'],
+  오브젝트:['오브젝트 설계','용 앞 판단','바론 타이밍'],
+  멘탈:['침착한 판단','흔들리지 않는 집중력'],
+  챔프폭:['픽의 힘','숙련도 우위'],
+  시야:['시야 장악','와드 싸움 우위'],
+  리스크:['과감한 진입','무리한 각'],
+};
+function playCats(p){
+  if(!p) return [];
+  return traitDefs(p,true).map(t=>t.c);
+}
+function styleLine(p){
+  const t=playOf(p); if(!t) return '';
+  const arr=STYLE_LINES[t.c]||[t.n];
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+function badStyleLine(p){
+  if(!p||!p.bad||!p.bad.length) return '';
+  const t=TRAIT_MAP[pickOf(p.bad)];
+  return t?t.n:'';
+}
+
 const MILESTONES=[
   {m:5,n:'첫 드래곤 등장 — 봇 시야를 잡으세요'},
   {m:14,n:'14분 포탑 방패 종료 — 사이드 압박 타이밍'},
@@ -2675,7 +2702,8 @@ function tick(){
   // 마일스톤 알림 (진행을 막지 않음)
   MILESTONES.forEach(ms=>{ if(ms.m===m) logEvent('sys','⏱ '+ms.n); });
   // 골드
-  const eco=(M.lane ? ((M.lane.TOP.my-M.lane.TOP.opp)+(M.lane.MID.my-M.lane.MID.opp)+(M.lane.ADC.my-M.lane.ADC.opp)) : 0)*0.9;
+  const LN=M.lane||{TOP:{my:60,opp:60},MID:{my:60,opp:60},ADC:{my:60,opp:60}};
+  const eco=((LN.TOP.my-LN.TOP.opp)+(LN.MID.my-LN.MID.opp)+(LN.ADC.my-LN.ADC.opp))*0.9;
   const macroDiff=(M.trait.me.macro-M.trait.opp.macro)*6;
   const stanceGold=(sta.gold||0)*40;
   addGold('me', 620+eco*1.1+macroDiff+stanceGold+rnd(-35,35));
@@ -5305,6 +5333,12 @@ const CAMPS={
 const PIT={dragon:[0.70,0.72],baron:[0.30,0.28],grub:[0.30,0.28]};
 const OBJ_TIMES={dragon:[5,11,17,23,29],grub:[6,10],baron:[20,26,32]};
 const SIDE_COL={me:'#25e0ff',opp:'#ff4d6d'};
+MM.imgs={};
+const MAP_WALLS={
+  me:[[0.13,0.63,0.09,0.06],[0.075,0.44,0.045,0.11],[0.17,0.33,0.075,0.045],[0.27,0.50,0.06,0.08],[0.32,0.70,0.08,0.05],[0.19,0.80,0.09,0.045]],
+  opp:[[0.78,0.31,0.09,0.06],[0.88,0.45,0.045,0.11],[0.755,0.62,0.075,0.045],[0.67,0.42,0.06,0.08],[0.60,0.25,0.08,0.05],[0.72,0.155,0.09,0.045]],
+};
+const MAP_BRUSH=[[0.30,0.63],[0.62,0.30],[0.20,0.18],[0.80,0.82],[0.44,0.87],[0.56,0.13],[0.36,0.40],[0.64,0.60]];
 
 function mmTokenKey(side,role){ return side+'-'+role; }
 function mmReset(){
@@ -5425,6 +5459,13 @@ function mmSync(){
   if(!MM.init||MM.key!==key){ MM.key=key; mmReset(); mmJumpTargets(); }
   mmJumpTargets();
   mmComputeTargets();
+  // 챔피언 초상화 프리로드
+  ROLES.forEach(role=>{
+    ['me','opp'].forEach(side=>{
+      const l=lineupAt(side,role); const ch=l&&l.champ; const c=ch?CHAMP_MAP[ch]:null;
+      if(c&&!MM.imgs[ch]){ const im=new Image(); im.src=DD(c.k); MM.imgs[ch]=im; }
+    });
+  });
   // 킬 → 사망/리스폰
   ['me','opp'].forEach(side=>{
     const idx=side==='me'?0:1;
@@ -5634,18 +5675,61 @@ function mmDraw(dt){
   const now=performance.now();
   // 배경
   const bg=ctx.createRadialGradient(w*0.3,h*0.7,10,w*0.5,h*0.5,w*0.9);
-  bg.addColorStop(0,'#0d1a24'); bg.addColorStop(1,'#070d15');
+  bg.addColorStop(0,'#0b1a16'); bg.addColorStop(1,'#05090f');
   ctx.fillStyle=bg; ctx.fillRect(0,0,w,h);
-  // 정글
-  ctx.fillStyle='rgba(28,64,52,.5)';
-  ctx.beginPath(); ctx.moveTo(w*0.06,h*0.06); ctx.lineTo(w*0.5,h*0.5); ctx.lineTo(w*0.5,h*0.94); ctx.lineTo(w*0.06,h*0.94); ctx.closePath(); ctx.fill();
-  ctx.fillStyle='rgba(52,36,64,.45)';
-  ctx.beginPath(); ctx.moveTo(w*0.94,h*0.06); ctx.lineTo(w*0.94,h*0.94); ctx.lineTo(w*0.5,h*0.5); ctx.lineTo(w*0.5,h*0.06); ctx.closePath(); ctx.fill();
-  // 강
-  ctx.strokeStyle='rgba(37,120,200,.28)'; ctx.lineWidth=Math.max(18,w*0.085); ctx.lineCap='round';
-  ctx.beginPath(); ctx.moveTo(w*0.16,h*0.16); ctx.quadraticCurveTo(w*0.5,h*0.5,w*0.84,h*0.84); ctx.stroke();
-  ctx.strokeStyle='rgba(80,190,255,.12)'; ctx.lineWidth=Math.max(7,w*0.035);
-  ctx.beginPath(); ctx.moveTo(w*0.16,h*0.16); ctx.quadraticCurveTo(w*0.5,h*0.5,w*0.84,h*0.84); ctx.stroke();
+  // 정글 지형
+  ctx.fillStyle='rgba(26,66,50,.75)';
+  ctx.beginPath(); ctx.moveTo(0,h*0.30); ctx.lineTo(w*0.20,h*0.10); ctx.lineTo(w*0.42,h*0.34);
+  ctx.quadraticCurveTo(w*0.40,h*0.55,w*0.30,h*0.62); ctx.lineTo(w*0.30,h*0.92);
+  ctx.lineTo(0,h*0.92); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='rgba(58,38,74,.7)';
+  ctx.beginPath(); ctx.moveTo(w,h*0.70); ctx.lineTo(w*0.80,h*0.90); ctx.lineTo(w*0.58,h*0.66);
+  ctx.quadraticCurveTo(w*0.60,h*0.45,w*0.70,h*0.38); ctx.lineTo(w*0.70,h*0.08);
+  ctx.lineTo(w,h*0.08); ctx.closePath(); ctx.fill();
+  // 정글 벽 블록
+  const wall=(x,y,ww,hh,col)=>{ const r=3;
+    ctx.beginPath(); ctx.moveTo(x*w+r,y*h); ctx.arcTo(x*w+ww*w,y*h,x*w+ww*w,y*h+hh*h,r);
+    ctx.arcTo(x*w+ww*w,y*h+hh*h,x*w,y*h+hh*h,r); ctx.arcTo(x*w,y*h+hh*h,x*w,y*h,r); ctx.arcTo(x*w,y*h,x*w+ww*w,y*h,r);
+    ctx.closePath(); ctx.fillStyle=col; ctx.fill();
+    ctx.strokeStyle='rgba(150,220,190,.16)'; ctx.lineWidth=1; ctx.stroke();
+  };
+  MAP_WALLS.me.forEach(([x,y,ww,hh])=>wall(x,y,ww,hh,'rgba(9,32,25,.95)'));
+  MAP_WALLS.opp.forEach(([x,y,ww,hh])=>wall(x,y,ww,hh,'rgba(28,16,38,.95)'));
+  // 수풀
+  MAP_BRUSH.forEach(([x,y])=>{
+    ctx.beginPath(); ctx.ellipse(x*w,y*h,w*0.035,h*0.022,0.5,0,7);
+    ctx.fillStyle='rgba(70,160,90,.35)'; ctx.fill();
+    ctx.strokeStyle='rgba(140,230,160,.25)'; ctx.lineWidth=.8; ctx.stroke();
+  });
+  // 강 (굽이치는 형태)
+  ctx.lineCap='round';
+  ctx.strokeStyle='rgba(30,110,170,.45)'; ctx.lineWidth=Math.max(20,w*0.09);
+  ctx.beginPath(); ctx.moveTo(w*0.10,h*0.22);
+  ctx.bezierCurveTo(w*0.32,h*0.30,w*0.44,h*0.46,w*0.50,h*0.50);
+  ctx.bezierCurveTo(w*0.58,h*0.56,w*0.68,h*0.68,w*0.88,h*0.80); ctx.stroke();
+  ctx.strokeStyle='rgba(90,200,255,.20)'; ctx.lineWidth=Math.max(8,w*0.035);
+  ctx.beginPath(); ctx.moveTo(w*0.10,h*0.22);
+  ctx.bezierCurveTo(w*0.32,h*0.30,w*0.44,h*0.46,w*0.50,h*0.50);
+  ctx.bezierCurveTo(w*0.58,h*0.56,w*0.68,h*0.68,w*0.88,h*0.80); ctx.stroke();
+  // 오브젝트 핏 알코브
+  const alcove=(x,y,col,r2)=>{ ctx.beginPath(); ctx.arc(x*w,y*h,r2,0,7);
+    ctx.fillStyle='rgba(8,14,22,.9)'; ctx.fill(); ctx.strokeStyle=col+'77'; ctx.lineWidth=1.4; ctx.stroke(); };
+  alcove(0.70,0.72,'#ff8a5c',Math.max(13,w*0.05));
+  alcove(0.30,0.28,'#b98cff',Math.max(13,w*0.05));
+  // 기지 (넥서스·억제기)
+  const basePlate=(x,y,col,flip)=>{
+    ctx.save(); ctx.translate(x*w,y*h);
+    ctx.fillStyle='rgba(12,22,34,.95)';
+    ctx.beginPath(); ctx.roundRect?ctx.roundRect(-w*0.075,-h*0.055,w*0.15,h*0.11,6):ctx.rect(-w*0.075,-h*0.055,w*0.15,h*0.11);
+    ctx.fill(); ctx.strokeStyle=col+'88'; ctx.lineWidth=1.2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(0,0,Math.max(7,w*0.028),0,7); ctx.fillStyle=col; ctx.globalAlpha=.9; ctx.fill(); ctx.globalAlpha=1;
+    ctx.strokeStyle='rgba(255,255,255,.55)'; ctx.lineWidth=1.2; ctx.stroke();
+    ctx.fillStyle=col+'aa';
+    ctx.beginPath(); ctx.moveTo(-w*0.055,-h*0.045); ctx.lineTo(-w*0.04,-h*0.03); ctx.lineTo(-w*0.055,-h*0.015); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(w*0.055,h*0.045); ctx.lineTo(w*0.04,h*0.03); ctx.lineTo(w*0.055,h*0.015); ctx.closePath(); ctx.fill();
+    ctx.restore();
+  };
+  basePlate(0.09,0.91,'#2f9bdc',false); basePlate(0.91,0.09,'#d0455f',true);
   // 라인
   const drawLane=(pts,width)=>{
     ctx.beginPath();
@@ -5662,7 +5746,7 @@ function mmDraw(dt){
     ctx.fillStyle=col; ctx.globalAlpha=.9; ctx.fill(); ctx.globalAlpha=1;
     ctx.strokeStyle='rgba(255,255,255,.32)'; ctx.lineWidth=1.4; ctx.stroke();
   };
-  drawBase(0.09,0.91,'#1d7fbf'); drawBase(0.91,0.09,'#b8304a');
+
   // 오브젝트 핏
   const soulActive=M.soulGranted&&(M.soulGranted.me||M.soulGranted.opp);
   const elderActive=M.elderAt&&M.minute>=M.elderAt;
@@ -5736,9 +5820,26 @@ function mmDraw(dt){
       ctx.beginPath(); ctx.arc(x,y,r,0,7);
       ctx.fillStyle=side==='me'?'#0d3a52':'#4a1420'; ctx.fill();
       ctx.lineWidth=1.8; ctx.strokeStyle=col; ctx.stroke();
-      ctx.fillStyle='#fff'; ctx.font=`900 ${Math.round(r*0.92)}px sans-serif`;
-      ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText((champ||'?').slice(0,1),x,y+0.5);
+      const im=champ?MM.imgs[champ]:null;
+      if(im&&im.complete&&im.naturalWidth){
+        ctx.save(); ctx.beginPath(); ctx.arc(x,y,r-0.6,0,7); ctx.clip();
+        ctx.drawImage(im,x-r,y-r,r*2,r*2); ctx.restore();
+        ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.lineWidth=1.8; ctx.strokeStyle=col; ctx.stroke();
+      }else{
+        ctx.fillStyle='#fff'; ctx.font=`900 ${Math.round(r*0.92)}px sans-serif`;
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText((champ||'?').slice(0,1),x,y+0.5);
+      }
+      // 플레이어 IGN
+      const ign=(line&&line.name)||'';
+      if(ign){
+        ctx.font=`900 ${Math.max(7,Math.round(w*0.019))}px Pretendard,sans-serif`;
+        ctx.textAlign='center'; ctx.textBaseline='bottom';
+        const tw=ctx.measureText(ign).width;
+        ctx.fillStyle='rgba(4,8,14,.72)'; ctx.fillRect(x-tw/2-2,y-r-13,tw+4,10);
+        ctx.fillStyle=side==='me'?'#bdf0ff':'#ffc2cd';
+        ctx.fillText(ign,x,y-r-4);
+      }
       // HP 바
       const bw=Math.max(14,r*2.1), bh=2.6;
       ctx.fillStyle='rgba(0,0,0,.6)'; ctx.fillRect(x-bw/2,y-r-6,bw,bh);
@@ -5781,7 +5882,8 @@ function mmDraw(dt){
   ctx.fillStyle='rgba(5,8,14,.75)'; ctx.fillRect(6,6,Math.max(96,w*0.4),18);
   ctx.fillStyle=MM.phase==='fight'?'#ffc94a':MM.phase==='obj'?'#ff9e2c':'#8bd6ff';
   ctx.font=`900 ${Math.round(w*0.028)}px sans-serif`;
-  ctx.fillText(MM.phaseLabel+" · "+M.minute+"'",12,10);
+  const mm2=String(Math.floor(M.minute/60)).padStart(2,'0'), ss2=String(M.minute%60).padStart(2,'0');
+  ctx.fillText(MM.phaseLabel+" · "+mm2+":"+ss2,12,10);
   ctx.fillStyle='rgba(5,8,14,.75)'; ctx.fillRect(w-76,6,70,18);
   ctx.fillStyle='#9fb2cc'; ctx.font=`800 ${Math.round(w*0.024)}px sans-serif`; ctx.textAlign='right';
   ctx.fillText(M.kills[0]+' : '+M.kills[1],w-12,10);
