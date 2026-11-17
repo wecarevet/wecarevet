@@ -569,6 +569,13 @@ button.tr{cursor:pointer}
 .map-ctrl{display:flex;gap:3px;align-items:center}
 .mbtn{padding:2px 6px;border-radius:6px;font-size:9.5px;font-weight:900;color:var(--dim);background:rgba(255,255,255,.06);border:1px solid var(--line)}
 .mbtn.on{background:var(--grad);color:#04121a;border-color:transparent}
+.pers-chip{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:900;color:#ffd9a8;background:rgba(255,158,44,.12);border:1px solid rgba(255,158,44,.3);border-radius:6px;padding:2px 6px}
+.exp-bar{flex:1;height:4px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden}
+.exp-bar>i{display:block;height:100%;background:linear-gradient(90deg,#8b5cf6,#25e0ff)}
+.sub-row{display:flex;align-items:center;gap:6px;padding:3px 0}
+.sub-role{width:26px;flex:0 0 auto;font-size:9.5px;font-weight:900;color:var(--dim2)}
+.sub-cur{flex:0 0 64px;font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sub-row .mini-select{flex:1;min-width:0}
 
 </style>
 </head>
@@ -1196,6 +1203,42 @@ function playIcon(p){ const t=playOf(p); return t?({라인전:'🗡',교전:'⚔
 /* 이름/태그로 특성 찾기 (에디터) */
 function findTrait(id){ return TRAIT_MAP[id]||null; }
 
+/* ---------- 성격 (Personality) ---------- */
+const PERSONALITIES=[
+  {k:'winner',      n:'승부욕 화신',   icon:'🔥', d:'지고 있을 때 더 강해진다', vol:1.15, mental:0.6, chem:0.2, growth:1.05, peak:1.1, likes:'orderSet'},
+  {k:'ironheart',   n:'강심장',        icon:'🛡', d:'큰 무대에서도 흔들리지 않는다', vol:0.7, mental:1.0, chem:0.3, growth:1.0, peak:1.05, likes:'mentalCoach'},
+  {k:'moodmaker',   n:'분위기 메이커', icon:'🎉', d:'팀 분위기를 끌어올린다', vol:1.0, mental:0.3, chem:1.2, growth:1.0, peak:0.95, likes:'mentalCoach'},
+  {k:'genius',      n:'예민한 천재',   icon:'🎻', d:'기복이 크지만 폭발력이 있다', vol:1.6, mental:-0.4, chem:-0.4, growth:1.15, peak:1.25, likes:'laneCoach'},
+  {k:'craftsman',   n:'묵묵한 장인',   icon:'🔧', d:'꾸준한 연습으로 완성된다', vol:0.6, mental:0.5, chem:0.4, growth:1.2, peak:0.95, likes:'cureExpert'},
+  {k:'teamfirst',   n:'팀 퍼스트',     icon:'🤝', d:'희생과 헌신으로 팀을 살린다', vol:0.9, mental:0.5, chem:1.0, growth:1.0, peak:0.98, likes:'objCoach'},
+  {k:'maverick',    n:'마이웨이',      icon:'🐺', d:'자기 방식을 고집한다', vol:1.2, mental:0.1, chem:-1.0, growth:1.05, peak:1.1, likes:null},
+  {k:'perfectionist',n:'완벽주의자',   icon:'📐', d:'연습량 최고, 실수에 예민하다', vol:1.3, mental:-0.2, chem:0.1, growth:1.25, peak:1.05, likes:'cureExpert'},
+  {k:'clown',       n:'쾌활한 장난꾸러기', icon:'😄', d:'분위기는 좋지만 집중력 기복', vol:1.25, mental:0.0, chem:0.8, growth:1.0, peak:0.9, likes:'mentalWall'},
+  {k:'quiet',       n:'과묵한 베테랑', icon:'🧊', d:'조용히 제 몫을 해낸다', vol:0.8, mental:0.6, chem:0.1, growth:0.95, peak:1.0, likes:'orderSet'},
+];
+const PERS_MAP={}; PERSONALITIES.forEach(p=>PERS_MAP[p.k]=p);
+function personalityOf(p){ return (p&&p.pers&&PERS_MAP[p.pers])||PERS_MAP.quiet||null; }
+function persName(p){ const x=personalityOf(p); return x?x.n:'과묵한 베테랑'; }
+function teamChemistry(team){
+  const ps=ROLES.map(r=>S.players[team.lineup[r]]).filter(Boolean);
+  if(!ps.length) return 0;
+  let sum=0; ps.forEach(p=>{ const x=personalityOf(p); sum += x?x.chem:0; });
+  return sum/ps.length;
+}
+/* 성격-코칭스태프 궁합 */
+function coachFit(teamId){
+  const staff=staffAll(teamId); const traits=new Set();
+  staff.forEach(s=>(s.traits||[]).forEach(t=>traits.add(t)));
+  const ps=LINEUP_ROLES(teamId);
+  let fit=0;
+  ps.forEach(p=>{ const x=personalityOf(p); if(x&&x.likes&&traits.has(x.likes)) fit+=0.15; if(x&&x.k==='maverick'&&traits.has('orderSet')) fit-=0.1; });
+  return fit;
+}
+function LINEUP_ROLES(teamId){
+  const t=S.teams[teamId]; if(!t) return [];
+  return ROLES.map(r=>S.players[t.lineup[r]]).filter(Boolean);
+}
+
 /* ============ STAFF — 구단주가 계약하는 감독·코치 ============ */
 const STAFF_TRAITS = {
   /* ---- 감독(HEAD) 특성: 밴픽·경기·시리즈 ---- */
@@ -1388,6 +1431,9 @@ function mkPlayer(name,role,age,rating,styleKey,sigs,teamId){
   p.contract=ri(1,3);
   p.grade = gradeOfRating(rating);
   p.cure = {};
+  p.exp = 0; p.expNext = 100;
+  const persList=PERSONALITIES;
+  p.pers = persList[Math.floor(Math.random()*persList.length)].k;
   rollTraits(p, p.grade);
   return p;
 }
@@ -1700,6 +1746,17 @@ function releasePlayer(name){
   toast('🚪 '+name+' 방출 — '+refund.toFixed(1)+'억 회수');
   saveGame(); renderAll(); return {ok:true};
 }
+function setSeriesSub(role,name){
+  const t=myTeam(); const p=S.players[name]; if(!p||p.team!==t.id) return {ok:false,msg:'우리 팀 선수가 아닙니다'};
+  const cur=t.lineup[role];
+  if(cur===name) return {ok:false,msg:'이미 해당 라인 선발입니다'};
+  const oldRole=Object.keys(t.lineup).find(r=>t.lineup[r]===name);
+  if(oldRole) t.lineup[oldRole]=cur;
+  t.lineup[role]=name;
+  saveGame();
+  toast('🔄 '+ROLE_KR[role]+' 교체 — '+name+' 투입');
+  return {ok:true};
+}
 function setStarter(role, name){
   const t=myTeam(); const p=S.players[name]; if(!p) return;
   const prev=t.lineup[role];
@@ -1736,6 +1793,8 @@ function applyPlayerEdit(oldName, d){
   if(d.role && ROLES.includes(d.role)) p.role=d.role;
   ['lane','fight','macro','pool','mental'].forEach(k=>{ if(d[k]!==undefined) p.stats[k]=clamp(Number(d[k])||p.stats[k],40,99); });
   if(d.contract!==undefined) p.contract=clamp(Number(d.contract)||1,0,3);
+  if(d.pers&&PERS_MAP[d.pers]) p.pers=d.pers;
+  if(d.exp!==undefined) p.exp=clamp(Number(d.exp)||0,0,99);
   if(d.grade && GRADE_COUNT[d.grade] && d.grade!==p.grade){ p.grade=d.grade; rollTraits(p,d.grade); }
   if(Array.isArray(d.sigs)) p.sigs=d.sigs.filter(n=>!!CHAMP_MAP[n]).slice(0,6);
   if(Array.isArray(d.good)) p.good=d.good.filter(id=>TRAIT_MAP[id]&&TRAIT_MAP[id].g>0).slice(0,12);
@@ -2101,6 +2160,8 @@ function startMatch(draftResult){
   const myPower=teamPower(me), oppPower=teamPower(opp);
   const myTrait=teamTraitEdge(me), opTrait=teamTraitEdge(opp);
   const myCoach=staffMatchEdge(S.userTeam), opCoach=staffMatchEdge(D.oppId);
+  const chemMe=teamChemistry(me), chemOp=teamChemistry(opp);
+  const fitMe=coachFit(S.userTeam), fitOp=coachFit(D.oppId);
   const myPct=draftResult.myPct;
   const draftLogit=clamp((myPct-50)*0.034,-1.15,1.15);
   let edge=(myPower-oppPower)*0.9;
@@ -2111,6 +2172,7 @@ function startMatch(draftResult){
   if(gp.dive) edge+=0.5;
   edge += (S.seriesMomentum||0) + ((S.currentSeries&&S.currentSeries.nextEdge)||0);
   if(myPower<oppPower) edge += (myCoach.underdog||0)*1.4;
+  edge += (chemMe-chemOp)*0.35 + (fitMe-fitOp)*0.8;
   const ace=lineupOf(me).slice().sort((a,b)=>rawOverall(b)-rawOverall(a))[0];
   if(ace) edge += (myCoach.star||0)*(ace.form-70)*0.02;
   M={
@@ -2121,6 +2183,7 @@ function startMatch(draftResult){
     edge, styleEdge:(styleEdge+(myCoach.order||0)*0.5-(opCoach.order||0)*0.5),
     draftLogit, draftPct:myPct, powerEdge:(myPower-oppPower)*0.9,
     coach:{me:myCoach,opp:opCoach}, earlyEdge:((myCoach.early||0)-(opCoach.early||0)),
+    chem:{me:chemMe,opp:chemOp}, coachFit:{me:fitMe,opp:fitOp},
     mySide, oppId:opp.id, oppName:opp.name, myName:me.name,
     myComp:draftResult.myComp, oppComp:draftResult.oppComp,
     lane, gp, stance:'standard', focusKey:null, stanceAt:0, focusAt:0,
@@ -2382,15 +2445,40 @@ function finishGame(){
   S.seriesMomentum=meWin?0.8:-0.8;
   const me=T(S.userTeam), opp=T(M.oppId);
   const myPlayers=lineupOf(me), oppPlayers=lineupOf(opp);
+  const volOf=p=>{const x=personalityOf(p);return x?x.vol:1;};
   if(meWin){
-    myPlayers.forEach(p=>{p.form=clamp(p.form+ri(2,6),10,100);p.fatigue=clamp(p.fatigue+ri(6,11),0,100);});
-    oppPlayers.forEach(p=>{p.form=clamp(p.form-ri(2,6),10,100);p.fatigue=clamp(p.fatigue+ri(5,10),0,100);});
+    myPlayers.forEach(p=>{p.form=clamp(p.form+Math.round(ri(2,6)*volOf(p)),10,100);p.fatigue=clamp(p.fatigue+ri(6,11),0,100);});
+    oppPlayers.forEach(p=>{p.form=clamp(p.form-Math.round(ri(2,6)*volOf(p)),10,100);p.fatigue=clamp(p.fatigue+ri(5,10),0,100);});
   }else{
     const wall=1-Math.min(0.6,(staffMods(S.userTeam).mental||0)*0.9);
     myPlayers.forEach(p=>{p.form=clamp(p.form-Math.round(ri(2,6)*wall),10,100);p.fatigue=clamp(p.fatigue+ri(6,11),0,100);});
     oppPlayers.forEach(p=>{p.form=clamp(p.form+ri(1,4),10,100);});
   }
   if(M.mvp && M.mvp.name) S.pog[M.mvp.name]=(S.pog[M.mvp.name]||0)+(meWin?100:60);
+  // ---- 실전 경험치 & 성장 ----
+  S.lastGrowth=[];
+  const growTeam=(team,won)=>{
+    ROLES.forEach(r=>{
+      const p=S.players[team.lineup[r]]; if(!p) return;
+      const pers=personalityOf(p);
+      let base=18+(won?8:0)+(p.age<=21?10:p.age<=23?5:0);
+      if(M.mvp&&M.mvp.name===p.name) base+=18;
+      const mult=(pers?pers.growth:1);
+      p.exp=(p.exp||0)+Math.round(base*mult);
+      if(p.exp>=100){
+        p.exp-=100;
+        const keys=({TOP:['lane','fight','macro'],JGL:['macro','fight','mental'],MID:['lane','fight','macro'],ADC:['lane','fight','mental'],SUP:['macro','mental','lane']})[p.role]||['lane','fight'];
+        const k=keys[Math.floor(Math.random()*keys.length)];
+        const before=p.stats[k];
+        p.stats[k]=clamp(p.stats[k]+1,40,99);
+        S.lastGrowth.push({team,name:p.name,stat:k,amt:p.stats[k]-before,exp:0});
+      }else{
+        S.lastGrowth.push({team,name:p.name,exp:p.exp});
+      }
+    });
+  };
+  growTeam(S.userTeam,meWin);
+  growTeam(M.oppId,!meWin);
   const sr=M.series;
   if(meWin) sr.score.me++; else sr.score.opp++;
   sr.games.push({win:meWin, minute:M.minute, kills:M.kills.slice(), gold:M.gold.slice(),
@@ -3366,11 +3454,15 @@ function pCardHTML(p,starter){
     <div class="grow">
       <div class="p-name">${esc(p.name)} <span class="role-tag">${ROLE_KR[p.role]}</span><span class="grade ${p.grade}">${p.grade}</span></div>
       <div class="p-meta">${p.age}세 · ${condLabel(p)} · <span style="color:var(--gold)">${p.salary}억</span> · <span class="${contract>0?'':'warn'}">${contract>0?contract+'년':'만료'}</span></div>
-      <div style="margin-top:4px">${playChip(p)}</div>
+      <div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;align-items:center">${playChip(p)}<span class="pers-chip">${personalityOf(p)?personalityOf(p).icon:''} ${esc(persName(p))}</span></div>
       <div class="tag-row" style="margin-top:4px">${(p.good||[]).slice(0,4).map(id=>{const t=TRAIT_MAP[id];return t?`<span class="tr good" title="${esc(t.d)}">${esc(t.n)}</span>`:'';}).join('')}${(p.bad||[]).slice(0,2).map(id=>{const t=TRAIT_MAP[id];return t?`<span class="tr bad" title="${esc(t.d)}">${esc(t.n)}</span>`:'';}).join('')}<span class="tr more">+${Math.max(0,(p.good||[]).length-4)}</span></div>
       <div class="row" style="gap:8px;margin-top:4px">
         <div class="grow"><div class="bar cyan" style="height:4px"><i style="width:${p.form}%"></i></div></div>
         <div class="grow"><div class="bar red" style="height:4px"><i style="width:${p.fatigue}%"></i></div></div>
+      </div>
+      <div class="row" style="gap:6px;margin-top:3px">
+        <div class="exp-bar"><i style="width:${p.exp||0}%"></i></div>
+        <div class="tiny" style="white-space:nowrap">EXP ${p.exp||0}%</div>
       </div>
       <div class="row" style="gap:8px;margin-top:2px">
         <div class="tiny grow">컨디션 ${p.form}</div>
@@ -3402,6 +3494,20 @@ function rosterHTML(){
     <div class="stack">${starters.map(p=>pCardHTML(p,true)).join('')}</div>
     <div class="section-title"><h3>후보 · 식스맨</h3><div class="line"></div><span class="tiny">${bench.length}명</span></div>
     ${bench.length?`<div class="stack">${bench.map(p=>pCardHTML(p,false)).join('')}</div>`:'<div class="card"><div class="empty-note">후보 선수가 없습니다. 이적시장에서 영입하세요.</div></div>'}
+    <div class="section-title"><h3>선발 교체</h3><div class="line"></div><span class="tiny">경기 전 언제든</span></div>
+    <div class="card tight">
+      ${ROLES.map(r=>{
+        const cur=S.players[t.lineup[r]];
+        return `<div class="sub-row">
+          <span class="sub-role">${ROLE_KR[r]}</span>
+          <span class="sub-cur">${cur?esc(cur.name):'-'}</span>
+          <select class="mini-select" data-subsel="${r}">
+            ${t.roster.map(n=>S.players[n]).filter(Boolean).map(p=>`<option value="${esc(p.name)}" ${t.lineup[r]===p.name?'selected':''}>${esc(p.name)} (${ROLE_KR[p.role]} · ${rawOverall(p)})</option>`).join('')}
+          </select>
+          <button class="btn sm" data-subgo="${r}">교체</button>
+        </div>`;
+      }).join('')}
+    </div>
     <div class="section-title"><h3>특성 극복 진행</h3><div class="line"></div><span class="tiny">멘탈·피드백</span></div>
     <div class="card tight">
       ${(()=>{const rows=[];t.roster.map(n=>S.players[n]).filter(Boolean).forEach(p=>{(p.bad||[]).forEach(id=>{const tr=TRAIT_MAP[id];const prog=(p.cure&&p.cure[id])||0;rows.push({p,tr,prog});});});return rows.length?rows.map(r=>`<div class="cure-row"><span class="tiny" style="width:64px">${esc(r.p.name)}</span><span class="tr bad">${esc(r.tr?r.tr.n:id)}</span><div class="cure-bar"><i style="width:${r.prog}%"></i></div><span class="tiny">${Math.round(r.prog)}%</span></div>`).join(''):'<div class="empty-note">나쁜 특성이 없습니다</div>';})()}
@@ -3613,6 +3719,12 @@ function bindHub(){
   });
   c.querySelectorAll('[data-renew]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); const r=renewStaff(b.dataset.renew); if(!r.ok) toast(r.msg);});
   c.querySelectorAll('[data-fire]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); if(confirm('이 스태프와 계약을 해지할까요? (위약금 발생)')){const r=fireStaff(b.dataset.fire); if(!r.ok) toast(r.msg);}});
+  c.querySelectorAll('[data-subgo]').forEach(b=>b.onclick=(e)=>{
+    e.stopPropagation();
+    const role=b.dataset.subgo;
+    const sel=c.querySelector('[data-subsel="'+role+'"]');
+    if(sel){ const r=setSeriesSub(role,sel.value); if(r&&!r.ok) toast(r.msg); else renderHub(); }
+  });
   c.querySelectorAll('[data-editstaff]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); openStaffEditor(b.dataset.editstaff);});
 }
 function prepareMatch(){
@@ -3641,7 +3753,7 @@ function openPlayer(name){
       <div class="grow">
         <div style="font-weight:900;font-size:19px;letter-spacing:-.03em">${esc(p.name)} <span class="grade ${p.grade}">${p.grade}</span></div>
         <div class="tiny">${ROLE_KR[p.role]} · ${p.age}세 · ${esc((S.teams[p.team]||{name:'FA'}).name)} · ${contractTxt(p)}</div>
-        <div style="margin-top:4px">${playChip(p)}</div>
+        <div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;align-items:center">${playChip(p)}<span class="pers-chip">${personalityOf(p)?personalityOf(p).icon:''} ${esc(persName(p))}</span></div>
       </div>
       <div class="p-rating" style="font-size:26px">${rawOverall(p)}</div>
     </div>
@@ -3654,7 +3766,7 @@ function openPlayer(name){
       <div class="bar-row"><span>멘탈</span><div class="bar green"><i style="width:${st.mental}%"></i></div><b>${st.mental}</b></div>
     </div>
     <div class="divider"></div>
-    <div class="var-lines">${[['컨디션',p.form+' ('+condLabel(p)+')'],['피로도',p.fatigue],['연봉',p.salary+'억'],['계약',contractTxt(p)],['성장 가능성',p.age<=21?'높음':p.age<=25?'보통':'낮음']].map(([k,v])=>`<div class="kv"><span>${k}</span><b>${esc(v)}</b></div>`).join('')}</div>
+    <div class="var-lines">${[['컨디션',p.form+' ('+condLabel(p)+')'],['피로도',p.fatigue],['연봉',p.salary+'억'],['계약',contractTxt(p)],['성격',persName(p)+(personalityOf(p)?' — '+personalityOf(p).d:'')],['실전 EXP',(p.exp||0)+'% / 100%'],['성장 가능성',p.age<=21?'높음':p.age<=25?'보통':'낮음']].map(([k,v])=>`<div class="kv"><span>${k}</span><b>${esc(v)}</b></div>`).join('')}</div>
     <div style="margin-top:6px">
       <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:4px">대표 성향 · 특성</div>
       <div class="tag-row">${(p.good||[]).map(id=>{const tr=TRAIT_MAP[id];return tr?`<span class="tr good" title="${esc(tr.d)}">${esc(tr.n)}</span>`:'';}).join('')}
@@ -3696,6 +3808,7 @@ function openPlayerEditor(name){
   if(!p) return;
   ED={orig:p.name, team:p.team, name:p.name, role:p.role, age:p.age, grade:p.grade, contract:(p.contract===undefined?1:p.contract),
       lane:p.stats.lane, fight:p.stats.fight, macro:p.stats.macro, pool:p.stats.pool, mental:p.stats.mental,
+      pers:p.pers||'quiet', exp:p.exp||0,
       sigs:(p.sigs||[]).slice(), good:(p.good||[]).slice(), bad:(p.bad||[]).slice()};
   renderEditor();
 }
@@ -3717,6 +3830,8 @@ function renderEditor(){
       <label>나이<input id="edAge" type="number" min="15" max="40" value="${ED.age}"></label>
       <label>등급<select id="edGrade">${['S','A','B','C'].map(g=>`<option value="${g}" ${ED.grade===g?'selected':''}>${gradeLabel(g)}</option>`).join('')}</select></label>
       <label>계약(년)<input id="edContract" type="number" min="0" max="3" value="${ED.contract}"></label>
+      <label>성격<select id="edPers">${PERSONALITIES.map(x=>`<option value="${x.k}" ${ED.pers===x.k?'selected':''}>${x.icon} ${x.n}</option>`).join('')}</select></label>
+      <label>실전 EXP<input id="edExp" type="number" min="0" max="99" value="${ED.exp===undefined?0:ED.exp}"></label>
     </div>
     <div class="ed-stats">
       ${['lane','fight','macro','pool','mental'].map(k=>`<label>${({lane:'라인전',fight:'한타',macro:'운영',pool:'챔프폭',mental:'멘탈'})[k]}
@@ -3756,6 +3871,7 @@ function renderEditor(){
   const sync=()=>{
     ED.name=$('edName').value; ED.role=$('edRole').value; ED.age=Number($('edAge').value)||ED.age;
     ED.grade=$('edGrade').value; ED.contract=Number($('edContract').value)||0;
+    ED.pers=$('edPers').value; ED.exp=Number($('edExp').value)||0;
     ['lane','fight','macro','pool','mental'].forEach(k=>{ ED[k]=Number($('ed_'+k).value); });
   };
   $('edRole').onchange=()=>{ sync(); renderEditor(); };
@@ -3789,7 +3905,7 @@ function renderEditor(){
     sync();
     const d={name:ED.name, role:ED.role, age:ED.age, grade:ED.grade, contract:ED.contract,
       lane:ED.lane, fight:ED.fight, macro:ED.macro, pool:ED.pool, mental:ED.mental,
-      sigs:ED.sigs, good:ED.good, bad:ED.bad};
+      pers:ED.pers, exp:ED.exp, sigs:ED.sigs, good:ED.good, bad:ED.bad};
     const r=applyPlayerEdit(ED.orig,d);
     if(!r.ok){ toast(r.msg); return; }
     ED=null; closeModal(); toast('✅ 선수 정보를 저장했습니다'); renderHub();
@@ -4988,6 +5104,26 @@ function renderSeriesResult(){
       <div class="row between" style="margin-top:4px"><span class="tiny">파워 스파이크(초/중/후)</span><span class="tiny">${g.myComp?g.myComp.curve.map(v=>v.toFixed(1)).join(' / '):'-'}</span></div>
       ${g.assign?`<div class="row between" style="margin-top:4px"><span class="tiny">라인 배정</span><span class="tiny">${ROLES.map(r=>ROLE_KR[r]+' '+esc(g.assign.me[r]||'-')).join(' · ')}</span></div>`:''}
     </div>
+    ${(S.lastGrowth&&S.lastGrowth.length&&!over)?`<div class="card tight">
+      <div class="card-h"><h4>실전 성장</h4><span class="k">경기 출전 EXP</span></div>
+      <div class="tag-row">${S.lastGrowth.filter(x=>x.team===S.userTeam).slice(0,6).map(x=>`<span class="chip sm ${x.amt>0?'green':''}">${esc(x.name)} ${x.amt>0?'▲'+({lane:'라인전',fight:'한타',macro:'운영',pool:'챔프폭',mental:'멘탈'})[x.stat]+' +'+x.amt:'EXP '+x.exp+'%'}</span>`).join('')}</div>
+    </div>`:''}
+    ${!over?`<div class="card">
+      <div class="card-h"><h4>세트 간 선수 교체</h4><span class="k">다음 세트 반영</span></div>
+      <div class="stack" style="gap:5px">
+        ${ROLES.map(r=>{
+          const cur=S.players[me.lineup[r]];
+          return `<div class="sub-row">
+            <span class="sub-role">${ROLE_KR[r]}</span>
+            <span class="sub-cur">${cur?esc(cur.name):'-'}</span>
+            <select class="mini-select" data-setrole="${r}">
+              ${me.roster.map(n=>S.players[n]).filter(Boolean).map(p=>`<option value="${esc(p.name)}" ${me.lineup[r]===p.name?'selected':''}>${esc(p.name)} (${ROLE_KR[p.role]} · ${rawOverall(p)})</option>`).join('')}
+            </select>
+            <button class="btn sm" data-setgo="${r}">교체</button>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`:''}
     ${g.mvp?`<div class="mvp-card">
       <div class="p-avatar" style="background:linear-gradient(150deg,#ffd76a,#ff9e2c);color:#2a1a00">${esc(g.mvp.slice(0,1))}</div>
       <div class="grow"><div class="tiny" style="font-weight:800;letter-spacing:.1em;color:var(--gold)">MATCH MVP</div>
@@ -5016,6 +5152,10 @@ function renderSeriesResult(){
     <div style="height:12px"></div>`;
   const v=$('view-series');
   v.querySelectorAll('[data-coach]').forEach(b=>b.onclick=()=>applyCoaching(b.dataset.coach));
+  v.querySelectorAll('[data-setgo]').forEach(b=>b.onclick=()=>{
+    const role=b.dataset.setgo; const sel=v.querySelector('[data-setrole="'+role+'"]');
+    if(sel){ const r=setSeriesSub(role,sel.value); if(r&&!r.ok) toast(r.msg); else renderSeriesResult(); }
+  });
   const fb=$('finishSeriesBtn'); if(fb) fb.onclick=()=>{ finishSeries(); };
   const nb=$('nextSetBtn'); if(nb) nb.onclick=()=>nextSeriesGame();
   show('series');
