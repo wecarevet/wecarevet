@@ -1368,6 +1368,11 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .aw-line b{flex:1;font-weight:900}
 .aw-line i{font-style:normal;font-size:9.5px;color:var(--dim2)}
 .aw-note{font-size:9.5px;color:var(--dim2);margin:8px 0;text-align:center}
+/* rail 숨김 시 전체 폭 사용 */
+#app:has(> .rail.hidden){grid-template-columns:minmax(0,1fr)}
+#app:has(> .rail.hidden) > .maincol{grid-column:1}
+.splash{min-height:100dvh;border-radius:0}
+.view.no-pad>.bcast{width:100%}
 
 </style>
 </head>
