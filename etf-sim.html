@@ -239,10 +239,13 @@ details.acc .body code{background:rgba(255,255,255,.06);padding:1px 5px;border-r
 .searchbar{display:flex;align-items:center;gap:9px;margin:12px 0 8px;padding:0 12px;height:46px;
   border:1px solid var(--line);border-radius:13px;background:#0a111a;transition:.15s}
 .searchbar:focus-within{border-color:rgba(55,224,178,.45);box-shadow:0 0 0 3px rgba(55,224,178,.09)}
-.searchbar .si{font-size:13px;color:var(--mut2);flex:0 0 auto}
+.searchbar .si{display:flex;align-items:center;color:var(--mut2);flex:0 0 auto}
 .searchbar input{flex:1;min-width:0;border:0;background:transparent;color:var(--txt);font:inherit;
   font-size:14px;padding:0;outline:none;font-weight:600}
-.searchbar input::-webkit-search-cancel-button{display:none}
+.searchbar input::-webkit-search-cancel-button,
+.searchbar input::-webkit-search-decoration,
+.searchbar input::-webkit-search-results-button,
+.searchbar input::-webkit-search-results-decoration{display:none}
 .searchbar input::placeholder{color:var(--mut2);font-weight:500}
 .searchbar .cnt{font-size:11.5px;color:var(--mut2);white-space:nowrap;font-variant-numeric:tabular-nums}
 .searchbar .sc{appearance:none;border:0;background:rgba(255,255,255,.08);color:var(--txt2);width:22px;height:22px;
@@ -266,8 +269,8 @@ details.acc .body code{background:rgba(255,255,255,.06);padding:1px 5px;border-r
 .pk-search:focus-within{border-color:rgba(55,224,178,.45)}
 .pk-search input{flex:1;min-width:0;border:0;background:transparent;color:var(--txt);font:inherit;
   font-size:14px;outline:none;font-weight:600}
-.pk-search input::-webkit-search-cancel-button{display:none}
-.pk-search span{font-size:12px;color:var(--mut2)}
+.pk-search input::-webkit-search-cancel-button,.pk-search input::-webkit-search-decoration{display:none}
+.pk-search span{display:flex;align-items:center;color:var(--mut2)}
 .pk-list{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 10px 20px}
 .pk-grp{position:sticky;top:0;z-index:1;background:#0d1621;padding:9px 6px 5px;font-size:10.5px;font-weight:800;
   letter-spacing:.08em;color:var(--mint);text-transform:uppercase}
@@ -374,7 +377,7 @@ body.pkopen{overflow:hidden}
       </div>
     </div>
     <div class="searchbar">
-      <span class="si">🔍</span>
+      <span class="si"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span>
       <input id="etfSearch" type="search" placeholder="티커·종목명 검색 — VOO, 배당, 반도체, 레버리지" autocomplete="off" spellcheck="false">
       <span class="cnt" id="etfCount"></span>
       <button class="sc hidden" id="etfClear" aria-label="검색어 지우기">✕</button>
@@ -508,7 +511,7 @@ body.pkopen{overflow:hidden}
   <div class="pk-bg"></div>
   <div class="pk-sheet">
     <div class="pk-hd"><b id="pkTitle">ETF 고르기</b><button class="pk-x" id="pkClose" aria-label="닫기">✕</button></div>
-    <div class="pk-search"><span>🔍</span><input id="pkInput" type="search" placeholder="티커·종목명 검색 — VOO, 458730, 배당, 반도체" autocomplete="off" spellcheck="false"></div>
+    <div class="pk-search"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></span><input id="pkInput" type="search" placeholder="티커·종목명 검색 — VOO, 458730, 배당, 반도체" autocomplete="off" spellcheck="false"></div>
     <div class="pk-list" id="pkList"></div>
   </div>
 </div>
