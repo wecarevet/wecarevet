@@ -546,7 +546,7 @@ var WECARE_VAC = (function(){
     if(m<0) m=0;
     if(m>11) m=11;
     var months=y*12+m;
-    if(months<0) return null;
+    if(months<=0) return null;
     return {date: addMonths(TODAY,-months), estimated:true};
   }
 
