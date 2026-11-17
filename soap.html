@@ -584,7 +584,7 @@ var KW = {
   O: [ /청진/, /심잡기|심잡음/, /murmur/i, /CRT/i, /점막/, /체온/, /\bBT\b/, /심박/, /\bHR\b/i,
        /호흡수/, /\bRR\b/i, /청색증/, /촉진|촉지|타진|시진/, /팽만/, /압통/, /탈수/, /림프절/,
        /방사선|X-?ray|엑스레이/i, /초음파|USG/i, /혈액검사|CBC|화학검사|생화학/,
-       /\bSDMA\b|\bBUN\b|크레아티닌/i, /\bALP\b|\bALT\b|\bAST\b|\bTT4\b/i,
+       /\bSDMA\b|\bBUN\b|크레아티닌/i, /\bALP\b|\bALT\b|\bAST\b|\bTT4\b/i, /fPL|PLI|리파아제|췌장\s*수치/,
        /요검사|소변검사|비중|단백뇨|UPCR/i, /심전도|ECG/i, /혈압|\bBP\b/, /mmHg/i, /℃/, /회\/분/,
        /이상\s*없|정상\s*범위|확인됨|관찰됨/, /병변|홍반|발적|탈모|각질|궤양|치석|구취|잇몸/,
        /부종|복수|흉수|황달|창백|출혈/, /등급|grade\s*\d/i, /VHS/i, /LA\/Ao/i, /수포음|나음/,
@@ -784,7 +784,7 @@ var TERMS = [
   [/\bSDMA\b/gi, '신장 수치(SDMA)'],
   [/\bBUN\b\s*\/?\s*Cr\b|크레아티닌|\bBUN\b/gi, '신장 수치'],
   [/\bALP\b|\bALT\b|\bAST\b/g, '간 수치'],
-  [/\bWBC\b/gi, '백혈구 수치'], [/\bPCV\b|\bHCT\b/gi, '적혈구 수치'], [/\bPLT\b/gi, '혈소판 수치'],
+  [/\bCBC\s*/g, ''], [/\bWBC\b/gi, '백혈구 수치'], [/\bPCV\b|\bHCT\b/gi, '적혈구 수치'], [/\bPLT\b/gi, '혈소판 수치'],
   [/요비중/g, '소변 농도'], [/단백뇨/g, '소변에 단백이 섞이는 것'],
   [/청진상|청진/g, '진찰에서'],
   [/좌측\s*심첨부|심첨부/g, '심장 왼쪽 부위'],
@@ -848,18 +848,18 @@ function keyLine(c, sec){
     var a1 = plain(sec.A[0]).replace(/[.。]+$/, '');
     if(/(의심|추정|의증)$/.test(a1)){
       var core = a1.replace(/(의심|추정|의증)$/, '').trim();
-      return '핵심은 ' + core + ' 쪽으로 보고 있다는 점입니다.';
+      return core + ' 쪽으로 보고 있다는 점입니다.';
     }
     if(/진단$/.test(a1)){
       var core2 = a1.replace(/진단$/, '').trim();
-      return '핵심은 ' + core2 + ro(core2) + ' 진단되었다는 점입니다.';
+      return core2 + ro(core2) + ' 진단되었다는 점입니다.';
     }
-    return '핵심은 ' + a1 + '입니다.';
+    return a1 + '입니다.';
   }
   for(var i = 0; i < c.tags.length; i++){
-    if(KEYNOTE[c.tags[i].id]) return '핵심은 ' + KEYNOTE[c.tags[i].id];
+    if(KEYNOTE[c.tags[i].id]) return KEYNOTE[c.tags[i].id];
   }
-  return '핵심은 오늘 확인한 상태를 지켜보면서 집에서 관리해 주시는 것입니다.';
+  return '오늘 확인한 상태를 지켜보면서 집에서 관리해 주시는 것이 핵심입니다.';
 }
 function isMed(t){
   return /(처방|투약|복용|\bBID\b|\bSID\b|\bTID\b|\bQID\b|\bEOD\b|mg\b|mg\/kg)/i.test(t);
@@ -912,7 +912,7 @@ function buildKakao(c, sec){
   L.push('▸ 다음 진료');
   if(rc){
     var line = '· ' + rc.when + '(' + addDays(c.date, rc.days) + ')에 다시 뵙겠습니다.';
-    if(rc.items.length) line += ' 그때 ' + rc.items.join(', ') + ro(rc.items[rc.items.length - 1]) + ' 상태를 확인합니다.';
+    if(rc.items.length) line += ' 그때 ' + plain(rc.items[0]) + ro(plain(rc.items[0])) + ' 상태를 확인합니다.';
     L.push(line);
   } else {
     L.push('· 안내드린 처방이 끝나면 한 번 더 내원해 주세요. 그 사이 상태가 달라지면 미리 알려 주세요.');
