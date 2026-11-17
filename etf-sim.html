@@ -1788,7 +1788,7 @@ function yearsToTarget(tgt, init, mon, rA, infl){
   if(!(mon > 0)) return null;
   const rm = Math.pow(1+rA, 1/12) - 1;
   let v = init;
-  for(let k=1;k<=600;k++){
+  for(let k=1;k<=720;k++){
     v = v*(1+rm) + mon;
     if(v >= tgt*Math.pow(1+infl, k/12)) return k/12;
   }
@@ -1840,7 +1840,7 @@ function renderFire(){
     {k:'월 현금흐름 (인출)', v:won(wMon), cls:'hl', s:`연 ${won(P.tgt*P.wr)} · 오늘 가치 기준`},
     {k:'은퇴 첫해 월 입금', v:won(wMonNom), s:`물가 반영 명목 금액`},
     {k:'총 납입 원금', v:won(P.totalPaid), s:`최종 자산의 ${pct0(P.end>0?P.totalPaid/P.end*100:0)}`},
-    {k:'탭2 적립금이면', v:t2==null?'–':t2.toFixed(1)+'년', s:`월 ${Math.round(state.mon)}만원 · 목표 ${won(P.tgt)}`}
+    {k:'탭2 적립금이면', v:t2==null?'60년+':t2.toFixed(1)+'년', s:`월 ${Math.round(state.mon)}만원 · 목표 ${won(P.tgt)}`}
   ];
   $('#fireKpis').innerHTML = tiles(list);
 
@@ -2040,7 +2040,9 @@ function renderFin(hs, value){
   $('#finGauge').innerHTML = gaugeHtml({
     title:`연간 예상 분배금 · 금융소득 2,000만원 기준선의 ${pct0(share*100,0)}`,
     amount:counted, maxV, color:col,
-    valueText:won(counted) + (counted>0?` / 2,000만`:' · 분배금 없음'),
+    valueText: taxable
+      ? (counted>0 ? won(counted) + ' / 2,000만' : '분배금 없음')
+      : (total>0 ? `합산 제외 (분배금 ${won(total)})` : '분배금 없음'),
     marks:[GUN, LIM],
     labels:[{v:0,t:'0',cls:'first'},{v:GUN,t:'1,000만 (건보)'},{v:LIM,t:'2,000만 (종합과세)',cls:'last'}]
   });
