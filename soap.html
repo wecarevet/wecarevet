@@ -894,7 +894,7 @@ function buildKakao(c, sec){
   var home = [], meds = [];
   sec.P.forEach(function(t){
     if(/^재진/.test(t)) return;
-    if(/(재검|재진|재내원)/.test(t) && t.replace(/\s/g, '').length < 24) return;
+    if(/(재검|재진|재내원)/.test(t) && t.replace(/\s/g, '').length < 24 && !/(식후|식전|복용|급여|약|먹)/.test(t)) return;
     if(isMed(t)) meds.push(t);
     else home.push(t);
   });
