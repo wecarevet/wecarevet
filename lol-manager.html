@@ -1373,6 +1373,9 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 #app:has(> .rail.hidden) > .maincol{grid-column:1}
 .splash{min-height:100dvh;border-radius:0}
 .view.no-pad>.bcast{width:100%}
+.derby{font-style:normal;font-size:9px;font-weight:900;padding:1px 6px;border-radius:4px;background:linear-gradient(90deg,#e0687a,#e6c481);color:#1a0e10;letter-spacing:.02em}
+.arw{font-style:normal;font-size:9px;font-weight:900;color:#6b7182;margin-left:2px}
+.arw.up{color:#6ecf9e}.arw.dn{color:#e0687a}
 
 </style>
 </head>
@@ -7200,6 +7203,18 @@ function renderHub(){
 }
 
 /* ---------- HOME ---------- */
+const RIVALRY={T1:['GEN','KT','HLE'],GEN:['T1','HLE'],KT:['T1','DK'],HLE:['GEN','T1'],DK:['KT','T1'],NS:['BRO','KDF'],BRO:['NS'],DRX:['KDF'],KDF:['DRX','NS'],BFX:['BRO']};
+function isRival(oppId){
+  const mine=S.userTeam;
+  if(!oppId||!mine) return false;
+  return (RIVALRY[mine]||[]).indexOf(oppId)>=0 || (RIVALRY[oppId]||[]).indexOf(mine)>=0;
+}
+function formArrow(p){
+  if(!p) return '';
+  if(p.form>=78&&p.fatigue<45) return '<i class="arw up">▲</i>';
+  if(p.form<=52||p.fatigue>72) return '<i class="arw dn">▼</i>';
+  return '<i class="arw">–</i>';
+}
 function nextMatchInfo(){
   const s=S.currentSeries;
   if(s&&!s.done) return {kind:'series', series:s, opp:T(s.oppId), label:s.stage==='kespa'?'케스파컵':s.stage==='playoffs'?'플레이오프':s.stage==='worlds'?'월드 챔피언십':'LCK'};
@@ -7245,7 +7260,7 @@ function homeV3(){
       <div class="ch"><span>다음 경기</span><button class="lnk" data-a="tab" data-v="league">대진표 ›</button></div>
       ${nm?`
         <div class="nx-in">
-          <div class="nx-comp">${esc(nm.label)}</div>
+          <div class="nx-comp">${esc(nm.label)}${nm.opp&&isRival(nm.opp.id)?' <em class="derby">라이벌전</em>':''}</div>
           ${nm.kind==='kespa'?`
             <div class="nx-vs">
               <div class="nvs">${badge(t,'lg')}<span>${esc(t.tag)}</span></div>
@@ -7508,7 +7523,7 @@ function pRowV3(p,starter){
     <div class="pr-av">${pAvatarHTML(p,42)}</div>
     <div class="pr-main">
       <div class="pr-n">${esc(p.name)} <span class="tiny">${p.age}세</span></div>
-      <div class="pr-sub"><span class="role-tag">${ROLE_KR[p.role]}</span> 피로 ${p.fatigue} · 감각 ${p.form} · 휴식 ${Math.max(0,2-Math.floor(p.fatigue/45))}회</div>
+      <div class="pr-sub"><span class="role-tag">${ROLE_KR[p.role]}</span> 피로 ${p.fatigue} · 감각 ${p.form}${formArrow(p)} · 휴식 ${Math.max(0,2-Math.floor(p.fatigue/45))}회</div>
     </div>
     <div class="pr-cond">${smile}</div>
     <div class="pr-ovr">${r}<span>${starter?'선발':'후보'}</span></div>
@@ -8590,7 +8605,7 @@ function draftHead(){
   return `<div class="draft-head">
     <div>
       <div class="draft-phase">${phase} · ${D.mySide==='blue'?'블루':'레드'} 사이드</div>
-      <div class="tiny" style="margin-top:2px">${esc(myTeam().tag)} ${sr.score.me} : ${sr.score.opp} ${esc(T(D.oppId).tag)} · ${D.gameIdx+1}세트${D.series.bo>1?' · Bo'+D.series.bo:''}</div>
+      <div class="tiny" style="margin-top:2px">${esc(myTeam().tag)} ${sr.score.me} : ${sr.score.opp} ${esc(T(D.oppId).tag)} · ${D.gameIdx+1}세트${D.series.bo>1?' · Bo'+D.series.bo:''}${typeof isRival==='function'&&isRival(D.oppId)?' <em class="derby">라이벌전</em>':''}</div>
     </div>
     <div style="display:flex;align-items:center;gap:6px">
       <button class="auto-draft" data-auto="draft">자동 밴픽</button>
@@ -9445,28 +9460,66 @@ function mmComputeTargets(){
           tx=mid[0]; ty=mid[1];
         }
       }
-      // ---- 전술 보정 (기존 시스템 유지) ----
+      // ---- 전술이 실제 이동 목표를 직접 제어 ----
       if(mmB){
+        const T=(role==='ADC'||role==='SUP')?'BOT':role==='MID'?'MID':'TOP';
+        const own=mmLaneFrontT(T);
+        const deep=side==='me'?0.86:0.14;      // 적진 깊숙한 지점
+        const behind=side==='me'?0.62:0.38;    // 상대 타워 뒤
         switch(mmB){
-          case 'top': if(role==='TOP'){ const q=mmLaneFrontPos('TOP',side,0.02); tx=q[0]; ty=q[1]; } else if(role==='JGL'){ tx+=sgn*-0.02; ty+=0.03; } break;
-          case 'diveBot': if(role==='ADC'||role==='SUP'){ tx+=sgn*-0.02; } else if(role==='JGL'||role==='MID'){ tx+=sgn*-0.05; ty-=0.02; } break;
-          case 'mid': if(role==='MID'||role==='JGL'){ tx=0.5+(sgn*-0.06); ty=0.5; } break;
-          case 'invade': if(role==='JGL'){ const ep=CAMPS[side==='me'?'opp':'me'][2]; tx=ep[0]; ty=ep[1]; } break;
-          case 'hold': if(role==='JGL'){ tx=0.5+(sgn*-0.12); ty=0.5+(sgn*-0.06); } break;
-          case 'freeze': if(role==='TOP'||role==='MID'||role==='ADC'){ tx+=sgn*-0.04; } break;
-          case 'siege': if(role==='TOP'){ tx+=sgn*-0.06; } else { tx=0.5+(sgn*-0.14); ty=0.5+(sgn*-0.05); } break;
-          case 'push3': tx+=sgn*-0.09; break;
-          case 'split': if(role==='TOP'){ tx=0.74; ty=0.26; } else if(role==='MID'){ tx=0.26; ty=0.74; } else { tx=0.5+(sgn*-0.04); ty=0.5; } break;
-          case 'split14': if(role==='TOP'){ tx=0.22; ty=0.22; } else { tx=0.6; ty=0.84; } break;
-          case 'cross': tx=enemyPit[0]+(sgn*-0.04); ty=enemyPit[1]; break;
-          case 'bush': tx=groupPt[0]+(sgn*-0.05); ty=groupPt[1]+(sgn*-0.03); break;
-          case 'group': tx=groupPt[0]+(sgn*-0.04); ty=groupPt[1]; break;
-          case 'flank': if(role==='TOP'){ tx=0.24; ty=0.32; } else { tx=0.46+(sgn*-0.03); ty=0.52; } break;
-          case 'backdoor': if(role==='TOP'){ tx=0.82; ty=0.18; } else if(role==='MID'){ tx=0.76; ty=0.22; } else { tx=0.58; ty=0.42; } break;
-          case 'assassin': if(role==='MID'||role==='JGL'){ const ap=mmLaneFrontPos('BOT',side==='me'?'opp':'me'); tx=ap[0]; ty=ap[1]-0.03; } break;
-          case 'poke': tx=0.48+(sgn*-0.06); ty=0.52+(sgn*-0.02); break;
-          case 'safe': tx+=sgn*-0.07; ty+=sgn*-0.05; break;
-          case 'swap': if(role==='ADC'||role==='SUP'){ const q=mmLaneFrontPos('TOP',side,0.05); tx=q[0]; ty=q[1]; } else if(role==='TOP'){ const q2=mmLaneFrontPos('BOT',side,0.05); tx=q2[0]; ty=q2[1]; } break;
+          case 'top':
+            if(role==='TOP'){ const q=mmLaneFrontPos('TOP',side,0.008); tx=q[0]; ty=q[1]; }
+            else if(role==='JGL'){ const q=mmLaneFrontPos('TOP',side,0.045); tx=q[0]; ty=q[1]; }
+            break;
+          case 'topDive':
+            if(role==='TOP'){ const p=mmPathPoint(LANE_PATH.TOP,side==='me'?own+0.05:own-0.05); tx=p[0]; ty=p[1]; }
+            else if(role==='JGL'){ const p=mmPathPoint(LANE_PATH.TOP,side==='me'?behind:1-behind); tx=p[0]; ty=p[1]; }
+            break;
+          case 'diveBot':
+            if(role==='ADC'||role==='SUP'){ const p=mmPathPoint(LANE_PATH.BOT,side==='me'?own+0.05:own-0.05); tx=p[0]; ty=p[1]; }
+            else if(role==='JGL'){ const p=mmPathPoint(LANE_PATH.BOT,side==='me'?behind:1-behind); tx=p[0]; ty=p[1]; }
+            break;
+          case 'mid': if(role==='MID'||role==='JGL'){ const p=mmPathPoint(LANE_PATH.MID,side==='me'?own+0.06:own-0.06); tx=p[0]; ty=p[1]; } break;
+          case 'invade':
+            if(role==='JGL'){ const ep=CAMPS[side==='me'?'opp':'me'][1]; tx=ep[0]; ty=ep[1]; }
+            else if(role==='MID'||role==='SUP'){ const ep=CAMPS[side==='me'?'opp':'me'][2]; tx=ep[0]+(side==='me'?-0.02:0.02); ty=ep[1]; }
+            break;
+          case 'hold': if(role==='JGL'){ tx=0.5+(sgn*-0.10); ty=0.5+(sgn*-0.05); } break;
+          case 'freeze': if(role==='TOP'||role==='MID'||role==='ADC'){ const q=mmLaneFrontPos(T,side,0.03); tx=q[0]; ty=q[1]; } break;
+          case 'siege': if(role==='TOP'){ const p=mmPathPoint(LANE_PATH.TOP,side==='me'?own+0.05:own-0.05); tx=p[0]; ty=p[1]; } else { tx=0.5+(sgn*-0.10); ty=0.5+(sgn*-0.03); } break;
+          case 'push3': { const p=mmPathPoint(LANE_PATH[T],side==='me'?own+0.07:own-0.07); tx=p[0]; ty=p[1]; } break;
+          case 'split131':
+            if(role==='TOP'){ const p=mmPathPoint(LANE_PATH.BOT,side==='me'?deep:1-deep); tx=p[0]; ty=p[1]; }
+            else if(role==='MID'){ const p=mmPathPoint(LANE_PATH.TOP,side==='me'?deep:1-deep); tx=p[0]; ty=p[1]; }
+            else { const p=mmPathPoint(LANE_PATH.MID,side==='me'?own+0.04:own-0.04); tx=p[0]; ty=p[1]; }
+            break;
+          case 'split14':
+            if(role==='TOP'){ const p=mmPathPoint(LANE_PATH.TOP,side==='me'?0.72:0.28); tx=p[0]; ty=p[1]; }
+            else { const p=mmPathPoint(LANE_PATH.MID,side==='me'?own+0.09:own-0.09); tx=p[0]+(role==='SUP'?0.02:0); ty=p[1]; }
+            break;
+          case 'cross': tx=enemyPit[0]+(sgn*-0.03); ty=enemyPit[1]; break;
+          case 'bush':
+            if(role==='JGL'||role==='SUP'||role==='ADC'){ tx=0.335; ty=0.245; }
+            else { const p=mmPathPoint(LANE_PATH.MID,side==='me'?own+0.02:own-0.02); tx=p[0]; ty=p[1]; }
+            break;
+          case 'group': tx=groupPt[0]+(sgn*-0.02); ty=groupPt[1]; break;
+          case 'flank':
+            if(role==='TOP'){ tx=0.24; ty=0.30; }
+            else if(role==='MID'){ const p=mmPathPoint(LANE_PATH.MID,0.42); tx=p[0]; ty=p[1]-0.03; }
+            break;
+          case 'backdoor':
+            if(role==='TOP'||role==='MID'){ const lane=role==='TOP'?'BOT':'TOP'; const p=mmPathPoint(LANE_PATH[lane],side==='me'?0.95:0.05); tx=p[0]; ty=p[1]; }
+            break;
+          case 'assassin': if(role==='MID'||role==='JGL'){ const fp=mmLaneFrontPos('BOT',side==='me'?'opp':'me',0.02); tx=fp[0]; ty=fp[1]; } break;
+          case 'poke': { const p=mmPathPoint(LANE_PATH.MID,side==='me'?0.62:0.38); tx=p[0]; ty=p[1]; } break;
+          case 'safe': { const q=mmLaneFrontPos(T,side,0.06); tx=q[0]; ty=q[1]; } break;
+          case 'swap': {
+            const laneMap={TOP:'BOT',ADC:'TOP',SUP:'TOP',MID:'MID',JGL:'MID'};
+            const tl=laneMap[role]||T;
+            const p=mmLaneFrontPos(tl,side,role==='SUP'?0.03:0.012);
+            tx=p[0]; ty=p[1];
+            break;
+          }
         }
       }
       if(focus){
