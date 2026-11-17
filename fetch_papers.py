@@ -44,6 +44,13 @@ def fetch(url):
     with urllib.request.urlopen(req, timeout=15) as r:
         return json.loads(r.read().decode())
 
+def clean_summary(text):
+    """모델이 붙인 맨 앞머리 제목(# ...)과 굵게 표기(**)를 제거해
+    카드에 그대로 보이도록 정리한다."""
+    text = re.sub(r'^\s*#{1,6}[^\n]*\n*', '', text, count=1)
+    text = text.replace("**", "").replace("__", "")
+    return re.sub(r'\n{2,}', '\n', text).strip()
+
 def summarize_ko(title, abstract):
     if not ANTHROPIC_API_KEY or not abstract:
         return ""
@@ -67,7 +74,7 @@ def summarize_ko(title, abstract):
         )
         with urllib.request.urlopen(req, timeout=20) as r:
             data = json.loads(r.read().decode())
-            return data["content"][0]["text"].strip()
+            return clean_summary(data["content"][0]["text"].strip())
     except Exception as e:
         print(f"  요약 오류: {e}")
         return ""
