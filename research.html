@@ -358,7 +358,7 @@
 <body>
 
 <header>
-  <div class="label">WCARE ANIMAL MEDICAL CENTER · RESEARCH</div>
+  <div class="label">WECARE ANIMAL MEDICAL CENTER · RESEARCH</div>
   <h1>소동물 최신 수의학 논문</h1>
   <p>PubMed 주요 저널에서 매일 자동으로 업데이트됩니다</p>
   <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
@@ -484,7 +484,7 @@
   </div>
 </div>
 
-<footer>© 위케어동물의료센터 · 데이터 출처: PubMed (NCBI)</footer>
+<footer>© 위케어동물의료센터 · 데이터 출처: PubMed (NCBI), Clinician's Brief</footer>
 
 <script>
 const CATEGORY_KEYWORDS = {
@@ -602,7 +602,7 @@ function renderPapers() {
     return `
     <div class="paper-card ${isRead ? 'read' : ''}" id="card-${i}">
       <div class="paper-meta">
-        <span class="journal-badge">${p.journal}</span>
+        <span class="journal-badge">${p.type === 'cb' && p.category ? p.category : p.journal}</span>
         <span class="date-badge">${p.date || ''}</span>
         ${isNew(p.date) ? '<span class="new-badge">NEW</span>' : ''}
         <span class="read-badge ${isRead ? 'visible' : ''}" id="read-badge-${i}">✓ 읽음</span>
@@ -619,7 +619,7 @@ function renderPapers() {
           <button class="mark-read-btn ${isRead ? 'done' : ''}" id="read-btn-${i}" onclick="markRead('${p.id}', ${i})">${isRead ? '✓ 읽음' : '읽음 표시'}</button>
           <button class="translate-btn" onclick="translate('${p.title.replace(/'/g,"\\'")}', ${i}, this)">🇰🇷 한글 번역</button>
         </div>
-        <a class="pubmed-link" href="${p.url}" target="_blank" rel="noopener">PubMed에서 보기 →</a>
+        <a class="pubmed-link" href="${p.url}" target="_blank" rel="noopener">${p.type === 'cb' ? "Clinician's Brief에서 보기 →" : 'PubMed에서 보기 →'}</a>
       </div>
     </div>
   `}).join('');
