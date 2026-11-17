@@ -350,6 +350,7 @@ main{flex:1;display:flex;flex-direction:column;padding-bottom:calc(var(--tab-h) 
 .clock{font-size:15px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--gold);letter-spacing:.02em;white-space:nowrap;line-height:1.15}
 .series-score{font-size:9.5px;font-weight:800;color:var(--dim);white-space:nowrap;line-height:1.15}
 .series-score{font-size:10px;font-weight:800;color:var(--dim)}
+.series-line{text-align:center;font-size:9.5px;color:var(--dim2);font-weight:800;letter-spacing:.1em;margin-top:3px}
 .obj-row{display:flex;justify-content:space-between;gap:6px;margin-top:8px}
 .obj{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:9.5px;color:var(--dim2);font-weight:800}
 .obj b{font-size:12px;color:var(--txt);font-variant-numeric:tabular-nums}
@@ -2354,11 +2355,11 @@ function renderMatch(){
       <div class="score">
         <div class="sd">${badge(myTeam(),'sm')}<span class="sn">${esc(myTeam().tag)}</span></div>
         <div class="sk" style="color:var(--cyan)">${M.kills[0]}</div>
-        <div class="mid"><div class="clock">${String(Math.floor(M.minute/60)).padStart(2,'0')}:${String(M.minute%60).padStart(2,'0')}</div>
-        <div class="series-score">${M.series?('SET '+(M.gameIdx+1)+' · '+M.series.score.me+':'+M.series.score.opp):''}</div></div>
+        <div class="mid"><div class="clock">${String(Math.floor(M.minute/60)).padStart(2,'0')}:${String(M.minute%60).padStart(2,'0')}</div></div>
         <div class="sk" style="color:var(--red)">${M.kills[1]}</div>
         <div class="sd right"><span class="sn">${esc(T(M.oppId).tag)}</span>${badge(T(M.oppId),'sm')}</div>
       </div>
+      <div class="series-line">${M.series?('SET '+(M.gameIdx+1)+' · '+esc(myTeam().tag)+' '+M.series.score.me+' : '+M.series.score.opp+' '+esc(T(M.oppId).tag)):''}</div>
       <div class="obj-row">
         <div class="obj"><span class="oi">🗼</span><b>${M.towers[0]}</b><span>타워</span></div>
         <div class="obj"><span class="oi">🐉</span><b>${M.dragons[0]}</b><span>드래곤</span></div>
