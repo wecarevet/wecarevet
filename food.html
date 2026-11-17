@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#10335E">
+<meta name="description" content="강아지·고양이 금지·주의·급여 가능 음식 빠른 검색 · 포도, 양파, 초콜릿, 자일리톨, 마카다미아, 백합, 사람약까지 위험도와 먹었을 때 대처를 바로 확인하세요. 위케어동물의료센터.">
+<title>우리 아이 이거 먹어도 되나요? · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --red:#b3261e;--red-bg:#fdf0ef;--red-border:#f0c8c4;
+  --amber:#9a6207;--amber-bg:#fff8e6;--amber-border:#f0dcae;
+  --green:#166534;--green-bg:#eefaf3;--green-border:#c6e9d5;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;scroll-padding-top:150px}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;min-height:100vh;-webkit-font-smoothing:antialiased;word-break:keep-all}
+.topbar{background:var(--navy);padding:0 1.25rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;gap:.6rem}
+.logo-text{color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;white-space:nowrap}
+.logo-text small{display:block;font-size:9.5px;font-weight:300;opacity:.7;letter-spacing:.06em}
+.topbar-btns{display:flex;gap:.35rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:6px;font-size:11.5px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap;border:none;font-family:inherit}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:active{background:rgba(255,255,255,.24)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.15);font-size:10.5px}
+
+.hero{background:var(--navy);padding:1.6rem 1.25rem 1.5rem}
+.hero-inner{max-width:760px;margin:0 auto;text-align:center}
+.hero-eyebrow{font-size:10px;font-weight:500;letter-spacing:.16em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.55rem}
+.hero h1{font-size:21px;font-weight:700;color:#fff;line-height:1.45;margin-bottom:.5rem;letter-spacing:-.01em}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:12.5px;color:rgba(255,255,255,.58);line-height:1.8}
+
+/* ── SEARCH / CONTROLS ─────────────────── */
+.controls{position:sticky;top:56px;z-index:150;background:var(--bg);border-bottom:1px solid var(--border);box-shadow:0 8px 18px -18px rgba(16,51,94,.8)}
+.controls-inner{max-width:760px;margin:0 auto;padding:.75rem 1.25rem .6rem}
+.sbox{display:flex;align-items:center;gap:.5rem;background:var(--white);border:1.5px solid var(--border);border-radius:999px;padding:.6rem .95rem;transition:border-color .15s,box-shadow .15s}
+.sbox:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(45,108,192,.12)}
+.sbox .sic{font-size:15px;line-height:1;flex-shrink:0;opacity:.55}
+.sbox input{flex:1;-webkit-appearance:none;appearance:none;min-width:0;border:none;outline:none;background:transparent;font-family:inherit;font-size:14.5px;color:var(--text);font-weight:500}
+.sbox input::placeholder{color:var(--text-muted);font-weight:400;font-size:13.5px}
+.sclear{flex-shrink:0;width:22px;height:22px;border-radius:50%;border:none;background:var(--navy-light);color:var(--text-mid);font-size:13px;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;font-family:inherit}
+.sclear.on{display:flex}
+.sbox input::-webkit-search-cancel-button,.sbox input::-webkit-search-decoration{-webkit-appearance:none;display:none}
+.strip{display:flex;align-items:center;gap:.4rem;margin-top:.55rem;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.strip::-webkit-scrollbar{display:none}
+.seg{display:flex;background:var(--white);border:1px solid var(--border);border-radius:999px;padding:2px;gap:2px;flex-shrink:0}
+.seg button{border:none;background:transparent;font-family:inherit;font-size:11.5px;font-weight:600;color:var(--text-muted);padding:5px 9px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
+.seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.sep{width:1px;height:18px;background:var(--border);flex-shrink:0;margin:0 .1rem}
+.chip{flex-shrink:0;border:1px solid var(--border);background:var(--white);color:var(--text-mid);font-family:inherit;font-size:11.5px;font-weight:500;padding:5px 11px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:0 8px 16px -12px rgba(16,51,94,.9)}
+.chip:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ── MAIN ─────────────────────────────── */
+.main{max-width:760px;margin:0 auto;padding:1rem 1.25rem 2.5rem}
+.resultbar{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;margin-bottom:.7rem}
+.resultcount{font-size:12px;color:var(--text-muted)}
+.resultcount b{color:var(--navy);font-weight:700}
+.resetbtn{border:none;background:none;font-family:inherit;font-size:11.5px;color:var(--accent);font-weight:600;cursor:pointer;padding:2px 0;text-decoration:underline;text-underline-offset:3px}
+.quickterms{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem}
+.qt{border:1px dashed var(--border);background:var(--white);color:var(--text-mid);font-family:inherit;font-size:11.5px;padding:4px 10px;border-radius:999px;cursor:pointer}
+.qt:active{background:var(--navy-light)}
+
+.alertcard{background:var(--white);border:1px solid var(--red-border);border-radius:14px;padding:1.05rem 1.1rem 1.15rem;margin-bottom:1.1rem;box-shadow:0 10px 26px -24px rgba(16,51,94,.9)}
+.alertcard h2{font-size:13.5px;font-weight:700;color:var(--red);letter-spacing:-.01em;display:flex;align-items:center;gap:.4rem;margin-bottom:.2rem}
+.alertcard .asub{font-size:11.5px;color:var(--text-muted);margin-bottom:.7rem}
+.alertcard ol{list-style:none;counter-reset:al;display:grid;gap:.45rem}
+.alertcard li{counter-increment:al;position:relative;padding-left:1.55rem;font-size:12.3px;color:var(--text-mid);line-height:1.65}
+.alertcard li::before{content:counter(al);position:absolute;left:0;top:1px;width:17px;height:17px;border-radius:50%;background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;line-height:1}
+.alertcard li b{color:var(--text);font-weight:600}
+.alertcard .acall{display:inline-flex;align-items:center;gap:.35rem;margin-top:.8rem;background:var(--navy);color:#fff;text-decoration:none;font-size:12.5px;font-weight:600;padding:.55rem 1rem;border-radius:999px}
+.alertcard .acall:active{background:var(--navy-dark)}
+.nowarn{margin-top:.65rem;font-size:11.5px;color:var(--red);background:var(--red-bg);border:1px solid var(--red-border);border-radius:9px;padding:.5rem .7rem;line-height:1.6}
+
+/* ── CARD ─────────────────────────────── */
+.list{display:grid;gap:.7rem}
+.card{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--text-muted);border-radius:14px;padding:.95rem 1rem 1rem;box-shadow:0 1px 2px rgba(16,51,94,.04)}
+.card.lv-ban{border-left-color:var(--red)}
+.card.lv-care{border-left-color:#d99a2b}
+.card.lv-ok{border-left-color:#2f9e63}
+.card-head{display:flex;align-items:flex-start;gap:.55rem}
+.emoji{width:34px;height:34px;border-radius:10px;background:var(--navy-xlight);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;line-height:1;flex-shrink:0}
+.ch-info{min-width:0;flex:1}
+.ch-info h3{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.4;letter-spacing:-.01em}
+.ch-cat{display:block;font-size:10.5px;color:var(--text-muted);margin-top:1px}
+.badges{display:flex;gap:.25rem;flex-wrap:wrap;justify-content:flex-end;flex-shrink:0;max-width:52%}
+.badge{font-size:10.5px;font-weight:700;padding:3px 7px;border-radius:6px;white-space:nowrap;line-height:1.4}
+.badge.ban{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.badge.care{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.badge.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.badge.dim{opacity:.38}
+.lethal{display:inline-block;margin-top:.5rem;font-size:10.5px;font-weight:700;color:#fff;background:var(--red);border-radius:5px;padding:2px 7px}
+.why{margin-top:.65rem;display:grid;gap:.4rem}
+.wrow{display:grid;grid-template-columns:52px 1fr;gap:.45rem;font-size:12.2px;line-height:1.72;color:var(--text-mid)}
+.wsp{font-size:10.5px;font-weight:700;color:var(--text-muted);padding-top:2px;letter-spacing:-.01em}
+.wsp.dim{opacity:.45}
+.wrow p b{color:var(--text);font-weight:600}
+.sym{margin-top:.6rem;font-size:11.8px;color:var(--text-mid);line-height:1.7;background:var(--navy-xlight);border-radius:9px;padding:.45rem .65rem}
+.sym b{color:var(--navy);font-weight:700;margin-right:.25rem}
+.act{margin-top:.6rem;border:1px solid var(--border);border-radius:10px;padding:.6rem .7rem .55rem;background:#fbfdff}
+.act.okbox{background:var(--green-bg);border-color:var(--green-border)}
+.act h4{font-size:11.5px;font-weight:700;color:var(--accent);margin-bottom:.35rem;display:flex;align-items:center;gap:.3rem}
+.act.okbox h4{color:var(--green)}
+.act ol{list-style:none;display:grid;gap:.25rem}
+.act li{position:relative;padding-left:.85rem;font-size:12px;color:var(--text-mid);line-height:1.68}
+.act li::before{content:"";position:absolute;left:0;top:.55em;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.act.okbox li::before{background:#2f9e63}
+.cfoot{margin-top:.55rem;font-size:11px;color:var(--text-muted);line-height:1.6}
+.cfoot a{color:var(--accent);font-weight:700;text-decoration:none}
+.empty{text-align:center;padding:2.2rem 1rem;color:var(--text-muted);font-size:12.5px;background:var(--white);border:1px dashed var(--border);border-radius:14px;line-height:1.8}
+.empty b{display:block;color:var(--navy);font-size:13.5px;margin-bottom:.3rem}
+
+.legend{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:.8rem .9rem;margin-bottom:1rem;font-size:11.5px;color:var(--text-muted);line-height:1.8}
+.legend strong{color:var(--navy);font-weight:700}
+
+.foot{background:var(--navy);padding:1.5rem 1.25rem;margin-top:1rem}
+.foot-inner{max-width:760px;margin:0 auto}
+.foot-disc{font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.85;margin-bottom:1rem}
+.foot-disc strong{color:rgba(255,255,255,.72);font-weight:500}
+.foot-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.foot-ref{margin-top:.9rem;font-size:10.5px;color:rgba(255,255,255,.2)}
+
+@media(max-width:560px){
+  .sbox input{font-size:16px}
+}
+@media(min-width:560px){
+  .hero h1{font-size:24px}
+  .card-head .ch-info h3{font-size:15px}
+}
+@media(max-width:380px){
+  .logo-text{font-size:11px;white-space:normal}
+  .logo-text small{display:none}
+  .tbtn.back{font-size:10px;padding:6px 7px}
+  .tbtn.call{padding:6px 8px}
+  .badges{flex-direction:column;align-items:flex-end}
+  .wrow{grid-template-columns:46px 1fr}
+}
+@media print{
+  .topbar,.controls,.quickterms,.resetbtn,.acall{display:none}
+  .card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Guardian · Food Safety</p>
+    <h1>우리 아이, 이거 <span>먹어도 되나요?</span></h1>
+    <p class="hero-desc">포도·양파·초콜릿부터 사람약까지, 강아지와 고양이의 위험도와<br>먹었을 때 대처법을 바로 찾아볼 수 있습니다.</p>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="controls-inner">
+    <div class="sbox">
+      <span class="sic" aria-hidden="true">🔍</span>
+      <input id="q" type="search" autocomplete="off" placeholder="음식 이름 검색 (예: 포도, 양파, 초콜릿)" aria-label="음식 이름 검색">
+      <button class="sclear" id="sclear" type="button" aria-label="검색어 지우기">✕</button>
+    </div>
+    <div class="strip">
+      <div class="seg" role="group" aria-label="동물 선택">
+        <button type="button" data-sp="all" aria-pressed="true">전체</button>
+        <button type="button" data-sp="dog" aria-pressed="false">🐕 강아지</button>
+        <button type="button" data-sp="cat" aria-pressed="false">🐈 고양이</button>
+      </div>
+      <span class="sep" aria-hidden="true"></span>
+      <button class="chip" type="button" data-f="all" aria-pressed="true">전체</button>
+      <button class="chip" type="button" data-f="ban" aria-pressed="false">🚫 절대 금지</button>
+      <button class="chip" type="button" data-f="care" aria-pressed="false">⚠️ 소량 주의·차이</button>
+      <button class="chip" type="button" data-f="ok" aria-pressed="false">✅ 급여 가능</button>
+      <button class="chip" type="button" data-f="med" aria-pressed="false">💊 사람약·생활독성</button>
+    </div>
+  </div>
+</div>
+
+<main class="main">
+  <div class="resultbar">
+    <p class="resultcount" id="count" aria-live="polite">항목을 불러오는 중입니다…</p>
+    <button class="resetbtn" id="reset" type="button">전체 보기</button>
+  </div>
+
+  <div class="quickterms" id="quickterms" aria-label="자주 찾는 검색어"></div>
+
+  <section class="alertcard" aria-labelledby="nowtitle">
+    <h2 id="nowtitle">🚨 방금 먹었어요 — 이 순서대로</h2>
+    <p class="asub">증상이 없어도, 조금만 먹었어도 먼저 확인해 주세요.</p>
+    <ol>
+      <li><b>무엇을·얼마나·언제</b> 먹었는지, 아이 <b>체중</b>을 확인하세요.</li>
+      <li><b>031-994-6346</b>으로 전화해 위 항목을 그대로 알려 주세요. 필요하면 바로 내원하도록 안내드립니다.</li>
+      <li>진료 전 <b>임의로 토하게 하지 마세요.</b> 날카로운 뼈·세제·기름류는 특히 금물입니다.</li>
+      <li>포장지·남은 음식·토한 내용물을 챙겨 오시면 판단에 큰 도움이 됩니다.</li>
+      <li>증상이 늦게 나타나는 독도 많아 <b>24~72시간 관찰</b>이 필요한 경우가 있습니다.</li>
+    </ol>
+    <p class="nowarn">우유·소금물을 먹여 토하게 하는 방법, 사람용 약을 임의로 먹이는 것은 위험합니다. 반드시 수의사 안내를 받으세요.</p>
+    <a class="acall" href="tel:031-994-6346">📞 031-994-6346 전화하기</a>
+  </section>
+
+  <p class="legend">
+    <strong>위험 등급</strong> · 🚫 <strong>절대 금지</strong>는 소량도 위험한 항목, ⚠️ <strong>소량 주의</strong>는 양·부위·조리 상태에 따라 달라지거나 강아지·고양이 차이가 큰 항목, ✅ <strong>급여 가능</strong>은 조리·손질을 지키면 간식으로 줄 수 있는 항목입니다. 급여 가능 항목도 <strong>하루 간식 총량은 하루 사료량의 10% 이내</strong>를 권합니다.
+  </p>
+
+  <div class="list" id="list"></div>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      이 안내는 <strong>보호자 교육용 참고 자료</strong>이며, 개별 아이의 진단·치료를 대신하지 않습니다.<br>
+      같은 음식도 체중·건강 상태(신장·간·췌장 질환)에 따라 위험도가 달라지니, 섭취량과 시각을 확인해 문의해 주세요.<br>
+      문의사항이 있으시면 언제든지 연락 주세요.<br>
+      진료시간 · 월·화·목·토·일 10:00–20:00 / 금 10:00–16:00 / 수요일 정기휴무
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">WECARE Animal Medical Center · wecarevet.github.io/wecarevet</p>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   금지·주의 음식 데이터
+   d = 강아지, c = 고양이  [등급, 이유]
+   등급: ban(절대 금지) / care(소량 주의) / ok(급여 가능)
+   ========================================================= */
+const D = [
+/* ── 과일 ───────────────────────────── */
+{id:'grape',n:'포도·건포도',e:'🍇',c:'과일',f:['ban'],
+ al:['포도','건포도','샤인머스캣','거봉','캠벨','청포도','적포도','레드글로브','머루','와인','포도주스','건포도','grape','raisin','sultana'],
+ d:['ban','신장을 손상시켜 <b>급성 신부전</b>을 일으킵니다. 원인 물질은 아직 완전히 밝혀지지 않았고(주석산 등 추정), <b>안전한 용량이 정해져 있지 않아</b> 한 알·한 개비도 위험합니다.'],
+ c:['ban','고양이에서도 신장 손상 사례가 보고되어 같은 기준으로 금지합니다. 자료가 적은 것이 안전하다는 뜻은 아닙니다.'],
+ sym:'구토·설사, 식욕 저하, 무기력, 복통, 소변량 감소, 입 냄새',
+ act:['먹은 개수와 시각, 아이 체중을 확인해 바로 전화하세요.','2시간 이내라면 병원에서 흡착제·구토 유도 등 처치를 결정합니다(보호자가 임의로 하지 마세요).','증상이 없어도 신장 수치(혈액검사)를 48~72시간 추적 관찰합니다.']},
+
+{id:'apple',n:'사과',e:'🍎',c:'과일',f:['care'],
+ al:['사과','애플','사과껍질','사과씨','apple'],
+ d:['care','과육은 소량 괜찮습니다. 다만 <b>씨앗·심·꼭지</b>에는 시안화물 전구체(아미그달린)가 있어 많이 씹으면 위험합니다.'],
+ c:['care','과육 소량은 가능하지만 씨앗은 반드시 제거하세요. 고양이는 단맛을 느끼지 못해 관심이 적습니다.'],
+ sym:'씨앗을 다량 먹으면 구토·호흡 곤란·경련(드묾), 과다 섭취 시 설사',
+ act:['씨앗·심·꼭지·껍질을 모두 제거하고 한입 크기로 잘라 소량만 주세요.','씨앗을 여러 개 먹었거나 구토·호흡 이상이 있으면 전화하세요.']},
+
+{id:'pear',n:'배',e:'🍐',c:'과일',f:['care'],
+ al:['배','신고배','배씨','pear'],
+ d:['care','과육은 소량 가능하지만 씨앗·심에는 시안화물 전구체가 있어 제거해야 합니다. 수분·당분이 많아 과다 섭취 시 설사가 잦습니다.'],
+ c:['care','과육 소량 가능, 씨앗·심 제거. 차고 단단한 과육은 소화에 부담이 됩니다.'],
+ sym:'설사, 복부 팽만, 씨앗 다량 섭취 시 호흡 이상',
+ act:['씨앗과 심을 제거하고 잘게 잘라 소량만 주세요.','설사가 2일 이상 이어지면 전화하세요.']},
+
+{id:'watermelon',n:'수박',e:'🍉',c:'과일',f:['ok'],
+ al:['수박','수박씨','watermelon'],
+ d:['ok','수분 보충에 좋은 간식입니다. 씨앗·껍질은 소화되지 않으니 제거하세요.'],
+ c:['ok','소량 가능합니다. 씨앗·껍질을 제거하고 너무 차가운 것은 피하세요.'],
+ sym:'과다 섭취 시 설사·복부 팽만',
+ act:['씨앗·껍질을 제거하고 한입 크기로 잘라 주세요.','하루 간식 총량의 10% 이내로, 차게 주지 마세요.']},
+
+{id:'blueberry',n:'블루베리',e:'🫐',c:'과일',f:['ok'],
+ al:['블루베리','베리','blueberry'],
+ d:['ok','항산화 성분이 많은 안전한 간식입니다. 알갱이가 작아 소량이면 그대로 줘도 됩니다.'],
+ c:['ok','소량 가능합니다. 씻어서 2~3알 정도부터 시작하세요.'],
+ sym:'과다 섭취 시 묽은 변',
+ act:['씻어서 하루 2~5알 이내로 주세요.','처음 줄 때는 1알로 반응을 확인하세요.']},
+
+{id:'strawberry',n:'딸기',e:'🍓',c:'과일',f:['ok'],
+ al:['딸기','strawberry'],
+ d:['ok','소량 가능한 간식입니다. 꼭지와 잎을 제거하세요.'],
+ c:['ok','소량 가능합니다. 잘게 잘라 주세요.'],
+ sym:'과다 섭취 시 설사',
+ act:['꼭지·잎을 제거하고 1~2개를 잘게 잘라 주세요.','당분이 있어 매일 주지는 마세요.']},
+
+{id:'banana',n:'바나나',e:'🍌',c:'과일',f:['ok'],
+ al:['바나나','banana'],
+ d:['ok','소량 가능합니다. 당분과 칼륨이 많아 많이 주면 설사·체중 증가로 이어집니다.'],
+ c:['ok','소량 가능합니다. 껍질은 주지 마세요.'],
+ sym:'과다 섭취 시 묽은 변·복부 팽만',
+ act:['껍질을 벗기고 1~2cm 정도만 잘라 주세요.','신장 질환이 있다면 칼륨 때문에 급여 전 상의하세요.']},
+
+{id:'citrus',n:'귤·오렌지',e:'🍊',c:'과일',f:['care'],
+ al:['귤','오렌지','감귤','한라봉','레몬','자몽','citrus','orange'],
+ d:['care','산과 정유 성분이 위를 자극합니다. 껍질·씨를 제거하고 한두 쪽만 주세요.'],
+ c:['care','고양이는 산에 더 예민합니다. 소량도 구토를 할 수 있어 권하지 않습니다.'],
+ sym:'구토, 침 흘림, 설사',
+ act:['껍질·씨·속껍질을 제거하고 아주 소량만 주세요.','구토·침 흘림이 있으면 바로 중단하고 전화하세요.']},
+
+{id:'stonefruit',n:'복숭아·자두·체리',e:'🍑',c:'과일',f:['care'],
+ al:['복숭아','자두','체리','앵두','버찌','peach','plum','cherry'],
+ d:['care','과육은 소량 가능하지만 <b>씨·잎·줄기</b>에 시안화물 전구체가 있습니다. 씨를 통째로 삼키면 장폐색 위험도 큽니다.'],
+ c:['care','과육 소량 가능, 씨·잎·줄기 반드시 제거. 씨는 이물·폐색 위험이 있습니다.'],
+ sym:'구토, 복통, 호흡 곤란(씨 다량), 장폐색 시 구토·식욕 저하',
+ act:['씨를 완전히 제거하고 잘게 잘라 소량만 주세요.','씨를 삼켰다면 크기와 개수를 확인해 전화하세요.']},
+
+{id:'mango',n:'망고',e:'🥭',c:'과일',f:['ok'],
+ al:['망고','mango'],
+ d:['ok','과육 소량 가능합니다. 씨와 껍질은 제거하세요.'],
+ c:['ok','소량 가능합니다. 잘게 잘라 주세요.'],
+ sym:'과다 섭취 시 설사',
+ act:['씨·껍질을 제거하고 한입 크기로 잘라 소량만 주세요.']},
+
+{id:'avocado',n:'아보카도',e:'🥑',c:'과일',f:['care'],
+ al:['아보카도','avocado','페르신'],
+ d:['care','과육은 대체로 구토·설사 정도지만, <b>씨와 껍질</b>은 큰 이물이 되어 장을 막을 수 있습니다. 기름 성분이 많아 췌장에 부담도 됩니다.'],
+ c:['care','개보다 예민할 수 있어 권하지 않습니다. 씨·껍질은 이물 위험.'],
+ sym:'구토, 설사, 복통, 이물 섭취 시 구토·식욕 저하',
+ act:['과육을 아주 소량만, 씨·껍질은 반드시 치우세요.','씨를 삼켰다면 크기를 확인해 바로 전화하세요.']},
+
+{id:'persimmon',n:'감·곶감',e:'🍂',c:'과일',f:['care'],
+ al:['감','곶감','홍시','단감','persimmon'],
+ d:['care','탄닌이 많고, 특히 <b>곶감</b>은 위에서 뭉쳐 <b>식물성 위석·장폐색</b>을 만들 수 있습니다.'],
+ c:['care','소량도 소화가 어렵습니다. 곶감은 주지 마세요.'],
+ sym:'구토, 식욕 저하, 변비·장폐색',
+ act:['씨를 제거하고 아주 소량만 주세요. 곶감·말린 과일은 피하세요.','구토가 반복되면 바로 내원하세요.']},
+
+{id:'pineapple',n:'파인애플·키위',e:'🍍',c:'과일',f:['care'],
+ al:['파인애플','키위','pineapple','kiwi'],
+ d:['care','산과 단백질 분해효소가 입·위 점막을 자극합니다. 소량만 주세요.'],
+ c:['care','산도가 높아 소량도 구토를 유발할 수 있습니다.'],
+ sym:'입 주변 자극, 구토, 설사',
+ act:['잘게 잘라 1~2조각만 주세요.','입 주변이 빨갛게 되거나 구토하면 중단하세요.']},
+
+/* ── 채소 ───────────────────────────── */
+{id:'allium',n:'양파·파·마늘·부추',e:'🧅',c:'채소',f:['ban'],
+ al:['양파','파','대파','쪽파','실파','마늘','부추','리크','챠이브','양파가루','마늘가루','allium','onion','garlic','leek'],
+ d:['ban','적혈구를 파괴해 <b>용혈성 빈혈</b>을 일으킵니다. <b>익혀도 독성이 사라지지 않고</b>, 파·마늘 가루는 농축되어 더 위험합니다.'],
+ c:['ban','고양이가 훨씬 민감합니다. 체중 kg당 5g 안팎의 양파로도 빈혈이 보고됩니다.'],
+ sym:'무기력, 점막 창백, 빠른 호흡·심박, 어둡거나 붉은 소변, 식욕 저하 (1~5일 뒤 나타나기도)',
+ act:['먹은 양과 형태(생·익힘·가루)를 확인해 전화하세요.','증상이 없어도 24~72시간 혈액검사(빈혈) 관찰이 필요합니다.','국·찌개 국물, 양념된 고기, 김밥 등도 같은 재료이니 함께 알려 주세요.']},
+
+{id:'rawpotato',n:'생감자·싹·잎',e:'🥔',c:'채소',f:['ban'],
+ al:['생감자','감자싹','감자잎','솔라닌','potato'],
+ d:['ban','싹·초록 껍질·잎에 <b>솔라닌</b>이 있어 구토·경련을 일으킵니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'구토, 침 흘림, 복통, 설사, 경련(심한 경우)',
+ act:['먹은 부위(싹·껍질·잎)와 양을 확인해 전화하세요.','익힌 감자도 껍질·싹은 제거해야 합니다.']},
+
+{id:'cookedpotato',n:'익힌 감자',e:'🥔',c:'채소',f:['ok'],
+ al:['감자','삶은감자','익힌감자','potato'],
+ d:['ok','껍질·싹을 제거하고 푹 익히면 소량 간식으로 가능합니다.'],
+ c:['ok','소량 가능합니다. 버터·소금·양념 없이 주세요.'],
+ sym:'과다 섭취 시 설사·복부 팽만',
+ act:['껍질·싹을 완전히 제거하고 삶거나 쪄서 소량만 주세요.','기름에 튀긴 감자는 피하세요.']},
+
+{id:'tomato',n:'토마토',e:'🍅',c:'채소',f:['care'],
+ al:['토마토','방울토마토','토마토잎','tomato'],
+ d:['care','<b>익은 과육</b>은 소량 가능하지만 잎·줄기·덜 익은 열매에는 솔라닌이 있습니다.'],
+ c:['care','익은 과육만 아주 소량. 잎·줄기는 금지입니다.'],
+ sym:'구토, 침 흘림, 무기력(잎·덜 익은 열매 섭취 시)',
+ act:['익은 과육만, 꼭지·잎을 제거하고 소량 주세요.','덜 익은 열매나 잎을 먹었다면 전화하세요.']},
+
+{id:'carrot',n:'당근',e:'🥕',c:'채소',f:['ok'],
+ al:['당근','carrot'],
+ d:['ok','씹는 재미와 식이섬유가 좋은 간식입니다. 익히면 소화가 더 쉽습니다.'],
+ c:['ok','잘게 썰어 소량 주세요. 큰 조각은 목에 걸릴 수 있습니다.'],
+ sym:'과다 섭취 시 묽은 변',
+ act:['깨끗이 씻어 한입 크기로 썰어 주세요(익혀서 주면 더 좋습니다).','하루 간식 총량의 10% 이내로 주세요.']},
+
+{id:'broccoli',n:'브로콜리',e:'🥦',c:'채소',f:['ok'],
+ al:['브로콜리','broccoli'],
+ d:['ok','살짝 익혀 소량 주면 좋습니다. 많이 먹으면 가스가 찹니다.'],
+ c:['ok','아주 소량만. 고양이는 향이 강한 채소를 잘 먹지 않습니다.'],
+ sym:'과다 섭취 시 가스·복부 팽만·설사',
+ act:['줄기 위주로 잘게 썰어 살짝 익혀 주세요.','처음에는 1~2조각만 주세요.']},
+
+{id:'cucumber',n:'오이',e:'🥒',c:'채소',f:['ok'],
+ al:['오이','cucumber'],
+ d:['ok','수분이 많고 칼로리가 낮아 더운 날 간식으로 좋습니다.'],
+ c:['ok','얇게 썰어 소량 주세요.'],
+ sym:'거의 없음(과다 시 묽은 변)',
+ act:['씨를 제거하고 얇게 썰어 주세요.','차가운 오이는 상온에 잠깐 두었다가 주세요.']},
+
+{id:'pumpkin',n:'호박·애호박',e:'🎃',c:'채소',f:['ok'],
+ al:['호박','애호박','단호박','주키니','pumpkin','zucchini'],
+ d:['ok','푹 익혀 소량 주면 소화에 좋습니다.'],
+ c:['ok','푹 익혀 소량 가능합니다.'],
+ sym:'과다 섭취 시 설사',
+ act:['씨·껍질을 제거하고 푹 쪄서 주세요.','양념·버터 없이 주세요.']},
+
+{id:'cabbage',n:'양배추',e:'🥬',c:'채소',f:['ok'],
+ al:['양배추','배추','cabbage'],
+ d:['ok','살짝 익혀 소량 주세요. 많이 먹으면 가스가 찹니다.'],
+ c:['ok','아주 소량, 익혀서 주세요.'],
+ sym:'과다 섭취 시 가스·복부 팽만',
+ act:['잘게 썰어 살짝 익혀 소량만 주세요.','갑상선 질환이 있다면 급여 전 상의하세요.']},
+
+{id:'spinach',n:'시금치',e:'🥬',c:'채소',f:['care'],
+ al:['시금치','spinach'],
+ d:['care','옥살산이 많아 <b>요로결석</b> 위험을 높입니다. 익혀서 아주 소량만 주세요.'],
+ c:['care','고양이는 결석이 잦아 권하지 않습니다. 결석 병력이 있으면 피하세요.'],
+ sym:'결석 시 배뇨 통증·혈뇨, 과다 섭취 시 설사',
+ act:['데쳐서 잘게 잘라 소량만 주세요.','요로결석·신장 질환이 있으면 주지 마세요.']},
+
+{id:'corn',n:'옥수수',e:'🌽',c:'채소',f:['care'],
+ al:['옥수수','초당옥수수','corn'],
+ d:['care','알갱이만 소량은 가능하지만 <b>속대·잎·수염</b>은 소화되지 않아 장폐색을 일으킵니다.'],
+ c:['care','알갱이 소량만. 속대는 절대 주지 마세요.'],
+ sym:'구토, 식욕 저하, 장폐색 시 변비·복통',
+ act:['알갱이만 분리해 소량 주세요.','속대를 씹어 삼켰다면 바로 전화하세요.']},
+
+{id:'wildmushroom',n:'야생버섯',e:'🍄',c:'채소',f:['ban'],
+ al:['버섯','야생버섯','독버섯','송이','mushroom'],
+ d:['ban','독버섯은 구토·설사에서 간부전·경련까지 이릅니다. 산책 중 줍는 버섯은 모두 금지로 보세요.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'구토, 설사, 침 흘림, 경련, 황달, 무기력',
+ act:['먹은 버섯의 생김새와 양, 시각을 확인해 바로 전화하세요.','남은 버섯 조각을 봉투에 담아 오시면 감별에 도움이 됩니다.']},
+
+{id:'sweetpotato',n:'고구마',e:'🍠',c:'채소',f:['ok'],
+ al:['고구마','군고구마','삶은고구마','밤고구마','sweet potato'],
+ d:['ok','푹 익혀 소량 주면 좋은 간식입니다. 생것은 소화가 어렵습니다.'],
+ c:['ok','푹 익혀 아주 소량만 주세요.'],
+ sym:'과다 섭취 시 가스·설사',
+ act:['껍질째 푹 쪄서 한입 크기로 주세요(껍질은 벗겨도 됩니다).','하루 간식 총량의 10% 이내로 주세요.']},
+
+/* ── 고기·생선·달걀 ──────────────────── */
+{id:'chicken',n:'닭가슴살',e:'🍗',c:'고기·생선',f:['ok'],
+ al:['닭가슴살','닭고기','삶은닭가슴살','chicken'],
+ d:['ok','기름기 적은 훌륭한 단백질 간식입니다. 간 없이 삶아서 주세요.'],
+ c:['ok','삶아서 잘게 찢어 소량 주세요.'],
+ sym:'과다 섭취 시 설사·복부 팽만',
+ act:['양념·소금·기름 없이 삶아서 한입 크기로 주세요.','뼈와 껍질은 반드시 제거하세요.']},
+
+{id:'egg',n:'삶은 달걀',e:'🥚',c:'고기·생선',f:['ok'],
+ al:['달걀','계란','삶은계란','노른자','흰자','egg'],
+ d:['ok','완전히 익힌 달걀은 소량 가능합니다. 노른자는 주 2~3회 이내로.'],
+ c:['ok','완전히 익혀 잘게 으깬 흰자 위주로 소량 주세요.'],
+ sym:'과다 섭취 시 설사, 날달걀은 식중독 위험',
+ act:['완전히 익힌 달걀만, 소금 없이 소량 주세요.','날달걀·반숙은 주지 마세요.']},
+
+{id:'rawfish',n:'날생선·회',e:'🐟',c:'고기·생선',f:['care'],
+ al:['날생선','회','연어회','참치회','생선','초밥','raw fish','sashimi'],
+ d:['care','기생충·세균 위험이 있고, 생선에 따라 티아민 분해효소로 신경 증상이 생길 수 있습니다.'],
+ c:['care','고양이는 특히 티아민 결핍 위험이 있어 날생선을 상식으로 주는 것은 권하지 않습니다.'],
+ sym:'구토·설사, 식욕 저하, 티아민 결핍 시 보행 이상·경련',
+ act:['가급적 익혀서 주세요. 생식을 준다면 수의사와 상의하세요.','회를 훔쳐 먹었다면 양과 종류를 확인해 전화하세요.']},
+
+{id:'bones',n:'닭뼈·생선뼈',e:'🦴',c:'고기·생선',f:['ban'],
+ al:['뼈','닭뼈','생선뼈','갈비뼈','돼지뼈','bone','닭발'],
+ d:['ban','<b>조리한 닭뼈</b>는 쪼개져 날카롭게 되어 식도·위·장을 뚫을 수 있습니다. 생선뼈도 마찬가지입니다.'],
+ c:['ban','같은 이유로 금지합니다. 특히 고양이는 생선뼈를 자주 접해 위험합니다.'],
+ sym:'침 흘림, 삼킴 곤란, 구토(피 섞임), 복통, 배변 곤란',
+ act:['먹은 뼈의 종류·조리 여부를 확인해 <b>바로</b> 전화하세요.','억지로 토하게 하거나 손가락을 넣지 마세요.','X-ray·내시경이 필요할 수 있어 당일 내원을 권합니다.']},
+
+{id:'cookedfish',n:'익힌 생선살',e:'🐟',c:'고기·생선',f:['ok'],
+ al:['생선','연어','고등어','흰살생선','익힌생선','salmon','fish'],
+ d:['ok','뼈를 제거하고 간 없이 익혀서 주면 좋은 단백질입니다.'],
+ c:['ok','뼈를 완전히 제거하고 익혀서 소량 주세요.'],
+ sym:'과다 섭취 시 설사',
+ act:['뼈·가시를 완전히 제거하고 익혀서 주세요.','양념·소금·기름 없이 주세요.']},
+
+{id:'ham',n:'햄·소시지·베이컨',e:'🥓',c:'고기·생선',f:['care'],
+ al:['햄','소시지','베이컨','핫도그','육포','sausage','ham'],
+ d:['care','나트륨·지방·아질산염이 많아 <b>췌장염·나트륨 중독</b> 위험이 있습니다.'],
+ c:['care','고양이는 염분에 특히 예민합니다. 주지 않는 것이 좋습니다.'],
+ sym:'구토·설사, 물을 많이 마심, 복통(췌장염)',
+ act:['아주 소량이라도 자주 주지 마세요.','많이 먹었거나 구토·복통이 있으면 전화하세요.']},
+
+{id:'fatty',n:'삼겹살·튀김·기름진 음식',e:'🥩',c:'고기·생선',f:['care'],
+ al:['삼겹살','고기','튀김','치킨','기름','족발','갈비','pork','fried'],
+ d:['care','고지방 식이는 <b>급성 췌장염</b>의 대표적 원인입니다. 소량도 위험할 수 있습니다.'],
+ c:['care','고양이도 췌장염 위험이 있습니다. 기름진 음식은 피하세요.'],
+ sym:'구토·설사, 복통(등을 굽힘), 식욕 저하, 무기력',
+ act:['먹은 양과 종류를 확인해 전화하세요.','구토·복통이 있으면 금식시키지 말고 바로 내원하세요.']},
+
+{id:'organ',n:'간·내장',e:'🍖',c:'고기·생선',f:['care'],
+ al:['간','내장','닭간','소간','곱창','liver'],
+ d:['care','철분·비타민A가 많아 자주 주면 <b>비타민A 과잉</b>이 될 수 있습니다.'],
+ c:['care','소량, 가끔만. 비타민A 과잉은 뼈·관절에 영향을 줍니다.'],
+ sym:'과다 시 식욕 저하, 뼈 통증, 피부 건조',
+ act:['완전히 익혀서 아주 소량, 가끔만 주세요.','영양제와 겹치지 않게 총량을 확인하세요.']},
+
+{id:'rawmeat',n:'날고기',e:'🥩',c:'고기·생선',f:['care'],
+ al:['날고기','생고기','육회','raw meat'],
+ d:['care','살모넬라·대장균·기생충 위험이 있습니다. 면역이 약한 아이는 특히 피하세요.'],
+ c:['care','같은 이유로 권하지 않습니다.'],
+ sym:'구토·설사, 발열, 무기력',
+ act:['급여한다면 수의사와 상의해 냉동·위생 관리를 지키세요.','구토·설사가 있으면 전화하세요.']},
+
+{id:'shellfish',n:'조개·새우·갑각류',e:'🦐',c:'고기·생선',f:['care'],
+ al:['조개','새우','게','갑각류','오징어','shrimp','shellfish'],
+ d:['care','익혀서 소량만. 껍질은 이물이 되고, 익히지 않으면 세균 위험이 있습니다.'],
+ c:['care','익혀서 아주 소량만. 껍질은 반드시 제거하세요.'],
+ sym:'구토·설사, 알레르기 반응(얼굴 부종·가려움)',
+ act:['껍질을 완전히 제거하고 익혀서 소량 주세요.','얼굴이 붓거나 가려워하면 바로 전화하세요.']},
+
+/* ── 유제품 ─────────────────────────── */
+{id:'milk',n:'우유',e:'🥛',c:'유제품',f:['care'],
+ al:['우유','멸균우유','milk'],
+ d:['care','독성은 아니지만 <b>유당불내증</b>으로 설사·복통이 흔합니다.'],
+ c:['care','고양이도 성묘가 되면 유당 분해 능력이 떨어져 설사를 합니다.'],
+ sym:'설사, 복부 팽만, 구토',
+ act:['많이 마셨다면 물을 충분히 마시게 하고 관찰하세요.','설사가 심하거나 2일 이상 이어지면 전화하세요.']},
+
+{id:'cheese',n:'치즈',e:'🧀',c:'유제품',f:['care'],
+ al:['치즈','슬라이스치즈','cheese'],
+ d:['care','소량은 괜찮은 경우가 많지만 나트륨·지방이 높습니다.'],
+ c:['care','아주 소량만. 유당·염분에 예민합니다.'],
+ sym:'설사, 구토',
+ act:['작은 조각 하나 이내로 주세요.','염분이 많은 가공 치즈는 피하세요.']},
+
+{id:'yogurt',n:'요거트',e:'🥣',c:'유제품',f:['care'],
+ al:['요거트','요구르트','플레인요거트','yogurt'],
+ d:['care','무가당 플레인은 소량 가능합니다. 설탕·과일 시럽이 든 제품은 피하세요.'],
+ c:['care','소량만. 유당이 적은 제품이 낫습니다.'],
+ sym:'설사, 복부 팽만',
+ act:['무가당 플레인 요거트를 한 숟가락 이내로 주세요.','자일리톨 표시가 있는 제품은 절대 주지 마세요.']},
+
+{id:'icecream',n:'아이스크림',e:'🍦',c:'유제품',f:['ban'],
+ al:['아이스크림','빙수','젤라토','ice cream'],
+ d:['ban','설탕·유당·지방에 <b>자일리톨</b>이 든 제품이 많아 저혈당·간손상 위험이 있습니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'구토·설사, 무기력, 경련(자일리톨 섭취 시)',
+ act:['포장지의 감미료 표시(자일리톨·xylitol)를 확인해 전화하세요.','자일리톨이 있으면 양과 무관하게 바로 내원이 필요합니다.']},
+
+/* ── 간식·단것 ───────────────────────── */
+{id:'chocolate',n:'초콜릿·코코아',e:'🍫',c:'간식·단것',f:['ban'],
+ al:['초콜릿','코코아','카카오','다크초콜릿','초코','핫초코','chocolate','cocoa','cacao'],
+ d:['ban','<b>테오브로민</b>이 심장·신경을 자극합니다. 다크초콜릿·코코아가루일수록 농도가 높습니다. 대략 우유초콜릿 10g/kg, 다크초콜릿 2.5g/kg, 코코아가루 1g/kg 안팎에서 증상이 나타납니다(5kg 기준 우유초콜릿 약 50g).'],
+ c:['ban','고양이도 같은 독성에 노출됩니다. 소량도 금지입니다.'],
+ sym:'구토·설사, 과도한 갈증·배뇨, 흥분, 근육 떨림, 빠른 심박, 경련',
+ act:['제품 종류(우유·다크·코코아)·먹은 양·체중을 확인해 전화하세요.','먹은 지 2시간 이내면 병원에서 처치를 결정합니다.','떨림·경련이 있으면 즉시 내원하세요.']},
+
+{id:'xylitol',n:'자일리톨·무설탕껌',e:'🍬',c:'간식·단것',f:['ban','med'],
+ al:['자일리톨','무설탕','껌','츄잉껌','캔디','치약','xylitol','gum','무설탕껌'],
+ d:['ban','인슐린을 과도하게 분비시켜 <b>저혈당</b>을 만들고, 이어 <b>간부전</b>까지 갈 수 있습니다. 체중 kg당 0.1g만으로 저혈당이 보고됩니다.'],
+ c:['ban','자료는 적지만 안전하다고 볼 수 없어 금지합니다.'],
+ sym:'구토, 무기력, 비틀거림, 경련(저혈당), 황달·출혈(간손상)',
+ act:['껌 몇 개비·제품 이름을 확인해 <b>바로</b> 전화하세요. 양이 적어도 내원이 필요합니다.','무설탕 껌·캔디·치약·일부 땅콩버터·비타민에 들어 있습니다.']},
+
+{id:'candy',n:'사탕·캔디',e:'🍭',c:'간식·단것',f:['care'],
+ al:['사탕','캔디','젤리','막대사탕','candy'],
+ d:['care','설탕·색소·감미료가 문제입니다. <b>자일리톨</b>이 든 제품은 금지입니다.'],
+ c:['care','소량도 권하지 않습니다. 자일리톨 확인이 먼저입니다.'],
+ sym:'설사, 구토, 자일리톨 섭취 시 저혈당',
+ act:['포장의 감미료 표시를 확인하세요.','자일리톨이 있으면 즉시 전화하세요.']},
+
+{id:'bakery',n:'쿠키·케이크·빵',e:'🍰',c:'간식·단것',f:['care'],
+ al:['쿠키','케이크','빵','머핀','도넛','cookie','cake','bread'],
+ d:['care','버터·설탕·초콜릿·건포도·자일리톨이 함께 들어 있는 경우가 많습니다.'],
+ c:['care','같은 이유로 권하지 않습니다.'],
+ sym:'구토·설사, 복통, 자일리톨·초콜릿 섭취 시 해당 증상',
+ act:['재료(초콜릿·건포도·자일리톨)를 확인해 전화하세요.','소량이라도 자일리톨이 있으면 바로 내원하세요.']},
+
+{id:'dough',n:'발효 반죽',e:'🍞',c:'간식·단것',f:['ban'],
+ al:['반죽','효모','빵반죽','쿠키반죽','dough','yeast'],
+ d:['ban','위에서 부풀어 <b>팽만·장폐색</b>을 만들고, 발효 과정에서 <b>알코올</b>이 생깁니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'복부 팽만, 구토(거품), 무기력, 비틀거림(알코올)',
+ act:['먹은 양과 시각을 확인해 바로 전화하세요.','팽만이 심하면 응급 처치가 필요합니다.']},
+
+{id:'honey',n:'꿀',e:'🍯',c:'간식·단것',f:['care'],
+ al:['꿀','벌꿀','honey'],
+ d:['care','당분이 높아 소량도 혈당·체중에 영향을 줍니다. 살균하지 않은 꿀은 드물게 보툴리눔 포자 위험이 있습니다.'],
+ c:['care','권하지 않습니다. 고양이는 단맛을 느끼지 못합니다.'],
+ sym:'설사, 혈당 상승',
+ act:['아주 소량, 가끔만 주세요.','당뇨·비만 아이에게는 주지 마세요.']},
+
+{id:'peanutbutter',n:'땅콩버터',e:'🥜',c:'간식·단것',f:['care'],
+ al:['땅콩버터','피넛버터','peanut butter'],
+ d:['care','<b>자일리톨</b>이 든 제품이 많아 반드시 표시를 확인해야 합니다. 지방·소금도 많습니다.'],
+ c:['care','자일리톨 확인 전에는 주지 마세요.'],
+ sym:'자일리톨 섭취 시 저혈당·구토, 과다 시 설사',
+ act:['성분표에 자일리톨(xylitol)이 없는지 확인하세요.','소량을 약에 묻혀 주는 정도로만 사용하세요.']},
+
+{id:'saltysnack',n:'짠 과자·스낵',e:'🍿',c:'간식·단것',f:['care'],
+ al:['과자','스낵','팝콘','감자칩','짠','salt','chip'],
+ d:['care','나트륨이 많아 많이 먹으면 <b>나트륨 중독</b>(구토·경련)이 올 수 있습니다.'],
+ c:['care','고양이는 염분에 특히 약합니다.'],
+ sym:'물을 많이 마심, 구토, 떨림, 경련(심한 경우)',
+ act:['먹은 양을 확인하고 물을 충분히 마시게 하세요.','구토·떨림이 있으면 바로 전화하세요.']},
+
+/* ── 음료·주류 ───────────────────────── */
+{id:'alcohol',n:'술·알코올',e:'🍺',c:'음료·주류',f:['ban'],
+ al:['술','알코올','맥주','소주','와인','막걸리','칵테일','alcohol','beer','wine'],
+ d:['ban','아주 소량도 중추신경을 억제해 <b>저혈당·산증·호흡 억제</b>를 일으킵니다.'],
+ c:['ban','고양이는 간 대사가 느려 더 위험합니다.'],
+ sym:'비틀거림, 구토, 무기력, 낮은 체온, 느린 호흡, 경련',
+ act:['종류·양·시각을 확인해 <b>바로</b> 전화하세요.','의식이 처지거나 호흡이 느리면 즉시 내원하세요.']},
+
+{id:'coffee',n:'커피·카페인',e:'☕',c:'음료·주류',f:['ban'],
+ al:['커피','카페인','에스프레소','커피콩','원두','coffee','caffeine'],
+ d:['ban','카페인이 심장·신경을 자극합니다. 대략 20mg/kg에서 증상, 60mg/kg 이상에서 경련이 보고됩니다. 커피콩·에스프레소는 농도가 특히 높습니다.'],
+ c:['ban','고양이는 카페인 대사가 느려 소량도 위험합니다.'],
+ sym:'흥분, 빠른 심박, 떨림, 구토, 과도한 갈증, 경련',
+ act:['먹은 형태(원두·액체)·양·체중을 확인해 전화하세요.','떨림·심박 항진이 있으면 즉시 내원하세요.']},
+
+{id:'tea',n:'녹차·홍차',e:'🍵',c:'음료·주류',f:['care'],
+ al:['차','녹차','홍차','보리차','tea'],
+ d:['care','카페인이 소량 들어 있습니다. 진한 차·다량 섭취는 피하세요.'],
+ c:['care','카페인에 예민합니다. 진한 차는 주지 마세요.'],
+ sym:'흥분, 구토(다량 섭취 시)',
+ act:['연한 보리차 정도만 소량 주세요.','진한 홍차·녹차를 마셨다면 양을 확인해 전화하세요.']},
+
+{id:'energydrink',n:'에너지드링크·탄산',e:'⚡',c:'음료·주류',f:['ban'],
+ al:['에너지드링크','탄산','콜라','사이다','레드불','energydrink','soda'],
+ d:['ban','카페인·설탕·각성 성분이 농축되어 있어 소량도 부정맥을 일으킬 수 있습니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'흥분, 빠른 심박, 구토, 떨림',
+ act:['마신 양과 제품을 확인해 전화하세요.','심박이 빠르거나 떨리면 바로 내원하세요.']},
+
+{id:'juice',n:'과일주스',e:'🧃',c:'음료·주류',f:['care'],
+ al:['주스','과일주스','오렌지주스','사과주스','juice'],
+ d:['care','당분이 많고 산성이 강합니다. <b>포도주스</b>는 포도와 같은 위험이 있어 금지입니다.'],
+ c:['care','권하지 않습니다. 포도주스는 금지입니다.'],
+ sym:'설사, 복부 팽만',
+ act:['물 대신 주스로 수분을 보충하지 마세요.','포도주스를 먹었다면 포도 항목을 확인해 전화하세요.']},
+
+/* ── 견과·씨앗 ───────────────────────── */
+{id:'macadamia',n:'마카다미아',e:'🌰',c:'견과·씨앗',f:['ban'],
+ al:['마카다미아','호주너트','macadamia'],
+ d:['ban','체중 kg당 1~2g 안팎에서 <b>무기력·떨림·후지 마비·고체온</b>이 보고됩니다.'],
+ c:['ban','자료는 적지만 안전하다고 볼 수 없어 금지합니다.'],
+ sym:'구토, 무기력, 뒷다리 힘 빠짐, 떨림, 체온 상승',
+ act:['먹은 알 수와 체중을 확인해 전화하세요.','대부분 24~48시간 내 회복되지만 체온·보행 상태 확인이 필요합니다.']},
+
+{id:'walnut',n:'호두·아몬드',e:'🌰',c:'견과·씨앗',f:['care'],
+ al:['호두','아몬드','견과','walnut','almond'],
+ d:['care','지방이 많아 많이 먹으면 구토·설사·췌장 부담이 됩니다. 호두는 곰팡이 독소 위험도 있습니다.'],
+ c:['care','아주 소량만. 잘게 부숴 주세요.'],
+ sym:'구토·설사, 복통',
+ act:['무염·무가공 제품을 잘게 부숴 1~2개만 주세요.','곰팡이 냄새가 나는 견과는 절대 주지 마세요.']},
+
+{id:'chestnut',n:'밤·해바라기씨',e:'🌰',c:'견과·씨앗',f:['ok'],
+ al:['밤','군밤','해바라기씨','씨앗','chestnut','sunflower'],
+ d:['ok','완전히 익힌 밤과 무염 해바라기씨는 소량 가능합니다.'],
+ c:['ok','잘게 부숴 아주 소량만 주세요.'],
+ sym:'과다 섭취 시 설사·복부 팽만',
+ act:['껍질을 벗기고 잘게 부숴 소량만 주세요.','무염·무가공 제품만 사용하세요.']},
+
+{id:'peanut',n:'땅콩',e:'🥜',c:'견과·씨앗',f:['care'],
+ al:['땅콩','피넛','땅콩알','peanut'],
+ d:['care','무염 땅콩은 소량 가능하지만 지방이 많고, 껍질·통땅콩은 질식 위험이 있습니다.'],
+ c:['care','잘게 부숴 아주 소량만 주세요.'],
+ sym:'구토·설사, 목에 걸리면 기침·호흡 곤란',
+ act:['무염 땅콩을 잘게 부숴 소량만 주세요.','기침이 멈추지 않으면 전화하세요.']},
+
+/* ── 식물 ───────────────────────────── */
+{id:'lily',n:'백합(나리)',e:'🌸',c:'식물',f:['ban'],x:'고양이 치명',
+ al:['백합','나리',' lily','백합꽃','꽃가루','lily'],
+ d:['care','개는 신부전까지는 드물고 구토·침 흘림 정도지만, 먹지 않게 치워 주세요.'],
+ c:['ban','<b>꽃가루·잎·꽃 한 조각, 물그릇에 떨어진 꽃가루만으로도</b> 급성 신부전을 일으킵니다. 치명률이 높아 고양이 집에서는 절대 두지 마세요.'],
+ sym:'침 흘림·구토, 무기력, 식욕 저하, 소변량 감소(신부전)',
+ act:['고양이가 닿았을 가능성이 있으면 <b>증상이 없어도 즉시</b> 전화하세요.','꽃을 치우고 물그릇을 새로 갈아 주세요.','노출 후 18시간 이내 치료가 예후를 크게 좌우합니다.']},
+
+{id:'aloe',n:'알로에',e:'🪴',c:'식물',f:['ban','care'],
+ al:['알로에','aloe'],
+ d:['care','사포닌·안트라퀴논으로 구토·설사가 흔합니다.'],
+ c:['ban','고양이에서는 구토·설사·무기력이 더 심하게 나타납니다.'],
+ sym:'구토, 설사, 무기력',
+ act:['씹은 양을 확인하고 물을 마시게 하세요.','구토가 반복되면 전화하세요.']},
+
+{id:'sansevieria',n:'산세베리아',e:'🪴',c:'식물',f:['care'],
+ al:['산세베리아','스투키','sansevieria'],
+ d:['care','사포닌으로 구토·설사가 생길 수 있습니다.'],
+ c:['care','같은 증상이 보고됩니다. 씹지 않게 두세요.'],
+ sym:'구토, 설사, 침 흘림',
+ act:['물을 마시게 하고 관찰하세요.','구토·설사가 계속되면 전화하세요.']},
+
+{id:'tulip',n:'튤립·수선화',e:'🌷',c:'식물',f:['ban'],
+ al:['튤립','수선화','구근','tulip','daffodil'],
+ d:['ban','<b>구근</b>에 알칼로이드가 농축되어 구토·경련을 일으킵니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'침 흘림, 구토, 설사, 떨림, 경련',
+ act:['어느 부위(구근·꽃·잎)를 먹었는지 확인해 전화하세요.','화분 흙을 파헤치는 아이는 구근에 특히 주의하세요.']},
+
+{id:'azalea',n:'진달래·철쭉',e:'🌺',c:'식물',f:['ban'],
+ al:['진달래','철쭉','azalea','rhododendron'],
+ d:['ban','그레이아노톡신이 심장·신경을 마비시킵니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'침 흘림, 구토, 서맥·부정맥, 무기력, 경련',
+ act:['먹은 양을 확인해 <b>바로</b> 전화하세요.','심장 증상은 빠르게 진행될 수 있습니다.']},
+
+{id:'oleander',n:'협죽도',e:'🌿',c:'식물',f:['ban'],
+ al:['협죽도','올레안더','oleander'],
+ d:['ban','강심배당체가 심장을 멈추게 할 수 있는 대표적 독식물입니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'구토, 부정맥, 느린 심박, 경련, 허탈',
+ act:['먹었을 가능성이 있으면 즉시 내원하세요.']},
+
+{id:'poinsettia',n:'포인세티아',e:'🎄',c:'식물',f:['care'],
+ al:['포인세티아','크리스마스꽃','poinsettia'],
+ d:['care','자극성 수액으로 입·위 점막이 붉어지고 구토할 수 있습니다. 대개 경미합니다.'],
+ c:['care','같은 증상이 보고됩니다.'],
+ sym:'입 주변 자극, 침 흘림, 구토',
+ act:['입을 물로 헹구고 물을 마시게 하세요.','증상이 24시간 이상 이어지면 전화하세요.']},
+
+/* ── 사람약·생활독성 ─────────────────── */
+{id:'acetaminophen',n:'타이레놀·아세트아미노펜',e:'💊',c:'사람약·생활',f:['ban','med'],x:'고양이 치명',
+ al:['타이레놀','아세트아미노펜','파라세타몰','해렬','acetaminophen','tylenol','paracetamol'],
+ d:['ban','체중 kg당 75~100mg에서 간손상이 보고됩니다. 해열·진통용으로 임의 투여하면 안 됩니다.'],
+ c:['ban','<b>한 알도 치명적</b>일 수 있습니다. 적혈구를 산화시켜 메트헤모글로빈혈증·간손상을 일으킵니다.'],
+ sym:'침 흘림, 구토, 얼굴·발바닥 부종(고양이), 점막 청색, 호흡 곤란, 무기력',
+ act:['먹은 양·제품·시각을 확인해 <b>즉시</b> 전화하세요. 증상이 없어도 치료가 필요합니다.','해열제를 먹인 적이 있다면 절대 추가로 먹이지 마세요.']},
+
+{id:'ibuprofen',n:'이부프로펜',e:'💊',c:'사람약·생활',f:['ban','med'],x:'고양이 치명',
+ al:['이부프로펜','부루펜','소염진통제','낙센','ibuprofen','advil'],
+ d:['ban','체중 kg당 5~10mg만으로 위궤양·신장 손상이 옵니다.'],
+ c:['ban','고양이는 대사가 매우 느려 아주 소량도 치명적입니다.'],
+ sym:'구토(피 섞임), 검은 변, 복통, 식욕 저하, 무기력, 신장 손상',
+ act:['먹은 양을 확인해 바로 전화하세요.','임의로 우유를 먹이지 말고 내원하세요.']},
+
+{id:'aspirin',n:'아스피린',e:'💊',c:'사람약·생활',f:['ban','med'],
+ al:['아스피린','aspirin','아스피린장용'],
+ d:['ban','출혈·위궤양 위험이 있어 수의사 지시 없이 투여하면 안 됩니다.'],
+ c:['ban','고양이는 대사가 느려 특히 위험합니다.'],
+ sym:'구토, 식욕 저하, 검은 변, 출혈',
+ act:['먹은 양을 확인해 전화하세요.','처방 중인 약과 겹치지 않는지도 함께 알려 주세요.']},
+
+{id:'coldmed',n:'감기약·종합감기약',e:'💊',c:'사람약·생활',f:['ban','med'],
+ al:['감기약','종합감기약','슈도에페드린','덱스트로메토르판','기침약','cold medicine'],
+ d:['ban','여러 성분이 섞여 있어 <b>아세트아미노펜·슈도에페드린</b> 등이 심장·간에 독이 됩니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'흥분, 빠른 심박, 구토, 떨림, 경련, 간손상',
+ act:['약 이름과 먹은 양을 확인해 바로 전화하세요.','사람약은 어떤 종류도 임의로 먹이지 마세요.']},
+
+{id:'essentialoil',n:'에센셜오일·방향제',e:'🧴',c:'사람약·생활',f:['ban','med'],x:'고양이 치명',
+ al:['에센셜오일','티트리','유칼립투스','페퍼민트','라벤더','방향제','디퓨저','essential oil','tea tree'],
+ d:['ban','농축 오일은 구토·침 흘림·경련을 일으킵니다. 피부에 발라도 흡수됩니다.'],
+ c:['ban','고양이는 간에서 이 성분을 대사하지 못해 <b>도포·디퓨저 확산만으로도</b> 중독됩니다.'],
+ sym:'침 흘림, 구토, 비틀거림, 떨림, 무기력, 호흡 곤란',
+ act:['디퓨저를 끄고 환기하세요.','피부에 묻었다면 미지근한 물로 씻기되 비누로 문지르지 마세요.','증상이 있으면 즉시 내원하세요.']},
+
+{id:'rodenticide',n:'쥐약·살서제',e:'🐭',c:'사람약·생활',f:['ban','med'],
+ al:['쥐약','살서제','쥐독','rat poison','rodenticide'],
+ d:['ban','항응고제 계열은 <b>3~5일 뒤 출혈</b>로 나타나 늦게 발견됩니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'무기력, 잇몸·코 출혈, 혈변·혈뇨, 호흡 곤란, 경련(다른 계열)',
+ act:['제품 상자·성분을 챙겨 <b>즉시</b> 내원하세요. 증상이 없어도 치료(비타민K)가 필요합니다.','주변에 쥐약을 두었다면 반드시 치우세요.']},
+
+{id:'cleaner',n:'세제·락스·소독제',e:'🧽',c:'사람약·생활',f:['ban','med'],
+ al:['세제','락스','표백제','소독제','주방세제','bleach','detergent'],
+ d:['ban','부식성 성분이 입·식도를 화상 입히고 흡입 시 폐를 손상시킵니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'침 흘림, 입 주변 화상, 구토, 기침, 호흡 곤란',
+ act:['<b>토하게 하지 마세요.</b> 다시 화상을 입습니다.','입을 물로 헹구고 즉시 내원하세요.','제품 이름을 꼭 챙겨 오세요.']},
+
+{id:'tobacco',n:'담배·니코틴',e:'🚬',c:'사람약·생활',f:['ban','med'],
+ al:['담배','니코틴','전자담배','궐련','tobacco','nicotine'],
+ d:['ban','니코틴은 구토·경련·심장 마비를 일으킵니다. 꽁초 하나도 위험합니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'침 흘림, 구토, 흥분, 떨림, 빠른 심박, 경련',
+ act:['먹은 양(꽁초 개수)을 확인해 즉시 전화하세요.','재떨이·꽁초를 손이 닿지 않게 치우세요.']},
+
+{id:'battery',n:'건전지·동전',e:'🔋',c:'사람약·생활',f:['ban','med'],
+ al:['건전지','배터리','동전','이물','battery','coin'],
+ d:['ban','건전지는 조직을 화상·천공하고, 동전(아연)은 <b>아연 중독</b>을 일으킵니다.'],
+ c:['ban','같은 이유로 금지합니다.'],
+ sym:'침 흘림, 구토, 복통, 식욕 저하, 무기력',
+ act:['삼킨 것이 확실하면 <b>즉시</b> 내원하세요 (X-ray 필요).','토하게 하지 마세요.']}
+];
+
+/* 자주 찾는 검색어 */
+const QUICK = ['포도','양파','초콜릿','자일리톨','백합','타이레놀','뼈','우유','사과','고구마','수박','마카다미아'];
+
+const LBL = {ban:'금지',care:'주의',ok:'가능'};
+const CHIPLBL = {ban:'🚫 금지',care:'⚠️ 주의',ok:'✅ 가능'};
+const RANK = {ban:0,care:1,ok:2};
+const SPNAME = {dog:'강아지',cat:'고양이'};
+const state = {q:'',f:'all',sp:'all'};
+
+function norm(s){return (s||'').toLowerCase().replace(/[\s·・.,()\[\]\/\-_~'"“”‘’!?]/g,'');}
+
+/* 검색용 문자열 미리 계산 */
+D.forEach(function(it){
+  it._hay = norm([it.n,it.c,(it.al||[]).join(' '),it.d[1],it.c[1],it.sym,(it.act||[]).join(' ')].join(' '));
+});
+
+function scoreOf(it){
+  if(state.sp!=='all') return RANK[it[state.sp==='dog'?'d':'c'][0]];
+  return Math.min(RANK[it.d[0]],RANK[it.c[0]]);
+}
+
+function filtered(){
+  var q = norm(state.q);
+  return D.map(function(it,i){return {it:it,i:i};}).filter(function(o){
+    var it=o.it;
+    if(state.f!=='all' && it.f.indexOf(state.f)<0) return false;
+    if(q){
+      var tokens=q.split(/\s+/).filter(Boolean);
+      for(var t=0;t<tokens.length;t++){ if(it._hay.indexOf(tokens[t])<0) return false; }
+    }
+    return true;
+  }).sort(function(a,b){
+    var d=scoreOf(a.it)-scoreOf(b.it);
+    return d!==0 ? d : a.i-b.i;
+  }).map(function(o){return o.it;});
+}
+
+function badgeHtml(it,key,sp){
+  var lv = it[key][0];
+  var spIcon = key==='d'?'🐕':'🐈';
+  var dim = (state.sp!=='all' && state.sp!==(key==='d'?'dog':'cat')) ? ' dim':'';
+  return '<span class="badge '+lv+dim+'">'+spIcon+' '+LBL[lv]+'</span>';
+}
+
+function esc(s){return s;}
+
+function cardHtml(it){
+  var worst = ['ban','care','ok'][Math.min(RANK[it.d[0]],RANK[it.c[0]])];
+  var lvClass = 'lv-'+worst;
+  var isOk = it.d[0]==='ok' && it.c[0]==='ok';
+  var actTitle = isOk ? '✅ 이렇게 급여하세요' : '🚑 먹었을 때 이렇게 하세요';
+  var symLabel = isOk ? '참고' : '주요 증상';
+  var dimD = (state.sp==='cat')?' dim':'';
+  var dimC = (state.sp==='dog')?' dim':'';
+  var h = '';
+  h += '<article class="card '+lvClass+'" id="c-'+it.id+'">';
+  h += '<div class="card-head">';
+  h += '<span class="emoji" aria-hidden="true">'+it.e+'</span>';
+  h += '<div class="ch-info"><h3>'+it.n+'</h3><span class="ch-cat">'+it.c+'</span></div>';
+  h += '<div class="badges">'+badgeHtml(it,'d','dog')+badgeHtml(it,'c','cat')+'</div>';
+  h += '</div>';
+  if(it.x) h += '<span class="lethal">⚑ '+it.x+'</span>';
+  h += '<div class="why">';
+  h += '<div class="wrow"><span class="wsp'+dimD+'">🐕 강아지</span><p>'+it.d[1]+'</p></div>';
+  h += '<div class="wrow"><span class="wsp'+dimC+'">🐈 고양이</span><p>'+it.c[1]+'</p></div>';
+  h += '</div>';
+  h += '<p class="sym"><b>'+symLabel+'</b>'+it.sym+'</p>';
+  h += '<div class="act'+(isOk?' okbox':'')+'"><h4>'+actTitle+'</h4><ol>';
+  it.act.forEach(function(a){ h += '<li>'+a+'</li>'; });
+  h += '</ol></div>';
+  if(!isOk){
+    h += '<p class="cfoot">📞 <a href="tel:031-994-6346">031-994-6346</a> · 먹은 양·시각·체중을 알려 주세요 · 임의로 토하게 하지 마세요</p>';
+  }else{
+    h += '<p class="cfoot">처음 주는 음식은 소량으로 시작하고, 아이 상태를 24시간 관찰해 주세요.</p>';
+  }
+  h += '</article>';
+  return h;
+}
+
+function render(){
+  var res = filtered();
+  var list = document.getElementById('list');
+  if(!res.length){
+    list.innerHTML = '<div class="empty"><b>검색 결과가 없습니다</b>다른 이름으로 검색해 보시거나, 먹은 음식이 걱정되시면<br>031-994-6346으로 바로 전화 주세요.</div>';
+  }else{
+    list.innerHTML = res.map(cardHtml).join('');
+  }
+  var cnt = document.getElementById('count');
+  var q = state.q.trim();
+  var parts = [];
+  if(q) parts.push('“'+q+'”');
+  if(state.f!=='all') parts.push({'ban':'절대 금지','care':'소량 주의','ok':'급여 가능','med':'사람약·생활독성'}[state.f]);
+  if(state.sp!=='all') parts.push(SPNAME[state.sp]);
+  cnt.innerHTML = (parts.length?parts.join(' · ')+' · ':'')+'<b>'+res.length+'</b>개 항목';
+  document.getElementById('sclear').classList.toggle('on', !!q);
+}
+
+/* 이벤트 */
+var qEl = document.getElementById('q');
+qEl.addEventListener('input', function(){ state.q=qEl.value; render(); });
+qEl.addEventListener('search', function(){ state.q=qEl.value; render(); });
+document.getElementById('sclear').addEventListener('click', function(){
+  qEl.value=''; state.q=''; qEl.focus(); render();
+});
+
+document.querySelectorAll('.chip').forEach(function(b){
+  b.addEventListener('click', function(){
+    state.f=b.dataset.f;
+    document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed', String(x===b));});
+    render();
+  });
+});
+document.querySelectorAll('.seg button').forEach(function(b){
+  b.addEventListener('click', function(){
+    state.sp=b.dataset.sp;
+    document.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed', String(x===b));});
+    render();
+  });
+});
+document.getElementById('reset').addEventListener('click', function(){
+  state.q='';state.f='all';state.sp='all';
+  qEl.value='';
+  document.querySelectorAll('.chip').forEach(function(x){x.setAttribute('aria-pressed', String(x.dataset.f==='all'));});
+  document.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed', String(x.dataset.sp==='all'));});
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+var qt = document.getElementById('quickterms');
+QUICK.forEach(function(t){
+  var b=document.createElement('button');
+  b.type='button'; b.className='qt'; b.textContent=t;
+  b.addEventListener('click', function(){
+    state.q=t; qEl.value=t; render();
+    document.querySelector('.controls').scrollIntoView({block:'start',behavior:'smooth'});
+    window.scrollBy(0,-56);
+  });
+  qt.appendChild(b);
+});
+
+/* 진입 링크(?q=포도, #c-grape) 지원 */
+(function(){
+  var p = new URLSearchParams(location.search);
+  if(p.get('q')){ state.q=p.get('q'); qEl.value=p.get('q'); }
+  render();
+  if(location.hash){
+    var el=document.querySelector(location.hash);
+    if(el) setTimeout(function(){el.scrollIntoView({block:'center'});},120);
+  }
+})();
+</script>
+</body>
+</html>
