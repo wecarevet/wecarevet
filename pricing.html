@@ -91,6 +91,10 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .calc-badge.base{background:#e8f4ff;color:#1a4a8a;border:1px solid #aaccee}
 .calc-badge.over{background:#fff8e0;color:#7a5500;border:1px solid #e8d48a}
 .calc-sheet{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--white)}
+@media(min-width:760px){
+  .calc-sheet{column-count:2;column-gap:0}
+  .calc-group{break-inside:avoid;page-break-inside:avoid}
+}
 .calc-sheet .psec{background:var(--navy-xlight)}
 .calc-sheet .prow{font-size:12.5px;padding:.5rem 1rem}
 .calc-sheet .prow-price{font-size:13px}
@@ -170,28 +174,34 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 
         <div id="calc-results">
           <div class="calc-sheet">
+            <div class="calc-group">
+              <div class="psec">중성화 수술</div>
+              <div class="prow"><span class="prow-label">암컷 중성화</span><span class="prow-price" id="c-female">399,000원</span></div>
+              <div class="prow"><span class="prow-label">수컷 중성화</span><span class="prow-price" id="c-male">240,000원</span></div>
+              <div class="prow"><span class="prow-label">스케일링</span><span class="prow-price" id="c-scaling">340,000원</span></div>
+            </div>
 
-            <div class="psec">중성화 수술</div>
-            <div class="prow"><span class="prow-label">암컷 중성화</span><span class="prow-price" id="c-female">399,000원</span></div>
-            <div class="prow"><span class="prow-label">수컷 중성화</span><span class="prow-price" id="c-male">240,000원</span></div>
-            <div class="prow"><span class="prow-label">스케일링</span><span class="prow-price" id="c-scaling">340,000원</span></div>
+            <div class="calc-group">
+              <div class="psec">건강검진</div>
+              <div class="prow"><span class="prow-label">강아지 0~4세</span><span class="prow-price" id="c-dog-young">220,000원</span></div>
+              <div class="prow"><span class="prow-label">강아지 5세↑</span><span class="prow-price" id="c-dog-old">340,000원</span></div>
+              <div class="prow"><span class="prow-label">고양이 0~4세</span><span class="prow-price" id="c-cat-young">220,000원</span></div>
+              <div class="prow"><span class="prow-label">고양이 5~9세</span><span class="prow-price" id="c-cat-mid">340,000원</span></div>
+              <div class="prow"><span class="prow-label">고양이 10세↑</span><span class="prow-price" id="c-cat-old">440,000원</span></div>
+            </div>
 
-            <div class="psec">건강검진</div>
-            <div class="prow"><span class="prow-label">강아지 0~4세</span><span class="prow-price" id="c-dog-young">220,000원</span></div>
-            <div class="prow"><span class="prow-label">강아지 5세↑</span><span class="prow-price" id="c-dog-old">340,000원</span></div>
-            <div class="prow"><span class="prow-label">고양이 0~4세</span><span class="prow-price" id="c-cat-young">220,000원</span></div>
-            <div class="prow"><span class="prow-label">고양이 5~9세</span><span class="prow-price" id="c-cat-mid">340,000원</span></div>
-            <div class="prow"><span class="prow-label">고양이 10세↑</span><span class="prow-price" id="c-cat-old">440,000원</span></div>
+            <div class="calc-group">
+              <div class="psec">입원비 (ICU 주간 당일)</div>
+              <div class="prow"><span class="prow-label" id="c-icu-label">7kg 이하</span><span class="prow-price" id="c-icu">55,000원</span></div>
+            </div>
 
-            <div class="psec">입원비 (ICU 주간 당일)</div>
-            <div class="prow"><span class="prow-label" id="c-icu-label">7kg 이하</span><span class="prow-price" id="c-icu">55,000원</span></div>
-
-            <div class="psec">기생충 예방약</div>
-            <div class="prow"><span class="prow-label">프론트라인</span><span class="prow-price" id="c-frontline">16,000원</span></div>
-            <div class="prow"><span class="prow-label">하트가드</span><span class="prow-price" id="c-heartgard">10,000원</span></div>
-            <div class="prow"><span class="prow-label">넥스가드</span><span class="prow-price" id="c-nexgard">23,000원</span></div>
-            <div class="prow"><span class="prow-label">레볼루션</span><span class="prow-price" id="c-revolution">19,000원</span></div>
-
+            <div class="calc-group">
+              <div class="psec">기생충 예방약</div>
+              <div class="prow"><span class="prow-label">프론트라인</span><span class="prow-price" id="c-frontline">16,000원</span></div>
+              <div class="prow"><span class="prow-label">하트가드</span><span class="prow-price" id="c-heartgard">10,000원</span></div>
+              <div class="prow"><span class="prow-label">넥스가드</span><span class="prow-price" id="c-nexgard">23,000원</span></div>
+              <div class="prow"><span class="prow-label">레볼루션</span><span class="prow-price" id="c-revolution">19,000원</span></div>
+            </div>
           </div>
 
           <!-- 추가요금 안내 -->
