@@ -1174,8 +1174,7 @@ function tick(){
     const nm=team==='me'?myNameAt(role):oppNameAt(role);
     const sideCls=team==='me'?'blue':'red';
     if(Math.random()<0.4){
-      const victimRole=team==='me'?pickOf(ROLES):pickOf(ROLES);
-      const victim=team==='me'?oppNameAt(victimRole):myNameAt(victimRole);
+      const victim=team==='me'?oppNameAt(role):myNameAt(role);
       logEvent(sideCls, m+'분 · <b>'+nm+'</b>('+champ+') 솔로킬! '+ROLE_KR[role]+'에서 '+victim+'를 잡아냅니다.');
     }else{
       const gankRole=pickOf(ROLES.filter(r=>r!==role));
