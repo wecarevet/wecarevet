@@ -218,6 +218,87 @@
   .bookmark-btn:hover { transform: scale(1.2); }
   .bookmark-btn.active { filter: none; }
 
+  .search-bar {
+    background: #fff;
+    border-bottom: 1px solid #e0e8f5;
+    padding: 12px 40px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .search-input {
+    flex: 1 1 280px;
+    min-width: 200px;
+    font-size: 13px;
+    padding: 9px 16px;
+    border-radius: 20px;
+    border: 1px solid #c8dff5;
+    background: #f9fbfe;
+    color: #1a3a5c;
+    outline: none;
+    font-family: inherit;
+  }
+  .search-input:focus {
+    border-color: #2e6da8;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(46,109,168,0.08);
+  }
+  .filter-btn.toggle { white-space: nowrap; }
+  .filter-btn.toggle.active { background: #2e6da8; color: #fff; border-color: #2e6da8; }
+  .filter-btn.toggle.bookmark-toggle.active { background: #f59e0b; border-color: #f59e0b; color: #fff; }
+
+  .spec-badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #eef3fa;
+    color: #4a6b8a;
+    border: 1px solid #dbe6f3;
+    white-space: nowrap;
+  }
+  .spec-badge.heart { background: #fdeef2; color: #b33a5b; border-color: #f6d3dd; }
+
+  .study-note {
+    background: #f4f9ff;
+    border-left: 3px solid #7ec8e3;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+  }
+  .study-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #2e4a66;
+  }
+  .study-row + .study-row { margin-top: 6px; }
+  .study-label {
+    flex: 0 0 auto;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-top: 3px;
+    white-space: nowrap;
+  }
+  .study-label.concl { background: #2a9d6e; }
+  .study-label.method { background: #2e6da8; }
+  .study-label.apply { background: #b45309; }
+  .plain-summary {
+    font-size: 13px;
+    color: #2e6da8;
+    background: #f0f7ff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    line-height: 1.7;
+  }
+
   .filter-btn.bookmark-filter {
     background: #fff8e1;
     border-color: #f59e0b;
@@ -392,21 +473,32 @@
   </button>
 </div>
 
+<div class="search-bar">
+  <input class="search-input" id="search-input" type="search"
+         placeholder="🔍 제목 · 저자 · 초록 · 한글 요약 · 저널 검색"
+         oninput="onSearch(this.value)">
+  <button class="filter-btn toggle bookmark-toggle" id="toggle-bookmark" onclick="toggleOnly('bookmark')">⭐ 북마크만</button>
+  <button class="filter-btn toggle" id="toggle-unread" onclick="toggleOnly('unread')">📖 안 읽은 논문만</button>
+</div>
+
 <div class="filter-tab" id="section-vet">
   <button class="filter-tab-btn active" onclick="switchTab(this, 'category')">분야별</button>
   <button class="filter-tab-btn" onclick="switchTab(this, 'journal')">저널별</button>
 </div>
 
 <div class="filter-bar" id="filter-category">
-  <span>분야 필터</span>
+  <span>진료과목</span>
   <button class="filter-btn active" onclick="filterBy(this, 'all')">전체</button>
-  <button class="filter-btn" onclick="filterBy(this, 'cardiology')">심장</button>
-  <button class="filter-btn" onclick="filterBy(this, 'internal')">내과</button>
-  <button class="filter-btn" onclick="filterBy(this, 'oncology')">종양</button>
-  <button class="filter-btn" onclick="filterBy(this, 'surgery')">외과</button>
-  <button class="filter-btn" onclick="filterBy(this, 'neurology')">신경</button>
-  <button class="filter-btn" onclick="filterBy(this, 'dermatology')">피부</button>
-  <button class="filter-btn bookmark-filter" onclick="filterBy(this, 'bookmark')">⭐ 찜한 논문</button>
+  <button class="filter-btn" onclick="filterBy(this, '심장')">심장</button>
+  <button class="filter-btn" onclick="filterBy(this, '신장/비뇨')">신장/비뇨</button>
+  <button class="filter-btn" onclick="filterBy(this, '내과/내분비')">내과/내분비</button>
+  <button class="filter-btn" onclick="filterBy(this, '응급/중환자')">응급/중환자</button>
+  <button class="filter-btn" onclick="filterBy(this, '마취/진통')">마취/진통</button>
+  <button class="filter-btn" onclick="filterBy(this, '외과/정형')">외과/정형</button>
+  <button class="filter-btn" onclick="filterBy(this, '영상')">영상</button>
+  <button class="filter-btn" onclick="filterBy(this, '종양')">종양</button>
+  <button class="filter-btn" onclick="filterBy(this, '피부')">피부</button>
+  <button class="filter-btn" onclick="filterBy(this, '고양이')">고양이</button>
   <select class="sort-select" onchange="sortBy(this.value)">
     <option value="date_desc">최신순</option>
     <option value="date_asc">오래된순</option>
@@ -426,6 +518,12 @@
   <button class="filter-btn" onclick="filterByJournal(this, 'BMC Vet Res')">BMC Vet Res</button>
   <button class="filter-btn" onclick="filterByJournal(this, 'Vet Clin Pathol')">Vet Clin Pathol</button>
   <button class="filter-btn" onclick="filterByJournal(this, 'JVECC')">JVECC</button>
+  <button class="filter-btn" onclick="filterByJournal(this, 'JFMS')">JFMS</button>
+  <button class="filter-btn" onclick="filterByJournal(this, 'VRU')">VRU</button>
+  <button class="filter-btn" onclick="filterByJournal(this, 'VAA')">VAA</button>
+  <button class="filter-btn" onclick="filterByJournal(this, 'Vet Surg')">Vet Surg</button>
+  <button class="filter-btn" onclick="filterByJournal(this, 'Vet Dermatol')">Vet Dermatol</button>
+  <button class="filter-btn" onclick="filterByJournal(this, 'VCO')">VCO</button>
   <select class="sort-select" onchange="sortBy(this.value)">
     <option value="date_desc">최신순</option>
     <option value="date_asc">오래된순</option>
@@ -475,6 +573,7 @@
   <div class="update-info">
     <span class="update-dot"></span>
     <span id="update-time">논문을 불러오는 중...</span>
+    <span id="result-count" style="margin-left:auto;color:#2e6da8;font-weight:600;"></span>
   </div>
   <div id="paper-list">
     <div class="loading">
@@ -487,162 +586,247 @@
 <footer>© 위케어동물의료센터 · 데이터 출처: PubMed (NCBI), Clinician's Brief</footer>
 
 <script>
-const CATEGORY_KEYWORDS = {
-  cardiology: ['cardiac','heart','mitral','cardiomyopathy','arrhythmia','torsemide','tolvaptan','diuretic','valve','congestive'],
-  internal:   ['kidney','renal','liver','hepatic','diabetes','endocrine','azotemia','pancreatitis','gastro','intestin'],
-  oncology:   ['tumor','cancer','neoplasia','lymphoma','mast cell','sarcoma','oncology','malignant'],
-  surgery:    ['surgery','surgical','fracture','orthopedic','laparoscopy','wound','repair','resection'],
-  neurology:  ['neuro','epilepsy','seizure','spinal','brain','vestibular','disc','cerebell'],
-  dermatology:['skin','dermatitis','atopy','pruritus','alopecia','allergy','dermatology','otitis'],
+// 진료과목 태그가 없는(예전 데이터) 논문을 위한 키워드 추정
+const SPECIALTY_KEYWORDS = {
+  '심장': ['cardiac','heart','mitral','cardiomyopathy','arrhythmia','torsemide','tolvaptan','diuretic','valve','congestive','atrial','ventric'],
+  '신장/비뇨': ['kidney','renal','azotemia','urinary','bladder','urolith','proteinuria','creatinine','nephro','ureter','urethra','sdma','incontinence'],
+  '내과/내분비': ['diabetes','endocrine','thyroid','liver','hepatic','pancreatitis','gastro','intestin','adrenal','cushing','hyperadrenocorticism','hypothyroid','anemia'],
+  '응급/중환자': ['emergency','critical','shock','sepsis','resuscitation','triage','hypovolemia','intensive care'],
+  '마취/진통': ['anesthesia','anaesthesia','analgesia','analgesic','pain score','sedation','opioid','propofol','isoflurane','locoregional'],
+  '외과/정형': ['surgery','surgical','fracture','orthopedic','laparoscopy','wound','repair','resection','cruciate','stifle','osteotomy','arthroscopy'],
+  '영상': ['radiography','radiograph','ultrasound','computed tomography',' ct ',' mri','magnetic resonance','echocardiograph','radiolog','fluoroscop'],
+  '종양': ['tumor','tumour','cancer','neoplasia','lymphoma','mast cell','sarcoma','oncology','malignant','carcinoma','chemotherapy'],
+  '피부': ['skin','dermatitis','atopy','pruritus','alopecia','allergy','dermatolog','otitis'],
+  '고양이': [' cat ',' cats ','feline']
 };
 
-let allPapers = [];
+const STUDY_LABELS = ['핵심 결론', '방법·수치', '임상 적용·한계'];
+const STUDY_CLASS = { '핵심 결론': 'concl', '방법·수치': 'method', '임상 적용·한계': 'apply' };
+
 let vetPapers = [];
 let humanPapers = [];
 let cbPapers = [];
-let currentFilter = 'all';
+let tabPapers = [];      // 현재 탭의 전체 논문
+let viewPapers = [];     // 현재 화면에 그려진 논문 (카드 인덱스 기준)
 let currentMainTab = 'vet';
+let currentTab = 'category';
+let currentSpecialty = 'all';
+let currentJournal = 'all';
 let currentHumanJournal = 'all';
-
-function switchMainTab(tab) {
-  currentMainTab = tab;
-  const tabs = ['vet', 'human', 'cb'];
-  tabs.forEach(t => {
-    const btn = document.getElementById('tab-' + t);
-    const sec = document.getElementById('section-' + t);
-    if (btn) {
-      btn.style.background = t === tab ? '#2e6da8' : 'transparent';
-      btn.style.color = t === tab ? '#fff' : 'rgba(255,255,255,0.5)';
-    }
-    if (sec) sec.style.display = t === tab ? 'block' : 'none';
-  });
-  // vet 전용 섹션
-  const secVetFilter = document.getElementById('section-vet');
-  if (secVetFilter) secVetFilter.style.display = tab === 'vet' ? '' : 'none';
-  const ourPaper = document.getElementById('our-paper-section');
-  if (ourPaper) ourPaper.style.display = tab === 'vet' ? 'block' : 'none';
-
-  if (tab === 'vet') allPapers = vetPapers;
-  else if (tab === 'human') allPapers = humanPapers;
-  else allPapers = cbPapers;
-  renderPapers();
-}
+let currentSort = 'date_desc';
+let searchQuery = '';
+let onlyBookmarked = false;
+let onlyUnread = false;
 
 let readSet = new Set(JSON.parse(localStorage.getItem('readPapers') || '[]'));
 let bookmarkSet = new Set(JSON.parse(localStorage.getItem('bookmarkPapers') || '[]'));
 
-function filterHuman(btn, journal) {
-  currentHumanJournal = journal;
-  document.querySelectorAll('#section-human .filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderPapers();
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
 }
 
-function toggleBookmark(id, idx) {
-  if (bookmarkSet.has(id)) {
-    bookmarkSet.delete(id);
-  } else {
-    bookmarkSet.add(id);
+function specialtyOf(p) {
+  if (Array.isArray(p.specialty) && p.specialty.length) {
+    return p.specialty.filter(t => typeof t === 'string' && t);
   }
-  localStorage.setItem('bookmarkPapers', JSON.stringify([...bookmarkSet]));
-  const btn = document.getElementById('bm-btn-' + idx);
-  if (btn) {
-    btn.textContent = bookmarkSet.has(id) ? '⭐' : '☆';
-    btn.classList.toggle('active', bookmarkSet.has(id));
+  const text = ' ' + [p.title, p.authors, p.abstract].filter(Boolean).join(' ').toLowerCase() + ' ';
+  const found = [];
+  for (const tag of Object.keys(SPECIALTY_KEYWORDS)) {
+    if (SPECIALTY_KEYWORDS[tag].some(k => text.includes(k))) found.push(tag);
+    if (found.length >= 2) break;
   }
-}
-
-function markRead(id, idx) {
-  if (readSet.has(id)) return;
-  readSet.add(id);
-  localStorage.setItem('readPapers', JSON.stringify([...readSet]));
-  const card = document.getElementById('card-' + idx);
-  const badge = document.getElementById('read-badge-' + idx);
-  const btn = document.getElementById('read-btn-' + idx);
-  if (card) card.classList.add('read');
-  if (badge) badge.classList.add('visible');
-  if (btn) { btn.textContent = '✓ 읽음'; btn.classList.add('done'); }
-}
-
-function categorize(paper) {
-  const text = (paper.title + ' ' + (paper.authors || '')).toLowerCase();
-  for (const [cat, kws] of Object.entries(CATEGORY_KEYWORDS)) {
-    if (kws.some(k => text.includes(k))) return cat;
-  }
-  return 'other';
+  return found.length ? found : ['기타'];
 }
 
 function isNew(dateStr) {
   if (!dateStr) return false;
   const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return false;
   return (Date.now() - d) < 14 * 24 * 60 * 60 * 1000;
 }
 
-function renderPapers() {
-  const list = document.getElementById('paper-list');
-  let papers;
-  if (currentMainTab === 'human') {
-    papers = currentHumanJournal === 'all' ? allPapers : allPapers.filter(p => p.journal === currentHumanJournal);
-  } else {
-    papers = currentTab === 'journal'
-      ? (currentJournal === 'all' ? allPapers : allPapers.filter(p => p.journal === currentJournal))
-      : currentFilter === 'bookmark' ? allPapers.filter(p => bookmarkSet.has(p.id))
-      : (currentFilter === 'all' ? allPapers : allPapers.filter(p => categorize(p) === currentFilter));
+// ── 스터디 노트 렌더링 ──
+// [핵심 결론]/[방법·수치]/[임상 적용·한계] 구조면 라벨별로, 예전 평문 요약이면 그대로 보여준다.
+function summaryHTML(p) {
+  const text = (p.summary_ko || '').trim();
+  if (!text) return '';
+  const re = /\[(핵심 결론|방법·수치|임상 적용·한계)\]\s*([\s\S]*?)(?=\s*\[(?:핵심 결론|방법·수치|임상 적용·한계)\]|$)/g;
+  const parts = [];
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    const body = m[2].trim();
+    if (body) parts.push([m[1], body]);
   }
-  const filtered = getSorted(papers);
-
-  if (!filtered.length) {
-    list.innerHTML = '<div class="no-result">해당 분야의 최신 논문이 없습니다.</div>';
-    return;
+  const labelsFound = parts.length;
+  if (!labelsFound) {
+    return `<div class="plain-summary">📋 ${esc(text)}</div>`;
   }
-
-  list.innerHTML = filtered.map((p, i) => {
-    const isRead = readSet.has(p.id);
-    const isBookmarked = bookmarkSet.has(p.id);
-    return `
-    <div class="paper-card ${isRead ? 'read' : ''}" id="card-${i}">
-      <div class="paper-meta">
-        <span class="journal-badge">${p.type === 'cb' && p.category ? p.category : p.journal}</span>
-        <span class="date-badge">${p.date || ''}</span>
-        ${isNew(p.date) ? '<span class="new-badge">NEW</span>' : ''}
-        <span class="read-badge ${isRead ? 'visible' : ''}" id="read-badge-${i}">✓ 읽음</span>
-        <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" id="bm-btn-${i}" onclick="toggleBookmark('${p.id}', ${i})">${isBookmarked ? '⭐' : '☆'}</button>
-      </div>
-      <div class="paper-title">
-        <a href="${p.url}" target="_blank" rel="noopener" onclick="markRead('${p.id}', ${i})">${p.title}</a>
-      </div>
-      <div class="translated-title" id="trans-${i}"></div>
-      ${p.summary_ko ? `<div style="font-size:13px;color:#2e6da8;background:#f0f7ff;border-radius:8px;padding:10px 14px;margin-top:8px;line-height:1.7;">📋 ${p.summary_ko}</div>` : ''}
-      <div class="paper-authors">${p.authors || ''}</div>
-      <div class="paper-footer">
-        <div style="display:flex;gap:6px;align-items:center;">
-          <button class="mark-read-btn ${isRead ? 'done' : ''}" id="read-btn-${i}" onclick="markRead('${p.id}', ${i})">${isRead ? '✓ 읽음' : '읽음 표시'}</button>
-          <button class="translate-btn" onclick="translate('${p.title.replace(/'/g,"\\'")}', ${i}, this)">🇰🇷 한글 번역</button>
-        </div>
-        <a class="pubmed-link" href="${p.url}" target="_blank" rel="noopener">${p.type === 'cb' ? "Clinician's Brief에서 보기 →" : 'PubMed에서 보기 →'}</a>
-      </div>
-    </div>
-  `}).join('');
+  const rows = parts.map(([label, body]) =>
+    `<div class="study-row"><span class="study-label ${STUDY_CLASS[label]}">${label}</span><span>${esc(body)}</span></div>`
+  ).join('');
+  // 라벨 앞에 남은 머리말이 있으면 살려서 위에 붙인다
+  const intro = text.split('[')[0].trim();
+  const introHTML = intro ? `<div class="study-row"><span>${esc(intro)}</span></div>` : '';
+  return `<div class="study-note">${introHTML}${rows}</div>`;
 }
 
-let currentJournal = 'all';
-let currentTab = 'category';
+function cardHTML(p, i) {
+  const isRead = readSet.has(p.id);
+  const isBookmarked = bookmarkSet.has(p.id);
+  const specs = specialtyOf(p);
+  const journal = (p.type === 'cb' && p.category) ? p.category : p.journal;
+  const badges = specs.map(s =>
+    `<span class="spec-badge ${s === '심장' ? 'heart' : ''}">${esc(s)}</span>`
+  ).join('');
+  return `
+    <div class="paper-card ${isRead ? 'read' : ''}" id="card-${i}">
+      <div class="paper-meta">
+        <span class="journal-badge">${esc(journal)}</span>
+        ${badges}
+        <span class="date-badge">${esc(p.date || '')}</span>
+        ${isNew(p.date) ? '<span class="new-badge">NEW</span>' : ''}
+        <span class="read-badge ${isRead ? 'visible' : ''}" id="read-badge-${i}">✓ 읽음</span>
+        <button class="bookmark-btn ${isBookmarked ? 'active' : ''}" id="bm-btn-${i}"
+                onclick="toggleBookmark(${i})" title="북마크">${isBookmarked ? '⭐' : '☆'}</button>
+      </div>
+      <div class="paper-title">
+        <a href="${esc(p.url)}" target="_blank" rel="noopener" onclick="markRead(${i})">${esc(p.title)}</a>
+      </div>
+      <div class="translated-title" id="trans-${i}"></div>
+      ${summaryHTML(p)}
+      <div class="paper-authors">${esc(p.authors || '')}</div>
+      <div class="paper-footer">
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button class="mark-read-btn ${isRead ? 'done' : ''}" id="read-btn-${i}"
+                  onclick="toggleRead(${i})">${isRead ? '✓ 읽음' : '읽음 표시'}</button>
+          <button class="translate-btn" onclick="translate(${i}, this)">🇰🇷 한글 번역</button>
+        </div>
+        <a class="pubmed-link" href="${esc(p.url)}" target="_blank" rel="noopener">${p.type === 'cb' ? "Clinician's Brief에서 보기 →" : 'PubMed에서 보기 →'}</a>
+      </div>
+    </div>`;
+}
 
-let currentSort = 'date_desc';
+function applyReadState(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const isRead = readSet.has(p.id);
+  const card = document.getElementById('card-' + i);
+  const badge = document.getElementById('read-badge-' + i);
+  const btn = document.getElementById('read-btn-' + i);
+  if (card) card.classList.toggle('read', isRead);
+  if (badge) badge.classList.toggle('visible', isRead);
+  if (btn) {
+    btn.textContent = isRead ? '✓ 읽음' : '읽음 표시';
+    btn.classList.toggle('done', isRead);
+  }
+}
 
-function sortBy(val) {
-  currentSort = val;
-  // 모든 select 동기화
-  document.querySelectorAll('.sort-select').forEach(s => s.value = val);
-  renderPapers();
+function markRead(i) {
+  const p = viewPapers[i];
+  if (!p || readSet.has(p.id)) return;
+  readSet.add(p.id);
+  localStorage.setItem('readPapers', JSON.stringify([...readSet]));
+  applyReadState(i);
+}
+
+function toggleRead(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  if (readSet.has(p.id)) readSet.delete(p.id);
+  else readSet.add(p.id);
+  localStorage.setItem('readPapers', JSON.stringify([...readSet]));
+  applyReadState(i);
+}
+
+function toggleBookmark(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  if (bookmarkSet.has(p.id)) bookmarkSet.delete(p.id);
+  else bookmarkSet.add(p.id);
+  localStorage.setItem('bookmarkPapers', JSON.stringify([...bookmarkSet]));
+  const btn = document.getElementById('bm-btn-' + i);
+  if (btn) {
+    btn.textContent = bookmarkSet.has(p.id) ? '⭐' : '☆';
+    btn.classList.toggle('active', bookmarkSet.has(p.id));
+  }
 }
 
 function getSorted(papers) {
   const arr = [...papers];
-  if (currentSort === 'date_desc') arr.sort((a,b) => new Date(b.date) - new Date(a.date));
-  else if (currentSort === 'date_asc') arr.sort((a,b) => new Date(a.date) - new Date(b.date));
-  else if (currentSort === 'journal') arr.sort((a,b) => a.journal.localeCompare(b.journal));
+  if (currentSort === 'date_desc') arr.sort((a, b) => new Date(b.date) - new Date(a.date));
+  else if (currentSort === 'date_asc') arr.sort((a, b) => new Date(a.date) - new Date(b.date));
+  else if (currentSort === 'journal') arr.sort((a, b) => String(a.journal).localeCompare(String(b.journal)));
   return arr;
+}
+
+function getFilteredPapers() {
+  let papers = tabPapers.slice();
+
+  if (currentMainTab === 'human' && currentHumanJournal !== 'all') {
+    papers = papers.filter(p => p.journal === currentHumanJournal);
+  }
+  if (currentMainTab === 'vet' && currentTab === 'journal' && currentJournal !== 'all') {
+    papers = papers.filter(p => p.journal === currentJournal);
+  }
+  if (currentSpecialty !== 'all') {
+    papers = papers.filter(p => specialtyOf(p).includes(currentSpecialty));
+  }
+  const q = searchQuery.trim().toLowerCase();
+  if (q) {
+    papers = papers.filter(p => [p.title, p.authors, p.abstract, p.summary_ko, p.journal, p.category]
+      .filter(Boolean).join(' ').toLowerCase().includes(q));
+  }
+  if (onlyBookmarked) papers = papers.filter(p => bookmarkSet.has(p.id));
+  if (onlyUnread) papers = papers.filter(p => !readSet.has(p.id));
+
+  return getSorted(papers);
+}
+
+function renderPapers() {
+  const list = document.getElementById('paper-list');
+  const papers = getFilteredPapers();
+  viewPapers = papers;
+
+  const countEl = document.getElementById('result-count');
+  if (countEl) {
+    const filtered = currentSpecialty !== 'all' || searchQuery.trim() || onlyBookmarked || onlyUnread
+      || (currentMainTab === 'vet' && currentTab === 'journal' && currentJournal !== 'all')
+      || (currentMainTab === 'human' && currentHumanJournal !== 'all');
+    countEl.textContent = (filtered ? `${papers.length} / ${tabPapers.length}편` : `${tabPapers.length}편`);
+  }
+
+  if (!papers.length) {
+    list.innerHTML = '<div class="no-result">조건에 맞는 논문이 없습니다.<br>검색어나 필터를 바꿔보세요.</div>';
+    return;
+  }
+
+  list.innerHTML = papers.map((p, i) => cardHTML(p, i)).join('');
+}
+
+function switchMainTab(tab) {
+  currentMainTab = tab;
+  ['vet', 'human', 'cb'].forEach(t => {
+    const btn = document.getElementById('tab-' + t);
+    const sec = document.getElementById('section-' + t);
+    if (btn) {
+      btn.style.background = t === tab ? '#2e6da8' : 'transparent';
+      btn.style.color = t === tab ? '#fff' : 'rgba(255,255,255,0.5)';
+      btn.style.fontWeight = t === tab ? '700' : '600';
+    }
+    if (sec) sec.style.display = t === tab ? 'block' : 'none';
+  });
+  const secVetFilter = document.getElementById('section-vet');
+  if (secVetFilter) secVetFilter.style.display = tab === 'vet' ? '' : 'none';
+  const ourPaper = document.getElementById('our-paper-section');
+  if (ourPaper) ourPaper.style.display = tab === 'vet' ? 'block' : 'none';
+
+  if (tab === 'vet') tabPapers = vetPapers;
+  else if (tab === 'human') tabPapers = humanPapers;
+  else tabPapers = cbPapers;
+
+  renderPapers();
 }
 
 function switchTab(btn, tab) {
@@ -654,6 +838,13 @@ function switchTab(btn, tab) {
   renderPapers();
 }
 
+function filterBy(btn, cat) {
+  currentSpecialty = cat;
+  document.querySelectorAll('#filter-category .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderPapers();
+}
+
 function filterByJournal(btn, journal) {
   currentJournal = journal;
   document.querySelectorAll('#filter-journal .filter-btn').forEach(b => b.classList.remove('active'));
@@ -661,15 +852,42 @@ function filterByJournal(btn, journal) {
   renderPapers();
 }
 
-function filterBy(btn, cat) {
-  currentFilter = cat;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function filterHuman(btn, journal) {
+  currentHumanJournal = journal;
+  document.querySelectorAll('#section-human .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderPapers();
 }
 
-async function translate(title, idx, btn) {
-  const box = document.getElementById('trans-' + idx);
+function sortBy(val) {
+  currentSort = val;
+  document.querySelectorAll('.sort-select').forEach(s => s.value = val);
+  renderPapers();
+}
+
+let searchTimer = null;
+function onSearch(val) {
+  searchQuery = val || '';
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(renderPapers, 120);
+}
+
+function toggleOnly(kind) {
+  if (kind === 'bookmark') {
+    onlyBookmarked = !onlyBookmarked;
+    document.getElementById('toggle-bookmark').classList.toggle('active', onlyBookmarked);
+  } else if (kind === 'unread') {
+    onlyUnread = !onlyUnread;
+    document.getElementById('toggle-unread').classList.toggle('active', onlyUnread);
+  }
+  renderPapers();
+}
+
+async function translate(i, btn) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const box = document.getElementById('trans-' + i);
+  if (!box) return;
   if (box.classList.contains('visible')) {
     box.classList.remove('visible');
     btn.textContent = '🇰🇷 한글 번역';
@@ -683,7 +901,7 @@ async function translate(title, idx, btn) {
   btn.textContent = '번역 중...';
   btn.classList.add('loading');
   try {
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(title)}&langpair=en|ko`;
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(p.title)}&langpair=en|ko`;
     const res = await fetch(url);
     const data = await res.json();
     const translated = data.responseData?.translatedText || '번역 실패';
@@ -707,7 +925,7 @@ async function init() {
     vetPapers = papers.filter(p => p.type === 'vet' || !p.type);
     humanPapers = papers.filter(p => p.type === 'human');
     cbPapers = data.clinicians_brief || [];
-    allPapers = vetPapers;
+    tabPapers = vetPapers;
     document.getElementById('update-time').textContent =
       `마지막 업데이트: ${data.updated} · 수의학 ${vetPapers.length}편 · 인의학 심장 ${humanPapers.length}편 · CB ${cbPapers.length}편`;
     renderPapers();
@@ -719,6 +937,7 @@ async function init() {
 }
 
 init();
+
 </script>
 </body>
 </html>
