@@ -5177,7 +5177,7 @@ function renderGameplan(){
       </div>
       <div class="section-title"><h3>정글 동선</h3><div class="line"></div></div>
       <div class="action-grid">
-        ${[['top','🗡','탑 위크사이드','탑 주도권·유충 사냥, 봇 소외'],['bot','🏹','바텀 위크사이드','봇 성장·드래곤, 탑 소외'],['mid','✨','미드 시야 중심','균형·로밍 대응, 안정적']].map(([k,ic,n,d])=>`
+        ${[['top','🗡','탑 스트롱사이드','탑 집중 케어·유충 사냥, 봇 소외'],['bot','🏹','바텀 스트롱사이드','봇 집중 케어·드래곤, 탑 소외'],['mid','✨','미드 시야 중심','균형·로밍 대응, 안정적']].map(([k,ic,n,d])=>`
           <button class="action ${GP.jungle===k?'on':''}" data-jg="${k}"><div class="ai">${ic}</div><div class="an">${n}</div><div class="ad">${d}</div></button>`).join('')}
       </div>
       <div class="card tight">
