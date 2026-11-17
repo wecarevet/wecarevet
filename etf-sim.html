@@ -347,6 +347,7 @@ body.pkopen{overflow:hidden}
 .mbs i{display:block;width:8px;height:10px;border-radius:2px;background:rgba(255,255,255,.08)}
 .mbs i.on{background:var(--mint);box-shadow:0 0 6px rgba(55,224,178,.45)}
 .mbs i.on.am{background:#ffd166;box-shadow:0 0 6px rgba(255,209,102,.45)}
+.mbs-txt{display:none;font-size:11px;color:var(--txt2);font-variant-numeric:tabular-nums;white-space:nowrap}
 
 /* ---------- A/B compare ---------- */
 .cmp{display:grid;gap:10px;grid-template-columns:1fr}
@@ -374,7 +375,10 @@ body.pkopen{overflow:hidden}
   #calTable th:nth-child(2), #calTable td:nth-child(2),
   #calTable th:nth-child(3), #calTable td:nth-child(3){display:none}
   #calTable td:first-child, #finTable td:first-child{white-space:normal}
-  #calTable td:first-child b{display:block;max-width:170px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #calTable th, #calTable td{padding:8px 6px}
+  #calTable td:first-child b{display:block;max-width:136px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #calTable .mbs{display:none}
+  #calTable .mbs-txt{display:inline}
   .mtile .v{font-size:16.5px}
   .mtile{padding:11px 10px 10px}
 }
@@ -727,7 +731,7 @@ body.pkopen{overflow:hidden}
       <div class="cal" id="calChart" style="margin-top:16px"></div>
       <div class="tw" style="margin-top:16px">
         <table id="calTable">
-          <thead><tr><th>종목</th><th>비중</th><th>연 분배율</th><th>연 분배금</th><th>분배월 (1~12월)</th></tr></thead>
+          <thead><tr><th>종목</th><th>비중</th><th>연 분배율</th><th>연 분배금</th><th>분배월</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -2109,10 +2113,12 @@ function renderCal(hs, value){
     const per = value*w, amt = per*(a.dist||0)/100;
     const badges = [...Array(12)].map((_,i) =>
       `<i class="${(plan[i+1]||0) > 0 ? 'on' : ''}"></i>`).join('');
+    const ms = [...Array(12)].map((_,i)=>i+1).filter(mo => plan[mo] > 0);
+    const monthTxt = !ms.length ? '–' : ms.length === 12 ? '매월' : ms.join('·');
     return `<tr>
       <td><b>${a.name}</b><div class="sub">${a.id} · ${a.mk==='US'?'미국상장':'국내상장'} · ${a.freq}</div></td>
       <td>${Math.round(w*100)}%</td><td>${pct0(a.dist,2)}</td><td>${won(amt)}</td>
-      <td><span class="mbs">${badges}</span></td></tr>`;
+      <td><span class="mbs">${badges}</span><span class="mbs-txt">${monthTxt}</span></td></tr>`;
   }).join('') : `<tr><td colspan="5" style="text-align:center;color:var(--mut2)">탭2에서 ETF를 담으면 종목별 분배월이 여기에 나옵니다.</td></tr>`;
 }
 ['txValue','txPay','txRate2','txYears2','txMarg'].forEach(id => {
