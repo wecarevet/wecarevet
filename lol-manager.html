@@ -2600,7 +2600,7 @@ function startMatch(draftResult){
   const lane=draftResult.lane||{};
   ROLES.forEach(r=>{ if(!lane[r]) lane[r]={my:60,opp:60,counter:0,myChamp:'',oppChamp:'',myPlayer:'',oppPlayer:'',mySyn:0,opSyn:0}; });
   const myA=(draftResult.assign&&draftResult.assign.me)||{}, opA=(draftResult.assign&&draftResult.assign.opp)||{};
-  const gp=S.gameplan||{jungle:'mid',laneSwap:false,firstObj:'grub',dive:false};
+  const gp=S.gameplan||{jungle:'mid',laneSwap:false,firstObj:'grub',dive:false,invade:'none'};
   const myPower=teamPower(me), oppPower=teamPower(opp);
   const myTrait=teamTraitEdge(me), opTrait=teamTraitEdge(opp);
   const myCoach=staffMatchEdge(S.userTeam), opCoach=staffMatchEdge(D.oppId);
@@ -2614,6 +2614,9 @@ function startMatch(draftResult){
   if(gp.jungle==='bot'){ edge+=(lane.ADC.my-lane.ADC.opp)*0.08; }
   if(gp.laneSwap){ const botGap=lane.ADC.my-lane.ADC.opp; if(botGap<0) edge+=-botGap*0.14; edge-=0.4; }
   if(gp.dive) edge+=0.5;
+  if(gp.invade==='steal') edge+=0.45;
+  if(gp.invade==='ward') edge+=0.2;
+  if(gp.jungle==='farm') edge+=0.15;
   edge += (S.seriesMomentum||0) + ((S.currentSeries&&S.currentSeries.nextEdge)||0);
   if(myPower<oppPower) edge += (myCoach.underdog||0)*1.4;
   edge += (chemMe-chemOp)*0.35 + (fitMe-fitOp)*0.8;
@@ -2831,7 +2834,7 @@ function tickBody(){
   }
   // 협곡의 전령
   if(m===14){
-    const meWins=Math.random()<clamp(killFavor+(fo&&fo.mm==='top'?0.1:0)+(M.gp.firstObj==='grub'?0.05:0),0.08,0.92);
+    const meWins=Math.random()<clamp(killFavor+(fo&&fo.mm==='top'?0.1:0)+(M.gp.firstObj==='grub'?0.05:0)+(M.gp.firstObj==='herald'?0.18:0),0.08,0.92);
     const team=meWins?'me':'opp';
     M.heralds[sideIdx(team)]++;
     addGold(team,450);
@@ -5155,7 +5158,7 @@ function bindDraft(){
 }
 
 /* ---------- pre-game plan ---------- */
-let GP={jungle:'mid',laneSwap:false,firstObj:'grub',dive:false};
+let GP={jungle:'mid',laneSwap:false,firstObj:'grub',dive:false,invade:'none'};
 function renderGameplan(){
   const r=D.result||evalDraft();
   const lane=r.lane;
@@ -5177,7 +5180,7 @@ function renderGameplan(){
       </div>
       <div class="section-title"><h3>정글 동선</h3><div class="line"></div></div>
       <div class="action-grid">
-        ${[['top','🗡','탑 스트롱사이드','탑 집중 케어·유충 사냥, 봇 소외'],['bot','🏹','바텀 스트롱사이드','봇 집중 케어·드래곤, 탑 소외'],['mid','✨','미드 시야 중심','균형·로밍 대응, 안정적']].map(([k,ic,n,d])=>`
+        ${[['top','🗡','탑 스트롱사이드','탑 집중 케어·유충 사냥, 봇 소외'],['bot','🏹','바텀 스트롱사이드','봇 집중 케어·드래곤, 탑 소외'],['mid','✨','미드 주도권','미드·정글 시야 장악, 균형'],['farm','🌾','풀캠프 성장형','초반 교전 회피, 정글 성장 우선']].map(([k,ic,n,d])=>`
           <button class="action ${GP.jungle===k?'on':''}" data-jg="${k}"><div class="ai">${ic}</div><div class="an">${n}</div><div class="ad">${d}</div></button>`).join('')}
       </div>
       <div class="card tight">
@@ -5191,10 +5194,16 @@ function renderGameplan(){
           <button class="chip ${GP.dive?'on':'red'}" data-dive="1">${GP.dive?'실행':'안 함'}</button>
         </div>
       </div>
+      <div class="section-title"><h3>1레벨 인베이드 설계</h3><div class="line"></div></div>
+      <div class="action-grid">
+        <button class="action ${GP.invade==='steal'?'on':''}" data-inv="steal"><div class="ai">🥷</div><div class="an">적 버프 습격</div><div class="ad">초반 이득 노림, 실패 시 손해</div></button>
+        <button class="action ${GP.invade==='ward'?'on':''}" data-inv="ward"><div class="ai">👁</div><div class="an">안전 와딩</div><div class="ad">시야 확보·갱킹 방지</div></button>
+      </div>
       <div class="section-title"><h3>첫 오브젝트 우선순위</h3><div class="line"></div></div>
       <div class="action-grid">
         <button class="action ${GP.firstObj==='grub'?'on':''}" data-obj="grub"><div class="ai">🪱</div><div class="an">공허 유충 6스택</div><div class="ad">타워 압박·초반 스노우볼</div></button>
         <button class="action ${GP.firstObj==='dragon'?'on':''}" data-obj="dragon"><div class="ai">🐉</div><div class="an">드래곤 스택</div><div class="ad">중후반 한타 버프·소울</div></button>
+        <button class="action ${GP.firstObj==='herald'?'on':''}" data-obj="herald"><div class="ai">🕯</div><div class="an">전령 스노우볼</div><div class="ad">14분 전령으로 타워 철거</div></button>
       </div>
       <div class="card tight">
         <div class="row between"><span class="tiny">우리 조합</span><span class="tiny">${r.myComp.warnings[0]?('<span style="color:#ff92a5">'+esc(r.myComp.warnings[0])+'</span>'):'특이사항 없음'}</span></div>
@@ -5207,6 +5216,7 @@ function renderGameplan(){
   v.querySelectorAll('[data-jg]').forEach(b=>b.onclick=()=>{GP.jungle=b.dataset.jg;renderGameplan();});
   v.querySelectorAll('[data-ls]').forEach(b=>b.onclick=()=>{GP.laneSwap=!GP.laneSwap;renderGameplan();});
   v.querySelectorAll('[data-dive]').forEach(b=>b.onclick=()=>{GP.dive=!GP.dive;renderGameplan();});
+  v.querySelectorAll('[data-inv]').forEach(b=>b.onclick=()=>{ GP.invade=(GP.invade===b.dataset.inv?'none':b.dataset.inv); renderGameplan(); });
   v.querySelectorAll('[data-obj]').forEach(b=>b.onclick=()=>{GP.firstObj=b.dataset.obj;renderGameplan();});
   $('startGameBtn').onclick=()=>{
     S.gameplan={...GP};
