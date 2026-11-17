@@ -1788,7 +1788,7 @@ function homeHTML(){
           <span class="tiny">상대 전력 ${teamPowerRaw(oppTeam).toFixed(1)} · ${oppTeam.wins}승 ${oppTeam.losses}패</span>
           <span class="chip sm ${teamPower(t)>teamPower(oppTeam)?'green':'red'}">${teamPower(t)>teamPower(oppTeam)?'전력 우위':'전력 열세'}</span>
         </div>
-        <button class="btn primary block" id="goMatch" style="margin-top:12px">경기 준비 · 밴픽 시작</button>
+        ${nextSeries?'':`<button class="btn primary block" id="goMatch" style="margin-top:12px">경기 준비 · 밴픽 시작</button>`}
       </div>`:`
       <div class="card"><div class="empty-note">이번 주 경기가 없습니다</div></div>`}
     <div class="section-title"><h3>주간 훈련</h3><div class="line"></div><span class="tiny">${S.actionApplied?'적용 완료':'경기 시작 전 1회'}</span></div>
@@ -2016,6 +2016,10 @@ function bindHub(){
   c.querySelectorAll('[data-release]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); if(confirm(b.dataset.release+' 선수를 방출할까요?')){const r=releasePlayer(b.dataset.release); if(!r.ok) toast(r.msg);}});
 }
 function prepareMatch(){
+  if(S.currentSeries && !S.currentSeries.done){
+    if(S.currentSeries.pendingSide) renderSideChoice(); else startDraft(S.currentSeries);
+    return;
+  }
   if(!S.actionApplied) applyWeekAction();
   const opp=weekOpponent(); if(!opp) return;
   const s=createSeries(opp.oppId,3,'regular',{});
