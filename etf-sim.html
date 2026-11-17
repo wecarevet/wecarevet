@@ -1048,8 +1048,9 @@ function run(){
       ? `<div style="margin-top:6px">국내 상장 대체가 없는 종목: <b>${alt.missing.join(', ')}</b> — 이 종목은 ISA·연금에 담을 수 없습니다.</div>`
       : (alt.conv.length ? `<div style="margin-top:8px"><button class="btn" id="convBtn">국내 상장으로 자동 전환</button>
          <span style="font-size:11px;color:var(--mut);margin-left:6px">${alt.conv.join(' · ')}</span></div>` : '');
-    wtxt = `<span class="ic">⚠</span><div><b>${ACCMETA[cfg.acc].label}</b>에는 ${names}을(를) 담을 수 없습니다
-      (${ACCMETA[cfg.acc].mk==='KR'?'국내 상장 ETF만 편입 가능':'해외주식 계좌가 필요'}).${tail}</div>`;
+    wtxt = `<span class="ic">⚠</span><div><b>${ACCMETA[cfg.acc].label}</b>에서 담을 수 없는 종목: <b>${names}</b>
+      (${ACCMETA[cfg.acc].mk==='KR'?'국내 상장 ETF만 편입 가능':'해외주식 계좌가 필요'})
+      <div style="margin-top:4px;opacity:.85">아래 결과는 세금만 이 계좌 기준으로 계산한 참고치입니다.</div>${tail}</div>`;
   } else if(R.levBad.length){
     wtxt = `<span class="ic">⚠</span><div>레버리지 ETF(${R.levBad.map(a=>a.id).join(', ')})는 연금저축·IRP에 편입할 수 없습니다. 일반계좌로 평가하거나 비중을 바꿔보세요.</div>`;
   }
@@ -1081,7 +1082,8 @@ function run(){
   ];
   $('#kpis').innerHTML = kp.map(x => `<div class="kpi ${x.hero?'hero':''} ${x.danger?'danger':''}">
     <div class="k">${x.k}</div><div class="v">${x.v}</div><div class="s">${x.s}</div></div>`).join('');
-  $('#resHint').textContent = `${cfg.years}년 · ${R.assets.map(a=>a.id).join(' / ')}`;
+  $('#resHint').textContent = `${cfg.years}년 · ${R.assets.map(a=>a.id).join(' / ')}`
+    + (R.bad.length ? ' · ⚠ 편입 불가 종목 포함' : (R.levBad.length ? ' · ⚠ 연금 편입 불가' : ''));
 
   // 시나리오 비교
   const cur = Object.assign({}, cfg);
