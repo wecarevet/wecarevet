@@ -577,6 +577,9 @@ button.tr{cursor:pointer}
 .sub-cur{flex:0 0 64px;font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sub-row .mini-select{flex:1;min-width:0}
 button.pers-chip{cursor:pointer}
+.champ-info{margin-top:6px;padding:7px 9px;border-radius:9px;background:rgba(37,224,255,.07);border:1px solid rgba(37,224,255,.18);font-size:10.5px;color:#cfe6f5;line-height:1.4}
+.champ-info b{color:#fff}
+.sig-line{color:#9fe4ff!important;font-size:9px!important}
 
 </style>
 </head>
@@ -1062,6 +1065,148 @@ const CHAMPS = [
   {n:'직스',k:'Ziggs',r:['MID','ADC'],d:'AP',tags:{engage:0,poke:3,fight:1,split:2,scale:3},f:0,cc:1,cv:[4,3,2],t:2},
   {n:'질리언',k:'Zilean',r:['SUP','MID'],d:'AP',tags:{engage:0,poke:1,fight:2,split:0,scale:3},f:0,cc:1,cv:[3,3,4],t:2},
 ];
+
+
+/* ---- 챔피언 고유 특징(시그니처) ---- */
+const CHAMP_SIG={
+  '리 신':['초반 2:2 교전·인섹킥','정글 초반 설계와 이니시로 판을 흔든다','dive'],
+  '아지르':['황제의 진영 역이니시','병사로 라인을 지배하고 후반 DPS를 책임진다','teamfight'],
+  '오른':['대장간 업그레이드·광역 이니시','아이템 업그레이드와 궁으로 한타를 연다','teamfight'],
+  '블리츠크랭크':['그랩 변수·인베이드 강점','Q 한 방으로 게임을 뒤집는다','grab'],
+  '쓰레쉬':['사슬 채찍·랜턴 구조','그랩과 랜턴으로 이니시와 세이브를 동시에','grab'],
+  '노틸러스':['궁 추적 이니시','확정 CC로 상대 딜러를 묶는다','grab'],
+  '파이크':['처형 리셋·시야 암살','킬 관여 후 재진입으로 연쇄 처형','pickoff'],
+  '카사딘':['16렙 극후반 왕귀','후반 이동기 폭발로 게임을 뒤집는다','scale'],
+  '코그모':['후반 DPS 폭발','보호만 받으면 게임을 끝낸다','scale'],
+  '징크스':['패시브 리셋·후반 폭격','한타 킬 리셋으로 순식간에 정리','scale'],
+  '스몰더':['스택 성장형 후반','스택이 쌓일수록 답이 없다','scale'],
+  '베인':['은신·고정딜 후반','탱커를 녹이는 후반 캐리','scale'],
+  '아우렐리온 솔':['특이점 스케일링','스택 기반 광역 폭딜','scale'],
+  '베이가':['무한 스택·광역 CC','후반 이벤트 호라이즌 한 방','scale'],
+  '케일':['후반 신계 강림','16렙 이후 무적의 후반 캐리','scale'],
+  '피오라':['사이드 1:1 최강','사이드 스플릿과 1대1에서 압도','duel'],
+  '잭스':['카운터 스트라이크·사이드','1대1과 타워 철거의 정석','duel'],
+  '카밀':['훅샷 고립·사이드','고립된 상대를 잘라먹는다','duel'],
+  '야스오':['바람 장막·다이브','모든 스킬샷을 흘리며 진입','duel'],
+  '요네':['언블링·역전 한타','후반 진입 한 방으로 판을 뒤집는다','duel'],
+  '이렐리아':['칼날 춤·스플릿','미니언 웨이브와 함께 성장','duel'],
+  '리븐':['콤보 폭딜·스플릿','기동력으로 사이드를 흔든다','duel'],
+  '제이스':['포킹 견제·초반 주도권','원거리 견제로 라인을 지배','poke'],
+  '제라스':['초장거리 포킹','시야 밖에서 체력을 깎는다','poke'],
+  '직스':['포탑 철거 특화','포킹과 타워 철거 모두 최상','turret'],
+  '벨코즈':['진실의 시야·광역 포킹','각도만 나오면 한타를 지운다','poke'],
+  '바루스':['포킹·궁 이니시','원거리 견제와 이니시를 겸한다','poke'],
+  '이즈리얼':['안전 포킹·후반 딜','죽지 않고 꾸준히 딜한다','poke'],
+  '트리스타나':['포탑 철거 특화','폭딜과 타워 철거로 템포를 만든다','turret'],
+  '요릭':['사이드 압박·억제기','안개 마녀와 함께 사이드를 민다','turret'],
+  '사이온':['언데드 스플릿·타워 압박','죽어서도 타워를 친다','turret'],
+  '제드':['그림자 암살','후방 딜러를 순식간에 제거','pickoff'],
+  '탈론':['벽 타기 로밍 암살','로밍으로 사이드를 터뜨린다','pickoff'],
+  '카직스':['진화·고립 암살','고립된 대상을 즉사시킨다','pickoff'],
+  '렝가':['부시 암살·원콤','부시에서 나오면 딜러가 죽는다','pickoff'],
+  '이블린':['은신 갱킹','시야에 안 보이는 갱킹','pickoff'],
+  '오리아나':['공 명령·광역 한타','공을 이용한 이니시와 보호','teamfight'],
+  '말파이트':['궁 이니시·탱커','궁 한 번으로 한타를 연다','teamfight'],
+  '아무무':['광역 CC·이니시','궁으로 전원을 묶는다','teamfight'],
+  '갈리오':['도약 이니시·마법 방어','아군 보호와 역이니시','teamfight'],
+  '라칸':['기동 이니시·세이브','들어갔다 나오는 이니시','teamfight'],
+  '렐':['철마 이니시·광역 CC','한타 진형을 붕괴시킨다','teamfight'],
+  '리산드라':['얼음 무덤·역이니시','암살자 카운터와 이니시','teamfight'],
+  '신드라':['구체 폭딜·픽오프','스택이 쌓이면 한 방','pickoff'],
+  '아리':['매혹 로밍','차밍으로 픽오프와 로밍','roam'],
+  '트위스티드 페이트':['궁 로밍·글로벌 압박','궁으로 사이드를 흔든다','roam'],
+  '탈리야':['벽 로밍·광역 견제','로밍과 지형 통제','roam'],
+  '쉔':['궁 글로벌 합류','아군을 살리고 사이드를 지킨다','roam'],
+  '판테온':['글로벌 궁·초반 교전','초반 2:2와 합류에 강하다','roam'],
+  '블라디미르':['흡혈 지속딜','후반 무한 유지력','sustain'],
+  '문도 박사':['재생·탱커','죽지 않는 탱커','sustain'],
+  '워윅':['흡혈 추적','피가 낮은 적을 사냥한다','sustain'],
+  '마오카이':['묘목 시야·이니시','시야와 이니시를 동시에','teamfight'],
+  '세주아니':['광역 CC·탱커','이니시와 프론트라인','teamfight'],
+  '자르반 4세':['깃발 돌진·가둠','초반 갱킹과 한타 가둠','dive'],
+  '바이':['확정 이니시·다이브','한 명을 정확히 끊는다','dive'],
+  '렉사이':['땅굴 갱킹','초반 갱킹 최강','dive'],
+  '엘리스':['초반 다이브·갱킹','거미줄로 초반을 터뜨린다','dive'],
+  '니달리':['창 포킹·카정','정글 주도권과 포킹','poke'],
+  '그레이브즈':['카정·근접 폭딜','정글 1대1 최강','duel'],
+  '킨드레드':['표식 스택·후반 딜','스택이 쌓이면 원딜급 딜','scale'],
+  '럼블':['과열 화염·광역 딜','한타 광역 딜링','teamfight'],
+  '갱플랭크':['화약통 광역·글로벌 궁','통 관리로 한타를 지배','teamfight'],
+  '그웬':['안개·후반 스플릿','후반 1대1과 사이드','duel'],
+  '크산테':['탱커 캐리·이니시','탱커인데 딜까지','teamfight'],
+  '암베사':['기동 전투·돌격','들어가서 정리한다','dive'],
+  '아트록스':['흡혈 광역 딜','한타에서 버티며 딜한다','teamfight'],
+  '세트':['붙잡기·한타 정면','정면 한타 최강','teamfight'],
+  '우르곳':['다리 절단·정면 딜','근접에서 압도','duel'],
+  '나서스':['무한 스택·후반','스택 쌓이면 1대5','scale'],
+  '트린다미어':['불사·사이드','궁으로 5초 무적','duel'],
+  '일라오이':['촉수·다수 교전','여러 명을 상대로 강하다','teamfight'],
+  '모데카이저':['죽음의 영역·1대1','궁으로 딜러를 가둔다','duel'],
+  '하이머딩거':['포탑 설치·지역 장악','거점 방어 최강','turret'],
+  '티모':['실명·버섯 지뢰','시야와 지역 통제','poke'],
+  '뽀삐':['벽꿍·이니시 차단','돌진을 막는다','teamfight'],
+  '스카너':['궁 납치·이니시','한 명을 끌고 온다','grab'],
+  '그라가스':['배럴 이니시·플렉스','어디든 소화','teamfight'],
+  '카이사':['진화 스케일·후반 암살','후반 딜러 암살','scale'],
+  '자야':['깃털 역이니시','궁으로 생존과 역이니시','teamfight'],
+  '아펠리오스':['무기 조합·후반 딜','무기 조합으로 상황 대응','scale'],
+  '루시안':['초반 라인전·기동','라인전 압도','lane'],
+  '드레이븐':['도끼 캐치·초반 폭딜','초반 킬로 골드 굴리기','lane'],
+  '케이틀린':['사거리 견제·포탑','라인전 압박과 철거','lane'],
+  '진':['4발·원거리 지원','한 발 한 발이 강력','poke'],
+  '시비르':['주문 방어막·푸시','라인 클리어와 생존','lane'],
+  '트위치':['은신·후반 광역','후반 한타 광역 딜','scale'],
+  '제리':['기동 딜·후반','카이팅으로 후반 캐리','scale'],
+  '애쉬':['궁 이니시·시야','글로벌 궁과 슬로우','pickoff'],
+  '세나':['영혼 수집·글로벌','성장형 유틸 원딜','scale'],
+  '미스 포츈':['광역 궁·한타','궁 각이 나오면 한타 승리','teamfight'],
+  '사미라':['연쇄 처형','킬 리셋으로 정리','teamfight'],
+  '닐라':['근접 광역·보호','근접 원딜의 폭딜','teamfight'],
+  '칼리스타':['창 꽂기·이니시','초반 교전과 이니시','lane'],
+  '유미':['부착 힐·버프','원딜에 붙어 성장','sustain'],
+  '룰루':['버프·변장','원딜 보호 최강','sustain'],
+  '나미':['물방울 CC·힐','견제와 회복','sustain'],
+  '소라카':['광역 힐','팀 유지력','sustain'],
+  '잔나':['바람 방어·디스인게이지','이니시 차단','sustain'],
+  '카르마':['견제·실드','라인전 압박','poke'],
+  '모르가나':['속박·블랙실드','CC 면역과 픽오프','pickoff'],
+  '바드':['로밍·기절','맵 장악과 변수','roam'],
+  '레오나':['확정 이니시','CC 연쇄','grab'],
+  '알리스타':['헤드버트·이니시','진형 붕괴','grab'],
+  '브라움':['방패·역이니시','원딜 보호','sustain'],
+  '레나타 글라스크':['적 배신·부활','한타 판도 뒤집기','teamfight'],
+  '타릭':['궁 무적·보호','한타 무적','sustain'],
+  '자이라':['식물 견제·시야','지역 통제','poke'],
+  '세라핀':['광역 회복·CC','한타 유지력','teamfight'],
+  '니코':['변장·광역 CC','기습 이니시','teamfight'],
+  '조이':['수면 포킹','한 방 포킹','poke'],
+  '벡스':['그림자 CC·안티돌진','돌진 조합 카운터','teamfight'],
+  '오로라':['차원 이동·견제','기동 견제','poke'],
+  '스몰더':['스택 성장형 후반','후반 폭딜','scale'],
+  '흐웨이':['화풍 조합·광역','상황별 스킬 조합','teamfight'],
+  '멜':['마법 반사·광역','받아치는 마법 딜러','teamfight'],
+  '밀리오':['힐·사거리 버프','원딜 보호','sustain'],
+  '나피리':['사냥개 무리·암살','추격 암살','pickoff'],
+  '브라이어':['광란 돌진','돌진해 물어뜯는다','dive'],
+  '카이사':['진화 스케일·후반 암살','후반 딜러 암살','scale'],
+};
+function _autoSig(c){
+  const t=c.tags||{};
+  const pick=[];
+  if(t.engage>=2) pick.push(['이니시 변수','teamfight']);
+  if(t.poke>=2) pick.push(['포킹 견제','poke']);
+  if(t.split>=2) pick.push(['사이드 압박','duel']);
+  if(t.scale>=4) pick.push(['후반 밸류','scale']);
+  if((c.cv&&c.cv[0]>=4)) pick.push(['초반 스노우볼','lane']);
+  if((c.cc||0)>=2) pick.push(['확정 CC','grab']);
+  const a=pick[0]||['균형형','lane'], b=pick[1]||['상황 대응','lane'];
+  return [a[0]+' · '+b[0], (c.r&&c.r.length>1?'여러 라인을 소화하는 플렉스 픽':'한 가지 역할에 특화된 픽'), a[1]];
+}
+CHAMPS.forEach(c=>{
+  const s=CHAMP_SIG[c.n];
+  if(s){ c.sig=s[0]; c.sd=s[1]; c.sigK=s[2]||'lane'; }
+  else { const a=_autoSig(c); c.sig=a[0]; c.sd=a[1]; c.sigK=a[2]; }
+});
 
 /* ---- Patch notes (meta shifts) ---- */
 const PATCHES = [
@@ -1640,6 +1785,8 @@ function laneScore(p,c,role){
   let s=(75+(effRating(p)-75)*0.8)*champFit(p,c,role) + clamp((champTier(c)-3)*2,-3,3);
   s += traitSum(p,'lane')*0.7;
   s += (p.sigs.includes(c.n)?1.6:0);
+  if(c.sigK==='lane'||c.sigK==='poke') s+=0.4;
+  if(c.sigK==='scale'&&role!=='SUP') s+=0.2;
   return s;
 }
 /* 라인 상성 (내 챔프가 상대 챔프를 얼마나 이기는가) */
@@ -1653,7 +1800,17 @@ function counterScore(a,b){
   s += ((a.f||0)-(b.f||0))*0.2;
   s += (a.d==='AD'&&b.d==='TANK')?0.4:0;
   s += (a.d==='TANK'&&b.d==='AD')?-0.3:0;
-  return clamp(s,-2.6,2.6);
+  // 챔피언 고유 특징 상성
+  const A=a.sigK, B=b.sigK;
+  if(A==='grab'&&(b.cc||0)<=1) s+=0.45;
+  if(A==='poke'&&(b.tags.engage||0)<=1) s+=0.4;
+  if(A==='dive'&&(b.cv[0]||3)<=2) s+=0.35;
+  if(A==='duel'&&B==='scale') s+=0.3;
+  if(A==='teamfight'&&B==='split') s+=0.3;
+  if(A==='turret'&&B!=='duel') s+=0.25;
+  if(A==='scale'&&(b.cv[0]||3)>=4) s-=0.35;
+  if(A==='pickoff'&&(b.cc||0)>=3) s-=0.3;
+  return clamp(s,-2.8,2.8);
 }
 
 /* ---------- comp evaluation ---------- */
@@ -2422,15 +2579,18 @@ function tick(){
     const nm=team==='me'?myNameAt(role):oppNameAt(role);
     const pl=playerAt(team,role);
     const flavour=styleLine(pl);
+    const cdef=CHAMP_MAP[champ];
+    const sigLine=(cdef&&cdef.sig)?('<i>'+cdef.sig.split('·')[0].trim()+'</i>'):'';
     const sideCls=team==='me'?'blue':'red';
     if(Math.random()<0.42){
       const victim=team==='me'?oppNameAt(role):myNameAt(role);
-      logEvent(sideCls, m+'분 · <b>'+nm+'</b>('+champ+') 솔로킬! '+(flavour?'<i>'+flavour+'</i> — ':'')+ROLE_KR[role]+'에서 '+victim+'를 잡아냅니다.');
+      logEvent(sideCls, m+'분 · <b>'+nm+'</b>('+champ+') 솔로킬! '+(sigLine?sigLine+' — ':'')+(flavour?'<i>'+flavour+'</i> · ':'')+ROLE_KR[role]+'에서 '+victim+'를 잡아냅니다.');
     }else{
       const gankRole=pickOf(ROLES.filter(r=>r!==role));
       const gankName=team==='me'?myNameAt(gankRole):oppNameAt(gankRole);
       const gankChamp=team==='me'?myChampAt(gankRole):oppChampAt(gankRole);
-      logEvent(sideCls, m+'분 · '+ROLE_KR[role]+' 로밍 킬 — <b>'+gankName+'</b>('+gankChamp+')이(가) 합류해 '+(flavour?flavour+'으로 ':'')+'마무리합니다.');
+      const gc=CHAMP_MAP[gankChamp];
+      logEvent(sideCls, m+'분 · '+ROLE_KR[role]+' 로밍 킬 — <b>'+gankName+'</b>('+gankChamp+')이(가) '+(gc&&gc.sig?'<i>'+gc.sig.split('·')[0].trim()+'</i>으로 ':'')+(flavour?flavour+'으로 ':'')+'마무리합니다.');
     }
   }
   // 픽오프 (바론/용 시야 낚시)
@@ -4206,7 +4366,7 @@ function renderDraft(){
     if(used) cls.push('used');
     if(banned) cls.push('ban');
     if(sig) cls.push('sig');
-    return `<button class="${cls.join(' ')}" data-champ="${c.n}" ${(used||banned)?'disabled':''}>
+    return `<button class="${cls.join(' ')}" data-champ="${c.n}" data-sig="${esc(c.sig||'')}" title="${esc(c.n)} — ${esc(c.sig||'')} · ${esc(c.sd||'')}" ${(used||banned)?'disabled':''}>
       <span class="fb">${esc(c.n.slice(0,1))}</span>
       <img src="${DD(c.k)}" alt="${esc(c.n)}" loading="lazy" onerror="this.style.opacity=0">
       <span class="cp">${champTier(c)}</span>
@@ -4263,6 +4423,7 @@ function renderDraft(){
         ${['ALL',...ROLES].map(r=>`<button class="chip ${D.roleFilter===r?'on':''}" data-rf="${r}">${r==='ALL'?'전체':ROLE_KR[r]}</button>`).join('')}
       </div>
       <div class="champ-grid">${grid}</div>
+      <div class="champ-info" id="champInfo">챔피언을 길게 누르거나 마우스를 올리면 <b>고유 특징</b>이 표시됩니다</div>
       <div class="tiny" style="text-align:center;padding:6px 0">★ = 우리 팀 주특기 · 숫자 = 메타 티어 · 픽 순서와 라인은 무관</div>
       `}
     </div>`;
@@ -4298,7 +4459,8 @@ function assignHTML(myComp,oppComp,me,opp){
             <div class="asg-role">${ROLE_KR[role]}</div>
             <div class="asg-champ">${c?`<img src="${DD(c.k)}" alt="" onerror="this.style.opacity=0">`:'<span class="ph">+</span>'}
               <div><div class="ac-n">${champ?esc(champ):'챔피언 선택'}</div>
-              <div class="tiny">${mp?esc(mp.name):''}${mp&&mp.role!==role?' · 주포지션 '+ROLE_KR[mp.role]:''}</div></div>
+              <div class="tiny">${mp?esc(mp.name):''}${mp&&mp.role!==role?' · 주포지션 '+ROLE_KR[mp.role]:''}</div>
+              ${c?`<div class="tiny sig-line">${esc(c.sig||'')}</div>`:''}</div>
             </div>
             <div class="asg-meta">
               ${champ?`<span class="fit">${fit}</span>${syn>0?`<span class="syn-plus">성향 +${syn.toFixed(1)}</span>`:''}`:''}
@@ -4377,6 +4539,10 @@ function draftSummaryHTML(myComp,oppComp,me,opp){
 function bindDraft(){
   const v=$('view-draft');
   v.querySelectorAll('[data-rf]').forEach(b=>b.onclick=()=>{D.roleFilter=b.dataset.rf;renderDraft();});
+  v.querySelectorAll('[data-champ]').forEach(b=>{
+    const showInfo=()=>{ const el=$('champInfo'); if(el){ const c=CHAMP_MAP[b.dataset.champ]; if(c) el.innerHTML='<b>'+esc(c.n)+'</b> · '+esc(c.sig||'')+' — <span class="tiny">'+esc(c.sd||'')+'</span>'; } };
+    b.onmouseenter=showInfo; b.onfocus=showInfo;
+  });
   v.querySelectorAll('[data-champ]').forEach(b=>b.onclick=()=>{
     const n=b.dataset.champ;
     const ph=dPhaseNow();
