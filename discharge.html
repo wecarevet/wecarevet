@@ -817,7 +817,7 @@ function refresh(){
   if (ACTIVE_TAB === 'fast'){
     var ft = fastingTimes();
     $('fastCalc').innerHTML = '<div class="gc-note" style="background:var(--amber-bg);border:1px solid var(--amber-border);color:#7a4b00;font-size:12px">' +
-      '<b>음식(사료·간식·검) 금지:</b> ' + esc(ft.food) + ' 까지 (' + ft.foodH + '시간 전)<br>' +
+      '<b>음식(사료·간식·껌) 금지:</b> ' + esc(ft.food) + ' 까지 (' + ft.foodH + '시간 전)<br>' +
       '<b>물(음수):</b> 당일에도 마셔도 됩니다' +
       '</div>';
   }
