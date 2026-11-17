@@ -4812,6 +4812,27 @@ function achHTML(){
     <div style="height:8px"></div>`;
 }
 
+/* ---------- 전역 위임: 재렌더에도 살아남는 클릭 처리 ---------- */
+document.addEventListener('click',(e)=>{
+  const t=e.target;
+  if(!t||!t.closest) return;
+  const st=t.closest('[data-stance]');
+  if(st&&M){ setStance(st.dataset.stance); return; }
+  const fo=t.closest('[data-focus]');
+  if(fo&&M){ setFocus(fo.dataset.focus); return; }
+  const sp=t.closest('[data-speed]');
+  if(sp&&M){ setSpeed(Number(sp.dataset.speed)); return; }
+  const pl=t.closest('[data-play]');
+  if(pl&&M){ togglePlay(); return; }
+  if(t.closest('#playBtn')&&M){ togglePlay(); return; }
+  const rb=t.closest('#resultBtn');
+  if(rb){ try{ if(S.currentSeries&&!S.currentSeries.done) renderSeriesResult(); else renderAll(); }catch(_){ renderAll(); } return; }
+  const tl=t.closest('#openTL');
+  if(tl&&M){ openTacticDrawer(); return; }
+  const rf=t.closest('[data-rf]');
+  if(rf&&D){ D.roleFilter=rf.dataset.rf; renderDraft(); return; }
+}, false);
+
 /* ============ UI: DRAFT / PLAN / MATCH ============ */
 function mySigs(){ return lineupOf(myTeam()).flatMap(p=>p.sigs); }
 function draftHead(){
