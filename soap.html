@@ -949,6 +949,12 @@ function ctx(){
     tags: state.effTags.slice()
   };
 }
+function autosize(el){
+  if(!el) return;
+  el.style.height = 'auto';
+  var max = Math.max(260, Math.round(window.innerHeight * 0.74));
+  el.style.height = Math.min(el.scrollHeight + 4, max) + 'px';
+}
 function updateKakaoMeta(){
   var t = $('kakaoOut').value;
   $('kakaoMeta').innerHTML = t.length + '자' + (t.length > 1000 ? ' <span class="warn">· 카톡은 1,000자 이내 권장</span>' : '');
@@ -986,6 +992,8 @@ function refresh(){
   var sec = parseMemo(c.memo);
   $('soapOut').value = buildSOAP(c, sec);
   $('kakaoOut').value = buildKakao(c, sec);
+  autosize($('soapOut'));
+  autosize($('kakaoOut'));
   $('emptyHint').style.display = 'none';
   updateKakaoMeta();
   renderGuides(c);
@@ -1125,6 +1133,8 @@ function runAI(){
     if(!out || (!out.soap && !out.kakao)) throw new Error('AI 응답을 해석하지 못했습니다');
     if(out.soap) $('soapOut').value = String(out.soap).trim();
     if(out.kakao){ $('kakaoOut').value = String(out.kakao).trim(); updateKakaoMeta(); }
+    autosize($('soapOut'));
+    autosize($('kakaoOut'));
     $('emptyHint').style.display = 'none';
     toast('AI로 다듬었습니다 — 수치·용량은 꼭 다시 확인하세요');
   }).catch(function(err){
@@ -1153,6 +1163,9 @@ function runAI(){
     $('speechWarn').classList.add('show');
   }
   $('memo').addEventListener('input', refresh);
+  ['soapOut','kakaoOut'].forEach(function(id){
+    $(id).addEventListener('input', function(){ autosize($(id)); if(id === 'kakaoOut') updateKakaoMeta(); });
+  });
   refresh();
 })();
 </script>
