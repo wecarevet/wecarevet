@@ -819,6 +819,7 @@ function plain(s){
   var t = ' ' + s + ' ';
   for(var i = 0; i < TERMS.length; i++) t = t.replace(TERMS[i][0], TERMS[i][1]);
   t = t.replace(/\s+/g, ' ').replace(/\s+([,.·])/g, '$1').trim();
+  t = t.replace(/^(가슴 엑스레이|심장 초음파|진찰에서)\s+/, '$1: ');
   t = t.replace(/[.。]+$/, '');
   return t;
 }
@@ -882,8 +883,8 @@ function buildKakao(c, sec){
   sec.O.forEach(function(t){ today.push('· ' + plain(t)); });
   if(today.length){
     L.push('▸ 오늘 확인한 내용');
-    today.slice(0, 12).forEach(function(x){ L.push(x); });
-    if(today.length > 12) L.push('· 그 외 자세한 내용은 진료 기록에 남겨 두었습니다.');
+    today.slice(0, 16).forEach(function(x){ L.push(x); });
+    if(today.length > 16) L.push('· 그 외 자세한 내용은 진료 기록에 남겨 두었습니다.');
     L.push('');
   }
 
