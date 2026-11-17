@@ -2594,8 +2594,9 @@ function startMatch(draftResult){
   if(!draftResult||!D) return;
   const me=T(S.userTeam), opp=T(D.oppId);
   const mySide=draftResult.mySide||D.mySide;
-  const lane=draftResult.lane;
-  const myA=draftResult.assign.me, opA=draftResult.assign.opp;
+  const lane=draftResult.lane||{};
+  ROLES.forEach(r=>{ if(!lane[r]) lane[r]={my:60,opp:60,counter:0,myChamp:'',oppChamp:'',myPlayer:'',oppPlayer:'',mySyn:0,opSyn:0}; });
+  const myA=(draftResult.assign&&draftResult.assign.me)||{}, opA=(draftResult.assign&&draftResult.assign.opp)||{};
   const gp=S.gameplan||{jungle:'mid',laneSwap:false,firstObj:'grub',dive:false};
   const myPower=teamPower(me), oppPower=teamPower(opp);
   const myTrait=teamTraitEdge(me), opTrait=teamTraitEdge(opp);
@@ -2696,7 +2697,16 @@ function weightedPick(items,weights){
 }
 
 function tick(){
+  try{ tickBody(); }
+  catch(e){
+    try{ logEvent('sys','⚠ 시뮬레이션 예외 — '+e.message); }catch(_){}
+    if(M){ M.over=true; M.running=false; stopTimer(); }
+    try{ if(S.currentSeries&&!S.currentSeries.done){ if(S.currentSeries.score.me+S.currentSeries.score.opp===0){ S.currentSeries.score.me+=M.meWin===false?0:1; } renderSeriesResult(); } else renderAll(); }catch(_){}
+  }
+}
+function tickBody(){
   if(!M||M.over) return;
+  if(!M.lane) M.lane={TOP:{my:60,opp:60},MID:{my:60,opp:60},ADC:{my:60,opp:60},JGL:{my:60,opp:60},SUP:{my:60,opp:60}};
   M.minute++;
   const m=M.minute;
   const sta=STANCE_MAP[M.stance]||STANCE_MAP.standard;
@@ -2938,6 +2948,7 @@ function finishGame(){
 function analyzeGame(game){
   if(!game) return {reasons:[]};
   const lane=game.lane||{}; const reasons=[]; const laneR=[];
+  ROLES.forEach(r=>{ if(!lane[r]) lane[r]={my:60,opp:60}; });
   ROLES.forEach(r=>{
     const d=(lane[r]?lane[r].my-lane[r].opp:0);
     if(Math.abs(d)>2.5) laneR.push({k:'lane',v:Math.sign(d),d,txt:ROLE_KR[r]+' 라인전 '+(d>0?'우위':'열세')+' ('+(d>0?'+':'')+d.toFixed(1)+')'});
