@@ -151,6 +151,8 @@ main{flex:1;display:flex;flex-direction:column;padding-bottom:calc(var(--tab-h) 
 .tabbar button.on{color:var(--cyan);background:rgba(37,224,255,.08)}
 .tabbar button.on .ic{filter:none}
 
+#view-title{min-height:calc(100dvh - 24px);justify-content:center;padding-bottom:50px}
+#view-title .hero{padding-top:0}
 /* ---- team select ---- */
 .hero{padding:26px 18px 10px;text-align:center}
 .hero .kicker{font-size:11px;letter-spacing:.3em;color:var(--cyan);font-weight:800;text-transform:uppercase}
@@ -955,11 +957,10 @@ function aiPickChamp(){
   const comp=PICK_EVAL_CACHE(D.oppPicks);
   let best=null,bestScore=-1e9;
   avail.forEach(c=>{
-    if(!c.r.includes(role)&&!c.r.some(r=>need.includes(r))) return;
+    if(!c.r.includes(role)) return;
     let s=champTier(c)*4.5;
     if(p) s+=laneScore(p,c)*0.25;
     if(p&&p.sigs.includes(c.n)) s+=6;
-    // comp needs
     const t=c.tags;
     if(comp.ap===0&&c.d==='AP') s+=5;
     if(comp.ad===0&&c.d==='AD') s+=5;
@@ -1021,7 +1022,7 @@ function draftMyPick(champName){
   afterDraftStep();
 }
 function draftOppBan(){ const c=aiBanChamp(); if(!c) return; D.oppBans.push(c.n); D.step++; if(D.step>=6){D.phase='pick';D.step=0;} afterDraftStep(); }
-function draftOppPick(){ const c=aiPickChamp(); if(!c) return; const need=dOppRoles(); const role=(c.r.find(r=>need.includes(r))||need[0]); D.oppPicks.push({role, champ:c.n, player:(S.players[T(D.oppId).lineup[role]]||{}).name||''}); D.step++; afterDraftStep(); }
+function draftOppPick(){ const c=aiPickChamp(); if(!c) return; const need=dOppRoles(); const role=need[0]; if(!role) return; D.oppPicks.push({role, champ:c.n, player:(S.players[T(D.oppId).lineup[role]]||{}).name||''}); D.step++; afterDraftStep(); }
 
 function afterDraftStep(){
   if(D.phase==='pick' && D.step>=10){
