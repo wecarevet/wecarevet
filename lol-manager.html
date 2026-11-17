@@ -2299,9 +2299,16 @@ function assignOptions(){ return ROLES.slice(); }
 function assignScoreFor(p, champName, role){
   const c=CHAMP_MAP[champName]; if(!p||!c) return -999;
   let s=laneScore(p,c,role);
-  s += styleSynergy(p,c,role)*1.35;
-  if(p.role===role) s+=1.2;
-  if(p.sigs.includes(champName)) s+=2.2;
+  s += styleSynergy(p,c,role)*1.1;
+  if(p.role===role) s+=6;
+  if(p.role!==role) s-=14;
+  if(c.r[0]===role) s+=5;
+  else if(c.r.includes(role)) s+=2.5;
+  else s-=28;                       // 자연 포지션이 아닌 챔피언은 크게 감점
+  if(p.sigs.includes(champName)) s+=3;
+  // 플렉스/조커 성향만 오프롤 소화 가능
+  const flex=(p.playKey==='joker'||p.playKey==='multiRole'||p.playKey==='flexAce'||p.playKey==='champOcean');
+  if(!c.r.includes(role)&&flex) s+=16;
   return s;
 }
 function bestAssign(champNames, team){
@@ -2380,7 +2387,7 @@ function evalDraft(){
       myRole:mp?mp.role:'', oppRole:op?op.role:'', mySyn, opSyn};
   });
   const myComp=evalComp(dMyPicks()), oppComp=evalComp(dOppPicks());
-  let laneAdv=0; ROLES.forEach(r=>{laneAdv+=(lane[r].my-lane[r].opp);}); laneAdv/=5;
+  let laneAdv=0; ROLES.forEach(r=>{laneAdv+=(lane[r].my-lane[r].opp);}); laneAdv=laneAdv/5/2.5;
   // 사이드 보너스 (블루 1픽 우선권 / 레드 카운터픽)
   let sideBonus=0;
   if(D.mySide==='blue'){ sideBonus+=0.8; if(dMyPicks()[0]&&champTier(dMyPicks()[0])>=4) sideBonus+=0.9; }
@@ -2393,7 +2400,7 @@ function evalDraft(){
   const styleDiff=myStyle-opStyle;
   const myStaff=staffDraftBonus(S.userTeam), opStaff=staffDraftBonus(D.oppId);
   const staffDiff=myStaff-opStaff;
-  const raw=compDiff*0.5 + laneAdv*1.05 + styleDiff*0.35 + sideBonus + staffDiff + am.v*2.4 + kc.v*0.9;
+  const raw=compDiff*0.5 + laneAdv*2.6 + styleDiff*0.35 + sideBonus + staffDiff + am.v*2.4 + kc.v*0.9;
   const myPct=clamp(Math.round((50+raw*0.9)*10)/10,18,82);
   return {lane, myComp, oppComp, laneAdv, sideBonus, compDiff, styleDiff, staffDiff, myStaff, opStaff,
     myScore:myComp.score+laneAdv+styleDiff*0.4, oppScore:oppComp.score-laneAdv-styleDiff*0.4,
