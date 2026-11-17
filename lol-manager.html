@@ -589,6 +589,9 @@ button.pers-chip{cursor:pointer}
 .badge.svg .tlogo{display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
 .live-top{background:#0d1322!important;position:sticky;top:0;z-index:20}
 .map-card{position:relative;z-index:1}
+.ach-bar{height:8px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden}
+.ach-bar>i{display:block;height:100%;background:linear-gradient(90deg,#ffc94a,#ff9e2c)}
+.ach-on{border-color:rgba(255,201,74,.4);background:linear-gradient(100deg,rgba(255,201,74,.08),rgba(17,23,40,.9))}
 
 </style>
 </head>
@@ -2935,6 +2938,10 @@ function finishGame(){
   growTeam(M.oppId,!meWin);
   const sr=M.series;
   if(meWin) sr.score.me++; else sr.score.opp++;
+  S.bestDraftPct=Math.max(S.bestDraftPct||0, M.draftPct||0);
+  if(M.elder&&M.elder.me) S.elderTaken=(S.elderTaken||0)+1;
+  if(M.soulGranted&&M.soulGranted.opp&&meWin) S.soulComeback=(S.soulComeback||0)+1;
+  if(M.barons[0]>0&&M.gold[0]<M.gold[1]-3000&&meWin) S.baronSteals=(S.baronSteals||0)+1;
   sr.games.push({win:meWin, minute:M.minute, kills:M.kills.slice(), gold:M.gold.slice(),
     mvp:(M.mvp||{}).name||'', mvpChamp:(M.mvp||{}).champ||'',
     dragons:M.dragons.slice(), towers:M.towers.slice(), barons:M.barons.slice(),
@@ -2942,7 +2949,9 @@ function finishGame(){
     myPct:M.draftPct, myPicks:dMyPicks().slice(), oppPicks:dOppPicks().slice(),
     assign:{me:Object.assign({},D.assign.me),opp:Object.assign({},D.assign.opp)}});
   if(sr.fearless){ sr.fearlessUsed.push(...dMyPicks(), ...dOppPicks()); }
+  if(sr.bo>=3&&sr.score.me-sr.score.opp>=2) S.sweeps=(S.sweeps||0)+1;
   saveGame();
+  try{ checkAchievements(); }catch(e){}
   try{ renderSeriesResult(); }catch(e){ try{ renderAll(); }catch(e2){} }
 }
 function analyzeGame(game){
@@ -3904,6 +3913,8 @@ const TABS=[
   {k:'market',icon:'💰',label:'이적'},
   {k:'staff',icon:'🤝',label:'스태프'},
   {k:'patch',icon:'📜',label:'패치'},
+  {k:'codex',icon:'📖',label:'도감'},
+  {k:'ach',icon:'🏆',label:'업적'},
 ];
 function renderHub(){
   renderTopbar();
@@ -3916,6 +3927,8 @@ function renderHub(){
   else if(TAB==='league') c.innerHTML=leagueHTML();
   else if(TAB==='staff') c.innerHTML=staffHTML();
   else if(TAB==='patch') c.innerHTML=patchHTML();
+  else if(TAB==='codex') c.innerHTML=codexHTML();
+  else if(TAB==='ach') c.innerHTML=achHTML();
   else c.innerHTML=marketHTML();
   bindHub();
   show('hub');
@@ -4339,6 +4352,8 @@ function bindHub(){
     const sel=c.querySelector('[data-subsel="'+role+'"]');
     if(sel){ const r=setSeriesSub(role,sel.value); if(r&&!r.ok) toast(r.msg); else renderHub(); }
   });
+  const cq=$('codexQ'); if(cq) cq.oninput=()=>{ CODEX.q=cq.value; renderHub(); const el=$('codexQ'); if(el){ el.focus(); el.setSelectionRange(el.value.length,el.value.length);} };
+  c.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{ CODEX.cat=b.dataset.cat; renderHub(); });
   c.querySelectorAll('[data-patchview]').forEach(b=>b.onclick=(e)=>{ e.stopPropagation(); const rec=(S.patchNotes||[]).find(x=>String(x.no)===String(b.dataset.patchview)); if(rec) showPatchNote(rec); });
   c.querySelectorAll('[data-editstaff]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); openStaffEditor(b.dataset.editstaff);});
 }
@@ -4628,6 +4643,10 @@ function patchHTML(){
       <div style="font-weight:900;font-size:19px;letter-spacing:-.03em">패치노트</div></div>
       <div style="text-align:right"><div class="tiny">현재 패치</div><div style="font-weight:900;color:var(--gold)">${cur?esc(cur.label):'—'}</div></div>
     </div>
+    ${(()=>{const m=metaSummary();return `<div class="card" style="border-color:rgba(37,224,255,.35)">
+      <div class="card-h"><h4>현재 메타 해설</h4><span class="k">${esc(m.title)}</span></div>
+      <div class="stack" style="gap:3px">${m.lines.map(l=>`<div class="tiny" style="line-height:1.45">· ${esc(l)}</div>`).join('')}</div>
+    </div>`;})()}
     ${cur?`
     <div class="card" style="border-color:rgba(255,201,74,.4)">
       <div class="row between">
@@ -4711,6 +4730,87 @@ document.addEventListener('click',(e)=>{
   else if(el.dataset.pers) showTraitCard('pers',el.dataset.pers);
   else if(el.dataset.stafftrait) showTraitCard('staff',el.dataset.stafftrait);
 }, true);
+
+/* ---------- 현재 메타 해설 ---------- */
+function metaSummary(){
+  const notes=S.patchNotes||[]; const cur=notes[0];
+  if(!cur) return {title:'기본 메타', lines:[
+    '스프링 초반 — 표준 운영과 오브젝트 교환이 무난합니다.',
+    '탑 칼챔·원딜 하이퍼캐리 모두 무난, 밴픽은 조합 밸런스가 핵심입니다.',
+  ]};
+  const theme=PATCH_THEMES.find(t=>t.name===cur.name)||{};
+  const obj=cur.obj||{};
+  const objTop=Object.keys(obj).sort((a,b)=>obj[b]-obj[a])[0];
+  const objName=({dragon:'드래곤',grub:'공허 유충',baron:'바론',tower:'타워'})[objTop]||'오브젝트';
+  return {title:cur.name, lines:[
+    cur.note,
+    '이번 패치의 핵심 오브젝트: '+objName+' (x'+(obj[objTop]||1).toFixed(2)+')',
+    '주요 버프: '+(cur.buffs||[]).slice(0,4).join(' · '),
+    '주요 너프: '+(cur.nerfs||[]).slice(0,4).join(' · '),
+    '밴픽 팁: '+(theme.k==='poke'?'돌진·이니시로 포킹 조합을 카운터하세요':theme.k==='top'?'탑 사이드 픽과 유충 스택을 우선하세요':theme.k==='bot'?'원딜 캐리 픽과 드래곤 스택을 노리세요':'조합 상성(받아치기 vs 돌진)을 확인하세요'),
+  ]};
+}
+/* ---------- 도감 ---------- */
+let CODEX={q:'',cat:'all'};
+function codexHTML(){
+  const q=(CODEX.q||'').trim();
+  const items=[];
+  if(CODEX.cat==='all'||CODEX.cat==='play'){ TRAITS.forEach(t=>items.push({k:'t',id:t.id,n:t.n,d:t.d,c:t.c,g:t.g,e:t.e,icon:t.g>0?'✦':'⚠'})); }
+  if(CODEX.cat==='all'||CODEX.cat==='pers'){ PERSONALITIES.forEach(x=>items.push({k:'p',id:x.k,n:x.n,d:x.d,c:'성격',g:1,icon:x.icon,extra:'케미 '+(x.chem||0)+' · 성장 x'+(x.growth||1)})); }
+  if(CODEX.cat==='all'||CODEX.cat==='staff'){ STAFF_TRAIT_IDS.forEach(id=>{const x=STAFF_TRAITS[id];items.push({k:'s',id,n:x.n,d:x.d,c:x.role==='HEAD'?'감독':'코치',g:1,icon:'🤝'});}); }
+  const list=items.filter(x=>!q||x.n.includes(q)||x.d.includes(q));
+  const cnt=(c)=>items.filter(x=>x.c===c).length;
+  return `
+    <div class="row between" style="padding:2px 2px 0">
+      <div><div class="tiny" style="letter-spacing:.16em;font-weight:800">ENCYCLOPEDIA</div>
+      <div style="font-weight:900;font-size:19px;letter-spacing:-.03em">특성 도감</div></div>
+      <span class="chip sm">${items.length}종</span>
+    </div>
+    <div class="card tight">
+      <div class="row" style="gap:6px">
+        <input id="codexQ" class="mini-select grow" placeholder="특성 검색" value="${esc(CODEX.q)}">
+      </div>
+      <div class="row wrap" style="gap:5px;margin-top:7px">
+        ${[['all','전체'],['play','플레이 특성'],['pers','성격'],['staff','감독·코치']].map(([k,n])=>`<button class="chip ${CODEX.cat===k?'on':''}" data-cat="${k}">${n}</button>`).join('')}
+      </div>
+      <div class="tiny" style="margin-top:6px">좋은 특성 ${TRAITS.filter(t=>t.g>0).length} · 나쁜 특성 ${BAD_TRAIT_POOL.length} · 성격 ${PERSONALITIES.length} · 코칭 ${STAFF_TRAIT_IDS.length}</div>
+    </div>
+    <div class="stack">
+      ${list.slice(0,120).map(x=>`<div class="staff-card" data-codex="${x.k}:${x.id}">
+        <div class="row between"><div class="row" style="gap:6px"><span>${x.icon}</span><b style="font-size:12.5px">${esc(x.n)}</b><span class="chip sm">${esc(x.c)}</span></div>
+        <span class="chip sm ${x.g>0?'green':'red'}">${x.g>0?'GOOD':'BAD'}</span></div>
+        <div class="tiny" style="margin-top:3px;line-height:1.4">${esc(x.d)}</div>
+        ${x.e?`<div class="tag-row" style="margin-top:4px">${effectLines({e:x.e}).map(l=>`<span class="chip sm">${esc(l)}</span>`).join('')}</div>`:''}
+        ${x.extra?`<div class="tiny" style="margin-top:3px">${esc(x.extra)}</div>`:''}
+      </div>`).join('')}
+    </div>
+    <div style="height:8px"></div>`;
+}
+/* ---------- 업적 ---------- */
+function achHTML(){
+  const list=achList();
+  const done=list.filter(a=>a.on).length;
+  return `
+    <div class="row between" style="padding:2px 2px 0">
+      <div><div class="tiny" style="letter-spacing:.16em;font-weight:800">ACHIEVEMENTS</div>
+      <div style="font-weight:900;font-size:19px;letter-spacing:-.03em">구단주 업적</div></div>
+      <div style="text-align:right"><div class="tiny">달성</div><div style="font-weight:900;color:var(--gold)">${done}/${list.length}</div></div>
+    </div>
+    <div class="card tight">
+      <div class="ach-bar"><i style="width:${Math.round(done/list.length*100)}%"></i></div>
+      <div class="tiny" style="margin-top:5px">업적은 경기·시즌·훈련 결과에 따라 자동으로 해금됩니다.</div>
+    </div>
+    <div class="stack">
+      ${list.map(a=>`<div class="staff-card ${a.on?'ach-on':''}">
+        <div class="row between">
+          <div class="row" style="gap:8px"><span style="font-size:18px">${a.on?a.icon:'🔒'}</span>
+            <div><div style="font-weight:900;font-size:13.5px">${esc(a.n)}</div><div class="tiny">${esc(a.d)}</div></div></div>
+          <span class="chip sm ${a.on?'gold':''}">${a.on?'달성':'미달성'}</span>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div style="height:8px"></div>`;
+}
 
 /* ============ UI: DRAFT / PLAN / MATCH ============ */
 function mySigs(){ return lineupOf(myTeam()).flatMap(p=>p.sigs); }
@@ -5923,6 +6023,39 @@ function mmDraw(dt){
     ctx.fillStyle='#c4b1ff'; ctx.font=`800 ${Math.round(w*0.022)}px sans-serif`;
     ctx.fillText(str,11,28);
   }
+}
+
+/* ============ ACHIEVEMENTS — 구단주 업적 ============ */
+const ACHIEVEMENTS=[
+  {k:'firstWin', n:'첫 승리', d:'공식 경기에서 첫 시리즈 승리', icon:'🥇', f:()=>S.history.some(h=>h.win)},
+  {k:'draft65', n:'완벽한 밴픽', d:'밴픽 우세도 65% 이상 달성', icon:'🧠', f:()=>(S.bestDraftPct||0)>=65},
+  {k:'cureBad', n:'악습 극복', d:'훈련으로 나쁜 특성 1개 제거', icon:'🎉', f:()=>(S.trainingLog||[]).some(l=>l.kind==='cure')},
+  {k:'learnGood', n:'성장의 증거', d:'훈련으로 좋은 특성 1개 습득', icon:'✨', f:()=>(S.trainingLog||[]).some(l=>l.kind==='good')},
+  {k:'streak5', n:'5연승 질주', d:'정규시즌 5연승', icon:'🔥', f:()=>S.history.slice(-5).length===5&&S.history.slice(-5).every(h=>h.win)},
+  {k:'sweep', n:'3:0 셧아웃', d:'시리즈 3:0 완승', icon:'🧹', f:()=>(S.sweeps||0)>0},
+  {k:'comeback', n:'영혼 역전', d:'드래곤 영혼을 내주고도 승리', icon:'💠', f:()=>(S.soulComeback||0)>0},
+  {k:'elderKill', n:'장로 사냥', d:'장로 드래곤 처치', icon:'🐲', f:()=>(S.elderTaken||0)>0},
+  {k:'baronSteal', n:'바론 스틸', d:'불리한 상황에서 바론 획득', icon:'👁', f:()=>(S.baronSteals||0)>0},
+  {k:'spring', n:'스프링 왕좌', d:'LCK 스프링 우승', icon:'🌸', f:()=>S.springChampion===S.userTeam},
+  {k:'summer', n:'서머 왕좌', d:'LCK 서머 우승', icon:'☀️', f:()=>S.summerChampion===S.userTeam},
+  {k:'msi', n:'MSI 챔피언', d:'MSI 우승', icon:'🌏', f:()=>S.msiChampion===S.userTeam},
+  {k:'ewc', n:'EWC 챔피언', d:'EWC 우승', icon:'🏅', f:()=>S.ewcChampion===S.userTeam},
+  {k:'worlds', n:'소환사컵', d:'롤드컵 우승', icon:'🏆', f:()=>S.worlds&&S.worlds.champion===S.userTeam},
+  {k:'golden', n:'골든 로드', d:'스프링·MSI·서머·월즈 모두 우승', icon:'👑', f:()=>S.springChampion===S.userTeam&&S.summerChampion===S.userTeam&&S.msiChampion===S.userTeam&&S.worlds&&S.worlds.champion===S.userTeam},
+  {k:'undefeated', n:'무패 우승', d:'정규시즌 패배 없이 우승', icon:'🛡', f:()=>myTeam().losses===0&&(S.springChampion===S.userTeam||S.summerChampion===S.userTeam)},
+  {k:'traitMaster', n:'특성 장인', d:'선수 1명 좋은 특성 10개 보유', icon:'🎲', f:()=>Object.values(S.players).some(p=>(p.good||[]).length>=10)},
+  {k:'staffElite', n:'명장 조합', d:'감독·코치 전원 85 이상', icon:'🤝', f:()=>{const a=staffAll(S.userTeam);return a.length>=2&&a.every(x=>x.rating>=85);}},
+];
+function achList(){ return ACHIEVEMENTS.map(a=>({...a, on:!!(S.ach&&S.ach[a.k])})); }
+function checkAchievements(){
+  if(!S) return;
+  S.ach=S.ach||{};
+  ACHIEVEMENTS.forEach(a=>{
+    if(S.ach[a.k]) return;
+    let ok=false;
+    try{ ok=!!a.f(); }catch(e){ ok=false; }
+    if(ok){ S.ach[a.k]=Date.now(); traitLog('🏆 업적 달성 — '+a.n, 'ach'); toast('🏆 업적 달성: '+a.n, 3200); }
+  });
 }
 
 /* ============ UI: SERIES RESULT / PLAYOFFS / WORLDS / CHAMPION ============ */
