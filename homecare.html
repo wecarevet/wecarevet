@@ -742,13 +742,14 @@ function markEdited(){
 }
 function collectRecord(){
   var at = val('recAt') || localNowInput();
+  var ap = radioVal('appetite');
   var rec = {
     id: 'r' + Date.now(),
     at: at,
     srr: num('srr'),
     srrState: val('srrState') || '안정',
     water: num('water'),
-    appetite: num('appetite'),
+    appetite: ap ? parseFloat(ap) : null,
     vomit: val('vomit'),
     diarrhea: val('diarrhea'),
     cough: val('cough'),
