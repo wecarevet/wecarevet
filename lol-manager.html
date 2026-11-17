@@ -936,6 +936,7 @@ function startDraft(series){
   else D.seq=BAN_SEQ.map(s=>s==='me'?'opp':'me');
   D.pickSeq = mySide==='blue'?PICK_SEQ_BLUE.slice():PICK_SEQ_BLUE.map(s=>s==='me'?'opp':'me');
   renderDraft();
+  if(dTurn()==='opp') setTimeout(()=>{ if(D&&!D.done){ D.phase==='ban'?draftOppBan():draftOppPick(); } }, 520);
 }
 
 function dUsed(){ return D.myBans.concat(D.oppBans,D.myPicks.map(p=>p.champ),D.oppPicks.map(p=>p.champ),D.locked); }
