@@ -2377,7 +2377,7 @@ function evalDraft(){
     myStyle+=mySyn; opStyle+=opSyn;
     lane[r]={my:myBase+mySyn*0.9+ct*0.8, opp:opBase+opSyn*0.9-ct*0.8, counter:ct,
       myChamp:mc?mc.n:'', oppChamp:oc?oc.n:'', myPlayer:mp?mp.name:'', oppPlayer:op?op.name:'',
-      myRole:mp?mp.role:'', oppRole:op?op.role:'', mySyn, oppSyn};
+      myRole:mp?mp.role:'', oppRole:op?op.role:'', mySyn, opSyn};
   });
   const myComp=evalComp(dMyPicks()), oppComp=evalComp(dOppPicks());
   let laneAdv=0; ROLES.forEach(r=>{laneAdv+=(lane[r].my-lane[r].opp);}); laneAdv/=5;
@@ -3793,6 +3793,7 @@ const TABS=[
   {k:'league',icon:'🏆',label:'리그'},
   {k:'market',icon:'💰',label:'이적'},
   {k:'staff',icon:'🤝',label:'스태프'},
+  {k:'patch',icon:'📜',label:'패치'},
 ];
 function renderHub(){
   renderTopbar();
@@ -3804,6 +3805,7 @@ function renderHub(){
   else if(TAB==='roster') c.innerHTML=rosterHTML();
   else if(TAB==='league') c.innerHTML=leagueHTML();
   else if(TAB==='staff') c.innerHTML=staffHTML();
+  else if(TAB==='patch') c.innerHTML=patchHTML();
   else c.innerHTML=marketHTML();
   bindHub();
   show('hub');
@@ -3905,7 +3907,7 @@ function homeHTML(){
 }
 function calendarHTML(){
   const now=calendarNow();
-  const order=['regular','playoffs','swiss','quarters','semis','final'];
+  const order=['spring','msi','summer','ewc','worlds','offseason'];
   const nowIdx=Math.max(0,order.indexOf(now));
   return `<div class="card tight"><div class="cal">
     ${CAL_STAGES.map(c=>{
@@ -4227,6 +4229,7 @@ function bindHub(){
     const sel=c.querySelector('[data-subsel="'+role+'"]');
     if(sel){ const r=setSeriesSub(role,sel.value); if(r&&!r.ok) toast(r.msg); else renderHub(); }
   });
+  c.querySelectorAll('[data-patchview]').forEach(b=>b.onclick=(e)=>{ e.stopPropagation(); const rec=(S.patchNotes||[]).find(x=>String(x.no)===String(b.dataset.patchview)); if(rec) showPatchNote(rec); });
   c.querySelectorAll('[data-editstaff]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); openStaffEditor(b.dataset.editstaff);});
 }
 function prepareMatch(){
@@ -4502,6 +4505,45 @@ function showPatchNote(rec){
   $('modal').classList.remove('hidden');
   $('modalClose').onclick=closeModal;
   $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
+}
+
+/* ---------- 패치노트 탭 ---------- */
+function patchHTML(){
+  const notes=S.patchNotes||[];
+  const cur=notes[0];
+  return `
+    <div class="row between" style="padding:2px 2px 0">
+      <div><div class="tiny" style="letter-spacing:.16em;font-weight:800">PATCH NOTES</div>
+      <div style="font-weight:900;font-size:19px;letter-spacing:-.03em">패치노트</div></div>
+      <div style="text-align:right"><div class="tiny">현재 패치</div><div style="font-weight:900;color:var(--gold)">${cur?esc(cur.label):'—'}</div></div>
+    </div>
+    ${cur?`
+    <div class="card" style="border-color:rgba(255,201,74,.4)">
+      <div class="row between">
+        <div><div class="tiny" style="letter-spacing:.12em;font-weight:900;color:var(--gold)">현재 적용 중 · ${esc(cur.tag||'')}</div>
+        <div style="font-weight:900;font-size:16px;margin-top:2px">${esc(cur.name)}</div></div>
+        <span class="chip gold">${esc(cur.label)}</span>
+      </div>
+      <div class="tiny" style="line-height:1.5;margin-top:6px">${esc(cur.note)}</div>
+      <div class="divider"></div>
+      <div class="tiny" style="font-weight:800;color:#8ff0c4;margin-bottom:4px">▲ 버프 ${cur.buffs.length} — 메타 상향</div>
+      <div class="tag-row">${cur.buffs.map(n=>`<span class="tr good">${esc(n)}</span>`).join('')}</div>
+      <div class="tiny" style="font-weight:800;color:#ff9aa9;margin:9px 0 4px">▼ 너프 ${cur.nerfs.length} — 메타 하향</div>
+      <div class="tag-row">${cur.nerfs.map(n=>`<span class="tr bad">${esc(n)}</span>`).join('')}</div>
+      <div class="divider"></div>
+      <div class="row between"><span class="tiny">🐉 드래곤</span><b style="font-size:11px">x${(cur.obj.dragon||1).toFixed(2)}</b><span class="tiny">🪱 유충</span><b style="font-size:11px">x${(cur.obj.grub||1).toFixed(2)}</b></div>
+      <div class="row between" style="margin-top:3px"><span class="tiny">👁 바론</span><b style="font-size:11px">x${(cur.obj.baron||1).toFixed(2)}</b><span class="tiny">🗼 타워</span><b style="font-size:11px">x${(cur.obj.tower||1).toFixed(2)}</b></div>
+    </div>`:'<div class="card"><div class="empty-note">아직 적용된 패치가 없습니다.<br>3주차 · 6주차 · 플레이오프 전 · MSI · 월즈에 패치가 적용됩니다.</div></div>'}
+    <div class="section-title"><h3>패치 기록</h3><div class="line"></div><span class="tiny">${notes.length}건</span></div>
+    <div class="stack">
+      ${notes.slice(1).map(rec=>`<div class="staff-card">
+        <div class="row between"><div><div style="font-weight:900;font-size:13.5px">${esc(rec.label)} · ${esc(rec.name)}</div>
+        <div class="tiny">${esc(rec.tag||'')} · ${rec.season}시즌 ${rec.week}주차</div></div>
+        <button class="chip sm" data-patchview="${rec.no}">보기</button></div>
+        <div class="tag-row" style="margin-top:4px">${rec.buffs.slice(0,3).map(n=>`<span class="tr good">▲ ${esc(n)}</span>`).join('')}${rec.nerfs.slice(0,2).map(n=>`<span class="tr bad">▼ ${esc(n)}</span>`).join('')}</div>
+      </div>`).join('')||'<div class="card tight"><div class="tiny">이전 패치 기록이 없습니다</div></div>'}
+    </div>
+    <div style="height:8px"></div>`;
 }
 
 /* ============ UI: DRAFT / PLAN / MATCH ============ */
