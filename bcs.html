@@ -72,7 +72,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .field{margin-bottom:.9rem}
 .field:last-child{margin-bottom:0}
 .field > label,.flabel{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:5px;letter-spacing:.01em}
-.flabel .opt{font-weight:400;color:var(--text-muted);font-size:10.5px;margin-left:4px}
+.flabel .opt,.field > label .opt{font-weight:400;color:var(--text-muted);font-size:10.5px;margin-left:4px}
 input[type=text],input[type=number],input[type=date],select,textarea{
   width:100%;font-family:inherit;font-size:16px;color:var(--text);
   background:var(--navy-xlight);border:1.5px solid var(--border);border-radius:9px;
@@ -106,14 +106,14 @@ select{background-image:linear-gradient(45deg,transparent 50%,var(--text-muted) 
 .q-num{flex-shrink:0;width:19px;height:19px;border-radius:50%;background:var(--accent-light);color:var(--accent);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .q-title{font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.5}
 .q-sub{font-size:10.5px;color:var(--text-muted);line-height:1.6;margin-left:auto;flex-shrink:0}
-.opts{display:grid;gap:.3rem}
-.opt{position:relative;display:flex;align-items:flex-start;gap:.5rem;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .6rem;font-size:11.8px;color:var(--text-mid);line-height:1.6;background:#fff;cursor:pointer;transition:border-color .15s,background .15s,color .15s}
-.opt:hover{border-color:#b7d0ee}
-.opt input{position:absolute;opacity:0;width:0;height:0}
-.opt .dot{flex-shrink:0;width:14px;height:14px;border-radius:50%;border:1.5px solid #c3d2e2;background:#fff;margin-top:3px;transition:all .15s}
-.opt input:checked + .dot{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px #fff}
-.opt:has(input:checked){border-color:var(--accent);background:#f6faff;color:var(--navy);font-weight:500}
-.opt input:focus-visible + .dot{outline:2px solid var(--accent);outline-offset:2px}
+.bopts{display:grid;gap:.3rem}
+.bopt{position:relative;display:flex;align-items:flex-start;gap:.5rem;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .6rem;font-size:11.8px;color:var(--text-mid);line-height:1.6;background:#fff;cursor:pointer;transition:border-color .15s,background .15s,color .15s}
+.bopt:hover{border-color:#b7d0ee}
+.bopt input{position:absolute;opacity:0;width:0;height:0}
+.bopt .dot{flex-shrink:0;width:14px;height:14px;border-radius:50%;border:1.5px solid #c3d2e2;background:#fff;margin-top:3px;transition:all .15s}
+.bopt input:checked + .dot{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px #fff}
+.bopt:has(input:checked){border-color:var(--accent);background:#f6faff;color:var(--navy);font-weight:500}
+.bopt input:focus-visible + .dot{outline:2px solid var(--accent);outline-offset:2px}
 
 /* 5 STEP CARDS */
 .b5{display:grid;gap:.4rem}
@@ -400,12 +400,12 @@ select{background-image:linear-gradient(45deg,transparent 50%,var(--text-muted) 
           <span class="q-title">갈비뼈를 만져 보세요</span>
           <span class="q-sub">손바닥으로 가슴 옆</span>
         </div>
-        <div class="opts">
-          <label class="opt"><input type="radio" name="q1" value="2" onchange="WECARE_BCS.pick('q1',2)"><span class="dot" aria-hidden="true"></span><span>갈비뼈가 눈에 보이고, 만지면 바로 느껴져요</span></label>
-          <label class="opt"><input type="radio" name="q1" value="4" onchange="WECARE_BCS.pick('q1',4)"><span class="dot" aria-hidden="true"></span><span>갈비뼈가 쉽게 만져지고, 지방층이 거의 없어요</span></label>
-          <label class="opt"><input type="radio" name="q1" value="5" onchange="WECARE_BCS.pick('q1',5)"><span class="dot" aria-hidden="true"></span><span>얇은 지방층 아래로 갈비뼈가 쉽게 만져져요</span></label>
-          <label class="opt"><input type="radio" name="q1" value="7" onchange="WECARE_BCS.pick('q1',7)"><span class="dot" aria-hidden="true"></span><span>살짝 눌러야 갈비뼈가 만져져요</span></label>
-          <label class="opt"><input type="radio" name="q1" value="9" onchange="WECARE_BCS.pick('q1',9)"><span class="dot" aria-hidden="true"></span><span>갈비뼈가 잘 만져지지 않고, 지방층이 두꺼워요</span></label>
+        <div class="bopts">
+          <label class="bopt"><input type="radio" name="q1" value="2" onchange="WECARE_BCS.pick('q1',2)"><span class="dot" aria-hidden="true"></span><span>갈비뼈가 눈에 보이고, 만지면 바로 느껴져요</span></label>
+          <label class="bopt"><input type="radio" name="q1" value="4" onchange="WECARE_BCS.pick('q1',4)"><span class="dot" aria-hidden="true"></span><span>갈비뼈가 쉽게 만져지고, 지방층이 거의 없어요</span></label>
+          <label class="bopt"><input type="radio" name="q1" value="5" onchange="WECARE_BCS.pick('q1',5)"><span class="dot" aria-hidden="true"></span><span>얇은 지방층 아래로 갈비뼈가 쉽게 만져져요</span></label>
+          <label class="bopt"><input type="radio" name="q1" value="7" onchange="WECARE_BCS.pick('q1',7)"><span class="dot" aria-hidden="true"></span><span>살짝 눌러야 갈비뼈가 만져져요</span></label>
+          <label class="bopt"><input type="radio" name="q1" value="9" onchange="WECARE_BCS.pick('q1',9)"><span class="dot" aria-hidden="true"></span><span>갈비뼈가 잘 만져지지 않고, 지방층이 두꺼워요</span></label>
         </div>
       </div>
 
@@ -415,12 +415,12 @@ select{background-image:linear-gradient(45deg,transparent 50%,var(--text-muted) 
           <span class="q-title">위에서 본 허리선</span>
           <span class="q-sub">꼬리 쪽에서 내려다보기</span>
         </div>
-        <div class="opts">
-          <label class="opt"><input type="radio" name="q2" value="2" onchange="WECARE_BCS.pick('q2',2)"><span class="dot" aria-hidden="true"></span><span>허리가 과하게 잘록해요</span></label>
-          <label class="opt"><input type="radio" name="q2" value="4" onchange="WECARE_BCS.pick('q2',4)"><span class="dot" aria-hidden="true"></span><span>허리선이 또렷하게 잘록해요</span></label>
-          <label class="opt"><input type="radio" name="q2" value="5" onchange="WECARE_BCS.pick('q2',5)"><span class="dot" aria-hidden="true"></span><span>허리선이 보여요</span></label>
-          <label class="opt"><input type="radio" name="q2" value="7" onchange="WECARE_BCS.pick('q2',7)"><span class="dot" aria-hidden="true"></span><span>허리선이 거의 없어요</span></label>
-          <label class="opt"><input type="radio" name="q2" value="9" onchange="WECARE_BCS.pick('q2',9)"><span class="dot" aria-hidden="true"></span><span>허리가 없고 옆구리가 옆으로 불룩해요</span></label>
+        <div class="bopts">
+          <label class="bopt"><input type="radio" name="q2" value="2" onchange="WECARE_BCS.pick('q2',2)"><span class="dot" aria-hidden="true"></span><span>허리가 과하게 잘록해요</span></label>
+          <label class="bopt"><input type="radio" name="q2" value="4" onchange="WECARE_BCS.pick('q2',4)"><span class="dot" aria-hidden="true"></span><span>허리선이 또렷하게 잘록해요</span></label>
+          <label class="bopt"><input type="radio" name="q2" value="5" onchange="WECARE_BCS.pick('q2',5)"><span class="dot" aria-hidden="true"></span><span>허리선이 보여요</span></label>
+          <label class="bopt"><input type="radio" name="q2" value="7" onchange="WECARE_BCS.pick('q2',7)"><span class="dot" aria-hidden="true"></span><span>허리선이 거의 없어요</span></label>
+          <label class="bopt"><input type="radio" name="q2" value="9" onchange="WECARE_BCS.pick('q2',9)"><span class="dot" aria-hidden="true"></span><span>허리가 없고 옆구리가 옆으로 불룩해요</span></label>
         </div>
       </div>
 
@@ -430,12 +430,12 @@ select{background-image:linear-gradient(45deg,transparent 50%,var(--text-muted) 
           <span class="q-title">옆에서 본 복부선</span>
           <span class="q-sub">아이 옆에 서서 보기</span>
         </div>
-        <div class="opts">
-          <label class="opt"><input type="radio" name="q3" value="2" onchange="WECARE_BCS.pick('q3',2)"><span class="dot" aria-hidden="true"></span><span>복부가 심하게 올라가 있어요</span></label>
-          <label class="opt"><input type="radio" name="q3" value="4" onchange="WECARE_BCS.pick('q3',4)"><span class="dot" aria-hidden="true"></span><span>복부선이 뚜렷하게 올라가요</span></label>
-          <label class="opt"><input type="radio" name="q3" value="5" onchange="WECARE_BCS.pick('q3',5)"><span class="dot" aria-hidden="true"></span><span>복부선이 완만하게 올라가요</span></label>
-          <label class="opt"><input type="radio" name="q3" value="7" onchange="WECARE_BCS.pick('q3',7)"><span class="dot" aria-hidden="true"></span><span>복부선이 거의 일직선이에요</span></label>
-          <label class="opt"><input type="radio" name="q3" value="9" onchange="WECARE_BCS.pick('q3',9)"><span class="dot" aria-hidden="true"></span><span>복부가 처져서 바닥에 닿을 듯해요</span></label>
+        <div class="bopts">
+          <label class="bopt"><input type="radio" name="q3" value="2" onchange="WECARE_BCS.pick('q3',2)"><span class="dot" aria-hidden="true"></span><span>복부가 심하게 올라가 있어요</span></label>
+          <label class="bopt"><input type="radio" name="q3" value="4" onchange="WECARE_BCS.pick('q3',4)"><span class="dot" aria-hidden="true"></span><span>복부선이 뚜렷하게 올라가요</span></label>
+          <label class="bopt"><input type="radio" name="q3" value="5" onchange="WECARE_BCS.pick('q3',5)"><span class="dot" aria-hidden="true"></span><span>복부선이 완만하게 올라가요</span></label>
+          <label class="bopt"><input type="radio" name="q3" value="7" onchange="WECARE_BCS.pick('q3',7)"><span class="dot" aria-hidden="true"></span><span>복부선이 거의 일직선이에요</span></label>
+          <label class="bopt"><input type="radio" name="q3" value="9" onchange="WECARE_BCS.pick('q3',9)"><span class="dot" aria-hidden="true"></span><span>복부가 처져서 바닥에 닿을 듯해요</span></label>
         </div>
       </div>
     </div>
