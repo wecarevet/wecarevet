@@ -309,9 +309,9 @@ body.pkopen{overflow:hidden}
 .mgrid{display:grid;gap:9px;grid-template-columns:repeat(2,1fr)}
 @media(min-width:680px){ .mgrid{grid-template-columns:repeat(3,1fr)} }
 @media(min-width:1000px){ .mgrid{grid-template-columns:repeat(4,1fr)} }
-.mtile{padding:12px 12px 11px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.018);min-width:0}
+.mtile{padding:12px 12px 11px;border-radius:13px;border:1px solid var(--line);background:rgba(255,255,255,.018);min-width:0;overflow:hidden}
 .mtile .k{font-size:11px;color:var(--mut);display:flex;align-items:center;gap:4px}
-.mtile .v{font-size:17.5px;font-weight:800;letter-spacing:-.035em;margin-top:5px;font-variant-numeric:tabular-nums;line-height:1.15;word-break:keep-all}
+.mtile .v{font-size:17.5px;font-weight:800;letter-spacing:-.035em;margin-top:5px;font-variant-numeric:tabular-nums;line-height:1.15;white-space:nowrap}
 .mtile .v.sm{font-size:14.5px;letter-spacing:-.02em}
 .mtile .s{font-size:10.5px;color:var(--mut2);margin-top:4px;font-variant-numeric:tabular-nums;line-height:1.45}
 .mtile.hl{border-color:rgba(55,224,178,.32);background:linear-gradient(180deg,rgba(55,224,178,.11),rgba(55,224,178,.02))}
@@ -369,6 +369,14 @@ body.pkopen{overflow:hidden}
 .pfc b{color:var(--txt);font-weight:800}
 .pfc i{font-style:normal;font-size:10px;color:var(--mut2)}
 
+@media(max-width:620px){
+  #finTable th:nth-child(3), #finTable td:nth-child(3){display:none}
+  #calTable th:nth-child(2), #calTable td:nth-child(2),
+  #calTable th:nth-child(3), #calTable td:nth-child(3){display:none}
+  #calTable td:first-child, #finTable td:first-child{white-space:normal}
+  .mtile .v{font-size:16.5px}
+  .mtile{padding:11px 10px 10px}
+}
 .hidden{display:none !important}
 @media print{ body{background:#fff;color:#000} .tabs{display:none} }
 </style>
@@ -807,6 +815,10 @@ function setTab(name){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 $$('.tab').forEach(t => t.onclick = () => setTab(t.dataset.tab));
+window.addEventListener('hashchange', () => {
+  const h = location.hash.replace('#','');
+  if(TABS.includes(h)) setTab(h);
+});
 
 /* ================= tab 1: compare ================= */
 let catFilter = 'all', sortMode = 'cat', query = '';
@@ -1903,7 +1915,7 @@ $('#fiUseCagr').onclick = () => {
   }
   const v = Math.round(S.cagr*10)/10;
   $('#fiRate').value = v;
-  $('#fiCagrNote').innerHTML = `탭2 <b>${lastResult.assets.map(a=>a.id).join(' / ')}</b>의 시간가중 CAGR <b>${pct(S.cagr)}</b>을 넣었습니다.`;
+  $('#fiCagrNote').innerHTML = `탭2 <b>${lastResult.assets.map(a=>a.id).join(' / ')}</b>의 시간가중 CAGR <b>${pct(S.cagr)}</b>를 기대 수익률로 넣었습니다.`;
   renderFire(); save();
 };
 
