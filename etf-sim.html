@@ -722,7 +722,7 @@ body.pkopen{overflow:hidden}
           <tbody></tbody>
         </table>
       </div>
-      <p class="fine" style="margin:10px 0 0">최근 12개월(<b id="calWin">2025.11–2026.10</b>) 실제 분배월·분배율을 그대로 씁니다. 그래서 월배당 상품이 한 달을 건너뛰거나 분기 배당이 1·4·7·10월에 몰리는 것도 표시됩니다.</p>
+      <p class="fine" style="margin:10px 0 0">종목별 분배 주기(공시 월 + 최근 12개월 실적)를 그대로 씁니다. 그래서 월배당 상품이 한 달을 건너뛰거나 분기 배당이 1·4·7·10월에 몰리는 것도 표시됩니다.</p>
     </div>
   </section>
 
@@ -1643,8 +1643,8 @@ function renderStats(R, S, divEff){
      s:`무위험 ${S.rf.toFixed(0)}% · 연 변동성 ${pct0(S.annV)}`},
     {k:'플러스 수익 연도 (승률)', v:S.winRate==null?'–':pct0(S.winRate,0), cls:S.winRate>=70?'hl':'',
      s:`${S.winCount}승 ${S.yCount-S.winCount}패 · ${S.yCount}개 연도`},
-    {k:'최고 연도 수익률', v:S.best?pct(S.best.ret):'–', cls:'hl', s:S.best?`${yr(S.best)} · ${won(S.best.v)}`:'–'},
-    {k:'최저 연도 수익률', v:S.worst?pct(S.worst.ret):'–', cls:'bad', s:S.worst?`${yr(S.worst)} · ${won(S.worst.v)}`:'–'},
+    {k:'최고 연도 수익률', v:S.best?pct(S.best.ret):'–', cls:'hl', s:S.best?`${yr(S.best)} · 기말 ${won(S.best.v)}`:'–'},
+    {k:'최저 연도 수익률', v:S.worst?pct(S.worst.ret):'–', cls:'bad', s:S.worst?`${yr(S.worst)} · 기말 ${won(S.worst.v)}`:'–'},
     {k:'배당 재투자 기여', v:won(divEff), s:`투입원금의 ${pct0(R.invested?divEff/R.invested*100:0)} · 분배금 전액 재투자 가정`},
     {k:'연 변동성', v:pct0(S.annV), s:`시간가중 CAGR ${S.cagr==null?'–':pct(S.cagr)}`}
   ];
@@ -1728,7 +1728,7 @@ function renderCmp(R, cfg){
       ${tiles([
         {k:'세후 실수령 차이', v:(dNet>=0?'+':'')+won(dNet), cls:dNet>=0?'hl':'bad', s:'B안 − A안'},
         {k:'IRR 차이', v:(R.irrNet!=null&&RA.irrNet!=null)?pct(R.irrNet-RA.irrNet):'–', s:'세후 기준'},
-        {k:'낙폭 차이', v:pct0(R.mdd-RA.mdd), s:'클수록 B안이 더 위험'},
+        {k:'낙폭 차이', v:pct0(R.mdd-RA.mdd), s:'음수면 B안이 더 위험'},
         {k:'샤프 차이', v:(SB.sharpe!=null&&SA.sharpe!=null)?(SB.sharpe-SA.sharpe).toFixed(2):'–', s:'높을수록 위험 대비 효율'}
       ])}
     </div>
@@ -1746,7 +1746,8 @@ $('#cmpSave').onclick = () => {
     alloc: state.alloc.filter(([id,w])=>id && +w>0).map(([id,w])=>[id,+w]),
     init: +$('#fInit').value, mon: +$('#fMon').value, years: +$('#fYears').value,
     rebal: $('#fRebal').value, acc: $('#fAcc').value, scen: $('#fScen').value,
-    at: new Date().toISOString()
+    at: (() => { const d = new Date(), p = n => String(n).padStart(2,'0');
+      return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`; })()
   };
   save(); run();
 };
@@ -1867,7 +1868,7 @@ function drawFireChart(){
   const step = Math.max(1, Math.round((n-1)/6));
   const xTicks = [];
   for(let i=0;i<n;i+=step) xTicks.push(i);
-  if(xTicks[xTicks.length-1] !== n-1) xTicks.push(n-1);
+  if(xTicks[xTicks.length-1] !== n-1 && (n-1 - xTicks[xTicks.length-1]) >= Math.max(1, Math.round(step*0.7))) xTicks.push(n-1);
   const cfg = {
     n, min:0, max:maxV*1.06, ticks:5,
     xTicks, xLabel: i => (START_YEAR + P.pts[i].t) + '년',
@@ -1926,6 +1927,31 @@ const CALM = (() => {
   });
   return out;
 })();
+function calPlan(a){
+  const bym = CALM[a.id] || new Array(13).fill(0);
+  const annual = +(a.dist || 0);
+  const spec = String(a.freq || '');
+  let months = null;
+  const pm = spec.match(/\(([^)]*)\)/);
+  if(pm){
+    const nums = (pm[1].match(/\d+/g) || []).map(Number).filter(n => n >= 1 && n <= 12);
+    if(nums.length) months = nums;
+  }
+  if(!months && /없음/.test(spec)) months = [];
+  if(!months && spec.trim() === '월') months = [1,2,3,4,5,6,7,8,9,10,11,12];
+  if(!months){
+    months = [];
+    for(let mo=1;mo<=12;mo++) if(bym[mo] > 0) months.push(mo);
+  }
+  const out = new Array(13).fill(0);
+  const same = months.length > 0 && months.every(mo => bym[mo] > 0);
+  if(same){ months.forEach(mo => { out[mo] = bym[mo]; }); }
+  else if(months.length){
+    const each = annual/months.length;
+    months.forEach(mo => { out[mo] = each; });
+  }
+  return out;
+}
 function txValue(){ return Math.max(0, +$('#txValue').value || 0) * 1e4; }
 function txHoldings(){
   const use = state.alloc.filter(([id,w]) => id && +w > 0 && A[id]).map(([id,w]) => ({a:A[id], w:+w}));
@@ -2038,15 +2064,15 @@ function renderFin(hs, value){
 function renderCal(hs, value){
   const m = new Array(13).fill(0);
   hs.forEach(({a,w}) => {
-    const bym = CALM[a.id] || [];
-    for(let mo=1;mo<=12;mo++) m[mo] += value*w*(bym[mo]||0)/100;
+    const plan = calPlan(a);
+    for(let mo=1;mo<=12;mo++) m[mo] += value*w*(plan[mo]||0)/100;
   });
   const annual = m.slice(1).reduce((a,b)=>a+b, 0);
   const maxM = Math.max(...m.slice(1), 1);
   const monthsWith = m.slice(1).filter(v=>v > 0.5).length;
   const peakMo = m.indexOf(maxM);
   const nowMo = new Date().getMonth() + 1;
-  $('#calHint').textContent = `최근 12개월 (${CAL_WIN}) 실제 분배월 기준`;
+  $('#calHint').textContent = `종목별 분배 주기 기준 · 최근 12개월(${CAL_WIN}) 실적 반영`;
   $('#calWin').textContent = CAL_WIN;
   const rate = accOf().div;
   $('#calKpis').innerHTML = tiles([
@@ -2064,10 +2090,10 @@ function renderCal(hs, value){
       <div class="lb">${mo}월</div></div>`;
   }).join('');
   $('#calTable').querySelector('tbody').innerHTML = hs.length ? hs.map(({a,w}) => {
-    const bym = CALM[a.id] || [];
+    const plan = calPlan(a);
     const per = value*w, amt = per*(a.dist||0)/100;
     const badges = [...Array(12)].map((_,i) =>
-      `<i class="${(bym[i+1]||0) > 0 ? 'on' : ''}"></i>`).join('');
+      `<i class="${(plan[i+1]||0) > 0 ? 'on' : ''}"></i>`).join('');
     return `<tr>
       <td><b>${a.name}</b><div class="sub">${a.id} · ${a.mk==='US'?'미국상장':'국내상장'} · ${a.freq}</div></td>
       <td>${Math.round(w*100)}%</td><td>${pct0(a.dist,2)}</td><td>${won(amt)}</td>
