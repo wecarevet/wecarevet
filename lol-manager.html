@@ -1346,6 +1346,12 @@ function recordResult(aId,bId,sa,sb,week,stage){
   if(sa>sb){a.wins++;b.losses++;a.form.push('W');b.form.push('L');}
   else{b.wins++;a.losses++;b.form.push('W');a.form.push('L');}
   if(a.form.length>6)a.form.shift(); if(b.form.length>6)b.form.shift();
+  if(aId!==S.userTeam && bId!==S.userTeam){
+    const winT=sa>sb?a:b;
+    const ps=winT.roster.map(n=>S.players[n]).filter(Boolean);
+    const star=ps.sort((x,y)=>rawOverall(y)-rawOverall(x)).slice(0,2);
+    star.forEach(p=>{ S.pog[p.name]=(S.pog[p.name]||0)+ri(40,100); });
+  }
   S.results.push({week,stage,a:aId,b:bId,sa,sb});
 }
 function simAIBo(aId,bId,bo){
@@ -1437,6 +1443,7 @@ function finishSeries(){
     m.sa=s.score.me; m.sb=s.score.opp; m.winner=meWon?S.userTeam:oppId; m.done=true;
     recordResult(S.userTeam,oppId,s.score.me,s.score.opp,S.week,'playoffs');
     S.lastSeries={oppId,score:s.score.me+'-'+s.score.opp,win:meWon,stage:s.stage};
+    if(!meWon) S.myExit={round:(s.meta&&s.meta.roundName)||(s.stage==='final'?'결승':'플레이오프'),score:s.score.opp+'-'+s.score.me};
     S.currentSeries=null; S.seriesMomentum=0;
     if(s.stage==='final'){
       S.phase='end';
@@ -1581,6 +1588,7 @@ function badge(team,size){
   return `<span class="badge ${size||''}" style="background:linear-gradient(145deg,${team.color},#0c1020 160%)">${esc(team.tag)}</span>`;
 }
 function show(name){
+  closeModal();
   ['title','select','hub','draft','plan','match','series','playoffs','champion'].forEach(v=>{
     const n=$('view-'+v); if(n) n.classList.toggle('hidden', v!==name);
   });
@@ -1603,7 +1611,31 @@ function renderTopbar(){
     <div class="tb-spacer"></div>
     <div class="tb-week">${S.phase==='regular'?('WK '+S.week):'PO'}</div>
     <div class="tb-pill"><span>예산</span><b>${t.budget.toFixed(1)}억</b></div>
+    <button class="tb-week" id="helpBtn" style="padding:4px 8px">?</button>
   `;
+  const hb=$('helpBtn'); if(hb) hb.onclick=openHelp;
+}
+function openHelp(){
+  $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal">
+    <div class="grab"></div>
+    <h3 style="font-size:19px;margin-bottom:10px">감독 메뉴얼</h3>
+    <div class="stack" style="gap:11px">
+      ${[
+        ['🧩 밴픽', '블루는 1픽 OP 선점, 레드는 3·4·5픽 카운터픽이 유리합니다. 상대 주특기 챔피언은 밴으로 견제하세요.'],
+        ['📊 조합 진단', 'AD/AP 밸런스, 이니시·CC·프론트라인, 파워 스파이크(초/중/후반)를 실시간으로 보여줍니다. 경고가 뜼 조합은 한타에서 불리합니다.'],
+        ['🗺 게임 플랜', '정글 동선·라인 스왑·유충/드래곤 우선순위·3랩 다이브를 정합니다. 상대 약점 라인을 골라 공략하세요.'],
+        ['🎮 미드게임 작전', '12분·22분에 작전을 지시합니다. 1-3-1·1-4·바론 낚시·한타 강제·크로스맵 교환은 실제 승률 계산에 반영됩니다.'],
+        ['🧘 세트 간 코칭', '세트 사이에 멘탈 케어·전술 수정·식스맨 교체를 선택합니다. 피어리스 드래프트에서는 사용한 챔피언이 공유됩니다.'],
+        ['🛠 패치', '4주차·7주차에 메타가 바뀝니다. 챔피언 티어와 오브젝트 밸류가 달라지니 밴픽을 다시 점검하세요.'],
+        ['💾 저장', '모든 진행은 브라우저에 자동 저장됩니다. 타이틀의 [이어하기]로 돌아올 수 있습니다.'],
+      ].map(([k,d])=>`<div><div style="font-weight:800;font-size:13.5px;margin-bottom:2px">${k}</div><div class="tiny" style="line-height:1.5">${d}</div></div>`).join('')}
+    </div>
+    <div style="height:14px"></div>
+    <button class="btn ghost block" id="modalClose">닫기</button>
+  </div></div>`;
+  $('modal').classList.remove('hidden');
+  $('modalClose').onclick=closeModal;
+  $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
 }
 function renderAll(){
   if(!S){ show('title'); renderTitle(); return; }
@@ -2616,6 +2648,9 @@ function renderChampion(){
   const st=standings();
   const myPos=st.findIndex(t=>t.id===S.userTeam)+1;
   const isMe=S.champion===S.userTeam;
+  const isRunner=S.runnerUp===S.userTeam;
+  const placeTxt=isMe?'1위 · 우승':isRunner?'2위 · 준우승':(S.myExit?S.myExit.round+' 탈락':'플레이오프 탈락');
+  const myPog=Object.keys(S.players||{}).filter(n=>S.players[n].team===S.userTeam).reduce((a,n)=>a+(S.pog[n]||0),0);
   const colors=['#25e0ff','#8b5cf6','#ffc94a','#3ddc97','#ff4d6d','#ff9e2c','#7cf7ff','#c4b1ff'];
   const conf=Array.from({length:26},(_,i)=>`<i style="left:${(i*4+Math.random()*3)%100}%;background:${colors[i%colors.length]};animation-duration:${2.4+Math.random()*2}s;animation-delay:${Math.random()*2}s"></i>`).join('');
   const pogTop=Object.entries(S.pog||{}).sort((a,b)=>b[1]-a[1]).slice(0,5);
@@ -2629,12 +2664,12 @@ function renderChampion(){
     </div>
     <div class="card">
       <div class="row between">
-        <div><div class="tiny">최종 순위</div><div style="font-weight:900;font-size:18px">${isMe?'1위 · 우승':'2위 · 준우승'}</div></div>
+        <div><div class="tiny">최종 성적</div><div style="font-weight:900;font-size:18px">${placeTxt}</div></div>
         ${badge(champ,'xl')}
       </div>
       <div class="divider"></div>
       <div class="kv"><span>정규시즌</span><b>${myPos}위 · ${myTeam().wins}승 ${myTeam().losses}패</b></div>
-      <div class="kv"><span>POG 포인트</span><b>${pogTop.filter(([n])=>S.players[n]&&S.players[n].team===S.userTeam).reduce((a,b)=>a+b[1],0)}</b></div>
+      <div class="kv"><span>POG 포인트</span><b>${myPog}</b></div>
       <div class="kv"><span>시즌 예산</span><b>${myTeam().budget.toFixed(1)}억</b></div>
     </div>
     <div class="card">
