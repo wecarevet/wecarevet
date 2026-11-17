@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>초진·내원 전 준비 &amp; 오시는 길 · 위케어동물의료센터</title>
+<meta name="description" content="위케어동물의료센터 초진 안내 — 내원 전 준비물 체크리스트, 강아지·고양이 이동 팁, 주소·주차·카카오톡 채널까지 한 장에 정리했습니다.">
+<meta name="theme-color" content="#10335E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-mid:#1a4a7a;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --ok:#166534;--ok-bg:#eefaf3;--ok-border:#c6e9d5;
+  --max:860px;--radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;min-height:100vh;-webkit-font-smoothing:antialiased;word-break:keep-all}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.35rem}
+a{color:inherit}
+::selection{background:var(--accent-light);color:var(--navy)}
+
+/* ── TOPBAR ───────────────────────────── */
+.topbar{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar-inner{max-width:var(--max);margin:0 auto;padding:0 1.35rem;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.65;letter-spacing:.08em;margin-top:1px}
+.topbar-btns{display:flex;gap:.45rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s;white-space:nowrap;border:none;font-family:inherit}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.16);font-size:11.5px}
+.tbtn.back:hover{background:rgba(255,255,255,.16)}
+.tbtn.call{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.tbtn.call:hover{background:rgba(255,255,255,.2)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.kako:hover{background:#f0d800}
+
+/* ── HERO ─────────────────────────────── */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(80% 100% at 50% -30%,rgba(110,168,232,.38) 0%,rgba(110,168,232,0) 62%),
+    linear-gradient(170deg,#123A6B 0%,var(--navy) 48%,#0b2242 100%);
+  padding:3.1rem 0 3.6rem;
+  text-align:center;
+}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent)}
+.hero-inner{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 1.35rem}
+.hero-badge{display:inline-block;font-size:10.5px;font-weight:500;letter-spacing:.16em;color:rgba(255,255,255,.72);text-transform:uppercase;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:5px 13px;margin-bottom:1.1rem}
+.hero h1{font-size:30px;font-weight:700;color:#fff;line-height:1.42;letter-spacing:-.02em;margin-bottom:.9rem;word-break:keep-all}
+.hero h1 .hl{color:#8ec2f8}
+.hero-desc{font-size:13.5px;color:rgba(255,255,255,.72);line-height:1.85}
+.hero-actions{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-top:1.6rem}
+.pill{display:inline-flex;align-items:center;gap:.4rem;padding:.75rem 1.3rem;border-radius:999px;font-size:13.5px;font-weight:600;text-decoration:none;transition:transform .18s,box-shadow .18s,background .18s}
+.pill-primary{background:#fff;color:var(--navy);box-shadow:0 10px 24px -12px rgba(0,0,0,.55)}
+.pill-primary:hover{transform:translateY(-2px);background:#f4f8ff}
+.pill-ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.pill-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.2)}
+
+/* ── SECTIONS ─────────────────────────── */
+.main{padding:2.4rem 0 3rem}
+.sect{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.5rem 1.6rem;margin-bottom:1rem;box-shadow:0 1px 2px rgba(16,51,94,.04)}
+.sect-head{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:1.1rem;padding-bottom:.85rem;border-bottom:1px solid var(--navy-xlight)}
+.sect-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.sect-title{font-size:16px;font-weight:700;color:var(--navy);line-height:1.45;letter-spacing:-.01em}
+.sect-sub{font-size:11.5px;color:var(--text-muted);line-height:1.65;margin-top:2px}
+.sect-note{font-size:12px;color:var(--text-mid);line-height:1.8;margin-top:.9rem}
+
+/* ── CHECKLIST ────────────────────────── */
+.progress{display:flex;align-items:center;gap:.55rem;background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.55rem .8rem;margin-bottom:.9rem}
+.progress-bar{flex:1;height:6px;border-radius:999px;background:#dbe5f0;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--accent);border-radius:999px;transition:width .25s}
+.progress-text{font-size:11.5px;font-weight:600;color:var(--navy);white-space:nowrap}
+.checks{display:grid;gap:.5rem}
+.check{display:flex;align-items:flex-start;gap:.65rem;background:var(--white);border:1px solid var(--border);border-radius:11px;padding:.75rem .85rem;cursor:pointer;transition:background .15s,border-color .15s}
+.check:hover{border-color:#b7d0ee;background:#fbfdff}
+.check input{position:absolute;opacity:0;width:0;height:0}
+.box{flex-shrink:0;width:19px;height:19px;border-radius:6px;border:1.5px solid #b6c6d8;background:#fff;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:background .15s,border-color .15s}
+.box::after{content:"";width:9px;height:5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(0,-1px);opacity:0;transition:opacity .15s}
+.check input:checked + .box{background:var(--accent);border-color:var(--accent)}
+.check input:checked + .box::after{opacity:1}
+.check input:focus-visible + .box{outline:2px solid var(--accent);outline-offset:2px}
+.check-body{min-width:0}
+.check-name{display:block;font-size:13.5px;font-weight:600;color:var(--navy);line-height:1.5}
+.check-desc{display:block;font-size:11.5px;color:var(--text-muted);line-height:1.65;margin-top:2px}
+.check input:checked ~ .check-body .check-name{color:var(--text-mid)}
+.check-done{background:var(--ok-bg);border-color:var(--ok-border)}
+.checks-note{font-size:11px;color:var(--text-muted);margin-top:.7rem;line-height:1.7}
+
+/* ── TIPS ─────────────────────────────── */
+.tips{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.tip{border:1px solid var(--border);border-radius:13px;padding:1.05rem 1.1rem;background:linear-gradient(180deg,#fbfdff 0%,#fff 100%)}
+.tip-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;padding-bottom:.6rem;border-bottom:1px solid var(--navy-xlight)}
+.tip-icon{font-size:18px;line-height:1;flex-shrink:0}
+.tip-name{font-size:13.5px;font-weight:700;color:var(--navy)}
+.tip ul{list-style:none;display:grid;gap:.55rem}
+.tip li{position:relative;padding-left:.95rem;font-size:12px;color:var(--text-mid);line-height:1.75}
+.tip li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.tip li b{color:var(--navy);font-weight:600}
+
+/* ── WAY ──────────────────────────────── */
+.addr-card{background:radial-gradient(120% 120% at 0% 0%,#1b4a7e 0%,#10335E 60%,#0a2240 100%);color:#fff;border-radius:13px;padding:1.15rem 1.2rem;margin-bottom:.9rem}
+.addr-label{font-size:10px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:.45rem}
+.addr-main{font-size:15px;font-weight:600;line-height:1.65;color:#fff}
+.addr-sub{font-size:11.5px;color:rgba(255,255,255,.6);line-height:1.7;margin-top:.35rem}
+.addr-actions{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.95rem}
+.mini{display:inline-flex;align-items:center;gap:4px;padding:6px 11px;border-radius:8px;font-size:11.5px;font-weight:600;text-decoration:none;cursor:pointer;font-family:inherit;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;transition:background .15s}
+.mini:hover{background:rgba(255,255,255,.22)}
+.mini.solid{background:#fff;color:var(--navy);border-color:#fff}
+.mini.solid:hover{background:#eef5ff}
+
+.info{display:grid;gap:.55rem;margin-bottom:.9rem}
+.irow{display:flex;align-items:flex-start;gap:.7rem;border:1px solid var(--border);border-radius:11px;padding:.75rem .85rem;background:#fff}
+.irow-k{flex-shrink:0;width:74px;font-size:11.5px;font-weight:700;color:var(--text-muted);letter-spacing:.02em;padding-top:1px}
+.irow-v{font-size:12.5px;color:var(--text-mid);line-height:1.75;min-width:0}
+.irow-v b{color:var(--navy);font-weight:600}
+.irow-v a{color:var(--accent);text-decoration:none;font-weight:600}
+.irow-v a:hover{text-decoration:underline}
+
+.cta-row{display:flex;gap:.55rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.8rem 1.15rem;border-radius:11px;font-size:13px;font-weight:600;text-decoration:none;font-family:inherit;cursor:pointer;border:1px solid transparent;transition:background .15s,transform .15s}
+.btn.navy{background:var(--navy);color:#fff}
+.btn.navy:hover{background:var(--accent)}
+.btn.line{background:#fff;color:var(--navy);border-color:var(--border)}
+.btn.line:hover{border-color:#b7d0ee;background:#fbfdff}
+.btn.kako{background:#FEE500;color:#1a1a1a}
+.btn.kako:hover{background:#f0d800}
+
+/* ── NOTICE ───────────────────────────── */
+.notice{display:flex;gap:.65rem;background:var(--navy-xlight);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;font-size:11.5px;color:var(--text-mid);line-height:1.8;margin-top:1rem}
+.notice strong{color:var(--navy);font-weight:600}
+
+/* ── FOOT ─────────────────────────────── */
+.foot{background:var(--navy);padding:2.3rem 0}
+.foot-inner{max-width:var(--max);margin:0 auto;padding:0 1.35rem}
+.foot-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.foot-name{font-size:13.5px;font-weight:600;color:#fff}
+.foot-sub{font-size:10.5px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.04em}
+.foot-btns{display:flex;gap:.45rem;flex-wrap:wrap}
+.foot-disc{font-size:11.5px;color:rgba(255,255,255,.5);line-height:1.9;margin-top:1.3rem}
+.foot-disc strong{color:rgba(255,255,255,.78);font-weight:500}
+.foot-ref{margin-top:1rem;font-size:10.5px;color:rgba(255,255,255,.28);letter-spacing:.03em}
+
+@media(max-width:720px){
+  .tips{grid-template-columns:1fr}
+  .hero h1{font-size:23px}
+  .hero{padding:2.5rem 0 3rem}
+  .sect{padding:1.25rem 1.1rem 1.35rem}
+  .sect-title{font-size:15px}
+  .irow{flex-direction:column;gap:.2rem}
+  .irow-k{width:auto}
+  .topbar-btns .tbtn.call span{display:none}
+  .foot-top{flex-direction:column}
+}
+@media(max-width:420px){
+  .logo-text{font-size:12px;white-space:nowrap}
+  .logo-text small{display:none}
+  .hero-actions{flex-direction:column}
+  .pill,.btn{justify-content:center}
+  .cta-row .btn{flex:1 1 100%}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important}
+  .pill:hover,.check:hover{transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">WECARE · 초진 · 내원 전 준비</span>
+    <h1>처음 오시는 길,<br><span class="hl">미리 준비하면 진료가 정확해집니다</span></h1>
+    <p class="hero-desc">챙겨야 할 것과 이동 팁, 주소·주차를 한 장에 정리했습니다.<br>오시기 전에 한 번만 확인해 주세요.</p>
+    <div class="hero-actions">
+      <a class="pill pill-primary" href="intake.html">📝 사전 문진표 작성</a>
+      <a class="pill pill-ghost" href="#way">🚗 오시는 길 · 주차</a>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <div class="wrap">
+
+    <!-- 1. 준비물 -->
+    <section class="sect" id="prepare">
+      <div class="sect-head">
+        <span class="sect-num">1</span>
+        <div>
+          <div class="sect-title">내원 전 준비물 체크리스트</div>
+          <div class="sect-sub">아래 항목을 챙겨 오시면 진단이 훨씬 빨라집니다. 눌러서 하나씩 확인해 보세요.</div>
+        </div>
+      </div>
+
+      <div class="progress">
+        <div class="progress-bar"><div class="progress-fill" id="pFill"></div></div>
+        <span class="progress-text" id="pText">0 / 5 준비</span>
+      </div>
+
+      <div class="checks" id="checks">
+        <label class="check">
+          <input type="checkbox" data-ck="paper">
+          <span class="box" aria-hidden="true"></span>
+          <span class="check-body">
+            <span class="check-name">기존 타 병원 검사결과지 · 영상</span>
+            <span class="check-desc">혈액검사 결과지, 방사선·초음파 사진이나 CD/USB, 수술 기록까지. 없으면 휴대폰 사진도 좋습니다.</span>
+          </span>
+        </label>
+        <label class="check">
+          <input type="checkbox" data-ck="drug">
+          <span class="box" aria-hidden="true"></span>
+          <span class="check-body">
+            <span class="check-name">현재 복용 중인 약 · 영양제 (이름과 사진)</span>
+            <span class="check-desc">처방약·심장약·항경련제·유산균·영양제까지. 약 봉투나 알약 사진을 찍어 오시면 가장 정확합니다.</span>
+          </span>
+        </label>
+        <label class="check">
+          <input type="checkbox" data-ck="sign">
+          <span class="box" aria-hidden="true"></span>
+          <span class="check-body">
+            <span class="check-name">증상 사진 · 영상 (구토 · 설사 · 기침 · 발작 등)</span>
+            <span class="check-desc">진료실에서 말로 설명하기 어려운 증상은 영상이 가장 도움이 됩니다. 언제 찍었는지도 함께 알려주세요.</span>
+          </span>
+        </label>
+        <label class="check">
+          <input type="checkbox" data-ck="diet">
+          <span class="box" aria-hidden="true"></span>
+          <span class="check-body">
+            <span class="check-name">최근 식이 · 배변 변화 메모</span>
+            <span class="check-desc">사료·간식을 바꾼 시점, 물 마시는 양, 배변 횟수와 색·무름 정도를 간단히 적어 오세요.</span>
+          </span>
+        </label>
+        <label class="check">
+          <input type="checkbox" data-ck="vax">
+          <span class="box" aria-hidden="true"></span>
+          <span class="check-body">
+            <span class="check-name">예방접종 기록 (다니던 병원이 있다면)</span>
+            <span class="check-desc">접종 시기와 백신 종류를 알면 다음 접종 일정을 바로 잡아 드릴 수 있습니다.</span>
+          </span>
+        </label>
+      </div>
+
+      <p class="checks-note">💡 체크한 내용은 이 휴대폰에만 저장됩니다. 접수처에서 화면을 보여주셔도 좋아요.</p>
+    </section>
+
+    <!-- 2. 이동 팁 -->
+    <section class="sect" id="move">
+      <div class="sect-head">
+        <span class="sect-num">2</span>
+        <div>
+          <div class="sect-title">강아지 · 고양이 이동 팁</div>
+          <div class="sect-sub">이동 스트레스가 줄면 진료 때 혈압·심박·호흡 수치도 훨씬 정확해집니다.</div>
+        </div>
+      </div>
+
+      <div class="tips">
+        <div class="tip">
+          <div class="tip-head"><span class="tip-icon" aria-hidden="true">🐱</span><span class="tip-name">고양이</span></div>
+          <ul>
+            <li><b>평소 쓰던 담요</b>를 이동장에 깔고, 이동장 위에 <b>덮개</b>를 씌워 주세요. 낯선 풍경이 보이지 않는 것만으로도 안정됩니다.</li>
+            <li>이동장은 <b>수직으로 흔들리지 않게</b>, 두 손으로 받치거나 무릎에 수평으로 안고 이동해 주세요. 한 손으로 들고 흔들면 공포가 커집니다.</li>
+            <li>대기 중에는 <b>바닥보다 높은 곳</b>(의자·무릎 위)에 이동장을 두세요. 바닥의 개 냄새와 소리가 고양이에게는 가장 큰 스트레스입니다.</li>
+            <li>가능하면 <b>전날부터 이동장을 방 안에 꺼내</b> 두어 냄새에 익숙해지게 해 주세요.</li>
+          </ul>
+        </div>
+        <div class="tip">
+          <div class="tip-head"><span class="tip-icon" aria-hidden="true">🐶</span><span class="tip-name">강아지</span></div>
+          <ul>
+            <li><b>목줄과 하네스</b>를 착용하고, 리드줄은 <b>짧게</b> 잡아 주세요. 진료실에서 갑자기 튀어나가는 사고를 막는 가장 확실한 방법입니다.</li>
+            <li>이동 중 <b>마킹(소변)</b>에 대비해 <b>배변패드와 물티슈</b>를 한 장 챙겨 주세요. 낯선 곳에서는 표시 행동이 늘어납니다.</li>
+            <li>다른 아이와 마주치면 <b>거리를 두고</b> 한쪽으로 비켜 서 주세요. 흥분하거나 짖는 아이는 대기 공간을 따로 안내해 드립니다.</li>
+            <li>대기 중에는 <b>무릎 위나 의자 옆</b>에 앉아 있어 주세요. 바닥을 서성이는 것보다 안정에 도움이 됩니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 오시는 길 -->
+    <section class="sect" id="way">
+      <div class="sect-head">
+        <span class="sect-num">3</span>
+        <div>
+          <div class="sect-title">오시는 길 · 주차 안내</div>
+          <div class="sect-sub">위시티일산자이2단지 상가동 3층입니다. 엘리베이터에서 3층을 눌러 주세요.</div>
+        </div>
+      </div>
+
+      <div class="addr-card">
+        <div class="addr-label">ADDRESS</div>
+        <div class="addr-main">경기도 고양시 일산동구 위시티4로 46<br>위시티일산자이2단지 상가동 3층<br><span style="font-weight:500;font-size:13.5px;color:rgba(255,255,255,.85)">(302 · 303 · 303A · 304호)</span></div>
+        <div class="addr-sub">지번 · 경기도 고양시 일산동구 식사동 1498</div>
+        <div class="addr-actions">
+          <button type="button" class="mini solid" id="copyAddr">📋 주소 복사</button>
+          <a class="mini" href="http://place.map.kakao.com/623638988" target="_blank" rel="noopener">🟡 카카오맵</a>
+          <a class="mini" href="https://map.naver.com/p/search/%EC%9C%84%EC%BC%80%EC%96%B4%EB%8F%99%EB%AC%BC%EC%9D%98%EB%A3%8C%EC%84%BC%ED%84%B0" target="_blank" rel="noopener">🟢 네이버 지도</a>
+        </div>
+      </div>
+
+      <div class="info">
+        <div class="irow">
+          <span class="irow-k">전화</span>
+          <span class="irow-v"><a href="tel:031-994-6346">031-994-6346</a> — 내원 전 문의나 상태 변화가 있으면 먼저 연락 주세요.</span>
+        </div>
+        <div class="irow">
+          <span class="irow-k">카카오톡</span>
+          <span class="irow-v">채널 <b>위케어동물의료센터</b>로 사진·검사지 전송과 예약 문의가 가능합니다. <a href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">채널 열기 →</a></span>
+        </div>
+        <div class="irow">
+          <span class="irow-k">주차</span>
+          <span class="irow-v">상가 건물 <b>주차 공간을 이용</b>하실 수 있습니다. 주차 등록·할인은 접수처에 말씀해 주세요. 진료가 길어질 수 있으니 시간 여유를 두고 오시면 편합니다.</span>
+        </div>
+        <div class="irow">
+          <span class="irow-k">층 안내</span>
+          <span class="irow-v">상가동 <b>3층</b>입니다. 진료실 입구에서 접수 후 대기해 주세요.</span>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn navy" href="intake.html">📝 사전 문진표 작성하고 오기</a>
+        <a class="btn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 문의</a>
+        <a class="btn line" href="index.html">← 질환별 안내 보기</a>
+      </div>
+
+      <div class="notice">
+        <span style="font-size:16px;flex-shrink:0;line-height:1.5" aria-hidden="true">🚨</span>
+        <span><strong>호흡 곤란, 소변 불통, 경련, 실신, 대량 출혈</strong> 같은 응급 상황은 준비물보다 먼저 병원으로 전화 주세요. 이동 중에는 이동장에 고정하고 목줄을 당기지 마세요.</span>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <p class="foot-name">위케어동물의료센터</p>
+        <p class="foot-sub">WECARE Animal Medical Center · 보호자 안내 자료</p>
+      </div>
+      <div class="foot-btns">
+        <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+        <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 문의</a>
+      </div>
+    </div>
+    <p class="foot-disc">
+      이 안내는 <strong>내원 준비를 돕기 위한 자료</strong>이며, 진단·치료를 대신하지 않습니다.<br>
+      아이 상태에 따라 필요한 준비물과 검사가 달라질 수 있으니, 담당 수의사 안내를 함께 따라 주세요.
+    </p>
+    <p class="foot-ref">WECARE Animal Medical Center · wecarevet.github.io/wecarevet</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY = 'wecareVisitPrep';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#checks input[type=checkbox]'));
+  var fill = document.getElementById('pFill');
+  var text = document.getElementById('pText');
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e){ saved = null; }
+
+  function render(){
+    var done = 0;
+    boxes.forEach(function(b){
+      var wrap = b.closest('.check');
+      if (b.checked) { done++; wrap.classList.add('check-done'); }
+      else { wrap.classList.remove('check-done'); }
+    });
+    fill.style.width = (done / boxes.length * 100) + '%';
+    text.textContent = done + ' / ' + boxes.length + (done === boxes.length ? ' 준비 완료' : ' 준비');
+    try { localStorage.setItem(KEY, JSON.stringify(boxes.map(function(b){ return b.checked; }))); } catch(e){}
+  }
+
+  if (saved && saved.length === boxes.length) {
+    boxes.forEach(function(b,i){ b.checked = saved[i]; });
+  } else {
+    boxes.forEach(function(b){ b.checked = false; });
+  }
+  boxes.forEach(function(b){ b.addEventListener('change', render); });
+  render();
+
+  var btn = document.getElementById('copyAddr');
+  if (btn) {
+    btn.addEventListener('click', function(){
+      var addr = '경기도 고양시 일산동구 위시티4로 46 위시티일산자이2단지 상가동 3층 (302·303·303A·304호)';
+      function done(){ btn.textContent = '✓ 복사됨'; setTimeout(function(){ btn.textContent = '📋 주소 복사'; }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(addr).then(done, fallback);
+      } else { fallback(); }
+      function fallback(){
+        var ta = document.createElement('textarea');
+        ta.value = addr;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); done(); } catch(e){}
+        document.body.removeChild(ta);
+      }
+    });
+  }
+})();
+</script>
+
+</body>
+</html>

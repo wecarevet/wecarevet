@@ -335,12 +335,10 @@ body.guardian .gcard{box-shadow:0 10px 40px rgba(16,51,94,.1)}
           </div>
           <div class="row">
             <div class="field">
-              <label for="foodH">사료 금식</label>
+              <label for="foodH">사료 금식 (6~8시간)</label>
               <select id="foodH" onchange="refresh()">
-                <option value="6">6시간 전부터</option>
-                <option value="8" selected>8시간 전부터</option>
-                <option value="10">10시간 전부터</option>
-                <option value="12">12시간 전부터</option>
+                <option value="6">6시간 전 (이른 아침 수술·어린 아이)</option>
+                <option value="8" selected>8시간 전 (기본)</option>
               </select>
             </div>
           </div>
@@ -524,7 +522,7 @@ var ITEM_DEFS = {
     { id:'p5', text:'최근 검사 결과지 (타 병원 포함)', detail:false }
   ],
   fast: [
-    { id:'f1', text:'금식은 음식만 하면 됩니다', sub:'사료·간식·껌 모두 금지, 물은 당일에도 마실 수 있음', detail:false },
+    { id:'f1', text:'금식은 음식만, 6~8시간 전부터', sub:'사료·간식·껌 모두 금지, 물은 당일에도 마실 수 있음', detail:false },
     { id:'f2', text:'수술 당일 아침 복용약', sub:'심장약·항경련제는 소량의 물과 함께 복용 (담당 수의사 지시 시)', detail:true, ph:'예: 심장약은 아침 7시에 소량 물과 함께' },
     { id:'f3', text:'수술 2일 전까지 목욕을 마쳐주세요', sub:'수술 당일은 목욕 금지', detail:false },
     { id:'f4', text:'마취 전 검사 안내', sub:'혈액검사·흉부방사선으로 마취 위험을 먼저 확인합니다', detail:true, ph:'예: 혈액검사 + 흉부방사선 촬영 예정' },
