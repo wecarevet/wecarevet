@@ -73,6 +73,24 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .dcard.soon:hover{transform:none;box-shadow:none}
 .soon-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 9px;border-radius:4px;background:#f0f0f0;color:#888;margin-bottom:.6rem}
 
+/* TOOLS */
+.tools{margin-top:2.75rem;padding-top:2.25rem;border-top:1px solid var(--border)}
+.tool-grid{display:grid;grid-template-columns:1fr;gap:.7rem;margin-bottom:1.1rem}
+@media(min-width:640px){.tool-grid{grid-template-columns:1fr 1fr}}
+.tcard{display:flex;gap:.85rem;align-items:flex-start;background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.05rem 1.1rem;text-decoration:none;color:var(--text);transition:all .2s}
+.tcard:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(16,51,94,.1);border-color:#b0ccee}
+.tcard-icon{width:42px;height:42px;border-radius:11px;background:var(--navy-light);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.tcard-body{flex:1;min-width:0}
+.tcard-tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.06em;color:var(--accent);background:var(--accent-light);border-radius:4px;padding:1px 6px;margin-bottom:.35rem}
+.tcard-name{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:.15rem}
+.tcard-desc{font-size:12px;color:var(--text-muted);line-height:1.65}
+.tcard-arrow{font-size:16px;color:var(--accent);flex-shrink:0;align-self:center}
+.tcard.wide{grid-column:1/-1}
+.staff-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;padding:.7rem .9rem;background:var(--navy-xlight);border:1px dashed var(--border);border-radius:10px}
+.staff-label{font-size:10px;font-weight:700;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;margin-right:.2rem}
+.staff-row a{font-size:11.5px;font-weight:500;color:var(--text-mid);text-decoration:none;padding:3px 8px;border-radius:5px;background:var(--white);border:1px solid var(--border);transition:.15s}
+.staff-row a:hover{color:var(--navy);border-color:#b0ccee}
+
 /* NOTICE */
 .notice{background:var(--navy-xlight);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;display:flex;gap:.75rem;align-items:flex-start;font-size:13px;color:var(--text-mid);line-height:1.7}
 .notice strong{color:var(--navy);font-weight:600}
@@ -84,6 +102,9 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .foot-disc strong{color:rgba(255,255,255,.7);font-weight:500}
 .foot-btns{display:flex;gap:.6rem;flex-wrap:wrap}
 .foot-ref{margin-top:1rem;font-size:11px;color:rgba(255,255,255,.2)}
+.foot-links{margin-top:1.1rem;font-size:11.5px;color:rgba(255,255,255,.35);line-height:1.9}
+.foot-links a{color:rgba(255,255,255,.62);text-decoration:none}
+.foot-links a:hover{color:#fff;text-decoration:underline}
 
 @media(max-width:480px){
   .hero h1{font-size:22px}
@@ -307,6 +328,52 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       </div>
     </div>
 
+    <!-- 병원 이용 & 보호자 편의 도구 -->
+    <div class="tools" id="tools">
+      <div class="guide-label">병원 이용 안내</div>
+      <div class="guide-title">보호자 편의 도구</div>
+      <p class="guide-sub">진료 전 준비부터 응급 상황 판단까지,<br>필요할 때 바로 쓰실 수 있는 자료입니다.</p>
+
+      <div class="tool-grid">
+        <a class="tcard" href="/wecarevet/intake.html">
+          <div class="tcard-icon">📝</div>
+          <div class="tcard-body">
+            <div class="tcard-tag">QR · 카카오톡</div>
+            <div class="tcard-name">보호자 사전 문진표</div>
+            <p class="tcard-desc">대기 시간에 미리 적으면 진료가 훨씬 정확해집니다. 다 적은 뒤 한 번에 복사해 접수처에 보여주세요.</p>
+          </div>
+          <span class="tcard-arrow">→</span>
+        </a>
+
+        <a class="tcard" href="/wecarevet/faq.html">
+          <div class="tcard-icon">🚨</div>
+          <div class="tcard-body">
+            <div class="tcard-tag">응급 판단 · FAQ</div>
+            <div class="tcard-name">응급 신호 &amp; 자주 묻는 질문</div>
+            <p class="tcard-desc">지금 병원에 가야 할지 헷갈릴 때 보는 빨강·노랑·초록 기준과, 안정 시 호흡수를 재는 도구를 함께 제공합니다.</p>
+          </div>
+          <span class="tcard-arrow">→</span>
+        </a>
+
+        <a class="tcard wide" href="/wecarevet/pricing.html">
+          <div class="tcard-icon">💰</div>
+          <div class="tcard-body">
+            <div class="tcard-tag">투명한 비용</div>
+            <div class="tcard-name">진료비용 게시</div>
+            <p class="tcard-desc">진찰료·검사비·접종·입원비·건강검진 비용을 항목별로 확인하실 수 있습니다 (수의사법 제13조의2).</p>
+          </div>
+          <span class="tcard-arrow">→</span>
+        </a>
+      </div>
+
+      <div class="staff-row">
+        <span class="staff-label">원내 직원용</span>
+        <a href="/wecarevet/discharge.html">퇴원·투약 안내문 생성</a>
+        <a href="/wecarevet/cri_calculator.html">임상 계산기 (CRI·수액·응급약물)</a>
+        <a href="/wecarevet/research.html">논문 스터디</a>
+      </div>
+    </div>
+
     <div class="notice">
       <span style="font-size:18px;flex-shrink:0">💡</span>
       <span>이 자료는 <strong>일반 보호자 교육용</strong>으로 제작된 안내문입니다. 개별 환자의 진단·치료를 대신하지 않으며, 약물 조절이나 식이 변경은 반드시 담당 수의사와 상의 후 진행해 주세요.</span>
@@ -324,6 +391,13 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
       <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank">💬 카카오톡 문의</a>
     </div>
+    <p class="foot-links">
+      <a href="/wecarevet/intake.html">사전 문진</a> ·
+      <a href="/wecarevet/faq.html">응급 안내</a> ·
+      <a href="/wecarevet/pricing.html">진료비용</a> ·
+      <a href="/wecarevet/discharge.html">안내문 생성</a> ·
+      <a href="/wecarevet/cri_calculator.html">임상 계산기</a>
+    </p>
     <p class="foot-ref">WECARE Animal Medical Center · wecarevet.github.io/wecarevet</p>
   </div>
 </div>

@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#10335E">
+<title>보호자 사전 문진표 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --red:#b3261e;--red-bg:#fdf0ef;--red-border:#f0c8c4;
+  --green:#166534;--green-bg:#eefaf3;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;min-height:100vh;padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+
+/* TOPBAR */
+.topbar{background:var(--navy);padding:0 1.25rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;gap:.6rem}
+.logo-text{color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;white-space:nowrap}
+.logo-text small{display:block;font-size:9.5px;font-weight:300;opacity:.7;letter-spacing:.06em}
+.topbar-btns{display:flex;gap:.35rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:6px;font-size:11.5px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap;border:none}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:active{background:rgba(255,255,255,.24)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.15);font-size:10.5px}
+
+/* HERO */
+.hero{background:var(--navy);padding:1.75rem 1.25rem 1.9rem}
+.hero-inner{max-width:680px;margin:0 auto;text-align:center}
+.hero-eyebrow{font-size:10.5px;font-weight:500;letter-spacing:.16em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.7rem}
+.hero h1{font-size:21px;font-weight:700;color:#fff;line-height:1.45;margin-bottom:.6rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:12.5px;color:rgba(255,255,255,.58);line-height:1.8}
+
+/* WRAP */
+.wrap{max-width:680px;margin:0 auto;padding:1.5rem 1rem 1rem}
+
+/* SECTIONS */
+.sect{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.1rem 1.25rem;margin-bottom:1rem}
+.sect-head{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--navy-xlight)}
+.sect-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.sect-title{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.5}
+.sect-sub{font-size:11.5px;color:var(--text-muted);line-height:1.6;margin-top:2px}
+
+/* FIELDS */
+.field{margin-bottom:.9rem}
+.field:last-child{margin-bottom:0}
+.field > label,.flabel{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:5px;letter-spacing:.01em}
+.req{color:var(--red);font-weight:700;margin-left:2px}
+input[type=text],input[type=tel],input[type=number],select,textarea{
+  width:100%;font-family:inherit;font-size:16px;color:var(--text);
+  background:var(--navy-xlight);border:1.5px solid var(--border);border-radius:9px;
+  padding:10px 12px;outline:none;transition:border-color .15s,background .15s;line-height:1.5;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);background:#fff}
+input::placeholder,textarea::placeholder{color:#a9b7c5;font-size:13.5px}
+textarea{resize:vertical;min-height:62px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a9aaa' d='M6 8 0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.row.three{grid-template-columns:1fr 1fr 1fr}
+.unit-wrap{position:relative}
+.unit-wrap input{padding-right:38px}
+.unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12.5px;color:var(--text-muted);pointer-events:none}
+.hint{font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.55}
+.err{border-color:var(--red) !important;background:var(--red-bg) !important}
+
+/* SEGMENTED */
+.seg{display:flex;gap:.4rem;flex-wrap:wrap}
+.seg label{position:relative;flex:1;min-width:0}
+.seg input{position:absolute;opacity:0;width:0;height:0}
+.seg span{display:block;text-align:center;padding:9px 6px;border:1.5px solid var(--border);border-radius:9px;background:var(--white);color:var(--text-mid);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}
+.seg input:checked + span{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:600}
+.seg.tight span{font-size:12px;padding:8px 4px}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:0;height:0}
+.chip span{display:inline-block;padding:8px 12px;border:1.5px solid var(--border);border-radius:999px;background:var(--white);font-size:13px;color:var(--text-mid);cursor:pointer;transition:all .15s;line-height:1.4}
+.chip input:checked + span{background:var(--navy-light);border-color:var(--accent);color:var(--navy);font-weight:600;box-shadow:inset 0 0 0 1px var(--accent)}
+.chip.sx span{padding:10px 12px;border-radius:10px;width:100%;text-align:left}
+.sx-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+
+/* NOTE */
+.pnote{display:flex;gap:.5rem;align-items:flex-start;background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.8rem .9rem;font-size:11.5px;color:var(--text-mid);line-height:1.7;margin-bottom:1rem}
+.pnote strong{color:var(--navy);font-weight:600}
+
+/* ACTION BAR */
+.actionbar{position:fixed;left:0;right:0;bottom:0;z-index:300;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-top:1px solid var(--border);padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(16,51,94,.08)}
+.actionbar-inner{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem}
+.actions{display:flex;gap:.5rem}
+.btn{flex:1;font-family:inherit;font-size:14px;font-weight:600;border-radius:10px;padding:13px 10px;border:1.5px solid transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;line-height:1.3}
+.btn.primary{background:var(--navy);color:#fff;flex:2}
+.btn.primary:active{background:var(--navy-dark)}
+.btn.kako{background:#FEE500;color:#1a1a1a;flex:1.15}
+.btn.kako:active{background:#f0d800}
+.btn.ghost{background:var(--white);color:var(--text-mid);border-color:var(--border);flex:0 0 auto;padding:13px 14px}
+.btn.ghost:active{background:var(--navy-xlight)}
+.ab-hint{text-align:center;font-size:10.5px;color:var(--text-muted);line-height:1.5}
+
+/* TOAST */
+.toast{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom));transform:translate(-50%,14px);z-index:500;
+  background:var(--navy-dark);color:#fff;font-size:13px;font-weight:500;padding:11px 18px;border-radius:999px;
+  box-shadow:0 8px 28px rgba(10,34,64,.3);opacity:0;pointer-events:none;transition:all .25s;max-width:88vw;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.warn{background:var(--red)}
+
+/* FOOT */
+.foot{background:var(--navy);padding:1.5rem 1.25rem;margin-top:.5rem}
+.foot-inner{max-width:680px;margin:0 auto}
+.foot-disc{font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.85;margin-bottom:1rem}
+.foot-disc strong{color:rgba(255,255,255,.72);font-weight:500}
+.foot-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.foot-ref{margin-top:.9rem;font-size:10.5px;color:rgba(255,255,255,.2)}
+
+@media(min-width:560px){
+  .hero h1{font-size:24px}
+  .sx-grid{grid-template-columns:1fr 1fr 1fr}
+}
+@media(max-width:380px){
+  .logo-text{font-size:11px}
+  .logo-text small{display:none}
+  .tbtn.back{font-size:10px;padding:6px 7px}
+  .tbtn.call{padding:6px 8px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 보호자 사전 문진</div>
+    <h1>진료 전에 미리 적어주시면,<br><span>진료가 훨씬 정확해집니다</span></h1>
+    <p class="hero-desc">대기 시간에 편하게 작성해 주세요.<br>마지막에 <b style="color:#7eb8f7;font-weight:600">문진 내용 한 번에 복사</b> 버튼을 누르면<br>접수처에서 그대로 확인할 수 있습니다.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="pnote">
+    <span style="font-size:15px;flex-shrink:0">🔒</span>
+    <span>입력한 내용은 <strong>이 휴대폰에만 저장</strong>되며 서버로 전송되지 않습니다. 접수처에 보여주시거나 복사해서 전달해 주세요.</span>
+  </div>
+
+  <!-- 1. 기본 정보 -->
+  <div class="sect" id="s1">
+    <div class="sect-head">
+      <div class="sect-num">1</div>
+      <div>
+        <div class="sect-title">기본 정보</div>
+        <div class="sect-sub">보호자님과 아이에 대해 알려주세요</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="ownerName">보호자 성함 <span class="req">*</span></label>
+        <input type="text" id="ownerName" placeholder="예: 김서연" autocomplete="name">
+      </div>
+      <div class="field">
+        <label for="phone">연락처 <span style="color:var(--text-muted);font-weight:400">(선택)</span></label>
+        <input type="tel" id="phone" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="petName">아이 이름 <span class="req">*</span></label>
+      <input type="text" id="petName" placeholder="예: 코코">
+    </div>
+
+    <div class="field">
+      <span class="flabel">종 <span class="req">*</span></span>
+      <div class="seg" id="speciesSeg">
+        <label><input type="radio" name="species" value="강아지" checked><span>🐶 강아지</span></label>
+        <label><input type="radio" name="species" value="고양이"><span>🐱 고양이</span></label>
+        <label><input type="radio" name="species" value="기타"><span>기타</span></label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="breed">품종</label>
+        <input type="text" id="breed" placeholder="예: 말티즈">
+      </div>
+      <div class="field">
+        <label for="age">나이</label>
+        <input type="text" id="age" placeholder="예: 7살">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="weight">체중</label>
+        <div class="unit-wrap">
+          <input type="number" id="weight" placeholder="5.2" min="0.1" max="90" step="0.1" inputmode="decimal">
+          <span class="unit">kg</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="sex">성별</label>
+        <select id="sex">
+          <option value="">선택</option>
+          <option value="수컷">수컷</option>
+          <option value="암컷">암컷</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="flabel">중성화 여부</span>
+      <div class="seg tight">
+        <label><input type="radio" name="neut" value="미중성화" checked><span>미중성화</span></label>
+        <label><input type="radio" name="neut" value="수컷 중성화"><span>수컷 중성화</span></label>
+        <label><input type="radio" name="neut" value="암컷 중성화"><span>암컷 중성화</span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 내원 목적 -->
+  <div class="sect" id="s2">
+    <div class="sect-head">
+      <div class="sect-num">2</div>
+      <div>
+        <div class="sect-title">내원 목적</div>
+        <div class="sect-sub">해당하는 항목을 모두 선택해 주세요</div>
+      </div>
+    </div>
+    <div class="chips" id="purposeChips">
+      <label class="chip"><input type="checkbox" name="purpose" value="일반 진료"><span>일반 진료</span></label>
+      <label class="chip"><input type="checkbox" name="purpose" value="아서 내원"><span>아서 내원</span></label>
+      <label class="chip"><input type="checkbox" name="purpose" value="예방접종·건강검진"><span>예방접종·건강검진</span></label>
+      <label class="chip"><input type="checkbox" name="purpose" value="수술·치과 상담"><span>수술·치과 상담</span></label>
+      <label class="chip"><input type="checkbox" name="purpose" value="재진"><span>재진</span></label>
+    </div>
+  </div>
+
+  <!-- 3. 증상 -->
+  <div class="sect" id="s3">
+    <div class="sect-head">
+      <div class="sect-num">3</div>
+      <div>
+        <div class="sect-title">주요 증상</div>
+        <div class="sect-sub">평소와 다른 점이 있다면 모두 체크해 주세요 (복수 선택)</div>
+      </div>
+    </div>
+
+    <div class="sx-grid" id="symptomChips">
+      <label class="chip sx"><input type="checkbox" name="symptom" value="식욕 저하"><span>🍚 식욕 저하</span></label>
+      <label class="chip sx"><input type="checkbox" name="symptom" value="구토"><span>🤢 구토</span></label>
+      <label class="chip sx"><input type="checkbox" name="symptom" value="설사·혈변"><span>💧 설사·혈변</span></label>
+      <label class="chip sx"><input type="checkbox" name="symptom" value="기침·호흡 이상"><span>😮‍💨 기침·호흡 이상</span></label>
+      <label class="chip sx"><input type="checkbox" name="symptom" value="기력 저하"><span>😴 기력 저하</span></label>
+      <label class="chip sx"><input type="checkbox" name="symptom" value="배뇨 이상(혈뇨·빈뇨·배뇨곤란)"><span>🚽 배뇨 이상</span></label>
+      <label class="chip sx"><input type="checkbox" name="symptom" value="피부·귀 가려움"><span>🐾 피부·귀 가려움</span></label>
+      <label class="chip sx"><input type="checkbox" name="symptom" value="파행·통증"><span>🦵 파행·통증</span></label>
+      <label class="chip sx"><input type="checkbox" name="symptom" value="경련·실신"><span>⚡ 경련·실신</span></label>
+    </div>
+
+    <div class="field" style="margin-top:.9rem">
+      <label for="symptomOnset">증상 시작 시점</label>
+      <select id="symptomOnset">
+        <option value="">선택해 주세요</option>
+        <option value="오늘">오늘</option>
+        <option value="1~2일 전">1~2일 전</option>
+        <option value="3~7일 전">3~7일 전</option>
+        <option value="1~4주 전">1~4주 전</option>
+        <option value="1개월 이상">1개월 이상</option>
+        <option value="기타/모름">기타 / 잘 모르겠음</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="symptomDetail">증상 상세 <span style="color:var(--text-muted);font-weight:400">(선택)</span></label>
+      <textarea id="symptomDetail" placeholder="예: 어제 저녁부터 사료를 안 먹고 물만 마셔요. 밤에 거품 섞인 구토를 3번 했습니다."></textarea>
+      <div class="hint">구토·설사 횟수, 먹은 것, 대소변 변화, 복용 시작한 약이 있다면 함께 적어주세요.</div>
+    </div>
+  </div>
+
+  <!-- 4. 병력 -->
+  <div class="sect" id="s4">
+    <div class="sect-head">
+      <div class="sect-num">4</div>
+      <div>
+        <div class="sect-title">병력 및 복용 정보</div>
+        <div class="sect-sub">약물 상호작용 확인을 위해 꼭 필요합니다</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="disease">기저질환</label>
+      <textarea id="disease" placeholder="예: 심장병(MMVD) 진단받아 피모벤단 복용 중 / 작년에 신장 수치가 조금 높았음"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="meds">현재 복용 중인 약·영양제</label>
+      <textarea id="meds" placeholder="예: 피모벤단 1.25mg 1일 2회, 관절 영양제 1일 1회"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="allergy">약물 알레르기</label>
+      <input type="text" id="allergy" placeholder="예: 없음 / 페니실린 계열에서 발진">
+    </div>
+
+    <div class="field">
+      <span class="flabel">최근 타 병원 검사 여부</span>
+      <div class="seg" style="margin-bottom:.5rem">
+        <label><input type="radio" name="otherHosp" value="없음" checked onchange="toggleOtherHosp()"><span>없음</span></label>
+        <label><input type="radio" name="otherHosp" value="있음" onchange="toggleOtherHosp()"><span>있음</span></label>
+      </div>
+      <input type="text" id="otherHospDetail" placeholder="예: 11/10 ○○동물병원 혈액검사·방사선 (결과지 지참)" style="display:none">
+    </div>
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      이 문진표는 <strong>진료를 돕기 위한 사전 정보</strong>이며, 진단을 대신하지 않습니다.<br>
+      <strong>응급 상황(호흡 곤란, 소변 불통, 경련, 실신 등)</strong>은 문진표 작성보다 먼저 병원으로 전화 주세요.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">WECARE Animal Medical Center · wecarevet.github.io/wecarevet</p>
+  </div>
+</div>
+
+<div class="actionbar">
+  <div class="actionbar-inner">
+    <div class="actions">
+      <button type="button" class="btn primary" onclick="copyChart()">📋 문진 내용 한 번에 복사</button>
+      <button type="button" class="btn kako" onclick="sendKakao()">💬 카카오톡</button>
+      <button type="button" class="btn ghost" onclick="resetForm()" title="초기화">↺</button>
+    </div>
+    <div class="ab-hint" id="abHint">작성 내용은 자동 저장됩니다 · 접수처에 복사해서 보여주세요</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var STORAGE_KEY = 'wecare-intake-v1';
+var KAKAO_CHANNEL = 'http://pf.kakao.com/_lxhxmxnG';
+var toastTimer = null;
+
+/* ---------- 유틸 ---------- */
+function $(id){ return document.getElementById(id); }
+function val(id){ var el=$(id); return el ? el.value.trim() : ''; }
+function toast(msg, isWarn){
+  var t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isWarn ? ' warn' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.className = 'toast'; }, 2600);
+}
+function radioVal(name){
+  var el = document.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.value : '';
+}
+function checkRadio(name, value){
+  var list = document.querySelectorAll('input[name="' + name + '"]');
+  for (var i=0;i<list.length;i++){ list[i].checked = (list[i].value === value); }
+  if (!document.querySelector('input[name="' + name + '"]:checked') && list.length) list[0].checked = true;
+}
+function checkList(name, values){
+  var list = document.querySelectorAll('input[name="' + name + '"]');
+  for (var i=0;i<list.length;i++){ list[i].checked = values.indexOf(list[i].value) !== -1; }
+}
+function checkedList(name){
+  var out = [], list = document.querySelectorAll('input[name="' + name + '"]:checked');
+  for (var i=0;i<list.length;i++){ out.push(list[i].value); }
+  return out;
+}
+function toggleOtherHosp(){
+  var on = radioVal('otherHosp') === '있음';
+  $('otherHospDetail').style.display = on ? 'block' : 'none';
+  if (!on) $('otherHospDetail').value = '';
+}
+
+/* ---------- 저장 / 복원 ---------- */
+function collect(){
+  return {
+    ownerName: val('ownerName'),
+    phone: val('phone'),
+    petName: val('petName'),
+    species: radioVal('species'),
+    breed: val('breed'),
+    age: val('age'),
+    weight: val('weight'),
+    sex: val('sex'),
+    neut: radioVal('neut'),
+    purpose: checkedList('purpose'),
+    symptom: checkedList('symptom'),
+    symptomOnset: val('symptomOnset'),
+    symptomDetail: val('symptomDetail'),
+    disease: val('disease'),
+    meds: val('meds'),
+    allergy: val('allergy'),
+    otherHosp: radioVal('otherHosp'),
+    otherHospDetail: val('otherHospDetail')
+  };
+}
+function save(){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(collect())); } catch(e){}
+}
+function restore(){
+  var raw = null;
+  try { raw = localStorage.getItem(STORAGE_KEY); } catch(e){ return; }
+  if (!raw) return;
+  var d;
+  try { d = JSON.parse(raw); } catch(e){ return; }
+  ['ownerName','phone','petName','breed','age','weight','sex','symptomOnset','symptomDetail','disease','meds','allergy','otherHospDetail'].forEach(function(k){
+    if (d[k] && $(k)) $(k).value = d[k];
+  });
+  if (d.species) checkRadio('species', d.species);
+  if (d.neut) checkRadio('neut', d.neut);
+  if (d.otherHosp) checkRadio('otherHosp', d.otherHosp);
+  if (Array.isArray(d.purpose)) checkList('purpose', d.purpose);
+  if (Array.isArray(d.symptom)) checkList('symptom', d.symptom);
+  toggleOtherHosp();
+  if (d.otherHospDetail && d.otherHosp === '있음') $('otherHospDetail').value = d.otherHospDetail;
+}
+function resetForm(){
+  if (!confirm('작성한 내용을 모두 지울까요?')) return;
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+  var fields = ['ownerName','phone','petName','breed','age','weight','sex','symptomOnset','symptomDetail','disease','meds','allergy','otherHospDetail'];
+  fields.forEach(function(k){ if ($(k)) $(k).value = ''; });
+  checkRadio('species','강아지');
+  checkRadio('neut','미중성화');
+  checkRadio('otherHosp','없음');
+  checkList('purpose',[]);
+  checkList('symptom',[]);
+  toggleOtherHosp();
+  window.scrollTo({top:0,behavior:'smooth'});
+  toast('모두 지웠습니다. 처음부터 작성해 주세요.');
+}
+
+/* ---------- 요약문 생성 ---------- */
+function pad2(n){ return (n<10?'0':'')+n; }
+function nowStr(){
+  var d = new Date();
+  return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+' '+pad2(d.getHours())+':'+pad2(d.getMinutes());
+}
+function buildChart(){
+  var d = collect();
+  var L = [];
+  L.push('[위케어 사전 문진표]');
+  L.push('작성일시 : ' + nowStr());
+  L.push('');
+  L.push('■ 보호자');
+  L.push(' - 성함 : ' + (d.ownerName || '(미기재)'));
+  if (d.phone) L.push(' - 연락처 : ' + d.phone);
+  L.push('');
+  L.push('■ 환자');
+  var pet = [];
+  if (d.petName) pet.push(d.petName);
+  if (d.species) pet.push(d.species);
+  if (d.breed) pet.push(d.breed);
+  if (d.age) pet.push(d.age);
+  if (d.weight) pet.push(d.weight + 'kg');
+  if (d.sex) pet.push(d.sex);
+  if (d.neut) pet.push(d.neut);
+  L.push(' - ' + (pet.length ? pet.join(' / ') : '(미기재)'));
+  L.push('');
+  L.push('■ 내원 목적');
+  L.push(' - ' + (d.purpose.length ? d.purpose.join(', ') : '(미선택)'));
+  L.push('');
+  L.push('■ 주요 증상');
+  L.push(' - ' + (d.symptom.length ? d.symptom.join(', ') : '특이 증상 없음'));
+  if (d.symptomOnset) L.push(' - 시작 시점 : ' + d.symptomOnset);
+  if (d.symptomDetail) L.push(' - 상세 : ' + d.symptomDetail.replace(/\n+/g,' / '));
+  L.push('');
+  L.push('■ 병력 / 복용');
+  L.push(' - 기저질환 : ' + (d.disease ? d.disease.replace(/\n+/g,' / ') : '없음'));
+  L.push(' - 복용 중인 약·영양제 : ' + (d.meds ? d.meds.replace(/\n+/g,' / ') : '없음'));
+  L.push(' - 약물 알레르기 : ' + (d.allergy ? d.allergy : '없음'));
+  if (d.otherHosp === '있음') L.push(' - 최근 타 병원 검사 : ' + (d.otherHospDetail || '있음(상세 미기재)'));
+  else L.push(' - 최근 타 병원 검사 : 없음');
+  return L.join('\n');
+}
+
+function copyText(text, onDone){
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(onDone).catch(function(){ legacyCopy(text, onDone); });
+  } else {
+    legacyCopy(text, onDone);
+  }
+}
+function legacyCopy(text, onDone){
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly','');
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  ta.setSelectionRange(0, text.length);
+  var ok = false;
+  try { ok = document.execCommand('copy'); } catch(e){ ok = false; }
+  document.body.removeChild(ta);
+  if (ok) onDone();
+  else {
+    var w = window.open('', '_blank');
+    if (w) { w.document.write('<pre style="white-space:pre-wrap;font-family:sans-serif;font-size:14px;padding:20px;line-height:1.7">' + text.replace(/&/g,'&amp;').replace(/</g,'&lt;') + '</pre>'); w.document.title='문진 내용'; }
+    toast('자동 복사가 안 되었어요. 새 창의 내용을 길게 눌러 복사해 주세요.', true);
+  }
+}
+
+function validate(){
+  var bad = null;
+  if (!val('ownerName')) bad = 'ownerName';
+  else if (!val('petName')) bad = 'petName';
+  if (!bad) return true;
+  var el = $(bad);
+  el.classList.add('err');
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(function(){ el.focus({preventScroll:true}); }, 320);
+  setTimeout(function(){ el.classList.remove('err'); }, 2400);
+  toast(bad === 'ownerName' ? '보호자 성함을 입력해 주세요.' : '아이 이름을 입력해 주세요.', true);
+  return false;
+}
+
+function copyChart(){
+  if (!validate()) return;
+  var text = buildChart();
+  save();
+  copyText(text, function(){
+    toast('문진 내용이 복사되었습니다. 접수처에 붙여넣어 주세요.');
+    $('abHint').textContent = '복사 완료 · ' + nowStr();
+  });
+}
+
+function sendKakao(){
+  if (!validate()) return;
+  var text = buildChart();
+  save();
+  /* 클릭 이벤트 안에서 바로 열어야 팝업 차단을 피할 수 있습니다 */
+  var w = window.open(KAKAO_CHANNEL, '_blank');
+  copyText(text, function(){
+    toast('복사했어요. 카카오톡 채널 대화창에 붙여넣어 주세요.');
+  });
+}
+
+/* ---------- 이벤트 ---------- */
+(function init(){
+  restore();
+  var form = document.querySelectorAll('input,select,textarea');
+  for (var i=0;i<form.length;i++){
+    form[i].addEventListener('change', save);
+    form[i].addEventListener('input', function(){
+      save();
+      $('abHint').textContent = '자동 저장됨 · 접수처에 복사해서 보여주세요';
+    });
+  }
+})();
+</script>
+</body>
+</html>
