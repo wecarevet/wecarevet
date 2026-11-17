@@ -33,6 +33,17 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .tbtn.kako:hover{background:#f0d800}
 .tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.15);font-size:11px}
 
+/* STAFF TOOL NAV */
+.staffnav{background:#fff;border-bottom:1px solid var(--border)}
+.staffnav-inner{max-width:1180px;margin:0 auto;padding:.5rem 1.25rem;display:flex;align-items:center;gap:.4rem;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.staffnav-lbl{font-size:9.5px;font-weight:700;letter-spacing:.13em;color:var(--text-muted);text-transform:uppercase;flex-shrink:0;margin-right:.1rem}
+.snbtn{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:500;color:var(--text-mid);text-decoration:none;background:var(--navy-xlight);border:1px solid var(--border);padding:5px 10px;border-radius:999px;line-height:1.45;flex-shrink:0;transition:background .15s,border-color .15s,color .15s}
+.snbtn:hover{border-color:#b7d0ee;color:var(--navy);background:#fff}
+.snbtn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.snbtn.active:hover{background:var(--navy-dark);border-color:var(--navy-dark);color:#fff}
+
+@media print{.staffnav{display:none !important}}
+
 /* HERO */
 .hero{background:var(--navy);padding:1.9rem 1.25rem 1.6rem}
 .hero-inner{max-width:1180px;margin:0 auto}
@@ -199,6 +210,16 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
     </div>
   </div>
 </div>
+
+<nav class="staffnav" aria-label="원내 도구 바로가기">
+  <div class="staffnav-inner">
+      <span class="staffnav-lbl">원내 도구</span>
+      <a class="snbtn" href="discharge.html">📋 퇴원·투약 안내문</a>
+      <a class="snbtn" href="https://wecarevetp.netlify.app/" target="_blank" rel="noopener">💊 바른복약 100종</a>
+      <a class="snbtn active" href="cri_calculator.html" aria-current="page">🧮 임상 계산기</a>
+      <a class="snbtn" href="research.html">📚 논문 스터디</a>
+  </div>
+</nav>
 
 <div class="hero">
   <div class="hero-inner">

@@ -108,10 +108,10 @@ a{color:inherit}
 
 /* ── DISEASE TABS ─────────────────────── */
 .tabs{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;margin-bottom:1.4rem}
-.tab{display:inline-flex;align-items:center;gap:.35rem;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:var(--white);color:var(--text-mid);font-size:12.5px;font-weight:500;font-family:inherit;line-height:1.4;cursor:pointer;transition:background .16s,border-color .16s,color .16s,box-shadow .16s;white-space:nowrap}
+.tab{display:inline-block;padding:8px 15px;border-radius:999px;border:1px solid var(--border);background:var(--white);color:var(--text-mid);font-size:12.5px;font-weight:500;font-family:inherit;line-height:1.4;cursor:pointer;transition:background .16s,border-color .16s,color .16s,box-shadow .16s;white-space:nowrap}
 .tab:hover{border-color:#b7d0ee;color:var(--navy)}
 .tab.active{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:0 10px 20px -12px rgba(16,51,94,.85)}
-.tab .cnt{font-size:11px;font-weight:600;opacity:.6}
+.tab .cnt{font-size:11px;font-weight:600;opacity:.6;margin-left:3px}
 .tab.active .cnt{opacity:.85}
 .tab:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .tab-empty{text-align:center;font-size:12.5px;color:var(--text-muted);padding:1.5rem 0}
@@ -341,7 +341,7 @@ a{color:inherit}
 
       <a class="dcard" href="pancreatitis.html" data-cat="gi">
         <div class="dcard-head">
-          <span class="dcard-icon" aria-hidden="true">🫄</span>
+          <span class="dcard-icon" aria-hidden="true">🤢</span>
           <span class="dcard-tag">소화기</span>
         </div>
         <h3 class="dcard-name">췌장염</h3>
