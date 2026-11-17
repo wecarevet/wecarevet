@@ -10187,7 +10187,7 @@ function mmDraw(dt){
 }
 
 /* ============ BROADCAST — 라이브 중계 화면 · POG · 박스스코어 ============ */
-let MMDOM={key:null, ev:null, kills:[0,0], towers:[0,0], obj:null};
+let MMDOM={key:null, ev:null, kills:[0,0], towers:[0,0], obj:null, banterAt:-1};
 let MMFAST=false;
 function champImg(name,size,cls){
   const c=CHAMP_MAP[name];
@@ -10226,30 +10226,55 @@ function mmClockStr(){
 function mGoldK(v){ return (v/1000).toFixed(1)+'k'; }
 const CASTER_POOL={
   kill:['자아~!! 여기서 킬이 터집니다!!','아니 이걸 잡는다고요?!','와~!! 이 각을 봐요 여러분!!','터졌습니다!! 완벽한 갱킹!!'],
+  solo:['솔로킬!! 솔로킬이 터집니다!!','라인전에서 그냥 이겼습니다!!','와~ 이걸 이렇게 따냅니까!!','점멸 없이 죽였습니다!!'],
   obj:['드래곤 앞에서 시야 싸움이 치열합니다!','유충 스택! 이게 후반에 큰 차이를 만듭니다!','바론 앞에서 숨죽이고 있습니다!','오브젝트 하나에 판이 갈립니다!'],
   fight:['아니 이 한타를 뒤집는다고요?!','5대5! 여기서 승부가 갈립니다!!','이게 LCK입니다 여러분!!','스펠이 다 빠졌습니다! 지금입니다!'],
+  steal:['바론 스틸!!! 이게 들어갑니까!!','와!! 정글 차이가 여기서 나옵니다!!','강타 싸움에서 이겼습니다!!'],
   lane:['라인전 딜교환이 아주 날카롭습니다','CS 격차가 조금씩 벌어지고 있습니다','탑 라인 맞대결, 물러서지 않습니다','이 라인 구도가 오늘 경기의 핵심입니다'],
   draft:['밴픽이 끝났습니다. 조합의 그림이 보입니다','이 조합은 초반에 굴려야 합니다','상대 밴픽이 아주 날카로웠습니다'],
   late:['30분이 넘었습니다. 이제 한 번의 실수가 경기를 끝냅니다','시야 장악이 곧 승리입니다, 여러분','양 팀 모두 체력이 바닥입니다'],
+  throw:['아니 이걸 뒤집는다고요?! 리드가 다 날아갑니다!','한 번의 판단이 이렇게 됩니까!','여기서 사고가 터집니다!!'],
+  int:['아니 저걸 왜 맞습니까!','혼자 들어가면 안 되는데요!','저건 그냥 던진 겁니다!'],
   intro:['경기가 시작되었습니다!','선수들이 협곡으로 향합니다!'],
 };
 const ANALYST_POOL={
   kill:['아 근데 저기 와드도 없는데 왜 나가요~ ㅋㅋ','저건 상대가 실수한 거죠','점멸 아끼면 안 되는데 말이죠','이건 정글 동선이 완벽했습니다'],
+  solo:['라인전 딜교를 그냥 이겼어요, 챔프 상성이거든요','저건 상대가 미니언을 못 봤습니다 ㅋㅋ','스펠 교환에서 이미 끝났어요','와 이건 좀 아프네요'],
   obj:['이 조합은 30분 넘어가면 숨도 못 쉽니다, 지금 굴려야죠!','드래곤 3스택이면 상대는 답이 없어요','유충은 타워 골드로 바꿔야 의미가 있죠','바론 앞에서 시간 끌면 오히려 손해야요'],
   fight:['포지션이 너무 좋았어요, 옆에서 보면 쉬워 보이죠','탱커가 앞에 안 서면 저렇게 됩니다','딜러가 각을 너무 좁게 잡았어요','이니시 각이 딱 하나 있었는데 그걸 열었네요'],
+  steal:['정글 차이입니다, 이건 뭐라고 해야 되나','스틸은 운도 필요하지만 위치가 좋았어요','상대 정글은 강타 아꼈죠? ㅋㅋ'],
   lane:['미니언 웨이브 관리가 승부를 가릅니다','저 라인은 지금 프리징이 정답이에요','CS 20개 차이는 골드로 보면 400입니다','라인전은 결국 정글 위치 싸움입니다'],
   draft:['이 조합은 사이드 운영이 강점이에요','밴픽에서 이미 반은 이겼습니다','상대 딜 밸런스가 무너졌어요, 탱커가 없어요','후반 밸류만 보면 우리 쪽이 훨씬 좋습니다'],
   late:['지금은 욕심 부리면 지는 시간입니다','바론 사냥은 시야 없이 하면 안 되죠','한 명만 잘못 걸려도 넥서스까지 갑니다'],
+  throw:['아까 그 리드 어디 갔어요~ ㅋㅋ','이게 롤이죠, 진짜 모릅니다','한타 한 번에 이렇게 되니까 무섭습니다'],
+  int:['저건 좀 선수도 억울할 듯','와드 없이 들어가면 그렇게 됩니다','한 번의 실수인데 결과가 너무 큽니다'],
   intro:['오늘 경기 재밌겠는데요? ㅋㅋ','밴픽만 봐도 그림이 나옵니다'],
 };
 let CAST_PH=-1, CAST_LINE=[];
+function lastEventText(){ const e=(M.events||[]).find(x=>x.kind!=='sys'); return e?e.text.replace(/<[^>]+>/g,''):''; }
+function castScenario(){
+  const m=M.minute;
+  const ev=lastEventText();
+  const gd=M.gold[0]-M.gold[1];
+  const kd=M.kills[0]-M.kills[1];
+  if(/바론/.test(ev)&&/스틸|강타/.test(ev)) return 'steal';
+  if(/역전|뒤집|리드/.test(ev)) return 'throw';
+  if(m>=18&&Math.abs(gd)>3000&&((gd>0&&M.kills[1]>M.kills[0])||(gd<0&&M.kills[0]>M.kills[1]))) return 'throw';
+  if(/솔로킬/.test(ev)) return 'solo';
+  if(/킬/.test(ev)) return 'kill';
+  const deaths=MM.kda?ROLES.reduce((a,r)=>a+((MM.kda['me-'+r]||{}).d||0),0):0;
+  if(m>=12&&deaths>=7&&Math.random()<0.5) return 'int';
+  if(mmObjectiveWindow(m)) return 'obj';
+  if((M.fights[0]+M.fights[1])>0&&(m%3===0||M.focusUntil>m)) return 'fight';
+  if(m>=28) return 'late';
+  if(m<1) return 'intro';
+  return 'lane';
+}
 function casterLines(){
   const m=M.minute;
+  const sc=castScenario();
   const last=(M.events||[]).find(e=>e.kind!=='sys');
-  let key='lane';
-  if(M.focusUntil>m||(M.fights[0]+M.fights[1]>0&&m>=20&&(m%3===0))) key='fight';
-  if(mmObjectiveWindow(m)) key='obj';
-  if(last&&/(킬|솔로킬|로밍|역습)/.test(last.text)) key='kill';
+  let key=sc;
   if(Math.abs((M.dragons[0]+M.dragons[1]))>0&&m%7===0) key='obj';
   if(m>=28) key='late';
   if(m<1){
@@ -10432,6 +10457,12 @@ function matchPatch(){
   const c1=q('mmCast1'), c2=q('mmCast2');
   if(c1&&c1.textContent!==cast[0]) c1.textContent=cast[0];
   if(c2&&c2.textContent!==cast[1]) c2.textContent=cast[1];
+  // 해설 한마디를 피드에 남기기 (2분 간격)
+  if(M.minute!==MMDOM.banterAt&&M.minute%2===0&&!M.over){
+    MMDOM.banterAt=M.minute;
+    if(Math.random()<0.75) logEvent('sys','🎙 클템: '+cast[1]);
+    if(Math.random()<0.4) logEvent('sys','🎤 전용준: '+cast[0]);
+  }
   const pb=q('mmPlay');
   if(pb){
     pb.innerHTML=M.over?'결과 보기 →':(M.running?'⏸ 일시정지':'▶ 재개');
