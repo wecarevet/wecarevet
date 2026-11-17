@@ -1041,8 +1041,8 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .bpl-i{min-width:0;flex:1}
 .bpl-i b{display:block;font-size:11px;font-weight:900;color:#dfe3ea;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bpl-kda{display:block;font-size:9.5px;color:#8f97a6;font-weight:800;font-variant-numeric:tabular-nums}
-.bmap{min-width:0;position:relative}
-.bmap-cv{position:relative;width:100%;aspect-ratio:1;background:#05070b;border-radius:10px;overflow:hidden;border:1px solid #1a1d24}
+.bmap{min-width:0;position:relative;display:flex;flex-direction:column}
+.bmap-cv{position:relative;width:min(100%,calc(100dvh - 240px));max-width:760px;margin:0 auto;aspect-ratio:1;background:#05070b;border-radius:10px;overflow:hidden;border:1px solid #1a1d24}
 .bmap-cv canvas{display:block;width:100%;height:100%}
 .bmap-tag{position:absolute;left:8px;top:8px;padding:2px 7px;border-radius:5px;background:rgba(6,8,12,.72);font-size:9.5px;font-weight:900;color:#9fd0f0}
 .bcaster{display:flex;flex-direction:column;gap:3px;margin-top:6px;padding:6px 8px;border-radius:8px;background:rgba(4,6,10,.9);border:1px solid #1a1d24}
@@ -1376,6 +1376,9 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .derby{font-style:normal;font-size:9px;font-weight:900;padding:1px 6px;border-radius:4px;background:linear-gradient(90deg,#e0687a,#e6c481);color:#1a0e10;letter-spacing:.02em}
 .arw{font-style:normal;font-size:9px;font-weight:900;color:#6b7182;margin-left:2px}
 .arw.up{color:#6ecf9e}.arw.dn{color:#e0687a}
+.syn-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.syn-badge{font-size:9.5px;font-weight:900;padding:2px 7px;border-radius:5px;background:linear-gradient(90deg,rgba(230,196,129,.22),rgba(196,177,255,.18));border:1px solid rgba(230,196,129,.45);color:#f7e2ae}
+.cb-tip.synergy{color:#f0d69b}
 
 </style>
 </head>
@@ -3429,6 +3432,11 @@ function startMatch(draftResult){
   if(gp.jungle==='farm') edge+=0.15;
   edge += (S.seriesMomentum||0) + ((S.currentSeries&&S.currentSeries.nextEdge)||0);
   edge += (S.pressEdge||0)*0.55;
+  try{
+    const myNames=(D&&D.picks&&D.picks[D.mySide])||[];
+    const opNames=(D&&D.picks&&D.picks[otherSide(D.mySide)])||[];
+    if(typeof synergyBonus==='function') edge += synergyBonus(myNames)*0.35 - synergyBonus(opNames)*0.35;
+  }catch(e){}
   // 상대 에이스 시그니처 밴 보상
   try{
     const myBans=(D&&D.bans&&D.bans[D.mySide])?D.bans[D.mySide]:[];
@@ -5355,6 +5363,11 @@ function coachDraftAdvice(){
       if(myComp.ap-myComp.ad>3) need.push('AD 딜러');
     }
     if(myP.length>=3&&need.length) tips.push({k:'pick', t:'지금 조합에 필요한 것은 '+need.join(', ')+'입니다.'});
+    if(typeof activeSynergies==='function'){
+      const syn=activeSynergies(myP);
+      const near=activeSynergies(myP.concat(['자야','라칸','루시안','나미','오리아나','말파이트']));
+      if(syn.length) tips.push({k:'synergy', t:'✨ '+syn.map(x=>x.n).join(', ')+' 시너지가 발동했습니다. 이 조합은 '+syn[0].d+'으로 굴리세요.'});
+    }
     const sigs=mySigs().filter(n=>!dUsed().includes(n));
     if(sigs.length) tips.push({k:'sig', t:'내 선수 주특기 '+sigs.slice(0,2).join('·')+' 가 아직 열려 있습니다.'});
   }
@@ -5482,6 +5495,41 @@ function autoTacticsStep(){
     }
   }
   M.tacticEdge=liveTacticEdge();
+}
+
+/* ---------- 클래식 프로 시너지 조합 ---------- */
+const SYNERGIES=[
+  {n:'자야 · 라칸', champs:['자야','라칸'], d:'불사조 역이니시', b:2.0, line:'자야·라칸! 전통의 봇듀오가 완성됐습니다!'},
+  {n:'루시안 · 나미', champs:['루시안','나미'], d:'초반 압박 라인전', b:1.9, line:'루시안·나미, 라인전 지옥이 열립니다 ㅋㅋ'},
+  {n:'케이틀린 · 럭스', champs:['케이틀린','럭스'], d:'사거리 포킹', b:1.7, line:'케이틀린·럭스, 사거리 차이가 그대로 나옵니다'},
+  {n:'케이틀린 · 모르가나', champs:['케이틀린','모르가나'], d:'속박 후 폭딜', b:1.7, line:'케이틀린·모르가나, 한 번 걸리면 끝입니다'},
+  {n:'징크스 · 룰루', champs:['징크스','룰루'], d:'후반 하이퍼캐리 보호', b:1.8, line:'징크스·룰루, 후반만 가면 답이 없습니다'},
+  {n:'제리 · 밀리오', champs:['제리','밀리오'], d:'무적 힐 후 캐리', b:1.8, line:'제리·밀리오 시대가 다시 옵니다'},
+  {n:'아펠리오스 · 쓰레쉬', champs:['아펠리오스','쓰레쉬'], d:'랜턴 구원 연계', b:1.7, line:'아펠리오스·쓰레쉬, 랜턴 한 번에 판이 바뀝니다'},
+  {n:'오리아나 · 자르반', champs:['오리아나','자르반 4세'], d:'궁 콤보', b:2.0, line:'오리아나·자르반! 이건 봤던 그림입니다'},
+  {n:'오리아나 · 녹턴', champs:['오리아나','녹턴'], d:'암전 후 궁 콤보', b:1.9, line:'불 꺼지면 오리아나 궁이 날아옵니다'},
+  {n:'오리아나 · 바이', champs:['오리아나','바이'], d:'돌진 후 공 구체', b:1.9, line:'바이·오리아나, 이건 막을 수가 없어요'},
+  {n:'야스오 · 말파이트', champs:['야스오','말파이트'], d:'에어본 5인', b:2.0, line:'야스오·말파이트! 5인 에어본 각입니다'},
+  {n:'야스오 · 다이애나', champs:['야스오','다이애나'], d:'광역 에어본', b:1.8, line:'다이애나·야스오, 들어가면 끝장입니다'},
+  {n:'야스오 · 알리스타', champs:['야스오','알리스타'], d:'박치기 에어본', b:1.8, line:'알리스타가 띄우면 야스오가 정리합니다'},
+  {n:'갈리오 · 카밀', champs:['갈리오','카밀'], d:'가둠 후 광역 딜', b:1.9, line:'카밀·갈리오, 우리가 아는 그 조합'},
+  {n:'갈리오 · 녹턴', champs:['갈리오','녹턴'], d:'암전 합류', b:1.8, line:'녹턴이 끄고 갈리오가 내려옵니다'},
+  {n:'세주아니 · 레넥톤', champs:['세주아니','레넥톤'], d:'프론트 이니시', b:1.7, line:'세주아니·레넥톤, 앞라인이 너무 두껍습니다'},
+  {n:'세주아니 · 요네', champs:['세주아니','요네'], d:'이니시 후 진입', b:1.7, line:'세주아니가 열고 요네가 썰러 갑니다'},
+  {n:'니달리 · 레넥톤', champs:['니달리','레넥톤'], d:'초반 탑 설계', b:1.7, line:'니달리·레넥톤, 탑 정글 2:2는 무조건 이깁니다'},
+  {n:'니달리 · 트위스티드 페이트', champs:['니달리','트위스티드 페이트'], d:'글로벌 픽오프', b:1.7, line:'TF·니달리, 이건 시야 밖에서 당합니다'},
+];
+function activeSynergies(names){
+  const list=names||[];
+  return SYNERGIES.filter(s=>s.champs.every(c=>list.indexOf(c)>=0));
+}
+function synergyBonus(names){
+  return activeSynergies(names).reduce((a,s)=>a+s.b,0);
+}
+function synergyBadgesHTML(names){
+  const list=activeSynergies(names);
+  if(!list.length) return '';
+  return list.map(s=>`<span class="syn-badge" title="${esc(s.d)}">✨ ${esc(s.n)}</span>`).join('');
 }
 
 /* ============ STATS — 시즌 개인 지표 · 어워드 · 트로피 ============ */
@@ -8561,7 +8609,7 @@ function marketV3(){
 /* ---------- 추가 액션 ---------- */
 function kespaBegin(){
   const k=S.kespa||kespaInit();
-  if(!k.started){ k.started=true; saveGame(); sfx('start'); renderHub(); return; }
+  if(!k.started){ k.started=true; saveGame(); sfx('start'); }
   const m=kespaMyMatch();
   if(!m) return;
   const oppId=m.a===S.userTeam?m.b:m.a;
@@ -8747,6 +8795,7 @@ function renderDraft(){
           <span class="tiny">${dMyPicks().length}/5 픽</span>
         </div>
         ${dMyPicks().length?compMini(myComp):'<div class="empty-note" style="padding:8px">챔피언을 픽하면 조합 진단이 표시됩니다</div>'}
+        ${typeof synergyBadgesHTML==='function'&&dMyPicks().length?`<div class="syn-row">${synergyBadgesHTML(dMyPicks())}</div>`:''}
         ${dMyPicks().length>=2?`
           <div class="divider" style="margin:9px -14px"></div>
           <div class="row between" style="margin-bottom:5px"><span class="tiny">피해 유형</span>
@@ -10112,7 +10161,13 @@ function casterLines(){
   if(last&&/(킬|솔로킬|로밍|역습)/.test(last.text)) key='kill';
   if(Math.abs((M.dragons[0]+M.dragons[1]))>0&&m%7===0) key='obj';
   if(m>=28) key='late';
-  if(m<1) key='intro';
+  if(m<1){
+    key='intro';
+    try{
+      const syn=activeSynergies((D&&D.picks&&D.picks[D.mySide])||[]);
+      if(syn.length) return [syn[0].line, '이 조합은 후반 밸류가 무섭습니다, 지금 굴려야죠!'];
+    }catch(e){}
+  }
   const bucket=key==='kill'?'kill':key;
   const c1=CASTER_POOL[bucket]||CASTER_POOL.lane;
   const c2=ANALYST_POOL[bucket]||ANALYST_POOL.lane;
