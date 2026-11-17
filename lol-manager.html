@@ -1292,6 +1292,24 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .hm>.card{display:flex;flex-direction:column}
 .hm>.card>.ch{flex:0 0 auto}
 .fin3{margin:auto 0}
+/* tournament splash themes */
+.splash.spring{background:radial-gradient(700px 420px at 50% 32%,rgba(40,90,170,.34),transparent 70%),linear-gradient(160deg,#0a1020,#0d1526 45%,#080b13)}
+.splash.spring .sp-k{color:#7fb4f0}.splash.spring .sp-logo span{color:#3f7bd6}.splash.spring .sp-logo b{color:#9dc8ff}
+.splash.spring .sp-lines{color:#b6c9e0}.splash.spring .sp-big{color:#d7e6f7}
+.splash.spring .sp-sub{background:linear-gradient(180deg,#fff,#8fc0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.splash.summer{background:radial-gradient(700px 420px at 50% 32%,rgba(190,120,40,.30),transparent 70%),linear-gradient(160deg,#12100a,#1a1408 45%,#0b0905)}
+.splash.summer .sp-k{color:#e6c07a}.splash.summer .sp-logo span{color:#c79a4a}
+.splash.summer .sp-lines{color:#e0cba6}.splash.summer .sp-sub{background:linear-gradient(180deg,#fff,#ffd08a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.splash.msi{background:radial-gradient(700px 420px at 50% 32%,rgba(30,140,140,.30),transparent 70%),linear-gradient(160deg,#04100f,#081817 45%,#03100e)}
+.splash.msi .sp-k{color:#6fe0d0}.splash.msi .sp-logo span{color:#2fae9c}
+.splash.msi .sp-lines{color:#b6e6df}.splash.msi .sp-sub{background:linear-gradient(180deg,#fff,#7ff0dc);-webkit-background-clip:text;background-clip:text;color:transparent}
+.splash.ewc{background:radial-gradient(700px 420px at 50% 32%,rgba(170,60,40,.32),transparent 70%),linear-gradient(160deg,#14080a,#1c0c0a 45%,#0b0505)}
+.splash.ewc .sp-k{color:#ffb08a}.splash.ewc .sp-logo span{color:#d2603c}
+.splash.ewc .sp-lines{color:#f0c6b0}.splash.ewc .sp-sub{background:linear-gradient(180deg,#fff,#ffb27a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.splash.worlds{background:radial-gradient(800px 500px at 50% 30%,rgba(200,160,60,.28),transparent 70%),linear-gradient(160deg,#0b0a12,#14101a 45%,#07060a)}
+.splash.worlds .sp-k{color:#e8c979}.splash.worlds .sp-logo span{color:#c9a44a}
+.splash.worlds .sp-lines{color:#e2d3b0}.splash.worlds .sp-sub{background:linear-gradient(180deg,#fff,#ffdc94);-webkit-background-clip:text;background-clip:text;color:transparent}
+.splash .sp-logo{font-size:34px}
 
 </style>
 </head>
@@ -1317,6 +1335,7 @@ h1,h2,h3,h4{letter-spacing:-.02em}
       <section id="view-press" class="view no-pad hidden"></section>
       <section id="view-box" class="view no-pad hidden"></section>
       <section id="view-kespa" class="view no-pad hidden"></section>
+      <section id="view-splash" class="view no-pad hidden"></section>
     </main>
   </div>
   <nav id="tabbar" class="tabbar hidden"></nav>
@@ -2593,6 +2612,7 @@ function createState(teamId, opts){
     p.starter=false; p.fa=true; p.fee=Math.round(p.salary*1.7*10)/10;
     st.players[p.name]=p;
   });
+  st.phase='kespa';
   const sb=buildStaff();
   st.staffLib=sb.lib; st.staff=sb.byTeam;
   st.owner={name:'박성수', role:'구단주'};
@@ -2600,6 +2620,7 @@ function createState(teamId, opts){
   st.schedule=genSchedule(lckIds());
   st.pog=Object.fromEntries(Object.keys(st.players).map(n=>[n,0]));
   S=st;
+  try{ st.kespa=kespaInit(); st.splashPending='kespa'; }catch(e){}
   applyPatch(0,true);
   return st;
 }
@@ -3978,6 +3999,7 @@ function startPlayoffSeries(match,roundName){
 
 /* ================= MSI / EWC 국제 초청 토너먼트 ================= */
 function startMSI(){
+  try{ S.splashPending='msi'; }catch(e){}
   const st=standings();
   const lck=[S.springChampion,S.springRunnerUp].filter(id=>id&&S.teams[id]);
   st.forEach(t=>{ if(lck.length<2&&!lck.includes(t.id)) lck.push(t.id); });
@@ -3989,6 +4011,7 @@ function startMSI(){
   saveGame();
 }
 function startEWC(){
+  try{ S.splashPending='ewc'; }catch(e){}
   const lck=standings().slice(0,2).map(t=>t.id);
   const teams=[...lck,'BLG','TES','G2','FNC','FLY','TL'].filter((x,i,a)=>x&&a.indexOf(x)===i);
   S.ewc={kind:'ewc',name:'EWC 이스포츠 월드컵',month:'7월',bo:3,teams,bracket:makeIntlBracket(teams,3,'7월'),
@@ -4018,12 +4041,12 @@ function intlAdvance(tour){
     tour.done=true; tour.champion=fin.winner; tour.runnerUp=fin.winner===fin.a?fin.b:fin.a;
     if(tour.kind==='msi'){
       S.msiChampion=tour.champion;
-      S.split='summer'; S.phase='regular'; S.week=6;
+      S.split='summer'; S.phase='regular'; S.week=6; S.splashPending='summer';
       S.actionApplied=false; S.weekActionTarget=null; S.gameplan=null;
       toast('☀️ MSI 종료 — 서머 시즌이 시작됩니다');
     }else{
       S.ewcChampion=tour.champion;
-      S.phase='regular';
+      S.phase='regular'; S.splashPending='summer';
       toast('🏅 EWC 종료 — 서머 시즌으로 복귀합니다');
     }
     saveGame();
@@ -4072,6 +4095,7 @@ function lckSeeds(){
   return out.slice(0,4);
 }
 function startWorlds(seedOverride){
+  try{ S.splashPending='worlds'; }catch(e){}
   applyRandomPatch('월즈 메이저 패치');
   let seeds=(seedOverride&&seedOverride.length?seedOverride:lckSeeds()).slice(0,4);
   if(!seedOverride&&S.msiChampion&&T(S.msiChampion)&&T(S.msiChampion).region==='LCK'&&!seeds.includes(S.msiChampion)){
@@ -4901,6 +4925,8 @@ function kespaRecord(matchRef, meScore, oppScore){
   kespaSimOthers();
   kespaAdvanceRound();
   if(k.done){
+    S.phase='regular'; S.splashPending='spring'; S.actionApplied=false;
+    newsAdd('cup','🏆 케스파컵 종료 — LCK 스프링 개막');
     const t=myTeam();
     if(k.prize) t.budget=Math.round((t.budget+k.prize)*10)/10;
     S.club.prestige=clamp(S.club.prestige+(k.rounds[k.rounds.length-1].matches[0].winner===S.userTeam?6:2),0,100);
@@ -6782,7 +6808,7 @@ function currentSub(){
 }
 function show(name){
   closeModal();
-  ['title','select','hub','draft','plan','match','series','playoffs','worlds','intl','offseason','champion','kespa','press','box'].forEach(v=>{
+  ['title','select','hub','draft','plan','match','series','playoffs','worlds','intl','offseason','champion','kespa','press','box','splash'].forEach(v=>{
     const n=$('view-'+v); if(n) n.classList.toggle('hidden', v!==name);
   });
   if(name!=='match') mmStop();
@@ -6822,7 +6848,7 @@ function renderTopbar(){
       <button class="tb-ic" data-nav="home" title="홈">${badgeHTML}</button>
       <div class="tb-title">
         <b>${esc(t.name)}</b>
-        <span>${S.phase==='regular'?S.season+'시즌 · '+S.week+'주차':S.phase==='playoffs'?'플레이오프':S.phase==='worlds'?'월드 챔피언십':S.phase==='msi'?'MSI':S.phase==='ewc'?'EWC':'스토브리그'}${S.phase==='regular'?' · '+myRank()+'위':''}</span>
+        <span>${S.phase==='regular'?S.season+'시즌 · '+S.week+'주차':S.phase==='kespa'?'케스파컵':S.phase==='playoffs'?'플레이오프':S.phase==='worlds'?'월드 챔피언십':S.phase==='msi'?'MSI':S.phase==='ewc'?'EWC':'스토브리그'}${S.phase==='regular'?' · '+myRank()+'위':''}</span>
       </div>
       <div class="tb-subs">
         ${(subs||[]).map(s=>`<button class="tb-sub ${cur===s.k?'on':''}" data-sub="${s.k}">${s.n}</button>`).join('')}
@@ -6881,6 +6907,11 @@ function renderHub(){
 function nextMatchInfo(){
   const s=S.currentSeries;
   if(s&&!s.done) return {kind:'series', series:s, opp:T(s.oppId), label:s.stage==='kespa'?'케스파컵':s.stage==='playoffs'?'플레이오프':s.stage==='worlds'?'월드 챔피언십':'LCK'};
+  if(S.phase==='kespa'){
+    const km=kespaMyMatch();
+    if(km){ const oid=km.a===S.userTeam?km.b:km.a; return {kind:'kespa', opp:T(oid), label:'케스파컵 '+((kespaRound()||{}).name||'')}; }
+    return null;
+  }
   if(S.phase==='regular'){
     const o=weekOpponent();
     if(o) return {kind:'week', opp:T(o.oppId), label:'LCK 정규 ' + S.week + '주차'};
@@ -6919,7 +6950,14 @@ function homeV3(){
       ${nm?`
         <div class="nx-in">
           <div class="nx-comp">${esc(nm.label)}</div>
-          ${nm.kind==='week'?`
+          ${nm.kind==='kespa'?`
+            <div class="nx-vs">
+              <div class="nvs">${badge(t,'lg')}<span>${esc(t.tag)}</span></div>
+              <div class="nvs-mid"><b class="up">토너먼트</b></div>
+              <div class="nvs">${badge(nm.opp,'lg')}<span>${esc(nm.opp.name)}</span></div>
+            </div>
+            <button class="pillbtn gold" data-a="kespastart">케스파컵 밴픽 ${ico('play',11)}</button>
+          `:nm.kind==='week'?`
             <div class="nx-vs">
               <div class="nvs">${badge(t,'lg')}<span>${esc(t.tag)}</span></div>
               <div class="nvs-mid">${teamPower(t)>=teamPowerRaw(nm.opp)?'<b class="up">전력 우위</b>':'<b class="dn">전력 열세</b>'}</div>
@@ -7458,6 +7496,11 @@ function bindHub(){
     }
   });
 }
+function prepareMatchV3(){
+  if(S.phase==='kespa'){ kespaBegin(); return; }
+  if(S.currentSeries && !S.currentSeries.done){ prepareMatch(); return; }
+  prepareMatch();
+}
 function hubAction(a,v,el){
   if(!S) return;
   clubInit();
@@ -7475,12 +7518,8 @@ function hubAction(a,v,el){
     }
     sfx('click'); renderHub(); return;
   }
-  if(a==='advance'){
-    if(S.currentSeries&&!S.currentSeries.done){ prepareMatch(); return; }
-    if(S.phase==='regular'&&weekOpponent()){ prepareMatch(); return; }
-    renderAll(); return;
-  }
-  if(a==='match'){ prepareMatch(); return; }
+  if(a==='advance'){ prepareMatchV3(); return; }
+  if(a==='match'){ prepareMatchV3(); return; }
   if(a==='resume'){ if(S.currentSeries){ if(S.currentSeries.pendingSide) renderSideChoice(); else startDraft(S.currentSeries); } return; }
   if(a==='player'){ openPlayer(v); return; }
   if(a==='setstarter'){ const parts=String(v||'').split(':'); const r=setStarter(parts[0],parts[1]); closeModal(); renderHub(); return; }
@@ -7689,6 +7728,44 @@ function openAudioSettings(){
       rd.readAsDataURL(f);
     };
   });
+}
+
+/* ---------- 대회 개막 스플래시 ---------- */
+const SPLASH_DEF={
+  kespa:{k:'KESPA CUP',year:2026,title:'KeSPA CUP',sub:'새 시즌의 첫 번째 대회.<br>새 로스터, 새 판도, 첫 성적표.',big:'시즌은 이미 시작됐습니다.',big2:'먼저 치고 나가세요.',cls:'kespa',line:'8팀 토너먼트 · 8강/4강/결승 · Bo3'},
+  spring:{k:'LCK SPRING',year:2026,title:'LCK SPRING',sub:'정규시즌 5주.<br>10팀이 하나의 왕좌를 두고 겨룹니다.',big:'스프링이 시작됩니다.',big2:'첫 경기부터 증명하세요.',cls:'spring',line:'정규 5주 · 상위 6팀 플레이오프 · 우승팀 MSI 진출'},
+  summer:{k:'LCK SUMMER',year:2026,title:'LCK SUMMER',sub:'서머 9주.<br>롤드컵 진출권이 걸린 마지막 리그.',big:'여름이 왔습니다.',big2:'끝까지 살아남으세요.',cls:'summer',line:'정규 9주 · 중간 EWC 브레이크 · 상위 4팀 롤드컵'},
+  msi:{k:'MSI',year:2026,title:'MID-SEASON INVITATIONAL',sub:'각 지역의 챔피언들이 모입니다.<br>국제 무대의 첫 시험대.',big:'MSI가 시작됩니다.',big2:'지역의 자존심을 걸고.',cls:'msi',line:'8팀 토너먼트 · Bo5 · 우승 상금과 명성'},
+  ewc:{k:'Esports World Cup',year:2026,title:'ESPORTS WORLD CUP',sub:'리야드의 여름.<br>세계 최강 클럽이 한자리에.',big:'EWC가 시작됩니다.',big2:'여름의 왕좌를 가져오세요.',cls:'ewc',line:'8팀 초청 · 단판 토너먼트 · Bo5 결승'},
+  worlds:{k:'WORLD CHAMPIONSHIP',year:2026,title:'WORLD CHAMPIONSHIP',sub:'10월. 세계 16팀.<br>한 해의 마지막 페이지.',big:'롤드컵이 시작됩니다.',big2:'여기서 끝내세요.',cls:'worlds',line:'16팀 스위스 · 8강/4강/결승 · Bo5'},
+};
+function renderSplash(key){
+  const d=SPLASH_DEF[key]||SPLASH_DEF.spring;
+  $('view-splash').innerHTML=`
+    <div class="splash ${d.cls}">
+      <div class="sp-k">${d.year} · ${esc(d.k)}</div>
+      <div class="sp-logo"><span>◆</span> ${esc(d.title)}</div>
+      <div class="sp-lines">${d.sub}</div>
+      <div class="sp-big">${esc(d.big)}</div>
+      <div class="sp-sub">${esc(d.big2)}</div>
+      <button class="sp-go" data-a="splashgo">진행하기 <span>▶</span></button>
+      <div class="sp-foot">${esc(d.line)}</div>
+    </div>`;
+  const b=$('view-splash').querySelector('[data-a="splashgo"]');
+  if(b) b.onclick=()=>{ S.splashPending=null; saveGame(); sfx('start'); renderAll(); };
+  show('splash');
+}
+function renderAll(){
+  if(!S){ show('title'); renderTitle(); return; }
+  if(S.splashPending){ renderSplash(S.splashPending); return; }
+  renderTopbar();
+  if(S.phase==='end'){ show('champion'); renderChampion(); return; }
+  if(S.phase==='offseason'){ show('offseason'); renderOffseason(); return; }
+  if(S.phase==='worlds'){ show('worlds'); renderWorlds(); return; }
+  if(S.phase==='msi'||S.phase==='ewc'){ show('intl'); renderIntl(); return; }
+  if(S.phase==='playoffs'){ show('playoffs'); renderPlayoffs(); return; }
+  if(S.currentSeries && !S.currentSeries.done){ TAB='home'; }
+  show('hub'); renderHub();
 }
 
 /* ============ UI — 마케팅 · 대회 · 기록 · 영입 ============ */
