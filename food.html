@@ -779,10 +779,15 @@ const state = {q:'',f:'all',sp:'all'};
 
 function norm(s){return (s||'').toLowerCase().replace(/[\s·・.,()\[\]\/\-_~'"“”‘’!?]/g,'');}
 
-/* 검색용 문자열 미리 계산 */
+/* 검색용 문자열 미리 계산 (이름·별칭 우선, 본문은 보조) */
 D.forEach(function(it){
-  it._hay = norm([it.n,it.g,(it.al||[]).join(' '),it.d[1],it.c[1],it.sym,(it.act||[]).join(' ')].join(' '));
+  it._name = norm([it.n,it.g,(it.al||[]).join(' ')].join(' '));
+  it._body = norm([it.d[1],it.c[1],it.sym,(it.act||[]).join(' ')].join(' '));
 });
+function hasAll(it,tokens,field){
+  for(var i=0;i<tokens.length;i++){ if(it[field].indexOf(tokens[i])<0) return false; }
+  return true;
+}
 
 function scoreOf(it){
   if(state.sp!=='all') return RANK[it[state.sp==='dog'?'d':'c'][0]];
@@ -791,15 +796,15 @@ function scoreOf(it){
 
 function filtered(){
   var q = norm(state.q);
-  return D.map(function(it,i){return {it:it,i:i};}).filter(function(o){
-    var it=o.it;
-    if(state.f!=='all' && it.f.indexOf(state.f)<0) return false;
-    if(q){
-      var tokens=q.split(/\s+/).filter(Boolean);
-      for(var t=0;t<tokens.length;t++){ if(it._hay.indexOf(tokens[t])<0) return false; }
-    }
-    return true;
-  }).sort(function(a,b){
+  var tokens = q ? q.split(/\s+/).filter(Boolean) : [];
+  var pool = D.map(function(it,i){return {it:it,i:i};}).filter(function(o){
+    return state.f==='all' || o.it.f.indexOf(state.f)>=0;
+  });
+  if(tokens.length){
+    var primary = pool.filter(function(o){return hasAll(o.it,tokens,'_name');});
+    pool = primary.length ? primary : pool.filter(function(o){return hasAll(o.it,tokens,'_body');});
+  }
+  return pool.sort(function(a,b){
     var d=scoreOf(a.it)-scoreOf(b.it);
     return d!==0 ? d : a.i-b.i;
   }).map(function(o){return o.it;});
