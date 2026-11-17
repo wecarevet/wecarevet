@@ -7710,7 +7710,7 @@ function sponsorV3(){
       <div class="sp-side">
         <div class="card sp-nego">
           <div class="ch"><span>협상</span><b class="ch-n">${main?'메인 완료':'메인'}</b></div>
-          ${(mains[0]||SPONSOR_DEFS[0])?(()=>{const s=mains[0]||SPONSOR_DEFS[0];return`
+          ${(negoTarget())?(()=>{const s=negoTarget();return`
           <div class="nego-row"><span>계약 기간</span><div class="seg2"><button class="on" data-a="spyears" data-v="2">2년</button><button data-a="spyears" data-v="3">3년</button></div><b>${negot.years||2}년</b></div>
           <div class="nego-row"><span>조건</span><div class="seg3"><button class="${(negot.terms||'same')==='same'?'on':''}" data-a="spterms" data-v="same">그대로</button><button class="${negot.terms==='base'?'on':''}" data-a="spterms" data-v="base">기본금 ↑</button><button class="${negot.terms==='bonus'?'on':''}" data-a="spterms" data-v="bonus">보너스 ↑</button></div><b>${(s.pay*(negot.terms==='base'?1.08:negot.terms==='bonus'?0.93:1)).toFixed(1)}억</b></div>
           <div class="nego-row"><span>목표</span><b class="pos">${esc(SPONSOR_GOALS[s.goal]?SPONSOR_GOALS[s.goal].n:s.goal)}</b></div>
@@ -7732,7 +7732,13 @@ function sponsorV3(){
     </div>
   </div>`;
 }
-let negot={years:2, terms:'same'};
+let negot={years:2, terms:'same', id:null};
+function negoTarget(){
+  const c=clubC();
+  const all=((c.offers&&c.offers.main)||[]).concat((c.offers&&c.offers.sub)||[]);
+  if(negot.id){ const t=all.find(x=>x.id===negot.id); if(t) return t; }
+  return all[0]||SPONSOR_DEFS[0];
+}
 function spCardHTML(s,kind){
   return `<div class="spc ${s.tier==='main'?'main':'sub'}">
     <div class="spc-h"><span class="spc-logo" style="background:${s.color}22;color:${s.color}">${s.logo||'◆'}</span>
@@ -7799,18 +7805,23 @@ function hubAction(a,v,el){
   if(a==='callup'){ const r=academyCallup(Number(v)); toast(r.msg); if(r.ok) renderHub(); return; }
   if(a==='acadsign'){ academySign(); return; }
   if(a==='hire'){ const sel=$('view-hub').querySelector('[data-styears="'+v+'"]'); const n=sel?Number(sel.value):2; const r=hireStaff(v,n); if(!r.ok) toast(r.msg); else { toast('코치를 영입했습니다'); renderHub(); } return; }
-  if(a==='sppick'){ const s=SPONSOR_MAP[v]; if(s){ negot={years:2,terms:'same'}; toast(s.name+' — 협상 조건을 조정하세요'); renderHub(); } return; }
+  if(a==='sppick'){ const s=SPONSOR_MAP[v]; if(s){ negot={years:2,terms:'same',id:v}; toast(s.name+' — 협상 조건을 조정하세요'); renderHub(); } return; }
   if(a==='spyears'){ negot.years=Number(v); renderHub(); return; }
   if(a==='spterms'){ negot.terms=v; renderHub(); return; }
   if(a==='spsign'){
     const c=clubC();
-    const pool=(c.offers.main&&c.offers.main.length?c.offers.main:c.offers.sub)||[];
-    const def=pool[0]; if(!def) return;
+    const def=negoTarget(); if(!def) return;
     const tier=(c.sponsors.main?'sub':'main');
     const r=sponsorSign(tier,def.id,negot.years,negot.terms);
-    toast(r.msg); if(r.ok) renderHub(); return;
+    toast(r.msg);
+    if(r.ok){ negot={years:2,terms:'same',id:null}; renderHub(); }
+    return;
   }
-  if(a==='spnext'){ const c=clubC(); if(c.offers&&c.offers.main) c.offers.main.shift(); renderHub(); return; }
+  if(a==='spnext'){
+    const c=clubC(); const d=negoTarget();
+    if(d){ c.offers.main=(c.offers.main||[]).filter(x=>x.id!==d.id); c.offers.sub=(c.offers.sub||[]).filter(x=>x.id!==d.id); }
+    negot={years:2,terms:'same',id:null}; renderHub(); return;
+  }
   if(a==='newsread'){ newsReadAll(); renderHub(); return; }
   if(a==='board'){ STAT_BOARD=v; renderHub(); return; }
   if(a==='pledge'){ introApplyPledge(v); return; }
