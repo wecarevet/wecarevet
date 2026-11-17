@@ -738,6 +738,8 @@ function toggleRead(i) {
   else readSet.add(p.id);
   localStorage.setItem('readPapers', JSON.stringify([...readSet]));
   applyReadState(i);
+  // '안 읽은 논문만' 보기 중에는 읽음으로 바꾼 카드를 목록에서 뺀다
+  if (onlyUnread) renderPapers();
 }
 
 function toggleBookmark(i) {
@@ -751,6 +753,8 @@ function toggleBookmark(i) {
     btn.textContent = bookmarkSet.has(p.id) ? '⭐' : '☆';
     btn.classList.toggle('active', bookmarkSet.has(p.id));
   }
+  // '북마크만 보기' 중에는 해제한 카드를 목록에서 뺀다
+  if (onlyBookmarked) renderPapers();
 }
 
 function getSorted(papers) {
