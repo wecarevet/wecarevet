@@ -3529,10 +3529,11 @@ function homeHTML(){
 }
 function calendarHTML(){
   const now=calendarNow();
+  const order=['regular','playoffs','swiss','quarters','semis','final'];
+  const nowIdx=Math.max(0,order.indexOf(now));
   return `<div class="card tight"><div class="cal">
     ${CAL_STAGES.map(c=>{
-      const done=(now==='regular'&&c.k!=='regular')||(now==='playoffs'&&['swiss','quarters','semis','final'].includes(c.k))||
-        (now==='swiss'&&['quarters','semis','final'].includes(c.k))||(now==='quarters'&&['semis','final'].includes(c.k))||(now==='semis'&&c.k==='final');
+      const done=order.indexOf(c.k)<nowIdx;
       const on=c.k===now;
       return `<div class="cal-row ${on?'on':''} ${done?'done':''}">
         <span class="cal-month">${c.month}</span>
@@ -3579,7 +3580,6 @@ function pCardHTML(p,starter){
       <div class="p-name">${esc(p.name)} <span class="role-tag">${ROLE_KR[p.role]}</span><span class="grade ${p.grade}">${p.grade}</span></div>
       <div class="p-meta">${p.age}세 · ${condLabel(p)} · <span style="color:var(--gold)">${p.salary}억</span> · <span class="${contract>0?'':'warn'}">${contract>0?contract+'년':'만료'}</span></div>
       <div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;align-items:center">${playChip(p)}${persChipsHTML(p)}</div>
-      <div class="tag-row" style="margin-top:4px">${persChipsHTML(p)}</div>
       <div class="tag-row" style="margin-top:4px">${(p.good||[]).slice(0,4).map(id=>{const t=TRAIT_MAP[id];return t?`<span class="tr good" title="${esc(t.d)}">${esc(t.n)}</span>`:'';}).join('')}${(p.bad||[]).slice(0,2).map(id=>{const t=TRAIT_MAP[id];return t?`<span class="tr bad" title="${esc(t.d)}">${esc(t.n)}</span>`:'';}).join('')}<span class="tr more">+${Math.max(0,(p.good||[]).length-4)}</span></div>
       <div class="row" style="gap:8px;margin-top:4px">
         <div class="grow"><div class="bar cyan" style="height:4px"><i style="width:${p.form}%"></i></div></div>
