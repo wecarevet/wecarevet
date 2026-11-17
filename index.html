@@ -72,6 +72,7 @@ a{color:inherit}
 
 /* ── FEATURE CARD ─────────────────────── */
 .feature-wrap{padding-top:1rem}
+.feature-wrap .wrap{display:grid;gap:.7rem}
 .feature{display:flex;align-items:center;gap:1rem;background:var(--white);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:14px;padding:.95rem 1.15rem;text-decoration:none;box-shadow:0 1px 2px rgba(16,51,94,.04);transition:transform .18s,box-shadow .18s,border-color .18s}
 .feature:hover{transform:translateY(-2px);border-color:#b7d0ee;border-left-color:var(--accent);box-shadow:0 16px 34px -22px rgba(16,51,94,.75)}
 .feature-icon{width:40px;height:40px;border-radius:11px;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:18px;line-height:1;flex-shrink:0}
@@ -231,6 +232,15 @@ a{color:inherit}
 
 <section class="feature-wrap">
   <div class="wrap">
+    <a class="feature" href="vaccine.html">
+      <span class="feature-icon" aria-hidden="true">💉</span>
+      <span class="feature-body">
+        <span class="feature-kicker">접종 · 검진 일정</span>
+        <span class="feature-name">예방접종·건강검진 계산기</span>
+        <span class="feature-desc">생년월일만 넣으면 기초접종 차수와 다음 접종일, 다음 건강검진 시기를 계산해 드립니다. 강아지 2주·고양이 3주 간격, 10세 이후 6개월 검진까지.</span>
+      </span>
+      <span class="feature-cta">날짜 확인 →</span>
+    </a>
     <a class="feature" href="homecare.html">
       <span class="feature-icon" aria-hidden="true">📈</span>
       <span class="feature-body">
