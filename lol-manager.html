@@ -342,12 +342,12 @@ main{flex:1;display:flex;flex-direction:column;padding-bottom:calc(var(--tab-h) 
 /* ---- live match ---- */
 .live-top{padding:10px 14px 12px;background:linear-gradient(180deg,rgba(12,17,30,.98),rgba(12,17,30,.86));border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
 .score{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.score .sd{display:flex;align-items:center;gap:7px;min-width:0;flex:1}
+.score .sd{display:flex;align-items:center;gap:7px;min-width:0;flex:1 1 0;overflow:hidden}
 .score .sd.right{flex-direction:row-reverse}
 .score .sn{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.score .sk{font-size:22px;font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.score .mid{text-align:center;flex:0 0 auto}
-.clock{font-size:15px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--gold);letter-spacing:.02em}
+.score .sk{font-size:22px;font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums;flex:0 0 auto}
+.score .mid{text-align:center;flex:0 0 auto;min-width:74px;padding:0 2px}
+.clock{font-size:15px;font-weight:900;font-variant-numeric:tabular-nums;color:var(--gold);letter-spacing:.02em;white-space:nowrap}
 .series-score{font-size:10px;font-weight:800;color:var(--dim)}
 .obj-row{display:flex;justify-content:space-between;gap:6px;margin-top:8px}
 .obj{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:9.5px;color:var(--dim2);font-weight:800}
@@ -2379,7 +2379,7 @@ function renderMatch(){
     <div class="graph-wrap"><canvas id="goldCanvas"></canvas></div>
     ${M.needTactic?tacticPanelHTML():''}
     <div class="match-controls">
-      <button class="btn sm" id="playBtn">${M.running?'⏸ 일시정지':'▶ 재개'}</button>
+      ${M.needTactic?'<button class="btn sm" disabled>작전 선택 대기</button>':`<button class="btn sm" id="playBtn">${M.running?'⏸ 일시정지':'▶ 재개'}</button>`}
       <div class="speed-pill">
         ${[1,2,4].map(s=>`<button class="${M.speed===s?'on':''}" data-speed="${s}">${s}x</button>`).join('')}
       </div>
