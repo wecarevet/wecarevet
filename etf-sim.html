@@ -868,14 +868,15 @@ function drawChart(cv, tipEl, cfg){
   const ctx = cv.getContext('2d');
   ctx.setTransform(dpr,0,0,dpr,0,0);
   ctx.clearRect(0,0,w,h);
-  const pad = {l: 46, r: 12, t: 16, b: 20};
+  const pad = {l: 52, r: 12, t: 16, b: 20};
   const x0 = pad.l, x1 = w - pad.r, y0 = h - pad.b, y1 = pad.t;
   const n = cfg.n;
   const X = i => n<=1 ? x0 : x0 + (x1-x0) * i/(n-1);
   let ticks = niceTicks(cfg.min, cfg.max, cfg.ticks || 4);
   ticks = ticks.filter(v => v >= cfg.min - 1e-9 || Math.abs(v) < 1e-9);
   if(ticks.length < 2) ticks = [cfg.min, cfg.max];
-  const lo = ticks[0], hi = ticks[ticks.length-1];
+  const lo = Math.min(cfg.min, ticks[0]);
+  const hi = Math.max(cfg.max, ticks[ticks.length-1]);
   const Y = v => y0 - (v - lo)/((hi-lo) || 1) * (y0-y1);
 
   ctx.font = '10px -apple-system,system-ui,"Apple SD Gothic Neo",sans-serif';
@@ -963,7 +964,7 @@ function renderCharts(){
   lo = Math.max(0, lo - padY*0.4); hi = hi + padY*0.7;
 
   const mainCfg = {
-    n: nP, min: lo, max: hi, ticks: 4,
+    n: nP, min: lo, max: hi, ticks: 5,
     xTicks, xLabel: i => String(yearOf(i)),
     series: [
       {data: R.path.map(p => p.v), color: 'rgb(55,224,178)', width: 2.2,
@@ -983,7 +984,7 @@ function renderCharts(){
 
   const ddMin = Math.min(...R.ddPath.map(p=>p.v), -1);
   const ddCfg = {
-    n: nP, min: ddMin*1.1, max: 0.6, ticks: 3,
+    n: nP, min: ddMin*1.1, max: 0.6, ticks: 4,
     xTicks, xLabel: i => String(yearOf(i)),
     yFmt: v => v.toFixed(0) + '%',
     series: [{data: R.ddPath.map(p=>p.v), color:'rgb(255,100,112)', width:1.5,
@@ -1125,7 +1126,7 @@ function run(){
     </tr>`;
   });
   $('#accTable').querySelector('tbody').innerHTML = rows.join('');
-  $('#accNote').innerHTML = `현재 배분은 <b>${ACCMETA[cfg.acc].label}</b> 기준입니다(분배금 과세가 성장률에 반영). ISA·연금 행은 미국 상장 종목을 <b>같은 지수의 국내 상장 ETF로 바꿔</b> 계산했습니다(VOO·SPY→360750, QQQ·QQM→133690, SCHD→458730). 대체 상품이 없는 종목(TQQQ·SOXL·JEPI·SGOV 등)이 섞이면 그 계좌로는 담을 수 없어 –로 표시합니다. ISA의 레버리지 ETF는 증권사·계좌 유형에 따라 매수 가능 여부가 다릅니다.`;
+  $('#accNote').innerHTML = `현재 배분은 <b>${ACCMETA[cfg.acc].label}</b> 기준입니다(분배금 과세가 성장률에 반영). ISA·연금 행은 미국 상장 종목을 <b>같은 지수의 국내 상장 ETF로 바꿔</b> 계산했습니다(VOO·SPY→360750, QQQ·QQQM→133690, SCHD→458730). 대체 상품이 없는 종목(TQQQ·SOXL·JEPI·SGOV 등)이 섞이면 그 계좌로는 담을 수 없어 –로 표시합니다. ISA의 레버리지 ETF는 증권사·계좌 유형에 따라 매수 가능 여부가 다릅니다.`;
 
   // 연도표
   $('#yearTable').querySelector('tbody').innerHTML = R.yearRows.map(y => `
