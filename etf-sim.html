@@ -1113,7 +1113,7 @@ function run(){
       if(alt.missing.length) missing = alt.missing;
       else { useAlloc = alt.out; conv = alt.conv; }
     }
-    const levBad = (acc==='pen' || acc==='isa') && useAlloc.some(x => A[x.id] && A[x.id].lev>1);
+    const levBad = acc==='pen' && useAlloc.some(x => A[x.id] && A[x.id].lev>1);   // 연금계좌는 레버리지 불가
     if(missing.length || levBad){
       const why = missing.length ? '대체 종목 없음: ' + missing.join(', ')
                                  : '레버리지는 이 계좌에서 편입 불가';
