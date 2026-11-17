@@ -2406,6 +2406,40 @@ function evalDraft(){
 /* ---------- game plan ---------- */
 function setGameplan(g){ S.gameplan=g; saveGame(); }
 
+
+/* ---------- 랜덤 메타 패치 ---------- */
+const PATCH_THEMES=[
+  {k:'top',n:'상체 칼챔·유충 메타',focus:['잭스','카밀','피오라','제이스','크산테'],out:['징크스','카이사','룰루'],obj:{dragon:0.9,grub:1.2,baron:1.0,tower:1.1},note:'탑 사이드와 유충 싸움이 승부를 가른다. 칼챔 숙련도가 중요한 패치.'},
+  {k:'bot',n:'바텀 하이퍼캐리 메타',focus:['징크스','카이사','자야','아펠리오스','룰루'],out:['잭스','카밀','제이스'],obj:{dragon:1.15,grub:0.85,baron:1.0,tower:1.0},note:'봇 라인 성장과 드래곤 스택이 핵심. 원딜 캐리력이 폭발한다.'},
+  {k:'apjgl',n:'AP 정글·오브젝트 메타',focus:['아이번','릴리아','니달리','엘리스','오리아나'],out:['리 신','바이','자르반 4세'],obj:{dragon:1.1,grub:1.0,baron:1.05,tower:1.0},note:'AP 정글의 오브젝트 장악이 강조된다. 초반 설계가 중요.'},
+  {k:'tank',n:'탱커·이니시 한타 메타',focus:['오른','크산테','세주아니','마오카이','렐'],out:['제이스','조이','니달리'],obj:{dragon:1.0,grub:1.0,baron:1.1,tower:1.0},note:'한타 프론트라인과 이니시 싸움. 탱커 밸류가 급상승.'},
+  {k:'roam',n:'미드 로밍·픽오프 메타',focus:['아리','탈리야','트위스티드 페이트','아칼리','르블랑'],out:['아지르','오리아나','빅토르'],obj:{dragon:1.05,grub:1.0,baron:1.0,tower:1.0},note:'미드 로밍과 픽오프로 사이드를 흔드는 메타.'},
+  {k:'poke',n:'포킹·대치 메타',focus:['제라스','직스','벨코즈','바루스','제이스'],out:['오른','세트','렐'],obj:{dragon:1.0,grub:0.95,baron:1.0,tower:1.1},note:'포킹으로 타워를 깎는 대치 구도. 돌진 조합의 카운터가 중요.'},
+  {k:'split',n:'스플릿·사이드 메타',focus:['피오라','요릭','나서스','트린다미어','사이온'],out:['오리아나','아지르','룰루'],obj:{dragon:0.9,grub:0.95,baron:1.0,tower:1.15},note:'사이드 압박과 타워 철거로 이득을 보는 운영 메타.'},
+  {k:'supp',n:'서폿 이니시·교전 메타',focus:['라칸','렐','노틸러스','레오나','알리스타'],out:['유미','룰루','나미'],obj:{dragon:1.05,grub:1.0,baron:1.05,tower:1.0},note:'서폿 이니시로 교전을 여는 메타. 유틸 서폿 밸류 하락.'},
+];
+function patchLabel(){ return '25.'+(6+ (S.patchNo||0)*2); }
+function applyRandomPatch(tag){
+  const theme=pickOf(PATCH_THEMES);
+  const pool=CHAMPS.map(c=>c.n).filter(n=>!theme.focus.includes(n)&&!theme.out.includes(n));
+  const extra=seededShuffle(pool, (Date.now()%99991)+(S.week||1));
+  const buffs=[...theme.focus, ...extra.slice(0,Math.max(0,7-theme.focus.length))].slice(0,8);
+  const nerfs=[...theme.out, ...extra.slice(5,5+Math.max(0,5-theme.out.length))].slice(0,6);
+  buffs.forEach(n=>{ if(CHAMP_MAP[n]) S.meta.tier[n]=(S.meta.tier[n]||0)+1; });
+  nerfs.forEach(n=>{ if(CHAMP_MAP[n]) S.meta.tier[n]=(S.meta.tier[n]||0)-1; });
+  S.meta.obj=Object.assign({dragon:1,grub:1,baron:1,tower:1},theme.obj);
+  S.patchNo=(S.patchNo||0)+1;
+  const rec={no:S.patchNo, label:patchLabel(), tag:tag||'', name:theme.n, note:theme.note,
+    buffs, nerfs, obj:S.meta.obj, week:S.week, season:S.season};
+  S.patchNotes=S.patchNotes||[];
+  S.patchNotes.unshift(rec);
+  S.patchIdx=(S.patchIdx||0);
+  S.patches=S.patches||[]; S.patches.push({v:rec.label,name:rec.name,week:S.week});
+  toast('🛠 패치 '+rec.label+' — '+rec.name, 3200);
+  if(typeof showPatchNote==='function' && !(M&&!M.over)) showPatchNote(rec);
+  return rec;
+}
+
 /* ---------- match sim / live tactics ---------- */
 const STANCES=[
   {k:'aggro',    n:'초공격적',   icon:'🔥', d:'다이브·카정·교전 강행', aggr:0.38, obj:0.03, risk:0.55, gold:0.04, edge:0.02},
@@ -3028,7 +3062,7 @@ function finishSeries(){
     S.actionApplied=false; S.weekActionTarget=null; S.gameplan=null;
     if(S.split==='spring'&&S.week>5){ startPlayoffs('spring'); }
     else if(S.split==='summer'&&S.week>ROUNDS){ startPlayoffs('summer'); }
-    else if([3,4,7].includes(S.week)){ applyPatch(S.week===3?1:S.week===4?2:3); }
+    else if([3,6].includes(S.week)){ applyRandomPatch('WK'+S.week); }
     else if(S.split==='summer'&&S.week===8&&!S.ewc){ startEWC(); }
     S.currentSeries=null; S.seriesMomentum=0;
   }else if(s.stage==='msi'||s.stage==='ewc'){
@@ -3066,6 +3100,7 @@ function finishSeries(){
 /* ---------- playoffs ---------- */
 function startPlayoffs(split){
   S.playoffSplit=split||S.split||'summer';
+  applyRandomPatch('플레이오프 직전');
   const st=standings();
   const seeds=st.slice(0,6).map(t=>t.id);
   S.playoffs={
@@ -3084,7 +3119,6 @@ function startPlayoffs(split){
     done:false,
   };
   S.phase='playoffs';
-  applyPatch(3,true);
   saveGame();
 }
 function ensureBracket(){
@@ -3157,6 +3191,7 @@ function startMSI(){
   S.msi={kind:'msi',name:'MSI',month:'5월',bo:5,teams,bracket:makeIntlBracket(teams,5,'5월'),
     done:false,champion:null,runnerUp:null,userIn:teams.includes(S.userTeam)};
   S.phase='msi';
+  applyRandomPatch('MSI 패치');
   saveGame();
 }
 function startEWC(){
@@ -3243,6 +3278,7 @@ function lckSeeds(){
   return out.slice(0,4);
 }
 function startWorlds(seedOverride){
+  applyRandomPatch('월즈 메이저 패치');
   let seeds=(seedOverride&&seedOverride.length?seedOverride:lckSeeds()).slice(0,4);
   if(!seedOverride&&S.msiChampion&&T(S.msiChampion)&&T(S.msiChampion).region==='LCK'&&!seeds.includes(S.msiChampion)){
     seeds=[S.msiChampion,...seeds.slice(0,3)];
@@ -3512,7 +3548,7 @@ function nextSeason(){
   S.season++;
   S.week=1; S.phase='regular'; S.results=[]; S.history=[]; S.playoffs=null; S.champion=null;
   S.worlds=null; S.lckChampion=null; S.myExit=null; S.trainingLog=[]; S.offseason=null;
-  S.meta={tier:{},obj:{dragon:1,grub:1,baron:1,tower:1}}; S.patches=[];
+  S.meta={tier:{},obj:{dragon:1,grub:1,baron:1,tower:1}}; S.patches=[]; S.patchNotes=[]; S.patchNo=0;
   S.currentSeries=null; S.seriesMomentum=0;
   Object.values(S.teams).forEach(t=>{t.wins=0;t.losses=0;t.gw=0;t.gl=0;t.form=[];t.pogTotal=0;});
   Object.values(S.players).forEach(p=>{
@@ -3526,7 +3562,6 @@ function nextSeason(){
     rollTraits(p,p.grade);
   });
   S.schedule=genSchedule(lckIds());
-  applyPatch(0,true);
   saveGame();
   if(myTeam().region!=='LCK'){ startWorlds(); return; }
   renderAll();
@@ -3800,7 +3835,7 @@ function homeHTML(){
   const t=myTeam(); const w=S.week; const rank=myRank();
   const opp=weekOpponent();
   const oppTeam=opp?T(opp.oppId):null;
-  const lastPatch=PATCHES[S.patchIdx];
+  const lastPatch=(S.patchNotes&&S.patchNotes[0])||null;
   const starters=lineupOf(t);
   const nextSeries=S.currentSeries;
   const log=(S.trainingLog||[]).slice(0,4);
@@ -3854,15 +3889,15 @@ function homeHTML(){
     ${oppTeam?scoutHTML(oppTeam):'<div class="card"><div class="empty-note">이번 주 상대가 없습니다</div></div>'}
     <div class="section-title"><h3>리그 캘린더</h3><div class="line"></div><span class="tiny">${CAL_STAGES.find(c=>c.k===st)?CAL_STAGES.find(c=>c.k===st).month:''}</span></div>
     ${calendarHTML()}
-    <div class="section-title"><h3>패치 노트</h3><div class="line"></div><span class="tiny">${lastPatch?lastPatch.v:''}</span></div>
+    <div class="section-title"><h3>패치 노트</h3><div class="line"></div><span class="tiny">${lastPatch?esc(lastPatch.label||('25.'+(6+(lastPatch.no||1)*2))):''}</span></div>
     ${lastPatch?`<div class="card tight">
-      <div style="font-weight:800;font-size:13px;margin-bottom:4px">${esc(lastPatch.name)}</div>
-      <div class="tiny" style="line-height:1.45">${esc(lastPatch.note)}</div>
+      <div class="row between"><div style="font-weight:800;font-size:13px">${esc(lastPatch.name)}</div><button class="chip sm" id="seePatch">전체 보기</button></div>
+      <div class="tiny" style="line-height:1.45;margin-top:3px">${esc(lastPatch.note)}</div>
       <div class="tag-row" style="margin-top:8px">
-        ${lastPatch.buffs.slice(0,4).map(n=>`<span class="chip sm green">▲ ${esc(n)}</span>`).join('')}
-        ${lastPatch.nerfs.slice(0,4).map(n=>`<span class="chip sm red">▼ ${esc(n)}</span>`).join('')}
+        ${(lastPatch.buffs||[]).slice(0,4).map(n=>`<span class="chip sm green">▲ ${esc(n)}</span>`).join('')}
+        ${(lastPatch.nerfs||[]).slice(0,4).map(n=>`<span class="chip sm red">▼ ${esc(n)}</span>`).join('')}
       </div>
-    </div>`:''}
+    </div>`:'<div class="card tight"><div class="tiny">아직 적용된 패치가 없습니다 (3주차·6주차·플레이오프 전·MSI·월즈에 적용)</div></div>'}
     <div class="section-title"><h3>선발 라인업</h3><div class="line"></div><span class="tiny">평균 ${teamPower(t).toFixed(1)}</span></div>
     <div class="stack">${starters.map(p=>pCardHTML(p,true)).join('')}</div>
     <div style="height:6px"></div>
@@ -4165,6 +4200,7 @@ function bindHub(){
   c.querySelectorAll('[data-focus]').forEach(b=>b.onclick=()=>{ S.weekActionTarget=b.dataset.focus; renderHub(); });
   const gm=$('goMatch'); if(gm) gm.onclick=()=>prepareMatch();
   const rs=$('resumeSeries'); if(rs) rs.onclick=()=>{ if(S.currentSeries){ if(S.currentSeries.pendingSide) renderSideChoice(); else startDraft(S.currentSeries);} };
+  const sp=$('seePatch'); if(sp) sp.onclick=()=>{ if(S.patchNotes&&S.patchNotes[0]) showPatchNote(S.patchNotes[0]); };
   const gs=$('goStaff'); if(gs) gs.onclick=()=>{TAB='staff';renderHub();};
   const os=$('openStaffTab'); if(os) os.onclick=()=>{TAB='staff';renderHub();};
   const oe=$('openEditor'); if(oe) oe.onclick=()=>openPlayerEditor(null);
@@ -4439,6 +4475,33 @@ function renderStaffEditor(){
     SED=null; closeModal(); toast('✅ 코칭스태프 정보를 저장했습니다'); renderHub();
   };
   $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap'){ SED=null; closeModal(); } };
+}
+
+/* ---------- 패치 노트 ---------- */
+function showPatchNote(rec){
+  if(!rec) return;
+  const obj=rec.obj||{};
+  $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal" style="max-height:90dvh">
+    <div class="grab"></div>
+    <div class="tiny" style="letter-spacing:.18em;font-weight:900;color:var(--gold)">PATCH ${esc(rec.label||'')} · ${esc(rec.tag||'')}</div>
+    <h3 style="font-size:19px;margin:4px 0 6px">${esc(rec.name)}</h3>
+    <div class="tiny" style="line-height:1.5">${esc(rec.note||'')}</div>
+    <div class="divider"></div>
+    <div class="tiny" style="font-weight:800;color:#8ff0c4;margin-bottom:4px">▲ 버프 ${rec.buffs.length}챔피언</div>
+    <div class="tag-row">${rec.buffs.map(n=>`<span class="tr good">${esc(n)}</span>`).join('')}</div>
+    <div class="tiny" style="font-weight:800;color:#ff9aa9;margin:9px 0 4px">▼ 너프 ${rec.nerfs.length}챔피언</div>
+    <div class="tag-row">${rec.nerfs.map(n=>`<span class="tr bad">${esc(n)}</span>`).join('')}</div>
+    <div class="divider"></div>
+    <div class="row between"><span class="tiny">드래곤</span><b style="font-size:11px">x${(obj.dragon||1).toFixed(2)}</b></div>
+    <div class="row between"><span class="tiny">공허 유충</span><b style="font-size:11px">x${(obj.grub||1).toFixed(2)}</b></div>
+    <div class="row between"><span class="tiny">바론</span><b style="font-size:11px">x${(obj.baron||1).toFixed(2)}</b></div>
+    <div class="row between"><span class="tiny">타워</span><b style="font-size:11px">x${(obj.tower||1).toFixed(2)}</b></div>
+    <div style="height:12px"></div>
+    <button class="btn primary block" id="modalClose">확인</button>
+  </div></div>`;
+  $('modal').classList.remove('hidden');
+  $('modalClose').onclick=closeModal;
+  $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
 }
 
 /* ============ UI: DRAFT / PLAN / MATCH ============ */
