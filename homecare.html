@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#10335E">
+<meta name="description" content="위케어동물의료센터 만성질환 홈 케어 기록지 · 안정 시 호흡수(SRR)·음수량·식욕·구토·체중·투약을 매일 기록하고 진료실에서 그대로 보여주세요.">
+<title>만성질환 홈 케어 기록지 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --red:#b3261e;--red-bg:#fdf0ef;--red-border:#f0c8c4;
+  --amber:#9a6207;--amber-bg:#fff8e6;--amber-border:#f0dcae;
+  --green:#166534;--green-bg:#eefaf3;--green-border:#c6e9d5;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;scroll-padding-bottom:180px}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;min-height:100vh;padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+
+/* TOPBAR */
+.topbar{background:var(--navy);padding:0 1.25rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;gap:.6rem}
+.logo-text{color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;white-space:nowrap}
+.logo-text small{display:block;font-size:9.5px;font-weight:300;opacity:.7;letter-spacing:.06em}
+.topbar-btns{display:flex;gap:.35rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:6px;font-size:11.5px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap;border:none}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:active{background:rgba(255,255,255,.24)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.15);font-size:10.5px}
+
+/* HERO */
+.hero{background:var(--navy);padding:1.75rem 1.25rem 1.9rem}
+.hero-inner{max-width:680px;margin:0 auto;text-align:center}
+.hero-eyebrow{font-size:10.5px;font-weight:500;letter-spacing:.16em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.7rem}
+.hero h1{font-size:21px;font-weight:700;color:#fff;line-height:1.45;margin-bottom:.6rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:12.5px;color:rgba(255,255,255,.58);line-height:1.8}
+
+/* WRAP */
+.wrap{max-width:680px;margin:0 auto;padding:1.5rem 1rem 1rem}
+
+/* SECTIONS */
+.sect{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.1rem 1.25rem;margin-bottom:1rem}
+.sect-head{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--navy-xlight)}
+.sect-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.sect-title{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.5}
+.sect-sub{font-size:11.5px;color:var(--text-muted);line-height:1.6;margin-top:2px}
+
+/* FIELDS */
+.field{margin-bottom:.9rem}
+.field:last-child{margin-bottom:0}
+.field > label,.flabel{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:5px;letter-spacing:.01em}
+.req{color:var(--red);font-weight:700;margin-left:2px}
+input[type=text],input[type=number],input[type=datetime-local],select,textarea{
+  width:100%;font-family:inherit;font-size:16px;color:var(--text);
+  background:var(--navy-xlight);border:1.5px solid var(--border);border-radius:9px;
+  padding:10px 12px;outline:none;transition:border-color .15s,background .15s;line-height:1.5;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);background:#fff}
+input::placeholder,textarea::placeholder{color:#a9b7c5;font-size:13.5px}
+textarea{resize:vertical;min-height:62px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238a9aaa' d='M6 8 0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.row.three{grid-template-columns:1fr 1fr 1fr}
+.unit-wrap{position:relative}
+.unit-wrap input{padding-right:44px}
+.unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12.5px;color:var(--text-muted);pointer-events:none}
+.hint{font-size:11px;color:var(--text-muted);margin-top:4px;line-height:1.55}
+.hint b{color:var(--text-mid);font-weight:600}
+.err{border-color:var(--red) !important;background:var(--red-bg) !important}
+
+/* SEGMENTED */
+.seg{display:flex;gap:.4rem;flex-wrap:wrap}
+.seg label{position:relative;flex:1;min-width:0}
+.seg input{position:absolute;opacity:0;width:0;height:0}
+.seg span{display:block;text-align:center;padding:9px 6px;border:1.5px solid var(--border);border-radius:9px;background:var(--white);color:var(--text-mid);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}
+.seg input:checked + span{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:600}
+.seg.tight span{font-size:12px;padding:8px 4px}
+.seg.five span{padding:9px 2px;font-size:13px}
+.seg.five small{display:block;font-size:9.5px;font-weight:400;opacity:.72;line-height:1.3;margin-top:1px}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;width:0;height:0}
+.chip span{display:inline-block;padding:8px 12px;border:1.5px solid var(--border);border-radius:999px;background:var(--white);font-size:13px;color:var(--text-mid);cursor:pointer;transition:all .15s;line-height:1.4}
+.chip input:checked + span{background:var(--navy-light);border-color:var(--accent);color:var(--navy);font-weight:600;box-shadow:inset 0 0 0 1px var(--accent)}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;line-height:1.6;white-space:nowrap}
+.badge.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.badge.warn{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.badge.bad{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.badge.none{background:var(--navy-xlight);color:var(--text-muted);border:1px solid var(--border)}
+
+/* NOTE */
+.pnote{display:flex;gap:.5rem;align-items:flex-start;background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.8rem .9rem;font-size:11.5px;color:var(--text-mid);line-height:1.7;margin-bottom:1rem}
+.pnote strong{color:var(--navy);font-weight:600}
+
+/* SRR WIDGET */
+.srrw{border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:.55rem}
+.srrw-top{background:var(--navy-xlight);border-bottom:1px solid var(--border);padding:.6rem .8rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.srrw-label{font-size:12px;font-weight:600;color:var(--navy)}
+.srrw-label small{display:block;font-size:10.5px;font-weight:400;color:var(--text-muted);margin-top:1px;line-height:1.4}
+.srrw-body{padding:.8rem}
+.srrw-main{display:grid;grid-template-columns:1fr 118px;gap:.7rem;align-items:center}
+.srrw-count{font-size:32px;font-weight:700;color:var(--navy);line-height:1.1;letter-spacing:-.02em}
+.srrw-count small{font-size:11px;font-weight:500;color:var(--text-muted);letter-spacing:0;margin-left:2px}
+.srrw-timer{font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:.4rem}
+.srrw-timer.run{color:var(--accent)}
+.srrw-btn{width:100%;font-family:inherit;font-size:13px;font-weight:700;color:#fff;background:var(--navy);border:none;border-radius:9px;padding:12px 8px;cursor:pointer;transition:.15s;line-height:1.35}
+.srrw-btn:active{background:var(--navy-dark);transform:scale(.99)}
+.srrw-btn.running{background:var(--accent)}
+.srrw-bar{height:5px;border-radius:99px;background:#dbe6f2;overflow:hidden;margin:.6rem 0 .1rem}
+.srrw-fill{height:100%;width:0%;background:var(--accent);transition:width .25s linear}
+.srrw-msg{font-size:10.5px;color:var(--text-muted);line-height:1.5;margin-top:.35rem;min-height:15px}
+
+/* SUMMARY */
+.sum-hero{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.8rem}
+.scard{background:var(--navy-xlight);border:1px solid var(--border);border-radius:11px;padding:.7rem .75rem}
+.scard-k{font-size:10.5px;font-weight:600;color:var(--text-muted);letter-spacing:.02em;line-height:1.4}
+.scard-v{font-size:17px;font-weight:700;color:var(--navy);line-height:1.35;margin-top:2px}
+.scard-v small{font-size:10.5px;font-weight:500;color:var(--text-muted);margin-left:2px}
+.scard-x{font-size:10.5px;color:var(--text-muted);line-height:1.45;margin-top:1px}
+@media(min-width:560px){.sum-hero{grid-template-columns:repeat(4,1fr)}}
+
+/* CHART */
+.chart{display:flex;align-items:flex-end;gap:.4rem;height:106px;padding:.5rem 0 0;margin-bottom:.2rem;border-bottom:1px solid var(--border)}
+.cbar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;position:relative}
+.cbar-v{font-size:9.5px;font-weight:600;color:var(--text-mid);margin-bottom:2px;line-height:1}
+.cbar-in{width:100%;max-width:34px;border-radius:4px 4px 0 0;background:var(--accent);min-height:3px;transition:height .3s}
+.cbar-in.ok{background:#6f9fd8}
+.cbar-in.warn{background:#e0a323}
+.cbar-in.bad{background:#c94236}
+.cbar-in.none{background:#e3eaf3;min-height:3px}
+.chart-days{display:flex;gap:.4rem;margin-bottom:.9rem}
+.chart-days div{flex:1;text-align:center;font-size:10px;color:var(--text-muted);line-height:1.3}
+.chart-days b{display:block;color:var(--text-mid);font-weight:600;font-size:10px}
+.chart-days .today b{color:var(--navy)}
+.clegend{display:flex;gap:.6rem;flex-wrap:wrap;font-size:10px;color:var(--text-muted);margin-bottom:.9rem}
+.clegend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}
+
+/* WATER ROWS */
+.wrow{display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem;font-size:11.5px}
+.wrow-d{flex:0 0 46px;color:var(--text-muted);font-size:10.5px}
+.wrow-track{flex:1;height:8px;border-radius:99px;background:var(--navy-xlight);overflow:hidden}
+.wrow-fill{height:100%;border-radius:99px;background:var(--accent);transition:width .3s}
+.wrow-fill.warn{background:#e0a323}
+.wrow-v{flex:0 0 88px;text-align:right;font-weight:600;color:var(--text-mid);font-size:10.5px}
+
+/* RECORDS */
+.rec{border:1px solid var(--border);border-radius:11px;padding:.7rem .8rem;margin-bottom:.5rem;background:var(--white)}
+.rec-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.35rem}
+.rec-date{font-size:11.5px;font-weight:700;color:var(--navy)}
+.rec-date span{font-weight:500;color:var(--text-muted);margin-left:4px;font-size:11px}
+.rec-del{font-family:inherit;font-size:10.5px;color:var(--text-muted);background:none;border:1px solid var(--border);border-radius:6px;padding:2px 7px;cursor:pointer}
+.rec-del:active{color:var(--red);border-color:var(--red-border);background:var(--red-bg)}
+.rec-body{display:flex;flex-wrap:wrap;gap:.3rem .45rem}
+.rpill{font-size:11px;color:var(--text-mid);background:var(--navy-xlight);border-radius:5px;padding:2px 7px;line-height:1.6}
+.rpill b{color:var(--navy);font-weight:600}
+.rpill.hot{background:var(--red-bg);color:var(--red)}
+.rpill.hot b{color:var(--red)}
+.rpill.warm{background:var(--amber-bg);color:var(--amber)}
+.rpill.warm b{color:var(--amber)}
+.rec-memo{font-size:11.5px;color:var(--text-mid);line-height:1.6;margin-top:.35rem;padding-top:.35rem;border-top:1px dashed var(--border)}
+.empty{text-align:center;font-size:12px;color:var(--text-muted);padding:1.4rem .5rem;line-height:1.8}
+
+/* FLAG */
+.flag{display:flex;gap:.55rem;align-items:flex-start;border-radius:11px;padding:.8rem .85rem;font-size:11.5px;line-height:1.7;margin-bottom:.8rem;border:1px solid}
+.flag.bad{background:var(--red-bg);border-color:var(--red-border);color:#7d1a15}
+.flag.warn{background:var(--amber-bg);border-color:var(--amber-border);color:#7a4e06}
+.flag.ok{background:var(--green-bg);border-color:var(--green-border);color:#14532d}
+.flag b{font-weight:700}
+.flag .flag-t{font-size:12px;font-weight:700;display:block;margin-bottom:2px}
+.flag ul{margin:.2rem 0 0 1rem}
+.flag li{margin-bottom:1px}
+
+/* ACTION BAR */
+.actionbar{position:fixed;left:0;right:0;bottom:0;z-index:300;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-top:1px solid var(--border);padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(16,51,94,.08)}
+.actionbar-inner{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:.5rem}
+.actions{display:flex;gap:.5rem}
+.btn{flex:1;font-family:inherit;font-size:14px;font-weight:600;border-radius:10px;padding:13px 10px;border:1.5px solid transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;line-height:1.3}
+.btn.primary{background:var(--navy);color:#fff;flex:1.35}
+.btn.primary:active{background:var(--navy-dark)}
+.btn.light{background:var(--white);color:var(--navy);border-color:var(--border);flex:1}
+.btn.light:active{background:var(--navy-xlight)}
+.ab-hint{text-align:center;font-size:10.5px;color:var(--text-muted);line-height:1.5}
+
+/* TOAST */
+.toast{position:fixed;left:50%;bottom:calc(150px + env(safe-area-inset-bottom));transform:translate(-50%,14px);z-index:500;
+  background:var(--navy-dark);color:#fff;font-size:13px;font-weight:500;padding:11px 18px;border-radius:999px;
+  box-shadow:0 8px 28px rgba(10,34,64,.3);opacity:0;pointer-events:none;transition:all .25s;max-width:88vw;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.warn{background:var(--red)}
+
+/* FOOT */
+.foot{background:var(--navy);padding:1.5rem 1.25rem;margin-top:.5rem}
+.foot-inner{max-width:680px;margin:0 auto}
+.foot-disc{font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.85;margin-bottom:1rem}
+.foot-disc strong{color:rgba(255,255,255,.72);font-weight:500}
+.foot-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.foot-ref{margin-top:.9rem;font-size:10.5px;color:rgba(255,255,255,.2)}
+
+@media(min-width:560px){
+  .hero h1{font-size:24px}
+}
+@media(max-width:380px){
+  .logo-text{font-size:11px}
+  .logo-text small{display:none}
+  .tbtn.back{font-size:10px;padding:6px 7px}
+  .tbtn.call{padding:6px 8px}
+  .btn{font-size:12.5px;padding:12px 8px}
+  .srrw-main{grid-template-columns:1fr 104px}
+}
+@media print{
+  .topbar,.actionbar,.toast,.hero-desc{display:none}
+  body{padding-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 만성질환 홈 케어</div>
+    <h1>집에서 매일 숫자로 남기면,<br><span>진료가 훨씬 정확해집니다</span></h1>
+    <p class="hero-desc">심장병 · 신부전 · 아토피 · 만성장병증 아이의 하루를<br>1분 안에 기록하고, 내원할 때 요약본을 그대로 보여주세요.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="pnote">
+    <span style="font-size:15px;flex-shrink:0">🔒</span>
+    <span><strong>이 휴대폰에만 저장</strong>됩니다. 기록은 서버로 전송되지 않으며, 선생님이 보실 수 있는 것은 마지막에 복사한 요약문뿐입니다.</span>
+  </div>
+
+  <!-- 1. 아이 정보 -->
+  <div class="sect" id="s1">
+    <div class="sect-head">
+      <div class="sect-num">1</div>
+      <div>
+        <div class="sect-title">우리 아이 정보</div>
+        <div class="sect-sub">한 번만 적어두면 매일 기록에 자동으로 붙습니다</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="petName">이름<span class="req">*</span></label>
+        <input type="text" id="petName" placeholder="예: 코코" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="petWeight">체중 (kg)</label>
+        <div class="unit-wrap">
+          <input type="number" id="petWeight" placeholder="5.2" min="0.1" max="90" step="0.01" inputmode="decimal">
+          <span class="unit">kg</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="flabel">종</span>
+      <div class="seg" id="speciesSeg">
+        <label><input type="radio" name="species" value="강아지" checked><span>🐶 강아지</span></label>
+        <label><input type="radio" name="species" value="고양이"><span>🐱 고양이</span></label>
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="flabel">관리 중인 질환 <span style="font-weight:400;color:var(--text-muted)">(복수 선택)</span></span>
+      <div class="chips" id="condChips">
+        <label class="chip"><input type="checkbox" name="cond" value="심장병"><span>❤️ 심장병</span></label>
+        <label class="chip"><input type="checkbox" name="cond" value="신부전"><span>🫘 신부전</span></label>
+        <label class="chip"><input type="checkbox" name="cond" value="아토피·피부"><span>🌿 아토피·피부</span></label>
+        <label class="chip"><input type="checkbox" name="cond" value="만성장병증"><span>🩺 만성장병증</span></label>
+        <label class="chip"><input type="checkbox" name="cond" value="기타"><span>➕ 기타</span></label>
+      </div>
+      <div class="hint" id="condHint">질환을 고르면 그 아이에게 중요한 항목을 먼저 보여드려요.</div>
+    </div>
+  </div>
+
+  <!-- 2. 오늘 기록 -->
+  <div class="sect" id="s2">
+    <div class="sect-head">
+      <div class="sect-num">2</div>
+      <div>
+        <div class="sect-title">오늘 기록</div>
+        <div class="sect-sub">측정한 항목만 적어도 됩니다 · 비워두면 그날 기록에서 빠집니다</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="recAt">날짜 · 시간</label>
+      <input type="datetime-local" id="recAt">
+    </div>
+
+    <!-- SRR -->
+    <div class="field" id="srrField">
+      <span class="flabel">안정 시 호흡수 (SRR) <span id="srrBadge" class="badge none">미입력</span></span>
+      <div class="srrw">
+        <div class="srrw-top">
+          <div class="srrw-label">30초 세고 × 2<small>잠들었거나 편히 누워 있을 때, 가슴이 한 번 오르내리면 1회</small></div>
+        </div>
+        <div class="srrw-body">
+          <div class="srrw-main">
+            <div>
+              <div class="srrw-count"><span id="srrCount">0</span><small>회 / 30초</small></div>
+              <div class="srrw-timer" id="srrTimer">버튼을 누르면 30초 측정이 시작됩니다</div>
+              <div class="srrw-bar"><div class="srrw-fill" id="srrFill"></div></div>
+            </div>
+            <div>
+              <button type="button" class="srrw-btn" id="srrBtn">숨쉴 때마다 탭</button>
+            </div>
+          </div>
+          <div class="srrw-msg" id="srrMsg"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field" style="margin-bottom:0">
+          <div class="unit-wrap">
+            <input type="number" id="srr" placeholder="직접 입력 예: 24" min="4" max="200" step="1" inputmode="numeric">
+            <span class="unit">회/분</span>
+          </div>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <select id="srrState">
+            <option value="안정">자는 중 · 안정 상태</option>
+            <option value="수면">잠에서 깬 직후</option>
+            <option value="활동">깨어서 활동 중</option>
+          </select>
+        </div>
+      </div>
+      <div class="hint">정상 <b>30회/분 미만</b> · 주의 <b>30~39회/분</b> · 즉시 연락 <b>40회/분 이상</b> 또는 평소보다 <b>10회 이상</b> 늘어남</div>
+    </div>
+
+    <!-- 물 -->
+    <div class="field">
+      <label for="water">오늘 마신 물 (하루 합계)</label>
+      <div class="row">
+        <div class="unit-wrap">
+          <input type="number" id="water" placeholder="예: 320" min="0" max="5000" step="10" inputmode="numeric">
+          <span class="unit">mL</span>
+        </div>
+        <div style="display:flex;align-items:center">
+          <span class="badge none" id="waterBadge" style="width:auto">체중 입력 시 평가</span>
+        </div>
+      </div>
+      <div class="hint" id="waterHint">물그릇 양을 재서 시작할 때와 비교하면 정확합니다. 보통 <b>40~60 mL/kg/일</b>, <b>100 mL/kg/일 이상</b>이면 확인이 필요합니다.</div>
+    </div>
+
+    <!-- 식욕 -->
+    <div class="field">
+      <span class="flabel">식욕 (1~5점)</span>
+      <div class="seg five" id="appetiteSeg">
+        <label><input type="radio" name="appetite" value="1"><span>1<small>거의 안 먹음</small></span></label>
+        <label><input type="radio" name="appetite" value="2"><span>2<small>조금</small></span></label>
+        <label><input type="radio" name="appetite" value="3"><span>3<small>절반</small></span></label>
+        <label><input type="radio" name="appetite" value="4"><span>4<small>평소와 비슷</small></span></label>
+        <label><input type="radio" name="appetite" value="5"><span>5<small>잘 먹음</small></span></label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="vomit">구토</label>
+        <select id="vomit">
+          <option value="">없음</option>
+          <option value="1회">1회</option>
+          <option value="2~3회">2~3회</option>
+          <option value="4회 이상">4회 이상</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="diarrhea">설사 · 묽은 변</label>
+        <select id="diarrhea">
+          <option value="">없음</option>
+          <option value="1회">1회</option>
+          <option value="2회 이상">2회 이상</option>
+          <option value="혈변">혈변 · 점액변</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="cough">기침 (0~3)</label>
+        <select id="cough">
+          <option value="0">0 · 없음</option>
+          <option value="1">1 · 가끔 (하루 1~2회)</option>
+          <option value="2">2 · 자주 (하루 3회 이상)</option>
+          <option value="3">3 · 심함 (밤에도 계속)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="itch">가려움 · 긁기 (0~3)</label>
+        <select id="itch">
+          <option value="0">0 · 없음</option>
+          <option value="1">1 · 가끔</option>
+          <option value="2">2 · 자주</option>
+          <option value="3">3 · 심함 (밤새 긁음)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="recWeight">오늘 체중 (kg)</label>
+        <div class="unit-wrap">
+          <input type="number" id="recWeight" placeholder="측정했을 때만" min="0.1" max="90" step="0.01" inputmode="decimal">
+          <span class="unit">kg</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="meds">투약</label>
+        <select id="meds">
+          <option value="모두 완료">모두 완료</option>
+          <option value="일부 누락">일부 누락</option>
+          <option value="복용 안 함">복용 안 함</option>
+          <option value="해당 없음">해당 없음</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="memo">보호자 메모</label>
+      <textarea id="memo" placeholder="예: 밤 11시에 기침 3번, 잠들기까지 20분 걸림. 사료는 잘 먹었지만 물을 평소보다 많이 마심."></textarea>
+    </div>
+  </div>
+
+  <!-- 3. 최근 기록 & 7일 추이 -->
+  <div class="sect" id="s3">
+    <div class="sect-head">
+      <div class="sect-num">3</div>
+      <div>
+        <div class="sect-title">최근 기록 &amp; 7일 추이</div>
+        <div class="sect-sub" id="sumSub">기록이 쌓이면 여기에 요약이 나타납니다</div>
+      </div>
+    </div>
+
+    <div id="flagBox"></div>
+
+    <div class="sum-hero" id="sumHero">
+      <div class="scard"><div class="scard-k">SRR 평균</div><div class="scard-v" id="sumSrr">–</div><div class="scard-x" id="sumSrrX">7일 기록 없음</div></div>
+      <div class="scard"><div class="scard-k">음수량</div><div class="scard-v" id="sumWater">–</div><div class="scard-x" id="sumWaterX">7일 기록 없음</div></div>
+      <div class="scard"><div class="scard-k">식욕 평균</div><div class="scard-v" id="sumApp">–</div><div class="scard-x" id="sumAppX">1~5점 기준</div></div>
+      <div class="scard"><div class="scard-k">체중 변화</div><div class="scard-v" id="sumWeight">–</div><div class="scard-x" id="sumWeightX">7일 기록 없음</div></div>
+    </div>
+
+    <div class="flabel" style="margin-top:.2rem">안정 시 호흡수 (7일)</div>
+    <div class="chart" id="srrChart"></div>
+    <div class="chart-days" id="srrDays"></div>
+    <div class="clegend">
+      <span><i style="background:#6f9fd8"></i>정상 &lt;30</span>
+      <span><i style="background:#e0a323"></i>주의 30~39</span>
+      <span><i style="background:#c94236"></i>위험 ≥40</span>
+      <span><i style="background:#e3eaf3"></i>기록 없음</span>
+    </div>
+
+    <div class="flabel">음수량 (7일 · mL/kg/일)</div>
+    <div id="waterChart"><div class="empty" style="padding:.8rem 0">기록이 없습니다.</div></div>
+
+    <div class="flabel" style="margin-top:.9rem">기록 목록</div>
+    <div id="recList"><div class="empty">아직 기록이 없습니다.<br>오늘 기록을 저장하면 여기에 쌓입니다.</div></div>
+  </div>
+
+  <div class="pnote" style="margin-bottom:1rem">
+    <span style="font-size:15px;flex-shrink:0">💡</span>
+    <span><strong>이렇게 쓰시면 좋아요</strong> — 같은 시간대(예: 밤 10시)에 재면 비교가 쉽습니다. 기록은 <strong>최근 200건</strong>까지 이 휴대폰에 보관되고, 진료실에서는 <strong>요약 복사</strong> 버튼으로 최근 7일을 한 번에 전달할 수 있습니다.</span>
+  </div>
+</div>
+
+<div class="actionbar">
+  <div class="actionbar-inner">
+    <div class="actions">
+      <button type="button" class="btn light" id="copyBtn">📋 진료실 전달용 복사</button>
+      <button type="button" class="btn primary" id="saveBtn">오늘 기록 저장</button>
+    </div>
+    <div class="ab-hint" id="abHint">이 휴대폰에만 저장됩니다 · 서버로 전송되지 않아요</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      <strong>응급 상황</strong>(호흡 곤란, 잇몸이 파래짐, 실신, 소변 불통, 경련)은 기록을 남기기 전에 <strong>먼저 병원으로 연락</strong> 주세요.<br>
+      이 기록지는 보호자 관찰을 정리하는 도구이며, 진단이나 약물 조절을 대신하지 않습니다.
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">WECARE Animal Medical Center · wecarevet.github.io/wecarevet</p>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   만성질환 홈 케어 기록지
+   - localStorage 전용 (서버 전송 없음)
+   - 기록은 최근 200건 보관
+========================================================= */
+var STORE_KEY = 'wecare-homecare-v1';
+var MAX_RECORDS = 200;
+var DAY_NAMES = ['일','월','화','수','목','금','토'];
+
+var state = {
+  pet: { name:'', species:'강아지', weight:'', conditions:[] },
+  records: []
+};
+
+var toastTimer = null;
+
+/* ---------- 유틸 ---------- */
+function $(id){ return document.getElementById(id); }
+function val(id){ var el=$(id); return el ? String(el.value).trim() : ''; }
+function num(id){ var v = val(id); if (v === '') return null; var n = parseFloat(v); return isNaN(n) ? null : n; }
+function pad2(n){ return (n<10?'0':'')+n; }
+function toast(msg, isWarn){
+  var t = $('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isWarn ? ' warn' : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.className = 'toast'; }, 2800);
+}
+function radioVal(name){
+  var el = document.querySelector('input[name="' + name + '"]:checked');
+  return el ? el.value : '';
+}
+function setRadio(name, value){
+  var list = document.querySelectorAll('input[name="' + name + '"]');
+  for (var i=0;i<list.length;i++){ list[i].checked = (list[i].value === value); }
+}
+function checkedList(name){
+  var out = [], list = document.querySelectorAll('input[name="' + name + '"]:checked');
+  for (var i=0;i<list.length;i++){ out.push(list[i].value); }
+  return out;
+}
+function setChecks(name, values){
+  var list = document.querySelectorAll('input[name="' + name + '"]');
+  for (var i=0;i<list.length;i++){ list[i].checked = values.indexOf(list[i].value) !== -1; }
+}
+function localNowInput(){
+  var d = new Date();
+  return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+'T'+pad2(d.getHours())+':'+pad2(d.getMinutes());
+}
+function parseDT(s){
+  if (!s) return null;
+  var m = s.match(/^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/);
+  if (!m) {
+    var m2 = s.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!m2) return null;
+    return new Date(+m2[1], +m2[2]-1, +m2[3], 0, 0);
+  }
+  return new Date(+m[1], +m[2]-1, +m[3], +m[4], +m[5]);
+}
+function dayKey(d){ return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); }
+function ymd(d){ return (d.getMonth()+1)+'/'+d.getDate(); }
+function dtLabel(s){
+  var d = parseDT(s);
+  if (!d) return s || '';
+  return (d.getMonth()+1)+'월 '+d.getDate()+'일 ('+DAY_NAMES[d.getDay()]+') '+pad2(d.getHours())+':'+pad2(d.getMinutes());
+}
+function dtShort(s){
+  var d = parseDT(s);
+  if (!d) return s || '';
+  return ymd(d)+' '+pad2(d.getHours())+':'+pad2(d.getMinutes());
+}
+
+/* ---------- 저장 / 복원 ---------- */
+function load(){
+  var raw = null;
+  try { raw = localStorage.getItem(STORE_KEY); } catch(e){ return; }
+  if (!raw) return;
+  var d;
+  try { d = JSON.parse(raw); } catch(e){ return; }
+  if (!d || typeof d !== 'object') return;
+  if (d.pet) {
+    state.pet.name = d.pet.name || '';
+    state.pet.species = d.pet.species || '강아지';
+    state.pet.weight = d.pet.weight || '';
+    state.pet.conditions = Array.isArray(d.pet.conditions) ? d.pet.conditions : [];
+  }
+  if (Array.isArray(d.records)) state.records = d.records.filter(function(r){ return r && r.at; });
+}
+function persist(){
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch(e){}
+  $('abHint').textContent = '이 휴대폰에만 저장됨 · ' + new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+}
+
+/* ---------- 프로필 ---------- */
+function collectPet(){
+  state.pet.name = val('petName');
+  state.pet.species = radioVal('species') || '강아지';
+  state.pet.weight = val('petWeight');
+  state.pet.conditions = checkedList('cond');
+}
+function renderPet(){
+  $('petName').value = state.pet.name || '';
+  $('petWeight').value = state.pet.weight || '';
+  setRadio('species', state.pet.species || '강아지');
+  setChecks('cond', state.pet.conditions || []);
+  updateCondHint();
+}
+function updateCondHint(){
+  var c = state.pet.conditions;
+  var msg = '질환을 고르면 그 아이에게 중요한 항목을 먼저 보여드려요.';
+  if (c.length) {
+    var tips = [];
+    if (c.indexOf('심장병') !== -1) tips.push('심장병 — <b>안정 시 호흡수</b>를 매일 같은 시간에');
+    if (c.indexOf('신부전') !== -1) tips.push('신부전 — <b>음수량·체중</b>을 함께');
+    if (c.indexOf('아토피·피부') !== -1) tips.push('피부 — <b>가려움 점수</b>와 긁은 부위');
+    if (c.indexOf('만성장병증') !== -1) tips.push('장 — <b>구토·설사·식욕</b>');
+    msg = tips.join(' · ') || msg;
+  }
+  $('condHint').innerHTML = msg;
+}
+
+/* ---------- SRR 위젯 ---------- */
+var srrCount = 0, srrLeft = 30, srrTimer = null, srrRunning = false;
+
+function srrRender(){
+  $('srrCount').textContent = srrCount;
+  var t = $('srrTimer');
+  t.textContent = srrRunning ? (srrLeft + '초 남음') : (srrCount ? '측정 완료 — 아래에 자동 입력' : '버튼을 누르면 30초 측정이 시작됩니다');
+  t.className = 'srrw-timer' + (srrRunning ? ' run' : '');
+  $('srrFill').style.width = ((30 - srrLeft) / 30 * 100) + '%';
+}
+function srrTap(){
+  var btn = $('srrBtn');
+  if (!srrRunning && srrLeft <= 0) srrReset();
+  if (!srrRunning){
+    srrRunning = true; srrLeft = 30; srrCount = 0;
+    $('srrMsg').textContent = '측정 중… 숨쉴 때마다 눌러주세요';
+    btn.textContent = '숨쉴 때마다 탭';
+    btn.classList.add('running');
+    srrTimer = setInterval(function(){
+      srrLeft--;
+      if (srrLeft <= 0) srrFinish();
+      srrRender();
+    }, 1000);
+  }
+  srrCount++;
+  if (navigator.vibrate) { try { navigator.vibrate(8); } catch(e){} }
+  srrRender();
+}
+function srrFinish(){
+  clearInterval(srrTimer); srrTimer = null; srrRunning = false; srrLeft = 0;
+  var rate = srrCount * 2;
+  $('srr').value = rate;
+  $('srrMsg').textContent = '30초 ' + srrCount + '회 × 2 = 분당 ' + rate + '회로 입력했습니다.';
+  var btn = $('srrBtn');
+  btn.textContent = '다시 재기';
+  btn.classList.remove('running');
+  srrRender();
+  updateSrrBadge();
+  markEdited();
+  toast('분당 ' + rate + '회로 입력했어요');
+}
+function srrReset(){
+  clearInterval(srrTimer); srrTimer = null; srrRunning = false;
+  srrCount = 0; srrLeft = 30;
+  $('srrMsg').textContent = '';
+  var btn = $('srrBtn');
+  btn.textContent = '숨쉴 때마다 탭';
+  btn.classList.remove('running');
+  srrRender();
+}
+
+/* ---------- 배지 ---------- */
+function srrJudge(v){
+  if (v == null) return null;
+  if (v >= 40) return { cls:'bad', text:'위험 · 즉시 연락' };
+  if (v >= 30) return { cls:'warn', text:'주의 · 다시 측정' };
+  return { cls:'ok', text:'정상 범위' };
+}
+function updateSrrBadge(){
+  var v = num('srr');
+  var b = $('srrBadge');
+  var j = srrJudge(v);
+  if (!j){ b.className = 'badge none'; b.textContent = '미입력'; return; }
+  b.className = 'badge ' + j.cls;
+  b.textContent = v + '회/분 · ' + j.text;
+}
+function currentWeight(){
+  var w = num('recWeight');
+  if (w) return w;
+  w = num('petWeight');
+  if (w) return w;
+  var last = latestWeight();
+  return last;
+}
+function latestWeight(){
+  for (var i=0;i<state.records.length;i++){
+    if (state.records[i].weight) return state.records[i].weight;
+  }
+  return null;
+}
+function waterJudge(ml, kg){
+  if (!ml || !kg) return null;
+  var per = ml / kg;
+  if (per >= 100) return { cls:'warn', text:'많음 · 확인 필요', per:per };
+  if (per < 20) return { cls:'warn', text:'적음 · 확인 필요', per:per };
+  if (per <= 60) return { cls:'ok', text:'보통 범위', per:per };
+  return { cls:'none', text:'조금 많음', per:per };
+}
+function updateWaterBadge(){
+  var ml = num('water'), kg = currentWeight();
+  var b = $('waterBadge');
+  var j = waterJudge(ml, kg);
+  if (!kg){ b.className = 'badge none'; b.textContent = '체중 입력 시 평가'; return; }
+  if (!ml){ b.className = 'badge none'; b.textContent = '미입력'; return; }
+  b.className = 'badge ' + j.cls;
+  b.textContent = j.per.toFixed(0) + ' mL/kg · ' + j.text;
+}
+
+/* ---------- 기록 저장 ---------- */
+var lastEditAt = 0;
+function markEdited(){
+  lastEditAt = Date.now();
+  $('abHint').textContent = '아직 저장 전 · 아래 버튼을 눌러 주세요';
+}
+function collectRecord(){
+  var at = val('recAt') || localNowInput();
+  var rec = {
+    id: 'r' + Date.now(),
+    at: at,
+    srr: num('srr'),
+    srrState: val('srrState') || '안정',
+    water: num('water'),
+    appetite: num('appetite'),
+    vomit: val('vomit'),
+    diarrhea: val('diarrhea'),
+    cough: val('cough'),
+    itch: val('itch'),
+    weight: num('recWeight'),
+    meds: val('meds'),
+    memo: val('memo')
+  };
+  return rec;
+}
+function isEmptyRecord(r){
+  return r.srr == null && r.water == null && r.appetite == null && !r.vomit && !r.diarrhea
+    && (!r.cough || r.cough === '0') && (!r.itch || r.itch === '0') && r.weight == null && !r.memo;
+}
+function saveRecord(){
+  if (!val('petName')){
+    var el = $('petName');
+    el.classList.add('err');
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(function(){ el.focus({preventScroll:true}); }, 320);
+    setTimeout(function(){ el.classList.remove('err'); }, 2400);
+    toast('아이 이름을 먼저 적어주세요.', true);
+    return;
+  }
+  collectPet();
+  var rec = collectRecord();
+  if (isEmptyRecord(rec)){
+    toast('기록할 항목을 하나 이상 입력해 주세요.', true);
+    return;
+  }
+  /* 같은 시각(분 단위) 기록이 있으면 교체 */
+  var replaced = false;
+  for (var i=0;i<state.records.length;i++){
+    if (state.records[i].at === rec.at){
+      rec.id = state.records[i].id;
+      state.records[i] = rec;
+      replaced = true;
+      break;
+    }
+  }
+  if (!replaced) state.records.push(rec);
+  state.records.sort(function(a,b){ return (b.at || '').localeCompare(a.at || ''); });
+  if (state.records.length > MAX_RECORDS) state.records = state.records.slice(0, MAX_RECORDS);
+  persist();
+  resetEntryForm(false);
+  renderAll();
+  toast(replaced ? '같은 시간 기록을 새 내용으로 바꿨어요.' : '오늘 기록을 저장했어요.');
+}
+function resetEntryForm(keepDate){
+  if (!keepDate) $('recAt').value = localNowInput();
+  ['srr','water','recWeight','memo'].forEach(function(k){ $(k).value = ''; });
+  setRadio('appetite', '');
+  $('vomit').value = '';
+  $('diarrhea').value = '';
+  $('cough').value = '0';
+  $('itch').value = '0';
+  $('meds').value = '모두 완료';
+  srrReset();
+  updateSrrBadge();
+  updateWaterBadge();
+}
+
+/* ---------- 요약 계산 ---------- */
+function recentDays(n){
+  var out = [], base = new Date();
+  base.setHours(0,0,0,0);
+  for (var i=n-1;i>=0;i--){
+    var d = new Date(base.getTime() - i*86400000);
+    out.push({ key: dayKey(d), date: d, recs: [] });
+  }
+  return out;
+}
+function summarize(){
+  var days = recentDays(7);
+  var map = {};
+  days.forEach(function(d){ map[d.key] = d; });
+  var inRange = [];
+  state.records.forEach(function(r){
+    var d = parseDT(r.at);
+    if (!d) return;
+    var k = dayKey(d);
+    if (map[k]) { map[k].recs.push(r); inRange.push(r); }
+  });
+  var srrVals = [], waterVals = [], appVals = [], kgVals = [];
+  var vomitDays = 0, diarrheaDays = 0, lowAppDays = 0, missMedDays = 0;
+  days.forEach(function(d){
+    var recs = d.recs;
+    if (!recs.length) return;
+    var daySrr = [], dayApp = [], dayKg = [], dayMl = 0, v = false, di = false, lo = false, mm = false;
+    recs.forEach(function(r){
+      if (r.srr) { srrVals.push({ v:r.srr, at:r.at }); daySrr.push(r.srr); }
+      if (r.water) { dayMl += r.water; }
+      if (r.appetite) { appVals.push(r.appetite); dayApp.push(r.appetite); if (r.appetite <= 2) lo = true; }
+      if (r.weight) { kgVals.push({ v:r.weight, at:r.at }); dayKg.push(r.weight); }
+      if (r.vomit) v = true;
+      if (r.diarrhea) di = true;
+      if (r.meds === '일부 누락' || r.meds === '복용 안 함') mm = true;
+    });
+    d.srr = daySrr.length ? Math.max.apply(null, daySrr) : null;
+    d.srrAvg = daySrr.length ? daySrr.reduce(function(a,b){return a+b;},0)/daySrr.length : null;
+    d.waterMl = dayMl || null;
+    var dayKgUse = d.weight || state.pet.weight || null;
+    d.waterPer = (dayMl && dayKgUse) ? dayMl / dayKgUse : null;
+    if (d.waterPer) waterVals.push({ ml:dayMl, per:d.waterPer, at:d.key });
+    d.appAvg = dayApp.length ? dayApp.reduce(function(a,b){return a+b;},0)/dayApp.length : null;
+    d.weight = dayKg.length ? dayKg[dayKg.length-1] : null;
+    if (v) vomitDays++;
+    if (di) diarrheaDays++;
+    if (lo) lowAppDays++;
+    if (mm) missMedDays++;
+    d.hasVomit = v; d.hasDiarrhea = di; d.lowApp = lo;
+  });
+  var avg = function(a){ return a.length ? a.reduce(function(x,y){return x+y;},0)/a.length : null; };
+  var srrMax = srrVals.length ? srrVals.reduce(function(a,b){ return b.v > a.v ? b : a; }) : null;
+  var srrBad = srrVals.filter(function(x){ return x.v >= 30; });
+  /* 최근 기록이 앞에 오므로 시각 기준으로 정렬해 처음·마지막 체중을 잡는다 */
+  var kgSorted = kgVals.slice().sort(function(a,b){ return (a.at||'').localeCompare(b.at||''); });
+  var kgFirst = kgSorted.length ? kgSorted[0] : null;
+  var kgLast = kgSorted.length ? kgSorted[kgSorted.length-1] : null;
+  var kgChange = (kgFirst && kgLast && kgFirst.v) ? ((kgLast.v - kgFirst.v) / kgFirst.v * 100) : null;
+
+  return {
+    days: days,
+    inRange: inRange,
+    srrAvg: avg(srrVals.map(function(x){return x.v;})),
+    srrMax: srrMax,
+    srrBad: srrBad,
+    waterPerAvg: avg(waterVals.filter(function(x){return x.per;}).map(function(x){return x.per;})),
+    waterMlAvg: avg(waterVals.map(function(x){return x.ml;})),
+    waterDayCount: waterVals.length,
+    appAvg: avg(appVals),
+    vomitDays: vomitDays,
+    diarrheaDays: diarrheaDays,
+    lowAppDays: lowAppDays,
+    missMedDays: missMedDays,
+    kgFirst: kgFirst, kgLast: kgLast, kgChange: kgChange,
+    recordDays: days.filter(function(d){ return d.recs.length; }).length
+  };
+}
+
+/* ---------- 렌더 ---------- */
+function renderSummary(){
+  var s = summarize();
+  $('sumSub').textContent = '최근 7일 · ' + s.recordDays + '일 기록 · ' + s.inRange.length + '건';
+
+  if (s.srrAvg != null){
+    $('sumSrr').innerHTML = Math.round(s.srrAvg) + '<small>회/분</small>';
+    $('sumSrrX').textContent = '최고 ' + s.srrMax.v + '회 (' + dtShort(s.srrMax.at) + ')';
+  } else {
+    $('sumSrr').textContent = '–'; $('sumSrrX').textContent = '7일 기록 없음';
+  }
+
+  if (s.waterPerAvg != null){
+    $('sumWater').innerHTML = Math.round(s.waterPerAvg) + '<small>mL/kg</small>';
+    $('sumWaterX').textContent = '하루 평균 ' + Math.round(s.waterMlAvg) + 'mL';
+  } else {
+    $('sumWater').textContent = '–'; $('sumWaterX').textContent = s.waterMlAvg ? ('하루 평균 ' + Math.round(s.waterMlAvg) + 'mL') : '7일 기록 없음';
+  }
+
+  if (s.appAvg != null){
+    $('sumApp').innerHTML = s.appAvg.toFixed(1) + '<small>/5</small>';
+    $('sumAppX').textContent = s.lowAppDays ? ('1~2점 ' + s.lowAppDays + '일') : '전반적으로 양호';
+  } else {
+    $('sumApp').textContent = '–'; $('sumAppX').textContent = '1~5점 기준';
+  }
+
+  if (s.kgChange != null){
+    var sign = s.kgChange > 0 ? '+' : '';
+    $('sumWeight').innerHTML = sign + s.kgChange.toFixed(1) + '<small>%</small>';
+    $('sumWeightX').textContent = s.kgFirst.v + 'kg → ' + s.kgLast.v + 'kg';
+  } else if (s.kgLast) {
+    $('sumWeight').innerHTML = s.kgLast.v + '<small>kg</small>';
+    $('sumWeightX').textContent = '비교할 이전 체중 없음';
+  } else {
+    $('sumWeight').textContent = '–'; $('sumWeightX').textContent = '7일 기록 없음';
+  }
+
+  renderFlag(s);
+  renderSrrChart(s);
+  renderWaterChart(s);
+}
+function renderFlag(s){
+  var box = $('flagBox');
+  var bad = [], warn = [];
+  if (s.srrMax && s.srrMax.v >= 40) bad.push('안정 시 호흡수가 <b>' + s.srrMax.v + '회/분</b>까지 올랐습니다 (' + dtShort(s.srrMax.at) + ').');
+  else if (s.srrBad.length) warn.push('안정 시 호흡수가 <b>' + s.srrMax.v + '회/분</b>으로 30회를 넘었습니다 (' + dtShort(s.srrMax.at) + ').');
+  if (s.srrMax && s.srrAvg != null && s.srrMax.v - Math.round(s.srrAvg) >= 10 && s.srrMax.v < 40)
+    warn.push('평균보다 <b>' + (s.srrMax.v - Math.round(s.srrAvg)) + '회</b> 갑자기 늘어난 날이 있습니다.');
+  if (s.waterPerAvg && s.waterPerAvg >= 100) warn.push('음수량이 <b>' + Math.round(s.waterPerAvg) + ' mL/kg/일</b>로 많습니다.');
+  if (s.kgChange != null && s.kgChange <= -5) warn.push('7일 사이 체중이 <b>' + Math.abs(s.kgChange).toFixed(1) + '%</b> 줄었습니다.');
+  if (s.vomitDays >= 2) warn.push('구토가 <b>' + s.vomitDays + '일</b> 있었습니다.');
+  if (s.diarrheaDays >= 2) warn.push('설사·묽은 변이 <b>' + s.diarrheaDays + '일</b> 있었습니다.');
+  if (s.lowAppDays >= 2) warn.push('식욕이 <b>1~2점</b>인 날이 ' + s.lowAppDays + '일 있었습니다.');
+
+  if (!s.inRange.length){ box.innerHTML = ''; return; }
+
+  if (bad.length){
+    box.innerHTML = '<div class="flag bad"><span style="font-size:16px;flex-shrink:0">🚨</span><span><span class="flag-t">지금 병원에 연락해 주세요</span>' +
+      bad.concat(warn).map(function(t){ return t; }).join('<br>') +
+      '<br><b>031-994-6346</b> · 호흡 곤란·잦은 기침·실신이 함께 있으면 이동 전에 먼저 전화 주세요.</span></div>';
+    return;
+  }
+  if (warn.length){
+    box.innerHTML = '<div class="flag warn"><span style="font-size:16px;flex-shrink:0">⚠️</span><span><span class="flag-t">확인이 필요한 변화가 있어요</span>' +
+      warn.join('<br>') +
+      '<br>편안한 상태에서 다시 재보시고, 계속되면 카카오톡이나 전화로 알려주세요.</span></div>';
+    return;
+  }
+  box.innerHTML = '<div class="flag ok"><span style="font-size:16px;flex-shrink:0">✅</span><span><span class="flag-t">최근 7일 기록은 안정적입니다</span>이대로 같은 시간대에 계속 기록해 주세요. 내원 시 요약 복사 버튼을 눌러 보여주시면 됩니다.</span></div>';
+}
+function renderSrrChart(s){
+  var max = 50;
+  s.days.forEach(function(d){ if (d.srr && d.srr > max) max = d.srr; });
+  max = Math.ceil(max / 10) * 10;
+  var todayKey = dayKey(new Date());
+  var bars = '', labels = '';
+  s.days.forEach(function(d){
+    var h = 0, cls = 'none', label = '';
+    if (d.srr){
+      h = Math.max(4, d.srr / max * 100);
+      cls = d.srr >= 40 ? 'bad' : (d.srr >= 30 ? 'warn' : 'ok');
+      label = d.srr;
+    }
+    bars += '<div class="cbar">' +
+      (label ? '<div class="cbar-v">' + label + '</div>' : '') +
+      '<div class="cbar-in ' + cls + '" style="height:' + h + '%"></div>' +
+      '</div>';
+    labels += '<div' + (d.key === todayKey ? ' class="today"' : '') + '><b>' +
+      (d.key === todayKey ? '오늘' : ymd(d.date)) + '</b>' + DAY_NAMES[d.date.getDay()] + '</div>';
+  });
+  $('srrChart').innerHTML = bars;
+  $('srrDays').innerHTML = labels;
+}
+function renderWaterChart(s){
+  var rows = s.days.filter(function(d){ return d.waterPer; });
+  if (!rows.length){
+    $('waterChart').innerHTML = '<div class="empty" style="padding:.6rem 0">체중과 음수량을 함께 기록하면 여기에 표시됩니다.</div>';
+    return;
+  }
+  var html = '';
+  rows.forEach(function(d){
+    var pct = Math.min(100, d.waterPer / 120 * 100);
+    var cls = d.waterPer >= 100 ? 'warn' : '';
+    html += '<div class="wrow"><div class="wrow-d">' + ymd(d.date) + '</div>' +
+      '<div class="wrow-track"><div class="wrow-fill ' + cls + '" style="width:' + pct + '%"></div></div>' +
+      '<div class="wrow-v">' + Math.round(d.waterPer) + ' mL/kg</div></div>';
+  });
+  $('waterChart').innerHTML = html;
+}
+function renderList(){
+  var list = $('recList');
+  if (!state.records.length){
+    list.innerHTML = '<div class="empty">아직 기록이 없습니다.<br>오늘 기록을 저장하면 여기에 쌓입니다.</div>';
+    return;
+  }
+  var html = '';
+  state.records.slice(0, 30).forEach(function(r){
+    var pills = '';
+    if (r.srr){
+      var j = srrJudge(r.srr);
+      pills += '<span class="rpill ' + (j.cls === 'bad' ? 'hot' : (j.cls === 'warn' ? 'warm' : '')) + '">SRR <b>' + r.srr + '</b>회/분</span>';
+    }
+    if (r.water){
+      var kg = r.weight || state.pet.weight || null;
+      var per = kg ? Math.round(r.water / kg) : null;
+      pills += '<span class="rpill">물 <b>' + r.water + '</b>mL' + (per ? ' · ' + per + 'mL/kg' : '') + '</span>';
+    }
+    if (r.appetite) pills += '<span class="rpill ' + (r.appetite <= 2 ? 'warm' : '') + '">식욕 <b>' + r.appetite + '</b>/5</span>';
+    if (r.vomit) pills += '<span class="rpill ' + (r.vomit === '4회 이상' ? 'hot' : 'warm') + '">구토 <b>' + r.vomit + '</b></span>';
+    if (r.diarrhea) pills += '<span class="rpill ' + (r.diarrhea === '혈변' ? 'hot' : 'warm') + '">설사 <b>' + r.diarrhea + '</b></span>';
+    if (r.cough && r.cough !== '0') pills += '<span class="rpill">기침 <b>' + r.cough + '</b></span>';
+    if (r.itch && r.itch !== '0') pills += '<span class="rpill">가려움 <b>' + r.itch + '</b></span>';
+    if (r.weight) pills += '<span class="rpill">체중 <b>' + r.weight + '</b>kg</span>';
+    if (r.meds && r.meds !== '모두 완료' && r.meds !== '해당 없음')
+      pills += '<span class="rpill ' + (r.meds === '복용 안 함' ? 'hot' : 'warm') + '">투약 <b>' + r.meds + '</b></span>';
+    html += '<div class="rec">' +
+      '<div class="rec-head"><div class="rec-date">' + dtLabel(r.at) + (r.srrState && r.srrState !== '안정' ? '<span>' + r.srrState + '</span>' : '') + '</div>' +
+      '<button type="button" class="rec-del" data-del="' + r.id + '">삭제</button></div>' +
+      '<div class="rec-body">' + (pills || '<span class="rpill">메모만 기록</span>') + '</div>' +
+      (r.memo ? '<div class="rec-memo">' + escapeHtml(r.memo).replace(/\n/g,'<br>') + '</div>' : '') +
+      '</div>';
+  });
+  if (state.records.length > 30)
+    html += '<div class="empty" style="padding:.6rem 0">최근 30건만 표시됩니다 (전체 ' + state.records.length + '건 보관 중).</div>';
+  list.innerHTML = html;
+}
+function escapeHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function renderAll(){
+  renderSummary();
+  renderList();
+  updateSrrBadge();
+  updateWaterBadge();
+}
+
+/* ---------- 요약문 ---------- */
+function buildSummary(){
+  var s = summarize();
+  var petName = state.pet.name || '이름 미기재';
+  var L = [];
+  L.push('[위케어 홈 케어 기록]');
+  L.push(petName + ' / ' + state.pet.species + (state.pet.weight ? ' / ' + state.pet.weight + 'kg' : '') +
+         (state.pet.conditions.length ? ' / ' + state.pet.conditions.join('·') : ''));
+  var first = s.days[0].date, last = s.days[6].date;
+  L.push('기간 : ' + (first.getMonth()+1) + '/' + first.getDate() + ' ~ ' + (last.getMonth()+1) + '/' + last.getDate() +
+         ' (7일 중 ' + s.recordDays + '일 기록)');
+  L.push('');
+  L.push('■ 7일 요약');
+  if (s.srrAvg != null){
+    L.push(' - SRR : 평균 ' + Math.round(s.srrAvg) + '회/분 · 최고 ' + s.srrMax.v + '회 (' + dtShort(s.srrMax.at) + ')');
+  } else L.push(' - SRR : 기록 없음');
+  if (s.waterPerAvg != null){
+    L.push(' - 음수량 : 평균 ' + Math.round(s.waterPerAvg) + ' mL/kg/일 (하루 평균 ' + Math.round(s.waterMlAvg) + ' mL)');
+  } else if (s.waterMlAvg != null){
+    L.push(' - 음수량 : 하루 평균 ' + Math.round(s.waterMlAvg) + ' mL (체중 미기재로 mL/kg 계산 불가)');
+  } else L.push(' - 음수량 : 기록 없음');
+  L.push(' - 식욕 : ' + (s.appAvg != null ? s.appAvg.toFixed(1) + '/5' : '기록 없음') +
+         (s.lowAppDays ? ' (1~2점 ' + s.lowAppDays + '일)' : ''));
+  L.push(' - 구토 ' + s.vomitDays + '일 · 설사 ' + s.diarrheaDays + '일');
+  if (s.kgChange != null){
+    L.push(' - 체중 : ' + s.kgFirst.v + ' → ' + s.kgLast.v + 'kg (' + (s.kgChange > 0 ? '+' : '') + s.kgChange.toFixed(1) + '%)');
+  } else if (s.kgLast) L.push(' - 체중 : ' + s.kgLast.v + 'kg');
+  if (s.missMedDays) L.push(' - 투약 누락 ' + s.missMedDays + '일');
+  L.push('');
+  L.push('■ 일별 기록');
+  var dayRows = 0;
+  s.days.forEach(function(d){
+    if (!d.recs.length) return;
+    dayRows++;
+    var parts = [];
+    d.recs.forEach(function(r){
+      if (r.srr) parts.push('SRR ' + r.srr);
+    });
+    if (d.srr) parts = ['SRR ' + d.srr + (d.recs.length > 1 ? '(최고)' : '')];
+    if (d.waterMl) parts.push('물 ' + d.waterMl + 'mL' + (d.waterPer ? '(' + Math.round(d.waterPer) + 'mL/kg)' : ''));
+    if (d.appAvg) parts.push('식욕 ' + d.appAvg.toFixed(1));
+    if (d.hasVomit) parts.push('구토');
+    if (d.hasDiarrhea) parts.push('설사');
+    var cough = Math.max.apply(null, d.recs.map(function(r){ return +(r.cough||0); }));
+    var itch = Math.max.apply(null, d.recs.map(function(r){ return +(r.itch||0); }));
+    if (cough) parts.push('기침 ' + cough);
+    if (itch) parts.push('가려움 ' + itch);
+    if (d.weight) parts.push(d.weight + 'kg');
+    var mm = d.recs.filter(function(r){ return r.meds === '일부 누락' || r.meds === '복용 안 함'; }).length;
+    parts.push(mm ? '투약 누락' : '투약 완료');
+    var memoBits = d.recs.map(function(r){ return r.memo; }).filter(Boolean);
+    L.push(' ' + ymd(d.date) + ' (' + DAY_NAMES[d.date.getDay()] + ') | ' + parts.join(' | ') + (memoBits.length ? ' | ' + memoBits.join(' / ') : ''));
+  });
+  if (!dayRows) L.push(' (기록 없음)');
+  var memos = s.inRange.filter(function(r){ return r.memo; });
+  if (memos.length){
+    L.push('');
+    L.push('■ 보호자 메모');
+    memos.slice(0, 12).forEach(function(r){
+      L.push(' ' + dtShort(r.at) + ' : ' + String(r.memo).replace(/\n+/g, ' / '));
+    });
+  }
+  L.push('');
+  L.push('* 보호자가 집에서 기록한 내용입니다. 참고용으로 확인해 주세요.');
+  return L.join('\n');
+}
+function copyText(text, onDone){
+  if (navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(onDone).catch(function(){ legacyCopy(text, onDone); });
+  } else legacyCopy(text, onDone);
+}
+function legacyCopy(text, onDone){
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.setAttribute('readonly','');
+  ta.style.position = 'fixed';
+  ta.style.top = '-1000px';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  ta.setSelectionRange(0, text.length);
+  var ok = false;
+  try { ok = document.execCommand('copy'); } catch(e){ ok = false; }
+  document.body.removeChild(ta);
+  if (ok) onDone();
+  else {
+    var w = window.open('', '_blank');
+    if (w){
+      w.document.write('<meta name="viewport" content="width=device-width,initial-scale=1"><pre style="white-space:pre-wrap;font-family:-apple-system,\'Noto Sans KR\',sans-serif;font-size:14px;padding:18px;line-height:1.75">' +
+        escapeHtml(text) + '</pre>');
+      w.document.title = '홈 케어 요약';
+    }
+    toast('자동 복사가 안 되었어요. 새 창의 내용을 길게 눌러 복사해 주세요.', true);
+  }
+}
+function copySummary(){
+  if (!state.records.length && !summarize().inRange.length){
+    toast('먼저 기록을 하나 이상 저장해 주세요.', true);
+    return;
+  }
+  collectPet();
+  persist();
+  renderAll();
+  var text = buildSummary();
+  copyText(text, function(){
+    toast('진료실 전달용 요약을 복사했어요. 붙여넣어 보여주세요.');
+    $('abHint').textContent = '요약 복사 완료 · ' + new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+  });
+}
+
+/* ---------- 이벤트 ---------- */
+function init(){
+  load();
+  renderPet();
+  $('recAt').value = localNowInput();
+  renderAll();
+
+  /* 프로필 입력 */
+  ['petName','petWeight'].forEach(function(id){
+    $(id).addEventListener('input', function(){ collectPet(); updateWaterBadge(); persistSoft(); });
+    $(id).addEventListener('change', function(){ collectPet(); updateWaterBadge(); persistSoft(); });
+  });
+  document.querySelectorAll('input[name="species"]').forEach(function(el){
+    el.addEventListener('change', function(){ collectPet(); persistSoft(); });
+  });
+  document.querySelectorAll('input[name="cond"]').forEach(function(el){
+    el.addEventListener('change', function(){ collectPet(); updateCondHint(); persistSoft(); });
+  });
+
+  /* 기록 입력 */
+  $('srrBtn').addEventListener('click', srrTap);
+  $('srr').addEventListener('input', function(){ updateSrrBadge(); markEdited(); });
+  $('water').addEventListener('input', updateWaterBadge);
+  $('recWeight').addEventListener('input', updateWaterBadge);
+  ['water','recWeight','memo','srrState','vomit','diarrhea','cough','itch','meds','recAt'].forEach(function(id){
+    var el = $(id);
+    if (el) el.addEventListener('change', markEdited);
+  });
+  document.querySelectorAll('input[name="appetite"]').forEach(function(el){
+    el.addEventListener('change', markEdited);
+  });
+
+  $('saveBtn').addEventListener('click', saveRecord);
+  $('copyBtn').addEventListener('click', copySummary);
+
+  $('recList').addEventListener('click', function(e){
+    var t = e.target;
+    if (!t || !t.getAttribute) return;
+    var id = t.getAttribute('data-del');
+    if (!id) return;
+    var idx = -1;
+    for (var i=0;i<state.records.length;i++){ if (state.records[i].id === id){ idx = i; break; } }
+    if (idx < 0) return;
+    if (!confirm('이 기록을 지울까요?')) return;
+    state.records.splice(idx, 1);
+    persist();
+    renderAll();
+    toast('기록을 지웠습니다.');
+  });
+}
+function persistSoft(){
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch(e){}
+  $('abHint').textContent = '자동 저장됨 · 이 휴대폰에만';
+}
+init();
+</script>
+</body>
+</html>
