@@ -4682,7 +4682,13 @@ function finLedger(){
   const acad=ACAD_MAP[c.acadInvest]||ACAD_MAP.std;
   const exp={salary:Math.round(teamSalary(t)*10)/10, academy:acad.cost, scouter:1.7, staff:Math.round(staffPayroll(t.id)*10)/10};
   exp.total=Math.round((exp.salary+exp.academy+exp.scouter+exp.staff)*10)/10;
-  const expected=Math.round((inc.total-exp.total)*10)/10;
+  let expected=Math.round((inc.total-exp.total)*10)/10;
+  // 리그 배분금 — 적자 구단이 최소 손익분기 근처에서 시작하도록
+  if(expected<2){
+    const room=Math.round(pay*0.15*10)/10;
+    const add=Math.min(room, Math.round((2-expected)*10)/10);
+    if(add>0){ inc.league=add; inc.total=Math.round((inc.total+add)*10)/10; expected=Math.round((inc.total-exp.total)*10)/10; }
+  }
   return {inc:inc, exp:exp, expected:expected};
 }
 function sponsorAnnualTotal(){
@@ -4691,7 +4697,7 @@ function sponsorAnnualTotal(){
   (c.sponsors.sub||[]).forEach(s=>{ if(s&&s.pay) n+=s.pay; });
   return Math.round(n*10)/10;
 }
-function sponsorCapacity(){ const c=clubC(); return c.prestige>=80?3:(c.prestige>=62?2:1); }
+function sponsorCapacity(){ return clubC()?3:3; }
 
 function rollSponsorOffers(){
   const c=clubC();
@@ -7656,6 +7662,7 @@ function budgetV3(){
           ${ledRow('스폰서 수익 (예상)',led.inc.sponsor)}
           ${ledRow('구단 인지도 상위권 보너스',led.inc.prestige)}
           ${ledRow('구단 지원금',led.inc.support)}
+          ${led.inc.league?ledRow('리그 배분금',led.inc.league):''}
           ${ledRow('멤버십 (시즌 결산)',led.inc.membership)}
           <div class="led-sum">사용 가능한 예산 <b>${led.inc.total.toFixed(1)}억</b></div>
           <div class="led-grp">지출</div>
@@ -7683,7 +7690,7 @@ function sponsorV3(){
   const subs=(c.offers&&c.offers.sub)||[];
   return `
   <div class="pg">
-    <div class="pg-h"><h2>스폰서 협상</h2><span class="pg-s">${S.season} 시즌 · 구단 명성 ${Math.round(c.prestige)} → 스폰서 한 ${cap}개(메인 1 · 서브 ${Math.max(0,cap-1)})</span></div>
+    <div class="pg-h"><h2>스폰서 협상</h2><span class="pg-s">${2026} 시즌 · 구단 명성 ${Math.round(c.prestige)} → 스폰서 한 ${cap}개(메인 1 · 서브 ${Math.max(0,cap-1)})</span></div>
     <div class="sp-steps">
       <span class="sp-step ${main?'done':''}">${ico('club',13)} 메인 스폰서 ${main?'체결':'(협상 중)'}</span>
       <span class="sp-sep">›</span>
@@ -7693,7 +7700,7 @@ function sponsorV3(){
     </div>
     <div class="sp-wrap">
       <div class="sp-pool">
-        ${(!main&&mains.length?mains:subs).map(s=>spCardHTML(s,main?'sub':'main')).join('')||'<div class="card"><div class="empty-note">새 제안을 기다리는 중입니다</div></div>'}
+        ${(()=>{const list=(!main&&mains.length)?mains:(c.sponsors.sub.length<Math.max(0,cap-1)?subs:[]); const emp=main?'서브 스폰서 자리가 모두 찵습니다':'새 제안을 기다리는 중입니다'; const emp2=main?'서브 스폰서 자리가 모두 찼습니다':'새 제안을 기다리는 중입니다'; return list.length?list.map(x=>spCardHTML(x,main?'sub':'main')).join(''):('<div class="card"><div class="empty-note">'+emp2+'</div></div>');})()}
       </div>
       <div class="sp-side">
         <div class="card sp-nego">
@@ -8000,7 +8007,7 @@ function introHTML(){
   const t=myTeam();
   if(INTRO.step===1){
     return `<div class="intro">
-      <div class="in-k">INAUGURATION · ${S.season} SEASON</div>
+      <div class="in-k">INAUGURATION · 2026 SEASON</div>
       <h1 class="in-h">구단주 취임식</h1>
       <div class="in-sub">${esc(t.name)}의 새 구단주가 되신 것을 환영합니다.</div>
       <div class="card in-card">
