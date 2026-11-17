@@ -5187,7 +5187,12 @@ function postDetail(kind, idx){
       '다음 경기 언제임? 기다려짐'
     ]
   };
-  const body=(bodies[kind]||bodies.gall)[idx%bodies[kind].length];
+  const neg=/낭비|아니냐|왜|문제|답이|열세|지적|불안/.test(p.t);
+  const pos=/좋다|미쳤|이겼|칭찬|기대|사고|응원/.test(p.t);
+  const arr=(bodies[kind]||bodies.gall);
+  let body=arr[idx%arr.length];
+  if(neg&&kind!=='tw') body=ctxLine+' 솔직히 이건 좀 아닌 것 같습니다. '+(S.phase==='kespa'?'케스파컵에서 이러면 본시즌이 걱정됩니다.':'다음 경기까지는 고쳐야 합니다.');
+  else if(pos&&kind!=='tw') body=ctxLine+' 지금 흐름은 진짜 좋습니다. 이대로만 가면 됩니다.';
   const nComments=3+(h('n')%3);
   const comments=[];
   const pool=[
@@ -5202,8 +5207,9 @@ function postDetail(kind, idx){
     '밴픽만 잘해도 반은 먹고 들어감',
     '이번 시즌 우승 각인가'
   ];
+  const order=pool.map((_,i)=>i).sort((a,b)=>hashN(key+'o'+a)-hashN(key+'o'+b));
   for(let i=0;i<nComments;i++){
-    comments.push({n:names('c'+i), t:pool[(h('p'+i))%pool.length], up:(h('u'+i))%200+3});
+    comments.push({n:names('c'+i), t:pool[order[i%pool.length]], up:(h('u'+i))%200+3});
   }
   return {kind:kind, idx:idx, title:p.t, up:p.c, body:body, comments:comments,
     when:(com.key?S.week+'주차':'최근'), tag:(kind==='gall'?'디시아웃사이드.com 롤갤':kind==='am'?'AM코리아 롤 게시판':'튜위터')};
