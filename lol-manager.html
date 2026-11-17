@@ -1310,6 +1310,26 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .splash.worlds .sp-k{color:#e8c979}.splash.worlds .sp-logo span{color:#c9a44a}
 .splash.worlds .sp-lines{color:#e2d3b0}.splash.worlds .sp-sub{background:linear-gradient(180deg,#fff,#ffdc94);-webkit-background-clip:text;background-clip:text;color:transparent}
 .splash .sp-logo{font-size:34px}
+/* owner inauguration */
+.intro{max-width:760px;margin:0 auto;padding:26px 16px 40px;display:flex;flex-direction:column;gap:6px}
+.in-k{font-size:10.5px;letter-spacing:.3em;font-weight:900;color:var(--gold);text-align:center}
+.in-h{font-size:30px;font-weight:900;letter-spacing:-.04em;text-align:center;margin-top:4px}
+.in-sub{text-align:center;font-size:12.5px;color:var(--dim);font-weight:700;margin-bottom:12px}
+.in-card{max-width:640px;margin:0 auto;width:100%}
+.in-input{width:100%;padding:11px 13px;border-radius:9px;background:#0f1116;border:1px solid #2b2f38;color:#fff;font-size:15px;font-weight:800}
+.in-input:focus{outline:none;border-color:rgba(230,196,129,.6)}
+.pledges{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+@media(max-width:700px){.pledges{grid-template-columns:1fr}}
+.pledge{display:flex;flex-direction:column;gap:3px;padding:11px;border-radius:10px;border:1px solid #262a33;background:#12141a;text-align:left}
+.pledge.on{border-color:rgba(230,196,129,.6);background:linear-gradient(180deg,rgba(230,196,129,.12),#12141a);box-shadow:0 0 0 1px rgba(230,196,129,.2)}
+.pl-ic{font-size:18px}
+.pledge b{font-size:13px;font-weight:900;color:#eceef3}
+.pledge em{font-style:normal;font-size:10.5px;color:var(--dim);line-height:1.45}
+.pl-tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:3px}
+.pl-tags i{font-style:normal;font-size:9px;font-weight:900;padding:1px 5px;border-radius:4px;background:rgba(230,196,129,.14);color:var(--gold2)}
+.in-foot,.intro-foot{display:flex;align-items:center;gap:10px;justify-content:flex-end;margin-top:14px;padding:0 2px 10px;max-width:1180px;width:100%;margin-left:auto;margin-right:auto}
+.in-foot .tiny,.intro-foot .tiny{flex:1}
+.btn.disabled{opacity:.4;pointer-events:none}
 
 </style>
 </head>
@@ -5794,8 +5814,9 @@ function renderSelect(){
     SEL.team=b.dataset.team;
     createState(SEL.team);
     S.fearless=SEL.fearless;
-    saveGame(); renderAll();
-    toast('👑 '+(TEAM_DEFS.find(d=>d.id===SEL.team).name)+' 구단주 취임 — 시즌이 시작됩니다');
+    saveGame();
+    if(typeof introStart==='function'){ introStart(); return; }
+    renderAll();
   });
   const ft=$('fearlessToggle'); if(ft) ft.onclick=()=>{ SEL.fearless=!SEL.fearless; renderSelect(); };
 }
@@ -6906,7 +6927,8 @@ function renderHub(){
   renderTopbar();
   renderRail();
   const c=$('view-hub');
-  if(TAB==='home') c.innerHTML=homeV3();
+  if(TAB==='intro') c.innerHTML=introHTML();
+  else if(TAB==='home') c.innerHTML=homeV3();
   else if(TAB==='news') c.innerHTML=newsV3();
   else if(TAB==='club') c.innerHTML=clubV3();
   else if(TAB==='marketing') c.innerHTML=mktV3();
@@ -7562,6 +7584,8 @@ function hubAction(a,v,el){
   }
   if(a==='spnext'){ const c=clubC(); if(c.offers&&c.offers.main) c.offers.main.shift(); renderHub(); return; }
   if(a==='newsread'){ newsReadAll(); renderHub(); return; }
+  if(a==='pledge'){ introApplyPledge(v); return; }
+  if(a==='intro'){ introNext(v); return; }
   if(a==='cat'){ CODEX.cat=v; renderHub(); return; }
   if(a==='patchview'){ const rec=(S.patchNotes||[]).find(x=>String(x.no)===String(v)); if(rec) showPatchNote(rec); return; }
   if(a==='trait'){ const parts=String(v||'').split(':'); showTraitCard(parts[0]||'good',parts[1]||''); return; }
@@ -7746,6 +7770,84 @@ function openAudioSettings(){
   });
 }
 
+/* ---------- 구단주 취임식 (신규 게임 온보딩) ---------- */
+let INTRO={step:1, pledge:null, name:''};
+function introStart(){
+  const c=clubC();
+  INTRO={step:1, pledge:null, name:(S.owner&&S.owner.name)||'박성수',
+    base:{prestige:c.prestige, trust:(c.trust||55), fanbase:c.fanbase}};
+  TAB='intro'; renderHub();
+}
+const PLEDGES=[
+  {k:'win', n:'공격적 우승 선언', d:'“올해 목표는 우승 하나입니다.” 구단주와 팬의 기대가 커집니다.', icon:'🏆',
+   eff:{prestige:8, trust:6, fan:2}, tags:['구단주 신뢰 +6','구단 명성 +8','팬심 +2']},
+  {k:'grow', n:'육성 · 장기 플랜', d:'“3년 안에 왕조를 만들겠습니다.” 유망주 투자와 안정 운영에 힘이 실립니다.', icon:'🌱',
+   eff:{prestige:-2, trust:4, fan:4}, tags:['구단주 신뢰 +4','팬심 +4','명성 -2']},
+  {k:'fan', n:'팬 소통 · 마케팅 중심', d:'“팬과 함께하는 구단이 되겠습니다.” 팬심과 굿즈·행사 수익이 커집니다.', icon:'📣',
+   eff:{prestige:2, trust:-2, fan:10}, tags:['팬심 +10','명성 +2','신뢰 -2']},
+];
+function introHTML(){
+  const t=myTeam();
+  if(INTRO.step===1){
+    return `<div class="intro">
+      <div class="in-k">INAUGURATION · ${S.season} SEASON</div>
+      <h1 class="in-h">구단주 취임식</h1>
+      <div class="in-sub">${esc(t.name)}의 새 구단주가 되신 것을 환영합니다.</div>
+      <div class="card in-card">
+        <div class="ch"><span>구단주 이름</span></div>
+        <input class="in-input" id="ownerName" value="${esc(INTRO.name||'박성수')}" maxlength="12" placeholder="이름을 입력하세요">
+        <div class="ch" style="margin-top:14px"><span>취임 선언</span><b class="ch-n">하나를 선택하세요</b></div>
+        <div class="pledges">
+          ${PLEDGES.map(p=>`<button class="pledge ${INTRO.pledge===p.k?'on':''}" data-a="pledge" data-v="${p.k}">
+            <span class="pl-ic">${p.icon}</span>
+            <b>${p.n}</b>
+            <em>${p.d}</em>
+            <div class="pl-tags">${p.tags.map(x=>`<i>${esc(x)}</i>`).join('')}</div>
+          </button>`).join('')}
+        </div>
+        <div class="in-foot">
+          <span class="tiny">${INTRO.pledge?'선언이 선택되었습니다':'선언을 선택해야 취임할 수 있습니다'}</span>
+          <button class="btn gold ${INTRO.pledge?'':'disabled'}" data-a="intro" data-v="2">취임하고 계속 →</button>
+        </div>
+      </div>
+    </div>`;
+  }
+  if(INTRO.step===2){
+    return sponsorV3()+`<div class="intro-foot">
+      <span class="tiny">메인 1 · 서브 2 스폰서로 시즌 예산을 확보하세요. 나중에 구단 › 스폰서에서도 협상할 수 있습니다.</span>
+      <button class="btn gold" data-a="intro" data-v="3">다음: 시즌 목표 · 예산 →</button>
+    </div>`;
+  }
+  return budgetV3()+`<div class="intro-foot">
+    <span class="tiny">목표와 예산을 확인했습니다. 이제 케스파컵으로 시즌이 시작됩니다.</span>
+    <button class="btn gold" data-a="intro" data-v="4">시즌 시작 · 케스파컵 →</button>
+  </div>`;
+}
+function introApplyPledge(k){
+  const p=PLEDGES.find(x=>x.k===k); if(!p) return;
+  INTRO.pledge=k;
+  const c=clubC(); const b=INTRO.base||{prestige:c.prestige,trust:c.trust,fanbase:c.fanbase};
+  c.prestige=clamp(b.prestige+p.eff.prestige,0,100);
+  c.trust=clamp(b.trust+p.eff.trust,0,100);
+  c.fanbase=clamp(b.fanbase+p.eff.fan,0,100);
+  if(k==='grow') c.acadInvest='push';
+  renderHub();
+}
+function introNext(step){
+  if(step==='2'){
+    if(!INTRO.pledge){ toast('취임 선언을 선택하세요'); return; }
+    const nm=$('ownerName');
+    if(nm&&nm.value.trim()) S.owner.name=nm.value.trim();
+    S.owner.pledge=INTRO.pledge;
+    newsAdd('club','👑 '+esc(S.owner.name)+' 구단주 취임 — '+esc((PLEDGES.find(p=>p.k===INTRO.pledge)||{}).n||''));
+    INTRO.step=2; saveGame(); renderHub(); return;
+  }
+  if(step==='3'){ INTRO.step=3; renderHub(); return; }
+  if(step==='4'){
+    INTRO.step=1; S.splashPending='kespa'; saveGame();
+    TAB='home'; renderHub(); renderAll(); return;
+  }
+}
 /* ---------- 대회 개막 스플래시 ---------- */
 const SPLASH_DEF={
   kespa:{k:'KESPA CUP',year:2026,title:'KeSPA CUP',sub:'새 시즌의 첫 번째 대회.<br>새 로스터, 새 판도, 첫 성적표.',big:'시즌은 이미 시작됐습니다.',big2:'먼저 치고 나가세요.',cls:'kespa',line:'8팀 토너먼트 · 8강/4강/결승 · Bo3'},
