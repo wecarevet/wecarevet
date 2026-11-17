@@ -3966,6 +3966,19 @@ function finishSeries(){
       recordResult(a,b,r.sa,r.sb,S.week,'regular');
     });
     S.history.push({week:S.week,opp:oppId,score:s.score.me+'-'+s.score.opp,win:meWon,stage:'regular'});
+    try{
+      if(S.pressTrash&&S.club){
+        const c=S.club;
+        if(meWon){
+          c.fanbase=clamp(c.fanbase+8,0,100); c.prestige=clamp(c.prestige+3,0,100); c.trust=clamp((c.trust||55)+2,0,100);
+          newsAdd('press','🔥 도발 적중 — 여론 폭발! 팬심 +8 · 명성 +3');
+        }else{
+          c.fanbase=clamp(c.fanbase-6,0,100); c.prestige=clamp(c.prestige-2,0,100); c.trust=clamp((c.trust||55)-3,0,100);
+          newsAdd('press','💬 도발 역풍 — 커뮤니티가 들끓습니다. 팬심 -6 · 명성 -2');
+        }
+        S.pressTrash=null; c.community=null;
+      }
+    }catch(e){}
     S.lastSeries={oppId,score:s.score.me+'-'+s.score.opp,win:meWon,stage:'regular'};
     S.week++;
     S.actionApplied=false; S.weekActionTarget=null; S.gameplan=null;
@@ -5129,6 +5142,17 @@ const REPORTERS=[
   {name:'정하람', outlet:'약과뉴스'},
   {name:'김도현', outlet:'OSHEN'},
 ];
+function pressNames(){
+  const opp=T(PRESCTX&&PRESCTX.series?PRESCTX.series.oppId:S.currentSeries?S.currentSeries.oppId:S.userTeam);
+  const ps=opp?ROLES.map(r=>S.players[opp.lineup[r]]).filter(Boolean):[];
+  const sorted=ps.slice().sort((a,b)=>rawOverall(b)-rawOverall(a));
+  const jg=ps.find(p=>p.role==='JGL');
+  return {team:opp?opp.name:'상대', tag:opp?opp.tag:'상대', star:sorted[0]?sorted[0].name:'에이스', jg:jg?jg.name:'상대 정글', my:myTeam().name};
+}
+function pressFill(txt){
+  const n=pressNames();
+  return String(txt||'').replace(/\{team\}/g,n.team).replace(/\{tag\}/g,n.tag).replace(/\{star\}/g,n.star).replace(/\{jg\}/g,n.jg).replace(/\{my\}/g,n.my);
+}
 const PRESS_TONES=[
   {k:'active', n:'적극적', line:'"전력 차이는 분명합니다. 깔끔하게 이기겠습니다."',
    eff:{fan:2.2, form:2.0, trust:0.6, prestige:0.4, edge:1.2}, tag:'자신감'},
@@ -5138,6 +5162,8 @@ const PRESS_TONES=[
    eff:{fan:0.6, form:0.8, trust:2.0, prestige:0.1, edge:0.3}, tag:'안정'},
   {k:'calm', n:'침착', line:'"평가는 신경 쓰지 않습니다. 우리 할 일만 하겠습니다."',
    eff:{fan:0.5, form:1.6, trust:1.4, prestige:0.0, edge:0.5}, tag:'침착'},
+  {k:'trash', n:'도발', line:'"솔직히 {team} {star} 선수? 오늘 우리가 완벽히 틀어막고 2:0 퇴근합니다."',
+   eff:{fan:4.0, form:3.0, trust:-2.0, prestige:0.6, edge:-0.2}, tag:'도발', trash:true},
   {k:'no', n:'노코멘트', line:'답하지 않는다.',
    eff:{fan:-1.6, form:-0.4, trust:-1.4, prestige:-0.2, edge:-0.4}, tag:'침묵'},
 ];
@@ -5146,27 +5172,27 @@ const PRESS_MAP={}; PRESS_TONES.forEach(t=>PRESS_MAP[t.k]=t);
 const PRESS_Q={
   rival:[
     {r:0, q:'라이벌전입니다. 이번 경기의 승부처는 어디라고 보십니까?'},
-    {r:1, q:'객관적인 전력은 앞선다는 평가입니다. 방심할 위험은 없습니까?'},
-    {r:2, q:'상대 감독이 밴픽 준비를 많이 했다고 합니다. 대응은 어떻게 하실 겁니까?'},
+    {r:1, q:'객관적인 전력은 앞선다는 평가입니다. {team} {star} 선수를 어떻게 막으시겠습니까?'},
+    {r:2, q:'{tag} 감독이 밴픽 준비를 많이 했다고 합니다. 대응은 어떻게 하실 겁니까?'},
     {r:3, q:'선수단 컨디션은 지금 어느 정도입니까?'},
   ],
   playoff:[
     {r:0, q:'플레이오프 첫 경기입니다. 부담감은 없으십니까?'},
     {r:1, q:'다전제에서 가장 중요한 것은 무엇이라고 생각하십니까?'},
-    {r:2, q:'상대의 약점 라인을 어떻게 공략할 계획입니까?'},
-    {r:3, q:'결승까지 갈 수 있다고 보십니까?'},
+    {r:2, q:'{team}의 약점 라인을 어떻게 공략할 계획입니까? {jg} 쪽이냐는 분석도 있습니다.'},
+    {r:3, q:'결승까지 갈 수 있다고 보십니까? {star} 선수와의 매치업도 궁금합니다.'},
   ],
   final:[
-    {r:0, q:'결승입니다. 선수들에게 어떤 말을 하셨습니까?'},
-    {r:1, q:'우승한다면 어떤 의미가 있습니까?'},
+    {r:0, q:'결승입니다. {team} {star} 선수에게 어떤 말을 하셨습니까?'},
+    {r:1, q:'{team}를 꺾고 우승한다면 어떤 의미가 있습니까?'},
     {r:2, q:'마지막 세트까지 갈 것 같습니다. 준비한 카드가 있습니까?'},
     {r:3, q:'상대의 최근 경기력이 좋습니다. 경계하는 부분은?'},
   ],
   normal:[
-    {r:0, q:'이번 주 상대 전력을 어떻게 평가하십니까?'},
-    {r:1, q:'최근 경기력이 좋아졌습니다. 이유가 있다면?'},
-    {r:2, q:'신인이나 후보 선수 기용 계획은 있으십니까?'},
-    {r:3, q:'이번 경기 목표는 무엇입니까?'},
+    {r:0, q:'{team} 전력을 어떻게 평가하십니까? 특히 {star} 선수가 요즘 좋습니다.'},
+    {r:1, q:'최근 경기력이 좋아졌습니다. {tag}를 상대로 어떤 그림을 준비하셨습니까?'},
+    {r:2, q:'{jg} 선수의 동선이 좋다는 평가입니다. 견제 계획이 있습니까?'},
+    {r:3, q:'이번 {team}전 목표는 무엇입니까?'},
   ],
 };
 let PRESCTX=null;
@@ -5200,6 +5226,11 @@ function openPress(series){
 function pressAnswer(toneK){
   if(!PRESCTX) return;
   const tone=PRESS_MAP[toneK]; if(!tone) return;
+  if(tone.trash){
+    const n=pressNames();
+    tone.line='"솔직히 '+n.team+' '+n.star+' 선수? 오늘 우리가 완벽히 틀어막고 2:0 퇴근합니다."';
+    S.pressTrash={opp:PRESCTX.series.oppId, week:S.week, season:S.season, name:n.star};
+  }
   PRESCTX.answers.push({tone:toneK, q:PRESCTX.i});
   const e=tone.eff;
   const c=clubC(); const t=myTeam();
