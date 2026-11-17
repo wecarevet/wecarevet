@@ -378,7 +378,7 @@ function hasJong(s){
   return ((code - 0xAC00) % 28) !== 0;
 }
 function josa(n){
-  var j = hasJong(n);
+  var j = /\[/.test(n) ? true : hasJong(n);
   return { iga: j ? '이' : '가', eun: j ? '은' : '는', eul: j ? '을' : '를', wa: j ? '과' : '와', a: j ? '아' : '야' };
 }
 
@@ -771,7 +771,7 @@ var TERMS = [
   [/\bLA\/Ao\b/gi, '좌심방 크기(LA/Ao)'],
   [/\bVHS\b/gi, '심장 크기 지수(VHS)'],
   [/\bCRT\b/gi, '잇몸을 눌렀다 뗐을 때 피가 돌아오는 시간'],
-  [/흉부방사선|가슴\s*방사선|방사선/g, '가슴 엑스레이에서'],
+  [/흉부방사선|가슴\s*방사선|방사선/g, '가슴 엑스레이'],
   [/심초음파/g, '심장 초음파'],
   [/좌심방\s*확장|심방\s*확장/g, '심장의 좌심방이 커진 상태'],
   [/소견\s*없음/g, ' 소견은 없었습니다'],
