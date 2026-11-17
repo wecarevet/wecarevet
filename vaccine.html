@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#10335E">
-<meta name="description" content="위케어동물의료센터 강아지·고양이 예방접종·건강검진 스케줄 계산기 · 생년월일을 넣으면 다음 접종일과 검진 시기를 바로 계산합니다. 강아지 2주·고양이 3주 간격, 매년 추가접종, 10세 이후 6개월~1년 검진.">
+<meta name="description" content="위케어동물의료센터 강아지·고양이 예방접종·건강검진 스케줄 계산기 · 생년월일을 넣으면 다음 접종일과 검진 시기를 바로 계산합니다. 강아지 2주·고양이 3주 간격, 매년 추가접종, 7세 이후 6개월 검진.">
 <title>예방접종·건강검진 계산기 · 위케어동물의료센터</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -241,7 +241,7 @@ input[type=date]{min-height:44px}
   <div class="hero-inner">
     <div class="hero-eyebrow">WECARE · 예방접종 · 건강검진</div>
     <h1>다음 접종일, 언제인지<br><span>날짜로 바로 확인하세요</span></h1>
-    <p class="hero-desc">생년월일만 넣으면 기초접종 차수와 다음 접종일, 다음 건강검진 시기를 계산해 드립니다.<br>강아지 2주 · 고양이 3주 간격, 성견·성묘 매년, 10세 이후 6개월 검진까지.</p>
+    <p class="hero-desc">생년월일만 넣으면 기초접종 차수와 다음 접종일, 다음 건강검진 시기를 계산해 드립니다.<br>강아지 2주 · 고양이 3주 간격, 성견·성묘 매년, 7세 이상 6개월 검진까지.</p>
   </div>
 </div>
 
@@ -341,8 +341,8 @@ input[type=date]{min-height:44px}
     </div>
 
     <div class="stat-grid" style="grid-template-columns:1fr 1fr">
-      <div class="stat-card"><div class="s-lbl">건강검진 · 일반</div><div class="s-val">1년마다<small>성견·성묘</small></div></div>
-      <div class="stat-card"><div class="s-lbl">건강검진 · 10살 이후</div><div class="s-val">6개월 ~ 1년마다<small>노령기</small></div></div>
+      <div class="stat-card"><div class="s-lbl">건강검진 · 일반</div><div class="s-val">1년마다<small>7세 미만</small></div></div>
+      <div class="stat-card"><div class="s-lbl">건강검진 · 노령기</div><div class="s-val">6개월마다<small>7세 이상</small></div></div>
     </div>
 
     <div class="flag info">
@@ -431,10 +431,6 @@ input[type=date]{min-height:44px}
       <div class="hrow"><span class="hd">금요일</span><span class="ht">10:00 – 16:00</span></div>
       <div class="hrow closed"><span class="hd">수요일</span><span class="ht">정기휴무</span></div>
     </div>
-    <div class="flag warn" style="margin-top:.7rem">
-      <span aria-hidden="true">⏰</span>
-      <span><b>오후 8시 이후는 진료하지 않습니다.</b> 수요일과 야간에는 인근 24시 응급동물병원을 이용해 주세요. 접종 당일 컨디션이 갑자기 나빠지면 시간과 상관없이 먼저 전화 주세요.</span>
-    </div>
 
     <div class="acts">
       <a class="btn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 예약·문의</a>
@@ -453,8 +449,8 @@ input[type=date]{min-height:44px}
   <div class="foot-inner">
     <p class="foot-disc">
       <strong>위케어동물의료센터</strong> · WECARE Animal Medical Center<br>
-      응급 상황(호흡 곤란, 소변 불통, 실신 등)은 진료시간 중에는 즉시 병원으로 연락 주세요.<br>
-      진료시간 · 월·화·목·토·일 10:00–20:00 / 금 10:00–16:00 / 수요일 정기휴무 — 오후 8시 이후와 수요일에는 인근 24시 응급동물병원을 이용해 주세요.
+      응급 상황(호흡 곤란, 소변 불통, 실신 등)은 즉시 병원으로 연락 주세요.<br>
+      진료시간 · 월·화·목·토·일 10:00–20:00 / 금 10:00–16:00 / 수요일 정기휴무
     </p>
     <div class="foot-btns">
       <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
@@ -554,7 +550,7 @@ var WECARE_VAC = (function(){
     var p=P[sp];
     if(weeks < p.startWeeks) return 'pre';
     if(weeks < p.startWeeks + (p.doses-1)*p.gapWeeks + 2) return 'basic';
-    if(ageY>=10) return 'senior';
+    if(ageY>=7) return 'senior';
     return 'adult';
   }
   var STAGE_LABEL={pre:'접종 시작 전', basic:'기초접종기', adult:'성년기', senior:'노령기'};
@@ -624,10 +620,10 @@ var WECARE_VAC = (function(){
     }
 
     var checkMonths = (stage==='senior')?6:12;
-    var checkLabel = (stage==='senior')?'6개월 ~ 1년마다':'1년마다';
+    var checkLabel = (stage==='senior')?'6개월마다':'1년마다';
     var nextCheck = lastCheck? addMonths(lastCheck,checkMonths) : null;
     var checkNote = lastCheck
-      ? (stage==='senior' ? '최근 검진일 + 6개월 (10세 이후 6개월~1년)' : '최근 검진일 + 1년')
+      ? (stage==='senior' ? '최근 검진일 + 6개월 (7세 이상 6개월마다)' : '최근 검진일 + 1년')
       : '최근 검진일을 입력하시면 다음 권장일을 계산해 드립니다.';
     var nextDeworm = lastDeworm? addMonths(lastDeworm,1) : null;
     var dewormNote = lastDeworm? '마지막 구충일 + 1개월' : '심장사상충 예방·내외부 구충은 매월 1회';
@@ -665,12 +661,12 @@ var WECARE_VAC = (function(){
     var stageSub='';
     if(r.stage==='pre') stageSub='아직 기초접종을 시작하기 전입니다. 생후 '+sp.startWeeks+'주부터 시작합니다.';
     else if(r.stage==='basic') stageSub=sp.name+' 기초접종 '+sp.seriesShort+' 일정이 진행 중입니다.';
-    else if(r.stage==='senior') stageSub='10살 이후에는 접종은 매년, 건강검진은 6개월~1년마다 확인합니다.';
+    else if(r.stage==='senior') stageSub='7세 이후에는 접종은 매년, 건강검진은 6개월마다 확인합니다.';
     else stageSub='기초접종을 마친 뒤에는 매년 추가접종으로 면역을 유지합니다.';
 
     h+='<div class="stage">'
       + '<div class="stage-top"><span class="stage-k">현재 단계</span></div>'
-      + '<div class="stage-n"><em>'+STAGE_LABEL[r.stage]+'</em>'+(r.stage==='senior'?' <span style="font-size:13px;font-weight:500;color:rgba(255,255,255,.6)">(만 10세 이상)</span>':'')+'</div>'
+      + '<div class="stage-n"><em>'+STAGE_LABEL[r.stage]+'</em>'+(r.stage==='senior'?' <span style="font-size:13px;font-weight:500;color:rgba(255,255,255,.6)">(만 7세 이상)</span>':'')+'</div>'
       + '<div class="stage-age">'+sp.name+' · <b>'+ageText(r.age,r.weeks,r.estimated)+'</b><br>'+stageSub+'</div>'
       + '</div>';
 
