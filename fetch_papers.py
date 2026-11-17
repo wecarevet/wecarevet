@@ -1,4 +1,5 @@
 import urllib.request
+import urllib.error
 import urllib.parse
 import json
 import time
@@ -6,9 +7,14 @@ import os
 import re
 import hashlib
 import html as html_lib
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
 
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+# 한글 요약은 논문 수가 많아 순차로 하면 30분 가까이 걸린다.
+# 소수 병렬로 돌려 5~6분 안에 끝내고(자동 업데이트 실행 시간 단축), 429는 재시도한다.
+SUMMARY_WORKERS = int(os.environ.get("SUMMARY_WORKERS", "6") or 6)
+SUMMARY_ATTEMPTS = 4
 
 JOURNALS = [
     {"name": "AJVR",         "query": '"Am J Vet Res"[jour]',                          "type": "vet"},
@@ -147,6 +153,48 @@ def normalize_specialty(value):
     return tags[:2]
 
 
+RETRYABLE_HTTP = (408, 409, 429, 500, 502, 503, 504, 529)
+
+
+def call_claude(payload, attempts=SUMMARY_ATTEMPTS):
+    """한글 요약 API 호출. 429·5xx와 일시적 네트워크 오류는 지수 백오프로 재시도."""
+    req = urllib.request.Request(
+        "https://api.anthropic.com/v1/messages",
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "x-api-key": ANTHROPIC_API_KEY,
+            "anthropic-version": "2023-06-01"
+        }
+    )
+    delay = 2.0
+    last = None
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=45) as r:
+                return json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            last = e
+            if e.code not in RETRYABLE_HTTP or attempt == attempts - 1:
+                raise
+            wait = delay
+            retry_after = (e.headers or {}).get("retry-after", "") if e.headers else ""
+            try:
+                wait = max(wait, min(float(retry_after), 20.0))
+            except (TypeError, ValueError):
+                pass
+            print(f"  요약 재시도({e.code}) {wait:.0f}s 후...")
+        except (urllib.error.URLError, TimeoutError, OSError) as e:
+            last = e
+            if attempt == attempts - 1:
+                raise
+            wait = delay
+            print(f"  요약 재시도(네트워크) {wait:.0f}s 후...")
+        time.sleep(wait)
+        delay = min(delay * 2, 20.0)
+    raise last if last else RuntimeError("요약 호출 실패")
+
+
 def summarize_ko(title, abstract):
     """(한국어 스터디 노트, 진료과목 태그 목록)을 돌려준다."""
     fallback_tags = guess_specialties(f"{title} {abstract}")
@@ -158,17 +206,7 @@ def summarize_ko(title, abstract):
             "max_tokens": 700,
             "messages": [{"role": "user", "content": build_prompt(title, abstract)}]
         }).encode()
-        req = urllib.request.Request(
-            "https://api.anthropic.com/v1/messages",
-            data=payload,
-            headers={
-                "Content-Type": "application/json",
-                "x-api-key": ANTHROPIC_API_KEY,
-                "anthropic-version": "2023-06-01"
-            }
-        )
-        with urllib.request.urlopen(req, timeout=30) as r:
-            data = json.loads(r.read().decode())
+        data = call_claude(payload)
         text = "".join(
             block.get("text", "") for block in data.get("content", [])
             if isinstance(block, dict) and block.get("type") == "text"
@@ -234,10 +272,6 @@ def get_papers(journal):
             continue
         title = item.get("title", "").replace("<b>", "").replace("</b>", "")
 
-        print(f"    요약 중: {title[:40]}...")
-        summary_ko, specialty = summarize_ko(title, abstract)
-        time.sleep(0.3)
-
         papers.append({
             "id": pid,
             "title": title,
@@ -246,10 +280,39 @@ def get_papers(journal):
             "type": journal["type"],
             "date": item.get("pubdate", ""),
             "url": f"https://pubmed.ncbi.nlm.nih.gov/{pid}/",
-            "abstract": abstract[:500] if abstract else "",
-            "summary_ko": summary_ko,
-            "specialty": specialty,
+            "abstract": abstract,
+            "summary_ko": "",
+            "specialty": [],
         })
+    return papers
+
+
+def summarize_papers(papers, label=""):
+    """아직 한글 요약이 없는 논문들을 병렬로 요약해 채운다(목록 순서는 그대로 유지)."""
+    todo = [p for p in papers if not p.get("summary_ko")]
+    if not todo:
+        return papers
+    if not ANTHROPIC_API_KEY:
+        for p in todo:
+            p["specialty"] = p.get("specialty") or guess_specialties(f"{p['title']} {p['abstract']}")
+        return papers
+
+    print(f"  {label}요약 {len(todo)}편 (동시 {SUMMARY_WORKERS})")
+    done = 0
+    with ThreadPoolExecutor(max_workers=max(1, SUMMARY_WORKERS)) as ex:
+        futures = {ex.submit(summarize_ko, p["title"], p["abstract"]): p for p in todo}
+        for fut in as_completed(futures):
+            p = futures[fut]
+            try:
+                summary_ko, specialty = fut.result()
+            except Exception as e:
+                print(f"  요약 실패: {p['title'][:40]} ({e})")
+                summary_ko, specialty = "", guess_specialties(f"{p['title']} {p['abstract']}")
+            p["summary_ko"] = summary_ko
+            p["specialty"] = specialty or guess_specialties(f"{p['title']} {p['abstract']}")
+            done += 1
+            if done % 20 == 0 or done == len(todo):
+                print(f"    ...{done}/{len(todo)}")
     return papers
 
 # ── Clinician's Brief ──
@@ -344,10 +407,10 @@ def previous_cb_items():
 def fetch_clinicians_brief():
     previous = load_previous_cb()
     today = datetime.now().strftime("%Y-%m-%d")
-    articles = []
+    cards_out = []
     seen = set()
     for page_url, default_category in CB_CATEGORY_PAGES:
-        if len(articles) >= CB_MAX:
+        if len(cards_out) >= CB_MAX:
             break
         try:
             req = urllib.request.Request(page_url, headers={"User-Agent": CB_UA})
@@ -360,7 +423,7 @@ def fetch_clinicians_brief():
         cards = parse_cb_page(page_html, default_category)
         print(f"  {page_url} → 아티클 {len(cards)}개 발견")
         for title, url, category in cards:
-            if len(articles) >= CB_MAX or url in seen:
+            if len(cards_out) >= CB_MAX or url in seen:
                 continue
             seen.add(url)
 
@@ -373,18 +436,9 @@ def fetch_clinicians_brief():
 
             if not abstract:
                 abstract = cb_article_excerpt(url)
-                time.sleep(0.3)
+                time.sleep(0.2)
 
-            if not summary_ko:
-                print(f"    CB 요약 중: {title[:40]}...")
-                summary_ko, model_tags = summarize_ko(title, abstract)
-                specialty = model_tags or specialty
-                time.sleep(0.3)
-
-            if not specialty:
-                specialty = guess_specialties(f"{title} {abstract}")
-
-            articles.append({
+            cards_out.append({
                 "id": cb_article_id(url),
                 "title": title,
                 "authors": "Clinician's Brief",
@@ -397,8 +451,15 @@ def fetch_clinicians_brief():
                 "summary_ko": summary_ko,
                 "specialty": specialty,
             })
-    print(f"  → Clinician's Brief {len(articles)}편")
-    return articles
+
+    # 새로 추가된 아티클의 요약은 병렬로 채운다
+    summarize_papers(cards_out, "CB ")
+    for a in cards_out:
+        a["specialty"] = normalize_specialty(a.get("specialty")) or \
+            guess_specialties(f"{a['title']} {a['abstract']}")
+
+    print(f"  → Clinician's Brief {len(cards_out)}편")
+    return cards_out
 
 def main():
     all_papers = []
@@ -410,7 +471,12 @@ def main():
             print(f"  → {len(papers)}편")
         except Exception as e:
             print(f"  → 오류: {e}")
-        time.sleep(0.5)
+        time.sleep(0.3)
+
+    if all_papers:
+        summarize_papers(all_papers, "PubMed ")
+        for p in all_papers:
+            p["abstract"] = (p.get("abstract") or "")[:500]
 
     all_papers.sort(key=lambda x: x.get("date", ""), reverse=True)
 
