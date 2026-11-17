@@ -390,7 +390,7 @@ var PRESETS = [
     items:['심장 초음파·흉부방사선 추적'], tip:'기침 횟수와 잠잘 때 1분 호흡수를 적어 오시면 상태 판단에 큰 도움이 됩니다.',
     kw:['심장','심잡','잡음','murmur','MMVD','판막','이첨판','심부전','폐부종','VHS','LA/Ao','피모벤단','라미프릴','베나제프릴','심비대','기침'] },
   { id:'kidney', label:'신장/CKD', url:'kidney.html', guide:'신장 질환 보호자 안내', days:14, when:'2주 후',
-    items:['신장 수치(BUN·Cr·SDMA)·전해질 재검'], tip:'하루에 물을 얼마나 마시는지, 소변량이 갑자기 늘거나 줄지 함께 봐 주세요.',
+    items:['신장 수치·전해질 재검'], tip:'하루에 물을 얼마나 마시는지, 소변량이 갑자기 늘거나 줄지 함께 봐 주세요.',
     kw:['신장','CKD','신부전','SDMA','크레아티닌','BUN','IRIS','단백뇨','요비중','다뇨','소변량','음수량','물을 많이','물 많이'] },
   { id:'pancreatitis', label:'췌장염', url:'pancreatitis.html', guide:'췌장염 보호자 안내', days:7, when:'1주 후',
     items:['fPL·혈액검사 재평가'], tip:'기름진 음식·간식은 피하고, 안내드린 처방식을 소량씩 나눠 급여해 주세요.',
@@ -418,7 +418,7 @@ var PRESETS = [
     kw:['예방접종','접종','백신','종합백신','광견병','항체가'] }
 ];
 
-var state = { selected:{}, suggested:{}, dismissed:{}, effTags:[] };
+var state = { selected:{}, suggested:{}, dismissed:{}, effTags:[], weightAuto:false };
 
 function renderChips(){
   var box = $('chips');
@@ -588,7 +588,7 @@ var KW = {
        /요검사|소변검사|비중|단백뇨|UPCR/i, /심전도|ECG/i, /혈압|\bBP\b/, /mmHg/i, /℃/, /회\/분/,
        /이상\s*없|정상\s*범위|확인됨|관찰됨/, /병변|홍반|발적|탈모|각질|궤양|치석|구취|잇몸/,
        /부종|복수|흉수|황달|창백|출혈/, /등급|grade\s*\d/i, /VHS/i, /LA\/Ao/i, /수포음|나음/,
-       /심비대/, /확장|비대|비후|심방|심실/, /통증\s*점수|BCS/, /\d\s*kg\b/i ],
+       /심비대/, /확장|비대|비후|심방|심실/, /(?:^|\s)인\s*\d/, /통증\s*점수|BCS/, /\d\s*kg\b/i ],
   A: [ /진단/, /의심|의증|추정/, /판단/, /소견상/, /평가/, /감별/, /가능성/, /안정적|호전|악화/,
        /경도|중등도|고도/, /병기|stage/i, /\bMMVD\b|\bCKD\b|\bIRIS\b/i, /급성|만성/,
        /질환|증후군|결석|부전/, /합병증/, /동반|병발/, /원인/, /반응/ ],
@@ -767,7 +767,8 @@ var TERMS = [
   [/\bstage\s*([A-D]?\d{0,2})\b/gi, ' $1 단계'],
   [/\bMMVD\b/gi, '심장판막이 제대로 닫히지 않아 생기는 심장병(MMVD)'],
   [/\bCKD\b/gi, '만성 신장질환'],
-  [/\bIRIS\s*(\d)\s*단?계?/gi, '신장병 $1단계'],
+  [/\bCKD\s*(?:IRIS\s*)?(\d)\s*기/gi, '만성 신장질환 $1단계'],
+  [/\bIRIS\s*(\d)\s*(?:기|단계)/gi, '만성 신장질환 $1단계'],
   [/\bLA\/Ao\b/gi, '좌심방 크기(LA/Ao)'],
   [/\bVHS\b/gi, '심장 크기 지수(VHS)'],
   [/\bCRT\b/gi, '잇몸을 눌렀다 뗐을 때 피가 돌아오는 시간'],
@@ -782,7 +783,7 @@ var TERMS = [
   [/\bPO\b/g, '입으로'], [/\bSC\b/g, '피부 밑 주사'], [/\bIV\b/g, '정맥 주사'], [/\bIM\b/g, '근육 주사'],
   [/\bfPL\b|\bPLI\b/gi, '췌장 수치'],
   [/\bSDMA\b/gi, '신장 수치(SDMA)'],
-  [/\bBUN\b\s*\/?\s*Cr\b|크레아티닌|\bBUN\b/gi, '신장 수치'],
+  [/\bBUN\b\s*\/?\s*Cr\b/gi, '신장 수치'], [/크레아티닌/g, '신장 수치(크레아티닌)'], [/\bBUN\b/gi, '신장 수치(BUN)'],
   [/\bALP\b|\bALT\b|\bAST\b/g, '간 수치'],
   [/\bCBC\s*/g, ''], [/\bWBC\b/gi, '백혈구 수치'], [/\bPCV\b|\bHCT\b/gi, '적혈구 수치'], [/\bPLT\b/gi, '혈소판 수치'],
   [/요비중/g, '소변 농도'], [/단백뇨/g, '소변에 단백이 섞이는 것'],
@@ -793,6 +794,7 @@ var TERMS = [
   [/점막/g, '잇몸 색'],
   [/분홍/g, '분홍색(정상)'],
   [/청색증/g, '입술·잇몸이 파랗게 보이는 것'],
+  [/(^|\s)인\s+(\d+(?:\.\d+)?)/g, '$1인 수치 $2'],
   [/탈수\s*(\d+)\s*%/, '수분이 $1% 부족한 상태'],
   [/탈수/g, '몸에 수분이 부족한 상태'],
   [/폐부종/g, '폐에 물이 찬 상태'],
@@ -864,7 +866,7 @@ function keyLine(c, sec){
   return '오늘 확인한 상태를 지켜보면서 집에서 관리해 주시는 것이 핵심입니다.';
 }
 function isMed(t){
-  return /(처방|투약|복용|\bBID\b|\bSID\b|\bTID\b|\bQID\b|\bEOD\b|mg\b|mg\/kg)/i.test(t);
+  return /(처방(?!식)|투약|복용|\bBID\b|\bSID\b|\bTID\b|\bQID\b|\bEOD\b|mg\b|mg\/kg)/i.test(t);
 }
 function buildKakao(c, sec){
   var nm = c.name || '[아이 이름]';
@@ -892,6 +894,7 @@ function buildKakao(c, sec){
   var home = [], meds = [];
   sec.P.forEach(function(t){
     if(/^재진/.test(t)) return;
+    if(/(재검|재진|재내원)/.test(t) && t.replace(/\s/g, '').length < 24) return;
     if(isMed(t)) meds.push(t);
     else home.push(t);
   });
@@ -978,9 +981,9 @@ function renderGuides(c){
 function refresh(){
   updateTags();
   var c = ctx();
-  if(!c.weight){
+  if(!c.weight || state.weightAuto){
     var w = extractWeight(c.memo);
-    if(w){ $('pWeight').value = w; c.weight = w; }
+    if(w && w !== c.weight){ $('pWeight').value = w; c.weight = w; state.weightAuto = true; }
   }
   if(!c.memo){
     $('soapOut').value = '';
@@ -1164,6 +1167,7 @@ function runAI(){
     $('speechWarn').classList.add('show');
   }
   $('memo').addEventListener('input', refresh);
+  $('pWeight').addEventListener('input', function(){ state.weightAuto = false; });
   ['soapOut','kakaoOut'].forEach(function(id){
     $(id).addEventListener('input', function(){ autosize($(id)); if(id === 'kakaoOut') updateKakaoMeta(); });
   });
