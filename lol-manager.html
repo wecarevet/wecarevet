@@ -1215,6 +1215,68 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .pickline span{font-size:9.5px;color:var(--dim2);font-weight:700}
 .pickline.on{border-color:rgba(230,196,129,.55);background:linear-gradient(180deg,rgba(230,196,129,.1),#12141a)}
 .pickline.on b{color:var(--gold2)}
+/* coach advice + tactic badges */
+.coachbox{border:1px solid rgba(230,196,129,.32);border-radius:10px;background:linear-gradient(180deg,rgba(230,196,129,.08),rgba(230,196,129,.02));padding:9px 10px}
+.coachbox.lo{border-color:#2c3039;background:#12141a}
+.cb-h{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:900;color:var(--gold2)}
+.coachbox.lo .cb-h{color:#9aa2b2}
+.cb-h b{font-size:10px;color:#b9c0cb;font-weight:800}
+.cb-h em{margin-left:auto;font-style:normal;font-size:9px;padding:1px 6px;border-radius:4px;background:#1d2027;color:#9aa2b2;font-weight:900}
+.cb-body{display:flex;flex-direction:column;gap:3px;margin-top:6px}
+.cb-tip{font-size:11.5px;line-height:1.45;color:#dfe3ea;padding-left:9px;position:relative}
+.cb-tip::before{content:"›";position:absolute;left:0;color:var(--gold)}
+.tac-badge{font-style:normal;font-size:8px;font-weight:900;padding:0 4px;border-radius:3px;margin-left:3px;vertical-align:middle}
+.tac-badge.on{background:rgba(230,196,129,.2);color:var(--gold2)}
+.tac-badge.off{background:#2a2e37;color:#8f97a6}
+.tl-chip.locked,.tl-card.locked{opacity:.55}
+.tc-req{font-size:8.5px;color:var(--gold2);font-weight:800;margin-top:2px}
+.tl-card.locked .tc-req{color:#8f97a6}
+/* player card */
+.pcard-wrap{display:grid;place-items:center;padding:12px;perspective:1400px}
+.pcard{width:min(340px,92vw);position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,.1,.2,1)}
+.pcard.flip{transform:rotateY(180deg)}
+.pc-face{border-radius:16px;border:2px solid #d9b96f;padding:14px;background:radial-gradient(320px 220px at 30% 0,rgba(230,196,129,.16),transparent 70%),linear-gradient(160deg,#1c1b18,#0c0d10);
+  box-shadow:0 16px 50px rgba(0,0,0,.7),inset 0 0 40px rgba(230,196,129,.06);backface-visibility:hidden;display:flex;flex-direction:column;gap:6px}
+.pc-back{position:absolute;inset:0;transform:rotateY(180deg);overflow:auto}
+.pc-ovr b{font-size:38px;font-weight:900;letter-spacing:-.05em;line-height:1}
+.pc-ovr span{display:block;font-size:9px;letter-spacing:.2em;color:#d9b96f;font-weight:900}
+.pc-stars{display:block;font-style:normal;font-size:10px;color:#d9b96f;margin-top:3px;letter-spacing:1px}
+.pc-av{display:grid;place-items:center;margin:2px 0}
+.pc-av .p-avatar{width:112px;height:112px;border-radius:14px;overflow:hidden}
+.pc-tag{font-size:9.5px;letter-spacing:.24em;color:#b9a376;font-weight:900}
+.pc-name{font-size:26px;font-weight:900;letter-spacing:-.03em;line-height:1.1}
+.pc-meta{font-size:10.5px;color:#a99a78;font-weight:800}
+.pc-sigs{display:flex;flex-wrap:wrap;gap:3px;margin-top:2px}
+.pc-sig{font-size:9px;font-weight:900;padding:2px 5px;border-radius:4px;background:rgba(230,196,129,.14);color:#f0d69b}
+.pc-troph{display:flex;gap:3px;font-size:14px;margin-top:2px}
+.pc-troph .none{color:#5c5644;font-style:normal}
+.pc-foot{display:flex;align-items:center;gap:6px;margin-top:6px;border-top:1px solid rgba(230,196,129,.22);padding-top:7px}
+.pc-foot span{font-size:9px;letter-spacing:.2em;color:#8a7a52;font-weight:900;flex:1}
+.pc-flip{font-size:10px;font-weight:900;padding:4px 9px;border-radius:6px;background:rgba(230,196,129,.14);border:1px solid rgba(230,196,129,.4);color:#f0d69b}
+.pc-tabs{display:flex;gap:2px;margin-bottom:4px;overflow-x:auto}
+.pc-tabs button{font-size:9px;font-weight:900;padding:4px 6px;border-radius:5px;background:#1b1e25;border:1px solid #2c3039;color:#8f97a6;white-space:nowrap}
+.pc-tabs button.on{background:rgba(230,196,129,.18);border-color:rgba(230,196,129,.5);color:#f0d69b}
+.pc-body{flex:1;display:flex;flex-direction:column;gap:3px;font-size:11px;color:#c3c9d4;min-height:220px}
+.pc-kv{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dotted rgba(230,196,129,.16)}
+.pc-kv b{color:#fff;font-weight:900;font-size:11px}
+.pc-stats{display:flex;flex-direction:column;gap:3px;margin-top:4px}
+.pc-stat{display:flex;align-items:center;gap:6px;font-size:10px}
+.pc-stat span{width:40px;color:#a99a78;font-weight:800}
+.pc-stat .pbar{flex:1}
+.pc-stat b{width:20px;text-align:right;font-weight:900;color:#fff}
+.pc-traits{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.pc-line{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.pc-growth{display:flex;flex-direction:column;gap:3px;margin-top:5px}
+.pc-grow{display:flex;align-items:center;gap:6px;font-size:10px}
+.pc-grow span{width:34px;color:#a99a78;font-weight:800}
+.pc-grow .pbar{flex:1}
+.pc-grow b{width:20px;text-align:right;font-weight:900}
+.pc-grow.now b{color:#f0d69b}
+.pc-tro{display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px dotted rgba(230,196,129,.16)}
+.pc-tro b{display:block;font-size:12px;font-weight:900;color:#fff}
+.pc-tro em{font-style:normal;font-size:9.5px;color:#a99a78}
+.auto-draft{font-size:10px;font-weight:900;padding:6px 9px;border-radius:7px;background:rgba(230,196,129,.14);border:1px solid rgba(230,196,129,.42);color:#f0d69b;white-space:nowrap}
+.auto-draft:active{transform:scale(.97)}
 
 </style>
 </head>
@@ -3150,6 +3212,7 @@ function liveTacticEdge(){
   const st=M.stance?STANCE_MAP[M.stance]:null;
   let e=0;
   if(fo) e+=(fo.edge||0);
+  if(fo&&typeof tacticEdgeBonus==='function') e+=tacticEdgeBonus(M.focusKey);
   if(st) e+=(st.edge||0);
   if(fo){
     ROLES.forEach(r=>{
@@ -3173,6 +3236,10 @@ function setStance(k){
 }
 function setFocus(k){
   if(!M||M.over) return;
+  if(k&&FOCUS_MAP[k]&&typeof tacticUnlocked==='function'){
+    const u=tacticUnlocked(k);
+    if(!u.ok){ toast('🔒 '+(u.req&&(u.req.label||u.req.why)||'코치진')+'이 필요합니다'); return; }
+  }
   M.focusKey=(M.focusKey===k?null:(FOCUS_MAP[k]?k:null));
   M.focusAt=M.minute; M.tacticEdge=liveTacticEdge();
   logEvent('sys','📋 집중 전술 → '+(M.focusKey?FOCUS_MAP[M.focusKey].n:'해제'));
@@ -4454,12 +4521,14 @@ function clubApplyWeekPlan(){
 }
 
 /* ---------- 재정 장부 ---------- */
+function clubScale(){ try{ return clamp(teamSalary(myTeam())/44,0.5,8); }catch(e){ return 1; } }
 function finLedger(){
   const c=clubC(); const t=myTeam();
   const sp=sponsorAnnualTotal();
-  const prestigeBonus=Math.round((c.prestige>=80?3.8:c.prestige>=65?2.6:c.prestige>=50?1.6:0.9)*10)/10;
-  const support=1.5;
-  const membership=Math.round((c.fanbase>=70?1.4:c.fanbase>=50?1.0:0.6)*10)/10;
+  const pay=teamSalary(t);
+  const prestigeBonus=Math.round(pay*(c.prestige>=80?0.16:c.prestige>=65?0.11:c.prestige>=50?0.075:0.05)*10)/10;
+  const support=Math.round(pay*0.06*10)/10;
+  const membership=Math.round(pay*(c.fanbase>=70?0.05:c.fanbase>=50?0.04:0.02)*10)/10;
   const inc={carry:c.carry, sponsor:sp, prestige:prestigeBonus, support:support, membership:membership};
   inc.total=Math.round((inc.carry+inc.sponsor+inc.prestige+inc.support+inc.membership)*10)/10;
   const acad=ACAD_MAP[c.acadInvest]||ACAD_MAP.std;
@@ -4480,9 +4549,10 @@ function rollSponsorOffers(){
   const c=clubC();
   const cap=sponsorCapacity();
   const pres=c.prestige;
-  const mul=0.82+pres/240;
-  const mains=SPONSOR_DEFS.filter(s=>s.tier==='main').map(s=>Object.assign({},s,{pay:Math.round(s.pay*mul*10)/10}));
-  const subs=SPONSOR_DEFS.filter(s=>s.tier==='sub').map(s=>Object.assign({},s,{pay:Math.round(s.pay*mul*10)/10}));
+  const mul=(0.7+pres/200)*clubScale();
+  const sc=(x)=>Math.round(x*mul*10)/10;
+  const mains=SPONSOR_DEFS.filter(s=>s.tier==='main').map(s=>Object.assign({},s,{pay:sc(s.pay),bonus:sc(s.bonus)}));
+  const subs=SPONSOR_DEFS.filter(s=>s.tier==='sub').map(s=>Object.assign({},s,{pay:sc(s.pay),bonus:sc(s.bonus)}));
   c.offers={main:mains, sub:subs, cap:cap, rolledAt:S.season+'-'+S.week};
 }
 function sponsorSign(tier,id,years,terms){
@@ -4591,12 +4661,13 @@ function communityBuild(){
   const key=S.season+'-'+S.week+'-'+S.phase+'-'+S.weekAction+'-'+(c.goods.length)+'-'+(c.fanbase|0)+'-'+(S.lastSeries?S.lastSeries.score:'')+'-'+S.split;
   if(c.community&&c.community.key===key) return c.community;
   const tone=communityTone();
-  const pick=(pool,i)=>pool[(hashN(key+i)%pool.length)];
+  const pick=(pool,i)=>pool[(hashN(key+'|'+i+'|'+pool.length)%pool.length)];
   const mk=(pool,tag,i)=>{
-    const t=pick(pool,i);
-    return {t:t, c:(hashN(key+tag+i)%900+40)};
+    const t=pick(pool,tag+i);
+    return {t:t, c:(hashN(key+tag+i+'c')%900+40)};
   };
-  const gall=[mk(GAL_POOL[tone]||GAL_POOL.calm,'g',1),mk(GAL_POOL[tone]||GAL_POOL.calm,'g',2),mk(GAL_POOL.calm,'g',3)];
+  const gp=GAL_POOL[tone]||GAL_POOL.calm;
+  const gall=[mk(gp,'g',1),mk(gp,'g',2),mk(gp.length>2?GAL_POOL.calm:gp,'g',3)];
   const am=[mk(AM_POOL[tone]||AM_POOL.calm,'a',1),mk(AM_POOL.win,'a',2),mk(AM_POOL[tone]||AM_POOL.calm,'a',3)];
   const tw=[mk(TW_POOL[tone]||TW_POOL.calm,'t',1),mk(TW_POOL.win,'t',2),mk(TW_POOL.calm,'t',3)];
   const mood=c.fanbase>=72?'여론 뜨거움':c.fanbase>=52?'조용합니다':c.fanbase>=38?'여론 한산·중립':'여론이 나쁩니다';
@@ -4981,6 +5052,212 @@ function pressAuto(){
   pressAnswer(pick);
 }
 
+/* ============ COACH — 코치·감독 전용 전술 & 밴픽 훈수 ============ */
+/* 고급 전술: 채용한 코칭스태프의 특성/레이팅에 따라 해금·강화 */
+const TACTIC_REQ={
+  baronBush:  {trait:'draftMagic', label:'밴픽 마술사', bonus:0.035, alt:'rating', rating:88, why:'감독의 설계 능력'},
+  laneSwap:   {trait:'orderSet',   label:'오더 정립',   bonus:0.03,  alt:'rating', rating:84, why:'감독의 운영 설계'},
+  botDive:    {trait:'scrimMaster',label:'스크림 지휘', bonus:0.03,  alt:'coachTrait', why:'코치의 스크림 설계'},
+  counterEng: {trait:'calmLead',   label:'침착한 지휘', bonus:0.03,  alt:'rating', rating:82, why:'감독의 침착함'},
+  split131:   {trait:'orderSet',   label:'오더 정립',   bonus:0.025, alt:'rating', rating:86, why:'감독의 사이드 운영'},
+  backdoor:   {trait:'earlyPlan',  label:'초반 설계자', bonus:0.03,  alt:'rating', rating:90, why:'감독의 변칙 설계'},
+  baronBurst: {trait:'objCoach',   label:'오브젝트 코칭',bonus:0.03,  alt:'rating', rating:85, why:'코치의 오브젝트 설계'},
+};
+const COACH_TRAITS_DEF=['scrimMaster','laneCoach','condition','cureExpert','potential','macroCoach'];
+function coachSupport(){
+  const s=(typeof staffOf==='function'&&S)?staffOf(S.userTeam):{head:null,coaches:[]};
+  const head=s.head, coaches=s.coaches||[];
+  const traits={};
+  [head].concat(coaches).filter(Boolean).forEach(st=>(st.traits||[]).forEach(t=>{ traits[t]=1; }));
+  const coachTraits={};
+  coaches.filter(Boolean).forEach(st=>(st.traits||[]).forEach(t=>{ coachTraits[t]=1; }));
+  return {head:head, coaches:coaches, traits:traits, coachTraits:coachTraits, rating:head?head.rating:0};
+}
+function tacticUnlocked(k){
+  const r=TACTIC_REQ[k];
+  if(!r) return {ok:true, bonus:0, req:null, why:''};
+  const c=coachSupport();
+  if(r.trait&&c.traits[r.trait]) return {ok:true, bonus:r.bonus, req:r, why:r.label+' 특성'};
+  if(r.alt==='rating'&&c.rating>=r.rating) return {ok:true, bonus:Math.round(r.bonus*0.6*1000)/1000, req:r, why:'감독 레이팅 '+c.rating};
+  if(r.alt==='coachTrait'&&(c.coachTraits[r.trait]||c.rating>=82)) return {ok:true, bonus:Math.round(r.bonus*0.7*1000)/1000, req:r, why:'코치진 설계'};
+  return {ok:false, bonus:0, req:r, why:r.why||''};
+}
+function tacticEdgeBonus(k){
+  if(!k) return 0;
+  const u=tacticUnlocked(k);
+  return u.ok?(u.bonus||0):0;
+}
+function tacCoachBadge(k){
+  const u=tacticUnlocked(k);
+  if(!u.req) return '';
+  if(u.ok) return `<em class="tac-badge on" title="${esc(u.why)}">코치</em>`;
+  return `<em class="tac-badge off" title="필요: ${esc(u.req.label||u.req.why)}">🔒</em>`;
+}
+function coachTacticList(){
+  return Object.keys(TACTIC_REQ).map(k=>FOCUS_MAP[k]).filter(Boolean);
+}
+/* ---------- 밴픽 코치 훈수 ---------- */
+function coachDraftAdvice(){
+  if(typeof D==='undefined'||!D) return null;
+  const c=coachSupport();
+  const head=c.head; const rating=head?head.rating:60;
+  const sharp=rating>=88?2:rating>=80?1:0;
+  const myP=dMyPicks(), opP=dOppPicks(), opB=dOppBans(), myB=dMyBans();
+  const phase=dPhaseNow();
+  const tips=[];
+  const myComp=evalComp(myP), opComp=evalComp(opP);
+  // 아직 상대 밴이 없으면 시그니처 챔프 경계
+  const oppTeam=T(D.oppId);
+  const oppSigs=[];
+  ROLES.forEach(r=>{ const p=S.players[oppTeam.lineup[r]]; if(p&&p.sigs) p.sigs.forEach(n=>oppSigs.push(n)); });
+  if(phase==='ban'){
+    const threat=oppSigs.filter(n=>!dOppBans().includes(n)&&!CHAMP_MAP[n]==false);
+    if(opP.length===0&&threat.length){
+      tips.push({k:'ban', t:'상대 주특기 '+threat.slice(0,3).join('·')+' 를 먼저 잘라내는 게 좋습니다.'});
+    }else if(opP.length){
+      const oppAd=opComp.ad, oppAp=opComp.ap;
+      if(oppAd-oppAp>2) tips.push({k:'ban', t:'상대 조합이 AD에 쏠립니다. 탱커/브루저 밴으로 앞라인을 흔들어 보세요.'});
+      else if(oppAp-oppAd>2) tips.push({k:'ban', t:'상대가 AP 중심입니다. 마법 저항 아이템 가는 쪽을 잘라내세요.'});
+      else tips.push({k:'ban', t:'상대 조합이 균형형입니다. 밴은 우리 조합의 카운터에 쓰는 게 낫습니다.'});
+    }else{
+      tips.push({k:'ban', t:'첫 밴입니다. 상대 정글의 템포 챔프를 견제하면 초반이 편해집니다.'});
+    }
+  }
+  // 픽 단계
+  if(phase==='pick'||(myP.length&&myP.length<5&&phase!=='ban')){
+    const need=[];
+    if(!myP.length) tips.push({k:'pick', t:'1픽은 플렉스가 가능한 챔프가 좋습니다. 상대에게 정보를 덜 주면서 라인을 남길 수 있습니다.'});
+    if(myComp.front<5) need.push('탱커/이니시');
+    if(myComp.cc<6) need.push('CC');
+    if(myComp.ad+myComp.ap>0){
+      if(myComp.ad-myComp.ap>3) need.push('AP 딜러');
+      if(myComp.ap-myComp.ad>3) need.push('AD 딜러');
+    }
+    if(myP.length>=3&&need.length) tips.push({k:'pick', t:'지금 조합에 필요한 것은 '+need.join(', ')+'입니다.'});
+    const sigs=mySigs().filter(n=>!dUsed().includes(n));
+    if(sigs.length) tips.push({k:'sig', t:'내 선수 주특기 '+sigs.slice(0,2).join('·')+' 가 아직 열려 있습니다.'});
+  }
+  // 상대 카운터 (레이팅 높을수록 구체적)
+  if(opP.length&&sharp>=1){
+    const topOpp=opP.slice(0,3);
+    tips.push({k:'counter', t:'상대 ' + topOpp.join('·') + ' 조합에는 '+ (opComp.front>7?'포킹·분산 딜교':'강한 이니시')+'로 받아치는 편이 좋습니다.'});
+  }
+  if(sharp>=2&&opP.length>=3){
+    const lacks=opComp.tags.scale<opComp.tags.engage;
+    tips.push({k:'detail', t:lacks?'상대는 초중반 교전형입니다. 20분 전 사고를 줄이고 후반 밸류로 뒤집으세요.':'상대 후반 밸류가 높습니다. 15분 전에 유충·전령으로 판을 벌리세요.'});
+  }
+  if(!head) tips.push({k:'none', t:'감독이 없어 훈수가 제한적입니다. 스태프 영입을 권합니다.'});
+  return {tips:tips.slice(0,sharp>=2?4:sharp>=1?3:2), head:head, sharp:sharp};
+}
+function coachAdviceHTML(){
+  const a=coachDraftAdvice();
+  if(!a) return '';
+  const head=a.head;
+  return `<div class="coachbox ${a.sharp>=2?'hi':a.sharp>=1?'mid':'lo'}">
+    <div class="cb-h"><span>💬 코치 훈수</span><b>${head?esc(head.name)+' 수석코치 · '+head.rating:'스태프 없음'}</b>
+      <em>${a.sharp>=2?'정밀 분석':a.sharp>=1?'기본 분석':'제한적'}</em></div>
+    <div class="cb-body">
+      ${a.tips.map(t=>`<div class="cb-tip ${t.k}">${esc(t.t)}</div>`).join('')}
+    </div>
+  </div>`;
+}
+function coachPresenceLine(){
+  const c=coachSupport();
+  if(!c.head) return '코치진 없음';
+  return esc(c.head.name)+' · 밴픽 훈수 '+(c.head.rating>=88?'정밀':c.head.rating>=80?'보통':'기본');
+}
+
+/* ---------- 자동 밴픽 (감독에게 위임) ---------- */
+function autoDraftQuality(){
+  const c=coachSupport();
+  const r=c.rating||60;
+  return clamp((r-68)/24,0.05,1);   // 68점 → 0, 92점 → 1
+}
+function autoDraftChoose(kind){
+  const q=autoDraftQuality();
+  const pool=dAvailable();
+  if(!pool.length) return null;
+  if(kind==='ban'){
+    const opp=T(D.oppId);
+    const sigs=[];
+    ROLES.forEach(r=>{ const p=S.players[opp.lineup[r]]; if(p&&p.sigs) p.sigs.forEach(n=>sigs.push(n)); });
+    const scored=pool.map(ch=>({n:ch.n, s:(sigs.indexOf(ch.n)>=0?9*q:0)+champTier(ch)*1.1+Math.random()*9*(1-q)}));
+    scored.sort((a,b)=>b.s-a.s);
+    return scored[0].n;
+  }
+  const myS=dMySigs();
+  const scored=pool.map(ch=>{
+    let best=-999;
+    ROLES.forEach(r=>{
+      const p=S.players[myTeam().lineup[r]]; if(!p) return;
+      const s=assignScoreFor(p,ch.n,r)+styleSynergy(p,ch,r)*0.9;
+      if(s>best) best=s;
+    });
+    if(myS.indexOf(ch.n)>=0) best+=4*q;
+    return {n:ch.n, s:best+champTier(ch)*0.6+Math.random()*11*(1-q)};
+  });
+  scored.sort((a,b)=>b.s-a.s);
+  return scored[0].n;
+}
+function dMySigs(){
+  const out=[];
+  ROLES.forEach(r=>{ const p=S.players[myTeam().lineup[r]]; if(p&&p.sigs) p.sigs.forEach(n=>out.push(n)); });
+  return out;
+}
+function autoDraftRun(){
+  if(!D||D.done) return;
+  const c=coachSupport();
+  let guard=0;
+  while(D&&!D.done&&D.phase!=='assign'&&guard<70){
+    guard++;
+    const cur=dCur(); if(!cur) break;
+    if(dActor()==='me'){
+      const name=autoDraftChoose(cur.t);
+      if(!name) break;
+      if(cur.t==='ban') draftMyBan(name); else draftMyPick(name);
+    }else{
+      aiDraftAct();
+    }
+  }
+  if(D&&D.phase==='assign'){
+    D.assign.me=recommendAssign(dMyPicks());
+    D.result=evalDraft();
+    renderDraft();
+  }
+  toast('🧑‍🏫 '+(c.head?c.head.name+' 감독':'감독')+'이 밴픽을 마쳤습니다 — 라인 배정을 확인하세요');
+}
+/* ---------- 자동 전술 (코치에게 위임) ---------- */
+let AUTOTL=false, AUTOTL_AT=-99;
+function autoTacticsQuality(){
+  const c=coachSupport();
+  const coachT=r=>{ const cs=c.coaches||[]; return cs.length?Math.max.apply(null,cs.map(x=>x.rating||70)):70; };
+  return clamp(((c.rating||60)*0.6+coachT()*0.4-70)/22,0.05,1);
+}
+function autoTacticsStep(){
+  if(!M||M.over) return;
+  const m=M.minute;
+  if(m-AUTOTL_AT<2) return;
+  AUTOTL_AT=m;
+  const q=autoTacticsQuality();
+  const sugg=(typeof suggestTactics==='function'?suggestTactics():[]).filter(f=>tacticUnlocked(f.k).ok);
+  const gd=M.gold[0]-M.gold[1];
+  let stance=M.stance;
+  if(gd<-2200) stance='defensive';
+  else if(gd>2200) stance='aggro';
+  else stance='standard';
+  if(q<0.45&&Math.random()<0.35) stance=pickOf(['aggro','defensive','standard']);
+  if(stance!==M.stance){ M.stance=stance; M.stanceAt=m; }
+  if(sugg.length){
+    const want=sugg[0];
+    const pickOne=(q>0.65)?want:((Math.random()<0.55+q*0.3)?want:pickOf(sugg));
+    if(M.focusKey!==pickOne.k){
+      M.focusKey=pickOne.k; M.focusAt=m;
+      logEvent('sys','🤖 코치 자동 전술 → '+pickOne.n);
+    }
+  }
+  M.tacticEdge=liveTacticEdge();
+}
+
 /* ============ AUDIO — Web Audio 밴픽 BGM & 효과음 (외부 파일 0) ============ */
 const SND={ctx:null, master:null, bgmGain:null, on:true, playing:null, timer:null, step:0, nextAt:0, ready:false};
 function sndCtx(){
@@ -5296,7 +5573,7 @@ function renderTitle(){
     <div class="card glow" style="margin-top:6px">
       <div class="row between" style="margin-bottom:12px">
         <div>
-          <div style="font-size:11px;letter-spacing:.16em;color:var(--dim2);font-weight:800">SEASON 2025 · OWNER MODE</div>
+          <div style="font-size:11px;letter-spacing:.16em;color:var(--dim2);font-weight:800">SEASON 2026 · OWNER MODE</div>
           <div style="font-weight:800;font-size:15px;margin-top:2px">정규시즌 9주 + 플레이오프 + 월즈</div>
         </div>
         <span class="chip violet">LCK·LPL·LEC·LCS</span>
@@ -7091,6 +7368,7 @@ function hubAction(a,v,el){
   if(a==='match'){ prepareMatch(); return; }
   if(a==='resume'){ if(S.currentSeries){ if(S.currentSeries.pendingSide) renderSideChoice(); else startDraft(S.currentSeries); } return; }
   if(a==='player'){ openPlayer(v); return; }
+  if(a==='setstarter'){ const parts=String(v||'').split(':'); const r=setStarter(parts[0],parts[1]); closeModal(); renderHub(); return; }
   if(a==='editor'){ openPlayerEditor(null); return; }
   if(a==='plan'){ planSet(v,Number(el.dataset.d),cyclePlan(planGet(v)[Number(el.dataset.d)])); renderHub(); return; }
   if(a==='pland'){ openPlanPicker(Number(v),null); return; }
@@ -7147,6 +7425,97 @@ function openPlanPicker(day,name){
   });
   $('modalClose').onclick=closeModal;
   $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
+}
+
+/* ---------- 선수 카드 (앞/뒤 플립) ---------- */
+let PCARD={name:null, side:'front', tab:'profile'};
+function openPlayer(name){
+  const p=S.players[name]; if(!p) return;
+  PCARD={name:name, side:'front', tab:'profile'};
+  renderPlayerCard();
+}
+function renderPlayerCard(){
+  const p=S.players[PCARD.name]; if(!p) return;
+  const c=clubC();
+  const t=S.teams[p.team]||null;
+  const ovr=rawOverall(p);
+  const back=PCARD.side==='back';
+  const trophies=[];
+  if(S.lckChampion===p.team) trophies.push('LCK 우승');
+  if(S.msiChampion===p.team) trophies.push('MSI 우승');
+  if(S.ewcChampion===p.team) trophies.push('EWC 우승');
+  if(S.champion===p.team) trophies.push('월즈 우승');
+  const stars=ovr>=92?'★★★★★':ovr>=86?'★★★★☆':ovr>=80?'★★★☆☆':ovr>=74?'★★☆☆☆':'★☆☆☆☆';
+  $('modal').innerHTML=`<div class="modal-wrap pcard-wrap" id="modalWrap">
+    <div class="pcard ${back?'flip':''}">
+      <div class="pc-face pc-front">
+        <div class="pc-ovr"><b>${ovr}</b><span>OVR</span><em class="pc-stars">${stars}</em></div>
+        <div class="pc-av">${pAvatarHTML(p,112)}</div>
+        <div class="pc-tag">${t?esc(t.tag):'FA'}</div>
+        <div class="pc-name">${esc(p.name)}</div>
+        <div class="pc-meta">${ROLE_KR[p.role]} · ${p.age}세 · ${esc(t?t.name:'FA')}</div>
+        <div class="pc-sigs">${(p.sigs||[]).slice(0,4).map(n=>`<span class="pc-sig">★ ${esc(n)}</span>`).join('')}</div>
+        <div class="pc-troph">${trophies.length?trophies.map(x=>`<i title="${esc(x)}">🏆</i>`).join(''):'<i class="none">—</i>'}</div>
+        <div class="pc-foot"><span>${S.season} LCK</span><button class="pc-flip" data-a="pflip">뒷면 ↻</button></div>
+      </div>
+      <div class="pc-face pc-back">
+        <div class="pc-tabs">
+          ${[['profile','프로필·특성·성격'],['record','성적·기록'],['growth','성장'],['trophy','트로피 룸']].map(([k,n])=>`<button class="${PCARD.tab===k?'on':''}" data-a="ptab" data-v="${k}">${n}</button>`).join('')}
+        </div>
+        <div class="pc-body">${playerCardTab(p,t,c)}</div>
+        <div class="pc-foot"><button class="pc-flip" data-a="pflip">앞면 ↻</button><button class="btn sm gold" data-a="pedit" data-v="${esc(p.name)}">에디터 열기</button></div>
+      </div>
+    </div>
+  </div>`;
+  $('modal').classList.remove('hidden');
+  const w=$('modalWrap'); if(w) w.onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
+  $('modal').querySelectorAll('[data-a="pflip"]').forEach(b=>b.onclick=()=>{ PCARD.side=PCARD.side==='front'?'back':'front'; renderPlayerCard(); });
+  $('modal').querySelectorAll('[data-a="ptab"]').forEach(b=>b.onclick=()=>{ PCARD.tab=b.dataset.v; renderPlayerCard(); });
+  const ed=$('modal').querySelector('[data-a="pedit"]'); if(ed) ed.onclick=()=>openPlayerEditor(p.name);
+}
+function playerCardTab(p,t,c){
+  const ovr=rawOverall(p); const st=p.stats;
+  if(PCARD.tab==='record'){
+    const pog=S.pog[p.name]||0;
+    return `<div class="pc-kv"><span>POG 포인트</span><b>${pog}</b></div>
+      <div class="pc-kv"><span>실전 EXP</span><b>${p.exp||0}% / 100%</b></div>
+      <div class="pc-kv"><span>컨디션</span><b>${p.form} (${condLabel(p)})</b></div>
+      <div class="pc-kv"><span>피로도</span><b>${p.fatigue}</b></div>
+      <div class="pc-kv"><span>연봉</span><b>${p.salary}억</b></div>
+      <div class="pc-kv"><span>계약</span><b>${contractTxt(p)}</b></div>
+      <div class="pc-kv"><span>시즌 성적</span><b>${t?(t.wins+'승 '+t.losses+'패'):'-'}</b></div>`;
+  }
+  if(PCARD.tab==='growth'){
+    const pot=p.age<=20?ovr+ri(6,14):p.age<=22?ovr+ri(3,9):p.age<=25?ovr+ri(0,4):ovr;
+    const rows=[];
+    for(let i=-1;i<=3;i++){
+      const age=p.age+i; const v=clamp(ovr+(i<0?2:0)+(age<=21?i*2:age>=27?-i*2:0),40,99);
+      rows.push(`<div class="pc-grow ${i===0?'now':''}"><span>${age}세</span><div class="pbar mini"><i style="width:${v}%"></i></div><b>${v}</b></div>`);
+    }
+    return `<div class="pc-kv"><span>잠재력</span><b>${pot}</b></div>
+      <div class="pc-kv"><span>성장 가능성</span><b>${p.age<=21?'높음':p.age<=25?'보통':'낮음'}</b></div>
+      <div class="pc-kv"><span>현재</span><b>${ovr}</b></div>
+      <div class="pc-growth">${rows.join('')}</div>`;
+  }
+  if(PCARD.tab==='trophy'){
+    const list=[];
+    if(S.lckChampion===p.team) list.push(['LCK 우승',S.season]);
+    if(S.msiChampion===p.team) list.push(['MSI 우승',S.season]);
+    if(S.champion===p.team) list.push(['월드 챔피언십',S.season]);
+    return list.length?list.map(x=>`<div class="pc-tro"><span>🏆</span><div><b>${esc(x[0])}</b><em>${x[1]}시즌</em></div></div>`).join(''):'<div class="empty-note">아직 우승 기록이 없습니다</div>';
+  }
+  return `<div class="pc-kv"><span>소속</span><b>${esc(t?t.name:'FA')}</b></div>
+    <div class="pc-kv"><span>포지션</span><b>${ROLE_KR[p.role]}</b></div>
+    <div class="pc-kv"><span>나이</span><b>${p.age}세</b></div>
+    <div class="pc-kv"><span>성격</span><b>${esc(persName(p))}</b></div>
+    <div class="pc-stats">
+      ${[['라인전',st.lane],['한타',st.fight],['운영',st.macro],['챔프폭',st.pool],['멘탈',st.mental]].map(([n,v])=>`<div class="pc-stat"><span>${n}</span><div class="pbar mini"><i style="width:${v}%"></i></div><b>${v}</b></div>`).join('')}
+    </div>
+    <div class="pc-traits">
+      ${(p.good||[]).slice(0,4).map(id=>{const x=TRAIT_MAP[id];return x?`<span class="tr good">${esc(x.n)}</span>`:'';}).join('')}
+      ${(p.bad||[]).slice(0,3).map(id=>{const x=TRAIT_MAP[id];return x?`<span class="tr bad">${esc(x.n)}</span>`:'';}).join('')}
+    </div>
+    ${p.team===S.userTeam?`<div class="pc-line">${ROLES.map(r=>`<button class="chip ${myTeam().lineup[r]===p.name?'on':''}" data-a="setstarter" data-v="${r}:${esc(p.name)}">${ROLE_KR[r]}</button>`).join('')}</div>`:''}`;
 }
 
 /* ============ UI — 마케팅 · 대회 · 기록 · 영입 ============ */
@@ -7485,6 +7854,9 @@ function draftHead(){
       <div class="draft-phase">${phase} · ${D.mySide==='blue'?'블루':'레드'} 사이드</div>
       <div class="tiny" style="margin-top:2px">${esc(myTeam().tag)} ${sr.score.me} : ${sr.score.opp} ${esc(T(D.oppId).tag)} · ${D.gameIdx+1}세트${D.series.bo>1?' · Bo'+D.series.bo:''}</div>
     </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <button class="auto-draft" data-auto="draft">자동 밴픽</button>
+    </div>
     <div style="text-align:right">
       <div class="draft-timer">${D.phase==='assign'?'감독 배정':D.phase==='done'?'확정':(dActor()==='me'?'내 차례':'상대 차례')}</div>
       <div class="tiny">밴 ${dMyBans().length}/5 · 픽 ${dMyPicks().length}/5</div>
@@ -7566,6 +7938,11 @@ function playChip(p){
   return `<span class="play-chip" title="대표 성향">${playIcon(p)} ${esc(playName(p))}</span>`;
 }
 
+function bindAutoDraft(){
+  const v=$('view-draft'); if(!v) return;
+  const b=v.querySelector('[data-auto="draft"]');
+  if(b) b.onclick=()=>{ try{ autoDraftRun(); }catch(e){ toast('자동 밴픽 실패: '+e.message); } };
+}
 function renderDraft(){
   const me=myTeam(), opp=T(D.oppId);
   const myComp=evalComp(dMyPicks()), oppComp=evalComp(dOppPicks());
@@ -7592,6 +7969,7 @@ function renderDraft(){
   $('view-draft').innerHTML=`
     ${draftHead()}
     <div class="draft-body">
+      ${typeof coachAdviceHTML==='function'?coachAdviceHTML():''}
       ${DRAFT_ORDER&&phase!=='assign'&&phase!=='done'?`<div class="card tight" style="padding:9px 10px">${draftTimeline()}</div>`:''}
       ${phase==='done'?draftSummaryHTML(myComp,oppComp,me,opp):phase==='assign'?assignHTML(myComp,oppComp,me,opp):`
       <div class="card tight" style="padding:10px">
@@ -7643,6 +8021,7 @@ function renderDraft(){
       `}
     </div>`;
   bindDraft();
+  bindAutoDraft();
   show('draft');
 }
 /* ---------- 라인 배정 (스왑) ---------- */
@@ -7945,8 +8324,8 @@ function touchlineHTML(){
         <span>${s.icon}</span><b>${s.n}</b><i>${s.d}</i></button>`).join('')}
     </div>
     <div class="tl-sugg">
-      ${sugg.map(f=>`<button class="tl-chip ${M.focusKey===f.k?'on':''}" data-focus="${f.k}">
-        <span>${f.icon}</span><b>${esc(f.n)}</b><i>${esc(f.d)}</i></button>`).join('')}
+      ${sugg.map(f=>`<button class="tl-chip ${M.focusKey===f.k?'on':''} ${tacticUnlocked(f.k).ok?'':'locked'}" data-focus="${f.k}">
+        <span>${f.icon}</span><b>${esc(f.n)}${tacCoachBadge(f.k)}</b><i>${esc(f.d)}</i></button>`).join('')}
     </div>
     <div class="tiny tl-note">지금 상황에 맞는 전술 ${sugg.length}개 · 교전 성향과 함께 언제든 변경</div>
   </div>`;
@@ -8040,11 +8419,12 @@ function renderTacticDrawer(){
       <span class="tiny">${M.focusKey?('현재: '+esc(FOCUS_MAP[M.focusKey].n)):'선택 없음'}</span></div>
     <div class="tl-tabs">${cats}</div>
     <div class="tl-drawer-grid">
-      ${list.map(f=>`<button class="tl-card ${M.focusKey===f.k?'on':''}" data-pick="${f.k}">
+      ${list.map(f=>{const u=tacticUnlocked(f.k);return `<button class="tl-card ${M.focusKey===f.k?'on':''} ${u.ok?'':'locked'}" data-pick="${f.k}">
         <span class="tc-ic">${f.icon}</span>
-        <span class="tc-n">${esc(f.n)}</span>
+        <span class="tc-n">${esc(f.n)} ${tacCoachBadge(f.k)}</span>
         <span class="tc-d">${esc(f.d)}</span>
-      </button>`).join('')}
+        ${u.req?`<span class="tc-req">${u.ok?('✓ '+esc(u.why)):('필요: '+esc(u.req.label||u.req.why))}</span>`:''}
+      </button>`;}).join('')}
     </div>
     <div class="tiny" style="margin-top:6px">전술을 선택하면 즉시 경기와 미니맵에 반영됩니다. 다시 누르면 해제.</div>
     <div style="height:10px"></div>
@@ -8951,6 +9331,7 @@ function buildMatchDOM(v,key){
       <button class="bbtn" id="mmPlay" data-a="play">${M.running?'⏸ 일시정지':'▶ 재개'}</button>
       <div class="bspeed">${[1,2,4].map(s=>`<button class="${M.speed===s?'on':''}" data-a="speed" data-v="${s}">${s}x</button>`).join('')}</div>
       <button class="bbtn ${MM.zoom.on?'on':''}" id="mmZoomBtn" data-a="zoom">👁 핵심</button>
+      <button class="bbtn ${AUTOTL?'on':''}" id="mmAutoBtn" data-a="autotl">🤖 자동 전술</button>
       <button class="bbtn gold" data-a="fast">⏭ 즉시 결과</button>
       <button class="bbtn" data-a="more">⋯ 더보기</button>
     </div>
@@ -9059,6 +9440,8 @@ function matchPatch(){
   if(c2&&c2.textContent!==cast[1]) c2.textContent=cast[1];
   const pb=q('mmPlay'); if(pb) pb.innerHTML=M.over?'결과 보기 →':(M.running?'⏸ 일시정지':'▶ 재개');
   const zb=q('mmZoomBtn'); if(zb) zb.classList.toggle('on',!!MM.zoom.on);
+  const ab=q('mmAutoBtn'); if(ab) ab.classList.toggle('on',!!AUTOTL);
+  if(AUTOTL){ try{ autoTacticsStep(); }catch(e){} }
   const ln=q('mmLine');
   if(ln){
     const st=M.stance?STANCE_MAP[M.stance]:null, fo=M.focusKey?FOCUS_MAP[M.focusKey]:null;
@@ -9091,6 +9474,7 @@ function bindBcast(){
     const a=el.dataset.a;
     if(a==='play'){ togglePlay(); matchPatch(); }
     else if(a==='speed'){ setSpeed(Number(el.dataset.v)); }
+    else if(a==='autotl'){ AUTOTL=!AUTOTL; AUTOTL_AT=-99; if(AUTOTL){ autoTacticsStep(); toast('🤖 코치가 전술을 지휘합니다'); } matchPatch(); }
     else if(a==='zoom'){ MM.zoom.on=!MM.zoom.on; if(!MM.zoom.on){ MM.zoom.ts=1; MM.zoom.tx=0.5; MM.zoom.ty=0.5; } else { MM.zoom.ts=1.7; } matchPatch(); }
     else if(a==='fast'){ mmFastFinish(); }
     else if(a==='home'){ bgmStop(); TAB='home'; renderHub(); }
