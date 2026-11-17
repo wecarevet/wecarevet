@@ -838,22 +838,25 @@ function summarize(){
   days.forEach(function(d){
     var recs = d.recs;
     if (!recs.length) return;
-    var daySrr = [], dayApp = [], dayKg = [], dayMl = 0, v = false, di = false, lo = false, mm = false;
+    var daySrr = [], dayApp = [], dayKg = [], dayMl = null, dayVomit = '', dayDiarrhea = '', v = false, di = false, lo = false, mm = false;
     recs.forEach(function(r){
       if (r.srr) { srrVals.push({ v:r.srr, at:r.at }); daySrr.push(r.srr); }
-      if (r.water) { dayMl += r.water; }
+      /* 물은 '하루 합계'로 적으므로 그날 가장 늦은 기록의 값을 쓴다(중복 합산 방지) */
+      if (r.water && dayMl === null) dayMl = r.water;
       if (r.appetite) { appVals.push(r.appetite); dayApp.push(r.appetite); if (r.appetite <= 2) lo = true; }
       if (r.weight) { kgVals.push({ v:r.weight, at:r.at }); dayKg.push(r.weight); }
-      if (r.vomit) v = true;
-      if (r.diarrhea) di = true;
+      if (r.vomit) { v = true; if (!dayVomit) dayVomit = r.vomit; }
+      if (r.diarrhea) { di = true; if (!dayDiarrhea) dayDiarrhea = r.diarrhea; }
       if (r.meds === '일부 누락' || r.meds === '복용 안 함') mm = true;
     });
     d.srr = daySrr.length ? Math.max.apply(null, daySrr) : null;
     d.srrAvg = daySrr.length ? daySrr.reduce(function(a,b){return a+b;},0)/daySrr.length : null;
-    d.waterMl = dayMl || null;
+    d.waterMl = dayMl;
     var dayKgUse = d.weight || state.pet.weight || null;
     d.waterPer = (dayMl && dayKgUse) ? dayMl / dayKgUse : null;
     if (d.waterPer) waterVals.push({ ml:dayMl, per:d.waterPer, at:d.key });
+    d.vomitText = dayVomit;
+    d.diarrheaText = dayDiarrhea;
     d.appAvg = dayApp.length ? dayApp.reduce(function(a,b){return a+b;},0)/dayApp.length : null;
     d.weight = dayKg.length ? dayKg[dayKg.length-1] : null;
     if (v) vomitDays++;
@@ -1087,8 +1090,8 @@ function buildSummary(){
     if (d.srr) parts = ['SRR ' + d.srr + (d.recs.length > 1 ? '(최고)' : '')];
     if (d.waterMl) parts.push('물 ' + d.waterMl + 'mL' + (d.waterPer ? '(' + Math.round(d.waterPer) + 'mL/kg)' : ''));
     if (d.appAvg) parts.push('식욕 ' + d.appAvg.toFixed(1));
-    if (d.hasVomit) parts.push('구토');
-    if (d.hasDiarrhea) parts.push('설사');
+    if (d.hasVomit) parts.push('구토 ' + d.vomitText);
+    if (d.hasDiarrhea) parts.push('설사 ' + d.diarrheaText);
     var cough = Math.max.apply(null, d.recs.map(function(r){ return +(r.cough||0); }));
     var itch = Math.max.apply(null, d.recs.map(function(r){ return +(r.itch||0); }));
     if (cough) parts.push('기침 ' + cough);
@@ -1100,14 +1103,6 @@ function buildSummary(){
     L.push(' ' + ymd(d.date) + ' (' + DAY_NAMES[d.date.getDay()] + ') | ' + parts.join(' | ') + (memoBits.length ? ' | ' + memoBits.join(' / ') : ''));
   });
   if (!dayRows) L.push(' (기록 없음)');
-  var memos = s.inRange.filter(function(r){ return r.memo; });
-  if (memos.length){
-    L.push('');
-    L.push('■ 보호자 메모');
-    memos.slice(0, 12).forEach(function(r){
-      L.push(' ' + dtShort(r.at) + ' : ' + String(r.memo).replace(/\n+/g, ' / '));
-    });
-  }
   L.push('');
   L.push('* 보호자가 집에서 기록한 내용입니다. 참고용으로 확인해 주세요.');
   return L.join('\n');
