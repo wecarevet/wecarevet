@@ -852,13 +852,14 @@ function summarize(){
     d.srr = daySrr.length ? Math.max.apply(null, daySrr) : null;
     d.srrAvg = daySrr.length ? daySrr.reduce(function(a,b){return a+b;},0)/daySrr.length : null;
     d.waterMl = dayMl;
-    var dayKgUse = d.weight || state.pet.weight || null;
+    var dayWeight = dayKg.length ? dayKg[dayKg.length-1] : null;
+    var dayKgUse = dayWeight || state.pet.weight || null;
     d.waterPer = (dayMl && dayKgUse) ? dayMl / dayKgUse : null;
     if (d.waterPer) waterVals.push({ ml:dayMl, per:d.waterPer, at:d.key });
     d.vomitText = dayVomit;
     d.diarrheaText = dayDiarrhea;
     d.appAvg = dayApp.length ? dayApp.reduce(function(a,b){return a+b;},0)/dayApp.length : null;
-    d.weight = dayKg.length ? dayKg[dayKg.length-1] : null;
+    d.weight = dayWeight;
     if (v) vomitDays++;
     if (di) diarrheaDays++;
     if (lo) lowAppDays++;
