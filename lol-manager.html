@@ -3359,10 +3359,10 @@ function startMatch(draftResult){
   const ace=lineupOf(me).slice().sort((a,b)=>rawOverall(b)-rawOverall(a))[0];
   if(ace) edge += (myCoach.star||0)*(ace.form-70)*0.02;
   M={
-    minute:0, gold:[0,0], kills:[0,0], towers:[0,0], dragons:[0,0], grubs:[0,0], barons:[0,0], heralds:[0,0],
+    sec:0, minute:0, gold:[0,0], kills:[0,0], towers:[0,0], dragons:[0,0], grubs:[0,0], barons:[0,0], heralds:[0,0],
     dragonElems:{me:[],opp:[]}, soulType:{me:null,opp:null}, soulGranted:{me:false,opp:false},
     elderAt:null, elder:{me:false,opp:false}, elderUntil:{me:0,opp:0}, elderCount:[0,0],
-    fights:[0,0], vision:[0,0], events:[], over:false, running:false, speed:1,
+    fights:[0,0], vision:[0,0], events:[], over:false, running:false, speed:4,
     edge, styleEdge:(styleEdge+(myCoach.order||0)*0.5-(opCoach.order||0)*0.5),
     draftLogit, draftPct:myPct, powerEdge:(myPower-oppPower)*0.9,
     coach:{me:myCoach,opp:opCoach}, earlyEdge:((myCoach.early||0)-(opCoach.early||0)),
@@ -3387,7 +3387,7 @@ function startMatch(draftResult){
 }
 function startTimer(){
   stopTimer();
-  TIMER=setInterval(()=>{ if(!M||M.over||!M.running) return; tick(); }, 620);
+  TIMER=setInterval(()=>{ if(!M||M.over||!M.running) return; tick(); }, Math.round(1000/(M.speed||4)));
 }
 function stopTimer(){ if(TIMER){clearInterval(TIMER);TIMER=null;} }
 function setSpeed(s){ if(!M) return; M.speed=s; stopTimer(); TIMER=setInterval(()=>{ if(!M||M.over||!M.running) return; tick(); }, Math.round(620/s)); renderMatch(); }
@@ -3438,6 +3438,20 @@ function weightedPick(items,weights){
   return items[items.length-1];
 }
 
+function tickBody(){
+  if(!M||M.over) return;
+  if(!M.running&&!M.over){ return; }
+  M.sec=(M.sec||0)+1;
+  if(M.sec%60===0) simStep();
+  else {
+    // 초 단위 잔잔한 진행: 골드 소폭 증가
+    M.gold[0]=Math.round((M.gold[0]||0)+rnd(3,9));
+    M.gold[1]=Math.round((M.gold[1]||0)+rnd(3,9));
+    if(M.history&&(M.sec%5===0)) M.history.push({min:M.sec/60,diff:M.gold[0]-M.gold[1]});
+  }
+  M.winProb=winProb();
+  renderMatch();
+}
 function tick(){
   try{ tickBody(); }
   catch(e){
@@ -3446,7 +3460,7 @@ function tick(){
     try{ if(S.currentSeries&&!S.currentSeries.done){ if(S.currentSeries.score.me+S.currentSeries.score.opp===0){ S.currentSeries.score.me+=M.meWin===false?0:1; } renderSeriesResult(); } else renderAll(); }catch(_){}
   }
 }
-function tickBody(){
+function simStep(){
   if(!M||M.over) return;
   if(!M.lane) M.lane={TOP:{my:60,opp:60},MID:{my:60,opp:60},ADC:{my:60,opp:60},JGL:{my:60,opp:60},SUP:{my:60,opp:60}};
   M.minute++;
@@ -9537,21 +9551,46 @@ function mmKdaTick(){
   MMDOM.kills=(M.kills||[0,0]).slice();
 }
 function mmClockStr(){
-  return String(Math.floor(M.minute/60)).padStart(2,'0')+':'+String(M.minute%60).padStart(2,'0');
+  const sec=(M.sec!=null)?M.sec:(M.minute*60);
+  const mm=Math.floor(sec/60), ss=Math.floor(sec%60);
+  return String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0');
 }
 function mGoldK(v){ return (v/1000).toFixed(1)+'k'; }
+const CASTER_POOL={
+  kill:['자아~!! 여기서 킬이 터집니다!!','아니 이걸 잡는다고요?!','와~!! 이 각을 봐요 여러분!!','터졌습니다!! 완벽한 갱킹!!'],
+  obj:['드래곤 앞에서 시야 싸움이 치열합니다!','유충 스택! 이게 후반에 큰 차이를 만듭니다!','바론 앞에서 숨죽이고 있습니다!','오브젝트 하나에 판이 갈립니다!'],
+  fight:['아니 이 한타를 뒤집는다고요?!','5대5! 여기서 승부가 갈립니다!!','이게 LCK입니다 여러분!!','스펠이 다 빠졌습니다! 지금입니다!'],
+  lane:['라인전 딜교환이 아주 날카롭습니다','CS 격차가 조금씩 벌어지고 있습니다','탑 라인 맞대결, 물러서지 않습니다','이 라인 구도가 오늘 경기의 핵심입니다'],
+  draft:['밴픽이 끝났습니다. 조합의 그림이 보입니다','이 조합은 초반에 굴려야 합니다','상대 밴픽이 아주 날카로웠습니다'],
+  late:['30분이 넘었습니다. 이제 한 번의 실수가 경기를 끝냅니다','시야 장악이 곧 승리입니다, 여러분','양 팀 모두 체력이 바닥입니다'],
+  intro:['경기가 시작되었습니다!','선수들이 협곡으로 향합니다!'],
+};
+const ANALYST_POOL={
+  kill:['아 근데 저기 와드도 없는데 왜 나가요~ ㅋㅋ','저건 상대가 실수한 거죠','점멸 아끼면 안 되는데 말이죠','이건 정글 동선이 완벽했습니다'],
+  obj:['이 조합은 30분 넘어가면 숨도 못 쉽니다, 지금 굴려야죠!','드래곤 3스택이면 상대는 답이 없어요','유충은 타워 골드로 바꿔야 의미가 있죠','바론 앞에서 시간 끌면 오히려 손해야요'],
+  fight:['포지션이 너무 좋았어요, 옆에서 보면 쉬워 보이죠','탱커가 앞에 안 서면 저렇게 됩니다','딜러가 각을 너무 좁게 잡았어요','이니시 각이 딱 하나 있었는데 그걸 열었네요'],
+  lane:['미니언 웨이브 관리가 승부를 가릅니다','저 라인은 지금 프리징이 정답이에요','CS 20개 차이는 골드로 보면 400입니다','라인전은 결국 정글 위치 싸움입니다'],
+  draft:['이 조합은 사이드 운영이 강점이에요','밴픽에서 이미 반은 이겼습니다','상대 딜 밸런스가 무너졌어요, 탱커가 없어요','후반 밸류만 보면 우리 쪽이 훨씬 좋습니다'],
+  late:['지금은 욕심 부리면 지는 시간입니다','바론 사냥은 시야 없이 하면 안 되죠','한 명만 잘못 걸려도 넥서스까지 갑니다'],
+  intro:['오늘 경기 재밌겠는데요? ㅋㅋ','밴픽만 봐도 그림이 나옵니다'],
+};
+let CAST_PH=-1, CAST_LINE=[];
 function casterLines(){
+  const m=M.minute;
   const last=(M.events||[]).find(e=>e.kind!=='sys');
-  const c1=last?last.text.replace(/<[^>]+>/g,''):'경기가 시작되었습니다';
-  const laneAdv=mmLaneAdv('TOP');
-  let c2;
-  if(M.fights[0]+M.fights[1]>0&&M.minute>=20) c2='한타가 열립니다! 양 팀 모두 물러서지 않습니다';
-  else if(M.dragons[0]+M.dragons[1]>0) c2=(M.dragons[0]>=M.dragons[1]?myTeam().tag:T(M.oppId).tag)+', 드래곤 스택을 쌓아갑니다';
-  else if(M.grubs[0]+M.grubs[1]>0) c2=(M.grubs[0]>=M.grubs[1]?myTeam().tag:T(M.oppId).tag)+', 공허 유충 챙깁니다';
-  else if(laneAdv>0.25) c2='탑 라인에서 우리 팀이 압박하고 있습니다';
-  else if(M.minute<14) c2=myNameAt('TOP')+' 대 '+oppNameAt('TOP')+', 탑 라인 맞대결입니다';
-  else c2='미드게임으로 접어듭니다. 시야 싸움이 시작됩니다';
-  return [c1,c2];
+  let key='lane';
+  if(M.focusUntil>m||(M.fights[0]+M.fights[1]>0&&m>=20&&(m%3===0))) key='fight';
+  if(mmObjectiveWindow(m)) key='obj';
+  if(last&&/(킬|솔로킬|로밍|역습)/.test(last.text)) key='kill';
+  if(Math.abs((M.dragons[0]+M.dragons[1]))>0&&m%7===0) key='obj';
+  if(m>=28) key='late';
+  if(m<1) key='intro';
+  const bucket=key==='kill'?'kill':key;
+  const c1=CASTER_POOL[bucket]||CASTER_POOL.lane;
+  const c2=ANALYST_POOL[bucket]||ANALYST_POOL.lane;
+  const hk=hashN('c'+(S.currentSeries?S.currentSeries.startedAt:0)+'-'+m+'-'+key);
+  const lead=(last&&key!=='intro')?last.text.replace(/<[^>]+>/g,'').slice(0,60):c1[hk%c1.length];
+  return [lead, c2[(hk+1)%c2.length]];
 }
 
 function buildMatchDOM(v,key){
@@ -9585,8 +9624,8 @@ function buildMatchDOM(v,key){
           <div class="bmap-tag" id="mmPhase">${MM.phaseLabel||'라인전'}</div>
         </div>
         <div class="bcaster" id="mmCast">
-          <div class="bc-line"><span class="bc-who">캐스터</span><span class="bc-tx" id="mmCast1"></span></div>
-          <div class="bc-line"><span class="bc-who alt">해설</span><span class="bc-tx" id="mmCast2"></span></div>
+          <div class="bc-line"><span class="bc-who">전용준</span><span class="bc-tx" id="mmCast1"></span></div>
+          <div class="bc-line"><span class="bc-who alt">클템</span><span class="bc-tx" id="mmCast2"></span></div>
         </div>
       </div>
       <div class="bcol opp" id="colOpp">${sideColHTML('opp')}</div>
@@ -9594,7 +9633,7 @@ function buildMatchDOM(v,key){
     <div class="bbar">
       <button class="bbtn" data-a="home">${ico('home',14)} 홈</button>
       <button class="bbtn" id="mmPlay" data-a="play">${M.running?'⏸ 일시정지':'▶ 재개'}</button>
-      <div class="bspeed">${[1,2,4].map(s=>`<button class="${M.speed===s?'on':''}" data-a="speed" data-v="${s}">${s}x</button>`).join('')}</div>
+      <div class="bspeed">${[1,2,4,8].map(s=>`<button class="${M.speed===s?'on':''}" data-a="speed" data-v="${s}">${s}x</button>`).join('')}</div>
       <button class="bbtn ${MM.zoom.on?'on':''}" id="mmZoomBtn" data-a="zoom">👁 핵심</button>
       <button class="bbtn ${AUTOTL?'on':''}" id="mmAutoBtn" data-a="autotl">🤖 자동 전술</button>
       <button class="bbtn gold" data-a="fast">⏭ 즉시 결과</button>
@@ -9780,7 +9819,7 @@ function mmFastFinish(){
   if(!M||M.over) return;
   M.running=true; MMFAST=true;
   let guard=0;
-  try{ while(!M.over&&guard<90){ guard++; tickBody(); } }catch(e){ window.__lastErr=String((e&&e.stack)||e); }
+  try{ while(!M.over&&guard<2600){ guard++; tickBody(); } }catch(e){ window.__lastErr=String((e&&e.stack)||e); }
   MMFAST=false;
   if(!M.over){ finishGame(); return; }
   matchPatch();
