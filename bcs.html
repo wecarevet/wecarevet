@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#10335E">
+<meta name="description" content="위케어동물의료센터 강아지·고양이 비만도(BCS 9점) 자가진단 · 사람 나이 환산 · 하루 권장 칼로리(RER·DER) 계산기. 갈비뼈·허리선·복부선으로 체형을 확인하고 목표 체중과 급여량을 계산합니다.">
+<title>비만도(BCS)·사람 나이·하루 칼로리 계산기 · 위케어동물의료센터</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --red:#b3261e;--red-bg:#fdf0ef;--red-border:#f0c8c4;
+  --amber:#9a6207;--amber-bg:#fff8e6;--amber-border:#f0dcae;
+  --green:#166534;--green-bg:#eefaf3;--green-border:#c6e9d5;
+  --max:760px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;min-height:100vh;word-break:keep-all;-webkit-font-smoothing:antialiased}
+
+/* TOPBAR */
+.topbar{background:var(--navy);padding:0 1.25rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;gap:.6rem}
+.logo-text{color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;white-space:nowrap}
+.logo-text small{display:block;font-size:9.5px;font-weight:300;opacity:.7;letter-spacing:.06em}
+.topbar-btns{display:flex;gap:.35rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:6px;font-size:11.5px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap;border:none;background:transparent;color:#fff}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:active{background:rgba(255,255,255,.24)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.15);font-size:10.5px}
+
+/* HERO */
+.hero{background:var(--navy);padding:1.75rem 1.25rem 1.9rem}
+.hero-inner{max-width:var(--max);margin:0 auto;text-align:center}
+.hero-eyebrow{font-size:10.5px;font-weight:500;letter-spacing:.16em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.7rem}
+.hero h1{font-size:21px;font-weight:700;color:#fff;line-height:1.45;margin-bottom:.6rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:12.5px;color:rgba(255,255,255,.58);line-height:1.8}
+
+/* SPECIES BAR */
+.sel-bar{background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.1);padding:1rem 1.25rem .9rem}
+.sel-inner{max-width:var(--max);margin:0 auto}
+.sel-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.sel-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase;min-width:56px;flex-shrink:0}
+.pill-group{display:flex;gap:.4rem;flex-wrap:wrap}
+.pill{padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-size:12.5px;font-weight:500;cursor:pointer;background:transparent;color:rgba(255,255,255,.6);transition:all .15s;font-family:inherit;line-height:1.4}
+.pill:active{border-color:rgba(255,255,255,.5);color:#fff}
+.pill.active{background:#fff;border-color:#fff;color:var(--navy);font-weight:700}
+.sel-hint{font-size:10.5px;color:rgba(255,255,255,.34);line-height:1.7;margin-top:.55rem}
+
+.main{max-width:var(--max);margin:0 auto;padding:1.5rem 1.25rem 2.5rem}
+
+/* NOTE */
+.pnote{display:flex;gap:.5rem;align-items:flex-start;background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.8rem .9rem;font-size:11.5px;color:var(--text-mid);line-height:1.7;margin-bottom:1rem}
+.pnote strong{color:var(--navy);font-weight:600}
+
+/* SECTIONS */
+.sect{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.05rem 1.1rem 1.2rem;margin-bottom:1rem}
+.sect-head{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:1rem;padding-bottom:.7rem;border-bottom:1px solid var(--navy-xlight)}
+.sect-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.sect-title{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.5}
+.sect-sub{font-size:11.5px;color:var(--text-muted);line-height:1.6;margin-top:2px}
+.sect-tag{margin-left:auto;flex-shrink:0;font-size:9.5px;font-weight:700;letter-spacing:.08em;color:var(--accent);background:var(--accent-light);border-radius:5px;padding:2px 7px;text-transform:uppercase;line-height:1.8}
+
+/* FIELDS */
+.field{margin-bottom:.9rem}
+.field:last-child{margin-bottom:0}
+.field > label,.flabel{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:5px;letter-spacing:.01em}
+.flabel .opt{font-weight:400;color:var(--text-muted);font-size:10.5px;margin-left:4px}
+input[type=text],input[type=number],input[type=date],select,textarea{
+  width:100%;font-family:inherit;font-size:16px;color:var(--text);
+  background:var(--navy-xlight);border:1.5px solid var(--border);border-radius:9px;
+  padding:10px 12px;outline:none;transition:border-color .15s,background .15s;line-height:1.5;
+  -webkit-appearance:none;appearance:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);background:#fff}
+input::placeholder{color:#a9b7c5;font-size:13.5px}
+input[type=date]{min-height:44px}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--text-muted) 50%),linear-gradient(135deg,var(--text-muted) 50%,transparent 50%);background-position:calc(100% - 18px) 21px,calc(100% - 13px) 21px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.unit-wrap{position:relative}
+.unit-wrap input{padding-right:36px}
+.unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12.5px;color:var(--text-muted);pointer-events:none}
+.hint{font-size:11px;color:var(--text-muted);margin-top:5px;line-height:1.6}
+.hint b{color:var(--text-mid);font-weight:600}
+.hidden{display:none !important}
+
+/* SEGMENTED */
+.seg{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
+.seg label{position:relative;flex:1;min-width:0}
+.seg input{position:absolute;opacity:0;width:0;height:0}
+.seg span{display:block;text-align:center;padding:9px 6px;border:1.5px solid var(--border);border-radius:9px;background:var(--white);color:var(--text-mid);font-size:12.5px;font-weight:500;cursor:pointer;transition:all .15s}
+.seg input:checked + span{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:600}
+.seg input:focus-visible + span{outline:2px solid var(--accent);outline-offset:2px}
+
+/* BCS QUESTIONS */
+.q{border:1px solid var(--border);border-radius:11px;padding:.85rem .9rem;margin-bottom:.7rem;background:#fdfefe}
+.q:last-of-type{margin-bottom:.4rem}
+.q-head{display:flex;align-items:center;gap:.45rem;margin-bottom:.55rem}
+.q-num{flex-shrink:0;width:19px;height:19px;border-radius:50%;background:var(--accent-light);color:var(--accent);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.q-title{font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.5}
+.q-sub{font-size:10.5px;color:var(--text-muted);line-height:1.6;margin-left:auto;flex-shrink:0}
+.opts{display:grid;gap:.3rem}
+.opt{position:relative;display:flex;align-items:flex-start;gap:.5rem;border:1.5px solid var(--border);border-radius:8px;padding:.5rem .6rem;font-size:11.8px;color:var(--text-mid);line-height:1.6;background:#fff;cursor:pointer;transition:border-color .15s,background .15s,color .15s}
+.opt:hover{border-color:#b7d0ee}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.opt .dot{flex-shrink:0;width:14px;height:14px;border-radius:50%;border:1.5px solid #c3d2e2;background:#fff;margin-top:3px;transition:all .15s}
+.opt input:checked + .dot{border-color:var(--accent);background:var(--accent);box-shadow:inset 0 0 0 3px #fff}
+.opt:has(input:checked){border-color:var(--accent);background:#f6faff;color:var(--navy);font-weight:500}
+.opt input:focus-visible + .dot{outline:2px solid var(--accent);outline-offset:2px}
+
+/* 5 STEP CARDS */
+.b5{display:grid;gap:.4rem}
+.b5c{display:flex;align-items:flex-start;gap:.6rem;text-align:left;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;background:#fff;padding:.6rem .7rem;cursor:pointer;transition:all .15s;width:100%}
+.b5c:hover{border-color:#b7d0ee}
+.b5c .b5e{font-size:17px;line-height:1.3;flex-shrink:0}
+.b5c .b5n{font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.5}
+.b5c .b5d{font-size:10.8px;color:var(--text-muted);line-height:1.6;margin-top:1px}
+.b5c.sel{border-color:var(--accent);background:#f6faff;box-shadow:0 0 0 2px rgba(45,108,192,.12)}
+
+/* RESULT */
+#res{margin-bottom:1rem}
+.stage{background:linear-gradient(165deg,#123A6B 0%,var(--navy) 60%,#0b2242 100%);border-radius:14px;padding:1.1rem 1.15rem;color:#fff;margin-bottom:.8rem}
+.stage-top{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.35rem}
+.stage-k{font-size:10px;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.5);text-transform:uppercase}
+.stage-n{font-size:20px;font-weight:700;line-height:1.35;letter-spacing:-.01em}
+.stage-n em{font-style:normal;color:#8ec2f8}
+.stage-age{font-size:12px;color:rgba(255,255,255,.62);line-height:1.7;margin-top:.15rem}
+.stage-age b{color:#fff;font-weight:600}
+.stage-wait{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.7;margin-top:.2rem}
+
+.rcards{display:grid;gap:.6rem;margin-bottom:.8rem}
+@media(min-width:600px){.rcards{grid-template-columns:1fr 1fr}}
+.rc{background:var(--white);border:1px solid var(--border);border-radius:13px;padding:.85rem .95rem}
+.rc.wide{grid-column:1/-1}
+.rc.full{grid-column:1/-1}
+.rc-head{display:flex;align-items:center;gap:.45rem;margin-bottom:.3rem}
+.rc-k{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.02em}
+.rc-date{font-size:19px;font-weight:700;color:var(--navy);line-height:1.35;letter-spacing:-.02em}
+.rc-date.none{font-size:13px;font-weight:600;color:var(--text-muted);letter-spacing:0;line-height:1.6}
+.rc-int{font-size:11.5px;font-weight:600;color:var(--accent);margin-top:1px}
+.rc-note{font-size:11px;color:var(--text-muted);line-height:1.65;margin-top:.35rem}
+.rc-note b{color:var(--text-mid);font-weight:600}
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;line-height:1.7;white-space:nowrap;margin-left:auto;flex-shrink:0}
+.badge.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.badge.warn{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.badge.bad{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.badge.none{background:var(--navy-xlight);color:var(--text-muted);border:1px solid var(--border)}
+.badge.blue{background:var(--accent-light);color:var(--accent);border:1px solid #c5dbf3}
+.stage .badge{margin-left:0}
+
+/* 9 SCALE */
+.scale{margin-top:.6rem}
+.scale-bar{display:grid;grid-template-columns:repeat(9,1fr);gap:2px}
+.sg{height:9px;border-radius:2px;background:#e6eef8}
+.sg.on{background:var(--accent)}
+.sg.s1,.sg.s2,.sg.s3{background:#e3edf9}
+.sg.s4,.sg.s5{background:#d8ecdf}
+.sg.s6,.sg.s7{background:#f7ecc9}
+.sg.s8,.sg.s9{background:#f8dedb}
+.sg.s1.on{background:#6f9ccb}
+.sg.s2.on{background:#4f86bd}
+.sg.s3.on{background:#3a76b3}
+.sg.s4.on,.sg.s5.on{background:#2f8f5b}
+.sg.s6.on,.sg.s7.on{background:#c08a1e}
+.sg.s8.on,.sg.s9.on{background:#b3261e}
+.scale-lbl{display:flex;justify-content:space-between;font-size:9.5px;color:var(--text-muted);margin-top:3px;letter-spacing:.02em}
+
+/* FLAG */
+.flag{display:flex;gap:.55rem;align-items:flex-start;border-radius:11px;padding:.75rem .85rem;font-size:11.5px;line-height:1.7;border:1px solid;margin-bottom:.7rem}
+.flag:last-child{margin-bottom:0}
+.flag.warn{background:var(--amber-bg);border-color:var(--amber-border);color:#7a4e06}
+.flag.bad{background:var(--red-bg);border-color:var(--red-border);color:#8a1e18}
+.flag.ok{background:var(--green-bg);border-color:var(--green-border);color:#155e3a}
+.flag.info{background:var(--navy-xlight);border-color:var(--border);color:var(--text-mid)}
+.flag b{font-weight:700}
+.flag a{color:var(--accent);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(45,108,192,.3)}
+
+/* LINK CARDS */
+.lnks{display:grid;gap:.4rem;margin-top:.7rem}
+@media(min-width:560px){.lnks{grid-template-columns:1fr 1fr}}
+.lnk{display:flex;align-items:flex-start;gap:.5rem;background:#fff;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:9px;padding:.55rem .7rem;text-decoration:none;transition:all .15s}
+.lnk:hover{border-color:#b7d0ee;border-left-color:var(--accent);background:#f9fcff}
+.lnk .lk-e{font-size:15px;line-height:1.4;flex-shrink:0}
+.lnk .lk-n{display:block;font-size:12px;font-weight:700;color:var(--navy);line-height:1.5}
+.lnk .lk-d{display:block;font-size:10.5px;color:var(--text-muted);line-height:1.6;margin-top:1px}
+.lnk.static{cursor:default;border-left-color:var(--text-muted)}
+.lnk.static:hover{background:#fff;border-color:var(--border);border-left-color:var(--text-muted)}
+
+/* TABLE */
+.tbl-wrap{border:1px solid var(--border);border-radius:11px;overflow:hidden;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tb{width:100%;border-collapse:collapse;font-size:11.5px;min-width:440px}
+.tb th{background:var(--navy-xlight);color:var(--navy);font-weight:700;font-size:11px;text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--border);white-space:nowrap}
+.tb td{padding:.6rem .7rem;border-bottom:1px solid var(--navy-xlight);color:var(--text-mid);line-height:1.6;vertical-align:top}
+.tb tr:last-child td{border-bottom:none}
+.tb td:first-child{font-weight:600;color:var(--text)}
+.tb td b{color:var(--navy);font-weight:600}
+
+/* LIST */
+.ulst{list-style:none;margin:.1rem 0 0}
+.ulst li{position:relative;padding-left:1rem;font-size:12px;color:var(--text-mid);line-height:1.75;margin-bottom:.3rem}
+.ulst li::before{content:"";position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.ulst li:last-child{margin-bottom:0}
+.ulst b{color:var(--navy);font-weight:600}
+
+/* HOURS */
+.hours{display:grid;gap:.35rem;margin-top:.1rem}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:.5rem;font-size:12px;padding:.4rem .65rem;border-radius:8px;background:var(--navy-xlight);border:1px solid var(--border)}
+.hrow .hd{font-weight:600;color:var(--text)}
+.hrow .ht{font-variant-numeric:tabular-nums;color:var(--text-mid);font-weight:500}
+.hrow.closed{background:var(--red-bg);border-color:var(--red-border)}
+.hrow.closed .hd,.hrow.closed .ht{color:var(--red)}
+
+.disc{font-size:11px;color:var(--text-muted);line-height:1.8;text-align:center;margin-top:1.2rem}
+
+/* ACTIONS */
+.acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.9rem}
+.btn{flex:1;min-width:132px;font-family:inherit;font-size:13.5px;font-weight:600;border-radius:10px;padding:12px 10px;border:1.5px solid transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:5px;transition:all .15s;line-height:1.3;text-decoration:none}
+.btn.primary{background:var(--navy);color:#fff;flex:1.3}
+.btn.primary:active{background:var(--navy-dark)}
+.btn.light{background:var(--white);color:var(--navy);border-color:var(--border)}
+.btn.light:active{background:var(--navy-xlight)}
+.btn.kako{background:#FEE500;color:#1a1a1a;border-color:#FEE500;flex:1.3}
+.btn.kako:active{background:#f0d800}
+
+/* TOAST */
+.toast{position:fixed;left:50%;bottom:1.6rem;transform:translate(-50%,14px);z-index:500;
+  background:var(--navy-dark);color:#fff;font-size:12.5px;font-weight:500;padding:11px 18px;border-radius:999px;
+  box-shadow:0 8px 28px rgba(10,34,64,.3);opacity:0;pointer-events:none;transition:all .25s;max-width:88vw;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* FOOT */
+.foot{background:var(--navy);padding:1.5rem 1.25rem;margin-top:1rem}
+.foot-inner{max-width:var(--max);margin:0 auto}
+.foot-disc{font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.85;margin-bottom:1rem}
+.foot-disc strong{color:rgba(255,255,255,.72);font-weight:500}
+.foot-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.foot-ref{margin-top:.9rem;font-size:10.5px;color:rgba(255,255,255,.2)}
+
+@media(min-width:560px){
+  .hero h1{font-size:24px}
+  .stage-n{font-size:22px}
+  .b5{grid-template-columns:1fr 1fr}
+  .b5c:last-child{grid-column:1/-1}
+}
+@media(max-width:380px){
+  .logo-text{font-size:11px}
+  .logo-text small{display:none}
+  .tbtn.back{font-size:10px;padding:6px 7px}
+  .tbtn.call{padding:6px 8px}
+  .rc-date{font-size:17px}
+  .btn{font-size:12.5px;padding:11px 8px;min-width:118px}
+  .q-sub{display:none}
+}
+@media print{
+  .topbar,.acts,.toast,.sel-bar,.pnote{display:none}
+  body{background:#fff}
+  .sect{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 체형 · 나이 · 칼로리</div>
+    <h1>지금 우리 아이,<br><span>적정 체형일까요?</span></h1>
+    <p class="hero-desc">갈비뼈·허리선·복부선 세 가지만 확인하면 체형(BCS)을 알 수 있습니다.<br>사람 나이 환산과 목표 체중, 하루 권장 칼로리까지 한 번에 계산해 드립니다.</p>
+  </div>
+</div>
+
+<div class="sel-bar">
+  <div class="sel-inner">
+    <div class="sel-row">
+      <span class="sel-lbl">아이 종류</span>
+      <div class="pill-group" role="group" aria-label="아이 종류 선택">
+        <button type="button" class="pill active" data-sp="dog_s" onclick="WECARE_BCS.setSpecies('dog_s')">🐶 소형견</button>
+        <button type="button" class="pill" data-sp="dog_m" onclick="WECARE_BCS.setSpecies('dog_m')">🐕 중형견</button>
+        <button type="button" class="pill" data-sp="dog_l" onclick="WECARE_BCS.setSpecies('dog_l')">🦮 대형견</button>
+        <button type="button" class="pill" data-sp="cat" onclick="WECARE_BCS.setSpecies('cat')">🐱 고양이</button>
+      </div>
+    </div>
+    <div class="sel-hint" id="spHint">소형견 기준 · 성견 10kg 미만 / 중형견 10~25kg / 대형견 25kg 이상 · 체중이 다르면 위에서 바꿔 주세요.</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="pnote">
+    <span style="font-size:15px;flex-shrink:0" aria-hidden="true">🔒</span>
+    <span><strong>입력한 정보는 이 휴대폰 안에서만 계산</strong>됩니다. 서버로 전송되지 않고, 병원에 보여주실 요약은 아래 <strong>요약 복사</strong> 버튼을 누르실 때만 복사됩니다.</span>
+  </div>
+
+  <!-- ① 아이 정보 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">1</div>
+      <div>
+        <div class="sect-title">아이 나이와 체중</div>
+        <div class="sect-sub">생년월일을 모르면 나이로 입력하셔도 됩니다.</div>
+      </div>
+      <span class="sect-tag">Input</span>
+    </div>
+
+    <div class="seg" role="group" aria-label="나이 입력 방식">
+      <label><input type="radio" name="ageMode" value="birth" checked onchange="WECARE_BCS.setAgeMode('birth')"><span>생년월일로 입력</span></label>
+      <label><input type="radio" name="ageMode" value="age" onchange="WECARE_BCS.setAgeMode('age')"><span>나이로 입력</span></label>
+    </div>
+
+    <div class="field" id="fieldBirth">
+      <label for="birthDate">생년월일</label>
+      <input type="date" id="birthDate" onchange="WECARE_BCS.render()" oninput="WECARE_BCS.render()">
+      <div class="hint">정확한 날짜일수록 사람 나이 환산과 생애주기 판정이 정확해집니다.</div>
+    </div>
+
+    <div class="field hidden" id="fieldAge">
+      <span class="flabel">현재 나이</span>
+      <div class="row">
+        <div class="unit-wrap">
+          <input type="number" id="ageY" min="0" max="30" inputmode="numeric" placeholder="0" oninput="WECARE_BCS.render()">
+          <span class="unit">년</span>
+        </div>
+        <div class="unit-wrap">
+          <input type="number" id="ageM" min="0" max="11" inputmode="numeric" placeholder="0" oninput="WECARE_BCS.render()">
+          <span class="unit">개월</span>
+        </div>
+      </div>
+      <div class="hint">나이로 입력하면 생년월일은 <b>대략</b>으로 계산됩니다.</div>
+    </div>
+
+    <div class="field">
+      <label for="bw">현재 체중</label>
+      <div class="unit-wrap">
+        <input type="number" id="bw" min="0.2" max="90" step="0.1" inputmode="decimal" placeholder="예) 6.4" oninput="WECARE_BCS.render()">
+        <span class="unit">kg</span>
+      </div>
+      <div class="hint" id="bwHint">집에서 잰 체중이 가장 정확합니다. 3개월 전 체중을 함께 알고 있으면 변화를 더 잘 볼 수 있습니다.</div>
+    </div>
+
+    <div class="field">
+      <label for="act">활동량 · 중성화 여부</label>
+      <select id="act" onchange="WECARE_BCS.render()">
+        <option value="auto">생애주기 자동 (권장)</option>
+        <option value="neutered">중성화 완료 · 활동 보통</option>
+        <option value="intact">중성화 안 함 · 활동 보통</option>
+        <option value="active">활동량 많음 · 훈련견</option>
+        <option value="senior">노령기 · 활동 적음</option>
+        <option value="puppy">성장기</option>
+      </select>
+      <div class="hint">하루 칼로리(계수)에 반영됩니다. 잘 모르시면 <b>생애주기 자동</b>으로 두세요.</div>
+    </div>
+
+    <div class="field">
+      <label for="foodKcal">먹이는 사료의 열량<span class="opt">선택</span></label>
+      <div class="unit-wrap">
+        <input type="number" id="foodKcal" min="0" max="900" step="1" inputmode="decimal" placeholder="예) 350" oninput="WECARE_BCS.render()" style="padding-right:88px">
+        <span class="unit" style="font-size:10.5px">kcal/100g</span>
+      </div>
+      <div class="hint">사료 봉투 뒷면의 <b>kcal/100g</b> 값을 넣으면 하루 급여량(g)까지 계산해 드립니다.</div>
+    </div>
+  </div>
+
+  <!-- ② 체형 자가진단 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">2</div>
+      <div>
+        <div class="sect-title">체형(BCS) 자가진단</div>
+        <div class="sect-sub">만져 보고, 위에서 보고, 옆에서 보면 됩니다.</div>
+      </div>
+      <span class="sect-tag">Body</span>
+    </div>
+
+    <div class="seg" role="group" aria-label="진단 방식">
+      <label><input type="radio" name="bcsMode" value="scale" checked onchange="WECARE_BCS.setBcsMode('scale')"><span>3문항 자세히 (9점)</span></label>
+      <label><input type="radio" name="bcsMode" value="quick" onchange="WECARE_BCS.setBcsMode('quick')"><span>5단계 한눈에</span></label>
+    </div>
+
+    <div id="modeScale">
+      <div class="q">
+        <div class="q-head">
+          <span class="q-num">1</span>
+          <span class="q-title">갈비뼈를 만져 보세요</span>
+          <span class="q-sub">손바닥으로 가슴 옆</span>
+        </div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q1" value="2" onchange="WECARE_BCS.pick('q1',2)"><span class="dot" aria-hidden="true"></span><span>갈비뼈가 눈에 보이고, 만지면 바로 느껴져요</span></label>
+          <label class="opt"><input type="radio" name="q1" value="4" onchange="WECARE_BCS.pick('q1',4)"><span class="dot" aria-hidden="true"></span><span>갈비뼈가 쉽게 만져지고, 지방층이 거의 없어요</span></label>
+          <label class="opt"><input type="radio" name="q1" value="5" onchange="WECARE_BCS.pick('q1',5)"><span class="dot" aria-hidden="true"></span><span>얇은 지방층 아래로 갈비뼈가 쉽게 만져져요</span></label>
+          <label class="opt"><input type="radio" name="q1" value="7" onchange="WECARE_BCS.pick('q1',7)"><span class="dot" aria-hidden="true"></span><span>살짝 눌러야 갈비뼈가 만져져요</span></label>
+          <label class="opt"><input type="radio" name="q1" value="9" onchange="WECARE_BCS.pick('q1',9)"><span class="dot" aria-hidden="true"></span><span>갈비뼈가 잘 만져지지 않고, 지방층이 두꺼워요</span></label>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-head">
+          <span class="q-num">2</span>
+          <span class="q-title">위에서 본 허리선</span>
+          <span class="q-sub">꼬리 쪽에서 내려다보기</span>
+        </div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q2" value="2" onchange="WECARE_BCS.pick('q2',2)"><span class="dot" aria-hidden="true"></span><span>허리가 과하게 잘록해요</span></label>
+          <label class="opt"><input type="radio" name="q2" value="4" onchange="WECARE_BCS.pick('q2',4)"><span class="dot" aria-hidden="true"></span><span>허리선이 또렷하게 잘록해요</span></label>
+          <label class="opt"><input type="radio" name="q2" value="5" onchange="WECARE_BCS.pick('q2',5)"><span class="dot" aria-hidden="true"></span><span>허리선이 보여요</span></label>
+          <label class="opt"><input type="radio" name="q2" value="7" onchange="WECARE_BCS.pick('q2',7)"><span class="dot" aria-hidden="true"></span><span>허리선이 거의 없어요</span></label>
+          <label class="opt"><input type="radio" name="q2" value="9" onchange="WECARE_BCS.pick('q2',9)"><span class="dot" aria-hidden="true"></span><span>허리가 없고 옆구리가 옆으로 불룩해요</span></label>
+        </div>
+      </div>
+
+      <div class="q">
+        <div class="q-head">
+          <span class="q-num">3</span>
+          <span class="q-title">옆에서 본 복부선</span>
+          <span class="q-sub">아이 옆에 서서 보기</span>
+        </div>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="q3" value="2" onchange="WECARE_BCS.pick('q3',2)"><span class="dot" aria-hidden="true"></span><span>복부가 심하게 올라가 있어요</span></label>
+          <label class="opt"><input type="radio" name="q3" value="4" onchange="WECARE_BCS.pick('q3',4)"><span class="dot" aria-hidden="true"></span><span>복부선이 뚜렷하게 올라가요</span></label>
+          <label class="opt"><input type="radio" name="q3" value="5" onchange="WECARE_BCS.pick('q3',5)"><span class="dot" aria-hidden="true"></span><span>복부선이 완만하게 올라가요</span></label>
+          <label class="opt"><input type="radio" name="q3" value="7" onchange="WECARE_BCS.pick('q3',7)"><span class="dot" aria-hidden="true"></span><span>복부선이 거의 일직선이에요</span></label>
+          <label class="opt"><input type="radio" name="q3" value="9" onchange="WECARE_BCS.pick('q3',9)"><span class="dot" aria-hidden="true"></span><span>복부가 처져서 바닥에 닿을 듯해요</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div id="modeQuick" class="hidden">
+      <div class="b5" role="group" aria-label="체형 5단계 선택">
+        <button type="button" class="b5c" data-score="2" onclick="WECARE_BCS.pickFive(2)"><span class="b5e" aria-hidden="true">🦴</span><span><span class="b5n">매우 마름</span><span class="b5d">갈비뼈·척추가 툭 튀어나오고 허리가 심하게 들어가 있어요</span></span></button>
+        <button type="button" class="b5c" data-score="3" onclick="WECARE_BCS.pickFive(3)"><span class="b5e" aria-hidden="true">📏</span><span><span class="b5n">마름</span><span class="b5d">갈비뼈가 잘 보이고 허리선이 과하게 잘록해요</span></span></button>
+        <button type="button" class="b5c" data-score="5" onclick="WECARE_BCS.pickFive(5)"><span class="b5e" aria-hidden="true">✅</span><span><span class="b5n">적정</span><span class="b5d">갈비뼈는 살짝 눌러야 만져지고, 허리선이 보여요</span></span></button>
+        <button type="button" class="b5c" data-score="7" onclick="WECARE_BCS.pickFive(7)"><span class="b5e" aria-hidden="true">🟡</span><span><span class="b5n">과체중</span><span class="b5d">갈비뼈가 잘 만져지지 않고 허리선이 거의 없어요</span></span></button>
+        <button type="button" class="b5c" data-score="9" onclick="WECARE_BCS.pickFive(9)"><span class="b5e" aria-hidden="true">🔴</span><span><span class="b5n">비만</span><span class="b5d">허리가 없고 복부가 처져 있으며 갈비뼈가 만져지지 않아요</span></span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 계산 결과 -->
+  <div id="res" aria-live="polite"></div>
+
+  <!-- ④ 칼로리 계산 기준 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">3</div>
+      <div>
+        <div class="sect-title">하루 칼로리는 이렇게 계산합니다</div>
+        <div class="sect-sub">RER(휴식기 에너지 요구량) × 계수 = DER(하루 권장 칼로리)</div>
+      </div>
+      <span class="sect-tag">RER · DER</span>
+    </div>
+
+    <div class="tbl-wrap" style="margin-bottom:.8rem">
+      <table class="tb">
+        <thead><tr><th>단계</th><th>공식</th><th>예시 (5kg 성견)</th></tr></thead>
+        <tbody>
+          <tr><td>RER</td><td>70 × 체중(kg)<sup>0.75</sup></td><td>70 × 3.34 = <b>234 kcal</b></td></tr>
+          <tr><td>DER</td><td>RER × 계수</td><td>234 × 1.6 = <b>374 kcal</b></td></tr>
+          <tr><td>체중 감량</td><td>목표 체중의 RER × 1.0 (강아지) / 0.8 (고양이)</td><td>감량기에는 유지량보다 <b>20~30% 적게</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="tb">
+        <thead><tr><th>아이 상태</th><th>강아지</th><th>고양이</th></tr></thead>
+        <tbody>
+          <tr><td>중성화 · 활동 보통</td><td>1.6 × RER</td><td>1.2 × RER</td></tr>
+          <tr><td>중성화 안 함 · 활동 보통</td><td>1.8 × RER</td><td>1.4 × RER</td></tr>
+          <tr><td>활동량 많음 · 훈련견</td><td>2.0 × RER</td><td>1.6 × RER</td></tr>
+          <tr><td>노령기 · 활동 적음</td><td>1.4 × RER</td><td>1.1 × RER</td></tr>
+          <tr><td>성장기</td><td>생후 4개월 미만 3.0 / 이후 2.0 × RER</td><td>2.5 × RER</td></tr>
+          <tr><td>체중 감량기</td><td>목표 체중 RER × 1.0</td><td>목표 체중 RER × 0.8</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flag info" style="margin-top:.8rem;margin-bottom:0">
+      <span aria-hidden="true">💡</span>
+      <span>계산값은 <b>출발점</b>입니다. 같은 체중이라도 대사량은 아이마다 달라서, 2~4주 체중 변화를 보며 <b>10% 안에서 조정</b>합니다. 간식은 하루 칼로리의 <b>10% 이내</b>로 제한해 주세요.</span>
+    </div>
+  </div>
+
+  <!-- ⑤ 체형별 안내 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">4</div>
+      <div>
+        <div class="sect-title">체형(BCS 9점) 판정 기준</div>
+        <div class="sect-sub">4~5점이 적정, 6점부터는 관리가 필요합니다.</div>
+      </div>
+      <span class="sect-tag">Scale</span>
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="tb">
+        <thead><tr><th>BCS</th><th>갈비뼈</th><th>허리 · 복부</th><th>판정</th></tr></thead>
+        <tbody>
+          <tr><td>1 – 3</td><td>적은 지방 아래로 쉽게 만져지거나 눈에 보임</td><td>허리가 과하게 잘록, 복부가 심하게 올라감</td><td>마름 (저체중)</td></tr>
+          <tr><td>4 – 5</td><td>얇은 지방층 아래로 쉽게 만져짐</td><td>위에서 허리선이 보이고 옆 복부선이 올라감</td><td><b>적정</b></td></tr>
+          <tr><td>6 – 7</td><td>살짝 눌러야 만져지고 지방층이 두꺼움</td><td>허리선이 거의 없고 복부선이 일직선</td><td>과체중</td></tr>
+          <tr><td>8 – 9</td><td>잘 만져지지 않고 지방층이 매우 두꺼움</td><td>허리가 없고 복부가 처져 바닥에 닿을 듯함</td><td>비만</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flag info" style="margin-top:.8rem">
+      <span aria-hidden="true">⚖️</span>
+      <span>체중계 숫자만으로는 알 수 없습니다. 같은 6kg이라도 <b>골격과 근육량</b>이 다르기 때문에, 눈과 손으로 확인하는 BCS가 더 정확합니다. 장모종은 <b>손으로 만져서</b> 판단해 주세요.</span>
+    </div>
+
+    <div class="flag warn" style="margin-bottom:0">
+      <span aria-hidden="true">⚠️</span>
+      <span><b>3개월에 5% 이상</b> 체중이 줄었거나, 먹는데도 계속 빠지면 체형 판정과 별개로 <b>검사가 필요</b>합니다. 만성장병증·신장질환·당뇨·치과 통증·종양이 원인일 수 있습니다.</span>
+    </div>
+  </div>
+
+  <!-- ⑥ 과체중 시 함께 살펴야 하는 것 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">5</div>
+      <div>
+        <div class="sect-title">체중이 늘면 함께 살펴야 하는 것</div>
+        <div class="sect-sub">비만은 그 자체로 다른 질환의 위험을 높입니다.</div>
+      </div>
+      <span class="sect-tag">Risk</span>
+    </div>
+
+    <div class="lnks">
+      <a class="lnk" href="pancreatitis.html">
+        <span class="lk-e" aria-hidden="true">🩺</span>
+        <span><span class="lk-n">췌장염</span><span class="lk-d">고지방 식이·비만이 큰 위험 인자입니다. 구토·복통·식욕 저하</span></span>
+      </a>
+      <a class="lnk" href="diabetes.html">
+        <span class="lk-e" aria-hidden="true">💧</span>
+        <span><span class="lk-n">당뇨병</span><span class="lk-d">비만이 인슐린 저항성을 높입니다. 다음·다뇨·체중 감소</span></span>
+      </a>
+      <a class="lnk" href="senior.html">
+        <span class="lk-e" aria-hidden="true">🦴</span>
+        <span><span class="lk-n">관절 · 노령 관리</span><span class="lk-d">체중 5~10% 감량만으로 관절 통증이 좋아집니다</span></span>
+      </a>
+      <a class="lnk" href="homecare.html">
+        <span class="lk-e" aria-hidden="true">📈</span>
+        <span><span class="lk-n">체중 기록지</span><span class="lk-d">집에서 잰 체중을 기록해 내원 시 보여 주세요</span></span>
+      </a>
+    </div>
+
+    <div class="flag info" style="margin-top:.85rem">
+      <span aria-hidden="true">🐈</span>
+      <span><b>고양이는 굶기지 마세요.</b> 2~3일 이상 거의 먹지 않으면 <b>간지질증</b> 위험이 커집니다. 고양이 감량은 <b>천천히, 단백질을 충분히</b> 유지하며 진행해야 합니다.</span>
+    </div>
+
+    <ul class="ulst" style="margin-top:.8rem">
+      <li><b>감량 속도</b> — 주 1~2% (강아지), 고양이는 더 천천히. 한 달에 체중의 3~4% 이상 줄이지 않습니다.</li>
+      <li><b>계량</b> — 컵이 아니라 <b>저울</b>로 급여합니다. 눈대중은 하루 20% 이상 오차가 납니다.</li>
+      <li><b>간식</b> — 하루 칼로리의 10% 이내. 사료 급여량에서 간식만큼을 미리 덜어 두면 쉽습니다.</li>
+      <li><b>단백질</b> — 줄일 때도 단백질은 충분히 유지해야 근육이 빠지지 않습니다. 신장질환이 있으면 담당 수의사와 상의해 주세요.</li>
+      <li><b>운동</b> — 산책 시간을 5분씩 늘리는 것부터. 고양이는 사냥 놀이·장난감으로 활동량을 늘립니다.</li>
+      <li><b>재측정</b> — 2주마다 같은 시간·같은 체중계로 재고, 4주째에 급여량을 조정합니다.</li>
+    </ul>
+  </div>
+
+  <!-- ⑦ 진료시간 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">6</div>
+      <div>
+        <div class="sect-title">체중 관리 상담 · 진료시간</div>
+        <div class="sect-sub">감량 식이 처방과 목표 체중 설정은 진료로 진행합니다.</div>
+      </div>
+      <span class="sect-tag">Hours</span>
+    </div>
+
+    <div class="hours">
+      <div class="hrow"><span class="hd">월 · 화 · 목 · 토 · 일</span><span class="ht">10:00 – 20:00</span></div>
+      <div class="hrow"><span class="hd">금요일</span><span class="ht">10:00 – 16:00</span></div>
+      <div class="hrow closed"><span class="hd">수요일</span><span class="ht">정기휴무</span></div>
+    </div>
+
+    <div class="acts">
+      <a class="btn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 상담</a>
+      <a class="btn primary" href="vaccine.html">📅 접종·검진 일정</a>
+      <a class="btn light" href="intake.html">📝 사전 문진표</a>
+    </div>
+  </div>
+
+  <p class="disc">
+    이 계산기는 보호자 안내용으로, 원내 일반 기준과 공개된 수의영양학 공식(RER·DER)을 적용합니다.<br>
+    사람 나이 환산은 참고값이며, 개별 아이의 체형·건강 상태에 따라 실제 적정 체중과 급여량은 달라질 수 있으니 담당 수의사와 확인해 주세요.
+  </p>
+</div>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      <strong>위케어동물의료센터</strong> · WECARE Animal Medical Center<br>
+      문의사항이 있으시면 언제든지 연락 주세요.<br>
+      진료시간 · 월·화·목·토·일 10:00–20:00 / 금 10:00–16:00 / 수요일 정기휴무
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">WECARE Animal Medical Center · wecarevet.github.io/wecarevet</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var WECARE_BCS = (function(){
+  'use strict';
+
+  var P = {
+    dog_s:{kind:'dog', name:'소형견', cls:'소형견', band:[0,10], growth:12, per:[15,9,4]},
+    dog_m:{kind:'dog', name:'중형견', cls:'중형견', band:[10,25], growth:14, per:[15,9,5]},
+    dog_l:{kind:'dog', name:'대형견', cls:'대형견', band:[25,90], growth:18, per:[15,9,6]},
+    cat:{kind:'cat', name:'고양이', cls:'고양이', band:[0,12], growth:12, per:[15,9,4]}
+  };
+
+  var state = { sp:'dog_s', ageMode:'birth', bcsMode:'scale', q:{}, five:null };
+
+  function $(id){ return document.getElementById(id); }
+  function nf(v,d){ return (Math.round(v*Math.pow(10,d))/Math.pow(10,d)).toFixed(d); }
+  function num(el){ if(!el) return null; var v=parseFloat(el.value); return isFinite(v)?v:null; }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  var TODAY = new Date();
+  TODAY.setHours(0,0,0,0);
+
+  function parseDate(str){
+    if(!str) return null;
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
+    if(!m) return null;
+    var y=+m[1], mo=+m[2], d=+m[3];
+    var dt = new Date(y, mo-1, d);
+    if(dt.getFullYear()!==y || dt.getMonth()!==mo-1 || dt.getDate()!==d) return null;
+    return dt;
+  }
+
+  /* ── 나이 ─────────────────────────── */
+  function readAge(){
+    if(state.ageMode==='birth'){
+      var b = parseDate($('birthDate') ? $('birthDate').value : '');
+      if(!b) return null;
+      if(b > TODAY) return null;
+      var days = (TODAY - b) / 86400000;
+      var months = days / 30.4375;
+      if(months > 480) return null;
+      return {months:months, years:months/12, birth:b};
+    }
+    var y = num($('ageY')) || 0;
+    var m = num($('ageM')) || 0;
+    if(y===0 && m===0) return null;
+    if(m>11) m = 11;
+    return {months:y*12+m, years:(y*12+m)/12, birth:null};
+  }
+
+  function humanAge(sp, yrs){
+    var c = P[sp].per;
+    if(yrs<=0) return 0;
+    if(yrs<1) return c[0]*yrs;
+    if(yrs<2) return c[0] + c[1]*(yrs-1);
+    return c[0] + c[1] + c[2]*(yrs-2);
+  }
+
+  function stageOf(sp, ageMonths){
+    if(ageMonths < P[sp].growth*1) {
+      return {key:'grow', name:'성장기', badge:'blue',
+        note:'성장기에는 체형 판정보다 '+(P[sp].kind==='cat'?'적절한 성장 속도':'또래 성장 곡선')+'를 봅니다.'};
+    }
+    if(ageMonths < 84) {
+      return {key:'adult', name:'성년기', badge:'ok',
+        note:'1년에 한 번 건강검진을 권합니다.'};
+    }
+    return {key:'senior', name:'노령기', badge:'warn',
+      note:'7세 이상은 6개월마다 건강검진을 권합니다.'};
+  }
+
+  /* ── 체형 ─────────────────────────── */
+  function bcsScore(){
+    if(state.bcsMode==='quick'){
+      return state.five ? state.five : null;
+    }
+    var keys = ['q1','q2','q3'];
+    var sum = 0, n = 0;
+    for(var i=0;i<keys.length;i++){
+      var v = state.q[keys[i]];
+      if(v){ sum += v; n++; }
+    }
+    if(n < 3) return null;
+    return Math.round(sum/3);
+  }
+
+  function bcsInfo(score){
+    if(score===null) return null;
+    if(score <= 3) return {key:'thin', label:'마름', badge:'none', note:'저체중입니다.'};
+    if(score <= 5) return {key:'ideal', label:'적정', badge:'ok', note:'적정 체형입니다.'};
+    if(score <= 7) return {key:'over', label:'과체중', badge:'warn', note:'과체중입니다.'};
+    return {key:'obese', label:'비만', badge:'bad', note:'비만입니다.'};
+  }
+
+  function idealWeight(w, score){
+    if(!w || score===null) return null;
+    if(score<=1) return w*1.20;
+    if(score===2) return w*1.15;
+    if(score===3) return w*1.08;
+    if(score<=5) return w;
+    if(score===6) return w/1.10;
+    if(score===7) return w/1.20;
+    if(score===8) return w/1.30;
+    return w/1.40;
+  }
+
+  /* ── 칼로리 ───────────────────────── */
+  function rer(w){ return 70*Math.pow(w,0.75); }
+
+  function factorOf(sp, ageMonths, act){
+    var k = P[sp].kind;
+    var grow = ageMonths !== null && ageMonths < P[sp].growth;
+    if(act==='auto'){
+      if(grow) return k==='cat' ? 2.5 : (ageMonths < 4 ? 3.0 : 2.0);
+      if(ageMonths !== null && ageMonths >= 84) return k==='cat' ? 1.1 : 1.4;
+      return k==='cat' ? 1.2 : 1.6;
+    }
+    if(act==='puppy') return k==='cat' ? 2.5 : (ageMonths!==null && ageMonths<4 ? 3.0 : 2.0);
+    if(act==='neutered') return k==='cat' ? 1.2 : 1.6;
+    if(act==='intact') return k==='cat' ? 1.4 : 1.8;
+    if(act==='active') return k==='cat' ? 1.6 : 2.0;
+    if(act==='senior') return k==='cat' ? 1.1 : 1.4;
+    return k==='cat' ? 1.2 : 1.6;
+  }
+
+  function factorLabel(act, sp){
+    var k = P[sp].kind;
+    var map = {
+      auto:'생애주기 자동',
+      puppy:'성장기',
+      neutered:'중성화 · 활동 보통',
+      intact:'중성화 안 함 · 활동 보통',
+      active:'활동량 많음',
+      senior:'노령기 · 활동 적음'
+    };
+    return map[act] || (k==='cat' ? '중성화 · 활동 보통' : '중성화 · 활동 보통');
+  }
+
+  /* ── 상태 변경 ────────────────────── */
+  function setSpecies(sp){
+    state.sp = sp;
+    var pills = document.querySelectorAll('.pill[data-sp]');
+    for(var i=0;i<pills.length;i++){
+      if(pills[i].getAttribute('data-sp')===sp) pills[i].classList.add('active');
+      else pills[i].classList.remove('active');
+    }
+    var hints = {
+      dog_s:'소형견 기준 · 성견 10kg 미만입니다. 체중이 10kg 이상이면 중형견으로 바꿔 주세요.',
+      dog_m:'중형견 기준 · 성견 10~25kg입니다.',
+      dog_l:'대형견 기준 · 성견 25kg 이상입니다. 대형견은 성장기가 18개월까지 이어집니다.',
+      cat:'고양이 기준 · 체중보다 체형(BCS)이 더 중요합니다.'
+    };
+    if($('spHint')) $('spHint').textContent = hints[sp];
+    render();
+  }
+
+  function setAgeMode(m){
+    state.ageMode = m;
+    if($('fieldBirth')) $('fieldBirth').classList.toggle('hidden', m!=='birth');
+    if($('fieldAge')) $('fieldAge').classList.toggle('hidden', m!=='age');
+    render();
+  }
+
+  function setBcsMode(m){
+    state.bcsMode = m;
+    if($('modeScale')) $('modeScale').classList.toggle('hidden', m!=='scale');
+    if($('modeQuick')) $('modeQuick').classList.toggle('hidden', m!=='quick');
+    render();
+  }
+
+  function pick(q, score){
+    state.q[q] = score;
+    render();
+  }
+
+  function pickFive(score){
+    state.five = score;
+    var cards = document.querySelectorAll('.b5c');
+    for(var i=0;i<cards.length;i++){
+      cards[i].classList.toggle('sel', +cards[i].getAttribute('data-score')===score);
+    }
+    render();
+  }
+
+  /* ── 렌더 ─────────────────────────── */
+  function scaleBar(score){
+    var h = '<div class="scale"><div class="scale-bar">';
+    for(var i=1;i<=9;i++){ h += '<span class="sg s'+i+(score===i?' on':'')+'"></span>'; }
+    h += '</div><div class="scale-lbl"><span>마름 1</span><span>적정 5</span><span>비만 9</span></div></div>';
+    return h;
+  }
+
+  function render(){
+    var res = $('res');
+    if(!res) return;
+
+    var sp = state.sp;
+    var info = readAge();
+    var ageM = info ? info.months : null;
+    var yrs = info ? info.years : null;
+    var w = num($('bw'));
+    var kcal100 = num($('foodKcal'));
+    var act = $('act') ? $('act').value : 'auto';
+
+    var score = bcsScore();
+    var bcs = bcsInfo(score);
+    var html = '';
+
+    /* 사람 나이 */
+    if(info){
+      var ha = humanAge(sp, yrs);
+      var stg = stageOf(sp, ageM);
+      var ageTxt;
+      if(ageM < 12){
+        ageTxt = '생후 ' + Math.floor(ageM) + '개월';
+      } else {
+        ageTxt = Math.floor(yrs) + '세 ' + Math.floor(ageM % 12) + '개월';
+      }
+      html += '<div class="stage">'+
+        '<div class="stage-top"><span class="stage-k">사람 나이 환산 · '+P[sp].name+'</span>'+
+        '<span class="badge '+stg.badge+'">'+stg.name+'</span></div>'+
+        '<div class="stage-n">사람 나이 <em>약 '+Math.round(ha)+'세</em></div>'+
+        '<div class="stage-age">실제 <b>'+ageTxt+'</b> · '+stg.name+'</div>'+
+        '<div class="stage-age">'+stg.note+'</div>'+
+      '</div>';
+    } else {
+      html += '<div class="stage">'+
+        '<div class="stage-top"><span class="stage-k">사람 나이 환산 · '+P[sp].name+'</span></div>'+
+        '<div class="stage-wait">생년월일이나 나이를 입력하시면 사람 나이와 생애주기를 계산해 드립니다.</div>'+
+      '</div>';
+    }
+
+    html += '<div class="rcards">';
+
+    /* 체형 */
+    html += '<div class="rc">';
+    if(score!==null){
+      html += '<div class="rc-head"><span class="rc-k">체형 (BCS)</span><span class="badge '+bcs.badge+'">'+bcs.label+'</span></div>'+
+        '<div class="rc-date">'+score+' <span style="font-size:12px;color:var(--text-muted);font-weight:500">/ 9점</span></div>'+
+        '<div class="rc-int">'+bcs.note+'</div>'+
+        scaleBar(score);
+    } else {
+      html += '<div class="rc-head"><span class="rc-k">체형 (BCS)</span><span class="badge none">미입력</span></div>'+
+        '<div class="rc-date none">위 3문항 또는 5단계에서<br>가장 가까운 것을 골라 주세요</div>';
+    }
+    html += '</div>';
+
+    /* 목표 체중 */
+    var iw = idealWeight(w, score);
+    html += '<div class="rc">';
+    if(w && iw){
+      var diff = (w/iw - 1)*100;
+      var diffTxt;
+      if(Math.abs(diff) < 2) diffTxt = '현재 체중이 적정 범위입니다';
+      else if(diff > 0) diffTxt = '현재 체중의 약 '+Math.round(diff)+'% 초과';
+      else diffTxt = '현재 체중의 약 '+Math.round(-diff)+'% 부족';
+      html += '<div class="rc-head"><span class="rc-k">목표 체중</span><span class="badge '+(score>=6?'warn':(score<=3?'blue':'ok'))+'">'+(score>=6?'감량':(score<=3?'증량':'유지'))+'</span></div>'+
+        '<div class="rc-date">약 '+nf(iw,1)+' kg</div>'+
+        '<div class="rc-int">현재 '+nf(w,1)+' kg · '+diffTxt+'</div>';
+      if(score>=6){
+        html += '<div class="rc-note">목표 체중까지 <b>'+nf(w-iw,1)+' kg</b> 감량입니다. 주 1~2% 속도로 약 '+Math.max(1,Math.round((w-iw)/(w*0.015)))+'주가 걸립니다.</div>';
+      } else if(score<=3){
+        html += '<div class="rc-note">먼저 <b>체중이 줄어든 원인</b>을 확인해야 합니다. 급여량만 늘리면 소화기 부담이 될 수 있습니다.</div>';
+      } else {
+        html += '<div class="rc-note">현재 체중을 유지해 주세요. 3개월에 한 번 재어 <b>5% 이상</b> 변하면 진료를 권합니다.</div>';
+      }
+    } else {
+      html += '<div class="rc-head"><span class="rc-k">목표 체중</span><span class="badge none">대기</span></div>'+
+        '<div class="rc-date none">체중과 체형을 입력하면<br>목표 체중을 계산해 드립니다</div>';
+    }
+    html += '</div>';
+
+    /* 칼로리 */
+    html += '<div class="rc wide">';
+    if(w){
+      var r = rer(w);
+      var f = factorOf(sp, ageM, act);
+      var der = r * f;
+      var lossMode = score!==null && score>=6 && iw;
+      var gainMode = score!==null && score<=3 && iw;
+      var target, basis;
+
+      if(lossMode){
+        var lf = P[sp].kind==='cat' ? 0.8 : 1.0;
+        target = rer(iw) * lf;
+        basis = 'RER '+Math.round(rer(iw))+' kcal (목표 체중 '+nf(iw,1)+' kg) × '+lf+' 감량 계수';
+      } else if(gainMode){
+        target = rer(iw) * 1.2;
+        basis = 'RER '+Math.round(rer(iw))+' kcal (목표 체중 '+nf(iw,1)+' kg) × 1.2 증량 계수';
+      } else {
+        target = der;
+        basis = 'RER '+Math.round(r)+' kcal × '+f+' ('+factorLabel(act, sp)+')';
+      }
+
+      var badgeTxt = lossMode ? '감량 목표' : (gainMode ? '증량 목표' : '유지');
+      var badgeCls = lossMode ? 'warn' : (gainMode ? 'blue' : 'ok');
+
+      html += '<div class="rc-head"><span class="rc-k">하루 권장 칼로리 (DER)</span><span class="badge '+badgeCls+'">'+badgeTxt+'</span></div>'+
+        '<div class="rc-date">약 '+Math.round(target)+' kcal</div>'+
+        '<div class="rc-int">'+basis+'</div>';
+
+      if(lossMode){
+        html += '<div class="rc-note">현재 체중 기준 유지량은 약 <b>'+Math.round(der)+' kcal</b>입니다. 감량은 유지량보다 약 '+Math.round((1-target/der)*100)+'% 적게 시작합니다.</div>';
+      }
+      if(kcal100 && kcal100>0){
+        var g = target / kcal100 * 100;
+        html += '<div class="rc-note">사료 <b>'+Math.round(kcal100)+' kcal/100g</b> 기준 · 하루 약 <b>'+Math.round(g)+' g</b> (하루 2~3회로 나눠 급여)</div>';
+      } else {
+        html += '<div class="rc-note">아래에 사료의 열량(kcal/100g, 봉투 뒷면 표기)을 넣으면 <b>하루 급여량(g)</b>까지 계산해 드립니다.</div>';
+      }
+      html += '<div class="items" style="display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem">'+
+        '<span class="itm" style="font-size:11px;color:var(--navy);background:var(--navy-xlight);border:1px solid var(--border);border-radius:5px;padding:2px 7px;line-height:1.7">RER '+Math.round(r)+' kcal</span>'+
+        '<span class="itm" style="font-size:11px;color:var(--navy);background:var(--navy-xlight);border:1px solid var(--border);border-radius:5px;padding:2px 7px;line-height:1.7">간식 한도 '+Math.round(target*0.1)+' kcal</span>'+
+        '<span class="itm" style="font-size:11px;color:var(--navy);background:var(--navy-xlight);border:1px solid var(--border);border-radius:5px;padding:2px 7px;line-height:1.7">급여 계수 '+f+'</span>'+
+      '</div>';
+    } else {
+      html += '<div class="rc-head"><span class="rc-k">하루 권장 칼로리 (DER)</span><span class="badge none">대기</span></div>'+
+        '<div class="rc-date none">체중을 입력하시면 하루 권장 칼로리와<br>급여량을 계산해 드립니다</div>';
+    }
+    html += '</div>';
+
+    html += '</div>'; /* rcards */
+
+    /* 생애주기 안내 */
+    if(info){
+      var st = stageOf(sp, ageM);
+      if(st.key==='senior'){
+        html += '<div class="flag warn"><span aria-hidden="true">🗓️</span><span><b>노령기입니다.</b> 7세부터는 <b>6개월마다</b> 건강검진을 권합니다. 혈액·소변 검사와 체형(BCS)을 함께 확인해 주세요. <a href="vaccine.html">검진 일정 계산 →</a> <a href="senior.html">노령기 안내 →</a></span></div>';
+      } else if(st.key==='grow'){
+        html += '<div class="flag info"><span aria-hidden="true">🌱</span><span><b>성장기입니다.</b> 성장기에는 과하게 살을 빼면 안 됩니다. 체형은 또래와 비교해 판단하고, 예방접종 일정을 함께 챙겨 주세요. <a href="vaccine.html">접종·검진 일정 →</a></span></div>';
+      }
+    }
+
+    /* 체형별 안내 */
+    if(bcs){
+      if(bcs.key==='over' || bcs.key==='obese'){
+        html += '<div class="flag bad"><span aria-hidden="true">⚖️</span><span><b>체중 감량이 필요합니다.</b> '+(bcs.key==='obese'?'비만은 췌장염·당뇨·관절질환·심장 부담의 위험을 높입니다.':'과체중은 지금 관리하면 되돌리기 쉽습니다.')+' 목표 체중과 감량 칼로리를 위에서 확인하시고, 처방식은 상담 후 결정해 주세요.</span></div>'+
+        '<div class="lnks">'+
+          '<a class="lnk" href="pancreatitis.html"><span class="lk-e" aria-hidden="true">🩺</span><span><span class="lk-n">췌장염 안내</span><span class="lk-d">고지방 식이·비만이 위험 인자</span></span></a>'+
+          '<a class="lnk" href="diabetes.html"><span class="lk-e" aria-hidden="true">💧</span><span><span class="lk-n">당뇨병 안내</span><span class="lk-d">다음·다뇨·체중 감소</span></span></a>'+
+          '<a class="lnk" href="senior.html"><span class="lk-e" aria-hidden="true">🦴</span><span><span class="lk-n">관절 관리</span><span class="lk-d">5~10% 감량만으로 통증 개선</span></span></a>'+
+          '<a class="lnk" href="homecare.html"><span class="lk-e" aria-hidden="true">📈</span><span><span class="lk-n">체중 기록지</span><span class="lk-d">집에서 기록해 내원 시 제출</span></span></a>'+
+        '</div>';
+      } else if(bcs.key==='thin'){
+        html += '<div class="flag warn"><span aria-hidden="true">⚠️</span><span><b>마름(저체중)입니다.</b> 급여량을 늘리기 전에 <b>체중이 빠지는 원인</b>을 먼저 확인해 주세요 — 기생충, 만성장병증, 신장질환, 치과 통증, 종양, 갑상선기능항진(고양이). 3개월에 5% 이상 줄었다면 검사가 필요합니다. <a href="kidney.html">신장질환 안내 →</a></span></div>';
+      } else {
+        html += '<div class="flag ok"><span aria-hidden="true">✅</span><span><b>적정 체형입니다.</b> 지금 체중과 급여량을 유지해 주세요. 3개월에 한 번 체중을 재고, 5% 이상 변하면 진료를 권합니다.</span></div>';
+      }
+    }
+
+    /* 요약 복사 */
+    html += '<div class="acts" style="margin-top:.2rem">'+
+      '<button type="button" class="btn primary" onclick="WECARE_BCS.copySummary()">📋 요약 복사</button>'+
+      '<a class="btn light" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 상담</a>'+
+    '</div>';
+
+    res.innerHTML = html;
+  }
+
+  /* ── 요약 ─────────────────────────── */
+  function summaryText(){
+    var sp = state.sp;
+    var info = readAge();
+    var w = num($('bw'));
+    var score = bcsScore();
+    var bcs = bcsInfo(score);
+    var lines = [];
+    lines.push('[위케어 체형·칼로리 요약]');
+    lines.push('종류: ' + P[sp].name);
+    if(info){
+      var ageTxt = info.months<12 ? '생후 '+Math.floor(info.months)+'개월' : Math.floor(info.years)+'세 '+Math.floor(info.months%12)+'개월';
+      lines.push('나이: ' + ageTxt + ' (사람 나이 약 ' + Math.round(humanAge(sp,info.years)) + '세, ' + stageOf(sp,info.months).name + ')');
+    }
+    if(w) lines.push('체중: ' + nf(w,1) + ' kg');
+    if(score!==null){
+      lines.push('체형(BCS): ' + score + '/9 · ' + bcs.label);
+      var iw = idealWeight(w, score);
+      if(iw) lines.push('목표 체중: 약 ' + nf(iw,1) + ' kg');
+    }
+    if(w){
+      var r = rer(w), f = factorOf(sp, info?info.months:null, $('act')?$('act').value:'auto');
+      var iw2 = idealWeight(w, score);
+      var target, kind;
+      if(score!==null && score>=6 && iw2){
+        target = rer(iw2) * (P[sp].kind==='cat'?0.8:1.0); kind='감량';
+      } else if(score!==null && score<=3 && iw2){
+        target = rer(iw2) * 1.2; kind='증량';
+      } else { target = r*f; kind='유지'; }
+      lines.push('하루 권장 칼로리(' + kind + '): 약 ' + Math.round(target) + ' kcal (RER ' + Math.round(r) + ' kcal)');
+      var k100 = num($('foodKcal'));
+      if(k100) lines.push('하루 급여량: 약 ' + Math.round(target/k100*100) + ' g (사료 ' + Math.round(k100) + ' kcal/100g 기준)');
+    }
+    return lines.join('\n');
+  }
+
+  function copySummary(){
+    var txt = summaryText();
+    var done = function(){ toast('요약을 복사했습니다. 카카오톡에 붙여넣어 주세요.'); };
+    var fail = function(){ toast('복사가 안 되면 화면을 캡처해 주세요.'); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(function(){
+        legacyCopy(txt) ? done() : fail();
+      });
+    } else {
+      legacyCopy(txt) ? done() : fail();
+    }
+  }
+
+  function legacyCopy(txt){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.setAttribute('readonly','');
+      ta.style.position='fixed';
+      ta.style.left='-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    }catch(e){ return false; }
+  }
+
+  var toastTimer = null;
+  function toast(msg){
+    var t = $('toast');
+    if(!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    if(toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2600);
+  }
+
+  function init(){
+    var pills = document.querySelectorAll('.pill[data-sp]');
+    for(var i=0;i<pills.length;i++){
+      if(pills[i].getAttribute('data-sp')==='dog_s') pills[i].classList.add('active');
+    }
+    render();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+
+  return {
+    setSpecies:setSpecies,
+    setAgeMode:setAgeMode,
+    setBcsMode:setBcsMode,
+    pick:pick,
+    pickFive:pickFive,
+    render:render,
+    copySummary:copySummary
+  };
+})();
+</script>
+</body>
+</html>
