@@ -682,7 +682,7 @@ var WECARE_BCS = (function(){
   function stageOf(sp, ageMonths){
     if(ageMonths < P[sp].growth*1) {
       return {key:'grow', name:'성장기', badge:'blue',
-        note:'성장기에는 체형 판정보다 '+(P[sp].kind==='cat'?'적절한 성장 속도':'또래 성장 곡선')+'를 봅니다.'};
+        note:'성장기에는 체형 판정보다 '+(P[sp].kind==='cat'?'적절한 성장 속도':'또래 성장 곡선')+'을 봅니다.'};
     }
     if(ageMonths < 84) {
       return {key:'adult', name:'성년기', badge:'ok',
@@ -912,7 +912,7 @@ var WECARE_BCS = (function(){
         basis = 'RER '+Math.round(rer(iw))+' kcal (목표 체중 '+nf(iw,1)+' kg) × 1.2 증량 계수';
       } else {
         target = der;
-        basis = 'RER '+Math.round(r)+' kcal × '+f+' ('+factorLabel(act, sp)+')';
+        basis = 'RER '+Math.round(r)+' kcal × '+f.toFixed(1)+' ('+factorLabel(act, sp)+')';
       }
 
       var badgeTxt = lossMode ? '감량 목표' : (gainMode ? '증량 목표' : '유지');
@@ -931,7 +931,7 @@ var WECARE_BCS = (function(){
       } else {
         html += '<div class="rc-note">아래에 사료의 열량(kcal/100g, 봉투 뒷면 표기)을 넣으면 <b>하루 급여량(g)</b>까지 계산해 드립니다.</div>';
       }
-      var factorChip = lossMode ? '감량 계수 '+(P[sp].kind==='cat' ? '0.8' : '1.0') : (gainMode ? '증량 계수 1.2' : '급여 계수 '+f);
+      var factorChip = lossMode ? '감량 계수 '+(P[sp].kind==='cat' ? '0.8' : '1.0') : (gainMode ? '증량 계수 1.2' : '급여 계수 '+f.toFixed(1));
       html += '<div class="items" style="display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem">'+
         '<span class="itm" style="font-size:11px;color:var(--navy);background:var(--navy-xlight);border:1px solid var(--border);border-radius:5px;padding:2px 7px;line-height:1.7">RER '+Math.round(r)+' kcal</span>'+
         '<span class="itm" style="font-size:11px;color:var(--navy);background:var(--navy-xlight);border:1px solid var(--border);border-radius:5px;padding:2px 7px;line-height:1.7">간식 한도 '+Math.round(target*0.1)+' kcal</span>'+
