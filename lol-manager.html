@@ -1379,6 +1379,19 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .syn-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
 .syn-badge{font-size:9.5px;font-weight:900;padding:2px 7px;border-radius:5px;background:linear-gradient(90deg,rgba(230,196,129,.22),rgba(196,177,255,.18));border:1px solid rgba(230,196,129,.45);color:#f7e2ae}
 .cb-tip.synergy{color:#f0d69b}
+button.comrow{width:100%;text-align:left;border:0;background:none;cursor:pointer}
+button.comrow:hover{background:rgba(255,255,255,.05)}
+.post-modal{max-width:520px}
+.pm-tag{font-size:9.5px;font-weight:900;color:#a9d3f0;letter-spacing:.04em}
+.pm-title{font-size:17px;font-weight:900;margin:4px 0 3px;line-height:1.35}
+.pm-meta{font-size:10px;color:var(--dim2);font-weight:700;margin-bottom:10px}
+.pm-body{font-size:12.5px;line-height:1.65;color:#dfe3ea;padding:10px;border-radius:9px;background:#12141a;border:1px solid #24272f}
+.pm-cl{font-size:11px;font-weight:900;color:var(--gold2);margin-bottom:6px}
+.pm-comments{display:flex;flex-direction:column;gap:6px;max-height:36dvh;overflow-y:auto;margin-bottom:10px}
+.pm-c{border-bottom:1px solid rgba(255,255,255,.05);padding-bottom:5px}
+.pm-cn{font-size:10px;font-weight:900;color:#9fd0f0}
+.pm-ct{font-size:12px;color:#dfe3ea;line-height:1.45;margin:1px 0}
+.pm-cu{font-size:9px;color:var(--dim2);font-weight:800}
 
 </style>
 </head>
@@ -4870,7 +4883,7 @@ function communityBuild(){
     while(out.length<n&&pool.length) out.push(pool[out.length%pool.length]);
     return out;
   };
-  const mk=(t,tag,i)=>({t:t, c:(hashN(key+tag+i+'c')%900+40)});
+  const mk=(t,tag,i)=>({t:t, c:(hashN(key+tag+i+'c')%900+40), id:tag+i});
   const gp=GAL_POOL[tone]||GAL_POOL.calm;
   const ap=(AM_POOL[tone]||AM_POOL.calm);
   const tp=(TW_POOL[tone]||TW_POOL.calm);
@@ -5144,6 +5157,56 @@ function teamOvr(){
   const ps=lineupOf(myTeam());
   if(!ps.length) return 0;
   return Math.round(ps.reduce((a,p)=>a+rawOverall(p),0)/ps.length);
+}
+
+/* ---------- 커뮤니티 글 본문 · 댓글 ---------- */
+const NICK=['롤잘알','페이커광팬','탑하면나','한타장인','와드싸개','탑미드봇','LCK정주행','감독님제발','서폿유저','브실골','경기분석러','치킨각','응원단장','숙소불주먹'];
+function postDetail(kind, idx){
+  const c=clubC(); const com=c.community||communityBuild();
+  const list=(com[kind]||[]); const p=list[idx];
+  if(!p) return null;
+  const key=(com.key||'')+'|'+kind+'|'+idx;
+  const h=(n)=>hashN(key+'|'+n);
+  const names=(o)=>NICK[(h(o))%NICK.length];
+  const last=S.lastSeries;
+  const ctxLine=last?(last.win?'최근 '+T(last.oppId).tag+'전을 이겼고,':'최근 '+T(last.oppId).tag+'전에서 졌고,'):(S.phase==='kespa'?'케스파컵이 진행 중이고,':'시즌 초반이고,');
+  const bodies={
+    gall:[
+      ctxLine+' 우리 팀 경기력이 확실히 달라진 느낌입니다. 특히 '+((S.club.goals&&S.club.goals[0])?'목표대로':'운영 쪽이')+' 굴러가는 게 보입니다.',
+      ctxLine+' 밴픽에서부터 그림이 나오니까 경기가 편해 보입니다. 예전엔 밴픽만 봐도 불안했는데.',
+      '솔직히 기분은 좋은데 아직 판단은 이릅니다. 강팀 상대로도 이걸 보여줘야 진짜죠.'
+    ],
+    am:[
+      ctxLine+' 구단 운영 방향이 잡혀가고 있습니다. 스폰서 · 팬미팅 · 굿즈까지 손대는 걸 보면 이번 시즌은 진짜 준비한 느낌입니다.',
+      '선수단 컨디션 관리가 눈에 띕니다. 예전엔 후반에 무너졌는데 지금은 체력이 남아 있어요.',
+      '팬 입장에서 경기 보는 맛이 확실히 생겼습니다. 다음 경기도 기대됩니다.'
+    ],
+    tw:[
+      ctxLine+' 오늘 경기 진짜 재밌었음 ㅋㅋ',
+      '이 팀 응원하길 잘했다는 생각이 든다',
+      '다음 경기 언제임? 기다려짐'
+    ]
+  };
+  const body=(bodies[kind]||bodies.gall)[idx%bodies[kind].length];
+  const nComments=3+(h('n')%3);
+  const comments=[];
+  const pool=[
+    'ㅇㅈ 지금 폼이면 충분히 해볼 만함',
+    '아니 근데 상대가 실수한 것도 있어서 과대평가하면 안 됨',
+    '그래도 예전보다 확실히 나아졌다',
+    '저 라인은 좀 불안한데?',
+    '팬미팅 했으면 굿즈도 좀 만들어줘',
+    '감독 인터뷰 봤냐 ㅋㅋㅋ',
+    '오늘 POG 누구라고 봄?',
+    '숙소 와이파이부터 고쳐라',
+    '밴픽만 잘해도 반은 먹고 들어감',
+    '이번 시즌 우승 각인가'
+  ];
+  for(let i=0;i<nComments;i++){
+    comments.push({n:names('c'+i), t:pool[(h('p'+i))%pool.length], up:(h('u'+i))%200+3});
+  }
+  return {kind:kind, idx:idx, title:p.t, up:p.c, body:body, comments:comments,
+    when:(com.key?S.week+'주차':'최근'), tag:(kind==='gall'?'디시아웃사이드.com 롤갤':kind==='am'?'AM코리아 롤 게시판':'튜위터')};
 }
 
 /* ============ PRESS — 경기 전 기자회견 ============ */
@@ -7407,8 +7470,29 @@ function homeV3(){
 function comCol(title,items,kind){
   return `<div class="comcol ${kind}">
     <div class="comhd">${esc(title)}</div>
-    ${(items||[]).map((x,i)=>`<div class="comrow"><span class="crk">${kind==='tw'?'@':'☰'}</span><span class="crt">${esc(x.t)}</span><b class="crc">${kind==='tw'?'♡':''}${x.c}</b></div>`).join('')}
+    ${(items||[]).map((x,i)=>`<button class="comrow" data-a="post" data-v="${kind}:${i}"><span class="crk">${kind==='tw'?'@':'☰'}</span><span class="crt">${esc(x.t)}</span><b class="crc">${kind==='tw'?'♡':''}${x.c}</b></button>`).join('')}
   </div>`;
+}
+function openPostModal(kind, idx){
+  const d=postDetail(kind, idx);
+  if(!d){ toast('글을 불러올 수 없습니다'); return; }
+  $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal post-modal">
+    <div class="grab"></div>
+    <div class="pm-tag">${esc(d.tag)}</div>
+    <h3 class="pm-title">${esc(d.title)}</h3>
+    <div class="pm-meta">ㅇㅇ · ${d.when} · 추천 ${d.up} · 댓글 ${d.comments.length}</div>
+    <div class="pm-body">${esc(d.body)}</div>
+    <div class="divider"></div>
+    <div class="pm-cl">댓글 ${d.comments.length}</div>
+    <div class="pm-comments">
+      ${d.comments.map(c=>`<div class="pm-c"><div class="pm-cn">${esc(c.n)}</div><div class="pm-ct">${esc(c.t)}</div><div class="pm-cu">▲ ${c.up}</div></div>`).join('')}
+    </div>
+    <button class="btn ghost block" id="modalClose">닫기</button>
+  </div></div>`;
+  $('modal').classList.remove('hidden');
+  $('modalClose').onclick=closeModal;
+  $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
+  sfx('click');
 }
 function weekStrip(){
   const md=matchDayIndex();
@@ -7918,6 +8002,7 @@ function hubAction(a,v,el){
   }
   if(a==='newsread'){ newsReadAll(); renderHub(); return; }
   if(a==='board'){ STAT_BOARD=v; renderHub(); return; }
+  if(a==='post'){ const parts=String(v||'').split(':'); openPostModal(parts[0],Number(parts[1])); return; }
   if(a==='pledge'){ introApplyPledge(v); return; }
   if(a==='intro'){ introNext(v); return; }
   if(a==='cat'){ CODEX.cat=v; renderHub(); return; }
