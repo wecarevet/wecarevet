@@ -585,6 +585,8 @@ button.pers-chip{cursor:pointer}
 .pick-row .pick-slot{width:100%}
 .pick-row .pick-slot img{width:100%;height:auto;max-height:96px;object-fit:cover}
 @media(min-width:640px){.pick-row{max-width:560px}.pick-row .pick-slot{max-width:104px}}
+.badge.svg{background:none!important;box-shadow:none!important;display:grid;place-items:center}
+.badge.svg .tlogo{display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
 
 </style>
 </head>
@@ -1482,7 +1484,7 @@ function personalitiesOf(p){
 function personalityOf(p){ return personalitiesOf(p)[0]||PERS_MAP.quiet||null; }
 function persName(p){ return personalitiesOf(p).map(x=>x.n).join(' · ')||'과묵한 베테랑'; }
 function persChipsHTML(p){
-  return personalitiesOf(p).map(x=>`<span class="pers-chip" title="${esc(x.d)}">${x.icon} ${esc(x.n)}</span>`).join('');
+  return personalitiesOf(p).map(x=>`<span class="pers-chip" data-pers="${x.k}" title="${esc(x.d)}">${x.icon} ${esc(x.n)}</span>`).join('');
 }
 function persMod(p,key,mode){
   const list=personalitiesOf(p); if(!list.length) return key==='vol'||key==='growth'||key==='peak'?1:0;
@@ -2084,6 +2086,7 @@ function applyPlayerEdit(oldName, d){
   if(Array.isArray(d.persons)){ const arr=d.persons.filter(k=>PERS_MAP[k]).slice(0,3); if(arr.length){ p.persons=arr; p.pers=arr[0]; } }
   else if(d.pers&&PERS_MAP[d.pers]){ p.persons=[d.pers]; p.pers=d.pers; }
   if(d.exp!==undefined) p.exp=clamp(Number(d.exp)||0,0,99);
+  if(d.photo!==undefined) p.photo=String(d.photo||'').slice(0,500);
   if(d.grade && GRADE_COUNT[d.grade] && d.grade!==p.grade){ p.grade=d.grade; rollTraits(p,d.grade); }
   if(Array.isArray(d.sigs)) p.sigs=d.sigs.filter(n=>!!CHAMP_MAP[n]).slice(0,6);
   if(Array.isArray(d.good)) p.good=d.good.filter(id=>TRAIT_MAP[id]&&TRAIT_MAP[id].g>0).slice(0,12);
@@ -3619,7 +3622,8 @@ function toast(msg,ms){
 }
 function badge(team,size){
   if(!team) return '';
-  return `<span class="badge ${size||''}" style="background:linear-gradient(145deg,${team.color},#0c1020 160%)">${esc(team.tag)}</span>`;
+  const px=size==='lg'?46:size==='xl'?64:size==='sm'?26:34;
+  return `<span class="badge svg ${size||''}" title="${esc(team.name||team.tag)}">${teamLogoSVG(team,px)}</span>`;
 }
 function show(name){
   closeModal();
@@ -3683,6 +3687,59 @@ function renderAll(){
   if(S.phase==='playoffs'){ show('playoffs'); renderPlayoffs(); return; }
   if(S.currentSeries && !S.currentSeries.done){ TAB='home'; }
   show('hub'); renderHub();
+}
+
+
+/* ---------- 팀 로고 · 선수 아바타 (inline SVG) ---------- */
+function _shade(hex,amt){
+  const h=(hex||'#25e0ff').replace('#','');
+  const n=parseInt(h.length===3?h.split('').map(x=>x+x).join(''):h,16);
+  let r=(n>>16)+amt,g=((n>>8)&255)+amt,b=(n&255)+amt;
+  r=Math.max(0,Math.min(255,r));g=Math.max(0,Math.min(255,g));b=Math.max(0,Math.min(255,b));
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+}
+function teamLogoSVG(team,size){
+  if(!team) return '';
+  const c=team.color||'#25e0ff';
+  const light=_shade(c,40), dark=_shade(c,-70);
+  const uid='lg'+String(team.id).replace(/[^A-Za-z0-9]/g,'');
+  const v=(nameHash(team.id)%3);
+  const motif=v===0?'<path d="M0 30 L40 10 L40 18 L0 38 Z" fill="#fff" opacity=".10"/>'
+    :v===1?'<circle cx="34" cy="8" r="9" fill="#fff" opacity=".12"/>'
+    :'<path d="M0 8 L40 8 L40 14 L0 26 Z" fill="#fff" opacity=".10"/>';
+  return `<svg class="tlogo" width="${size||34}" height="${size||34}" viewBox="0 0 40 40" aria-hidden="true">
+    <defs><linearGradient id="${uid}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${light}"/><stop offset=".55" stop-color="${c}"/><stop offset="1" stop-color="${dark}"/>
+    </linearGradient></defs>
+    <path d="M20 2 L36 7 V20 C36 30 28 36 20 38 C12 36 4 30 4 20 V7 Z" fill="url(#${uid})" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
+    ${motif}
+    <text x="20" y="24" text-anchor="middle" font-family="Pretendard,system-ui,sans-serif" font-size="${String(team.tag).length>3?8:10}" font-weight="900" fill="#fff" letter-spacing="-.3">${esc(team.tag)}</text>
+  </svg>`;
+}
+function pAvatarSVG(p,size){
+  if(!p) return '';
+  const team=p.team&&S&&S.teams?S.teams[p.team]:null;
+  const c=team?team.color:'#5d6884';
+  const light=_shade(c,50), dark=_shade(c,-60);
+  const roleIc=({TOP:'🗡',JGL:'🌿',MID:'✨',ADC:'🏹',SUP:'🛡'})[p.role]||'✦';
+  return `<svg width="${size||42}" height="${size||42}" viewBox="0 0 48 48" aria-hidden="true">
+    <rect width="48" height="48" rx="12" fill="#0d1424"/>
+    <path d="M10 44 C10 34 15 30 24 30 C33 30 38 34 38 44 Z" fill="url(#jg)"/>
+    <defs><linearGradient id="jg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${light}"/><stop offset="1" stop-color="${dark}"/></linearGradient></defs>
+    <path d="M17 30 L24 36 L31 30" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.4"/>
+    <circle cx="24" cy="17" r="7.5" fill="${_shade(c,10)}" stroke="rgba(255,255,255,.4)" stroke-width="1.2"/>
+    <path d="M15.5 15 C15.5 9 32.5 9 32.5 15" fill="none" stroke="#0b1220" stroke-width="2.4"/>
+    <rect x="14.5" y="14" width="3" height="6" rx="1.5" fill="#0b1220"/>
+    <rect x="30.5" y="14" width="3" height="6" rx="1.5" fill="#0b1220"/>
+    <text x="24" y="20" text-anchor="middle" font-size="8" font-weight="900" fill="#fff">${esc(p.name.slice(0,1))}</text>
+    <text x="40" y="42" text-anchor="middle" font-size="9">${roleIc}</text>
+  </svg>`;
+}
+function pAvatarHTML(p,size,cls){
+  if(!p) return '';
+  const sizeN=size||42;
+  if(p.photo) return `<div class="p-avatar ${cls||''}" style="width:${sizeN}px;height:${sizeN}px;padding:0;overflow:hidden"><img src="${esc(p.photo)}" alt="${esc(p.name)}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='${esc(p.name.slice(0,1))}'"></div>`;
+  return `<div class="p-avatar ${cls||''}" style="width:${sizeN}px;height:${sizeN}px;padding:0;background:none;border:0">${pAvatarSVG(p,sizeN)}</div>`;
 }
 
 /* ---------- title ---------- */
@@ -3836,12 +3893,12 @@ function staffMiniHTML(){
     ${head?`<div class="row" style="gap:8px;align-items:flex-start">
       <span class="chip gold">감독</span>
       <div class="grow"><div style="font-weight:900;font-size:13.5px">${esc(head.name)} <span class="tiny">${head.rating} · ${head.salary}억 · ${head.contract>0?head.contract+'시즌':'만료'}</span></div>
-      <div class="tag-row" style="margin-top:3px">${(head.traits||[]).map(t=>{const d=STAFF_TRAITS[t];return d?`<span class="tr staff-g" title="${esc(d.d)}">${esc(d.n)}</span>`:'';}).join('')}</div></div>
+      <div class="tag-row" style="margin-top:3px">${(head.traits||[]).map(t=>{const d=STAFF_TRAITS[t];return d?`<span class="tr staff-g" data-stafftrait="${t}" title="${esc(d.d)}">${esc(d.n)}</span>`:'';}).join('')}</div></div>
     </div>`:'<div class="tiny">감독이 없습니다 — 스태프 탭에서 영입하세요</div>'}
     ${coaches.length?coaches.map(c=>`<div class="row" style="gap:8px;margin-top:5px;align-items:flex-start">
       <span class="chip">코치</span>
       <div class="grow"><div style="font-weight:800;font-size:12.5px">${esc(c.name)} <span class="tiny">${c.rating} · ${c.salary}억 · ${c.contract>0?c.contract+'시즌':'만료'}</span></div>
-      <div class="tag-row" style="margin-top:2px">${(c.traits||[]).map(t=>{const d=STAFF_TRAITS[t];return d?`<span class="tr staff-g">${esc(d.n)}</span>`:'';}).join('')}</div></div>
+      <div class="tag-row" style="margin-top:2px">${(c.traits||[]).map(t=>{const d=STAFF_TRAITS[t];return d?`<span class="tr staff-g" data-stafftrait="${t}">${esc(d.n)}</span>`:'';}).join('')}</div></div>
     </div>`).join(''):''}
   </div>`;
 }
@@ -3965,12 +4022,12 @@ function pCardHTML(p,starter){
   const r=rawOverall(p);
   const contract=p.contract===undefined?1:p.contract;
   return `<div class="p-card ${starter?'main':''}" data-player="${esc(p.name)}">
-    <div class="p-avatar">${esc(p.name.slice(0,1))}</div>
+    ${pAvatarHTML(p,42)}
     <div class="grow">
       <div class="p-name">${esc(p.name)} <span class="role-tag">${ROLE_KR[p.role]}</span><span class="grade ${p.grade}">${p.grade}</span></div>
       <div class="p-meta">${p.age}세 · ${condLabel(p)} · <span style="color:var(--gold)">${p.salary}억</span> · <span class="${contract>0?'':'warn'}">${contract>0?contract+'년':'만료'}</span></div>
       <div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;align-items:center">${playChip(p)}${persChipsHTML(p)}</div>
-      <div class="tag-row" style="margin-top:4px">${(p.good||[]).slice(0,4).map(id=>{const t=TRAIT_MAP[id];return t?`<span class="tr good" title="${esc(t.d)}">${esc(t.n)}</span>`:'';}).join('')}${(p.bad||[]).slice(0,2).map(id=>{const t=TRAIT_MAP[id];return t?`<span class="tr bad" title="${esc(t.d)}">${esc(t.n)}</span>`:'';}).join('')}<span class="tr more">+${Math.max(0,(p.good||[]).length-4)}</span></div>
+      <div class="tag-row" style="margin-top:4px">${(p.good||[]).slice(0,4).map(id=>{const t=TRAIT_MAP[id];return t?`<span class="tr good" data-trait="${id}" title="${esc(t.d)}">${esc(t.n)}</span>`:'';}).join('')}${(p.bad||[]).slice(0,2).map(id=>{const t=TRAIT_MAP[id];return t?`<span class="tr bad" data-trait="${id}" title="${esc(t.d)}">${esc(t.n)}</span>`:'';}).join('')}<span class="tr more">+${Math.max(0,(p.good||[]).length-4)}</span></div>
       <div class="row" style="gap:8px;margin-top:4px">
         <div class="grow"><div class="bar cyan" style="height:4px"><i style="width:${p.form}%"></i></div></div>
         <div class="grow"><div class="bar red" style="height:4px"><i style="width:${p.fatigue}%"></i></div></div>
@@ -4171,7 +4228,7 @@ function staffHTML(){
       ${[cur.head,...cur.coaches].filter(Boolean).map(st=>`
         <div class="staff-card">
           <div class="row between">
-            <div class="row" style="gap:8px"><span class="chip ${st.role==='HEAD'?'gold':''}">${staffRoleLabel(st.role)}</span>
+            <div class="row" style="gap:8px"><span class="chip ${st.role==='HEAD'?'gold':''}" data-stafftrait="">${staffRoleLabel(st.role)}</span>
               <div><div style="font-weight:900;font-size:14.5px">${esc(st.name)}</div>
               <div class="tiny">레이팅 ${st.rating} · 연봉 ${st.salary}억 · ${st.contract>0?st.contract+'시즌 남음':'계약 만료'}</div></div>
             </div>
@@ -4182,7 +4239,7 @@ function staffHTML(){
             </div>
           </div>
           <div class="tag-row" style="margin-top:6px">
-            ${(st.traits||[]).map(tid=>{const d=STAFF_TRAITS[tid];return d?`<span class="tr staff-g" title="${esc(d.d)}">${esc(d.n)}</span>`:'';}).join('')}
+            ${(st.traits||[]).map(tid=>{const d=STAFF_TRAITS[tid];return d?`<span class="tr staff-g" data-stafftrait="${tid}" title="${esc(d.d)}">${esc(d.n)}</span>`:'';}).join('')}
           </div>
         </div>`).join('')||'<div class="card"><div class="empty-note">감독·코치가 없습니다</div></div>'}
     </div>
@@ -4191,7 +4248,7 @@ function staffHTML(){
       ${fa.map(st=>`
         <div class="staff-card">
           <div class="row between">
-            <div class="row" style="gap:8px"><span class="chip ${st.role==='HEAD'?'gold':''}">${staffRoleLabel(st.role)}</span>
+            <div class="row" style="gap:8px"><span class="chip ${st.role==='HEAD'?'gold':''}" data-stafftrait="">${staffRoleLabel(st.role)}</span>
               <div><div style="font-weight:900;font-size:14px">${esc(st.name)}</div>
               <div class="tiny">레이팅 ${st.rating} · 연봉 ${st.salary}억</div></div>
             </div>
@@ -4200,7 +4257,7 @@ function staffHTML(){
               <button class="btn sm" data-hire="${st.id}">영입</button>
             </div>
           </div>
-          <div class="tag-row" style="margin-top:5px">${(st.traits||[]).map(tid=>{const d=STAFF_TRAITS[tid];return d?`<span class="tr staff-g" title="${esc(d.d)}">${esc(d.n)}</span>`:'';}).join('')}</div>
+          <div class="tag-row" style="margin-top:5px">${(st.traits||[]).map(tid=>{const d=STAFF_TRAITS[tid];return d?`<span class="tr staff-g" data-stafftrait="${tid}" title="${esc(d.d)}">${esc(d.n)}</span>`:'';}).join('')}</div>
         </div>`).join('')||'<div class="card"><div class="empty-note">FA 스태프가 없습니다</div></div>'}
     </div>
     <div style="height:8px"></div>
@@ -4266,7 +4323,7 @@ function openPlayer(name){
   $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal">
     <div class="grab"></div>
     <div class="row" style="gap:12px">
-      <div class="p-avatar" style="width:54px;height:54px;font-size:20px">${esc(p.name.slice(0,1))}</div>
+      ${pAvatarHTML(p,54)}
       <div class="grow">
         <div style="font-weight:900;font-size:19px;letter-spacing:-.03em">${esc(p.name)} <span class="grade ${p.grade}">${p.grade}</span></div>
         <div class="tiny">${ROLE_KR[p.role]} · ${p.age}세 · ${esc((S.teams[p.team]||{name:'FA'}).name)} · ${contractTxt(p)}</div>
@@ -4286,8 +4343,8 @@ function openPlayer(name){
     <div class="var-lines">${[['컨디션',p.form+' ('+condLabel(p)+')'],['피로도',p.fatigue],['연봉',p.salary+'억'],['계약',contractTxt(p)],['성격',persName(p)+(personalityOf(p)?' — '+personalityOf(p).d:'')],['실전 EXP',(p.exp||0)+'% / 100%'],['성장 가능성',p.age<=21?'높음':p.age<=25?'보통':'낮음']].map(([k,v])=>`<div class="kv"><span>${k}</span><b>${esc(v)}</b></div>`).join('')}</div>
     <div style="margin-top:6px">
       <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:4px">대표 성향 · 특성</div>
-      <div class="tag-row">${(p.good||[]).map(id=>{const tr=TRAIT_MAP[id];return tr?`<span class="tr good" title="${esc(tr.d)}">${esc(tr.n)}</span>`:'';}).join('')}
-      ${(p.bad||[]).map(id=>{const tr=TRAIT_MAP[id];return tr?`<span class="tr bad" title="${esc(tr.d)}">${esc(tr.n)}</span>`:'';}).join('')}</div>
+      <div class="tag-row">${(p.good||[]).map(id=>{const tr=TRAIT_MAP[id];return tr?`<span class="tr good" data-trait="${id}" title="${esc(tr.d)}">${esc(tr.n)}</span>`:'';}).join('')}
+      ${(p.bad||[]).map(id=>{const tr=TRAIT_MAP[id];return tr?`<span class="tr bad" data-trait="${id}" title="${esc(tr.d)}">${esc(tr.n)}</span>`:'';}).join('')}</div>
     </div>
     ${cureRows.length?`<div style="margin-top:8px">
       <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:4px">나쁜 특성 극복 진행</div>
@@ -4325,7 +4382,7 @@ function openPlayerEditor(name){
   if(!p) return;
   ED={orig:p.name, team:p.team, name:p.name, role:p.role, age:p.age, grade:p.grade, contract:(p.contract===undefined?1:p.contract),
       lane:p.stats.lane, fight:p.stats.fight, macro:p.stats.macro, pool:p.stats.pool, mental:p.stats.mental,
-      persons:(Array.isArray(p.persons)?p.persons.slice():(p.pers?[p.pers]:['quiet'])), exp:p.exp||0,
+      persons:(Array.isArray(p.persons)?p.persons.slice():(p.pers?[p.pers]:['quiet'])), exp:p.exp||0, photo:p.photo||'',
       sigs:(p.sigs||[]).slice(), good:(p.good||[]).slice(), bad:(p.bad||[]).slice()};
   renderEditor();
 }
@@ -4348,6 +4405,7 @@ function renderEditor(){
       <label>등급<select id="edGrade">${['S','A','B','C'].map(g=>`<option value="${g}" ${ED.grade===g?'selected':''}>${gradeLabel(g)}</option>`).join('')}</select></label>
       <label>계약(년)<input id="edContract" type="number" min="0" max="3" value="${ED.contract}"></label>
       <label>실전 EXP<input id="edExp" type="number" min="0" max="99" value="${ED.exp===undefined?0:ED.exp}"></label>
+      <label style="grid-column:span 2">사진 URL (선택)<input id="edPhoto" value="${esc(ED.photo||'')}" placeholder="https://..."></label>
     </div>
     <div class="ed-stats">
       ${['lane','fight','macro','pool','mental'].map(k=>`<label>${({lane:'라인전',fight:'한타',macro:'운영',pool:'챔프폭',mental:'멘탈'})[k]}
@@ -4396,7 +4454,7 @@ function renderEditor(){
   const sync=()=>{
     ED.name=$('edName').value; ED.role=$('edRole').value; ED.age=Number($('edAge').value)||ED.age;
     ED.grade=$('edGrade').value; ED.contract=Number($('edContract').value)||0;
-    ED.exp=Number($('edExp').value)||0;
+    ED.exp=Number($('edExp').value)||0; ED.photo=$('edPhoto')?$('edPhoto').value.trim():'';
     ['lane','fight','macro','pool','mental'].forEach(k=>{ ED[k]=Number($('ed_'+k).value); });
   };
   $('edRole').onchange=()=>{ sync(); renderEditor(); };
@@ -4432,7 +4490,7 @@ function renderEditor(){
     sync();
     const d={name:ED.name, role:ED.role, age:ED.age, grade:ED.grade, contract:ED.contract,
       lane:ED.lane, fight:ED.fight, macro:ED.macro, pool:ED.pool, mental:ED.mental,
-      persons:ED.persons, exp:ED.exp, sigs:ED.sigs, good:ED.good, bad:ED.bad};
+      persons:ED.persons, exp:ED.exp, photo:ED.photo, sigs:ED.sigs, good:ED.good, bad:ED.bad};
     const r=applyPlayerEdit(ED.orig,d);
     if(!r.ok){ toast(r.msg); return; }
     ED=null; closeModal(); toast('✅ 선수 정보를 저장했습니다'); renderHub();
@@ -4557,6 +4615,61 @@ function patchHTML(){
     </div>
     <div style="height:8px"></div>`;
 }
+
+/* ---------- 특성/성향 설명 카드 ---------- */
+function effectLines(t){
+  const e=t.e||{}; const out=[];
+  const map={lane:'라인전',fight:'한타',macro:'운영',obj:'오브젝트',mental:'멘탈',pool:'챔프폭',vision:'시야',risk:'리스크'};
+  Object.keys(map).forEach(k=>{ if(e[k]) out.push(map[k]+' '+(e[k]>0?'+':'')+e[k].toFixed(1)); });
+  if(t.late) out.push('후반(25분+) 추가 효과');
+  if(t.early) out.push('초반(12분-) 추가 효과');
+  return out;
+}
+function showTraitCard(kind,id){
+  let html='';
+  if(kind==='pers'){
+    const x=PERS_MAP[id]; if(!x) return;
+    const lines=[];
+    if(x.chem) lines.push('팀 케미 '+(x.chem>0?'+':'')+x.chem);
+    if(x.vol) lines.push('폼 기복 x'+x.vol);
+    if(x.growth) lines.push('성장 배율 x'+x.growth);
+    if(x.peak) lines.push('최고 컨디션 성능 x'+x.peak);
+    if(x.mental) lines.push('멘탈 저항 '+(x.mental>0?'+':'')+x.mental);
+    if(x.likes) lines.push('선호 코치 특성: '+((STAFF_TRAITS[x.likes]||{}).n||x.likes));
+    html=`<div class="tiny" style="letter-spacing:.16em;font-weight:900;color:#ffd9a8">PERSONALITY</div>
+      <h3 style="font-size:19px;margin:4px 0 4px">${x.icon} ${esc(x.n)}</h3>
+      <div class="tiny" style="line-height:1.5">${esc(x.d)}</div>
+      <div class="divider"></div>
+      <div class="tag-row">${lines.map(l=>`<span class="chip sm">${esc(l)}</span>`).join('')}</div>`;
+  }else if(kind==='staff'){
+    const x=STAFF_TRAITS[id]; if(!x) return;
+    html=`<div class="tiny" style="letter-spacing:.16em;font-weight:900;color:var(--gold)">STAFF TRAIT</div>
+      <h3 style="font-size:19px;margin:4px 0">${esc(x.n)}</h3>
+      <div class="tiny" style="line-height:1.5">${esc(x.d)}</div>`;
+  }else{
+    const t=TRAIT_MAP[id]; if(!t) return;
+    html=`<div class="tiny" style="letter-spacing:.16em;font-weight:900;color:${t.g>0?'#8ff0c4':'#ff9aa9'}">${t.g>0?'GOOD':'BAD'} TRAIT · ${esc(t.c)}</div>
+      <h3 style="font-size:19px;margin:4px 0">${esc(t.n)}</h3>
+      <div class="tiny" style="line-height:1.5">${esc(t.d)}</div>
+      <div class="divider"></div>
+      <div class="tag-row">${effectLines(t).map(l=>`<span class="chip sm ${t.g>0?'green':'red'}">${esc(l)}</span>`).join('')}</div>
+      <div class="tiny" style="margin-top:8px">이 수치는 라인전·한타·운영·오브젝트 판정과 경기 시뮬레이션에 실제 반영됩니다.</div>`;
+  }
+  $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal" style="max-height:70dvh">
+    <div class="grab"></div>${html}<div style="height:12px"></div>
+    <button class="btn ghost block" id="modalClose">닫기</button></div></div>`;
+  $('modal').classList.remove('hidden');
+  $('modalClose').onclick=closeModal;
+  $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
+}
+document.addEventListener('click',(e)=>{
+  const el=e.target.closest&&e.target.closest('[data-trait],[data-pers],[data-stafftrait]');
+  if(!el) return;
+  e.preventDefault(); e.stopPropagation();
+  if(el.dataset.trait) showTraitCard('trait',el.dataset.trait);
+  else if(el.dataset.pers) showTraitCard('pers',el.dataset.pers);
+  else if(el.dataset.stafftrait) showTraitCard('staff',el.dataset.stafftrait);
+}, true);
 
 /* ============ UI: DRAFT / PLAN / MATCH ============ */
 function mySigs(){ return lineupOf(myTeam()).flatMap(p=>p.sigs); }
