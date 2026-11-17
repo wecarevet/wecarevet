@@ -725,20 +725,22 @@ const STRESS = {
   btc:{y1:-0.045, amp:0.090, drift:0.000}
 };
 function monthReturn(a, i, scen, k){
+  const FLOOR = -0.9999;
   const r = a.r[i]==null ? 0 : a.r[i]/100;
   const d = a.d[i]==null ? 0 : a.d[i]/100;
-  if(scen === 'hist') return [r, d];
-  const idxHist = r + a.ter/100/12;               // 배당·보수 제거한 지수 수익률 근사
+  if(scen === 'hist') return [Math.max(FLOOR, r), d];
+  // 레버리지 상품의 실제 월수익률에서 기초지수 수익률을 역산 (배수로 나눔)
+  const idxHist = (r + a.ter/100/12) / a.lev;
   if(scen === 'bull'){
     const boost = (a.cat === 'cash' || a.cat === 'bond') ? 0 : 0.0030;
-    return [a.lev * (idxHist + boost) - a.ter/100/12, d];
+    return [Math.max(FLOOR, a.lev * (idxHist + boost) - a.ter/100/12), d];
   }
   const s = STRESS[a.cat] || STRESS.sp500;
   let idx;
   if(k < 12) idx = s.y1;
   else if(k < 36) idx = (k%2===0 ? 1 : -1) * s.amp + s.drift;
   else idx = idxHist * 0.8;
-  return [a.lev * idx - a.ter/100/12, d * 0.8];
+  return [Math.max(FLOOR, a.lev * idx - a.ter/100/12), d * 0.8];
 }
 function xirr(flows){
   const f = r => flows.reduce((s,x) => s + x.v / Math.pow(1+r, x.t), 0);
