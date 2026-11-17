@@ -4734,7 +4734,7 @@ function curveBars(comp){
 function laneBars(lane){
   return `<div class="stack" style="gap:7px">${ROLES.map(r=>{
     const L=lane[r]; if(!L) return '';
-    const d=L.my-L.opp;
+    const d=(L.my-L.opp)/2.5;
     const w=clamp(Math.abs(d)*2.2,4,50);
     return `<div class="lane-row">
       <span class="lr">${ROLE_KR[r]}</span>
