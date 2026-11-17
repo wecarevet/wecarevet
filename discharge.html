@@ -140,9 +140,9 @@ input.err{border-color:var(--red) !important;background:var(--red-bg) !important
 .gc-h{font-size:12px;font-weight:700;color:var(--navy);letter-spacing:.02em;padding-bottom:.4rem;border-bottom:1.5px solid var(--navy-light);margin-bottom:.6rem;display:flex;align-items:center;gap:5px}
 .gc-h:before{content:'';width:4px;height:12px;border-radius:2px;background:var(--accent);display:inline-block}
 .gc-rows{display:flex;flex-direction:column;gap:.35rem}
-.gc-row{display:flex;gap:.5rem;font-size:12.5px;line-height:1.65;align-items:baseline}
-.gc-label{color:var(--text-muted);font-size:11.5px;flex:0 0 76px;font-weight:500}
-.gc-val{color:var(--text);font-weight:600;flex:1}
+.gc-row{display:flex;gap:.5rem;font-size:12.5px;line-height:1.65;align-items:flex-start}
+.gc-label{color:var(--text-muted);font-size:11.5px;flex:0 0 96px;font-weight:500;padding-top:1px}
+.gc-val{color:var(--text);font-weight:600;flex:1;min-width:0}
 .gc-list{list-style:none;display:flex;flex-direction:column;gap:.42rem}
 .gc-list li{position:relative;padding-left:1.1rem;font-size:12.5px;color:var(--text-mid);line-height:1.7}
 .gc-list li:before{content:'✓';position:absolute;left:0;top:0;color:var(--accent);font-size:11px;font-weight:700}
@@ -163,7 +163,7 @@ input.err{border-color:var(--red) !important;background:var(--red-bg) !important
 .preview-label span{letter-spacing:0;text-transform:none;font-weight:400;font-size:10.5px}
 
 /* GUARDIAN MODE */
-body.guardian .editor,body.guardian .actionbar,body.guardian .hero,body.guardian .preview-label{display:none}
+body.guardian .editor,body.guardian .actionbar,body.guardian .hero,body.guardian .preview-label,body.guardian .foot{display:none}
 body.guardian .layout{grid-template-columns:minmax(0,1fr);max-width:620px;padding:1.25rem 1rem 2rem}
 body.guardian .preview-col{position:static}
 body.guardian .gcard{box-shadow:0 10px 40px rgba(16,51,94,.1)}
@@ -267,6 +267,7 @@ body.guardian .gcard{box-shadow:0 10px 40px rgba(16,51,94,.1)}
         <div class="panel-head"><div class="panel-title">처방 약 (최대 5개)</div></div>
         <div class="panel-body">
           <div id="medRows"></div>
+          <button type="button" class="btn secondary" id="medAddBtn" style="width:100%;font-size:12px;padding:9px 10px;margin-top:.3rem" onclick="showMedExtra()">＋ 약 추가하기 (최대 5개)</button>
           <div class="hint" style="margin-top:.4rem">약 이름을 비워두면 안내문에 포함되지 않습니다.</div>
         </div>
       </div>
@@ -554,16 +555,24 @@ function buildMedRows(){
   var box = $('medRows');
   var html = '';
   for (var i=0;i<MED_SLOTS;i++){
+    if (i === 3) html += '<div id="medExtra" style="display:none">';
     html += '<div class="medrow">' +
       '<input class="mname" type="text" id="med' + i + '-n" placeholder="약 이름 (예: 피모벤단 1.25mg)" oninput="refresh()">' +
       '<div class="mrow-grid">' +
         '<div class="field"><label>1회 용량</label><input type="text" id="med' + i + '-dose" placeholder="0.5정" oninput="refresh()"></div>' +
         '<div class="field"><label>횟수</label><select id="med' + i + '-freq" onchange="refresh()"><option value="1일 1회">1일 1회</option><option value="1일 2회" selected>1일 2회</option><option value="1일 3회">1일 3회</option><option value="필요시">필요시</option></select></div>' +
-        '<div class="field"><label>기간</label><input type="text" id="med' + i + '-days" placeholder="7일" oninput="refresh()"></div>' +
+        '<div class="field"><label>기간(일)</label><input type="text" id="med' + i + '-days" placeholder="30" inputmode="numeric" oninput="refresh()"></div>' +
         '<div class="field"><label>복용 시점</label><select id="med' + i + '-when" onchange="refresh()"><option value="식후">식후</option><option value="식전">식전</option><option value="상관없음">상관없음</option></select></div>' +
       '</div></div>';
+    if (i === MED_SLOTS - 1) html += '</div>';
   }
   box.innerHTML = html;
+}
+function showMedExtra(){
+  var ex = $('medExtra');
+  if (ex) ex.style.display = 'block';
+  var btn = $('medAddBtn');
+  if (btn) btn.style.display = 'none';
 }
 
 /* =========================================================
@@ -620,8 +629,7 @@ function fastingTimes(){
   var water = new Date(base.getTime() - waterH*3600*1000);
   function label(d){
     var iso = d.getFullYear() + '-' + pad2(d.getMonth()+1) + '-' + pad2(d.getDate());
-    var sameDay = iso === opD;
-    return (sameDay ? '' : shortDate(iso) + ' ') + pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+    return shortDate(iso) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes());
   }
   return { opD:opD, opT:opT, foodH:foodH, waterH:waterH, food:label(food), water:label(water) };
 }
@@ -644,7 +652,7 @@ function collectMeds(){
     if (val('med' + i + '-dose')) parts.push('1회 ' + val('med' + i + '-dose'));
     if (val('med' + i + '-freq')) parts.push(val('med' + i + '-freq'));
     if (val('med' + i + '-when')) parts.push(val('med' + i + '-when'));
-    if (val('med' + i + '-days')) parts.push(val('med' + i + '-days') + '분');
+    if (val('med' + i + '-days')) parts.push(val('med' + i + '-days') + (/^[0-9.]+$/.test(val('med' + i + '-days')) ? '일분' : ''));
     out.push({ n: n, d: parts.join(' · ') });
   }
   return out;

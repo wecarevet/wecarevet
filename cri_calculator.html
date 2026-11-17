@@ -904,6 +904,15 @@ function num(id){ var el = document.getElementById(id); if(!el) return 0; var n 
 function setTxt(id, s){ var el = document.getElementById(id); if (el) el.textContent = s; }
 function setHtml(id, s){ var el = document.getElementById(id); if (el) el.innerHTML = s; }
 function r1(n){ return (Math.round(n*10)/10).toFixed(1); }
+function fd(n){
+  if (!isFinite(n)) return '—';
+  if (n === 0) return '0';
+  var a = Math.abs(n), s;
+  if (a < 0.1) s = n.toFixed(3);
+  else if (a < 1) s = n.toFixed(2);
+  else s = n.toFixed(1);
+  return s.replace(/(\.\d*?)0+$/, '$1').replace(/\.$/, '');
+}
 function r0(n){ return Math.round(n).toString(); }
 function isCat(){ var el = document.querySelector('input[name="species"]:checked'); return el && el.value === 'cat'; }
 
@@ -1108,8 +1117,8 @@ function calcDrugs(){
     var mgLo = range[0] * w, mgHi = range[1] * w;
     var mlLo = mgLo / conc, mlHi = mgHi / conc;
     var same = Math.abs(range[1] - range[0]) < 1e-9;
-    var mgTxt = same ? r1(mgLo) : r1(mgLo) + '–' + r1(mgHi);
-    var mlTxt = same ? r1(mlLo) : r1(mlLo) + '–' + r1(mlHi);
+    var mgTxt = same ? fd(mgLo) : fd(mgLo) + '–' + fd(mgHi);
+    var mlTxt = same ? fd(mlLo) : fd(mlLo) + '–' + fd(mlHi);
     var other = cat ? d.dog : d.cat;
     var otherTxt = other[0] + (other[1] !== other[0] ? '–' + other[1] : '');
     el.innerHTML = mgTxt + ' mg <em>/</em> ' + mlTxt + ' mL' +
