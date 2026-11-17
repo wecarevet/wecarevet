@@ -604,9 +604,11 @@ function pad2(n){ return (n<10?'0':'')+n; }
 function fmtDate(iso, withWeek){
   if (!iso) return '';
   var p = iso.split('-');
-  if (p.length !== 3) return iso;
-  var d = new Date(parseInt(p[0],10), parseInt(p[1],10)-1, parseInt(p[2],10));
-  var s = parseInt(p[0],10) + '년 ' + parseInt(p[1],10) + '월 ' + parseInt(p[2],10) + '일';
+  if (p.length !== 3 || p[0].length !== 4) return iso;
+  var y = parseInt(p[0],10), m = parseInt(p[1],10), dd = parseInt(p[2],10);
+  if (!(y >= 1960 && y <= 2100) || !(m >= 1 && m <= 12) || !(dd >= 1 && dd <= 31)) return iso;
+  var d = new Date(y, m - 1, dd);
+  var s = y + '년 ' + m + '월 ' + dd + '일';
   if (withWeek !== false && !isNaN(d.getTime())) s += ' (' + WEEK[d.getDay()] + ')';
   return s;
 }
@@ -712,7 +714,7 @@ function buildPayload(){
     var care = [];
     if (val('collarDays')) care.push(['넥카라', val('collarDays') + '일간 착용']);
     if (val('bathDays')) care.push(['목욕', val('bathDays') + '일 후부터 가능']);
-    if (val('stitchDate')) care.push(['실밥 제거', fmtDate(val('stitchDate')) + (val('followTime') ? ' ' + val('followTime') : '')]);
+    if (val('stitchDate')) care.push(['실밥 제거', fmtDate(val('stitchDate'))]);
     if (val('exercise')) care.push(['활동', val('exercise')]);
     if (care.length) blocks.push({ h:'관리 기간', r: care });
 
