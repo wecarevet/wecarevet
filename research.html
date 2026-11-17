@@ -774,7 +774,7 @@ function getFilteredPapers() {
   if (currentMainTab === 'vet' && currentTab === 'journal' && currentJournal !== 'all') {
     papers = papers.filter(p => p.journal === currentJournal);
   }
-  if (currentSpecialty !== 'all') {
+  if (currentMainTab === 'vet' && currentTab === 'category' && currentSpecialty !== 'all') {
     papers = papers.filter(p => specialtyOf(p).includes(currentSpecialty));
   }
   const q = searchQuery.trim().toLowerCase();
@@ -795,7 +795,8 @@ function renderPapers() {
 
   const countEl = document.getElementById('result-count');
   if (countEl) {
-    const filtered = currentSpecialty !== 'all' || searchQuery.trim() || onlyBookmarked || onlyUnread
+    const filtered = (currentMainTab === 'vet' && currentTab === 'category' && currentSpecialty !== 'all')
+      || searchQuery.trim() || onlyBookmarked || onlyUnread
       || (currentMainTab === 'vet' && currentTab === 'journal' && currentJournal !== 'all')
       || (currentMainTab === 'human' && currentHumanJournal !== 'all');
     countEl.textContent = (filtered ? `${papers.length} / ${tabPapers.length}편` : `${tabPapers.length}편`);
