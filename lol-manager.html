@@ -922,6 +922,7 @@ const BAN_SEQ=['me','opp','me','opp','me','opp'];
 const PICK_SEQ_BLUE=['me','opp','opp','me','me','opp','opp','me','me','opp'];
 
 function startDraft(series){
+  if(!series) return;
   const oppId=series.oppId, meId=S.userTeam;
   const gameIdx=series.games.length;
   const mySide=series.sides[gameIdx]||'blue';
@@ -1018,8 +1019,8 @@ function draftMyPick(champName){
   D.step++;
   afterDraftStep();
 }
-function draftOppBan(){ const c=aiBanChamp(); D.oppBans.push(c.n); D.step++; if(D.step>=6){D.phase='pick';D.step=0;} afterDraftStep(); }
-function draftOppPick(){ const c=aiPickChamp(); const need=dOppRoles(); const role=(c.r.find(r=>need.includes(r))||need[0]); D.oppPicks.push({role, champ:c.n, player:(S.players[T(D.oppId).lineup[role]]||{}).name||''}); D.step++; afterDraftStep(); }
+function draftOppBan(){ const c=aiBanChamp(); if(!c) return; D.oppBans.push(c.n); D.step++; if(D.step>=6){D.phase='pick';D.step=0;} afterDraftStep(); }
+function draftOppPick(){ const c=aiPickChamp(); if(!c) return; const need=dOppRoles(); const role=(c.r.find(r=>need.includes(r))||need[0]); D.oppPicks.push({role, champ:c.n, player:(S.players[T(D.oppId).lineup[role]]||{}).name||''}); D.step++; afterDraftStep(); }
 
 function afterDraftStep(){
   if(D.phase==='pick' && D.step>=10){
@@ -1072,6 +1073,7 @@ const TACTICS=[
 ];
 
 function startMatch(draftResult){
+  if(!draftResult||!D) return;
   const me=T(S.userTeam), opp=T(D.oppId);
   const mySide=draftResult.mySide||D.mySide;
   const lane=draftResult.lane;
@@ -1733,6 +1735,7 @@ function homeHTML(){
       </div>
       <div class="chip ${rank<=6?'green':'red'}">${rank<=6?'플레이오프 권':'PO 진출권 밖'}</div>
     </div>
+    ${(()=>{const fat=Math.round(starters.reduce((a,p)=>a+p.fatigue,0)/Math.max(starters.length,1));return fat>=62?`<div class="card tight" style="border-color:rgba(255,77,109,.4);background:rgba(255,77,109,.08)"><div class="row between"><span class="tiny" style="color:#ff92a5;font-weight:800">⚠ 선수단 평균 피로 ${fat} — 휴식으로 컨디션을 회복하세요</span></div></div>`:'';})()}
     ${nextSeries?`
       <div class="card" style="border-color:rgba(255,201,74,.4)">
         <div class="card-h"><h4>진행 중인 시리즈</h4><span class="k">${nextSeries.score.me} : ${nextSeries.score.opp}</span></div>
