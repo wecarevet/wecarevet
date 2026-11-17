@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>퇴원·투약 안내문 생성기 · 위케어동물의료센터</title>
+<meta name="description" content="위케어동물의료센터 보호자 안내문 — 투약·수술 전 금식·퇴원 후 관리 안내를 카드 한 장으로 확인하세요.">
+<meta property="og:title" content="위케어동물의료센터 · 보호자 안내문">
+<meta property="og:description" content="아이의 투약·수술 전후·퇴원 관리 안내를 확인해 주세요.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -850,8 +854,8 @@ function generateLink(){
   var input = $('linkInput');
   input.value = res.url;
   box.classList.add('show');
-  if (res.url.length > 4000){
-    toast('항목이 너무 많아 링크가 깁니다. 일부를 줄이거나 텍스트로 복사해 주세요.', true);
+  if (res.url.length > 1900){
+    toast('내용이 많아 링크가 깁니다. 카카오톡에서 잘릴 수 있으니 [텍스트로 복사]도 함께 보내 주세요.', true);
   }
   copyText(res.url, function(){
     toast('보호자 안내 링크가 복사되었습니다. 카카오톡에 붙여넣어 주세요.');
