@@ -4524,7 +4524,14 @@ function clubApplyWeekPlan(){
 function clubScale(){ try{ return clamp(teamSalary(myTeam())/44,0.5,8); }catch(e){ return 1; } }
 function finLedger(){
   const c=clubC(); const t=myTeam();
-  const sp=sponsorAnnualTotal();
+  let sp=sponsorAnnualTotal();
+  const signed=(c.sponsors.main?1:0)+(c.sponsors.sub||[]).length;
+  const slots=Math.max(0,sponsorCapacity()-signed);
+  if(slots>0){
+    const pool=((c.offers&&c.offers.main)||[]).concat((c.offers&&c.offers.sub)||[]);
+    const avg=pool.length?pool.reduce((a,x)=>a+(x.pay||0),0)/pool.length:0;
+    sp=Math.round((sp+avg*slots)*10)/10;
+  }
   const pay=teamSalary(t);
   const prestigeBonus=Math.round(pay*(c.prestige>=80?0.16:c.prestige>=65?0.11:c.prestige>=50?0.075:0.05)*10)/10;
   const support=Math.round(pay*0.06*10)/10;
@@ -4661,15 +4668,23 @@ function communityBuild(){
   const key=S.season+'-'+S.week+'-'+S.phase+'-'+S.weekAction+'-'+(c.goods.length)+'-'+(c.fanbase|0)+'-'+(S.lastSeries?S.lastSeries.score:'')+'-'+S.split;
   if(c.community&&c.community.key===key) return c.community;
   const tone=communityTone();
-  const pick=(pool,i)=>pool[(hashN(key+'|'+i+'|'+pool.length)%pool.length)];
-  const mk=(pool,tag,i)=>{
-    const t=pick(pool,tag+i);
-    return {t:t, c:(hashN(key+tag+i+'c')%900+40)};
+  const pickDistinct=(pool,tag,n)=>{
+    const out=[]; const start=hashN(key+'|'+tag);
+    for(let i=0;i<n&&out.length<pool.length;i++){
+      const idx=(start+i*3+i)%pool.length;
+      const t=pool[idx];
+      if(out.indexOf(t)<0) out.push(t);
+    }
+    while(out.length<n&&pool.length) out.push(pool[out.length%pool.length]);
+    return out;
   };
+  const mk=(t,tag,i)=>({t:t, c:(hashN(key+tag+i+'c')%900+40)});
   const gp=GAL_POOL[tone]||GAL_POOL.calm;
-  const gall=[mk(gp,'g',1),mk(gp,'g',2),mk(gp.length>2?GAL_POOL.calm:gp,'g',3)];
-  const am=[mk(AM_POOL[tone]||AM_POOL.calm,'a',1),mk(AM_POOL.win,'a',2),mk(AM_POOL[tone]||AM_POOL.calm,'a',3)];
-  const tw=[mk(TW_POOL[tone]||TW_POOL.calm,'t',1),mk(TW_POOL.win,'t',2),mk(TW_POOL.calm,'t',3)];
+  const ap=(AM_POOL[tone]||AM_POOL.calm);
+  const tp=(TW_POOL[tone]||TW_POOL.calm);
+  const gall=pickDistinct(gp,'g',3).map((t,i)=>mk(t,'g',i));
+  const am=pickDistinct(ap.concat(AM_POOL.win),'a',3).map((t,i)=>mk(t,'a',i));
+  const tw=pickDistinct(tp.concat(TW_POOL.win),'t',3).map((t,i)=>mk(t,'t',i));
   const mood=c.fanbase>=72?'여론 뜨거움':c.fanbase>=52?'조용합니다':c.fanbase>=38?'여론 한산·중립':'여론이 나쁩니다';
   c.community={key:key, tone:tone, mood:mood, gall:gall, am:am, tw:tw};
   return c.community;
@@ -7246,7 +7261,7 @@ function budgetV3(){
           <div class="led-name">${esc(t.tag)} · SEASON ${2026}</div>
           <div class="led-grp">수입</div>
           ${ledRow('지난 시즌 잔액',led.inc.carry)}
-          ${ledRow('스폰서 수익',led.inc.sponsor)}
+          ${ledRow('스폰서 수익 (예상)',led.inc.sponsor)}
           ${ledRow('구단 인지도 상위권 보너스',led.inc.prestige)}
           ${ledRow('구단 지원금',led.inc.support)}
           ${ledRow('멤버십 (시즌 결산)',led.inc.membership)}
