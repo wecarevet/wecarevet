@@ -9594,7 +9594,11 @@ function matchPatch(){
   const c1=q('mmCast1'), c2=q('mmCast2');
   if(c1&&c1.textContent!==cast[0]) c1.textContent=cast[0];
   if(c2&&c2.textContent!==cast[1]) c2.textContent=cast[1];
-  const pb=q('mmPlay'); if(pb) pb.innerHTML=M.over?'결과 보기 →':(M.running?'⏸ 일시정지':'▶ 재개');
+  const pb=q('mmPlay');
+  if(pb){
+    pb.innerHTML=M.over?'결과 보기 →':(M.running?'⏸ 일시정지':'▶ 재개');
+    if(M.over) pb.setAttribute('data-a','result'); else pb.setAttribute('data-a','play');
+  }
   const zb=q('mmZoomBtn'); if(zb) zb.classList.toggle('on',!!MM.zoom.on);
   const ab=q('mmAutoBtn'); if(ab) ab.classList.toggle('on',!!AUTOTL);
   if(AUTOTL){ try{ autoTacticsStep(); }catch(e){} }
@@ -9628,6 +9632,7 @@ function bindBcast(){
     if(fo){ setFocus(fo.dataset.focus); refreshTL(); return; }
     const el=ev.target.closest('[data-a]'); if(!el) return;
     const a=el.dataset.a;
+    if(a==='result'){ if(M&&M.over){ if(!M.pstats){ try{ buildPstats(); }catch(e){} } if(M.pstats) openPOG(); else gameEndToSeries(); } return; }
     if(a==='play'){ togglePlay(); matchPatch(); }
     else if(a==='speed'){ setSpeed(Number(el.dataset.v)); }
     else if(a==='autotl'){ AUTOTL=!AUTOTL; AUTOTL_AT=-99; if(AUTOTL){ autoTacticsStep(); toast('🤖 코치가 전술을 지휘합니다'); } matchPatch(); }
@@ -9650,7 +9655,7 @@ function mmFastFinish(){
   if(!M||M.over) return;
   M.running=true; MMFAST=true;
   let guard=0;
-  try{ while(!M.over&&guard<90){ guard++; tickBody(); } }catch(e){}
+  try{ while(!M.over&&guard<90){ guard++; tickBody(); } }catch(e){ window.__lastErr=String((e&&e.stack)||e); }
   MMFAST=false;
   if(!M.over){ finishGame(); return; }
   matchPatch();
@@ -9768,7 +9773,7 @@ function gameEndFlow(){
   try{
     const ps=buildPstats();
     openPOG();
-  }catch(e){ gameEndToSeries(); }
+  }catch(e){ window.__lastErr=String((e&&e.stack)||e); gameEndToSeries(); }
 }
 /* ---------- 박스 스코어 ---------- */
 function renderBox(){
