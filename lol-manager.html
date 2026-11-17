@@ -4753,9 +4753,10 @@ function communityBuild(){
   const ap=(AM_POOL[tone]||AM_POOL.calm);
   const tp=(TW_POOL[tone]||TW_POOL.calm);
   const et=EVENT_POOL[eventTopic()]||EVENT_POOL.draft;
-  const gall=[mk(gp[hashN(key+'g0')%gp.length],'g',0), mk(et[hashN(key+'g1')%et.length],'g',1), mk(OFF_POOL[hashN(key+'g2')%OFF_POOL.length],'g',2)];
-  const am=[mk(ap[hashN(key+'a0')%ap.length],'a',0), mk(et[hashN(key+'a1')%et.length],'a',1), mk(OFF_POOL[hashN(key+'a2')%OFF_POOL.length],'a',2)];
-  const tw=[mk(tp[hashN(key+'t0')%tp.length],'t',0), mk(et[hashN(key+'t1')%et.length],'t',1), mk(OFF_POOL[hashN(key+'t2')%OFF_POOL.length],'t',2)];
+  const pickN=(pool,tag,off)=>{ const i=(hashN(key+'|'+tag)+off*5)%pool.length; return pool[i]; };
+  const gall=[mk(pickN(gp,'g0',0),'g',0), mk(pickN(et,'g1',1),'g',1), mk(pickN(OFF_POOL,'g2',0),'g',2)];
+  const am=[mk(pickN(ap,'a0',1),'a',0), mk(pickN(et,'a1',2),'a',1), mk(pickN(OFF_POOL,'a2',3),'a',2)];
+  const tw=[mk(pickN(tp,'t0',2),'t',0), mk(pickN(et,'t1',4),'t',1), mk(pickN(OFF_POOL,'t2',6),'t',2)];
   const mood=c.fanbase>=72?'여론 뜨거움':c.fanbase>=52?'조용합니다':c.fanbase>=38?'여론 한산·중립':'여론이 나쁩니다';
   c.community={key:key, tone:tone, mood:mood, gall:gall, am:am, tw:tw};
   return c.community;
@@ -6789,6 +6790,7 @@ let LG_TAB='kespa';
 let TAB_STACK=[];
 
 function seasonDaysLeft(){
+  if(S.phase==='kespa') return 24;
   const wkLeft=S.phase==='regular'?Math.max(0,ROUNDS-S.week+1):0;
   const phaseExtra=S.phase==='regular'?14:S.phase==='playoffs'?10:S.phase==='worlds'?12:S.phase==='msi'||S.phase==='ewc'?7:0;
   return wkLeft*7+phaseExtra;
