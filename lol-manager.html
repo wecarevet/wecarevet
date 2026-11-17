@@ -483,7 +483,7 @@ const TEAM_DEFS = [
      ['Canyon','JGL',24,90,'brain',['비에고','릴리아','니달리','세주아니']],
      ['Chovy','MID',24,93,'carry',['아지르','요네','오리아나','탈리야']],
      ['Ruler','ADC',27,90,'veteran',['징크스','자야','카이사','아펠리오스']],
-     ['Duro','SUP',21,78,'stable',['라칸','렐','노틸러스','루루']],
+     ['Duro','SUP',21,78,'stable',['라칸','렐','노틸러스','룰루']],
      ['About','ADC',20,75,'rookie',['이즈리얼','카이사']],
      ['Kemish','MID',20,73,'rookie',['아리','신드라']],
    ]},
@@ -538,7 +538,7 @@ const TEAM_DEFS = [
      ['Raptor','JGL',21,74,'mechanical',['비에고','리 신','니달리','바이']],
      ['VicLa','MID',23,76,'stable',['아지르','오리아나','신드라','아리']],
      ['Diable','ADC',20,76,'carry',['카이사','징크스','이즈리얼','바루스']],
-     ['Kellin','SUP',24,75,'stable',['라칸','노틸러스','나미','루루']],
+     ['Kellin','SUP',24,75,'stable',['라칸','노틸러스','나미','룰루']],
      ['Soboro','TOP',22,71,'stable',['오른','나르']],
      ['Daystar','MID',20,70,'rookie',['아리','사일러스']],
    ]},
@@ -730,7 +730,7 @@ function mkPlayer(name,role,age,rating,styleKey,sigs,teamId){
   const st=STYLES[styleKey]||STYLES.stable;
   const stats={};
   ['lane','fight','macro','pool','mental'].forEach(k=>{ stats[k]=clamp(Math.round(rating+st[k]+ri(-3,3)),40,99); });
-  const p={name,role,age,stats,sigs:sigs.slice(),form:ri(68,88),fatigue:ri(4,18),
+  const p={name,role,age,stats,sigs:sigs.filter(n=>!!CHAMP_MAP[n]),form:ri(68,88),fatigue:ri(4,18),
     salary:Math.round(((Math.max(rating,50)-54)**1.62)/11*2)/2, team:teamId, growth:age<=21?ri(0,2):0};
   return p;
 }
@@ -755,6 +755,7 @@ function T(id){return S.teams[id];}
 function myTeam(){return S.teams[S.userTeam];}
 function champTier(c){
   if(typeof c==='string') c=CHAMP_MAP[c];
+  if(!c) return 3;
   const mod=(S&&S.meta&&S.meta.tier&&S.meta.tier[c.n])||0;
   return clamp(c.t+mod,1,5);
 }
@@ -1556,6 +1557,7 @@ function loadGame(){
     if(!S.meta) S.meta={tier:{},obj:{dragon:1,grub:1,baron:1,tower:1}};
     if(!S.patches) S.patches=[];
     if(!S.pog) S.pog={};
+    Object.values(S.players||{}).forEach(p=>{ if(p&&Array.isArray(p.sigs)) p.sigs=p.sigs.filter(n=>!!CHAMP_MAP[n]); });
     return true;
   }catch(e){ return false; }
 }
