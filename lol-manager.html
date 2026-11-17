@@ -4690,7 +4690,7 @@ function finLedger(){
   let expected=Math.round((inc.total-exp.total)*10)/10;
   // 리그 배분금 — 적자 구단이 최소 손익분기 근처에서 시작하도록
   if(expected<2){
-    const room=Math.round(pay*0.15*10)/10;
+    const room=Math.round(pay*0.26*10)/10;
     const add=Math.min(room, Math.round((2-expected)*10)/10);
     if(add>0){ inc.league=add; inc.total=Math.round((inc.total+add)*10)/10; expected=Math.round((inc.total-exp.total)*10)/10; }
   }
@@ -4852,7 +4852,7 @@ function communityBuild(){
   const tp=(TW_POOL[tone]||TW_POOL.calm);
   const et=EVENT_POOL[eventTopic()]||EVENT_POOL.draft;
   const pickN=(pool,tag,off)=>{ const i=(hashN(key+'|'+tag)+off*5)%pool.length; return pool[i]; };
-  const gall=[mk(pickN(gp,'g0',0),'g',0), mk(pickN(et,'g1',1),'g',1), mk(pickN(OFF_POOL,'g2',0),'g',2)];
+  const gall=[mk(pickN(gp,'g0',0),'g',0), mk(pickN(et,'g1',1),'g',1), mk(pickN(OFF_POOL,'g2',1),'g',2)];
   const am=[mk(pickN(ap,'a0',1),'a',0), mk(pickN(et,'a1',2),'a',1), mk(pickN(OFF_POOL,'a2',3),'a',2)];
   const tw=[mk(pickN(tp,'t0',2),'t',0), mk(pickN(et,'t1',4),'t',1), mk(pickN(OFF_POOL,'t2',6),'t',2)];
   const mood=c.fanbase>=72?'여론 뜨거움':c.fanbase>=52?'조용합니다':c.fanbase>=38?'여론 한산·중립':'여론이 나쁩니다';
