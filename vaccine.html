@@ -471,8 +471,8 @@ var WECARE_VAC = (function(){
   'use strict';
 
   var P = {
-    dog:{name:'강아지', startWeeks:6, gapWeeks:2, doses:6, series:'종합백신(DHPPL) 기초접종'},
-    cat:{name:'고양이', startWeeks:8, gapWeeks:3, doses:3, series:'종합백신(FVRCP) 기초접종'}
+    dog:{name:'강아지', startWeeks:6, gapWeeks:2, doses:6, seriesShort:'5~6차', series:'종합백신(DHPPL) 기초접종'},
+    cat:{name:'고양이', startWeeks:8, gapWeeks:3, doses:3, seriesShort:'3차', series:'종합백신(FVRCP) 기초접종'}
   };
   var state = {species:'dog', mode:'birth'};
 
@@ -664,7 +664,7 @@ var WECARE_VAC = (function(){
     /* stage banner */
     var stageSub='';
     if(r.stage==='pre') stageSub='아직 기초접종을 시작하기 전입니다. 생후 '+sp.startWeeks+'주부터 시작합니다.';
-    else if(r.stage==='basic') stageSub=sp.name+' 기초접종 '+sp.doses+'차 일정이 진행 중입니다.';
+    else if(r.stage==='basic') stageSub=sp.name+' 기초접종 '+sp.seriesShort+' 일정이 진행 중입니다.';
     else if(r.stage==='senior') stageSub='10살 이후에는 접종은 매년, 건강검진은 6개월~1년마다 확인합니다.';
     else stageSub='기초접종을 마친 뒤에는 매년 추가접종으로 면역을 유지합니다.';
 
@@ -699,25 +699,28 @@ var WECARE_VAC = (function(){
     h+='<div class="rc">'
       + '<div class="rc-head"><span class="rc-k">다음 건강검진</span><span class="badge '+cb.cls+'">'+cb.text+'</span></div>';
     if(r.nextCheck){
-      h+='<div class="rc-date">'+fmt(r.nextCheck)+'</div>';
+      h+='<div class="rc-date">'+fmt(r.nextCheck)+'</div>'
+        + '<div class="rc-int">'+r.checkLabel+'</div>'
+        + '<div class="rc-note">'+r.checkNote+'</div>';
     } else {
-      h+='<div class="rc-date none">최근 검진일을 입력해 주세요</div>';
+      h+='<div class="rc-date none">'+r.checkLabel+'</div>'
+        + '<div class="rc-int">최근 검진일을 입력하면 다음 권장일을 계산합니다</div>';
     }
-    h+='<div class="rc-int">'+r.checkLabel+'</div>'
-      + '<div class="rc-note">'+r.checkNote+'</div>'
-      + '</div>';
+    h+='</div>';
 
     /* deworm */
     h+='<div class="rc">'
       + '<div class="rc-head"><span class="rc-k">다음 구충</span><span class="badge '+db.cls+'">'+db.text+'</span></div>';
     if(r.nextDeworm){
-      h+='<div class="rc-date">'+fmt(r.nextDeworm)+'</div>';
+      h+='<div class="rc-date">'+fmt(r.nextDeworm)+'</div>'
+        + '<div class="rc-int">심장사상충 · 내외부 구충 · 매월 1회</div>'
+        + '<div class="rc-note">마지막 구충일 + 1개월</div>';
     } else {
-      h+='<div class="rc-date none">매월 1회</div>';
+      h+='<div class="rc-date none">매월 1회</div>'
+        + '<div class="rc-int">심장사상충 · 내외부 구충</div>'
+        + '<div class="rc-note">마지막 구충일을 입력하면 다음 시기를 계산합니다</div>';
     }
-    h+='<div class="rc-int">심장사상충 · 내외부 구충</div>'
-      + '<div class="rc-note">'+r.dewormNote+'</div>'
-      + '</div>';
+    h+='</div>';
 
     h+='</div>'; /* rcards */
 
@@ -738,7 +741,7 @@ var WECARE_VAC = (function(){
           + '<span class="tl-d">'+fmtShort(s.date)+'</span><span class="tl-s '+cls+'">'+st+'</span></div>';
       });
       h+='</div>'
-        + '<div class="rc-note">'+(sp.name==='강아지'?'2주 간격 5~6차':'3주 간격 3차')+' 일정을 생년월일 기준으로 계산한 값입니다. 실제 차수는 접종 이력에 따라 달라질 수 있습니다.</div>'
+        + '<div class="rc-note">'+sp.gapWeeks+'주 간격 '+sp.seriesShort+' 일정을 생년월일 기준으로 계산한 값입니다. 실제 차수는 접종 이력에 따라 달라질 수 있습니다.</div>'
         + '</div>';
     }
 
