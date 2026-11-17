@@ -781,6 +781,7 @@ function closePicker(){
 function pickAsset(id){
   if(pickIdx < 0) return;
   state.alloc[pickIdx][0] = id || null;
+  if(id && !state.alloc[pickIdx][1]) state.alloc[pickIdx][1] = 20;   // 빈 자리에 처음 담으면 20%부터
   save(); closePicker(); renderAlloc(); run();
 }
 function pkItem(a){
