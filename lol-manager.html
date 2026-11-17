@@ -587,6 +587,8 @@ button.pers-chip{cursor:pointer}
 @media(min-width:640px){.pick-row{max-width:560px}.pick-row .pick-slot{max-width:104px}}
 .badge.svg{background:none!important;box-shadow:none!important;display:grid;place-items:center}
 .badge.svg .tlogo{display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+.live-top{background:#0d1322!important;position:sticky;top:0;z-index:20}
+.map-card{position:relative;z-index:1}
 
 </style>
 </head>
@@ -2474,7 +2476,7 @@ const FOCUS_TACTICS=[
   /* ===== 오브젝트 (7) ===== */
   {k:'grubs',     cat:'obj',   n:'공허 유충 6스택 올인',   icon:'🪱', d:'유충 전원 합류', obj:0.10, tower:0.03, edge:0.07, mm:'obj'},
   {k:'dragonTrade',cat:'obj',  n:'용 포기·유충 교환',      icon:'🔀', d:'용 내주고 유충·타워', obj:-0.07, tower:0.08, edge:0.03, mm:'cross'},
-  {k:'soulDeny',  cat:'obj',   n:'4용 영혼 저지 한타',     icon:'💠', d:'상대 영혼 저지 total 한타', obj:0.14, fight:0.18, edge:0.08, mm:'obj'},
+  {k:'soulDeny',  cat:'obj',   n:'4용 영혼 저지 한타',     icon:'💠', d:'상대 영혼 저지 총력 한타', obj:0.14, fight:0.18, edge:0.08, mm:'obj'},
   {k:'heraldMid', cat:'obj',   n:'전령 미드 압박',         icon:'🕯', d:'전령으로 미드 1차 철거', tower:0.09, obj:0.03, edge:0.05, mm:'mid'},
   {k:'baronBurst',cat:'obj',   n:'바론 기습 버스트',       icon:'💥', d:'시야 없이 빠른 바론', obj:0.10, risk:0.10, edge:0.06, mm:'bush'},
   {k:'baronBush', cat:'obj',   n:'바론 시야·부시 매복',    icon:'🕳', d:'낚시 후 픽오프', obj:0.08, pickoff:0.12, edge:0.06, mm:'bush'},
@@ -2931,7 +2933,7 @@ function finishGame(){
     assign:{me:Object.assign({},D.assign.me),opp:Object.assign({},D.assign.opp)}});
   if(sr.fearless){ sr.fearlessUsed.push(...dMyPicks(), ...dOppPicks()); }
   saveGame();
-  renderSeriesResult();
+  try{ renderSeriesResult(); }catch(e){ try{ renderAll(); }catch(e2){} }
 }
 function analyzeGame(game){
   if(!game) return {reasons:[]};
@@ -5216,7 +5218,7 @@ function renderMatch(){
     <div class="graph-wrap"><canvas id="goldCanvas"></canvas></div>
     ${touchlineHTML()}
     <div class="match-controls">
-      <button class="btn sm" id="playBtn">${M.running?'⏸ 일시정지':'▶ 재개'}</button>
+      ${M.over?`<button class="btn sm gold" id="resultBtn">경기 결과 보기 →</button>`:`<button class="btn sm" id="playBtn">${M.running?'⏸ 일시정지':'▶ 재개'}</button>`}
       <div class="speed-pill">
         ${[1,2,4].map(s=>`<button class="${M.speed===s?'on':''}" data-speed="${s}">${s}x</button>`).join('')}
       </div>
@@ -5240,6 +5242,7 @@ function bindMatch(){
   v.querySelectorAll('[data-speed]').forEach(b=>b.onclick=()=>setSpeed(Number(b.dataset.speed)));
   v.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>togglePlay());
   const pb=$('playBtn'); if(pb) pb.onclick=togglePlay;
+  const rb=$('resultBtn'); if(rb) rb.onclick=()=>{ try{ if(S.currentSeries&&!S.currentSeries.done) renderSeriesResult(); else renderAll(); }catch(e){ renderAll(); } };
   const ot=$('openTL'); if(ot) ot.onclick=()=>openTacticDrawer();
 }
 /* 전체 30개 전술 드로어 */
@@ -5545,13 +5548,21 @@ function mmPathPoint(pts,t){
   }
   return pts[pts.length-1];
 }
+function mmLaneFront(lane){
+  const role={TOP:'TOP',MID:'MID',BOT:'ADC'}[lane];
+  const L=(M&&M.lane&&M.lane[role])||{my:60,opp:60};
+  const adv=clamp((L.my-L.opp)/40,-0.12,0.12);
+  const towers=((MM.towerIdx.opp||0)-(MM.towerIdx.me||0))*0.012;
+  return clamp(0.5-adv-towers,0.28,0.72);
+}
 function mmSpawnWave(){
   MM.minions=[];
   ['TOP','MID','BOT'].forEach(lane=>{
     ['me','opp'].forEach(side=>{
-      for(let i=0;i<3;i++){
-        MM.minions.push({lane,side,t:side==='me'?0.02+i*0.012:0.98-i*0.012,
-          hp:30,alive:true,off:(Math.random()-0.5)*0.014,spd:0.012+Math.random()*0.004});
+      for(let i=0;i<4;i++){
+        const ranged=i===3;
+        MM.minions.push({lane,side,t:side==='me'?0.01+i*0.009:0.99-i*0.009,
+          hp:30,alive:true,off:(Math.random()-0.5)*0.02+(ranged?0.012:0),spd:0.010+Math.random()*0.003,ranged});
       }
     });
   });
@@ -5630,10 +5641,11 @@ function mmUpdate(dt){
   if(now-MM.waveAt>26000) mmSpawnWave();
   MM.minions.forEach(mn=>{
     if(!mn.alive) return;
+    const front=mmLaneFront(mn.lane);
     const dir=mn.side==='me'?1:-1;
-    const clash=Math.abs(mn.t-0.5)<0.07;
-    if(!clash) mn.t=Math.max(0,Math.min(1,mn.t+dir*mn.spd*step*60));
-    if(Math.random()<0.004) mmAddFx({type:'spark',x:mmPathPoint(LANE_PATH[mn.lane],mn.t)[0],y:mmPathPoint(LANE_PATH[mn.lane],mn.t)[1],life:220});
+    const dist=(front-mn.t)*dir;
+    if(dist>0.006){ mn.t=Math.max(0,Math.min(1,mn.t+dir*mn.spd*step*60)); }
+    else if(Math.random()<0.02){ const p=mmPathPoint(LANE_PATH[mn.lane],mn.t); mmAddFx({type:'spark',x:p[0]+mn.off,y:p[1],life:260}); }
   });
   // 발사체 생성
   if(Math.random()<step*2.4) mmSpawnProjectile();
@@ -5781,8 +5793,14 @@ function mmDraw(dt){
     if(!mn.alive) return;
     const p=mmPathPoint(LANE_PATH[mn.lane],mn.t);
     const x=(p[0]+mn.off)*w, y=(p[1]+mn.off)*h;
-    ctx.beginPath(); ctx.arc(x,y,Math.max(1.6,w*0.007),0,7);
-    ctx.fillStyle=mn.side==='me'?'rgba(80,200,255,.85)':'rgba(255,120,140,.85)'; ctx.fill();
+    const rad=Math.max(2.4,w*0.0098)*(mn.ranged?1.15:1);
+    ctx.beginPath();
+    if(mn.ranged){ ctx.rect(x-rad,y-rad,rad*2,rad*2); }
+    else ctx.arc(x,y,rad,0,7);
+    ctx.fillStyle=mn.side==='me'?'#4fc3ff':'#ff6b84';
+    ctx.shadowColor=mn.side==='me'?'#25e0ff':'#ff4d6d'; ctx.shadowBlur=5;
+    ctx.fill(); ctx.shadowBlur=0;
+    ctx.strokeStyle='rgba(255,255,255,.55)'; ctx.lineWidth=.7; ctx.stroke();
   });
   // 발사체
   MM.proj.forEach(p=>{
@@ -5898,7 +5916,7 @@ function mmDraw(dt){
 
 /* ============ UI: SERIES RESULT / PLAYOFFS / WORLDS / CHAMPION ============ */
 function renderSeriesResult(){
-  const s=S.currentSeries; if(!s||!M) return;
+  const s=S.currentSeries; if(!s||!M){ renderAll(); return; }
   const g=M.series.games[M.series.games.length-1]||{};
   const meWon=!!M.meWin;
   const over=seriesOver(s);
