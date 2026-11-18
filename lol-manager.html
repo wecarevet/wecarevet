@@ -2679,6 +2679,11 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .pr-eff-row.tactic b{color:#9fe4ff}
 .pr-eff-row.fan b{color:#ffd98f}
 
+/* ===== 밴픽 로스터 알약 줄 ===== */
+.d6-roster{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:6px}
+.d6-rp{font-size:9px;font-weight:900;padding:1px 6px;border-radius:999px;background:#141922;border:1px solid #232b38;color:#aeb9cc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:72px}
+.d6-side.opp .d6-rp{background:#1b1216;border-color:#33222a;color:#d8b7bf}
+
 </style>
 </head>
 <body>
@@ -25368,27 +25373,29 @@ function v6DraftSideHTML(side){
   const picks=mine?dMyPicks():dOppPicks();
   const bans=mine?dMyBans():dOppBans();
   const team=mine?myTeam():T(D.oppId);
-  let roles=(D.assign&&D.assign[mine?'me':'opp'])||null;
-  /* 밴픽 중에도 5명 주전 자리를 라인별로 보여준다 — 챔프가 정해지는 즉시 그 라인에 붙는다 */
-  if(!roles) roles=(picks.length>=5)?(mine?recommendAssign(picks):aiAssign(picks,D.oppId)):v6LiveRoleAssign(team,picks);
-  const roleSlot=function(i){
-    const role=ROLES[i];
-    const pid=(team.lineup&&team.lineup[role])||null;
-    const pl=pid?(S.players[pid]||null):null;
-    const champ=roles?roles[role]:null;
+  const roles=(D.assign&&D.assign[mine?'me':'opp'])||null;
+  /* 로스터 알약 줄 — 다섯 주전을 한눈에 (역할 배정은 밴픽이 끝난 뒤) */
+  const rosterPills=ROLES.map(function(r){ return S.players[(team.lineup&&team.lineup[r])||'']; }).filter(Boolean)
+    .map(function(p){
+      return `<span class="d6-rp" title="${esc(p.name)} · ${ROLE_KR[p.role]||p.role}">${esc(p.name)}</span>`;
+    }).join('');
+  /* 픽 슬롯은 실제 뱀픽 순서대로 위에서 아래로 (1픽 → 5픽) */
+  const orderSlot=function(i){
+    const champ=picks[i]||null;
     const c=champ?CHAMP_MAP[champ]:null;
-    const rk=ROLE_KR[role]||role;
-    const glyph=({TOP:'⚔',JGL:'🌿',MID:'✦',ADC:'🏹',SUP:'🛡'})[role]||'•';
-    const pname=pl?pl.name:(rk+' 선수');
-    return `<div class="d6-pick ${c?'on':''}" title="${esc(pname)} · ${rk}${c?' · '+esc(champ):''}">
-      <div class="d6-ava">${c?`<img src="${DD(c.k)}" alt="${esc(champ)}" loading="lazy" onerror="this.style.opacity=0">`:`<span class="d6-gly">${glyph}</span>`}</div>
-      <div class="d6-pn"><b>${esc(pname)}</b><em>${rk}${c?` · <i class="d6-cn">${esc(champ)}</i>`:''}</em></div>
+    const roleOf=(roles&&champ)?(Object.keys(roles).find(function(r){ return roles[r]===champ; })||null):null;
+    const rk=roleOf?(ROLE_KR[roleOf]||roleOf):null;
+    const glyph=(roleOf&&({TOP:'⚔',JGL:'🌿',MID:'✦',ADC:'🏹',SUP:'🛡'})[roleOf])||'•';
+    return `<div class="d6-pick ${c?'on':''}" title="${(i+1)}픽${champ?' · '+esc(champ):''}${rk?' · '+rk:''}">
+      <div class="d6-ava">${c?`<img src="${DD(c.k)}" alt="${esc(champ)}" loading="lazy" onerror="this.style.opacity=0">`:`<span class="d6-gly">${(i+1)}</span>`}</div>
+      <div class="d6-pn"><b>${champ?esc(champ):((i+1)+'픽')}</b><em>${(i+1)}픽${rk?' · '+rk:''}</em></div>
     </div>`;
   };
   const active=(D&&D.phase!=='assign'&&D.phase!=='done'&&typeof dActor==='function'&&dActor()===side);
   const curT=active?((typeof dCur==='function'&&dCur())?dCur().t:null):null;
   return `<div class="d6-team ${mine?'me':'opp'}">${badge(team,'sm')}<b>${esc(team.tag)}</b>${active?`<span class="d6-act">${curT==='ban'?'밴 차례':'픽 차례'}</span>`:''}</div>
-    <div class="d6-picks ${active&&curT==='pick'?'next':''}">${ROLES.map(function(_,i){ return roleSlot(i); }).join('')}</div>
+    ${rosterPills?`<div class="d6-roster">${rosterPills}</div>`:''}
+    <div class="d6-picks ${active&&curT==='pick'?'next':''}">${[0,1,2,3,4].map(orderSlot).join('')}</div>
     <div class="d6-banrow">${[0,1,2,3,4].map(function(i){
       const bn=bans[i], bc=bn?CHAMP_MAP[bn]:null;
       const noban=(bn==='노밴');
