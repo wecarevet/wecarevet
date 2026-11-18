@@ -2,15 +2,15 @@
 <html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>마취 보호자 안내 · 위케어동물의료센터</title>
+<title>노령·심장병 고위험군 안전 마취 · 치과 스케일링 프로토콜 · 위케어동물의료센터</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="description" content="마취 전 보호자 필독 — 금식 시간, 마취 전 검사, 단두종 주의, 마취 후 회복 관리까지 위케어동물의료센터가 안내합니다.">
+<meta name="description" content="심장병·노령 아이의 치과 스케일링 — 위케어 4단계 안전 마취 프로토콜(정밀 평가·맞춤 약물·전담 모니터링·회복 케어), 사료 6~8시간 금식·물은 당일 허용, 15살·심장약 복용 아이 FAQ.">
 <link rel="canonical" href="https://wecarevet.github.io/wecarevet/anesthesia.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="위케어동물의료센터">
-<meta property="og:title" content="마취 보호자 안내 · 위케어동물의료센터">
-<meta property="og:description" content="마취 전 보호자 필독 — 금식 시간, 마취 전 검사, 단두종 주의, 마취 후 회복 관리까지 위케어동물의료센터가 안내합니다.">
+<meta property="og:title" content="노령·심장병 고위험군 안전 마취 · 치과 스케일링 프로토콜 · 위케어동물의료센터">
+<meta property="og:description" content="심장병·노령 아이의 치과 스케일링 — 위케어 4단계 안전 마취 프로토콜, 사료 6~8시간 금식·물은 당일 허용, 15살·심장약 복용 아이 FAQ.">
 <meta property="og:url" content="https://wecarevet.github.io/wecarevet/anesthesia.html">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://wecarevet.github.io/wecarevet/og-image.png">
@@ -175,6 +175,24 @@ table.risk tr:last-child td{border-bottom:none}
 .emerg-name{font-size:13px;font-weight:600;color:var(--danger-text);margin-bottom:.2rem}
 .emerg-desc{font-size:12px;color:#8a3030;line-height:1.5}
 
+/* PROTOCOL */
+.step-en{font-size:9.5px;letter-spacing:.1em;color:var(--text-muted);font-weight:500;text-transform:uppercase;margin-left:5px}
+.step .gl{margin-top:.45rem}
+.lnk{color:var(--accent);font-weight:600;text-decoration:underline}
+.lnk:hover{color:var(--navy)}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.faq details{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:.8rem 1rem;font-size:13px;font-weight:600;color:var(--navy);line-height:1.6;display:flex;gap:.55rem;align-items:flex-start}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:'Q';color:var(--accent);font-weight:700;font-size:12px;flex-shrink:0;margin-top:2px}
+.faq summary::after{content:'＋';margin-left:auto;color:var(--text-muted);font-size:13px;font-weight:500;flex-shrink:0;line-height:1.3}
+.faq details[open] summary::after{content:'−'}
+.faq details[open] summary{border-bottom:1px solid var(--navy-xlight);background:var(--navy-xlight)}
+.faq-a{padding:.8rem 1rem .9rem;font-size:12.5px;color:var(--text-mid);line-height:1.8}
+.faq-a strong{color:var(--text);font-weight:600}
+
 .foot{background:var(--navy);padding:2.5rem 1.5rem}
 .foot-inner{max-width:760px;margin:0 auto}
 .foot-disc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.9;margin-bottom:1.25rem}
@@ -204,17 +222,108 @@ table.risk tr:last-child td{border-bottom:none}
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">WECARE · 마취 보호자 안내</div>
-    <h1>마취, 제대로 알고<br><span>함께 준비해요</span></h1>
-    <p class="hero-desc">마취는 모든 수술·시술에 필수적이지만, 위험성이 전혀 없는 것은 아닙니다.<br>정확히 알고 준비하는 것이 가장 안전한 마취의 시작입니다.</p>
+    <div class="hero-eyebrow">WECARE · 고위험군 안전 마취 · 치과</div>
+    <h1>심장병·노령 아이도<br><span>포기하지 마세요</span></h1>
+    <p class="hero-desc">치석과 치주염을 그냥 두면 심장과 신장에 더 큰 부담이 됩니다.<br>위케어는 마취 전 정밀 평가부터 회복까지 <strong style="color:rgba(255,255,255,.88);font-weight:500">4단계 프로토콜</strong>로 준비합니다.</p>
   </div>
 </div>
 
 <div class="main">
 
-  <!-- ① 마취 전 준비 -->
+  <!-- ① 왜 치과 치료인가 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">마취 전 준비 — 금식</span><span class="sec-tag">Preparation</span></div>
+    <div class="sec-head"><span class="sec-num">1</span><span class="sec-title">심장병·노령 아이도 포기하지 마세요</span><span class="sec-tag">Why</span></div>
+    <div class="ov-text">구강 안의 세균은 잇몸 염증이 깊어지면 혈류를 타고 전신으로 퍼질 수 있습니다. <strong>심장·신장 질환이 있는 아이에게 치주염을 방치하는 것은, 마취를 피하는 것보다 더 큰 위험</strong>이 될 수 있습니다. 그래서 위케어는 '마취를 할까'보다 <strong>'지금 상태로 안전하게 할 수 있는가'</strong>를 먼저 확인합니다.</div>
+    <div class="highrisk-grid">
+      <div class="hr-card"><div class="hr-icon">🦠</div><div class="hr-name">입안 세균이 혈류로</div><div class="hr-desc">치주염이 심하면 씹는 동안·스케일링 중 세균이 혈액으로 들어가는 세균혈증이 생길 수 있습니다. 판막 질환이 있는 아이는 심내막염 위험이 커집니다</div></div>
+      <div class="hr-card"><div class="hr-icon">🫀</div><div class="hr-name">심장에 쌓이는 부담</div><div class="hr-desc">만성 염증은 몸 전체의 염증 부담을 높입니다. 심부전·부정맥이 있는 아이는 구강 감염이 컨디션 악화로 이어질 수 있습니다</div></div>
+      <div class="hr-card"><div class="hr-icon">🫘</div><div class="hr-name">신장·간에도 영향</div><div class="hr-desc">만성 치주염과 신장 손상의 연관이 보고됩니다. 통증으로 물·사료 섭취가 줄면 신장 아이에게 특히 불리합니다</div></div>
+      <div class="hr-card"><div class="hr-icon">🍽️</div><div class="hr-name">아픈 입은 영양을 빼앗습니다</div><div class="hr-desc">씹는 통증 → 사료 회피 → 체중·근육 감소. 노령아에서는 회복력까지 떨어집니다. 고양이는 아픔을 잘 드러내지 않습니다</div></div>
+    </div>
+    <div class="callout warn"><span class="ci">⚠️</span><span><strong>무마취 스케일링은 권하지 않습니다.</strong> 잇몸 아래 치석은 제거되지 않고, 구강 방사선 촬영도 불가능해 병변을 놓칩니다. 통증·스트레스와 기구에 의한 손상 위험도 큽니다.</span></div>
+    <div class="callout ok"><span class="ci">💙</span><span><strong>나이 자체는 마취의 금기가 아닙니다.</strong> 15살이어도, 심장약을 먹고 있어도 검사로 상태를 확인하면 스케일링이 가능한 경우가 많습니다. 반대로 건강해 보여도 검사에서 이상이 보이면 일정을 미루거나 준비를 더 합니다.</span></div>
+  </div>
+
+  <!-- ② 4단계 프로토콜 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">위케어 4단계 안전 마취 프로토콜</span><span class="sec-tag">Protocol</span></div>
+    <div class="ov-text">마취의 안전은 <strong>'약을 얼마나 쓰는가'보다 '아이 상태를 얼마나 정확히 아는가'</strong>에서 갈립니다. 위케어는 모든 마취를 아래 네 단계로 진행하고, 단계마다 확인한 내용을 기록합니다.</div>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <div>
+          <div class="step-title">마취 전 정밀 평가 <span class="step-en">Pre-Anesthetic Evaluation</span></div>
+          <div class="step-desc">장기 기능과 심장 상태를 먼저 확인하고, ASA 신체등급으로 위험도를 매깁니다. 평가 내용과 예상 위험은 시술 전에 보호자님께 먼저 설명드립니다.</div>
+          <ul class="gl">
+            <li><strong>혈액검사</strong> — 간·신장 기능, 혈구, 전해질, 혈당. 마취약 대사 능력을 미리 파악</li>
+            <li><strong>흉부 X-ray</strong> — 폐·심장 크기·흉강 상태. 노령아·기침이 있는 아이는 기본</li>
+            <li><strong>심초음파</strong> — 심장 구조·판막·수축력. 심잡음이 들리면 마취 전 꼭 확인</li>
+            <li><strong>ASA 등급</strong> — 1(건강)~5(생명 위협)로 분류해 위험도와 준비 수준을 결정</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <div>
+          <div class="step-title">아이 맞춤 약물 · 호흡 마취 설계 <span class="step-en">Tailored Protocol</span></div>
+          <div class="step-desc">체중·체성분·장기 기능·심장 상태에 맞춰 전처치와 유도 약물을 고릅니다. 같은 스케일링이라도 아이마다 마취 계획이 다릅니다.</div>
+          <ul class="gl">
+            <li><strong>전처치</strong> — 진정·진통을 먼저 해 스트레스와 마취약 필요량을 줄입니다</li>
+            <li><strong>심장 부담을 낮춘 선택</strong> — 혈압·심박에 영향이 적은 약을 고르고, 필요하면 용량을 나누어 천천히 투여</li>
+            <li><strong>호흡 마취(흡입 마취)</strong> — 기관 내 삽관 후 흡입 마취제로 유지. 깊이 조절이 빠르고 회복을 예측할 수 있습니다</li>
+            <li><strong>국소마취·다중 진통</strong> — 신경 차단과 진통제를 함께 써서 전신 약물을 최소화</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <div>
+          <div class="step-title">전담 모니터링 <span class="step-en">Dedicated Monitoring</span></div>
+          <div class="step-desc">마취 중에는 <strong>전담 인력이 아이 곁에서</strong> 수치를 실시간으로 확인하고 기록합니다. 수치가 흔들리면 마취 깊이·수액·산소를 바로 조정합니다.</div>
+          <div class="monitor-grid" style="margin:.7rem 0 .2rem">
+            <div class="mon-card"><div class="mon-icon">❤️</div><div class="mon-name">심전도 (ECG)</div></div>
+            <div class="mon-card"><div class="mon-icon">🩺</div><div class="mon-name">혈압 (BP)</div></div>
+            <div class="mon-card"><div class="mon-icon">🫁</div><div class="mon-name">산소포화도 (SpO₂)</div></div>
+            <div class="mon-card"><div class="mon-icon">💨</div><div class="mon-name">호기말 CO₂ (EtCO₂)</div></div>
+            <div class="mon-card"><div class="mon-icon">🌡️</div><div class="mon-name">체온</div></div>
+            <div class="mon-card"><div class="mon-icon">🔢</div><div class="mon-name">호흡수</div></div>
+          </div>
+          <div class="step-desc"><strong>체온 유지</strong>는 마취 중 가장 중요한 관리 중 하나입니다. 가온 패드·온풍기·가온 수액으로 체온을 지켜 저체온으로 회복이 늦어지는 일을 줄입니다.</div>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">4</span>
+        <div>
+          <div class="step-title">마취 회복 집중 케어 <span class="step-en">Recovery</span></div>
+          <div class="step-desc">마취에서 깨는 시간은 아이마다 다릅니다. 스스로 깨어날 때까지 산소를 공급하며 관찰하고, 통증을 다시 평가해 진통을 더합니다.</div>
+          <ul class="gl">
+            <li>기도가 확보된 상태로 회복실에서 집중 관찰, 체온 유지</li>
+            <li>통증 점수 평가 후 진통 추가 — 깨어날 때 아프지 않게</li>
+            <li>회복 4~6시간 후 물 소량 → 부드러운 사료 소량부터</li>
+            <li>보호자님께 회복 경과와 귀가 후 주의사항을 설명</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ③ 치과 스케일링 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">치과 스케일링·발치, 이 순서로 진행합니다</span><span class="sec-tag">Dental</span></div>
+    <div class="ov-text">스케일링은 '이 닦기'가 아니라 <strong>구강 방사선 + 치주 검사 + 치석 제거 + 필요 시 발치</strong>까지 한 번에 하는 진료입니다. 눈으로 보이는 것은 치아 겉면의 30%뿐이라, 마취가 있어야 정확하게 볼 수 있습니다.</div>
+    <div class="steps">
+      <div class="step"><span class="step-num">1</span><div><div class="step-title">구강 방사선 촬영</div><div class="step-desc">치근 흡수·골 소실·치근 골절·매복치를 확인합니다. 고양이 치아 흡수성 병변은 방사선 없이는 진단이 어렵습니다.</div></div></div>
+      <div class="step"><span class="step-num">2</span><div><div class="step-title">치주낭 측정</div><div class="step-desc">잇몸과 치아 사이 깊이를 재어 병변 위치를 파악합니다. 육안으로는 알 수 없는 정보입니다.</div></div></div>
+      <div class="step"><span class="step-num">3</span><div><div class="step-title">스케일링 · 연마</div><div class="step-desc">잇몸 위·아래 치석을 제거하고 표면을 매끄럽게 연마합니다. 연마를 빼면 치석이 더 빨리 붙습니다.</div></div></div>
+      <div class="step"><span class="step-num">4</span><div><div class="step-title">발치 · 봉합</div><div class="step-desc">살릴 수 없는 치아는 발치하고 봉합합니다. 발치 범위는 촬영 결과를 보고 보호자님께 먼저 설명드린 뒤 진행합니다.</div></div></div>
+      <div class="step"><span class="step-num">5</span><div><div class="step-title">회복 · 통증 관리</div><div class="step-desc">깨어나는 동안 통증과 출혈을 확인하고, 집에서의 식사·칫솔질 시기를 안내합니다.</div></div></div>
+    </div>
+    <div class="callout info"><span class="ci">ℹ️</span><span>발치가 필요한 경우도 있어, 미리 <a class="lnk" href="dental.html">치과·구강 안내</a>에서 발치 후 관리(7~14일 부드러운 음식·칫솔질 시기)를 확인해 두시면 좋습니다.</span></div>
+  </div>
+
+  <!-- ④ 마취 당일 체크리스트 -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">4</span><span class="sec-title">마취 당일 보호자 체크리스트</span><span class="sec-tag">Checklist</span></div>
 
     <div class="fast-box">
       <p style="font-size:13px;font-weight:600;color:#fff;margin-bottom:.25rem">내원 전 금식 안내</p>
@@ -250,12 +359,16 @@ table.risk tr:last-child td{border-bottom:none}
       <div class="chk-item"><span class="chk-icon">☑️</span>보호자 연락처 2개 이상 확인 (수술 중 연락 가능한 번호)</div>
       <div class="chk-item"><span class="chk-icon">☑️</span>기저 질환(심장·신장·간·당뇨 등) 있으면 미리 알려주세요</div>
       <div class="chk-item"><span class="chk-icon">☑️</span>이전 마취·수술 기록 있으면 공유해 주세요</div>
+      <div class="chk-item"><span class="chk-icon">💊</span>복용 중인 심장약·내과약은 <strong style="color:var(--text)">임의로 끊지 말고</strong> 이름·용량·마지막 복용 시간을 알려주세요</div>
+      <div class="chk-item"><span class="chk-icon">🌡️</span>최근 기침·식욕 저하·구토처럼 달라진 점이 있으면 미리 알려주세요</div>
+      <div class="chk-item"><span class="chk-icon">🐕</span>당일 아침 산책은 짧게, 목욕은 전날까지 마쳐 주세요</div>
     </div>
+    <div class="callout ok"><span class="ci">💊</span><span><strong>심장약은 대부분 그대로 드세요.</strong> 임의로 중단하면 심장 상태가 오히려 나빠질 수 있습니다. 마지막 복용 시간을 알려주시면 마취 계획에 반영합니다.</span></div>
   </div>
 
   <!-- ② 마취 전 검사 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">2</span><span class="sec-title">마취 전 검사</span><span class="sec-tag">Pre-Anesthetic Exam</span></div>
+    <div class="sec-head"><span class="sec-num">5</span><span class="sec-title">마취 전 정밀 평가 — 검사 항목</span><span class="sec-tag">Evaluation</span></div>
     <div class="ov-text">단순해 보이는 시술이라도 마취 전 상태를 확인하는 것이 가장 안전한 마취의 시작입니다. 기본 검사는 <strong>마취 비용에 포함</strong>되며, 필요에 따라 추가 검사를 선택하실 수 있습니다.</div>
 
     <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem">기본 포함 검사</p>
@@ -285,18 +398,23 @@ table.risk tr:last-child td{border-bottom:none}
         <div class="exam-desc">폐·심장 크기·흉강 이상 확인. 노령 동물·호흡기 증상이 있는 경우 권장합니다</div>
       </div>
       <div class="exam-card" style="border-color:#e8d48a;background:#fffbf0">
+        <div class="exam-icon">🫀</div>
+        <div class="exam-name">심초음파 <span style="font-size:10px;color:#b45309;font-weight:600;margin-left:4px">추가</span></div>
+        <div class="exam-desc">심장 구조·판막·수축력 확인. 심잡음이 들리거나 심장약을 먹는 아이는 마취 전 꼭 권장합니다</div>
+      </div>
+      <div class="exam-card" style="border-color:#e8d48a;background:#fffbf0">
         <div class="exam-icon">🔊</div>
-        <div class="exam-name">초음파 검사 <span style="font-size:10px;color:#b45309;font-weight:600;margin-left:4px">추가</span></div>
-        <div class="exam-desc">복강 장기·심장 구조를 상세히 확인합니다. 기저 질환이 있거나 고위험군에서 권장합니다</div>
+        <div class="exam-name">복부 초음파 <span style="font-size:10px;color:#b45309;font-weight:600;margin-left:4px">추가</span></div>
+        <div class="exam-desc">장기 구조와 이상 소견을 확인합니다. 기저 질환이 있거나 고위험군에서 권장합니다</div>
       </div>
     </div>
-    <div class="callout warn"><span class="ci">💡</span><span>노령·심장·신장 질환이 있는 경우 <strong>X-ray·초음파 추가 검사를 강력히 권장합니다.</strong> 추가 검사 여부는 내원 후 담당 수의사와 상의해 결정하실 수 있습니다.</span></div>
-    <div class="callout info"><span class="ci">ℹ️</span><span>검사 결과에 따라 마취 약물 종류·용량·모니터링 방식이 달라집니다. 이상이 발견되면 수술 일정을 조정하거나 추가 준비를 할 수 있습니다.</span></div>
+    <div class="callout warn"><span class="ci">💡</span><span>노령·심장·신장 질환이 있는 경우 <strong>흉부 X-ray·심초음파는 사실상 필수</strong>입니다. 추가 검사 여부는 내원 후 담당 수의사와 상의해 결정하실 수 있습니다.</span></div>
+    <div class="callout info"><span class="ci">ℹ️</span><span>검사 결과에 따라 마취 약물 종류·용량·모니터링 방식이 달라집니다. ASA 등급이 3 이상이면 준비와 감시를 한 단계 더하고, 이상이 발견되면 일정을 조정할 수 있습니다.</span></div>
   </div>
 
   <!-- ③ 마취 과정 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">3</span><span class="sec-title">마취는 어떻게 진행되나요?</span><span class="sec-tag">Process</span></div>
+    <div class="sec-head"><span class="sec-num">6</span><span class="sec-title">마취는 어떻게 진행되나요?</span><span class="sec-tag">Process</span></div>
     <div class="steps">
       <div class="step">
         <span class="step-num">1</span>
@@ -329,7 +447,7 @@ table.risk tr:last-child td{border-bottom:none}
 
   <!-- ④ 부작용·위험성 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">4</span><span class="sec-title">마취 부작용과 위험성</span><span class="sec-tag">Risks</span></div>
+    <div class="sec-head"><span class="sec-num">7</span><span class="sec-title">마취 부작용과 위험성</span><span class="sec-tag">Risks</span></div>
     <div class="ov-text">마취는 <strong>모든 동물에게 일정한 위험이 존재합니다.</strong> 건강한 동물에서도 마취 사망률은 약 0.05~0.1%(1,000마리 중 약 1마리) 수준으로 보고됩니다. 고위험군에서는 이보다 수십 배 높아질 수 있습니다. 이러한 위험성을 솔직하게 알려드리는 것이 보호자님과 함께 최선의 결정을 내리는 첫걸음이라고 생각합니다.</div>
 
     <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem">흔하게 나타날 수 있는 부작용</p>
@@ -394,10 +512,10 @@ table.risk tr:last-child td{border-bottom:none}
 
   <!-- ⑤ 단두종 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">5</span><span class="sec-title">단두종 보호자는 꼭 읽어주세요</span><span class="sec-tag">Brachycephalic</span></div>
+    <div class="sec-head"><span class="sec-num">8</span><span class="sec-title">단두종 보호자는 꼭 읽어주세요</span><span class="sec-tag">Brachycephalic</span></div>
     <div class="brachy-box">
       <div class="brachy-title">⚠️ 단두종 마취 주의</div>
-      <p class="brachy-desc">납작한 얼굴 구조로 인해 기도가 좁고, 연구개·비공이 비정상적인 경우가 많습니다. 마취 중·후 기도 유지가 훨씬 어렵고, 회복 과정에서 산소포화도가 급격히 떨어질 수 있어 <strong>일반 견종보다 마취 위험이 높습니다.</strong></p></div>
+      <p class="brachy-desc">납작한 얼굴 구조로 인해 기도가 좁고, 연구개·비공이 비정상적인 경우가 많습니다. 마취 중·후 기도 유지가 훨씬 어렵고, 회복 과정에서 산소포화도가 급격히 떨어질 수 있어 <strong>일반 견종보다 마취 위험이 높습니다.</strong></p>
       <div class="brachy-breeds">
         <span class="breed-tag">프렌치 불독</span>
         <span class="breed-tag">영국 불독</span>
@@ -420,7 +538,7 @@ table.risk tr:last-child td{border-bottom:none}
 
   <!-- ⑥ 고위험군 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">6</span><span class="sec-title">마취 고위험군</span><span class="sec-tag">High Risk</span></div>
+    <div class="sec-head"><span class="sec-num">9</span><span class="sec-title">마취 고위험군</span><span class="sec-tag">High Risk</span></div>
     <div class="callout warn"><span class="ci">⚠️</span><span>아래에 해당하는 경우 <strong>반드시 내원 전에 알려주세요.</strong> 마취 전 추가 검사나 특별한 준비가 필요할 수 있습니다.</span></div>
     <div class="highrisk-grid">
       <div class="hr-card"><div class="hr-icon">👴</div><div class="hr-name">노령 동물</div><div class="hr-desc">7세 이상 소형견, 5세 이상 대형견, 10세 이상 고양이는 장기 기능 저하로 위험도가 높습니다</div></div>
@@ -434,7 +552,7 @@ table.risk tr:last-child td{border-bottom:none}
 
   <!-- ⑦ 마취 후 집에서 관리 -->
   <div class="sec">
-    <div class="sec-head"><span class="sec-num">7</span><span class="sec-title">마취 후 집에서의 관리</span><span class="sec-tag">Aftercare</span></div>
+    <div class="sec-head"><span class="sec-num">10</span><span class="sec-title">마취 후 집에서의 관리</span><span class="sec-tag">Aftercare</span></div>
     <div class="after-grid">
       <div class="after-card"><div class="after-icon">🌡️</div><div class="after-name">보온</div><div class="after-desc">체온이 낮을 수 있어요. 담요·핫팩(직접 닿지 않게)으로 따뜻하게 해주세요. 찬 바닥은 피해주세요.</div></div>
       <div class="after-card"><div class="after-icon">😴</div><div class="after-name">안정</div><div class="after-desc">당일은 조용한 환경에서 충분히 쉬게 해주세요. 계단·소파 점프는 하루 이상 제한하세요.</div></div>
@@ -456,7 +574,47 @@ table.risk tr:last-child td{border-bottom:none}
     <div class="callout danger" style="margin-top:1rem"><span class="ci">🚨</span><span>마취 후 이상은 시간이 중요합니다. <strong>먼저 전화</strong> 주세요.</span></div>
   </div>
 
+  <!-- ⑪ FAQ -->
+  <div class="sec">
+    <div class="sec-head"><span class="sec-num">11</span><span class="sec-title">자주 묻는 질문</span><span class="sec-tag">FAQ</span></div>
+    <div class="faq">
+      <details open>
+        <summary>15살인데, 마취해도 괜찮을까요?</summary>
+        <div class="faq-a">나이는 숫자일 뿐, 결정 기준은 <strong>지금의 심장·신장·간 기능</strong>입니다. 검사에서 상태가 허락하면 15살 이상 아이도 스케일링을 진행합니다. 반대로 검사에서 이상이 보이면 일정을 미루거나 준비를 더 갖춥니다. 위케어는 나이만으로 마취를 포기하지 않습니다.</div>
+      </details>
+      <details>
+        <summary>심장약을 먹고 있는데, 마취 전에 끊어야 하나요?</summary>
+        <div class="faq-a">끊지 마세요. 심장약을 갑자기 중단하면 심장 상태가 나빠질 수 있어 마취가 더 위험해집니다. <strong>약 이름·용량·마지막 복용 시간</strong>을 알려주시면, 심초음파와 혈압을 확인해 그대로 유지할지 조정할지 담당 수의사가 안내드립니다.</div>
+      </details>
+      <details>
+        <summary>심장병이 있는데 스케일링을 꼭 해야 하나요?</summary>
+        <div class="faq-a">치주염이 심하면 입안 세균이 혈류로 들어가 심장 판막과 신장에 부담을 줄 수 있고, 씹는 통증으로 식욕과 체중이 줄 수 있습니다. <strong>치료하지 않았을 때의 위험</strong>과 마취 위험을 함께 비교해 결정하는 것이 순서입니다. 검사 결과를 가지고 함께 상의해 주세요.</div>
+      </details>
+      <details>
+        <summary>마취 전 검사는 전부 해야 하나요?</summary>
+        <div class="faq-a">혈액검사·심장 청진·신체검사는 기본으로 포함됩니다. 흉부 X-ray와 심초음파는 나이·심잡음·기저 질환에 따라 권장드리며, 고위험군에서는 사실상 필수입니다. 결과에 따라 마취 약물과 모니터링 계획이 달라지므로 생략하지 않는 것을 권합니다.</div>
+      </details>
+      <details>
+        <summary>물은 정말 당일에도 마셔도 되나요?</summary>
+        <div class="faq-a">네. 금식은 <strong>음식(사료·간식·덴탈껌)만 6~8시간</strong>입니다. 물은 마취·수술 당일에도 마셔도 됩니다. 다만 구토가 있거나 신장·심장 상태에 따라 제한이 필요하면 담당 수의사가 따로 안내드립니다.</div>
+      </details>
+      <details>
+        <summary>고양이도 마취하고 스케일링하나요?</summary>
+        <div class="faq-a">네, 고양이도 같은 원칙으로 진행합니다. 고양이는 통증을 잘 드러내지 않고 치아 흡수성 병변이 흔해 구강 방사선 촬영이 특히 중요합니다. 검사와 마취 계획은 강아지와 같은 4단계로 세웁니다.</div>
+      </details>
+      <details>
+        <summary>마취 후 언제부터 밥을 주나요?</summary>
+        <div class="faq-a">완전히 깨어난 뒤 <strong>4~6시간 후</strong> 물을 소량 주고, 구토가 없으면 부드러운 사료를 조금씩 급여합니다. 발치를 했다면 7~14일은 습식·불린 사료로 급여하고 딱딱한 간식은 피해 주세요.</div>
+      </details>
+      <details>
+        <summary>마취 중에 상태가 나빠지면 어떻게 하나요?</summary>
+        <div class="faq-a">전담 인력이 심전도·혈압·산소포화도·호기말 CO₂·체온을 계속 보고 있기 때문에, 변화가 보이면 마취 깊이를 낮추고 수액·산소·약물로 즉시 대응합니다. 필요하면 시술을 멈추고 아이 상태를 먼저 안정시키는 것을 원칙으로 합니다.</div>
+      </details>
+    </div>
+    <div class="callout neutral"><span class="ci">💬</span><span>여기에 없는 질문은 진료 중이나 카카오톡으로 편하게 물어보세요. 아이 상태에 맞춘 답을 드리는 것이 가장 정확합니다.</span></div>
+  </div>
 
+</div>
 
 <div class="foot">
   <div class="foot-inner">
