@@ -28230,6 +28230,18 @@ function laneStandoffGuard(sec){
     if(pMe){ MM.tgt[kMe]={x:pMe[0],y:pMe[1]}; uMe._mxHold={x:pMe[0],y:pMe[1]}; }
     if(pOp){ MM.tgt[kOp]={x:pOp[0],y:pOp[1]}; uOp._mxHold={x:pOp[0],y:pOp[1]}; }
   });
+  /* 같은 팀 바텀 듀오도 살짝 벌린다 — 두 챔피언 라벨/초상화가 겹치지 않게 */
+  ['me','opp'].forEach(function(side){
+    const a=mxTgtObj(MM.tgt[side+'-ADC']), sp=mxTgtObj(MM.tgt[side+'-SUP']);
+    const uA=MM.units[side+'-ADC'], uS=MM.units[side+'-SUP'];
+    if(!a||!sp||!uA||!uS) return;
+    if(uA.mode!=='lane'||uS.mode!=='lane') return;
+    if(Math.hypot(a.x-sp.x,a.y-sp.y)>=0.035) return;
+    const dir=mxDirUnit(MM_NEXUS[side],[a.x,a.y]);
+    const pt=[mxClamp(a.x-dir[0]*0.038,0.05,0.95),mxClamp(a.y-dir[1]*0.038,0.05,0.95)];
+    MM.tgt[side+'-SUP']={x:pt[0],y:pt[1]};
+    uS._mxHold={x:pt[0],y:pt[1]};
+  });
 }
 
 /* ============================================================================
