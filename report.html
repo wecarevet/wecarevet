@@ -251,6 +251,7 @@ body.guardian .guardbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-in
   .doc-no{margin-bottom:6px}
   .doc-sec{margin-top:5px}
   .doc-sec.keep{break-inside:avoid}
+  .doc-tail{break-inside:avoid}
   .doc-h2{margin-bottom:2px}
   .doc-body p{margin-bottom:2px}
   .doc-memo{margin-top:6px;padding:4px 8px;break-inside:avoid}
@@ -1171,11 +1172,19 @@ function docHTML(){
       (S.tpl === 'general' ? '소견' : '종합 소견') + '</div><div class="doc-body">' + paras + '</div></div>');
   }
 
-  /* care */
+  /* memo (소견 바로 뒤) */
+  var memo = String(S.memo || '').trim();
+  if(memo){
+    h.push('<div class="doc-memo keep"><div class="doc-h2">원장 메모</div>' + nl2br(memo) + '</div>');
+  }
+
+  /* tail — 향후 관리 + 서명 + 하단 문구는 한 덩어리로 인쇄한다 */
+  h.push('<div class="doc-tail">');
+
   var lines = careLines();
   var rd = recheckDate();
   if(lines.length || rd){
-    var careH = ['<div class="doc-sec keep"><div class="doc-h2">' +
+    var careH = ['<div class="doc-sec"><div class="doc-h2">' +
       (S.tpl === 'general' ? '보호자 안내 및 향후 계획' : '향후 관리 및 재진') + '</div>'];
     if(lines.length){
       careH.push('<div class="doc-body"><ol class="care-list">');
@@ -1191,12 +1200,6 @@ function docHTML(){
     h.push(careH.join(''));
   }
 
-  /* memo */
-  var memo = String(S.memo || '').trim();
-  if(memo){
-    h.push('<div class="doc-memo keep"><div class="doc-h2">원장 메모</div>' + nl2br(memo) + '</div>');
-  }
-
   /* signature */
   h.push('<div class="doc-sign">');
   h.push('<div class="sd">' + esc(fmtKo(S.issued || todayStr())) + '</div>');
@@ -1209,6 +1212,8 @@ function docHTML(){
     '본 문서는 진료 당시의 검사 결과와 소견을 정리한 것으로, 이후 상태 변화에 따라 내용이 달라질 수 있습니다. 응급 증상이 있으면 즉시 내원해 주세요.' +
     '<div class="fl2">' + esc(CLINIC.name) + ' · ' + esc(CLINIC.addr) + ' · T. ' + esc(CLINIC.tel) + '</div>' +
     '</div>');
+
+  h.push('</div>');
 
   h.push('</div>');
   return h.join('');
