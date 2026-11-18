@@ -1560,6 +1560,13 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 .modal{animation:modalUp .28s cubic-bezier(.2,.9,.3,1) both}
 @keyframes modalUp{from{transform:translateY(18px);opacity:.4}to{transform:none;opacity:1}}
+/* ---- V4 전술 시간대 표시 ---- */
+.tl-card.time-off{opacity:.45;filter:grayscale(.55)}
+.tl-card.time-off .tc-d{color:#8a8f9c}
+.tc-req.time{color:#ffb37a;font-weight:900}
+.tl-chip.on{box-shadow:0 0 0 1px rgba(255,201,74,.55) inset,0 0 16px rgba(255,201,74,.25)}
+@keyframes tacPulse{0%{box-shadow:0 0 0 0 rgba(255,201,74,.45)}70%{box-shadow:0 0 0 10px rgba(255,201,74,0)}100%{box-shadow:0 0 0 0 rgba(255,201,74,0)}}
+.tl-chip.on{animation:tacPulse .9s ease-out 1}
 
 </style>
 </head>
@@ -3494,6 +3501,35 @@ const TACTIC_CATS=[
   {k:'side',  n:'사이드·운영', icon:'🧭'},
   {k:'fight', n:'한타·교전',  icon:'💥'},
 ];
+/* ---------- 전술 시간대: 초반 전술이 20분에 나오지 않도록 ---------- */
+const TACTIC_WIN={
+  topDive:[0,8], botDive:[0,8], midJungle:[0,14], laneSwap:[2,10], invade:[0,5], counterGank:[0,14],
+  plate:[6,14], freeze:[0,14],
+  grubs:[4,12], heraldMid:[8,16], dragonTrade:[5,32], soulDeny:[8,40],
+  baronBurst:[17,40], baronBush:[17,40], elderAll:[25,45],
+  split131:[12,45], split14:[12,45], tpFlank:[10,45], cross:[12,45], siege2:[14,45],
+  backdoor:[18,45], push3:[14,45], scale:[14,45],
+  engage:[10,45], counterEng:[10,45], peel:[10,45], assassin:[10,45], poke:[8,45], avoid:[14,45], allSpell:[12,45],
+};
+function tacticTimeOk(k,minute,level){
+  const w=TACTIC_WIN[k];
+  if(!w) return {ok:true, why:''};
+  const m=(minute!=null)?minute:(M?(M.minute||0):0);
+  const lv=(level!=null)?level:(M&&M.lv?(typeof lvTeamAvg==='function'?lvTeamAvg('me'):1):1);
+  if(m<w[0]) return {ok:false, why:'아직 이릅니다 — '+w[0]+'분 이후 사용'};
+  if(m>w[1]) return {ok:false, why:'이미 지난 구간입니다 — '+w[0]+'~'+w[1]+'분 전용'};
+  if((k==='topDive'||k==='botDive')&&lv>8) return {ok:false, why:'라인전 다이브 구간 종료 (Lv.8+)'};
+  if(k==='invade'&&m>5) return {ok:false, why:'1레벨 인베이드는 초반 전용'};
+  if(k==='plate'&&m>=14) return {ok:false, why:'포탑 방패는 14분에 종료'};
+  if((k==='baronBurst'||k==='baronBush')&&m<17) return {ok:false, why:'바론은 20분 이후 전술'};
+  return {ok:true, why:''};
+}
+function tacticAvailable(k){
+  const t=tacticTimeOk(k);
+  if(!t.ok) return {ok:false, why:t.why, time:false, req:null};
+  const u=(typeof tacticUnlocked==='function')?tacticUnlocked(k):{ok:true};
+  return Object.assign({time:true}, u);
+}
 const STANCE_MAP={}, FOCUS_MAP={};
 STANCES.forEach(s=>STANCE_MAP[s.k]=s); FOCUS_TACTICS.forEach(f=>FOCUS_MAP[f.k]=f);
 const TACTICS=FOCUS_TACTICS;
@@ -3529,22 +3565,57 @@ function liveTacticEdge(){
 function setStance(k){
   if(!M||M.over||!STANCE_MAP[k]) return;
   M.stance=k; M.stanceAt=M.minute; M.tacticEdge=liveTacticEdge();
+  M.tacticPulse={k:'stance-'+k, at:(typeof performance!=='undefined'?performance.now():Date.now())};
   logEvent('sys','🎯 교전 성향 → '+STANCE_MAP[k].n+' ('+STANCE_MAP[k].d+')');
-  renderMatch();
+  /* 즉시 반영: DOM 재렌더 없이 상태만 갱신 (화면 번쩍임 방지) */
+  if(typeof refreshTL==='function') refreshTL();
+  if(typeof mmSync==='function'){ try{ mmSync(); }catch(e){} }
 }
 function setFocus(k){
   if(!M||M.over) return;
   const cd=(M.focusCdUntil||0)-(M.sec||0);
   if(k&&M.focusKey!==k&&cd>0){ toast('⏳ 전술 재지시까지 '+cd+'초'); return; }
+  if(k&&FOCUS_MAP[k]){
+    const tm=tacticTimeOk(k);
+    if(!tm.ok){ toast('⏱ '+tm.why); return; }
+  }
   if(k&&FOCUS_MAP[k]&&typeof tacticUnlocked==='function'){
     const u=tacticUnlocked(k);
     if(!u.ok){ toast('🔒 '+(u.req&&(u.req.label||u.req.why)||'코치진')+'이 필요합니다'); return; }
   }
   M.focusKey=(M.focusKey===k?null:(FOCUS_MAP[k]?k:null));
   M.focusAt=M.minute; M.tacticEdge=liveTacticEdge();
-  if(M.focusKey) M.focusCdUntil=(M.sec||0)+60;
-  logEvent('sys','📋 집중 전술 → '+(M.focusKey?FOCUS_MAP[M.focusKey].n:'해제'));
-  renderMatch();
+  if(M.focusKey) M.focusCdUntil=(M.sec||0)+20;
+  if(M.focusKey) applyTacticImpulse(M.focusKey);
+  M.tacticPulse={k:M.focusKey, at:(typeof performance!=='undefined'?performance.now():Date.now())};
+  logEvent('sys','📋 집중 전술 → '+(M.focusKey?FOCUS_MAP[M.focusKey].n+' ('+FOCUS_MAP[M.focusKey].d+')':'해제'));
+  /* 즉시 반영: 재렌더 없이 클래스·미니맵·수치만 갱신 */
+  if(typeof refreshTL==='function') refreshTL();
+  if(typeof mmSync==='function'){ try{ mmSync(); }catch(e){} }
+}
+/* 전술 클릭 순간의 즉각 효과 (골드·시야·압박) */
+function applyTacticImpulse(k){
+  if(!M||!k) return;
+  let g=0, v=0, txt='';
+  const map={
+    invade:      {g:70, v:4, txt:'상대 정글 진입 — 시야 확보, 카정 이득'},
+    topDive:     {g:55, txt:'탑 다이브 설계 — 라인 압박'},
+    botDive:     {g:55, txt:'봇 3인 다이브 설계'},
+    baronBush:   {v:8, txt:'바론 부시 시야 장악'},
+    baronBurst:  {g:45, txt:'바론 기습 준비'},
+    grubs:       {g:50, txt:'유충 스택 압박'},
+    soulDeny:    {v:5, txt:'용 앞 시야 장악'},
+    split131:    {g:45, v:2, txt:'1-3-1 사이드 압박 시작'},
+    split14:     {g:40, v:2, txt:'1-4 사이드 압박 시작'},
+    push3:       {g:35, v:2, txt:'3라인 동시 푸시'},
+    engage:      {g:25, txt:'선이니시 대기'},
+    allSpell:    {txt:'풀 스펠 총력전 준비'},
+    counterGank: {v:4, txt:'역갱 대기 — 정글 위치 설계'},
+  };
+  const e=map[k]; if(!e) return;
+  if(e.g) addGold('me',e.g);
+  if(e.v) M.vision[0]+=e.v;
+  if(e.txt) logEvent('sys','⚡ '+e.txt);
 }
 const DRAKE_ELEMENTS=[
   {k:'infernal',n:'화염',icon:'🔥',fight:0.05},
@@ -3655,6 +3726,7 @@ function startMatch(draftResult){
       opp:ROLES.map(r=>({role:r,name:(S.players[opp.lineup[r]]||{}).name||'',champ:opA[r]||'',p:(S.players[opp.lineup[r]]||{}).name||''}))
     },
     mvp:null, needTactic:false, pending:null, startStyle:myPct,
+    campSteal:{me:0,opp:0}, campStealAtMe:-9, campStealAtOpp:-9, tpAt:null,
   };
   M.tacticEdge=liveTacticEdge();
   lvInit();
@@ -3851,6 +3923,23 @@ function simStep(silent){
   if(!M.lane) M.lane={TOP:{my:60,opp:60},MID:{my:60,opp:60},ADC:{my:60,opp:60},JGL:{my:60,opp:60},SUP:{my:60,opp:60}};
   M.minute++;
   const m=M.minute;
+  /* 시간대가 끝난 전술은 자동 종료하고, 지금 쓸 수 있는 운영 전술로 바꾼다 */
+  if(M.focusKey&&FOCUS_MAP[M.focusKey]){
+    const tm=tacticTimeOk(M.focusKey);
+    if(!tm.ok){
+      const oldN=FOCUS_MAP[M.focusKey].n;
+      M.focusKey=null; M.tacticEdge=liveTacticEdge();
+      logEvent('sys','⏱ '+oldN+' 종료 — '+tm.why);
+      try{
+        const cands=FOCUS_TACTICS.filter(f=>f.cat!=='early'&&tacticTimeOk(f.k).ok&&tacticUnlocked(f.k).ok);
+        if(cands.length){
+          const best=cands.slice().sort((a,b)=>(b.edge||0)-(a.edge||0))[0];
+          M.focusKey=best.k; M.tacticEdge=liveTacticEdge();
+          logEvent('sys','📋 전술 전환 → '+best.icon+' '+best.n+' — '+m+'분, '+best.d);
+        }
+      }catch(e){}
+    }
+  }
   const sta=STANCE_MAP[M.stance]||STANCE_MAP.standard;
   const fo=M.focusKey?FOCUS_MAP[M.focusKey]:null;
   // 마일스톤 알림 (진행을 막지 않음)
@@ -7577,6 +7666,7 @@ function achHTML(){
 document.addEventListener('click',(e)=>{
   const t=e.target;
   if(!t||!t.closest) return;
+  if(t.closest('.bcast')) return;   /* 방송 화면 클릭은 bindBcast가 단독 처리 (이중 반응 방지) */
   const st=t.closest('[data-stance]');
   if(st&&M){ setStance(st.dataset.stance); return; }
   const fo=t.closest('[data-focus]');
@@ -9914,21 +10004,27 @@ function suggestTactics(){
   const behind=gd<-1500, ahead=gd>1500;
   const soulNear=(M.dragons[0]>=2||M.dragons[1]>=2);
   const out=[];
-  if(m<14){
-    out.push('topDive','botDive','midJungle','invade','plate');
-    if(behind) out.splice(3,2,'freeze','counterGank');
-    if(ahead) out.splice(4,1,'laneSwap');
+  if(m<5){
+    out.push('invade','botDive','topDive','midJungle','laneSwap');
+    if(behind) out.push('counterGank');
+  }else if(m<8){
+    out.push('topDive','botDive','midJungle','laneSwap','counterGank');
+    if(behind) out.push('freeze');
+  }else if(m<14){
+    out.push('plate','midJungle','counterGank','heraldMid','grubs');
+    if(behind) out.push('freeze');
   }else if(m<20){
     out.push('heraldMid','grubs','dragonTrade','split131','cross');
     if(soulNear) out.unshift('soulDeny');
-    if(behind) out.splice(3,2,'freeze','tpFlank');
+    if(behind) out.splice(3,2,'tpFlank','avoid');
   }else{
     out.push('baronBush','baronBurst','soulDeny','engage','peel');
     if(ahead) out.splice(4,1,'push3');
     if(behind) out.splice(3,2,'avoid','scale');
     if(M.soulGranted.opp||M.elderAt) out.unshift('elderAll');
   }
-  return [...new Set(out)].slice(0,5).map(k=>FOCUS_MAP[k]).filter(Boolean);
+  /* 시간대에 맞지 않는 전술은 추천에서 제외 */
+  return [...new Set(out)].filter(k=>FOCUS_MAP[k]&&tacticTimeOk(k).ok).slice(0,5).map(k=>FOCUS_MAP[k]);
 }
 function touchlineHTML(){
   const sugg=suggestTactics();
@@ -9947,7 +10043,7 @@ function touchlineHTML(){
       ${sugg.map(f=>`<button class="tl-chip ${M.focusKey===f.k?'on':''} ${tacticUnlocked(f.k).ok?'':'locked'}" data-focus="${f.k}" data-tl="${f.k}">
         <span>${f.icon}</span><b>${esc(f.n)}${tacCoachBadge(f.k)}</b><i>${esc(f.d)}</i></button>`).join('')}
     </div>
-    <div class="tiny tl-note">지금 상황에 맞는 전술 ${sugg.length}개 · 교전 성향과 함께 언제든 변경</div>
+    <div class="tiny tl-note">${M.minute<14?'라인전 단계 — 초반 전술만 표시':M.minute<20?'미드게임 — 운영·오브젝트 전술':'후반 — 바론·한타 전술'} · ${sugg.length}개</div>
   </div>`;
 }
 function renderMatch(){
@@ -10039,20 +10135,25 @@ function renderTacticDrawer(){
       <span class="tiny">${M.focusKey?('현재: '+esc(FOCUS_MAP[M.focusKey].n)):'선택 없음'}</span></div>
     <div class="tl-tabs">${cats}</div>
     <div class="tl-drawer-grid">
-      ${list.map(f=>{const u=tacticUnlocked(f.k);return `<button class="tl-card ${M.focusKey===f.k?'on':''} ${u.ok?'':'locked'}" data-pick="${f.k}">
+      ${list.map(f=>{const u=tacticUnlocked(f.k), tw=tacticTimeOk(f.k); const off=!u.ok||!tw.ok;
+        return `<button class="tl-card ${M.focusKey===f.k?'on':''} ${off?'locked':''} ${tw.ok?'':'time-off'}" data-pick="${f.k}" ${off?'disabled':''}>
         <span class="tc-ic">${f.icon}</span>
         <span class="tc-n">${esc(f.n)} ${tacCoachBadge(f.k)}</span>
         <span class="tc-d">${esc(f.d)}</span>
-        ${u.req?`<span class="tc-req">${u.ok?('✓ '+esc(u.why)):('필요: '+esc(u.req.label||u.req.why))}</span>`:''}
+        ${!tw.ok?`<span class="tc-req time">⏱ ${esc(tw.why)}</span>`:(u.req?`<span class="tc-req">${u.ok?('✓ '+esc(u.why)):('필요: '+esc(u.req.label||u.req.why))}</span>`:'')}
       </button>`;}).join('')}
     </div>
-    <div class="tiny" style="margin-top:6px">전술을 선택하면 즉시 경기와 미니맵에 반영됩니다. 다시 누르면 해제.</div>
+    <div class="tiny" style="margin-top:6px">전술은 지금 시간대에 맞는 것만 쓸 수 있습니다. 선택 즉시 미니맵 이동과 경기 수치에 반영됩니다.</div>
     <div style="height:10px"></div>
     <button class="btn ghost block" id="modalClose">닫기</button>
   </div></div>`;
   $('modal').classList.remove('hidden');
   $('modal').querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{ TLCAT=b.dataset.cat; renderTacticDrawer(); });
-  $('modal').querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{ setFocus(b.dataset.pick); closeModal(); renderMatch(); });
+  $('modal').querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{
+    const tw=tacticTimeOk(b.dataset.pick);
+    if(!tw.ok){ toast('⏱ '+tw.why); return; }
+    setFocus(b.dataset.pick); closeModal(); refreshTL();
+  });
   $('modalClose').onclick=closeModal;
   $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
 }
@@ -10487,6 +10588,16 @@ function mmComputeTargets(){
           tx=mid[0]; ty=mid[1];
         }
       }
+      /* ---- 교전 성향(먼저 적용 → 전술이 덮어쓴다) ---- */
+      const st=M.stance;
+      if(st==='aggro'){ tx+=sgn*-0.035; ty+=sgn*-0.02; }
+      if(st==='defensive'){
+        /* 전력 수비: 아군 진영 쪽으로 물러난다 (전술이 있으면 약하게) */
+        const wBack=M.focusKey?0.25:0.55;
+        const dlane=role==='TOP'?'TOP':role==='MID'?'MID':'BOT';
+        const backP=mmPathPoint(LANE_PATH[dlane],laneFrontParam(dlane,side==='me'?0.30:0.70));
+        tx=tx*(1-wBack)+backP[0]*wBack; ty=ty*(1-wBack)+backP[1]*wBack;
+      }
       /* ---- 전술이 실제 이동 목표를 직접 제어 ---- */
       if(mmB){
         const T=(role==='ADC'||role==='SUP')?'BOT':role==='MID'?'MID':'TOP';
@@ -10553,9 +10664,6 @@ function mmComputeTargets(){
         const w={JGL:0.85,SUP:0.78,MID:0.6,TOP:0.45,ADC:0.5}[role]||0.5;
         tx=tx*(1-w)+focus[0]*w; ty=ty*(1-w)+focus[1]*w;
       }
-      const st=M.stance;
-      if(st==='aggro'){ tx+=sgn*-0.02; ty+=sgn*-0.012; }
-      if(st==='defensive'){ tx+=sgn*-0.012; ty+=sgn*-0.008; }
       tx=Math.max(0.045,Math.min(0.955,tx)); ty=Math.max(0.045,Math.min(0.955,ty));
       /* ---- 텔레포트: 탑·미드가 사이드/교전 합류 시 ---- */
       if((u.mode==='obj'||u.mode==='rotate')&&(role==='TOP'||role==='MID')&&sec>130){
@@ -10574,6 +10682,7 @@ function mmTryTeleport(u,tx,ty,sec){
   if(d<0.34) return false;
   const target=mmTpTarget(u.side,u.role);
   u.tp={left:4, x:target[0], y:target[1], toX:tx, toY:ty};
+  if(u.side==='me'&&M) M.tpAt=M.minute;
   u.tpCd=sec+75;
   u.vx=0; u.vy=0; u.flash=0;
   MM.tpCount++;
@@ -10779,7 +10888,8 @@ function mmUpdate(dt){
       return;
     }
     const dx=t.x-u.x, dy=t.y-u.y, d=Math.hypot(dx,dy);
-    const spd=u.step*(u.role==='JGL'?1.15:1);
+    const pulsing=!!(M.tacticPulse&&(now-M.tacticPulse.at)<2600);
+    const spd=u.step*(u.role==='JGL'?1.15:1)*(pulsing?2.6:1);
     let desired=[0,0];
     if(d>0.004){ desired=[dx/d*spd, dy/d*spd]; }
     const en=Object.values(MM.units).filter(o=>o.side!==u.side&&o.alive);
@@ -10806,6 +10916,11 @@ function mmUpdate(dt){
           c.alive=false; c.prog=0; c.respawnAt=sec+c.respawn; c.by=null;
           mmAddFx({type:'burst',x:c.x,y:c.y,col:c.side==='me'?'#4fa8ff':c.side==='opp'?'#ff5570':'#ffc94a',life:800,label:c.n});
           if(typeof addGold==='function') addGold(u.side,c.kind==='buff'?170:c.kind==='scuttle'?120:130);
+          if(c.side&&c.side!==u.side&&M){
+            M.campSteal=M.campSteal||{me:0,opp:0};
+            M.campSteal[u.side]=(M.campSteal[u.side]||0)+1;
+            if(u.side==='me') M.campStealAtMe=M.minute; else M.campStealAtOpp=M.minute;
+          }
           if(typeof lvAddXp==='function') lvAddXp(u.side,'JGL',c.kind==='buff'?22:c.kind==='scuttle'?16:18);
         }
       }
@@ -10837,6 +10952,37 @@ function mmRoundRect(ctx,x,y,w,h,r){
   if(ctx.roundRect){ try{ ctx.beginPath(); ctx.roundRect(x,y,w,h,r); return; }catch(e){} }
   ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
   ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+/* 전술이 가리키는 지도 위 지점 (콜아웃·화살표용) */
+function mmTacticFocus(k){
+  const fo=k?FOCUS_MAP[k]:null;
+  const mmB=fo?fo.mm:null;
+  const out=[];
+  const mine=n=>n===undefined?'me':n;
+  const push=(x,y,label)=>out.push({x:clamp(x,0.05,0.95),y:clamp(y,0.05,0.95),label:label});
+  if(!mmB) return out;
+  if(mmB==='top'){ const p=mmLaneFrontPos('TOP','me',0.01); push(p[0],p[1],'탑 압박'); }
+  else if(mmB==='topDive'){ const p=mmPathPoint(LANE_PATH.TOP,laneFrontParam('TOP',0.62)); push(p[0],p[1],'탑 다이브'); }
+  else if(mmB==='diveBot'){ const p=mmPathPoint(LANE_PATH.BOT,laneFrontParam('BOT',0.62)); push(p[0],p[1],'봇 다이브'); }
+  else if(mmB==='mid'){ push(0.5,0.5,'미드 주도권'); }
+  else if(mmB==='invade'){ const c=MM.camps.opp[1]; push(c.x,c.y,'카운터 정글'); }
+  else if(mmB==='bush'){ push(0.335,0.245,'바론 부시 매복'); }
+  else if(mmB==='obj'){ const p=PIT.dragon; push(p[0],p[1],'오브젝트 집중'); }
+  else if(mmB==='group'){ push(0.44,0.40,'5인 집결'); }
+  else if(mmB==='split131'){ const a=mmLaneFrontPos('BOT','me',0.02), b=mmLaneFrontPos('TOP','me',0.02); push(a[0],a[1],'1-3-1'); push(b[0],b[1],'1-3-1'); }
+  else if(mmB==='split14'){ const a=mmLaneFrontPos('TOP','me',0.02); push(a[0],a[1],'1-4 압박'); }
+  else if(mmB==='push3'){ ['TOP','MID','BOT'].forEach(l=>{ const p=mmLaneFrontPos(l,'me',0.02); push(p[0],p[1],'3라인 푸시'); }); }
+  else if(mmB==='siege'){ const p=mmLaneFrontPos('MID','me',0.02); push(p[0],p[1],'공성'); }
+  else if(mmB==='flank'){ push(0.28,0.34,'측면 협공'); }
+  else if(mmB==='cross'){ const p=PIT.baron; push(p[0],p[1],'크로스 교환'); }
+  else if(mmB==='backdoor'){ push(0.90,0.12,'백도어'); }
+  else if(mmB==='safe'){ const p=mmLaneFrontPos('MID','me',0.08); push(p[0],p[1],'안전 파밍'); }
+  else if(mmB==='freeze'){ const p=mmLaneFrontPos('TOP','me',0.03); push(p[0],p[1],'프리징'); }
+  else if(mmB==='swap'){ const p=mmLaneFrontPos('TOP','me',0.02); push(p[0],p[1],'라인 스왑'); }
+  else if(mmB==='hold'){ push(0.42,0.58,'역갱 대기'); }
+  else if(mmB==='poke'){ push(0.56,0.46,'포킹 대치'); }
+  else if(mmB==='assassin'){ const p=mmLaneFrontPos('BOT','opp',0.02); push(p[0],p[1],'암살 각'); }
+  return out;
 }
 function mmDraw(dt){
   const cv=(typeof document!=='undefined')?document.getElementById('riftCanvas'):null;
@@ -11139,6 +11285,47 @@ function mmDraw(dt){
     }
     ctx.globalAlpha=1;
   });
+  /* ---------- 전술 콜아웃 (클릭 직후 3초) ---------- */
+  const pul=M.tacticPulse;
+  if(pul&&now-pul.at<3200&&M.focusKey){
+    const pts=mmTacticFocus(M.focusKey);
+    const age=(now-pul.at)/3200;
+    const alpha=age<0.22?1:Math.max(0,1-(age-0.22)/0.78);
+    ctx.save(); ctx.globalAlpha=alpha;
+    pts.forEach(pt=>{
+      const px=pt.x*w, py=pt.y*h;
+      const rad=Math.max(12,w*0.055)*(1+Math.sin(now/200)*0.07);
+      ctx.strokeStyle='rgba(255,201,74,.95)'; ctx.lineWidth=2.2;
+      ctx.setLineDash([6,4]); ctx.beginPath(); ctx.arc(px,py,rad,0,7); ctx.stroke(); ctx.setLineDash([]);
+      ctx.strokeStyle='rgba(255,201,74,.40)'; ctx.lineWidth=1.1;
+      ROLES.forEach(role=>{
+        const u=MM.units['me-'+role]; if(!u||!u.alive||u.tp) return;
+        ctx.beginPath(); ctx.moveTo(u.x*w,u.y*h); ctx.lineTo(px,py); ctx.stroke();
+      });
+      if(pt.label){
+        ctx.font=`900 ${Math.max(7,Math.round(w*0.019))}px Pretendard,sans-serif`;
+        const tw=ctx.measureText(pt.label).width;
+        mmRoundRect(ctx,px-tw/2-4,py-rad-14,tw+8,13,4);
+        ctx.fillStyle='rgba(8,12,20,.88)'; ctx.fill();
+        ctx.strokeStyle='rgba(255,201,74,.7)'; ctx.lineWidth=1; ctx.stroke();
+        ctx.fillStyle='#ffd98f'; ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(pt.label,px,py-rad-7);
+      }
+    });
+    ctx.restore();
+  }
+  /* 현재 전술 상시 표시 */
+  if(M.focusKey&&FOCUS_MAP[M.focusKey]){
+    const fo=FOCUS_MAP[M.focusKey];
+    const txt=fo.icon+' '+fo.n;
+    ctx.font=`900 ${Math.max(8,Math.round(w*0.021))}px Pretendard,sans-serif`;
+    const tw=ctx.measureText(txt).width;
+    mmRoundRect(ctx,6,h-24,tw+14,18,5);
+    ctx.fillStyle='rgba(6,10,16,.82)'; ctx.fill();
+    ctx.strokeStyle='rgba(255,201,74,.45)'; ctx.lineWidth=1; ctx.stroke();
+    ctx.fillStyle='#ffe4ab'; ctx.textAlign='left'; ctx.textBaseline='middle';
+    ctx.fillText(txt,13,h-15);
+  }
   ctx.restore();
   /* ---------- PiP (줌 상태 미니맵) ---------- */
   if(z.s>1.06){
@@ -11216,7 +11403,7 @@ function mmDraw(dt){
 }
 
 /* ============ BROADCAST — 라이브 중계 화면 · POG · 박스스코어 ============ */
-let MMDOM={key:null, ev:null, kills:[0,0], towers:[0,0], obj:null, banterAt:-1};
+let MMDOM={key:null, ev:null, kills:[0,0], towers:[0,0], obj:null, banterAt:null};
 let MMFAST=false;
 function champImg(name,size,cls){
   const c=CHAMP_MAP[name];
@@ -11254,71 +11441,145 @@ function mmClockStr(){
 }
 function mGoldK(v){ return (v/1000).toFixed(1)+'k'; }
 const CASTER_POOL={
-  kill:['자아~!! 여기서 킬이 터집니다!!','아니 이걸 잡는다고요?!','와~!! 이 각을 봐요 여러분!!','터졌습니다!! 완벽한 갱킹!!'],
-  solo:['솔로킬!! 솔로킬이 터집니다!!','라인전에서 그냥 이겼습니다!!','와~ 이걸 이렇게 따냅니까!!','점멸 없이 죽였습니다!!'],
-  obj:['드래곤 앞에서 시야 싸움이 치열합니다!','유충 스택! 이게 후반에 큰 차이를 만듭니다!','바론 앞에서 숨죽이고 있습니다!','오브젝트 하나에 판이 갈립니다!'],
-  fight:['아니 이 한타를 뒤집는다고요?!','5대5! 여기서 승부가 갈립니다!!','이게 LCK입니다 여러분!!','스펠이 다 빠졌습니다! 지금입니다!'],
-  steal:['바론 스틸!!! 이게 들어갑니까!!','와!! 정글 차이가 여기서 나옵니다!!','강타 싸움에서 이겼습니다!!'],
-  lane:['라인전 딜교환이 아주 날카롭습니다','CS 격차가 조금씩 벌어지고 있습니다','탑 라인 맞대결, 물러서지 않습니다','이 라인 구도가 오늘 경기의 핵심입니다'],
+  invade:['1레벨 인베이드!! 이건 준비해 온 겁니다!','와, 다섯 명이 그대로 들어갑니다!!','시야 없이 들어가는데요?! 이게 되면 판이 뒤집힙니다!','초반부터 이렇게 세게 나옵니다!','인베이드 성공입니다! 정글 시작이 완전히 꼬였어요!','이건 상대 대응이 늦었습니다!'],
+  counterJgl:['카정!! 상대 정글을 그냥 먹어버립니다!','와, 이건 정글 동선을 다 읽었습니다!','상대 정글 진영에 와드를 박아두고 시작합니다','캠프 하나가 통째로 넘어갑니다!!','이게 정글 차이라는 겁니다, 여러분','카운터 정글에 역갱까지 준비돼 있습니다!'],
+  solo:['솔로킬!! 단독으로 뚫었습니다!!','와, 이걸 혼자 잡아냅니까!','라인전에서 그냥 끝냈습니다!!','점멸 없이 따냅니다! 완벽한 각이었어요!','1대1에서 밀리지 않는다는 걸 보여줍니다!','이건 상성이 아니라 실력입니다!!'],
+  tp:['탑에서 보라색 빛이 내려옵니다!!','텔레포트가 들어옵니다! 이 한타에 합류합니다!!','탑 라이너가 판을 바꾸러 옵니다!','빛이 떨어지고 있습니다! 숫자가 달라집니다!!','텔포 각입니다! 이걸로 5대5가 됩니다!','한 명이 더 붙습니다! 텔레포트 타이밍이 완벽했습니다!'],
+  dive:['다이브 들어갑니다!! 이건 확실한 각입니다!','타워를 끼고 들어갑니다! 두 명이면 됩니다!','와, 이걸 그냥 밀어버립니다!','다이브 성공! 포탑까지 챙겨갑니다!','수비하는 쪽이 답이 없습니다!','이건 설계된 다이브입니다!'],
+  fail:['아 이건 좀 욕심이었죠, 전용준 캐스터!','다이브 각이 안 나왔는데 들어갑니다!','타워가 아직 살아있는데요?!','이건 무리했습니다! 손해만 보고 나옵니다','와, 이걸 들어간다고요? 하나도 안 맞았습니다','이건 좀 아쉽습니다, 각이 아니었어요'],
+  baron:['바론 앞에서 눈치싸움이 시작됐습니다','서로 시야만 치고 있습니다, 숨죽인 시간입니다','바론을 치는 척합니다! 낚시입니다!','와드 싸움에서 이기는 쪽이 가져갑니다','아직 안 칩니다... 아직 안 칩니다...','바론 앞 5대5! 이제 한 번의 실수가 끝입니다'],
+  clutch:['한타 역전입니다!!! 이게 뒤집힙니까!!','와!! 이 한타를 이렇게 이깁니다?!','5대5에서 완벽하게 갈랐습니다!!','이건 경기가 뒤집힌 순간입니다, 여러분!','스펠이 다 빠졌습니다! 여기서 갈립니다!','탱커가 버텨줬습니다! 그 한 끗이 달랐어요!'],
+  soul:['드래곤 영혼이 걸렸습니다!!','이제 영혼 한 스택 남았습니다!','영혼 획득! 후반 한타가 완전히 달라집니다!','이 용 하나에 시즌이 걸려 있습니다!','영혼을 가져갑니다! 상대는 시간이 없습니다!'],
+  steal:['바론 스틸!!! 이게 들어갑니까!!','강타 싸움에서 이겼습니다!! 정글 차이입니다!','와!! 마지막 타이밍에 빼앗아갑니다!','이게 스틸입니다, 여러분!'],
+  obj:['오브젝트 앞에서 시야 싸움이 치열합니다','유충 스택, 이게 후반에 큰 차이를 만듭니다','드래곤 스택이 쌓입니다! 상대는 조급해집니다','오브젝트 하나에 판이 갈립니다!','핏 앞에 와드가 없습니다! 위험한데요?','이 타이밍 놓치면 후반이 없습니다!'],
+  fight:['5대5! 여기서 승부가 갈립니다!!','아니 이 한타를 뒤집는다고요?!','이게 LCK입니다, 여러분!!','포지션이 아주 좋습니다! 지금입니다!','이니시가 열렸습니다! 들어갑니다!!'],
+  kill:['자아~!! 여기서 킬이 터집니다!!','아니 이걸 잡는다고요?!','터졌습니다!! 완벽한 갱킹!!','와~!! 이 각을 봐요, 여러분!!','한 명이 끊겼습니다! 숫자 싸움입니다!','이건 상대가 먼저 움직였는데 오히려 당했습니다'],
+  cs:['CS 격차가 조금씩 벌어지고 있습니다','라인전 딜교환이 아주 날카롭습니다','미니언 웨이브 관리가 승부를 가릅니다','이 라인 구도가 오늘 경기의 핵심입니다','탑 라인 맞대결, 물러서지 않습니다','웨이브가 밀립니다! 골드 차이가 누적됩니다'],
+  late:['30분이 넘었습니다. 이제 한 번의 실수가 경기를 끝냅니다','시야 장악이 곧 승리입니다, 여러분','양 팀 모두 체력이 바닥입니다','여기서부터는 운영이 아니라 멘탈 싸움입니다','한 명만 잘못 걸려도 넥서스까지 갑니다'],
+  throw:['아니 이걸 뒤집는다고요?! 리드가 다 날아갑니다!','한 번의 판단이 이렇게 됩니까!','여기서 사고가 터집니다!!','아까 그 리드 어디 갔습니까!','이건 그냥 던진 겁니다!'],
+  int:['아니 저걸 왜 맞습니까!','혼자 들어가면 안 되는데요!','저건 그냥 던진 겁니다!','와드 없이 들어갑니다! 이건 위험합니다!'],
+  intro:['경기가 시작되었습니다!','선수들이 협곡으로 향합니다!','오늘 경기, 밴픽부터 뜨겁습니다!','첫 웨이브가 올라옵니다. 이제 시작입니다!'],
   draft:['밴픽이 끝났습니다. 조합의 그림이 보입니다','이 조합은 초반에 굴려야 합니다','상대 밴픽이 아주 날카로웠습니다'],
-  late:['30분이 넘었습니다. 이제 한 번의 실수가 경기를 끝냅니다','시야 장악이 곧 승리입니다, 여러분','양 팀 모두 체력이 바닥입니다'],
-  throw:['아니 이걸 뒤집는다고요?! 리드가 다 날아갑니다!','한 번의 판단이 이렇게 됩니까!','여기서 사고가 터집니다!!'],
-  int:['아니 저걸 왜 맞습니까!','혼자 들어가면 안 되는데요!','저건 그냥 던진 겁니다!'],
-  intro:['경기가 시작되었습니다!','선수들이 협곡으로 향합니다!'],
 };
 const ANALYST_POOL={
-  kill:['아 근데 저기 와드도 없는데 왜 나가요~ ㅋㅋ','저건 상대가 실수한 거죠','점멸 아끼면 안 되는데 말이죠','이건 정글 동선이 완벽했습니다'],
-  solo:['라인전 딜교를 그냥 이겼어요, 챔프 상성이거든요','저건 상대가 미니언을 못 봤습니다 ㅋㅋ','스펠 교환에서 이미 끝났어요','와 이건 좀 아프네요'],
-  obj:['이 조합은 30분 넘어가면 숨도 못 쉽니다, 지금 굴려야죠!','드래곤 3스택이면 상대는 답이 없어요','유충은 타워 골드로 바꿔야 의미가 있죠','바론 앞에서 시간 끌면 오히려 손해야요'],
-  fight:['포지션이 너무 좋았어요, 옆에서 보면 쉬워 보이죠','탱커가 앞에 안 서면 저렇게 됩니다','딜러가 각을 너무 좁게 잡았어요','이니시 각이 딱 하나 있었는데 그걸 열었네요'],
-  steal:['정글 차이입니다, 이건 뭐라고 해야 되나','스틸은 운도 필요하지만 위치가 좋았어요','상대 정글은 강타 아꼈죠? ㅋㅋ'],
-  lane:['미니언 웨이브 관리가 승부를 가릅니다','저 라인은 지금 프리징이 정답이에요','CS 20개 차이는 골드로 보면 400입니다','라인전은 결국 정글 위치 싸움입니다'],
+  invade:['이건 준비해 온 겁니다, 와드 위치가 다 읽혔어요','인베이드 타이밍이 딱 맞았어요, 1렙 싸움은 정해져 있습니다','상대가 먼저 자리를 안 잡은 게 컸죠','이건 정글이 커버를 안 들어간 게 큽니다','1레벨 설계에서 이미 반은 갔어요','저건 연습한 그림입니다, 확실해요'],
+  counterJgl:['정글 동선이 완전히 읽혔습니다, 이건 큰 차이예요','카정은 결국 시야 싸움입니다','상대 정글은 그 캠프를 버려야 했어요','이게 누적되면 정글 레벨이 두 개 차이 납니다','역갱 각까지 보고 들어갔어요, 준비된 플레이입니다','저건 상대 정글이 너무 예측 가능했어요'],
+  solo:['라인전 딜교를 그냥 이겼어요, 챔프 상성이거든요','저건 상대가 미니언을 못 봤습니다 ㅋㅋ','스펠 교환에서 이미 끝났어요','와 이건 좀이 아프네요, 라인이 완전히 무너집니다','단독으로 뚫었어요, 이건 실력 차이입니다','저건 점멸 아낀 게 컸습니다'],
+  tp:['텔포 타이밍이 아주 좋습니다, 이거 하나로 인원수가 달라져요','탑이 이걸 안 쓰면 라인 손해인데, 판단이 빨랐어요','빛 떨어지는 위치가 완벽합니다, 뒤에서 들어옵니다','이건 상대가 못 본 각이에요','텔포 하나로 한타 구도가 완전히 바뀝니다','저건 사이드 정리하고 바로 붙은 겁니다, 운영이에요'],
+  dive:['다이브는 인원수와 스펠이 다예요, 이건 계산된 겁니다','상대가 텔포를 아꼈어요, 그게 손해로 돌아옵니다','포탑 방패까지 챙기면 이득이 두 배죠','이건 라인을 밀어놓고 들어간 겁니다','수비하는 쪽은 스펠이 없으면 답이 없어요','저건 와드로 미리 본 각입니다'],
+  fail:['이건 좀 욕심이었죠, 타워 두 대 맞으면서 들어갈 각은 아니에요','다이브는 실패하면 그대로 손해가 두 배입니다','아까 그 텔포 아낀 게 여기서 문제가 됩니다','상대 정글이 어디 있는지 못 봤어요','이건 마음이 급했습니다','저건 각이 아니라 그냥 들어간 거예요 ㅋㅋ'],
+  baron:['바론은 시야 없이 치면 그대로 사고 납니다','지금은 치는 척하면서 시간 버는 구간이에요','양 팀 다 바론을 안 치고 눈치만 봅니다','이건 서로 실수 기다리는 시간입니다','여기서 먼저 들어가면 지는 겁니다','바론 앞에 와드 하나가 경기를 가릅니다'],
+  clutch:['포지션이 너무 좋았어요, 옆에서 보면 쉬워 보이죠','탱커가 앞에 안 서면 저렇게 됩니다','딜러가 각을 너무 좁게 잡았어요','이니시 각이 딱 하나 있었는데 그걸 열었네요','이게 역전입니다, 한타 한 번에 다 날아갔어요','저건 상대가 먼저 들어온 게 오히려 손해였어요'],
+  soul:['영혼은 후반 밸류가 완전히 다릅니다, 이건 큰 겁니다','3스택이면 다음 용이 사실상 마지막 오브젝트예요','영혼 앞에서는 사이드를 포기해야 합니다','드래곤 스택은 시간이 지날수록 더 아파요','이건 상대가 반드시 와야 하는 오브젝트입니다'],
+  steal:['정글 차이입니다, 이건 뭐라고 해야 되나','스틸은 운도 필요하지만 위치가 좋았어요','상대 정글은 강타 아꼈죠? ㅋㅋ','저건 와드 하나가 만든 스틸이에요'],
+  obj:['이 조합은 30분 넘어가면 숨도 못 쉽니다, 지금 굴려야죠!','유충은 타워 골드로 바꿔야 의미가 있죠','바론 앞에서 시간 끌면 오히려 손해야요','핏 앞 시야를 먼저 잡은 쪽이 이깁니다','오브젝트는 결국 미드 라인 주도권 싸움입니다','저건 사이드 정리하고 오는 타이밍이에요'],
+  fight:['포지션이 너무 좋았어요, 옆에서 보면 쉬워 보이죠','탱커가 앞에 안 서면 저렇게 됩니다','딜러가 각을 너무 좁게 잡았어요','이니시 각이 딱 하나 있었는데 그걸 열었네요','플래시 하나 아낀 게 그대로 손해가 됐습니다'],
+  kill:['아 근데 저기 와드도 없는데 왜 나가요~ ㅋㅋ','저건 상대가 실수한 거죠','점멸 아끼면 안 되는데 말이죠','이건 정글 동선이 완벽했습니다','저건 미니언 웨이브를 못 읽은 거예요','한 명 끊기면 그 뒤가 다 무너집니다'],
+  cs:['미니언 웨이브 관리가 승부를 가릅니다','저 라인은 지금 프리징이 정답이에요','CS 20개 차이는 골드 400입니다','라인전은 결국 정글 위치 싸움입니다','웨이브가 밀리면 시야도 같이 밀립니다','저건 라인을 반만 먹고 로밍 간 거예요'],
+  late:['지금은 욕심 부리면 지는 시간입니다','바론 사냥은 시야 없이 하면 안 되죠','한 명만 잘못 걸려도 넥서스까지 갑니다','후반엔 템포가 아니라 시야가 곧 승리입니다','이 시간엔 사이드 하나가 다 이깁니다'],
+  throw:['아까 그 리드 어디 갔어요~ ㅋㅋ','이게 롤이죠, 진짜 모릅니다','한타 한 번에 이렇게 되니까 무섭습니다','리드가 있을 때 더 조심해야 하는데요','저건 각이 아니라 조급함이었어요'],
+  int:['저건 좀 선수도 억울할 듯','와드 없이 들어가면 그렇게 됩니다','한 번의 실수인데 결과가 너무 큽니다','저건 팀에서 말해줘야 하는 부분이에요'],
+  intro:['오늘 경기 재밌겠는데요? ㅋㅋ','밴픽만 봐도 그림이 나옵니다','양 팀 다 초반 설계가 확실합니다','1레벨부터 재밌어질 것 같아요'],
   draft:['이 조합은 사이드 운영이 강점이에요','밴픽에서 이미 반은 이겼습니다','상대 딜 밸런스가 무너졌어요, 탱커가 없어요','후반 밸류만 보면 우리 쪽이 훨씬 좋습니다'],
-  late:['지금은 욕심 부리면 지는 시간입니다','바론 사냥은 시야 없이 하면 안 되죠','한 명만 잘못 걸려도 넥서스까지 갑니다'],
-  throw:['아까 그 리드 어디 갔어요~ ㅋㅋ','이게 롤이죠, 진짜 모릅니다','한타 한 번에 이렇게 되니까 무섭습니다'],
-  int:['저건 좀 선수도 억울할 듯','와드 없이 들어가면 그렇게 됩니다','한 번의 실수인데 결과가 너무 큽니다'],
-  intro:['오늘 경기 재밌겠는데요? ㅋㅋ','밴픽만 봐도 그림이 나옵니다'],
 };
-let CAST_PH=-1, CAST_LINE=[];
+/* ---- 해설 반복 방지: 경기별 사용 이력 + 시나리오 쿨다운 ---- */
+const CASTMEM={hist:[],last:[null,null],scnAt:{},scnLast:null,at:{},n:0,banterLast:[null,null]};
+const CASTCACHE={key:null,lines:['',''],evN:-1,sec:-1};
+function castReset(){ CASTMEM.hist=[]; CASTMEM.last=[null,null]; CASTMEM.scnAt={}; CASTMEM.scnLast=null; CASTMEM.at={}; CASTMEM.n=0; CASTMEM.banterLast=[null,null]; CASTCACHE.key=null; CASTCACHE.evN=-1; CASTCACHE.sec=-1; }
+function castPick(pool,tag,avoid){
+  if(!pool||!pool.length) return '';
+  CASTMEM.n=(CASTMEM.n||0)+1;
+  const hist=CASTMEM.hist;
+  const av=avoid||[];
+  const cool=l=>{ const t=CASTMEM.at[l]; return t===undefined?-1:t; };
+  let cands=pool.filter(l=>hist.indexOf(l)<0 && av.indexOf(l)<0 && l!==CASTMEM.last[1]);
+  if(!cands.length) cands=pool.filter(l=>av.indexOf(l)<0 && l!==CASTMEM.last[1] && l!==CASTMEM.last[0]);
+  if(!cands.length) cands=pool.filter(l=>l!==CASTMEM.last[1]);
+  if(!cands.length) cands=pool.slice();
+  /* 가장 오래 안 쓴 문장 우선(least-recently-used), 동률은 무작위 */
+  cands=cands.slice().sort((a,b)=>cool(a)-cool(b));
+  const line=cands[0];
+  CASTMEM.at[line]=CASTMEM.n;
+  hist.push(line);
+  if(hist.length>24) hist.shift();
+  CASTMEM.last[0]=CASTMEM.last[1]; CASTMEM.last[1]=line;
+  return line;
+}
 function lastEventText(){ const e=(M.events||[]).find(x=>x.kind!=='sys'); return e?e.text.replace(/<[^>]+>/g,''):''; }
-function castScenario(){
-  const m=M.minute;
-  const ev=lastEventText();
-  const gd=M.gold[0]-M.gold[1];
-  const kd=M.kills[0]-M.kills[1];
-  if(/바론/.test(ev)&&/스틸|강타/.test(ev)) return 'steal';
-  if(/역전|뒤집|리드/.test(ev)) return 'throw';
-  if(m>=18&&Math.abs(gd)>3000&&((gd>0&&M.kills[1]>M.kills[0])||(gd<0&&M.kills[0]>M.kills[1]))) return 'throw';
-  if(/솔로킬/.test(ev)) return 'solo';
-  if(/킬/.test(ev)) return 'kill';
-  const deaths=MM.kda?ROLES.reduce((a,r)=>a+((MM.kda['me-'+r]||{}).d||0),0):0;
-  if(m>=12&&deaths>=7&&Math.random()<0.5) return 'int';
-  if(mmObjectiveWindow(m)) return 'obj';
-  if((M.fights[0]+M.fights[1])>0&&(m%3===0||M.focusUntil>m)) return 'fight';
-  if(m>=28) return 'late';
-  if(m<1) return 'intro';
-  return 'lane';
+/* 이번 분에 새로 생긴 이벤트만 사용 (같은 이벤트를 매분 읽지 않기) */
+function freshEvent(){
+  const e=(M.events||[]).find(x=>x.kind!=='sys');
+  if(!e) return null;
+  return (e.minute===M.minute)?e:null;
+}
+function castScenarios(){
+  const m=M.minute||0, sec=M.sec||0;
+  const gd=M.gold[0]-M.gold[1], kd=M.kills[0]-M.kills[1];
+  const ev=freshEvent(); const evt=ev?ev.text.replace(/<[^>]+>/g,''):'';
+  const keys=[];
+  if(/텔레포트|TP/.test(evt)||(M.tpAt!=null&&m-M.tpAt<=1)) keys.push('tp');
+  if(/스틸|강타/.test(evt)) keys.push('steal');
+  if(/바론/.test(evt)&&/처치/.test(evt)) keys.push('baron');
+  if(/솔로킬/.test(evt)) keys.push('solo');
+  if(/한타/.test(evt)) keys.push('clutch');
+  if(/드래곤|유충|전령/.test(evt)) keys.push('obj');
+  if(/다이브/.test(evt)) keys.push(gd<0?'fail':'dive');
+  if(/킬/.test(evt)) keys.push('kill');
+  if(m<=2) keys.push('invade');
+  if(M.campSteal&&((M.campSteal.me>0&&m-(M.campStealAtMe||-9)<=2)||(M.campSteal.opp>0&&m-(M.campStealAtOpp||-9)<=2))) keys.push('counterJgl');
+  const diveKey=(M.focusKey==='topDive'||M.focusKey==='botDive');
+  if(diveKey&&m>2) keys.push((M.kills[0]-(M.diveKills0||0))>=(M.kills[1]-(M.diveKills1||0))?'dive':'fail');
+  if(m>=18&&(Math.abs(m-20)<=2||Math.abs(m-26)<=2||m>=31)) keys.push('baron');
+  if(M.soulGranted&&(M.soulGranted.me||M.soulGranted.opp)) keys.push('soul');
+  if(mmObjectiveWindow(m)) keys.push('obj');
+  if(Math.abs(gd)>3000&&kd<0) keys.push('throw');
+  if(m>=12&&(()=>{const d=MM.kda?ROLES.reduce((a,r)=>a+((MM.kda['me-'+r]||{}).d||0),0):0;return d>=7;})()) keys.push('int');
+  if(m<14&&Math.abs(gd)>400) keys.push('cs');
+  if((M.fights[0]+M.fights[1])>0&&M.focusUntil>m) keys.push('fight');
+  if(m>=28) keys.push('late');
+  if(m<1) keys.push('intro');
+  if(!keys.length) keys.push(m<14?'cs':'lane');
+  return keys;
 }
 function casterLines(){
-  const m=M.minute;
-  const sc=castScenario();
-  const last=(M.events||[]).find(e=>e.kind!=='sys');
-  let key=sc;
-  if(Math.abs((M.dragons[0]+M.dragons[1]))>0&&m%7===0) key='obj';
-  if(m>=28) key='late';
-  if(m<1){
-    key='intro';
-    try{
-      const syn=activeSynergies((D&&D.picks&&D.picks[D.mySide])||[]);
-      if(syn.length) return [syn[0].line, '이 조합은 후반 밸류가 무섭습니다, 지금 굴려야죠!'];
-    }catch(e){}
+  if(!M) return ['',''];
+  const m=M.minute||0, sec=M.sec||0, evN=(M.events||[]).length;
+  if(CASTCACHE.key!==null && CASTCACHE.evN===evN && sec-(CASTCACHE.sec||0)<12) return CASTCACHE.lines;
+  const keys=castScenarios();
+  let key=null;
+  for(let i=0;i<keys.length;i++){
+    const k=keys[i];
+    if(k===CASTMEM.scnLast) continue;
+    const at=CASTMEM.scnAt[k];
+    if(at===undefined||m-at>=3){ key=k; break; }
   }
-  const bucket=key==='kill'?'kill':key;
-  const c1=CASTER_POOL[bucket]||CASTER_POOL.lane;
-  const c2=ANALYST_POOL[bucket]||ANALYST_POOL.lane;
-  const hk=hashN('c'+(S.currentSeries?S.currentSeries.startedAt:0)+'-'+m+'-'+key);
-  const lead=(last&&key!=='intro')?last.text.replace(/<[^>]+>/g,'').slice(0,60):c1[hk%c1.length];
-  return [lead, c2[(hk+1)%c2.length]];
+  if(!key){ key=keys.find(k=>k!==CASTMEM.scnLast)||keys[0]||'lane'; }
+  CASTMEM.scnAt[key]=m; CASTMEM.scnLast=key;
+  const c1=CASTER_POOL[key]||CASTER_POOL.lane;
+  const c2=ANALYST_POOL[key]||ANALYST_POOL.lane;
+  const ev=freshEvent();
+  let lead=null;
+  if(ev&&key!=='intro'){
+    const t=ev.text.replace(/<[^>]+>/g,'').replace(/^\d+분 · /,'').slice(0,64);
+    if(t&&CASTMEM.hist.indexOf(t)<0){ lead=t; CASTMEM.hist.push(t); if(CASTMEM.hist.length>24) CASTMEM.hist.shift(); }
+  }
+  if(!lead) lead=castPick(c1,'caster-'+key);
+  let analyst=castPick(c2,'analyst-'+key);
+  if(analyst===lead) analyst=castPick(c2,'analyst2-'+key);
+  CASTCACHE.key=key; CASTCACHE.evN=evN; CASTCACHE.sec=sec; CASTCACHE.lines=[lead,analyst];
+  return CASTCACHE.lines;
+}
+/* 2분 해설 한마디 — 같은 문장이 다시 나오지 않도록 별도 이력 사용 */
+function castBanter(){
+  if(!M) return null;
+  const keys=castScenarios();
+  const key=keys[0]||'lane';
+  const who=Math.random()<0.5?'클템':'전용준';
+  const pool=who==='클템'?(ANALYST_POOL[key]||ANALYST_POOL.lane):(CASTER_POOL[key]||CASTER_POOL.lane);
+  const avoid=(CASTMEM.banterLast||[]).filter(Boolean);
+  const line=castPick(pool,'banter-'+who+'-'+key,avoid);
+  CASTMEM.banterLast=[line,(CASTMEM.banterLast||[])[0]||null];
+  return {who:who, line:line};
 }
 
 function buildMatchDOM(v,key){
@@ -11384,7 +11645,8 @@ function buildMatchDOM(v,key){
     <div class="bfeed" id="feed"></div>
     <div style="height:10px"></div>
   </div>`;
-  MMDOM.key=key; MMDOM.ev=M.events[0]||null; MMDOM.kills=(M.kills||[0,0]).slice(); MMDOM.obj=JSON.stringify(objKey());
+  MMDOM.key=key; MMDOM.ev=M.events[0]||null; MMDOM.banterAt=null;
+  if(typeof castReset==='function') castReset(); MMDOM.kills=(M.kills||[0,0]).slice(); MMDOM.obj=JSON.stringify(objKey());
   mmKdaInit();
   const feed=$('feed');
   (M.events||[]).slice().reverse().forEach(e=>feed.appendChild(evNode(e)));
@@ -11500,11 +11762,11 @@ function matchPatch(){
   const c1=q('mmCast1'), c2=q('mmCast2');
   if(c1&&c1.textContent!==cast[0]) c1.textContent=cast[0];
   if(c2&&c2.textContent!==cast[1]) c2.textContent=cast[1];
-  // 해설 한마디를 피드에 남기기 (2분 간격)
-  if(M.minute!==MMDOM.banterAt&&M.minute%2===0&&!M.over){
+  // 해설 한마디를 피드에 남기기 (최소 3분 간격 · 같은 문장 재사용 금지)
+  if(!M.over&&M.minute-(MMDOM.banterAt==null?-9:MMDOM.banterAt)>=3&&M.minute>=2){
     MMDOM.banterAt=M.minute;
-    if(Math.random()<0.75) logEvent('sys','🎙 클템: '+cast[1]);
-    if(Math.random()<0.4) logEvent('sys','🎤 전용준: '+cast[0]);
+    const b=castBanter();
+    if(b&&b.line) logEvent('sys',(b.who==='클템'?'🎙 클템: ':'🎤 전용준: ')+b.line);
   }
   const pb=q('mmPlay');
   if(pb){
