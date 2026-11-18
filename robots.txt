@@ -41,6 +41,8 @@ Disallow: /papers.json
 Disallow: /report.html
 Disallow: /stocks.html
 Disallow: /my.html
+Disallow: /life.html
+Disallow: /life-app.js
 Disallow: /stocks.json
 
 Sitemap: https://wecarevet.github.io/wecarevet/sitemap.xml

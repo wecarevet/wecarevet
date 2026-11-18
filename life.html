@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#08090c">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="생활보드">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>생활·세무 보드</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.png">
+<style>
+:root{
+  --bg:#08090c; --bg2:#0b0e13; --card:#101419; --card2:#151b23; --card3:#1a212b;
+  --line:#1e242e; --line2:#2b3441;
+  --txt:#f0f2f6; --txt2:#b9c2cf; --mut:#7d879a; --mut2:#596272;
+  --gold:#e8c07a; --gold2:#c2933f; --gold-soft:rgba(232,192,122,.13);
+  --up:#37e0b2; --dn:#ff6470; --warn:#f5b942; --blue:#7aa9e8;
+  --r:16px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  min-height:100dvh;
+  background:
+    radial-gradient(900px 560px at 88% -8%, rgba(232,192,122,.13), transparent 62%),
+    radial-gradient(820px 520px at -8% 4%, rgba(90,140,200,.10), transparent 58%),
+    linear-gradient(180deg,#08090c,#07080b 55%,#08090c);
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  font-size:15px; line-height:1.5; letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;
+  padding:calc(16px + env(safe-area-inset-top)) 13px calc(84px + env(safe-area-inset-bottom));
+}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.wrap{max-width:720px;margin:0 auto}
+@media(min-width:900px){ .wrap{max-width:1000px} }
+
+/* ── header ── */
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.hello{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.hi{margin:4px 0 0;font-size:22px;font-weight:800;letter-spacing:-.04em;line-height:1.2}
+.hi .grad{background:linear-gradient(100deg,var(--gold),#fff3dc 48%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+@media(min-width:760px){ .hi{font-size:27px} }
+.clock{text-align:right;flex:0 0 auto}
+.clock b{display:block;font-size:21px;font-weight:800;letter-spacing:-.03em}
+.clock span{display:block;font-size:11px;color:var(--mut)}
+
+/* ── alerts ── */
+.alerts{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.al{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:11.5px;font-weight:700;
+  border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--txt2);white-space:nowrap}
+.al b{color:var(--txt);font-weight:800}
+.al.hot{border-color:rgba(255,100,112,.36);background:rgba(255,100,112,.10);color:#ffd3d7}
+.al.soon{border-color:rgba(245,185,66,.34);background:rgba(245,185,66,.10);color:#ffe6b5}
+.al.ok{border-color:rgba(232,192,122,.30);background:var(--gold-soft);color:#ffeccd}
+
+/* ── tabs ── */
+.tabs{position:sticky;top:0;z-index:40;display:flex;gap:6px;padding:8px 0 9px;margin:0 0 12px;
+  background:linear-gradient(180deg,rgba(8,9,12,.96),rgba(8,9,12,.86) 70%,rgba(8,9,12,0));
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+.tab{flex:1;min-width:0;padding:10px 6px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.022);
+  color:var(--mut);font-size:12.5px;font-weight:800;letter-spacing:-.02em;cursor:pointer;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;transition:.15s}
+.tab:hover{color:var(--txt2);border-color:var(--line2)}
+.tab.on{color:#1b1509;background:linear-gradient(180deg,#f3d59c,var(--gold));border-color:rgba(232,192,122,.55);
+  box-shadow:0 6px 18px rgba(232,192,122,.18)}
+.pane{display:none;animation:fade .18s ease-out}
+.pane.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ── cards ── */
+.card{background:linear-gradient(165deg,var(--card2),var(--card) 72%);border:1px solid var(--line);
+  border-radius:var(--r);padding:14px;margin-bottom:11px;box-shadow:0 8px 22px rgba(0,0,0,.28)}
+.card-h{display:flex;align-items:center;gap:8px;margin:0 0 10px}
+.card-h h3{margin:0;font-size:13.5px;font-weight:800;letter-spacing:-.02em;flex:1;min-width:0}
+.card-h .ic{font-size:16px}
+.badge{font-size:10px;font-weight:800;letter-spacing:.04em;padding:3px 7px;border-radius:7px;
+  color:#1b1509;background:linear-gradient(180deg,#f3d59c,var(--gold));white-space:nowrap}
+.badge.ghost{background:transparent;color:var(--mut);border:1px solid var(--line2);font-weight:700}
+.sub{font-size:11.5px;color:var(--mut);line-height:1.55}
+.sec-t{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:800;margin:18px 2px 8px}
+.sec-t span.plain{color:var(--mut2);letter-spacing:0;text-transform:none;font-weight:600}
+
+/* ── form ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+@media(max-width:520px){ .grid3{grid-template-columns:1fr 1fr} }
+.field{display:block;min-width:0}
+.field .lb{display:block;font-size:11px;color:var(--mut);font-weight:700;margin-bottom:4px;letter-spacing:-.01em}
+.field .lb i{font-style:normal;color:var(--mut2);font-weight:600}
+input[type=text],input[type=number],input[type=date],select,textarea{
+  width:100%;padding:9px 10px;border-radius:10px;border:1px solid var(--line2);background:#0b0f14;color:var(--txt);
+  font-size:14px;font-weight:700;font-family:inherit;letter-spacing:-.01em}
+input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(232,192,122,.55);background:#0d1218}
+input[type=date]{font-weight:600}
+input::placeholder{color:var(--mut2);font-weight:600}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);
+  background-position:calc(100% - 15px) 17px,calc(100% - 10px) 17px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 13px;border-radius:10px;cursor:pointer;
+  border:1px solid var(--line2);background:rgba(255,255,255,.04);color:var(--txt2);font-size:12.5px;font-weight:800;font-family:inherit;
+  letter-spacing:-.01em;transition:.15s}
+.btn:hover{border-color:rgba(232,192,122,.4);color:var(--txt)}
+.btn.gold{background:linear-gradient(180deg,#f3d59c,var(--gold));color:#1b1509;border-color:rgba(232,192,122,.5)}
+.btn.sm{padding:6px 9px;font-size:11.5px;border-radius:8px}
+.btn.danger{color:#ffb4bb;border-color:rgba(255,100,112,.3);background:rgba(255,100,112,.08)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* switch */
+.sw{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:12.5px;font-weight:700;color:var(--txt2)}
+.sw input{position:absolute;opacity:0;width:0;height:0}
+.sw .tr{width:38px;height:22px;border-radius:999px;background:#232b36;border:1px solid var(--line2);position:relative;transition:.18s;flex:0 0 auto}
+.sw .tr::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#8b96a8;transition:.18s}
+.sw input:checked + .tr{background:rgba(232,192,122,.3);border-color:rgba(232,192,122,.6)}
+.sw input:checked + .tr::after{left:18px;background:var(--gold)}
+
+/* ── stat tiles ── */
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(min-width:700px){ .tiles{grid-template-columns:repeat(4,1fr)} }
+.tile{padding:10px 11px;border-radius:12px;background:rgba(255,255,255,.024);border:1px solid var(--line);min-width:0}
+.tile .k{font-size:10.5px;color:var(--mut);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .v{font-size:16px;font-weight:800;letter-spacing:-.03em;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tile .v.sm{font-size:14px}
+.tile.gold{background:linear-gradient(160deg,rgba(232,192,122,.16),rgba(232,192,122,.05));border-color:rgba(232,192,122,.28)}
+.tile.gold .v{color:#ffe3b4}
+.tile .d{font-size:10.5px;color:var(--mut);margin-top:2px;font-weight:600}
+
+/* ── expense rows ── */
+.erow{display:grid;grid-template-columns:1fr 128px 30px;gap:6px;margin-bottom:6px;align-items:center}
+@media(max-width:520px){ .erow{grid-template-columns:1fr 108px 28px} }
+.erow input{padding:8px 9px;font-size:13px}
+.erow .del{padding:0;width:28px;height:32px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--mut2);cursor:pointer;font-size:15px;line-height:1}
+.erow .del:hover{color:#ffb4bb;border-color:rgba(255,100,112,.35)}
+.sumrow{display:flex;justify-content:space-between;align-items:center;padding-top:8px;margin-top:4px;border-top:1px dashed var(--line2);font-size:12px;color:var(--mut);font-weight:700}
+.sumrow b{color:var(--txt);font-size:14px;letter-spacing:-.02em}
+
+/* lever */
+.lever{border:1px solid var(--line);border-radius:13px;padding:11px 12px;margin-bottom:8px;background:rgba(255,255,255,.018)}
+.lever.on{border-color:rgba(232,192,122,.32);background:linear-gradient(160deg,rgba(232,192,122,.09),rgba(255,255,255,.015))}
+.lever-h{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.lever-h .nm{font-size:12.5px;font-weight:800;letter-spacing:-.02em;flex:1;min-width:0}
+.lever-h .nm i{display:block;font-style:normal;font-size:10.5px;color:var(--mut);font-weight:600;margin-top:1px}
+.lever-h .sv{font-size:12.5px;font-weight:800;white-space:nowrap;color:var(--mut)}
+.lever-h .sv.down{color:var(--up)}
+.lever-h .sv.up{color:var(--warn)}
+.hintline{font-size:10.5px;color:var(--mut2);margin-top:6px;line-height:1.5}
+.hintline b{color:var(--mut)}
+
+/* calendar */
+.cal{display:flex;flex-direction:column;gap:5px}
+.ci{display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:center;padding:8px 9px;border-radius:10px;
+  background:rgba(255,255,255,.02);border:1px solid var(--line)}
+.ci .d{font-size:11px;font-weight:800;color:var(--txt2);letter-spacing:-.02em}
+.ci .t{font-size:12px;font-weight:700;letter-spacing:-.02em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ci .t i{font-style:normal;display:block;font-size:10px;color:var(--mut);font-weight:600}
+.ci .dd{font-size:11px;font-weight:800;color:var(--mut);white-space:nowrap}
+.ci.near{border-color:rgba(245,185,66,.28);background:rgba(245,185,66,.06)}
+.ci.near .dd{color:var(--warn)}
+
+/* dday card */
+.dd{position:relative;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:11px 12px;border-radius:13px;
+  border:1px solid var(--line);background:rgba(255,255,255,.02);margin-bottom:7px}
+.dd .tt{font-size:13px;font-weight:800;letter-spacing:-.02em;line-height:1.35}
+.dd .mt{font-size:10.5px;color:var(--mut);margin-top:3px;line-height:1.45}
+.dd .tag{display:inline-block;font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:6px;margin-right:5px;
+  border:1px solid var(--line2);color:var(--mut);vertical-align:1px}
+.dd .right{text-align:right;flex:0 0 auto}
+.dd .v{font-size:19px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.dd .v small{font-size:10px;font-weight:700;color:var(--mut);display:block;margin-top:3px;letter-spacing:0}
+.dd.done{opacity:.45}
+.dd.done .tt{text-decoration:line-through}
+.dd.hot{border-color:rgba(255,100,112,.32);background:linear-gradient(160deg,rgba(255,100,112,.09),rgba(255,255,255,.015))}
+.dd.soon{border-color:rgba(245,185,66,.28);background:linear-gradient(160deg,rgba(245,185,66,.07),rgba(255,255,255,.015))}
+.dd .acts{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.iconbtn{border:1px solid var(--line);background:transparent;color:var(--mut2);border-radius:7px;padding:3px 7px;font-size:10.5px;
+  font-weight:700;cursor:pointer;font-family:inherit}
+.iconbtn:hover{color:var(--txt2);border-color:var(--line2)}
+.iconbtn.del:hover{color:#ffb4bb;border-color:rgba(255,100,112,.35)}
+
+/* maint */
+.mt-row{padding:11px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);margin-bottom:7px}
+.mt-top{display:flex;align-items:flex-start;gap:8px}
+.mt-top .nm{font-size:13px;font-weight:800;letter-spacing:-.02em;flex:1;min-width:0}
+.mt-top .sp{font-size:10.5px;color:var(--mut);font-weight:700;white-space:nowrap}
+.mt-next{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.pill{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:99px;border:1px solid var(--line2);color:var(--txt2);white-space:nowrap}
+.pill.hot{color:#ffd3d7;border-color:rgba(255,100,112,.4);background:rgba(255,100,112,.1)}
+.pill.soon{color:#ffe6b5;border-color:rgba(245,185,66,.4);background:rgba(245,185,66,.1)}
+.pill.ok{color:#a9f5e2;border-color:rgba(55,224,178,.34);background:rgba(55,224,178,.08)}
+.pill.none{color:var(--mut2)}
+.mt-in{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;margin-top:8px;align-items:end}
+@media(max-width:520px){ .mt-in{grid-template-columns:1fr 1fr} .mt-in .btn{grid-column:1/-1} }
+.mt-in input{padding:7px 8px;font-size:12.5px}
+
+/* ledger */
+.lg-month{display:flex;flex-direction:column;gap:5px}
+.lm{display:grid;grid-template-columns:52px 1fr 74px;gap:8px;align-items:center;font-size:11.5px}
+.lm .m{color:var(--mut);font-weight:800}
+.lm .track{height:8px;border-radius:99px;background:#161d26;overflow:hidden}
+.lm .track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#8a6b2f,var(--gold))}
+.lm .a{text-align:right;font-weight:800;letter-spacing:-.02em}
+.lgent{display:grid;grid-template-columns:54px 62px minmax(0,1fr) minmax(0,86px) auto auto;gap:7px;align-items:center;padding:7px 8px;border-radius:9px;
+  background:rgba(255,255,255,.018);border:1px solid var(--line);font-size:11.5px}
+@media(max-width:560px){ .lgent{grid-template-columns:48px 58px minmax(0,1fr) auto auto} .lgent .memo{display:none} }
+.lgent .dt{color:var(--mut);font-weight:700}
+.lgent .ty{font-weight:800;color:var(--txt2);white-space:nowrap}
+.lgent .km{color:var(--mut);font-weight:600;white-space:nowrap;font-size:11px}
+.lgent .memo{color:var(--mut2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lgent .am{text-align:right;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+
+/* toolbar */
+.tools{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;gap:7px;justify-content:center;flex-wrap:wrap;
+  padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  background:linear-gradient(0deg,rgba(8,9,12,.98),rgba(8,9,12,.9) 65%,rgba(8,9,12,0));backdrop-filter:blur(8px)}
+.foot{margin:20px 2px 4px;font-size:10.5px;color:var(--mut2);line-height:1.7}
+.foot b{color:var(--mut)}
+.toast{position:fixed;left:50%;bottom:76px;transform:translate(-50%,10px);opacity:0;pointer-events:none;z-index:80;
+  padding:9px 15px;border-radius:999px;background:rgba(20,24,30,.96);border:1px solid rgba(232,192,122,.35);
+  color:#ffeccd;font-size:12px;font-weight:800;transition:.22s;white-space:nowrap}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.empty{padding:14px;text-align:center;font-size:11.5px;color:var(--mut2);border:1px dashed var(--line2);border-radius:11px;line-height:1.6}
+details.steps{margin-top:8px}
+details.steps summary{cursor:pointer;font-size:11.5px;color:var(--gold);font-weight:800;list-style:none}
+details.steps summary::-webkit-details-marker{display:none}
+details.steps summary::before{content:"▸ ";font-size:10px}
+details.steps[open] summary::before{content:"▾ "}
+.steps .ln{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;padding:5px 0;border-bottom:1px dashed var(--line);color:var(--mut)}
+.steps .ln:last-child{border-bottom:0}
+.steps .ln b{color:var(--txt2);font-weight:800;white-space:nowrap}
+.steps .ln em{font-style:normal;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <div class="hello">WECARE · LIFE HUB</div>
+      <h1 class="hi">원장님 <span class="grad">생활·세무 보드</span></h1>
+    </div>
+    <div class="clock"><b class="num" id="clock">--:--</b><span id="today">—</span></div>
+  </div>
+
+  <div class="alerts" id="alerts"></div>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab on" data-tab="tax">💰 세무·절세</button>
+    <button class="tab" data-tab="car">🚗 내 차</button>
+    <button class="tab" data-tab="life">📋 D-day 보드</button>
+  </nav>
+
+  <!-- ══════════ TAB 1 : 세무·절세 ══════════ -->
+  <section class="pane on" id="pane-tax">
+
+    <div class="card">
+      <div class="card-h">
+        <span class="ic">🏥</span>
+        <h3>내 사업장 <span class="sub" style="font-weight:600">개인사업자 기준</span></h3>
+        <span class="badge ghost" id="faithBadge">일반신고</span>
+      </div>
+      <div class="grid2" style="margin-bottom:8px">
+        <label class="field"><span class="lb">상호</span><input type="text" id="clName" placeholder="사업장 이름"></label>
+        <label class="field"><span class="lb">사업자등록번호</span><input type="text" id="clNo" placeholder="000-00-00000" inputmode="numeric"></label>
+      </div>
+      <div class="grid2" style="margin-bottom:8px">
+        <label class="field"><span class="lb">업종</span><input type="text" id="clType" placeholder="예: 보건업(수의업)"></label>
+        <label class="field"><span class="lb">과세 유형</span>
+          <select id="clTax">
+            <option value="면세">면세사업자</option>
+            <option value="과세">과세사업자</option>
+            <option value="간이">간이과세자</option>
+          </select>
+        </label>
+      </div>
+      <label class="sw"><input type="checkbox" id="faithful"><span class="tr"></span>성실신고확인대상 (표준세액공제 12만 · 신고기한 6/30)</label>
+      <p class="hintline">보건·수의업은 연 수입금액 5억 이상이면 성실신고 대상이고, 전문직이라 매출과 상관없이 복식부기입니다. 면세사업자는 부가세 신고 대신 2/10 사업장현황신고를 합니다.</p>
+    </div>
+
+    <div class="sec-t">1 · 연간 손익 넣기</div>
+    <div class="card">
+      <div class="grid2">
+        <label class="field"><span class="lb">연간 매출 <i>(면세 · 원)</i></span><input type="number" id="rev" step="1000000" inputmode="numeric" placeholder="0"></label>
+        <label class="field"><span class="lb">매출 외 소득 <i>(원)</i></span><input type="number" id="otherInc" step="1000000" inputmode="numeric" placeholder="0"></label>
+      </div>
+      <div class="sec-t" style="margin:12px 0 7px">필요경비</div>
+      <div id="expRows"></div>
+      <div class="row" style="margin-top:6px">
+        <button class="btn sm" id="addExp" type="button">+ 경비 항목 추가</button>
+      </div>
+      <div class="sumrow"><span>필요경비 합계</span><b class="num" id="expTotal">—</b></div>
+      <div class="grid2" style="margin-top:10px">
+        <label class="field"><span class="lb">부양가족 수 <i>(본인 제외)</i></span><input type="number" id="dependents" min="0" max="10" step="1" placeholder="0"></label>
+        <label class="field"><span class="lb">국민연금 연 납부 <i>(소득공제)</i></span><input type="number" id="npension" step="100000" inputmode="numeric" placeholder="0"></label>
+      </div>
+      <p class="hintline">지역가입자 건강보험료는 소득공제 대상이 아닙니다. 국민연금 납부액만 소득공제됩니다.</p>
+    </div>
+
+    <div class="sec-t">2 · 종합소득세 계산</div>
+    <div class="card">
+      <div class="tiles" style="margin-bottom:8px">
+        <div class="tile"><div class="k">사업소득금액</div><div class="v sm num" id="rBiz">—</div></div>
+        <div class="tile"><div class="k">과세표준</div><div class="v sm num" id="rTaxable">—</div></div>
+        <div class="tile"><div class="k">산출세액</div><div class="v sm num" id="rGross">—</div></div>
+        <div class="tile"><div class="k">적용 구간</div><div class="v sm" id="rBracket">—</div></div>
+      </div>
+      <div class="tiles">
+        <div class="tile"><div class="k">소득공제 합계</div><div class="v sm num" id="rDed">—</div><div class="d" id="rDedNote">—</div></div>
+        <div class="tile"><div class="k">세액공제 합계</div><div class="v sm num" id="rCredit">—</div><div class="d">연금·표준</div></div>
+        <div class="tile gold"><div class="k">결정세액</div><div class="v sm num" id="rDet">—</div><div class="d">국세</div></div>
+        <div class="tile gold"><div class="k">지방소득세</div><div class="v sm num" id="rLocal">—</div><div class="d">국세의 10%</div></div>
+      </div>
+      <div class="sumrow" style="margin-top:10px"><span>총 세금 부담 (국세+지방)</span><b class="num" id="rAll">—</b></div>
+      <div class="row" style="margin-top:4px;justify-content:space-between">
+        <span class="sub" id="rEff">매출 대비 —</span>
+        <span class="sub" id="rRest">잔액 —</span>
+      </div>
+      <details class="steps">
+        <summary>계산 과정 보기</summary>
+        <div id="calcSteps" style="margin-top:6px"></div>
+      </details>
+      <p class="hintline">누진세율: 1,400만 6% / 5,000만 15% / 8,800만 24% / 1.5억 35% / 3억 38% / 5억 40% / 10억 42% / 초과 45%. 지방소득세는 국세의 10%.</p>
+    </div>
+
+    <div class="sec-t">3 · 절세 레버 시뮬레이터 <span class="plain">— 레버별로 줄어드는 세금</span></div>
+    <div class="card">
+      <div id="levers"></div>
+      <div class="sumrow" style="margin-top:10px"><span>지금 설정으로 아끼는 세금 합계</span><b class="num" id="savingTotal">—</b></div>
+      <p class="hintline">비교 기준은 모든 레버를 0으로 둔 상태입니다. 노란우산은 소득공제(사업소득금액 4천만↓ 600만 / 6천만↓ 500만 / 1억↓ 400만 / 초과 200만), 연금저축·IRP는 세액공제 13.2~16.5%(납입 900만 한도)입니다.</p>
+    </div>
+
+    <div class="sec-t">4 · 세금 적립 통장</div>
+    <div class="card">
+      <div class="tiles" style="margin-bottom:9px">
+        <div class="tile gold"><div class="k">매달 떼놓을 금액</div><div class="v num" id="monthSave">—</div><div class="d" id="monthSaveSub">—</div></div>
+        <div class="tile"><div class="k">11/30 중간예납</div><div class="v sm num" id="midTax">—</div><div class="d">결정세액의 50%</div></div>
+        <div class="tile"><div class="k">신고 때 잔액</div><div class="v sm num" id="restTax">—</div><div class="d">중간예납 제외</div></div>
+        <div class="tile"><div class="k">매출 대비 세부담</div><div class="v sm" id="saveRate">—</div><div class="d">국세+지방</div></div>
+      </div>
+      <label class="field" style="margin-bottom:8px"><span class="lb">올해 이미 낸 세금 <i>(중간예납·기납부액)</i></span><input type="number" id="interim" step="100000" inputmode="numeric" placeholder="0"></label>
+      <div style="height:5px;border-radius:99px;background:#1b222c;overflow:hidden"><i id="reserveBar" style="display:block;height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--gold2),var(--gold))"></i></div>
+      <p class="hintline" id="reserveNote">—</p>
+    </div>
+
+    <div class="sec-t">5 · 세무 일정</div>
+    <div class="card">
+      <div class="cal" id="calendar"></div>
+      <p class="hintline">원천세는 상시근로자 유무에 따라 매월(또는 반기) 10일, 면세사업자 사업장현황신고 2/10, 종합소득세 5/31(성실신고 6/30), 중간예납 11/30입니다.</p>
+    </div>
+
+  </section>
+
+  <!-- ══════════ TAB 2 : 내 차 ══════════ -->
+  <section class="pane" id="pane-car">
+
+    <div class="card">
+      <div class="card-h">
+        <span class="ic">🚗</span>
+        <h3 id="carTitle">내 차</h3>
+        <span class="badge ghost" id="carInsBadge">만기 미입력</span>
+      </div>
+      <div class="tiles" style="margin-bottom:10px">
+        <div class="tile"><div class="k">연료</div><div class="v sm" id="carFuelShow">—</div><div class="d" id="carYearShow">—</div></div>
+        <div class="tile"><div class="k">보험 만기</div><div class="v sm" id="carDue">—</div><div class="d" id="carDueSub">미입력</div></div>
+        <div class="tile"><div class="k">비교 시작</div><div class="v sm" id="carCmp">—</div><div class="d" id="carCmpSub">만기 30일 전</div></div>
+        <div class="tile"><div class="k">보험료</div><div class="v sm num" id="carPremium">—</div><div class="d">연간</div></div>
+      </div>
+      <div class="grid2" style="margin-bottom:7px">
+        <label class="field"><span class="lb">차량명</span><input type="text" id="carName" placeholder="예: 내 차 (모델명)"></label>
+        <label class="field"><span class="lb">연식</span><input type="text" id="carYear" placeholder="예: 2024년식" inputmode="numeric"></label>
+      </div>
+      <div class="grid2" style="margin-bottom:7px">
+        <label class="field"><span class="lb">연료 타입</span>
+          <select id="carFuel">
+            <option value="gas">가솔린</option>
+            <option value="diesel">디젤</option>
+            <option value="hev">하이브리드(HEV)</option>
+            <option value="phev">플러그인 하이브리드(PHEV)</option>
+            <option value="ev">전기</option>
+            <option value="lpg">LPG</option>
+          </select>
+        </label>
+        <label class="field"><span class="lb">보험 만기일</span><input type="date" id="carInsDue"></label>
+      </div>
+      <div class="grid2" style="margin-bottom:8px">
+        <label class="field"><span class="lb">보험료 <i>(연 · 원)</i></span><input type="number" id="carPremiumIn" step="1000" inputmode="numeric" placeholder="0"></label>
+        <label class="field"><span class="lb">증권번호 <i>(선택)</i></span><input type="text" id="carPolicy" placeholder="증권번호"></label>
+      </div>
+      <details class="steps">
+        <summary>차량·보험 상세 (선택 입력)</summary>
+        <div class="grid2" style="margin:7px 0 0">
+          <label class="field"><span class="lb">차대번호</span><input type="text" id="carVin" placeholder="차대번호"></label>
+          <label class="field"><span class="lb">운전자 범위 / 보장</span><input type="text" id="carCover" placeholder="예: 부부한정 · 대물 10억"></label>
+        </div>
+        <label class="field" style="margin-top:7px"><span class="lb">메모</span><input type="text" id="carMemo" placeholder="리스·할부·질권 등"></label>
+      </details>
+      <p class="hintline">비교 시작일은 만기 30일 전으로 자동 계산됩니다(보험다모아 갱신 비교 가능 시점).</p>
+    </div>
+
+    <div class="sec-t">정비 주기 체크리스트</div>
+    <div class="card">
+      <div class="grid2" style="margin-bottom:9px">
+        <label class="field"><span class="lb">현재 주행거리 <i>(km)</i></span><input type="number" id="odo" step="100" inputmode="numeric" placeholder="예: 21400"></label>
+        <div class="field"><span class="lb">남은 정비</span><div class="pill" id="maintSummary" style="margin-top:2px">—</div></div>
+      </div>
+      <div id="maintList"></div>
+      <p class="hintline">연료 타입을 바꾸면 항목이 맞춰집니다. 마지막 교체 km·날짜를 넣으면 다음 시기를 자동 계산하고, 기간과 주행거리 중 먼저 오는 쪽을 알려줍니다.</p>
+    </div>
+
+    <div class="sec-t">주유·충전·정비 가계부</div>
+    <div class="card">
+      <div class="tiles" style="margin-bottom:9px">
+        <div class="tile gold"><div class="k">이번 달</div><div class="v sm num" id="lgTotalM">—</div></div>
+        <div class="tile"><div class="k">연 누적</div><div class="v sm num" id="lgTotalY">—</div></div>
+        <div class="tile"><div class="k">월 평균</div><div class="v sm num" id="lgAvg">—</div></div>
+        <div class="tile"><div class="k">실연비</div><div class="v sm" id="lgEff">—</div><div class="d" id="lgEffEv">—</div></div>
+      </div>
+      <div class="grid3" style="margin-bottom:7px">
+        <label class="field"><span class="lb">날짜</span><input type="date" id="lgDate"></label>
+        <label class="field"><span class="lb">구분</span>
+          <select id="lgType">
+            <option value="주유">⛽ 주유</option>
+            <option value="충전">🔌 충전</option>
+            <option value="정비">🔧 정비</option>
+            <option value="세차">🧼 세차</option>
+            <option value="보험">🛡 보험</option>
+            <option value="기타">• 기타</option>
+          </select>
+        </label>
+        <label class="field"><span class="lb">금액 <i>(원)</i></span><input type="number" id="lgAmt" step="1000" inputmode="numeric" placeholder="80000"></label>
+      </div>
+      <div class="grid3" style="margin-bottom:8px">
+        <label class="field"><span class="lb">주행거리 <i>(km)</i></span><input type="number" id="lgKm" step="10" inputmode="numeric" placeholder="21400"></label>
+        <label class="field"><span class="lb">주유 L / 충전 kWh</span><input type="number" id="lgQty" step="0.1" inputmode="decimal" placeholder="48.5"></label>
+        <label class="field"><span class="lb">메모</span><input type="text" id="lgMemo" placeholder="메모"></label>
+      </div>
+      <button class="btn gold" id="lgAdd" style="width:100%" type="button">+ 기록 추가</button>
+      <div class="sec-t" style="margin:13px 0 7px">월별 유지비</div>
+      <div class="lg-month" id="lgMonth"></div>
+      <div class="sec-t" style="margin:13px 0 7px">최근 기록</div>
+      <div id="lgList"></div>
+    </div>
+
+  </section>
+
+  <!-- ══════════ TAB 3 : D-day 보드 ══════════ -->
+  <section class="pane" id="pane-life">
+
+    <div class="card">
+      <div class="card-h"><span class="ic">📋</span><h3>생활·행정 D-day</h3><span class="badge ghost" id="ddLeftBadge">—</span></div>
+      <div id="ddayList"></div>
+      <div class="sec-t" style="margin:12px 0 7px">추가하기</div>
+      <div class="grid2" style="margin-bottom:7px">
+        <label class="field"><span class="lb">항목</span><input type="text" id="ddTitle" placeholder="예: 여권 갱신"></label>
+        <label class="field"><span class="lb">날짜 <i>(비워도 됨)</i></span><input type="date" id="ddDate"></label>
+      </div>
+      <div class="grid2" style="margin-bottom:8px">
+        <label class="field"><span class="lb">분류</span>
+          <select id="ddCat">
+            <option value="행정">행정</option>
+            <option value="세무">세무</option>
+            <option value="차">차</option>
+            <option value="구독">구독</option>
+            <option value="건강">건강</option>
+            <option value="사업">사업</option>
+          </select>
+        </label>
+        <label class="field"><span class="lb">메모</span><input type="text" id="ddMemo" placeholder="메모"></label>
+      </div>
+      <button class="btn gold" id="ddAdd" style="width:100%" type="button">+ 추가</button>
+      <p class="hintline">날짜가 비어 있는 항목은 서류를 확인해 그 자리에서 날짜만 넣으면 D-day가 바로 계산됩니다. 항목 이름·날짜는 이 기기에만 저장됩니다.</p>
+    </div>
+
+    <div class="sec-t">구독·고정비</div>
+    <div class="card">
+      <div class="tiles" style="margin-bottom:9px">
+        <div class="tile gold"><div class="k">월 합계</div><div class="v num" id="subMonthly">—</div><div class="d">연간 결제 월환산 포함</div></div>
+        <div class="tile"><div class="k">연 합계</div><div class="v sm num" id="subAnnual">—</div><div class="d" id="subCount">—</div></div>
+        <div class="tile"><div class="k">다음 결제</div><div class="v sm" id="subNext">—</div><div class="d" id="subNextSub">—</div></div>
+        <div class="tile"><div class="k">달러 환율</div><div class="v sm num" id="fxShow">1,380</div><div class="d">USD 결제 환산</div></div>
+      </div>
+      <div id="subList"></div>
+      <div class="sec-t" style="margin:12px 0 7px">추가하기</div>
+      <div class="grid2" style="margin-bottom:7px">
+        <label class="field"><span class="lb">서비스</span><input type="text" id="sbName" placeholder="예: Netflix"></label>
+        <label class="field"><span class="lb">결제일</span><input type="date" id="sbNext"></label>
+      </div>
+      <div class="grid3" style="margin-bottom:8px">
+        <label class="field"><span class="lb">금액</span><input type="number" id="sbAmt" step="100" inputmode="numeric" placeholder="13500"></label>
+        <label class="field"><span class="lb">통화</span>
+          <select id="sbCur"><option value="KRW">₩ 원</option><option value="USD">$ 달러</option></select>
+        </label>
+        <label class="field"><span class="lb">주기</span>
+          <select id="sbCycle"><option value="m">매월</option><option value="y">매년</option></select>
+        </label>
+      </div>
+      <div class="grid2" style="margin-bottom:8px">
+        <label class="field"><span class="lb">결제수단</span><input type="text" id="sbCard" placeholder="예: 현대 1234"></label>
+        <label class="field"><span class="lb">환율 <i>(USD)</i></span><input type="number" id="fx" step="10" inputmode="numeric"></label>
+      </div>
+      <button class="btn gold" id="sbAdd" style="width:100%" type="button">+ 구독 추가</button>
+    </div>
+
+  </section>
+
+  <p class="foot">
+    입력한 내용은 이 기기 브라우저(localStorage)에만 저장됩니다 · 서버 전송 없음<br>
+    세법 기준 2026년 11월 · 신고 전 세무대리인 확인 권장
+  </p>
+</div>
+
+<div class="tools">
+  <button class="btn sm" id="expBtn" type="button">⬇ JSON 내보내기</button>
+  <button class="btn sm" id="impBtn" type="button">⬆ 불러오기</button>
+  <button class="btn sm danger" id="resetBtn" type="button">초기화</button>
+  <input type="file" id="impFile" accept="application/json,.json" style="display:none">
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="life-app.js?v=1"></script>
+</body>
+</html>
