@@ -12063,7 +12063,11 @@ function show(name){
     }
   }catch(e){}
   if(name!=='match') mmStop();
-  if(name==='draft'){ if(SND.on){ try{ bgmStart(bgmCtx()); }catch(e){} } }
+  /* V6: 밴픽 BGM은 밴픽·게임플랜 구간에서만 재생되고, 라이브 경기 시작과 동시에 정지 */
+  if(name==='draft'||name==='plan'){
+    try{ if(typeof V6BGM!=='undefined'&&V6BGM.on&&!SND.on) SND.on=true; }catch(e){}
+    if(SND.on||(typeof V6BGM!=='undefined'&&V6BGM.on)){ try{ bgmStart(bgmCtx()); }catch(e){} }
+  }
   else bgmStop();
   const shellish=(S&&(name==='hub'||name==='offseason'||name==='kespa'||name==='press'));
   const tb=$('topbar'); if(tb) tb.classList.toggle('hidden', !shellish);
@@ -21720,9 +21724,9 @@ function v6BgmPlay(ctxKey){
   return true;
 }
 function v6BgmStop(){
-  V6BGM.playing=false; V6BGM.playT=0;
+  V6BGM.playing=false; V6BGM.playT=0; V6BGM.blocked=false;
   const p=V6BGM.player;
-  if(p){ try{ p.stopVideo(); }catch(e){} }
+  if(p){ try{ p.pauseVideo(); }catch(e){ try{ p.stopVideo(); }catch(e2){} } }
 }
 function v6BgmToggle(){
   V6BGM.on=!V6BGM.on;
@@ -22328,6 +22332,7 @@ try{
 
 /* boot */
 window.__game={get S(){return S},get M(){return M},get D(){return D}};
+window.__v6={get bgm(){return (typeof V6BGM!=='undefined')?V6BGM:null},get feed(){return (typeof V6FEED!=='undefined')?V6FEED:null},get plan(){return (typeof GP!=='undefined')?GP:null}};
 sndLoad();bgmLoad();
 renderTitle();
 
