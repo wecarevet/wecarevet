@@ -11516,14 +11516,8 @@ function badge(team,size){
   const px=size==='lg'?46:size==='xl'?64:size==='sm'?26:34;
   return `<span class="badge svg ${size||''}" title="${esc(team.name||team.tag)}">${teamLogoSVG(team,px)}</span>`;
 }
-let CURVIEW='';
 function show(name){
   closeModal();
-  /* 밴픽·게임 플랜을 떠나면 BGM 정지 (돌아오면 이어서) */
-  if((CURVIEW==='draft'||CURVIEW==='plan')&&name!=='draft'&&name!=='plan'){
-    try{ if(typeof v6BgmPause==='function') v6BgmPause(); }catch(e){}
-  }
-  CURVIEW=name;
   ['title','select','create','hub','draft','plan','match','series','playoffs','champion','worlds','intl','offseason'].forEach(v=>{
     const n=$('view-'+v); if(n) n.classList.toggle('hidden', v!==name);
   });
@@ -13134,7 +13128,7 @@ function currentSub(){
 }
 function show(name){
   closeModal();
-  ['title','select','hub','draft','plan','match','series','playoffs','champion','worlds','intl','offseason','champion','kespa','press','box','splash'].forEach(v=>{
+  ['title','select','create','hub','draft','plan','match','series','playoffs','champion','worlds','intl','offseason','kespa','press','box','splash'].forEach(v=>{
     const n=$('view-'+v); if(n) n.classList.toggle('hidden', v!==name);
   });
   /* 뷰 전환 애니메이션은 실제 화면이 바뀔 때만 (같은 뷰 재렌더 → 번쩍임 방지) */
