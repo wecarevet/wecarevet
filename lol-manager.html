@@ -14866,7 +14866,7 @@ function openTeamInfo(teamId){
       ${last?`<div class="kv"><span>최근 맞대결</span><b>${esc(last.score||'')} ${last.win?'승리':'패배'}</b></div>`:''}
       <div class="kv"><span>코칭스태프</span><b style="font-size:11px">${[head].concat(staff.coaches||[]).filter(Boolean).map(function(s){ return esc(s.name)+'('+staffRoleLabel(s.role)+' '+s.rating+')'; }).join(' · ')||'없음'}</b></div>
     </div>
-    <div class="section-title" style="margin-top:8px"><h3>1군 로스터</h3><div class="line"></div><span class="tiny">${starters.length}명</span></div>
+    <div class="section-title" style="margin-top:8px"><h3>1군 로스터</h3><div class="line"></div><span class="tiny">선발 ${starters.length}명${bench.length?' + 후보 '+bench.length+'명':''}</span></div>
     <div class="stack" style="gap:4px">
       ${ROLES.map(function(r){
         const p=(t.lineup&&t.lineup[r])?S.players[t.lineup[r]]:null;
