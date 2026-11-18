@@ -736,18 +736,18 @@ var WECARE_WF = (function(){
   }
 
   function setDryUnit(u){
-    state.dryUnit = u;
+    var prev = state.dryUnit;
     var e = $('dryKcal');
     var lbl = $('dryKcalUnit');
     if(lbl) lbl.textContent = (u === 'kg') ? 'kcal/kg' : 'kcal/100g';
     if(e){
-      e.max = (u === 'kg') ? 6000 : 600;
-      if(u === 'kg' && e.value && parseFloat(e.value) < 100){
-        e.value = Math.round(parseFloat(e.value) * 10); /* 350 → 3500 */
-      } else if(u === '100g' && e.value && parseFloat(e.value) > 600){
-        e.value = Math.round(parseFloat(e.value) / 10); /* 3500 → 350 */
+      var v = parseFloat(e.value);
+      if(prev !== u && isFinite(v) && v > 0){
+        e.value = (u === 'kg') ? Math.round(v * 10) : Math.round(v / 10 * 10) / 10;
       }
+      e.max = (u === 'kg') ? 6000 : 600;
     }
+    state.dryUnit = u;
     render();
   }
 
