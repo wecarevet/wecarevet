@@ -1,0 +1,54 @@
+name: 블로그 노트 자동 업데이트
+
+on:
+  schedule:
+    # 매일 03:15 UTC = 12:15 KST
+    - cron: '15 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-blog
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 네이버 블로그 RSS 동기화
+        run: python3 scripts/update_blog.py
+
+      - name: 변경사항 커밋 및 푸시
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- index.html; then
+            echo "index.html 변경 없음 — 커밋하지 않습니다."
+            exit 0
+          fi
+          git add index.html
+          git commit -m "블로그 노트 자동 업데이트: $(TZ=Asia/Seoul date +'%Y-%m-%d')"
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash origin main && git push origin main; then
+              echo "푸시 완료 (시도 $attempt)"
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            echo "푸시 재시도 $attempt"
+            sleep 5
+          done
+          echo "푸시 실패"
+          exit 1
