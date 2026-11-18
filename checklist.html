@@ -255,7 +255,7 @@ textarea{resize:vertical;min-height:52px;line-height:1.65}
       id:'close', title:'마감 점검', icon:'🌙', when:'진료 종료 후 · 수술실 · 입원실 · 데스크',
       intro:'입원 환자 인계와 장비 정리, 다음 날 준비까지 확인합니다. 화요일에는 수요일 휴무 전 점검을 함께 합니다.',
       items:[
-        {id:'c1', t:'입원 · ICU 환자 상태 인계, 투약 · 수액 잔량 확인', tip:'야간 상태 변화 대비, 다음 투약 시간 메모', crit:true},
+        {id:'c1', t:'입원 · ICU 환자 상태 인계, 투약 · 수액 잔량 확인', tip:'진료 종료 후 상태 변화 대비, 다음 투약 시간 메모', crit:true},
         {id:'c2', t:'수액펌프 정리 · 충전, 잔여 수액 폐기 · 다음날 준비', tip:'알람 설정과 배터리 충전 상태'},
         {id:'c3', t:'마취기 가스 차단 · 잔압 확인, 회로 세척 · 건조', tip:'소다라임·회로·마스크 세척 후 건조대에 정리', crit:true},
         {id:'c4', t:'산소통 잔량 확인 — 기준 이하이면 발주', tip:'주문 기준선을 정해 두고 그 이하일 때 발주', crit:true},
@@ -284,7 +284,7 @@ textarea{resize:vertical;min-height:52px;line-height:1.65}
         {id:'s7', t:'마취 준비 — 금식 확인 · 마취 전 검사 · 장비 세팅', tip:'사료 6~8시간 금식, 물은 당일 허용, 마취기 리크 테스트'},
         {id:'s8', t:'마취 중 모니터링 기록 항목과 보고 기준', tip:'심박·호흡·SpO₂·혈압·체온, 5분 간격 기록, 이탈 시 즉시 보고', crit:true},
         {id:'s9', t:'투약 5원칙 (환자 · 약 · 용량 · 경로 · 시간)과 기록', tip:'투약 전 처방 오더와 라벨 대조, 의문 시 투약하지 않고 확인', crit:true},
-        {id:'s10', t:'입원 처치 · 바이탈 기록 · 이상 시 보고 체계', tip:'인계 노트 쓰는 법, 야간·휴무일 연락 순서'},
+        {id:'s10', t:'입원 처치 · 바이탈 기록 · 이상 시 보고 체계', tip:'인계 노트 쓰는 법, 상태 변화 시 연락 순서'},
         {id:'s11', t:'퇴원 · 약 전달 · 보호자 안내 (복약 설명)', tip:'복약 안내문·카톡 문구 활용, 먹이는 법과 보관법'},
         {id:'s12', t:'감염관리 · 격리실 규칙 · 청소 · 소독 루틴', tip:'격리실 출입 순서, 장갑·가운·발판 소독'},
         {id:'s13', t:'응급 상황 시 연락 순서와 역할 분담', tip:'CPR 보드 위치, 응급약 카트, 전화 연락 순서'},
@@ -394,7 +394,7 @@ textarea{resize:vertical;min-height:52px;line-height:1.65}
     html += '</div>' +
       '<div class="card-foot">' +
         '<label for="memo-' + set.id + '">특이사항 · 인계 메모</label>' +
-        '<textarea id="memo-' + set.id + '" data-memo="' + set.id + '" placeholder="예: 산소통 1개 남음 — 발주 필요 / 3번 박스 환자 야간 수액 20mL/hr">' + esc(st.memo || '') + '</textarea>' +
+        '<textarea id="memo-' + set.id + '" data-memo="' + set.id + '" placeholder="예: 산소통 1개 남음 — 발주 필요 / 3번 박스 환자 수액 20mL/hr">' + esc(st.memo || '') + '</textarea>' +
         '<p class="hint" style="font-size:10.5px;color:#8a9aaa;margin-top:4px">' + set.intro + '</p>' +
       '</div>' +
     '</div>';
