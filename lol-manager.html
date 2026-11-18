@@ -28094,6 +28094,8 @@ function duoGuard(sec){
       · 캡처가 끝나면 진 쪽 생존자는 자기 진영으로 먼저 빠진다 (핏에서 함께 B 금지).
    ========================================================================== */
 function mxObjPitKey(kind,at){ return kind+':'+at; }
+/* 역할별 핏 대형 — 같은 팀 다섯이 한 점에 겹치지 않는다 (미러링됨) */
+const MX_ROLE_FAN={JGL:[0.000,0.008],TOP:[-0.030,0.020],MID:[0.018,-0.022],ADC:[0.048,0.026],SUP:[0.060,0.000]};
 /* 30초 전 스테이징 — 양 팀의 해당 역할을 핏으로 러시 */
 function macroObjStageAt(kind,at,s){
   const mx=(M&&M.macro)?M.macro:null;
@@ -28109,11 +28111,13 @@ function macroObjStageAt(kind,at,s){
       return;
     }
     if(mx.objQ&&mx.objQ[side+':'+kind+':'+at]) return;
+    const sg=(side==='me')?-1:1;
     roles.forEach(function(role){
       const k=side+'-'+role;
       const u=MM.units[k];
       if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
-      MM.tgt[k]={x:pit[0],y:pit[1]};
+      const fan=MX_ROLE_FAN[role]||[0,0];
+      MM.tgt[k]={x:mxClamp(pit[0]+fan[0]*sg,0.05,0.95),y:mxClamp(pit[1]+fan[1]*sg,0.05,0.95)};
       u.mode='obj';
       u.rush=s+4;
     });
@@ -28223,7 +28227,10 @@ function laneStandoffGuard(sec){
     const kMe='me-'+role, kOp='opp-'+role;
     const uMe=MM.units[kMe], uOp=MM.units[kOp];
     if(!uMe||!uOp||!uMe.alive||!uOp.alive) return;
-    if(uMe.mode!=='lane'||uOp.mode!=='lane') return;      /* 교전·로테이션 중엔 그대로 */
+    const committed=function(u){
+      return u.mode==='fight'||u.mode==='split'||u.mode==='ward'||u.mode==='recall'||u.mode==='recallWalk'||u.mode==='invade';
+    };
+    if(committed(uMe)||committed(uOp)) return;             /* 교전·스플릿·시야 중엔 그대로 */
     if(uMe.tp||uOp.tp||uMe.recallT||uOp.recallT||uMe.recallWalk||uOp.recallWalk) return;
     const tMe=mxTgtObj(MM.tgt[kMe]), tOp=mxTgtObj(MM.tgt[kOp]);
     if(!tMe||!tOp) return;
@@ -28315,14 +28322,17 @@ function pitStandoffGuard(sec){
     /* 경합 — 핏 양쪽으로 벌린다 (적과 0.12 미만으로 붙지 않는다) */
     const dm=mxDirUnit(pit,MM_NEXUS.me), dop=mxDirUnit(pit,MM_NEXUS.opp);
     const spread=0.085;
-    near.me.forEach(function(x){
-      MM.tgt['me-'+x.role]={x:mxClamp(pit[0]+dm[0]*spread,0.05,0.95),y:mxClamp(pit[1]+dm[1]*spread,0.05,0.95)};
+    const place=function(side,x,d,sg){
+      const perp=[-d[1],d[0]];
+      const fan=MX_ROLE_FAN[x.role]||[0,0];
+      const lat=fan[0]*sg*1.2, back=fan[1]*sg*0.6;
+      const px=pit[0]+d[0]*spread+perp[0]*lat+d[0]*back;
+      const py=pit[1]+d[1]*spread+perp[1]*lat+d[1]*back;
+      MM.tgt[side+'-'+x.role]={x:mxClamp(px,0.05,0.95),y:mxClamp(py,0.05,0.95)};
       x.u.mode='obj';
-    });
-    near.opp.forEach(function(x){
-      MM.tgt['opp-'+x.role]={x:mxClamp(pit[0]+dop[0]*spread,0.05,0.95),y:mxClamp(pit[1]+dop[1]*spread,0.05,0.95)};
-      x.u.mode='obj';
-    });
+    };
+    near.me.forEach(function(x){ place('me',x,dm,-1); });
+    near.opp.forEach(function(x){ place('opp',x,dop,1); });
     /* 한 번은 실제 교전 — 킬 게이트가 붙는 순간까지 수렴시킨 뒤 확정한다 */
     if(inWindow&&rollNow&&!mx.skirmish[key]){
       mx.skirmish[key]=1;
