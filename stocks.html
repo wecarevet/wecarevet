@@ -73,7 +73,7 @@ h1 .grad{background:linear-gradient(100deg,var(--gold),#fff2d6 45%,var(--gold2))
 @media(min-width:760px){ .sum .v{font-size:22px} }
 .sum .s{font-size:11.5px;color:var(--mut);margin-top:2px}
 .up{color:var(--up)} .dn{color:var(--dn)} .fl{color:var(--flat)}
-.big-empty{padding:22px 16px;text-align:center;color:var(--mut);font-size:13px;border:1px dashed var(--line2);border-radius:16px;margin-bottom:16px}
+.big-empty{padding:15px 16px;text-align:center;color:var(--mut);font-size:12.5px;border:1px dashed var(--line2);border-radius:16px;margin-bottom:16px;line-height:1.6}
 .big-empty b{color:var(--gold);display:block;font-size:14px;margin-bottom:4px}
 
 /* controls */
@@ -111,10 +111,10 @@ h1 .grad{background:linear-gradient(100deg,var(--gold),#fff2d6 45%,var(--gold2))
 .ipx{text-align:right;white-space:nowrap}
 .ipx b{display:block;font-size:15px;font-weight:800;letter-spacing:-.02em}
 .ipx span{display:block;font-size:11.5px;font-weight:700;margin-top:1px}
-.ibot{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-top:8px}
-.spk{display:block;width:100%;height:34px}
+.ibot{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:8px}
+.spk{display:block;flex:1 1 auto;min-width:0;max-width:380px;height:34px}
 @media(max-width:520px){ .spk{height:30px} }
-.imets{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;max-width:64%}
+.imets{display:grid;grid-template-columns:auto auto;gap:4px;justify-content:end;flex:0 0 auto}
 .mt{font-size:10.5px;color:var(--mut);background:rgba(255,255,255,.03);border:1px solid var(--line);
   border-radius:7px;padding:2px 6px;white-space:nowrap}
 .mt b{color:var(--txt2);font-weight:700;margin-left:2px}
@@ -332,10 +332,12 @@ textarea{width:100%;min-height:90px;background:var(--bg2);border:1px solid var(-
   }
   function krw(v){
     if (v==null || !isFinite(v)) return "—";
-    const a = Math.abs(v);
-    if (a >= 1e8) return "₩" + nf(v/1e8, 2) + "억";
-    if (a >= 1e4) return "₩" + nf(v/1e4, 0) + "만";
-    return "₩" + nf(v, 0);
+    const neg = v < 0, a = Math.abs(v);
+    let body;
+    if (a >= 1e8) body = nf(a/1e8, 2) + "억";
+    else if (a >= 1e4) body = nf(a/1e4, 0) + "만";
+    else body = nf(a, 0);
+    return (neg ? "-" : "") + "₩" + body;
   }
   const toKRW = it => it.cur === "KRW" ? 1 : FX;
 
@@ -449,7 +451,7 @@ textarea{width:100%;min-height:90px;background:var(--bg2);border:1px solid var(-
       list.innerHTML = arr.map(itemHTML).join("");
     }
     document.getElementById("boardFoot").textContent =
-      arr.length + "종목 · 전체 " + ITEMS.length + "종목 추적 · 값은 최근 거래일 종가" + (ITEMS.length?", 배당은 최근 1년 합계 기준":"");
+      arr.length + "종목 표시 · 전체 " + ITEMS.length + "종목 추적 · 값은 최근 거래일 종가" + (ITEMS.length?" · 배당은 최근 1년 합계 기준":"");
   }
 
   document.getElementById("q").addEventListener("input", renderBoard);
@@ -636,7 +638,7 @@ textarea{width:100%;min-height:90px;background:var(--bg2);border:1px solid var(-
       +   '<div class="c"><div class="k">3개월</div><div class="v '+cls(it.m3)+'">'+pct(it.m3)+'</div></div>'
       +   '<div class="c"><div class="k">연초 이후</div><div class="v '+cls(it.ytd)+'">'+pct(it.ytd)+'</div></div>'
       + '</div>'
-      + (it.spark?('<div class="chart">'+sparkSVG(it.spark, 320, 120, {pad:8, sw:2})+'</div>'):'')
+      + (it.spark?('<div class="chart">'+sparkSVG(it.spark, 320, 110, {pad:9, sw:2, fill:.3})+'</div>'):'')
       + '<div class="rng"><div class="lbl num"><span>52주 최저 '+money(it,it.lo)+'</span><span>최고 '+money(it,it.hi)+'</span></div>'
       +   '<div class="track"><i style="left:'+Math.max(0,Math.min(100,it.pos||0))+'%"></i></div>'
       +   '<div class="lbl" style="margin-top:6px"><span>현재 위치</span><span class="num">'+(it.pos==null?"—":it.pos.toFixed(0)+"%")+(it.hi?' · 고점 대비 '+pct((it.px/it.hi-1)*100):'')+'</span></div>'
