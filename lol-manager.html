@@ -2652,6 +2652,17 @@ CHAMPS.forEach(c=>{
   if(t!=null){ c.tReal = t; c.t = t; }
   c.ps = lolpsLaneStat(c.n);              // 주 라인 실측 지표
 });
+/* 실측 라인 분포에서 5% 이상 플레이되는 라인을 포지션 목록에 추가 (주 포지션 r[0] 은 그대로) */
+const LOLPS_LANES=['TOP','JGL','MID','ADC','SUP'];
+CHAMPS.forEach(c=>{
+  const r=lolpsOf(c.n); if(!r||!r.dist) return;
+  const add=[];
+  r.dist.forEach(d=>{
+    const role=LOLPS_LANES[d[0]];
+    if(role && d[1]>=20 && c.r.indexOf(role)<0) add.push(role);
+  });
+  if(add.length){ c.rRaw=c.r.slice(); c.r=c.r.concat(add); c.rExtra=add; }
+});
 
 
 /* ============ TRAITS — 선수 특성 풀 (좋은 특성 70 / 나쁜 특성 32) ============
