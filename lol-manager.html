@@ -27891,11 +27891,18 @@ function macroFormationRoute(s,m){
     mainRoles.forEach(function(role){
       const k=side+'-'+role, u=MM.units[k];
       if(!u||!u.alive||u.tp||u.recallT) return;
-      if(role==='JGL') return;
+      if(role==='JGL'){
+        /* 정글러는 핏에 서지 않고 미드·강가에서 대기 (상대 정글러와 마주치지 않게) */
+        const rv=(side==='me')?[0.40,0.44]:[0.60,0.56];
+        macroTgt(k,rv,'rotate');
+        return;
+      }
       if(role==='SUP'){
         const entry=MX_PIT_ENTRY[(m>=19)?'baron':'dragon'];
-        const off=(side==='me')?-0.010:0.010;
-        macroTgt(k,[mxClamp(entry[0][0]+off,0.05,0.95),mxClamp(entry[0][1]+off,0.05,0.95)],'ward');
+        /* 양 팀 서폿이 같은 부시에 겹치지 않도록 서로 다른 입구를 쓴다 */
+        const e=entry[(side==='me')?0:(entry.length>2?2:1)]||entry[0];
+        const off=(side==='me')?-0.008:0.008;
+        macroTgt(k,[mxClamp(e[0]+off,0.05,0.95),mxClamp(e[1]+off,0.05,0.95)],'ward');
         return;
       }
       const mid=macroLaneSlot('MID',side,role);
@@ -28280,7 +28287,7 @@ function pitStandoffGuard(sec){
   if(M.elderAt) list.push({kind:'elder',at:M.elderAt});
   list.forEach(function(o){
     const left=o.at*60-s;
-    if(left>36||left<-8) return;                     /* 준비~캡처 창만 */
+    const inWindow=(left<=36&&left>=-8);            /* 준비~캡처 창 */
     const pit=mxPit(o.kind);
     const key=o.kind+':'+o.at;
     const near={me:[],opp:[]};
@@ -28288,6 +28295,7 @@ function pitStandoffGuard(sec){
       ['me','opp'].forEach(function(side){
         const u=MM.units[side+'-'+role];
         if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+        if(u.mode==='ward') return;                    /* 시야 임무는 포메이션 라우트가 맡는다 */
         if(Math.hypot(u.x-pit[0],u.y-pit[1])<0.14) near[side].push({role:role,u:u});
       });
     });
@@ -28316,7 +28324,7 @@ function pitStandoffGuard(sec){
       x.u.mode='obj';
     });
     /* 한 번은 실제 교전 — 킬 게이트가 붙는 순간까지 수렴시킨 뒤 확정한다 */
-    if(rollNow&&!mx.skirmish[key]){
+    if(inWindow&&rollNow&&!mx.skirmish[key]){
       mx.skirmish[key]=1;
       if(mx.forceSkirmish===true||mxRand()<0.62){
         try{
