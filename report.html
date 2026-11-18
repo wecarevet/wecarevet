@@ -211,8 +211,8 @@ table.kv td{white-space:pre-wrap;color:#16283c}
 .doc-recheck b{font-weight:700;color:var(--navy)}
 .doc-memo{margin-top:12px;border-left:3px solid var(--accent);background:#f7fafd;padding:8px 11px;font-size:11px;line-height:1.7}
 .doc-memo .doc-h2{margin-bottom:3px}
-.doc-sign{margin-top:20px;text-align:right;font-size:12px;line-height:1.9}
-.doc-sign .sd{font-size:11px;color:#42566d;margin-bottom:2px}
+.doc-sign{margin-top:20px;display:flex;justify-content:flex-end;align-items:center;gap:14px;font-size:12px;line-height:1.7}
+.doc-sign .sd{font-size:11px;color:#42566d}
 .doc-sign .sn{font-weight:700;color:#16283c}
 .doc-sign .sn span{font-weight:400;font-size:11px;color:#5a6b7d}
 .doc-stamp{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border:1.4px dashed #c0564a;border-radius:50%;color:#c0564a;font-size:8.5px;letter-spacing:.06em;opacity:.55;margin-left:7px;vertical-align:middle;line-height:1.2}
@@ -1202,9 +1202,9 @@ function docHTML(){
 
   /* signature */
   h.push('<div class="doc-sign">');
-  h.push('<div class="sd">' + esc(fmtKo(S.issued || todayStr())) + '</div>');
-  h.push('<div class="sn">' + esc(CLINIC.name) + ' <span>대표원장</span> ' + esc(CLINIC.doctor) +
-         '<span class="doc-stamp">직인</span></div>');
+  h.push('<span class="sd">' + esc(fmtKo(S.issued || todayStr())) + '</span>');
+  h.push('<span class="sn">' + esc(CLINIC.name) + ' <span>대표원장</span> ' + esc(CLINIC.doctor) +
+         '<span class="doc-stamp">직인</span></span>');
   h.push('</div>');
 
   /* foot */
