@@ -2293,7 +2293,7 @@ const TEAM_DEFS = [
      ['Humanoid','MID',26,83,'carry',['아지르','오리아나','사일러스','신드라']],
      ['Noah','ADC',22,81,'carry',['카이사','징크스','자야','이즈리얼']],
      ['Jun','SUP',22,80,'stable',['라칸','룰루','렐','나미']],
-     ['Blaber2','JGL',21,73,'rookie',['리 신','녹턴']],
+     ['Blaber Jr','JGL',21,73,'rookie',['리 신','녹턴']],
      ['Hupu','MID',20,72,'rookie',['아리','르블랑']],
    ]},
   {id:'MKOI', name:'Movistar KOI', tag:'MKOI', color:'#00d1b2', region:'LEC', budget:30, tier:'B+',
@@ -8018,7 +8018,7 @@ const CAREER_HIST={
   Oscarinin:[[2021,2022,'MKOI'],[2023,2026,'FNC']],
   Jun:[[2021,2022,'FNC R'],[2023,2024,'FNC'],[2025,2026,'FNC']],
   Hupu:[[2024,2024,'FNC R'],[2025,2026,'FNC']],
-  Blaber2:[[2022,2023,'C9 R'],[2024,2026,'FNC']],
+  'Blaber Jr':[[2022,2023,'C9 R'],[2024,2026,'FNC']],
   Yike2:[[2023,2024,'G2 R'],[2025,2026,'MKOI']],
   Myrwn:[[2019,2020,'MAD'],[2021,2022,'MKOI'],[2023,2026,'MKOI']],
   Elyoya:[[2019,2020,'MAD'],[2021,2023,'MAD'],[2024,2026,'MKOI']],
@@ -16387,6 +16387,8 @@ const MMD_ROUTES={
   RAPTORS_3CAMP:{k:'RAPTORS_3CAMP',n:'칼날부리 → 레드 → 크럽 3캠프 후 갱', order:[3,4,5,1,0,2]},
   INVADE_SPLIT:{k:'INVADE_SPLIT',n:'카정 · 수직 정글 시작', order:[4,5,1,0,2,3]},
   FULL_CLEAR:  {k:'FULL_CLEAR',  n:'풀캠프 클리어', order:[1,0,2,3,4,5]},
+  KRUGS_START: {k:'KRUGS_START', n:'크럽 → 레드 → 칼날부리 → 늑대 → 블루 → 그롬프 (탑 스트롱사이드)', order:[5,4,3,2,1,0]},
+  GROMP_START: {k:'GROMP_START', n:'그롬프 → 블루 → 늑대 → 칼날부리 → 레드 → 크럽 (봇 스트롱사이드)', order:[0,1,2,3,4,5]},
 };
 function mmdPickRoute(side){
   const gp=(M&&M.gp)||{};
@@ -16394,6 +16396,10 @@ function mmdPickRoute(side){
   const jgName=(()=>{ try{ const t=side==='me'?myTeam():T(M.oppId); const p=t&&t.lineup?S.players[t.lineup.JGL]:null; return p||null; }catch(e){ return null; } })();
   const playKey=jgName?jgName.playKey:'';
   const aggroTraits=(jgName&&(jgName.playKey==='aggressive'||jgName.playKey==='aggro'||jgName.playKey==='joker'));
+  /* 정글 동선 계획이 정해져 있으면 그 방향으로 고정한다 (탑 스트롱사이드=봇 크럽 시작) */
+  if(gp.jungle==='top') return MMD_ROUTES.KRUGS_START;
+  if(gp.jungle==='bot') return MMD_ROUTES.GROMP_START;
+  if(gp.jungle==='farm') return MMD_ROUTES.FULL_CLEAR;
   const pool=[];
   const put=(k,w)=>{ for(let i=0;i<w;i++) pool.push(k); };
   /* 카정 설계 */
@@ -16497,7 +16503,7 @@ function mmdInitScript(){
     else if((M&&M.myComp&&M.myComp.curve)||(M.trait&&M.trait.me.late)) tempo='late';
   }catch(e){}
   v.tempo=tempo;
-  MMD.variety=v; MMD.tempo=tempo;
+  MMD.variety=v; MMD.tempo=tempo; MMD.routes={}; MMD.routeAnnounced=false;
   /* 예정된 오브젝트 비트는 미리 깔아 15초 전 로테이션을 보여준다 */
   const plan=[];
   if(v.firstObj==='dragon') plan.push({at:300,kind:'obj',obj:'dragon'});
@@ -16677,6 +16683,16 @@ function mmdPostTargets(){
   if(!MMD.variety||MMD.gpk!==gpk){ MMD.gpk=gpk; mmdInitScript(); }
   mmdDrainNotes();
   const v=MMD.variety||{};
+  /* 01:30 이후 실제 정글 시작 동선을 중계 멘트로 알린다 */
+  if(sec>=92&&!MMD.routeAnnounced){
+    MMD.routeAnnounced=true;
+    try{
+      const r1=mmdRouteFor('me'), r2=mmdRouteFor('opp');
+      if(typeof logEvent==='function'){
+        logEvent('sys','🎤 시작 동선 — '+myTeam().tag+' '+r1.n+' / '+T(M.oppId).tag+' '+r2.n);
+      }
+    }catch(e){}
+  }
   const phase=mmdPhase(sec);
   const beats=mmdActiveBeats(sec);
   let clash=0, clashPt=null, clashKind=null;
