@@ -1224,6 +1224,13 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .bx-verdict.lose .bx-verdict-tag{background:linear-gradient(180deg,#ffb7c3,#e0687a);color:#1a0a0d}
 .bx-team em.bx-winb{background:rgba(110,207,158,.18);color:#8ff0c4;border:1px solid rgba(110,207,158,.5)}
 .bx-team em.bx-loseb{background:rgba(224,104,122,.16);color:#ffb7c3;border:1px solid rgba(224,104,122,.45)}
+/* 승부 화면 — 스크롤하지 않아도 다음 세트로 갈 수 있는 하단 고정 바 */
+.bx-dock{position:sticky;bottom:0;z-index:40;display:flex;align-items:center;gap:8px;
+  padding:9px 11px calc(9px + env(safe-area-inset-bottom,0px));background:#0a0b0e;
+  border-top:1px solid #2a3040;box-shadow:0 -10px 24px rgba(0,0,0,.72);border-radius:12px 12px 0 0}
+.bx-dock .bxd-t{flex:1;min-width:0;font-size:10.5px;font-weight:900;color:#c3cadb;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bx-dock .bxd-b{flex:0 0 auto;min-width:132px}
 .bx-top{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#12141a;border-left:3px solid #2a4a66}
 .bx-top.win{background:linear-gradient(90deg,rgba(230,196,129,.12),#12141a);border-left-color:#c8a45c}
 .bx-top.opp{border-left-color:#7a2f3d}
@@ -2369,6 +2376,31 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .bgm-bar.finals5{border-color:rgba(255,206,94,.85);background:linear-gradient(180deg,rgba(52,38,10,.9),rgba(18,13,5,.92));
   box-shadow:0 0 18px rgba(255,201,74,.35) inset}
 .bgm-bar.finals5 .bgm-t b{color:#ffe6a6;text-shadow:0 0 10px rgba(255,201,74,.6)}
+
+/* ===== 타리그(LPL·LEC·LCS) 순위 ===== */
+.ol-wrap{display:grid;grid-template-columns:1fr;gap:8px}
+@media(min-width:680px){.ol-wrap{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.ol-block{border-radius:9px;background:#0e1116;border:1px solid #1e222b;padding:7px 8px}
+.ol-h{display:flex;align-items:baseline;gap:6px;margin-bottom:5px}
+.ol-h b{font-size:11px;font-weight:900;color:#e6c481;letter-spacing:.06em}
+.ol-h span{font-size:8.5px;font-weight:800;color:#6b7282}
+.ol-list{display:flex;flex-direction:column;gap:2px}
+.ol-row{display:flex;align-items:center;gap:5px;padding:3px 2px;border-bottom:1px solid rgba(255,255,255,.04);font-size:10.5px}
+.ol-row.po{background:rgba(37,224,255,.05);border-radius:5px}
+.ol-row.me{background:rgba(230,196,129,.10)}
+.ol-rk{width:15px;text-align:center;font-size:9px;font-weight:900;color:#8e97a8}
+.ol-row b{font-weight:900;color:#dfe3ea;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ol-row em{font-style:normal;font-size:9.5px;font-weight:800;color:#9aa2b2}
+.ol-row i{font-style:normal;font-size:9px;color:#6b7282;min-width:36px;text-align:right}
+/* ===== 선수 훈련 ===== */
+.tr-list{display:flex;flex-direction:column;gap:3px}
+.tr-row{display:flex;align-items:center;gap:6px;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer}
+.tr-n{font-size:11.5px;font-weight:900;color:#eef1f7;width:64px;flex:0 0 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tr-b{flex:1;height:6px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden;min-width:40px}
+.tr-b i{display:block;height:100%;border-radius:4px}
+.tr-f{font-style:normal;font-size:9.5px;font-weight:900;min-width:44px;text-align:right}
+.tr-m{font-style:normal;font-size:9.5px;font-weight:800;color:#9aa2b2;min-width:52px;text-align:right}
+.tr-w{font-style:normal;font-size:9px;font-weight:900;color:#ffb7c3}
 
 </style>
 </head>
@@ -6353,6 +6385,39 @@ function leagueSchedule(ids){
   return out;
 }
 function myRank(){ return standings().findIndex(t=>t.id===S.userTeam)+1; }
+/* ================= 타리그(LPL·LEC·LCS) 주자별 자동 진행 =================
+   LCK 주차가 넘어갈 때마다 같은 주차 경기를 자동 시뮬레이션 — 순위·전적이 실제로 쌓이고
+   MSI/월즈 진출팀도 이 순위로 정해진다. */
+const OTHER_LEAGUES=['LPL','LEC','LCS'];
+function simOtherLeagues(week){
+  try{
+    const wk=Math.max(1,Number(week)||1);
+    S.otherLeagues=S.otherLeagues||{};
+    OTHER_LEAGUES.forEach(function(rg){
+      const ids=leagueIdsFor(rg);
+      if(ids.length<2) return;
+      const rec=S.otherLeagues[rg]||(S.otherLeagues[rg]={week:0,played:0,last:[],champion:null});
+      if(rec.week>=wk) return;            /* 같은 주차 이중 반영 방지 */
+      const sched=leagueSchedule(ids);
+      const pairs=sched[(wk-1)%sched.length]||[];
+      pairs.forEach(function(pr){
+        const a=pr[0], b=pr[1];
+        if(!a||!b||a===b||!T(a)||!T(b)) return;
+        const r=simAIBo(a,b,3);
+        recordResult(a,b,r.sa,r.sb,wk,'regular');
+        rec.played=(rec.played||0)+1;
+        rec.last.push({a:a,b:b,sa:r.sa,sb:r.sb,week:wk});
+      });
+      rec.week=wk;
+      if(rec.last.length>36) rec.last=rec.last.slice(-36);
+    });
+  }catch(e){}
+}
+function otherLeagueRows(rg){
+  return regionStandings(rg).map(function(t,i){
+    return {rk:i+1,id:t.id,tag:t.tag,wins:t.wins||0,losses:t.losses||0,gw:t.gw||0,gl:t.gl||0};
+  });
+}
 function weekOpponent(){
   const pairs=S.schedule[S.week-1]||[];
   const p=pairs.find(x=>x.includes(S.userTeam));
@@ -6457,6 +6522,8 @@ function finishSeries(){
       const r=simAIBo(a,b,3);
       recordResult(a,b,r.sa,r.sb,S.week,'regular');
     });
+    /* LPL·LEC·LCS도 같은 주차 경기를 같이 돌린다 */
+    try{ if(typeof simOtherLeagues==='function') simOtherLeagues(S.week); }catch(e){}
     S.history.push({week:S.week,opp:oppId,score:s.score.me+'-'+s.score.opp,win:meWon,stage:'regular'});
     try{
       if(S.pressTrash&&S.club){
@@ -8032,17 +8099,18 @@ function hupuScore(row,win,opts){
   const qMax=Math.max(0.30,o.qMax||1);
   const qn=clamp(qAbs/qMax,0,1);            /* 경기 내 상대 지수 */
   const r1=x=>Math.round(clamp(x,0,10)*10)/10;
+  const deaths=Number(row.d)||0;
   if(win){
-    let s=6.8+qn*2.0;                        /* 6.8 ~ 8.8 */
-    if(o.top) s=8.9+qn*0.72;                 /* 상위 1~2명 8.9 ~ 9.6 */
-    if(o.top&&qn>=0.99&&Math.random()<0.30) s=9.8;
-    if(o.top&&qn>=0.995&&Math.random()<0.08) s=10.0;   /* 10.0은 극히 드물게 */
-    return r1(clamp(s,6.8,10));
+    /* 승리 팀 — MVP 8.7~9.6 / 단단한 기여 6.8~8.2 / 조용·캐리당함 5.5~6.7 */
+    if(o.top) return r1(clamp(8.7+qAbs*1.0,8.7,9.6));
+    if(qAbs>=0.52) return r1(clamp(6.8+((qAbs-0.52)/0.48)*1.4,6.8,8.2));
+    return r1(clamp(5.5+(qAbs/0.52)*1.2,5.5,6.7));
   }
-  let s=3.2+qn*3.4;                          /* 3.2 ~ 6.6 */
-  if(qn>=0.92) s=7.0+((qn-0.92)/0.08)*1.4;   /* 1v9 에이스 7.0 ~ 8.4 */
-  if(qAbs<0.18) s=2.1+(qAbs/0.18)*1.7;       /* 트롤 2.1 ~ 3.8 */
-  return r1(clamp(s,2.1,8.4));
+  /* 패배 팀 — 보통 2.2~6.5, 무너진 선수 2.1~3.9, 혼자 버틴 에이스만 7.0~8.0 */
+  if(qAbs>=0.72&&deaths<=4) return r1(clamp(7.0+(qAbs-0.72)*3.5,7.0,8.0));
+  const heavy=(deaths>=6||qAbs<0.20||qn<0.28);
+  if(heavy) return r1(clamp(2.1+qAbs*3.2,2.1,3.9));
+  return r1(clamp(2.2+qAbs*5.4,2.2,6.5));
 }
 function hupuStars(v){
   const full=Math.round(v/2);
@@ -8058,17 +8126,48 @@ function hupuResetMem(){
   if(HUPU_MEM.key!==k){ HUPU_MEM.key=k; HUPU_MEM.used={}; }
 }
 const HUPU_LINES={
-  god:['오늘 협곡의 신','이 경기 하나로 전설이 됐다','역대급 캐리, 눈물난다','이건 뭐라고 해야 되나','혼자서 게임 끝냈다'],
-  mvp:['미쳤다 이건 MVP','혼자 게임 이겼네','오늘 이 선수만 봤다','이 정도면 상대가 불쌍하다'],
-  good:['묵묵히 캐리한 숨은 주역','딜 넣는 각이 다 보인다','조용히 다 해먹음','자기 몫은 확실히 했다'],
-  ok:['무난하게 자기 몫 이상','한타에서 제대로 터졌다','이 정도면 합격','라인전은 이겼다'],
-  meh:['딱 본인 몫만 했다','특별히 나쁘진 않음','라인전은 나쁘지 않았는데','조용히 사라짐'],
-  bad:['존재감이 애매했다','뭘 했는지 모르겠음','반반인데 임팩트 없음','한타에서 안 보임'],
-  awful:['이겨도 되는 게임을 놓쳤다','포지션이 계속 어긋남','딜 교환마다 손해','각이 계속 안 나온다'],
-  troll:['집에 가고 싶었나 봄 ㅋㅋ','오늘은 부진 인정','라인에서 아무것도 못함','이건 좀 심했다'],
-  int:['팀을 이기기 않고 이기는 쪽이 나음','숲으로 돌아가라','이건 못 참지 ㅋㅋㅋ','던지는 걸 넘어서 재앙'],
+  /* ===== 승리 — 8.7~9.6 : 캐리/MVP ===== */
+  win_carry:[
+    '넥서스 혼자 부쉈다','사람이 아니라 신이다','상대 멘탈 부수는 플레이','이 정도면 상대가 불쌍하다',
+    '혼자서 게임 끝냈다','클라스가 다르다','오늘 이 선수만 봤다','역대급 캐리, 눈물난다',
+    '이건 뭐라고 해야 되나','상대 미드가 트라우마 생겼다'],
+  /* ===== 승리 — 6.8~8.2 : 단단한 기여 ===== */
+  win_solid:[
+    '묵묵히 밥값 이상 해줌','오늘 이긴 숨은 일등공신','말고기 잡아줌','자기 몫은 확실히 했다',
+    '한타에서 제대로 터졌다','딜 넣는 각이 다 보인다','조용히 다 해먹음','이 정도면 합격이고도 남는다',
+    '라인전은 이겼고 교전도 이겼다','팀원이 편해 보인다'],
+  /* ===== 승리 — 5.5~6.7 : 조용 / 캐리당함 ===== */
+  win_quiet:[
+    '이생 건운 데려오자','적당히 동네 좀 쉬어줬으면','이겨서 다행이다','킬은 다 뺏았는데 이김',
+    '존재감은 적었지만 팀이 캐리했다','없는 듯 있어서 좋았다','한타 때마다 사라지네','디테일에 약점이 보임'],
+  /* ===== 패배 — 7.0~8.0 : 혼자 버틴 에이스 ===== */
+  lose_ace:[
+    '이건 1대9다. 수고했다','혼자서 다 하려고 했다','저 선수만 남기고 다 바꿔라',
+    '이 게임에 있는 유일한 선수','패했는데 왜 이 선수만 빛남','다음 시즌에도 남아라 제발'],
+  /* ===== 패배 — 5.3~6.5 : 무난했던 패배 ===== */
+  lose_meh:[
+    '초반엔 괜찮았는데 한타 때 증발','존재감이 0에 수렴','팀원 눈치 보면서 파밍만 함',
+    '나빴진 않은데 이긴 적도 없다','반반 가고 임팩트 없음','콜은 했는데 답이 없다'],
+  /* ===== 패배 — 4.0~5.2 : 약점 노출 ===== */
+  lose_bad:[
+    '라인전부터 망했다','각이 계속 안 나온다','포지션이 계속 어긋남','다른 선수들이랑 같은 팀 맞나',
+    '스펠 콜부터 재앙','템트리부터가 이상했다','데스로 팀 골드를 선물 중'],
+  /* ===== 패배 — 2.0~3.9 : 재앙 ===== */
+  lose_int:[
+    '오늘 상대 팀 6번째 멤버','키보드 뺏고 2군 보내야 함','리플레이 돌려보다 혈압 올랐다',
+    '데스 적립 이벤트 중이냐','이건 플레이가 아니라 실종','라이엇에 신고해야 할 수준',
+    '집에 가고 싶었나 봄','왼손으로 한 거 아니냐','분당 데스가 분당 딜보다 높다',
+    '이 구간에서는 챔프가 아깝다','최소 고생은 했다']
 };
-const HUPU_ORDER=['god','mvp','good','ok','meh','bad','awful','troll','int'];
+/* 포지션 별 한 마디 — 같은 밴드를 구분해 주는 맛 */
+const HUPU_ROLE_LINES={
+  TOP:['탑은 늘 외로운 곳','탑 차이 그대로 경기 차이','사이드 운영이 답이 없다'],
+  JGL:['정글 동선이 다 읽혔다','정글 탓하기 전에 오더부터 보자','스맵은 했는데 시야가 없다'],
+  MID:['미드 라인전만 커도 반은 간다','미드 호응이 돌았다','미드 차이로 경기 끝'],
+  ADC:['원딜은 캐리해야 한다','한타 때 딜이 없었다','분당 데스보다 분당 딜이 낮다'],
+  SUP:['서포터 차이, 인정','시야 장악이 밀렸다','이니시 방향이 다 뚫렸다']
+};
+const HUPU_ORDER=['win_carry','win_solid','win_quiet','lose_ace','lose_meh','lose_bad','lose_int'];
 function hupuBand(v){
   if(v>=9.5) return 'god';
   if(v>=9.0) return 'mvp';
@@ -8080,30 +8179,41 @@ function hupuBand(v){
   if(v>=3.0) return 'troll';
   return 'int';
 }
-function hupuLine(v,row){
+/* 승/패 + 점수대 엄격 분리 — 지는 경기에서 칭찬이 나오지 않게 */
+function hupuTier(v,win){
+  if(win) return v>=8.6?'win_carry':v>=6.8?'win_solid':'win_quiet';
+  return v>=7.0?'lose_ace':v>=5.2?'lose_meh':v>=4.0?'lose_bad':'lose_int';
+}
+function hupuLine(v,row,win){
   hupuResetMem();
-  const band=hupuBand(v);
+  const tier=hupuTier(v,win);
   const used=HUPU_MEM.used;
-  const tryPick=(k,allow)=>{
+  const tryPick=(k)=>{
     const pool=(HUPU_LINES[k]||[]).filter(l=>!used[l]);
     if(!pool.length) return null;
-    if(allow&&allow.indexOf(k)<0) return null;
     const line=pool[Math.floor(Math.random()*pool.length)];
     used[line]=1;
     return line;
   };
-  let line=tryPick(band);
-  /* 밴드 문장이 동나면 인접 밴드에서, 그래도 없으면 새로 조합 */
+  let line=tryPick(tier);
+  /* 같은 경기에서 문장이 동나면 같은 승/패 진영의 다른 점수대에서만 */
   if(!line){
-    const i=HUPU_ORDER.indexOf(band);
-    for(let off=1;off<HUPU_ORDER.length&&!line;off++){
-      line=tryPick(HUPU_ORDER[clamp(i-off,0,HUPU_ORDER.length-1)])||tryPick(HUPU_ORDER[clamp(i+off,0,HUPU_ORDER.length-1)]);
+    const same=win?['win_solid','win_quiet','win_carry']:['lose_meh','lose_bad','lose_int','lose_ace'];
+    for(let i=0;i<same.length&&!line;i++) line=tryPick(same[i]);
+  }
+  /* 포지션 한 마디 — 중간 점수대에서만 앞에 붙인다 */
+  try{
+    const role=row&&row.role;
+    const rp=(HUPU_ROLE_LINES[role]||[]).filter(l=>!used[l]);
+    const mid=(win?(v>=6.8&&v<8.6):(v>=4.0&&v<7.0));
+    if(line&&mid&&rp.length&&Math.random()<0.55){
+      const rl=rp[Math.floor(Math.random()*rp.length)];
+      used[rl]=1;
+      line=rl+' · '+line;
     }
-  }
-  if(!line){
-    const extra=['오늘 경기는 넘어가자','다음 경기에서 보자','여론이 좋지 않다','팬들이 난리다'];
-    line=extra[Math.floor(Math.random()*extra.length)]+' ('+((row&&row.name)||'')+')';
-  }
+  }catch(e){}
+  /* 문장이 전부 소진됐으면 이름을 붙여 중복만 피한다 */
+  if(!line) line=(win?'이겨서 다행이다':'다음 경기에서 보자')+((row&&row.name)?(' ('+row.name+')'):'');
   return line;
 }
 /* 경기 후 10명 평점 (우리 팀 + 상대) */
@@ -8128,7 +8238,7 @@ function hupuRatings(){
   out.forEach(function(r){
     r.score=hupuScore(r.raw,r.win,{top:!!r.top,qMax:qMax});
     r.stars=hupuStars(r.score);
-    r.line=hupuLine(r.score,r.raw);
+    r.line=hupuLine(r.score,r.raw,!!r.win);
   });
   return out.sort((a,b)=>b.score-a.score);
 }
@@ -12259,7 +12369,7 @@ function viewName(){
 }
 function subTabsFor(){
   if(TAB==='club') return [
-    {k:'roster',n:'선수단'},{k:'schedule',n:'선수단 일정'},{k:'staff',n:'스태프'},
+    {k:'roster',n:'선수단'},{k:'training',n:'🏋️ 선수 훈련'},{k:'schedule',n:'선수단 일정'},{k:'staff',n:'스태프'},
     {k:'academy',n:'아카데미'},{k:'budget',n:'목표·예산'},{k:'sponsor',n:'스폰서'},
   ];
   if(TAB==='marketing') return [{k:'goods',n:'굿즈 제작'},{k:'popup',n:'팝업'},{k:'meet',n:'팬미팅'},{k:'content',n:'콘텐츠'},{k:'collab',n:'콜라보'},{k:'perf',n:'성과'}];
@@ -12296,12 +12406,11 @@ function show(name){
     }
   }catch(e){}
   if(name!=='match') mmStop();
-  /* V6: 밴픽 BGM은 밴픽·게임플랜 구간에서만 재생되고, 라이브 경기 시작과 동시에 정지 */
+  /* V6: 밴픽 BGM은 밴픽·게임플랜 구간에서만. 다른 화면(경기·결과·허브 등)으로 나가면 즉시 정지 */
   if(name==='draft'||name==='plan'){
     try{ if(typeof V6BGM!=='undefined'&&V6BGM.on&&!SND.on) SND.on=true; }catch(e){}
     if(SND.on||(typeof V6BGM!=='undefined'&&V6BGM.on)){ try{ bgmStart(bgmCtx()); }catch(e){} }
-  }else if(name==='match'){
-    /* 밴픽 → 인게임 전환에서만 음악을 넘긴다 (탭 이동으로 끊기지 않게) */
+  }else{
     bgmStop();
   }
   const shellish=(S&&(name==='hub'||name==='offseason'||name==='kespa'||name==='press'));
@@ -12761,6 +12870,7 @@ function renderPress(){
 /* ---------- CLUB ---------- */
 function clubV3(){
   const sub=CLUB_TAB;
+  if(sub==='training') return trainingV3();
   if(sub==='schedule') return scheduleV3();
   if(sub==='staff') return staffV3();
   if(sub==='academy') return academyV3();
@@ -12832,6 +12942,54 @@ function pRowV3(p,starter){
     <div class="pr-cond">${smile}</div>
     <div class="pr-ovr">${r}<span>${starter?'선발':'후보'}</span></div>
     <div class="pr-c">${contract>0?contract+'년':'만료'}</div>
+  </div>`;
+}
+/* ---------- 선수 훈련 (구단 › 🏋️ 선수 훈련) ---------- */
+function trainingV3(){
+  const t=myTeam();
+  const starters=ROLES.map(r=>S.players[t.lineup[r]]).filter(Boolean);
+  const bench=t.roster.map(n=>S.players[n]).filter(p=>p&&!starters.includes(p));
+  const all=starters.concat(bench);
+  const act=S.weekAction||'scrim';
+  const actDef=WEEK_ACTIONS.filter(function(a){ return a.k===act; })[0]||WEEK_ACTIONS[0];
+  const log=(S.trainingLog||[]).slice(0,5);
+  const condRow=function(p){
+    const fat=Math.round(p.fatigue||0), frm=Math.round(p.form||0);
+    const col=fat>65?'#ff9aa9':fat>40?'#ffd98f':'#8ff0c4';
+    return `<div class="tr-row" data-a="player" data-v="${esc(p.name)}">
+      <span class="tr-n">${esc(p.name)}</span>
+      <span class="role-tag">${ROLE_KR[p.role]}</span>
+      <div class="tr-b"><i style="width:${clamp(fat,0,100)}%;background:${col}"></i></div>
+      <em class="tr-f" style="color:${col}">피로 ${fat}</em>
+      <em class="tr-m">감각 ${frm}${formArrow(p)}</em>
+      ${(p.bad||[]).length?`<em class="tr-w">⚠ ${p.bad.length}</em>`:''}
+    </div>`;
+  };
+  return `
+  <div class="pg">
+    <div class="pg-h"><h2>🏋️ 선수 훈련</h2><span class="pg-s">${S.season}시즌 ${S.week}주차 · 경기 전 1회 적용</span>
+      <div class="pg-r"><span class="pill sm ${S.actionApplied?'':'gold'}">${S.actionApplied?'✓ 이번 주 적용 완료':'아직 미적용'}</span></div></div>
+    <div class="card">
+      <div class="ch"><span>이번 주 훈련</span><b class="ch-n">${actDef.icon} ${actDef.n}</b></div>
+      <div class="action-grid">
+        ${WEEK_ACTIONS.map(a=>`<button class="action ${act===a.k?'on':''}" data-act="${a.k}" ${S.actionApplied?'disabled':''}>
+          <div class="ai">${a.icon}</div><div class="an">${a.name}</div><div class="ad">${a.desc}</div></button>`).join('')}
+      </div>
+      ${(act==='solo'||act==='feedback')?`<div class="divider"></div>
+        <div class="tiny" style="margin-bottom:6px;font-weight:800">${act==='solo'?'집중 훈련 대상':'피드백 대상'} — 누구를 집중시킬까요</div>
+        <div class="row wrap" style="gap:6px">${all.map(p=>`<button class="chip ${S.weekActionTarget===p.name?'on':''}" data-focus="${esc(p.name)}">${esc(p.name)}${(p.bad||[]).length?' ⚠'+p.bad.length:''}</button>`).join('')}</div>`:''}
+      <div class="divider"></div>
+      <button class="btn sm block" data-a="tab" data-v="club:schedule">📅 요일별 훈련 편성 (선수단 일정) ›</button>
+      <div class="tiny" style="margin-top:6px;line-height:1.5">스크림·전술훈련은 피로가 늘고, 휴식·멘탈 케어는 피로를 줄입니다. 사흘 연속 훈련은 피로도가 크게 오릅니다.</div>
+    </div>
+    <div class="card">
+      <div class="ch"><span>선수 컨디션</span><b class="ch-n">${all.length}명</b></div>
+      <div class="tr-list">${all.map(condRow).join('')||'<div class="empty-note">선수단이 비었습니다</div>'}</div>
+    </div>
+    ${log.length?`<div class="card">
+      <div class="ch"><span>훈련 · 특성 소식</span><b class="ch-n">최근 ${log.length}건</b></div>
+      <div class="stack" style="gap:5px">${log.map(l=>`<div class="tiny" style="line-height:1.4;color:${l.kind==='cure'?'var(--green)':l.kind==='good'?'#ffe08a':l.kind==='bad'?'#ff9aa9':'var(--dim)'}">${esc(l.text)}</div>`).join('')}</div>
+    </div>`:''}
   </div>`;
 }
 function scheduleV3(){
@@ -14116,12 +14274,32 @@ function poV3(){
   </div>`;
 }
 function intlV3(){
+  const otherRows=function(rg){
+    const rows=(typeof otherLeagueRows==='function')?otherLeagueRows(rg):[];
+    return `<div class="ol-block">
+      <div class="ol-h"><b>${rg}</b><span>${rows.length}팀 · 상위 2팀 MSI/월즈 후보</span></div>
+      <div class="ol-list">
+        ${rows.map(x=>`<div class="ol-row ${x.rk<=2?'po':''} ${x.tag===myTeam().tag?'me':''}">
+          <span class="ol-rk">${x.rk}</span>
+          ${badge(T(x.id),'sm')}
+          <b>${esc(x.tag)}</b>
+          <em>${x.wins}승 ${x.losses}패</em>
+          <i>${x.gw}-${x.gl}</i>
+        </div>`).join('')||'<div class="empty-note">기록 없음</div>'}
+      </div>
+    </div>`;
+  };
   return `<div class="pg">
     <div class="pg-h"><h2>국제대회</h2><span class="pg-s">MSI · EWC · 월드 챔피언십</span></div>
     <div class="card"><div class="ch"><span>진출 현황</span></div>
       <div class="kv"><span>MSI</span><b>${S.msi?'진출':'—'}</b></div>
       <div class="kv"><span>EWC</span><b>${S.ewc?'진출':'—'}</b></div>
       <div class="kv"><span>롤드컵</span><b>${S.worlds?'진출':'—'}</b></div>
+    </div>
+    <div class="card">
+      <div class="ch"><span>🌏 타리그 순위</span><b class="ch-n">${S.week||1}주차 동기화</b></div>
+      <div class="ol-wrap">${OTHER_LEAGUES.map(otherRows).join('')}</div>
+      <div class="tiny" style="margin-top:7px;line-height:1.5">주차가 넘어갈 때마다 LPL·LEC·LCS 경기도 자동으로 돌아갑니다. 이 순위의 상위 2팀이 MSI·롤드컵 진출권을 가져갑니다.</div>
     </div>
     ${S.worlds?`<div class="card"><button class="btn gold block" data-a="viewworlds">월즈 대진 보기</button></div>`:''}
   </div>`;
@@ -20156,8 +20334,18 @@ function renderBox(){
       </div>
     </div>
     <div class="bx-foot">▶ 다음 세트 진행 선택으로 넘어갑니다. 그런 뒤 라커룸으로 이어집니다.</div>
-    <button class="btn blue block bx-go" id="boxGo">▶ 계속</button>
-    <div style="height:14px"></div>
+    <div style="height:8px"></div>
+    <div class="bx-dock">
+      <div class="bxd-t">${meWin?'🏆':'💀'} ${esc(meWin?t.tag:opp.tag)} ${meWin?'승리':'패배'} · 제${(M.gameIdx||0)+1}세트</div>
+      <button class="btn primary bxd-b" id="boxGo">${(function(){
+        try{
+          const sr=M.series; if(!sr) return '결과 확정 →';
+          const need=Math.floor((sr.bo||1)/2)+1;
+          const decided=((sr.score.me||0)>=need)||((sr.score.opp||0)>=need);
+          return decided?'결과 확정 →':'다음 세트 →';
+        }catch(e){ return '계속 →'; }
+      })()}</button>
+    </div>
   </div>`;
   show('box');
   window.scrollTo(0,0);
@@ -22315,7 +22503,11 @@ function v6BgmPlay(ctxKey){
 function v6BgmStop(){
   V6BGM.playing=false; V6BGM.playT=0; V6BGM.blocked=false;
   const p=V6BGM.player;
-  if(p){ try{ p.pauseVideo(); }catch(e){ try{ p.stopVideo(); }catch(e2){} } }
+  if(p){
+    try{ p.pauseVideo(); }catch(e){}
+    try{ if(V6BGM.started) p.stopVideo(); }catch(e){}
+  }
+  try{ if(M&&M.running){ /* 경기 중에는 인게임 브금과 섞이지 않게 */ } }catch(e){}
 }
 function v6BgmToggle(){
   V6BGM.on=!V6BGM.on;
