@@ -185,6 +185,70 @@ ul.dl .rr{font-size:10px;font-weight:700}
 .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10.5px;color:var(--dim);margin-top:8px}
 .legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
 
+/* deck builder + hypergeometric calculator */
+.rowline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:5px 0}
+.rowline>label{font-size:12px;color:var(--muted);min-width:52px;flex:0 0 auto}
+.num{width:64px;background:#0a1220;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:7px 8px;font:inherit;text-align:center;outline:none}
+.num:focus{border-color:rgba(216,180,90,.6);box-shadow:0 0 0 3px rgba(216,180,90,.12)}
+.sel{background:#0a1220;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:8px 10px;font:inherit;font-size:12.5px;outline:none;min-width:0;flex:1 1 170px;max-width:100%}
+.sel:focus{border-color:rgba(216,180,90,.6)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex:0 0 auto}
+.seg button{background:var(--panel2);border:0;padding:7px 11px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.seg button.on{background:linear-gradient(180deg,#2a2410,#3a3016);color:var(--gold2);font-weight:700}
+.filters.mini{margin:0}
+.filters.mini button{padding:4px 9px;font-size:11px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:99px;flex:0 0 auto}
+.warn{color:#ffcf5c !important}
+.grp{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid rgba(36,52,79,.6)}
+.grp:last-child{border-bottom:0}
+.grp input[type=text]{flex:1 1 110px;width:auto;padding:7px 10px;font-size:13px;border-radius:9px}
+.numstep{display:flex;align-items:center;border:1px solid var(--line);border-radius:9px;overflow:hidden;flex:0 0 auto}
+.numstep button{background:var(--panel2);border:0;width:26px;height:28px;font-size:14px;cursor:pointer;color:var(--muted)}
+.numstep button:active{background:#22314a}
+.numstep input{width:42px;border:0;background:transparent;text-align:center;font:inherit;font-size:13px;color:var(--text);padding:4px 0;outline:none;-moz-appearance:textfield}
+.numstep input::-webkit-outer-spin-button,.numstep input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.pcard{border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.02);padding:10px 11px}
+.pcard .ph2{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;flex-wrap:wrap}
+.pcard .ph2 span{margin-left:auto;font-weight:400;font-size:10.5px;color:var(--dim)}
+.cells{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:8px}
+.cell{text-align:center;border:1px solid rgba(36,52,79,.9);border-radius:9px;padding:6px 3px;background:#0a1220}
+.cell .k{display:block;font-size:10px;color:var(--dim)}
+.cell .v{font-size:16px;font-weight:800;color:var(--gold2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cell.dim .v{color:var(--muted)}
+.comboline{display:flex;align-items:center;gap:8px;font-size:12.5px;padding:5px 0;border-bottom:1px solid rgba(36,52,79,.5)}
+.comboline:last-of-type{border-bottom:0}
+.comboline b{flex:1;min-width:0;font-weight:700}
+.comboline .sel{flex:0 0 auto;min-width:104px;padding:5px 8px;font-size:11.5px}
+.cval{font-size:34px;font-weight:800;color:var(--gold2);letter-spacing:-1px;font-variant-numeric:tabular-nums;line-height:1.15;margin-top:6px}
+.drawarea{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;min-height:96px;align-items:flex-start}
+.drawn{width:66px;height:92px;border-radius:9px;border:1px solid var(--line);background:linear-gradient(180deg,#16233b,#0d1524);padding:6px;font-size:10.5px;line-height:1.25;display:flex;flex-direction:column;gap:4px;animation:pop .18s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.96)}to{opacity:1;transform:none}}
+.drawn .t{font-size:9px;font-weight:800;border-radius:5px;padding:1px 4px;align-self:flex-start}
+.drawn .nm{flex:1;color:#dbe4f3;overflow:hidden;overflow-wrap:anywhere}
+.drawn.g0{border-color:rgba(255,207,92,.55)}.drawn.g0 .t{background:rgba(255,207,92,.16);color:var(--ur)}
+.drawn.g1{border-color:rgba(255,107,107,.55)}.drawn.g1 .t{background:rgba(255,107,107,.16);color:#ff9b9b}
+.drawn.g2{border-color:rgba(120,198,255,.5)}.drawn.g2 .t{background:rgba(120,198,255,.14);color:var(--r)}
+.drawn.g3{border-color:rgba(61,220,151,.5)}.drawn.g3 .t{background:rgba(61,220,151,.14);color:var(--ok)}
+.drawn.gf{opacity:.66}.drawn.gf .t{background:rgba(148,163,191,.14);color:var(--muted)}
+.drawstat{display:flex;gap:6px 12px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:8px}
+.drawstat b{color:var(--gold2)}
+.drawstat .ok{color:var(--ok);font-weight:700}
+.drawstat .bad{color:var(--bad)}
+.dbwrap{max-height:360px;overflow:auto;-webkit-overflow-scrolling:touch}
+.dbrow{display:flex;align-items:center;gap:6px;border-bottom:1px solid rgba(36,52,79,.6);padding:6px 2px;font-size:12.5px}
+.dbrow:last-child{border-bottom:0}
+.dbrow .nm{flex:1;min-width:0;line-height:1.25}
+.dbrow .nm em{display:block;font-style:normal;font-size:10.5px;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dbrow .rr{font-size:10px;font-weight:700;flex:0 0 auto}
+.dbrow .x{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:8px;width:24px;height:24px;cursor:pointer;font-size:11px;flex:0 0 auto;padding:0}
+.tagb{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:3px 8px;font-size:10.5px;cursor:pointer;white-space:nowrap;flex:0 0 auto}
+.tagb.t0{color:var(--ur);border-color:rgba(255,207,92,.45);background:rgba(255,207,92,.1)}
+.tagb.t1{color:#ff9b9b;border-color:rgba(255,107,107,.45);background:rgba(255,107,107,.1)}
+.tagb.t2{color:var(--r);border-color:rgba(120,198,255,.4);background:rgba(120,198,255,.1)}
+.tagb.t3{color:var(--ok);border-color:rgba(61,220,151,.4);background:rgba(61,220,151,.1)}
+.tagb.t4{color:var(--muted)}
+
 /* sheet */
 .sheet{position:fixed;inset:0;z-index:60;display:none}
 .sheet.open{display:block}
@@ -238,6 +302,7 @@ footer .grow{flex:1;line-height:1.3}
     <nav class="tabs" id="tabs" aria-label="탭">
       <button data-tab="tier" class="on">🏆 티어표</button>
       <button data-tab="decks">🃏 탑 덱</button>
+      <button data-tab="calc">🎲 덱빌더·확률</button>
       <button data-tab="ban">🚫 금제</button>
       <button data-tab="news">📰 리포트</button>
       <button data-tab="memo">🔍 검색·메모</button>
@@ -283,6 +348,112 @@ footer .grow{flex:1;line-height:1.3}
     </div>
     <input type="search" id="deckSearch" placeholder="테마·플레이어 검색 (예: 엘프노트, 리카)" autocomplete="off">
     <div id="deckList" style="margin-top:10px"></div>
+  </section>
+
+  <!-- ============ CALC · DECK BUILDER ============ -->
+  <section class="tab" id="tab-calc">
+    <div class="note">
+      <b>초동·패트랩 확률 계산기</b> — 덱 N장에서 n장을 뽑을 때 카드군이 몇 장 잡히는지를 <b>초기하 분포로 정확하게</b> 계산합니다(근사·시뮬레이션 아님).
+      콤보 확률도 카드군별 필요 장수를 정하면 <b>조합 전수 열거</b>로 정확히 나옵니다. 아래 <b>덱 레시피</b>에 카드를 담아 두면 태그(초동·패트랩·관통·호감) 장수가 이 계산기로 한 번에 넘어갑니다.
+    </div>
+
+    <div class="sec-h"><h2>⚙️ 덱 설정</h2><span class="hint" id="calcHint"></span></div>
+    <div class="card">
+      <div class="rowline">
+        <label for="calcN">덱 장수</label>
+        <input class="num" type="number" id="calcN" min="40" max="60" step="1" inputmode="numeric" value="40" aria-label="덱 장수">
+        <div class="filters mini" id="calcPresets">
+          <button type="button" data-n="40" class="on">40</button>
+          <button type="button" data-n="42">42</button>
+          <button type="button" data-n="45">45</button>
+          <button type="button" data-n="50">50</button>
+          <button type="button" data-n="60">60</button>
+        </div>
+      </div>
+      <div class="rowline">
+        <label>패 수</label>
+        <div class="seg" id="calcHand">
+          <button type="button" data-n="5" class="on">5장 · 선공</button>
+          <button type="button" data-n="6">6장 · 후공</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-h"><h2>🃏 카드군</h2><span class="hint">최대 4개 · 이름과 장수를 직접 넣으세요</span></div>
+    <div class="card" id="groupBox"></div>
+
+    <div class="sec-h"><h2>📊 카드군별 확률</h2><span class="hint" id="probHint">정확 계산</span></div>
+    <div class="card"><div class="pgrid" id="probBox"></div></div>
+
+    <div class="sec-h"><h2>🎯 콤보 확률</h2><span class="hint">여러 카드군이 한 패에 같이 잡힐 확률</span></div>
+    <div class="card">
+      <div id="comboCtl"></div>
+      <div class="cval" id="comboVal">—</div>
+      <div class="small" id="comboLabel"></div>
+      <div class="filters mini" id="comboPresets" style="margin-top:8px">
+        <button type="button" data-m="1,1,0,0">초동+패트랩</button>
+        <button type="button" data-m="2,0,0,0">초동 2장+</button>
+        <button type="button" data-m="0,2,0,0">패트랩 2장+</button>
+        <button type="button" data-m="1,1,1,0">초동+패트랩+관통</button>
+      </div>
+    </div>
+
+    <div class="sec-h"><h2>🎲 테스트 드로우</h2><span class="hint" id="drawSrcHint"></span></div>
+    <div class="card">
+      <div class="rowline" style="padding-top:0">
+        <button class="btn gold" id="drawBtn" type="button">🎲 첫 패 5장 뽑아보기</button>
+        <button class="btn ghost" id="drawAgain" type="button">🔄 다시 뽑기</button>
+      </div>
+      <div class="drawarea" id="drawArea"></div>
+      <div class="drawstat" id="drawStat"></div>
+    </div>
+
+    <div class="sec-h"><h2>🧱 덱 레시피</h2><span class="hint">이 기기에 저장(localStorage) · 메인 40~60 + 엑스트라 15</span></div>
+    <div class="card">
+      <div class="rowline">
+        <input type="text" id="deckName" placeholder="덱 이름 (예: 알프노트 후공형)" maxlength="24" autocomplete="off">
+        <button class="btn gold" id="deckSave" type="button">💾 저장</button>
+      </div>
+      <div class="rowline">
+        <label for="deckPick">내 덱</label>
+        <select class="sel" id="deckPick"></select>
+        <button class="btn ghost" id="deckLoad" type="button">불러오기</button>
+        <button class="btn ghost" id="deckDel" type="button">삭제</button>
+        <button class="btn ghost" id="deckNew" type="button">+ 새 덱</button>
+      </div>
+      <div class="rowline">
+        <label for="mdmPick">MDM 덱</label>
+        <select class="sel" id="mdmPick"></select>
+        <button class="btn ghost" id="mdmLoad" type="button">티어 덱 불러오기</button>
+      </div>
+      <p class="small" id="deckHint">MDM 대회 덱을 불러오면 카드에 태그를 자동으로 붙입니다. 태그는 카드 줄의 태그를 눌러 직접 바꿀 수 있습니다.</p>
+    </div>
+
+    <div class="card" style="margin-top:10px">
+      <input type="search" id="dbSearch" placeholder="카드 검색 후 + 로 담기 (예: 증식, Ash, 포트)" autocomplete="off">
+      <div class="rowline">
+        <label>담을 곳</label>
+        <div class="seg" id="dbZone">
+          <button type="button" data-z="main" class="on">메인 덱</button>
+          <button type="button" data-z="extra">엑스트라 덱</button>
+        </div>
+        <span class="small" id="dbZoneHint">메인 덱에 담깁니다</span>
+      </div>
+      <div id="dbResults"><div class="empty">카드 이름을 넣으면 이 페이지가 모은 카드에서 찾습니다.</div></div>
+    </div>
+
+    <div class="sec-h"><h2>메인 덱</h2><span class="hint" id="mainCount"></span></div>
+    <div class="card">
+      <div class="dbwrap" id="mainList"><div class="empty">카드를 담으면 여기에 쌓입니다.</div></div>
+      <div class="total" id="tagTotals"></div>
+      <div class="rowline">
+        <button class="btn gold" id="sendCalc" type="button">📊 확률 계산기로 보내기</button>
+        <button class="btn ghost" id="mainClear" type="button">전부 비우기</button>
+      </div>
+    </div>
+
+    <div class="sec-h"><h2>엑스트라 덱</h2><span class="hint" id="extraCount"></span></div>
+    <div class="card"><div class="dbwrap" id="extraList"><div class="empty">엑스트라 덱 카드를 담으면 여기에 쌓입니다.</div></div></div>
   </section>
 
   <!-- ============ BAN ============ -->
@@ -692,8 +863,527 @@ memoEl.addEventListener('input', () => {
   memoTimer = setTimeout(() => { lsSet('mdm_memo', memoEl.value); analyzeMemo(); }, 400);
 });
 
+/* ---------- DECK BUILDER & HYPERGEOMETRIC CALCULATOR ---------- */
+const TAGS = [
+  {ko:'초동', cls:'t0', hex:'#ffcf5c'},
+  {ko:'패트랩', cls:'t1', hex:'#ff8f8f'},
+  {ko:'관통', cls:'t2', hex:'#8fd0ff'},
+  {ko:'호감', cls:'t3', hex:'#b6f0c9'},
+  {ko:'기타', cls:'t4', hex:'#9fb0c8'}
+];
+const isNum = v => { const x = Number(v); return Number.isFinite(x); };
+const clampInt = (v, lo, hi, fb) => { const x = Math.round(Number(v)); return Number.isFinite(x) ? Math.max(lo, Math.min(hi, x)) : fb; };
+
+/* --- 초기하 분포: 정확 계산 (조합 기반, 근사·시뮬 없음) --- */
+function nCk(n, k){
+  if (!(k >= 0) || !(n >= 0) || k > n) return 0;
+  k = Math.min(k, n - k);
+  let r = 1;
+  for (let i = 1; i <= k; i++) r = r * (n - k + i) / i;
+  return r;
+}
+function hypExact(N, n, K, k){
+  if (k < 0 || k > K || n - k < 0 || n - k > N - K) return 0;
+  const den = nCk(N, n);
+  return den ? nCk(K, k) * nCk(N - K, n - k) / den : 0;
+}
+function hypAtLeast(N, n, K, m){
+  if (m <= 0) return 1;
+  if (K <= 0) return 0;
+  let s = 0;
+  for (let k = 0; k < Math.min(m, K + 1); k++) s += hypExact(N, n, K, k);
+  return Math.max(0, Math.min(1, 1 - s));
+}
+/* 여러 카드군이 각각 mins[i]장 이상 동시에 잡힐 확률 — 다변수 초기하 전수 열거 */
+function hypCombo(N, n, Ks, mins){
+  const m = Ks.length, sumK = Ks.reduce((a, b) => a + b, 0), filler = N - sumK;
+  const den = nCk(N, n);
+  if (!den || filler < 0) return 0;
+  let total = 0;
+  const walk = (i, used, w) => {
+    if (i === m){
+      const left = n - used;
+      if (left >= 0) total += w * nCk(filler, left);
+      return;
+    }
+    const lo = Math.max(0, Math.round(mins[i] || 0)), hi = Math.min(Ks[i], n - used);
+    for (let k = lo; k <= hi; k++) walk(i + 1, used + k, w * nCk(Ks[i], k));
+  };
+  walk(0, 0, 1);
+  return Math.max(0, Math.min(1, total / den));
+}
+function pctOf(p){
+  const v = p * 100;
+  if (v > 0 && v < 0.1) return '&lt;0.1';
+  return v.toFixed(1);
+}
+
+/* --- 계산기 상태 (이 기기에 저장) --- */
+function normCalc(s){
+  const d = {N:40, hand:5, groups:[{name:'초동',n:9},{name:'패트랩',n:9},{name:'관통',n:3},{name:'호감',n:3}], mins:[1,1,0,0]};
+  if (!s || typeof s !== 'object') return d;
+  d.N = clampInt(s.N, 40, 60, 40);
+  d.hand = Number(s.hand) === 6 ? 6 : 5;
+  if (Array.isArray(s.groups)){
+    d.groups = d.groups.map((g, i) => {
+      const src = s.groups[i];
+      if (!src || typeof src !== 'object') return g;
+      const nm = typeof src.name === 'string' ? src.name.slice(0, 14) : g.name;
+      return {name: nm || g.name, n: clampInt(src.n, 0, 60, g.n)};
+    });
+  }
+  if (Array.isArray(s.mins)) d.mins = d.mins.map((v, i) => clampInt(s.mins[i], 0, 3, v));
+  return d;
+}
+let calc = normCalc(lsGet('mdm_calc_v1', null));
+
+function calcN(){ return clampInt(calc.N, 1, 99, 40); }
+function calcHandN(){ return calc.hand === 6 ? 6 : 5; }
+function groupName(i){
+  const g = calc.groups[i] || {};
+  return String(g.name || '').trim() || ('카드군 ' + (i + 1));
+}
+function groupN(i){ return clampInt((calc.groups[i] || {}).n, 0, 60, 0); }
+function calcTotal(){ return calc.groups.reduce((a, g, i) => a + groupN(i), 0); }
+function calcEffN(){ const N = calcN(), sum = calcTotal(); return {N: Math.max(N, sum), sum: sum, bumped: sum > N}; }
+function minNeed(i){ return clampInt(calc.mins[i], 0, 3, 0); }
+
+const groupBox = $('#groupBox');
+const comboCtl = $('#comboCtl');
+
+function buildCalcControls(){
+  groupBox.innerHTML = calc.groups.map((g, i) =>
+    '<div class="grp" data-i="' + i + '">' +
+      '<span class="dot" style="background:' + TAGS[i].hex + '"></span>' +
+      '<input type="text" data-gname="' + i + '" value="' + esc(g.name) + '" maxlength="14" aria-label="카드군 ' + (i + 1) + ' 이름">' +
+      '<span class="numstep">' +
+        '<button type="button" data-gdec="' + i + '" aria-label="줄이기">−</button>' +
+        '<input type="number" data-gn="' + i + '" value="' + g.n + '" min="0" max="60" inputmode="numeric" aria-label="카드군 ' + (i + 1) + ' 장수">' +
+        '<button type="button" data-ginc="' + i + '" aria-label="늘리기">+</button>' +
+      '</span>' +
+      '<span class="small" data-gpct="' + i + '"></span>' +
+    '</div>').join('');
+  comboCtl.innerHTML = '<div class="small" style="margin-bottom:4px">카드군마다 필요한 장수를 고르세요. ‘조건 없음’은 콤보에서 뺍니다.</div>' +
+    calc.groups.map((g, i) =>
+      '<div class="comboline">' +
+        '<span class="dot" style="background:' + TAGS[i].hex + '"></span>' +
+        '<b data-clabel="' + i + '">' + esc(groupName(i)) + '</b>' +
+        '<select class="sel" data-cmin="' + i + '" aria-label="' + esc(groupName(i)) + ' 콤보 조건">' +
+          [0,1,2,3].map(v => '<option value="' + v + '"' + (minNeed(i) === v ? ' selected' : '') + '>' + (v === 0 ? '조건 없음' : v + '장 이상') + '</option>').join('') +
+        '</select>' +
+      '</div>').join('');
+}
+
+function syncCalcUI(){
+  const nEl = $('#calcN');
+  if (nEl && document.activeElement !== nEl && nEl.value !== String(calc.N)) nEl.value = calc.N;
+  [...$('#calcPresets').children].forEach(b => b.classList.toggle('on', Number(b.dataset.n) === calcN()));
+  [...$('#calcHand').children].forEach(b => b.classList.toggle('on', Number(b.dataset.n) === calcHandN()));
+  calc.groups.forEach((g, i) => {
+    const nm = groupBox.querySelector('[data-gname="' + i + '"]');
+    if (nm && document.activeElement !== nm && nm.value !== g.name) nm.value = g.name;
+    const cn = groupBox.querySelector('[data-gn="' + i + '"]');
+    if (cn && document.activeElement !== cn && cn.value !== String(g.n)) cn.value = g.n;
+    comboCtl.querySelectorAll('[data-clabel="' + i + '"]').forEach(el => { el.textContent = groupName(i); });
+    const sel = comboCtl.querySelector('[data-cmin="' + i + '"]');
+    if (sel && sel.value !== String(minNeed(i))) sel.value = String(minNeed(i));
+    const gp = groupBox.querySelector('[data-gpct="' + i + '"]');
+    if (gp) gp.textContent = groupN(i) + '/' + calcEffN().N + '장';
+  });
+  $('#drawBtn').textContent = '🎲 첫 패 ' + calcHandN() + '장 뽑아보기';
+}
+
+function renderCalc(){
+  const E = calcEffN(), N = E.N, n = calcHandN();
+  $('#calcHint').textContent = '덱 ' + N + '장 · ' + n + '장 드로우' + (E.bumped ? ' · 카드군 합계 ' + E.sum + '장 반영' : '');
+  $('#probHint').textContent = '정확 계산 · 가능한 패 ' + fmt(nCk(N, n)) + '가지';
+  $('#probBox').innerHTML = calc.groups.map((g, i) => {
+    const K = Math.max(0, Math.min(N, groupN(i)));
+    const p1 = hypAtLeast(N, n, K, 1), p2 = hypAtLeast(N, n, K, 2), p0 = hypExact(N, n, K, 0);
+    const ev = N ? n * K / N : 0;
+    return '<div class="pcard">' +
+      '<div class="ph2"><span class="dot" style="background:' + TAGS[i].hex + '"></span>' + esc(groupName(i)) +
+        '<span>' + K + ' / ' + N + ' · 기대 ' + ev.toFixed(2) + '장</span></div>' +
+      '<div class="cells">' +
+        '<div class="cell"><span class="k">1장 이상</span><span class="v">' + pctOf(p1) + '%</span></div>' +
+        '<div class="cell"><span class="k">2장 이상</span><span class="v">' + pctOf(p2) + '%</span></div>' +
+        '<div class="cell dim"><span class="k">0장(패말림)</span><span class="v">' + pctOf(p0) + '%</span></div>' +
+      '</div>' +
+      '<div class="small" style="margin-top:6px">' +(K > 0 ? ('뽑은 ' + n + '장 중 평균 ' + ev.toFixed(2) + '장') : '장수를 넣으면 계산됩니다') + '</div>' +
+    '</div>';
+  }).join('');
+  renderCombo();
+  syncCalcUI();
+  updateDrawSrc();
+  lsSet('mdm_calc_v1', calc);
+}
+
+function renderCombo(){
+  const N = calcEffN().N, n = calcHandN();
+  const Ks = [], mins = [], labels = [];
+  calc.groups.forEach((g, i) => {
+    const mn = minNeed(i);
+    if (!mn) return;
+    Ks.push(Math.max(0, Math.min(N, groupN(i)))); mins.push(mn); labels.push(groupName(i) + ' ' + mn + '장 이상');
+  });
+  const el = $('#comboVal'), lab = $('#comboLabel');
+  if (!labels.length){
+    el.textContent = '—';
+    lab.textContent = '카드군 조건을 ‘1장 이상’으로 두면 콤보 확률이 계산됩니다.';
+    return;
+  }
+  const sumK = Ks.reduce((a, b) => a + b, 0);
+  if (sumK > N){ el.textContent = '—'; lab.textContent = '카드군 합계(' + sumK + ')가 덱 장수(' + N + ')보다 큽니다.'; return; }
+  if (mins.some((m, i) => m > Ks[i])){
+    el.textContent = '0%';
+    lab.textContent = labels.join(' + ') + ' → 장수가 필요한 수보다 적어 불가능합니다.';
+    return;
+  }
+  const p = hypCombo(N, n, Ks, mins);
+  el.textContent = pctOf(p) + '%';
+  lab.textContent = labels.join(' + ') + ' → ' + n + '장 드로우에서 한 패에 동시에 ' + pctOf(p) + '%' +
+    ' (조건을 하나만 볼 때보다 낮은 게 정상입니다)';
+}
+
+/* --- 카드군 입력 --- */
+groupBox.addEventListener('input', e => {
+  const t = e.target;
+  if (t.dataset.gname != null){
+    const i = Number(t.dataset.gname);
+    calc.groups[i].name = t.value.slice(0, 14);
+    const lb = comboCtl.querySelector('[data-clabel="' + i + '"]');
+    if (lb) lb.textContent = groupName(i);
+    renderCombo();
+    lsSet('mdm_calc_v1', calc);
+    return;
+  }
+  if (t.dataset.gn != null){
+    const i = Number(t.dataset.gn);
+    calc.groups[i].n = t.value === '' ? 0 : clampInt(t.value, 0, 60, 0);
+    renderCalc();
+  }
+});
+groupBox.addEventListener('click', e => {
+  const inc = e.target.closest('[data-ginc]'), dec = e.target.closest('[data-gdec]');
+  if (!inc && !dec) return;
+  const i = Number(inc ? inc.dataset.ginc : dec.dataset.gdec);
+  calc.groups[i].n = clampInt(groupN(i) + (inc ? 1 : -1), 0, 60, 0);
+  renderCalc();
+});
+comboCtl.addEventListener('change', e => {
+  const s = e.target.closest('[data-cmin]');
+  if (!s) return;
+  calc.mins[Number(s.dataset.cmin)] = clampInt(s.value, 0, 3, 0);
+  renderCombo();
+  lsSet('mdm_calc_v1', calc);
+});
+$('#calcPresets').addEventListener('click', e => {
+  const b = e.target.closest('button[data-n]');
+  if (!b) return;
+  calc.N = Number(b.dataset.n);
+  renderCalc();
+});
+$('#calcHand').addEventListener('click', e => {
+  const b = e.target.closest('button[data-n]');
+  if (!b) return;
+  calc.hand = Number(b.dataset.n) === 6 ? 6 : 5;
+  renderCalc();
+});
+$('#calcN').addEventListener('input', e => {
+  if (e.target.value === '') return;
+  calc.N = clampInt(e.target.value, 1, 99, 40);
+  renderCalc();
+});
+$('#calcN').addEventListener('change', e => {
+  calc.N = clampInt(e.target.value, 40, 60, 40);
+  e.target.value = calc.N;
+  renderCalc();
+});
+$('#comboPresets').addEventListener('click', e => {
+  const b = e.target.closest('button[data-m]');
+  if (!b) return;
+  calc.mins = b.dataset.m.split(',').map(v => clampInt(v, 0, 3, 0));
+  renderCalc();
+});
+
+/* --- 테스트 드로우 --- */
+let drawStats = {n: 0, hit: 0, last: null};
+function useDeckForDraw(){ return curDeck.main.length > 0 && deckTotal('main') === calcEffN().N; }
+function updateDrawSrc(){
+  const src = useDeckForDraw() ? '내 덱 레시피' : '카드군 설정';
+  $('#drawSrcHint').textContent = calcEffN().N + '장 덱에서 ' + calcHandN() + '장 · ' + src;
+}
+function buildPool(N){
+  const pool = [];
+  if (useDeckForDraw()){
+    curDeck.main.forEach(c => {
+      const cnt = clampInt(c.n, 0, 3, 0), nm = cardKo(c.en);
+      for (let k = 0; k < cnt && pool.length < N; k++) pool.push({gi: (c.tag >= 0 && c.tag <= 3) ? c.tag : -1, label: nm});
+    });
+  } else {
+    calc.groups.forEach((g, i) => {
+      const cnt = groupN(i);
+      for (let k = 0; k < cnt && pool.length < N; k++) pool.push({gi: i, label: groupName(i)});
+    });
+  }
+  while (pool.length < N) pool.push({gi: -1, label: '기타'});
+  return pool.slice(0, N);
+}
+function drawHand(){
+  const N = calcEffN().N, n = Math.min(calcHandN(), N);
+  const pool = buildPool(N);
+  for (let i = 0; i < n; i++){
+    const j = i + Math.floor(Math.random() * (pool.length - i));
+    const tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
+  }
+  const hand = pool.slice(0, n);
+  $('#drawArea').innerHTML = hand.map(c => {
+    const cls = c.gi >= 0 ? 'g' + c.gi : 'gf';
+    const tag = c.gi >= 0 ? TAGS[c.gi].ko : '기타';
+    return '<div class="drawn ' + cls + '"><span class="t">' + esc(tag) + '</span><span class="nm">' + esc(c.label) + '</span></div>';
+  }).join('');
+  const counts = [0,0,0,0];
+  hand.forEach(c => { if (c.gi >= 0) counts[c.gi]++; });
+  const need = calc.groups.map((g, i) => minNeed(i));
+  const active = need.some(m => m > 0);
+  const hit = active && need.every((m, i) => !m || counts[i] >= m);
+  drawStats.n++;
+  if (hit) drawStats.hit++;
+  const rate = drawStats.n ? (drawStats.hit / drawStats.n * 100) : 0;
+  $('#drawStat').innerHTML = counts.map((c, i) => TAGS[i].ko + ' <b>' + c + '</b>').join(' · ') +
+    (active ? '<span class="' + (hit ? 'ok' : 'bad') + '">' + (hit ? '🎯 콤보 성공' : '콤보 실패') + '</span>' : '<span>콤보 조건 없음</span>') +
+    '<span>누적 <b>' + drawStats.n + '</b>회 · 성공 <b>' + drawStats.hit + '</b>회 (' + rate.toFixed(1) + '%)</span>';
+}
+$('#drawBtn').addEventListener('click', drawHand);
+$('#drawAgain').addEventListener('click', drawHand);
+
+/* --- 덱 레시피 저장/편집 --- */
+let deckStore = lsGet('mdm_decks_v1', null);
+if (!deckStore || !Array.isArray(deckStore.list)) deckStore = {list: [], cur: null};
+let curDeck = {id: null, name: '', arch: '', main: [], extra: []};
+let addZone = 'main';
+
+function normEntry(e){
+  if (!e || typeof e !== 'object' || typeof e.en !== 'string' || !e.en) return null;
+  return {en: e.en, n: clampInt(e.n, 1, 3, 1), tag: clampInt(e.tag, 0, 4, 4)};
+}
+function normDeck(d){
+  const src = d && typeof d === 'object' ? d : {};
+  return {
+    id: typeof src.id === 'string' ? src.id : null,
+    name: typeof src.name === 'string' ? src.name.slice(0, 24) : '',
+    arch: typeof src.arch === 'string' ? src.arch : '',
+    main: (Array.isArray(src.main) ? src.main : []).map(normEntry).filter(Boolean),
+    extra: (Array.isArray(src.extra) ? src.extra : []).map(normEntry).filter(Boolean)
+  };
+}
+function cardKo(en){ const c = cardByName(en); return (c && c.ko) ? c.ko : en; }
+function zoneArr(z){ return z === 'extra' ? curDeck.extra : curDeck.main; }
+function deckTotal(z){ return zoneArr(z).reduce((a, c) => a + clampInt(c.n, 1, 3, 1), 0); }
+function saveDraft(){ lsSet('mdm_deck_draft', curDeck); }
+
+const TAG_RE_HAND = /(ash blossom|maxx\s*"?c"?|effect veiler|droll\s*&?\s*lock bird|ghost ogre|ghost belle|ghost mourner|mulcharmy|nibiru|dimension shifter|psy-framegear|infinite impermanence|herald of orange light|dominus impulse|dominus purge|dominus spark|artifact lancea|token collector|d\.d\. crow|retaliating "c")/i;
+const TAG_RE_BREAK = /(forbidden droplet|dark ruler no more|super polymerization|lightning storm|harpie'?s feather duster|raigeki|triple tactics|forbidden crown|kaiju|lava golem|sphere mode|evenly matched|book of eclipse|mind control|change of heart|mystical space typhoon)/i;
+const TAG_RE_NICE = /(pot of |upstart goblin|one for one|foolish burial|reinforcement of the army|terraforming|chicken game|reasoning|monster reborn|card destruction|crossout designator|called by the grave|gold sarcophagus|foolish burial goods)/i;
+function autoTag(en, arch){
+  const s = String(en || '');
+  if (TAG_RE_HAND.test(s)) return 1;
+  if (TAG_RE_BREAK.test(s)) return 2;
+  if (TAG_RE_NICE.test(s)) return 3;
+  const words = String(arch || '').split(/[\s\-:&]+/).filter(w => w.length >= 3);
+  if (words.some(w => s.toLowerCase().indexOf(w.toLowerCase()) >= 0)) return 0;
+  return 4;
+}
+
+function deckRowHTML(c, i, zone){
+  const ko = cardKo(c.en), card = cardByName(c.en);
+  const rar = (card && card.rarity) ? '<span class="rr" style="color:' + RARCOL(card.rarity) + '">' + card.rarity + '</span>' : '';
+  const ref = zone + ':' + i;
+  return '<div class="dbrow">' +
+    '<span class="nm">' + esc(ko) + (ko !== c.en ? '<em>' + esc(c.en) + '</em>' : '') + '</span>' + rar +
+    '<button class="tagb ' + TAGS[c.tag].cls + '" type="button" data-tagc="' + ref + '" title="눌러서 태그 바꾸기">' + TAGS[c.tag].ko + '</button>' +
+    '<span class="numstep">' +
+      '<button type="button" data-cdec="' + ref + '" aria-label="줄이기">−</button>' +
+      '<input type="number" data-cnum="' + ref + '" value="' + c.n + '" min="1" max="3" inputmode="numeric" aria-label="장수">' +
+      '<button type="button" data-cinc="' + ref + '" aria-label="늘리기">+</button>' +
+    '</span>' +
+    '<button class="x" type="button" data-cx="' + ref + '" aria-label="빼기">✕</button>' +
+  '</div>';
+}
+function renderDeckPick(){
+  const sel = $('#deckPick');
+  sel.innerHTML = deckStore.list.length
+    ? deckStore.list.map(d => '<option value="' + esc(d.id) + '"' + (d.id === curDeck.id ? ' selected' : '') + '>' + esc((d.name || '이름 없음') + ' · ' + d.main.reduce((a, c) => a + c.n, 0) + '장') + '</option>').join('')
+    : '<option value="">저장된 덱 없음</option>';
+}
+function renderDeck(){
+  const nameEl = $('#deckName');
+  if (document.activeElement !== nameEl && nameEl.value !== curDeck.name) nameEl.value = curDeck.name;
+  const mainList = $('#mainList'), extraList = $('#extraList');
+  mainList.innerHTML = curDeck.main.length
+    ? curDeck.main.map((c, i) => deckRowHTML(c, i, 'main')).join('')
+    : '<div class="empty">카드를 담으면 여기에 쌓입니다.</div>';
+  extraList.innerHTML = curDeck.extra.length
+    ? curDeck.extra.map((c, i) => deckRowHTML(c, i, 'extra')).join('')
+    : '<div class="empty">엑스트라 덱 카드를 담으면 여기에 쌓입니다.</div>';
+  const mt = deckTotal('main'), et = deckTotal('extra');
+  const mc = $('#mainCount'), ec = $('#extraCount');
+  mc.textContent = mt + ' / 40~60장' + (mt < 40 ? ' · ' + (40 - mt) + '장 부족' : mt > 60 ? ' · ' + (60 - mt) + '장 초과' : ' ✓');
+  mc.className = 'hint' + ((mt < 40 || mt > 60) ? ' warn' : '');
+  ec.textContent = et + ' / 15장' + (et !== 15 ? ' · ' + (et > 15 ? (et - 15) + '장 초과' : (15 - et) + '장 부족') : ' ✓');
+  ec.className = 'hint' + (et !== 15 ? ' warn' : '');
+  const tc = [0,0,0,0,0];
+  curDeck.main.forEach(c => { tc[clampInt(c.tag, 0, 4, 4)] += clampInt(c.n, 1, 3, 1); });
+  $('#tagTotals').innerHTML = TAGS.slice(0, 4).map((t, i) => '<span>' + t.ko + ' <b>' + tc[i] + '</b></span>').join('') +
+    (tc[4] ? '<span>기타 <b>' + tc[4] + '</b></span>' : '') + '<span>합계 <b>' + mt + '</b></span>';
+  renderDeckPick();
+  $('#dbZoneHint').textContent = (addZone === 'main' ? '메인 덱' : '엑스트라 덱') + '에 담깁니다';
+  saveDraft();
+}
+function renderMdmPick(){
+  $('#mdmPick').innerHTML = D.decks.map((d, i) =>
+    '<option value="' + i + '">' + esc(d.eventShort + ' · ' + (tierKo(d.archetype) || d.archetype) + ' · ' + d.player + ' (' + d.mainCount + '+' + d.extraCount + ')') + '</option>').join('');
+}
+
+function addCardToDeck(en){
+  const arr = zoneArr(addZone);
+  const hit = arr.find(c => c.en === en);
+  if (hit) hit.n = clampInt(hit.n + 1, 1, 3, 3);
+  else arr.push({en: en, n: 1, tag: addZone === 'extra' ? 4 : autoTag(en, curDeck.arch)});
+  renderDeck();
+}
+
+$('#dbSearch').addEventListener('input', () => {
+  const q = $('#dbSearch').value.trim();
+  if (!q){ $('#dbResults').innerHTML = '<div class="empty">카드 이름을 넣으면 이 페이지가 모은 카드에서 찾습니다.</div>'; return; }
+  const res = searchCards(q).slice(0, 20);
+  if (!res.length){ $('#dbResults').innerHTML = '<div class="empty">결과 없음. 영문 이름 일부로 다시 시도해 보세요.</div>'; return; }
+  $('#dbResults').innerHTML = res.map(c =>
+    '<div class="res"><span class="nm">' + esc(c.ko || c.en) + (c.ko ? '<em>' + esc(c.en) + '</em>' : '') + '</span>' +
+    (c.rarity ? '<span class="r" style="color:' + RARCOL(c.rarity) + '">' + c.rarity + '</span>' : '') +
+    '<button class="addb" type="button" data-addcard="' + esc(c.en) + '">+ 담기</button></div>').join('');
+});
+$('#dbResults').addEventListener('click', e => {
+  const b = e.target.closest('[data-addcard]');
+  if (b) addCardToDeck(b.dataset.addcard);
+});
+$('#dbZone').addEventListener('click', e => {
+  const b = e.target.closest('button[data-z]');
+  if (!b) return;
+  addZone = b.dataset.z === 'extra' ? 'extra' : 'main';
+  [...$('#dbZone').children].forEach(x => x.classList.toggle('on', x === b));
+  $('#dbZoneHint').textContent = (addZone === 'main' ? '메인 덱' : '엑스트라 덱') + '에 담깁니다';
+});
+
+function bindDeckList(el){
+  el.addEventListener('click', e => {
+    const tg = e.target.closest('[data-tagc]');
+    if (tg){
+      const parts = tg.dataset.tagc.split(':'), a = zoneArr(parts[0]), c = a[Number(parts[1])];
+      if (c){ c.tag = (clampInt(c.tag, 0, 4, 4) + 1) % 5; renderDeck(); }
+      return;
+    }
+    const inc = e.target.closest('[data-cinc]'), dec = e.target.closest('[data-cdec]');
+    if (inc || dec){
+      const ref = (inc ? inc.dataset.cinc : dec.dataset.cdec).split(':');
+      const a = zoneArr(ref[0]), c = a[Number(ref[1])];
+      if (c){ c.n = clampInt(c.n + (inc ? 1 : -1), 1, 3, 1); renderDeck(); }
+      return;
+    }
+    const del = e.target.closest('[data-cx]');
+    if (del){
+      const ref = del.dataset.cx.split(':');
+      const a = zoneArr(ref[0]);
+      if (a[Number(ref[1])]){ a.splice(Number(ref[1]), 1); renderDeck(); }
+    }
+  });
+  el.addEventListener('change', e => {
+    const inp = e.target.closest('[data-cnum]');
+    if (!inp) return;
+    const ref = inp.dataset.cnum.split(':');
+    const a = zoneArr(ref[0]), c = a[Number(ref[1])];
+    if (c){ c.n = clampInt(inp.value, 1, 3, 1); renderDeck(); }
+  });
+}
+bindDeckList($('#mainList'));
+bindDeckList($('#extraList'));
+
+$('#deckName').addEventListener('input', e => { curDeck.name = e.target.value.slice(0, 24); saveDraft(); });
+$('#deckSave').addEventListener('click', () => {
+  curDeck.name = (($('#deckName').value || '').trim() || '내 덱').slice(0, 24);
+  if (!curDeck.id) curDeck.id = 'd' + Date.now().toString(36);
+  const rec = {id: curDeck.id, name: curDeck.name, arch: curDeck.arch, main: curDeck.main, extra: curDeck.extra, savedAt: Date.now()};
+  const idx = deckStore.list.findIndex(d => d.id === rec.id);
+  if (idx >= 0) deckStore.list[idx] = rec; else deckStore.list.unshift(rec);
+  deckStore.cur = rec.id;
+  lsSet('mdm_decks_v1', deckStore);
+  renderDeck();
+  $('#deckHint').textContent = '“' + rec.name + '” 저장했습니다 · 저장된 덱 ' + deckStore.list.length + '개(이 기기)';
+});
+$('#deckLoad').addEventListener('click', () => {
+  const rec = deckStore.list.find(d => d.id === $('#deckPick').value);
+  if (!rec){ $('#deckHint').textContent = '불러올 덱이 없습니다. 새로 담고 저장해 보세요.'; return; }
+  curDeck = normDeck(JSON.parse(JSON.stringify(rec)));
+  renderDeck();
+  $('#deckHint').textContent = '“' + (rec.name || '내 덱') + '” 불러왔습니다. 고치고 저장을 눌러야 반영됩니다.';
+});
+$('#deckDel').addEventListener('click', () => {
+  const id = $('#deckPick').value;
+  const rec = deckStore.list.find(d => d.id === id);
+  if (!rec){ $('#deckHint').textContent = '삭제할 덱이 없습니다.'; return; }
+  deckStore.list = deckStore.list.filter(d => d.id !== id);
+  if (curDeck.id === id){ curDeck.id = null; }
+  lsSet('mdm_decks_v1', deckStore);
+  renderDeck();
+  $('#deckHint').textContent = '“' + (rec.name || '내 덱') + '” 삭제했습니다.';
+});
+$('#deckNew').addEventListener('click', () => {
+  curDeck = {id: null, name: '', arch: '', main: [], extra: []};
+  renderDeck();
+  $('#deckHint').textContent = '새 덱입니다. 카드를 담고 이름을 넣은 뒤 저장하세요.';
+});
+$('#mdmLoad').addEventListener('click', () => {
+  const d = D.decks[Number($('#mdmPick').value)];
+  if (!d) return;
+  curDeck = {
+    id: null,
+    name: ((tierKo(d.archetype) || d.archetype) + ' ' + d.eventShort).slice(0, 24),
+    arch: d.archetype,
+    main: d.main.map(([n, nm]) => ({en: nm, n: clampInt(n, 1, 3, 1), tag: autoTag(nm, d.archetype)})),
+    extra: d.extra.map(([n, nm]) => ({en: nm, n: clampInt(n, 1, 3, 1), tag: 4}))
+  };
+  renderDeck();
+  $('#deckHint').textContent = d.eventShort + ' · ' + d.player + ' 덱을 불러왔습니다. 태그를 고친 뒤 저장하면 내 덱이 됩니다.';
+});
+$('#mainClear').addEventListener('click', () => {
+  curDeck.main = [];
+  renderDeck();
+  $('#deckHint').textContent = '메인 덱을 비웠습니다.';
+});
+$('#sendCalc').addEventListener('click', () => {
+  const mt = deckTotal('main');
+  if (!mt){ $('#deckHint').textContent = '먼저 메인 덱 카드를 담으세요.'; return; }
+  const counts = [0, 0, 0, 0];
+  curDeck.main.forEach(c => { const t = clampInt(c.tag, 0, 4, 4); if (t <= 3) counts[t] += clampInt(c.n, 1, 3, 1); });
+  calc.N = Math.min(60, Math.max(40, mt));
+  calc.groups = TAGS.slice(0, 4).map((t, i) => ({name: t.ko, n: counts[i]}));
+  calc.mins = [1, 1, 0, 0];
+  buildCalcControls();
+  renderCalc();
+  setTab('calc');
+  $('#deckHint').textContent = '메인 ' + mt + '장 → 계산기로 보냈습니다 (초동 ' + counts[0] + ' · 패트랩 ' + counts[1] + ' · 관통 ' + counts[2] + ' · 호감 ' + counts[3] + ') ✓';
+});
+
 /* ---------- init ---------- */
 renderTiers(); renderDecks(); renderBan(); renderHT(); renderPR(); renderArts(); renderCraft(); analyzeMemo();
+
+/* deck builder + calculator */
+const draftDeck = lsGet('mdm_deck_draft', null);
+if (draftDeck) curDeck = normDeck(draftDeck);
+buildCalcControls();
+renderCalc();
+renderMdmPick();
+renderDeck();
 </script>
 </body>
 </html>
