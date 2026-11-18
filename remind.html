@@ -288,7 +288,7 @@ textarea{resize:vertical;line-height:1.7}
     var pet = $('vPet').value.trim() || '○○';
     var date = $('vDate').value || today();
     var next = $('vNext').value || '';
-    var drug = $('vDrug').value.trim() || '처방약';
+    var drug = $('vDrug').value.trim();
     var weight = $('vWeight').value.trim() || '__';
     var days = $('vDays').value.trim() || '__';
     var dose = $('vDose').value || '1일 2회';
@@ -316,9 +316,9 @@ textarea{resize:vertical;line-height:1.7}
     id:'refill', title:'심장약 리필 안내', when:'처방 끝나기 5~7일 전', tag:'심장',
     build:function(v){
       return greet(v) +
-        v.pet + ' 아이가 복용 중인 ' + v.drug + ' 처방이 ' + v.kdate + '까지입니다.\n\n' +
+        v.pet + ' 아이가 복용 중인 ' + (v.drug || '심장약') + ' 처방이 ' + v.kdate + '까지입니다.\n\n' +
         '심장약은 보호자님 판단으로 끊으시면 호흡곤란이나 기침이 갑자기 심해질 수 있어, 약이 떨어지기 전에 이어서 드시는 것이 좋습니다.\n\n' +
-        '· 처방 예정: ' + v.drug + ' ' + v.days + '일분 (' + v.dose + ')\n' +
+        '· 처방 예정: ' + (v.drug || '심장약') + ' ' + v.days + '일분 (' + v.dose + ')\n' +
         '· 최근 체중: ' + v.weight + ' kg 기준으로 용량을 다시 확인합니다\n' +
         '· 다음 내원 희망일: ' + (v.knext || '____년 __월 __일') + '\n\n' +
         '내원 일정을 정해 주시면 처방을 미리 준비해 두겠습니다. 아이 상태(기침·수면 중 호흡 수·활동량)에 달라진 점이 있으면 함께 말씀해 주세요.' +
@@ -385,7 +385,7 @@ textarea{resize:vertical;line-height:1.7}
         v.pet + ' 아이 예방접종 일정을 안내드립니다.\n\n' +
         '· 지난 접종일: ' + v.kdate + ' (' + v.wd + ')\n' +
         '· 다음 접종: ' + v.vacc + '\n' +
-        '· 접종 예정일: ' + v.knext + ' (' + v.nwd + ')\n\n' +
+        '· 접종 예정일: ' + v.knext + (v.nwd ? ' (' + v.nwd + ')' : '') + '\n\n' +
         '접종 간격이 길어지면 항체가 충분히 올라가지 않을 수 있어, 정해진 날짜에 맞춰 주시는 것이 좋습니다. 아이 컨디션이 좋지 않거나(설사·구토·열) 최근 다른 약을 드신 경우에는 미리 말씀해 주세요.\n\n' +
         '접종 당일에는 목욕과 과한 운동은 피해 주시고, 접종 후 1~2일은 아이 상태를 조금 더 살펴봐 주세요. 얼굴이 붓거나 구토가 반복되면 바로 연락 주세요.' +
         sign(v);

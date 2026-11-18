@@ -440,8 +440,8 @@ table.ct tr.total td{background:#f2f6fb;font-weight:700}
       var it = state.items[i];
       if(it.manual) continue;
       if(!it.base){ it.min = 0; it.max = 0; continue; }
-      it.min = Math.round(it.base / 1000) * 1000;
-      it.max = Math.round(it.base * (1 + state.varPct / 100) / 1000) * 1000;
+      it.min = it.base;
+      it.max = it.base ? Math.round(it.base * (1 + state.varPct / 100) / 1000) * 1000 : 0;
     }
   }
 
