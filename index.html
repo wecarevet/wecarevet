@@ -849,9 +849,9 @@ img{max-width:100%}
       </div>
     </div>
     <ul class="slots">
-      <li class="slot"><b>심장</b><em>심초음파 · 약물 관리 기록</em><i>PHOTOS COMING SOON</i></li>
-      <li class="slot"><b>신장</b><em>IRIS 단계별 관리 기록</em><i>PHOTOS COMING SOON</i></li>
-      <li class="slot"><b>만성질환</b><em>장기 내원 아이들의 홈케어</em><i>PHOTOS COMING SOON</i></li>
+      <li class="slot"><b>심장</b><em>심초음파 · 약물 관리 기록</em><i>사진 준비 중</i></li>
+      <li class="slot"><b>신장</b><em>IRIS 단계별 관리 기록</em><i>사진 준비 중</i></li>
+      <li class="slot"><b>만성질환</b><em>장기 내원 아이들의 홈케어</em><i>사진 준비 중</i></li>
     </ul>
   </div>
 </section>
@@ -1169,7 +1169,9 @@ img{max-width:100%}
       html+='<div class="ans-body">증상 이름만 짧게 적어 보시면 찾기 쉬워요(예: 기침, 구토, 신장, 금식, 결석). 아래 안내에서 먼저 찾아보시고, 판단이 어려우면 카카오톡이나 전화로 물어보셔도 됩니다.</div>';
       html+='<div class="ans-links"><a class="ans-link primary" href="faq.html">응급 신호 · FAQ <span aria-hidden="true">→</span></a><a class="ans-link" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">카카오톡 상담 <span aria-hidden="true">→</span></a></div>';
     }
-    var rel=relatedGuides(q);
+    var rel=relatedGuides(q), used={};
+    if(e&&e.links){ for(var u=0;u<e.links.length;u++){ used[e.links[u][1]]=1; } }
+    rel=rel.filter(function(r){ return !used[r.u]; });
     if(rel.length){
       html+='<div class="ans-rel"><span class="ans-rel-h">이어서 볼 안내</span><div class="ans-rel-list">';
       for(var k=0;k<rel.length;k++){
