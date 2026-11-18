@@ -890,7 +890,7 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .sp-sep{color:var(--dim2);font-size:11px}
 .sp-wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:10px}
 @media(max-width:1000px){.sp-wrap{grid-template-columns:1fr}}
-.sp-pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:8px;align-content:start}
+.sp-pool{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:8px;align-content:start;align-items:start}
 .spc{border:1px solid var(--line);border-radius:10px;padding:10px;background:#12141a;display:flex;flex-direction:column;gap:6px}
 .spc.main{border-color:rgba(230,196,129,.35);background:linear-gradient(180deg,rgba(230,196,129,.06),#12141a)}
 .spc-h{display:flex;align-items:center;gap:7px}
@@ -906,6 +906,24 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .spc-sub{font-size:10px;color:var(--dim2);font-weight:700}
 .spc-btn{margin-top:2px;padding:6px;border-radius:7px;background:#1d2027;border:1px solid #2f333d;font-size:10.5px;font-weight:900;color:#c3c9d4}
 .spc-btn:hover{border-color:rgba(230,196,129,.4);color:var(--gold2)}
+/* 카드 전체 탭 가능 + 선택 상태 */
+.spc{cursor:pointer;transition:border-color .16s,background .16s,box-shadow .16s,transform .1s}
+.spc:hover{border-color:rgba(230,196,129,.35)}
+.spc:active{transform:scale(.995)}
+.spc.on{border-color:rgba(230,196,129,.8);box-shadow:0 0 0 1px rgba(230,196,129,.45),0 8px 20px rgba(230,196,129,.1);background:linear-gradient(180deg,rgba(230,196,129,.13),#12141a)}
+.spc.on .spc-btn{background:rgba(230,196,129,.18);border-color:rgba(230,196,129,.55);color:var(--gold2)}
+.spc-nego{margin-top:7px;border-top:1px dashed rgba(255,255,255,.14);padding-top:7px;animation:fade .16s ease}
+.spc-nego .nego-row{font-size:10.5px;gap:6px;padding:5px 0}
+.spc-nego .nego-row span:first-child{width:44px}
+.spc-nego .nego-btns{margin-top:7px}
+.spc-nego .nego-btns .btn{padding:8px 4px;font-size:10.5px}
+/* 협상 세그먼트 버튼 — 휴대폰에서도 누를 수 있는 크기로 */
+.seg2 button,.seg3 button,.spc-btn,.nego-btns .btn,.spc{touch-action:manipulation}
+.seg2 button,.seg3 button{min-height:26px}
+.seg3{gap:3px}
+.seg3 button{padding:3px 7px;border-radius:5px;background:#1b1e25;border:1px solid #2c3039;font-size:9.5px;font-weight:900;color:#8d95a5;white-space:nowrap}
+.seg3 button.on{background:rgba(230,196,129,.16);border-color:rgba(230,196,129,.45);color:var(--gold2)}
+.spc-nego .seg2 button,.spc-nego .seg3 button{min-height:30px;font-size:10.5px;padding:5px 9px}
 .sp-side{display:flex;flex-direction:column;gap:10px}
 .nego-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:11px;font-weight:800;color:#9aa2b2}
 .nego-row span:first-child{width:64px;flex:0 0 auto}
@@ -7893,18 +7911,9 @@ function sponsorV3(){
         ${(()=>{const list=(!main&&mains.length)?mains:(c.sponsors.sub.length<Math.max(0,cap-1)?subs:[]); const emp=main?'서브 스폰서 자리가 모두 찵습니다':'새 제안을 기다리는 중입니다'; const emp2=main?'서브 스폰서 자리가 모두 찼습니다':'새 제안을 기다리는 중입니다'; return list.length?list.map(x=>spCardHTML(x,main?'sub':'main')).join(''):('<div class="card"><div class="empty-note">'+emp2+'</div></div>');})()}
       </div>
       <div class="sp-side">
-        <div class="card sp-nego">
-          <div class="ch"><span>협상</span><b class="ch-n">${main?'메인 완료':'메인'}</b></div>
-          ${(negoTarget())?(()=>{const s=negoTarget();return`
-          <div class="nego-row"><span>계약 기간</span><div class="seg2"><button class="on" data-a="spyears" data-v="2">2년</button><button data-a="spyears" data-v="3">3년</button></div><b>${negot.years||2}년</b></div>
-          <div class="nego-row"><span>조건</span><div class="seg3"><button class="${(negot.terms||'same')==='same'?'on':''}" data-a="spterms" data-v="same">그대로</button><button class="${negot.terms==='base'?'on':''}" data-a="spterms" data-v="base">기본금 ↑</button><button class="${negot.terms==='bonus'?'on':''}" data-a="spterms" data-v="bonus">보너스 ↑</button></div><b>${(s.pay*(negot.terms==='base'?1.08:negot.terms==='bonus'?0.93:1)).toFixed(1)}억</b></div>
-          <div class="nego-row"><span>목표</span><b class="pos">${esc(SPONSOR_GOALS[s.goal]?SPONSOR_GOALS[s.goal].n:s.goal)}</b></div>
-          <div class="nego-row"><span>${negot.years||2}년 합계</span><b>${(s.pay*(negot.years||2)).toFixed(1)}억 · 더 이뤄면 ${(s.bonus*2).toFixed(1)}~${(s.bonus*2+ (negot.years||2)*2.4).toFixed(1)}</b></div>
-          <div class="nego-row"><span>상대 반응</span><b class="muted">받아들일 것으로 보입니다</b></div>
-          <div class="nego-btns">
-            <button class="btn sm" data-a="spnext">이번 건은 비워 두다</button>
-            <button class="btn sm gold" data-a="spsign" data-v="${s.id}">이 조건으로 계약</button>
-          </div>`;})():''}
+        <div class="card sp-nego" id="negoPanel">
+          <div class="ch"><span>협상</span><b class="ch-n">${(()=>{const s=negoTarget();return s?esc(s.name):(main?'메인 완료':'대기 중');})()}</b></div>
+          ${(()=>{const s=negoTarget();return s?negoRowsHTML(s):'<div class="empty-note">왼쪽 스폰서 카드를 누르면 협상 조건이 열립니다.</div>';})()}
         </div>
         <div class="card">
           <div class="ch"><span>이번 시즌 계약</span><b class="ch-n">연 합계 ${sponsorAnnualTotal().toFixed(1)}억</b></div>
@@ -7918,37 +7927,67 @@ function sponsorV3(){
   </div>`;
 }
 let negot={years:2, terms:'same', id:null};
-function negoTarget(){
+function sponsorPool(){
   const c=clubC();
-  const all=((c.offers&&c.offers.main)||[]).concat((c.offers&&c.offers.sub)||[]);
-  if(negot.id){ const t=all.find(x=>x.id===negot.id); if(t) return t; }
-  return all[0]||SPONSOR_DEFS[0];
+  return ((c.offers&&c.offers.main)||[]).concat((c.offers&&c.offers.sub)||[]);
+}
+/* 실제로 선택된 제안만 반환 — 선택 전에는 null (엉뚱한 제안이 계약되던 문제 방지) */
+function negoTarget(){
+  if(!negot.id) return null;
+  const t=sponsorPool().find(x=>x.id===negot.id);
+  return t||SPONSOR_MAP[negot.id]||null;
+}
+function negoPay(s){ return s.pay*(negot.terms==='base'?1.08:negot.terms==='bonus'?0.93:1); }
+function negoGoalName(s){ return esc(SPONSOR_GOALS[s.goal]?SPONSOR_GOALS[s.goal].n:s.goal); }
+function negoRowsHTML(s){
+  const yr=negot.years||2, tm=negot.terms||'same';
+  return `
+    <div class="nego-row"><span>계약 기간</span><div class="seg2"><button class="${yr===2?'on':''}" data-a="spyears" data-v="2">2년</button><button class="${yr===3?'on':''}" data-a="spyears" data-v="3">3년</button></div><b>${yr}년</b></div>
+    <div class="nego-row"><span>조건</span><div class="seg3"><button class="${tm==='same'?'on':''}" data-a="spterms" data-v="same">그대로</button><button class="${tm==='base'?'on':''}" data-a="spterms" data-v="base">기본금 ↑</button><button class="${tm==='bonus'?'on':''}" data-a="spterms" data-v="bonus">보너스 ↑</button></div><b>${negoPay(s).toFixed(1)}억</b></div>
+    <div class="nego-row"><span>목표</span><b class="pos">${negoGoalName(s)}</b></div>
+    <div class="nego-row"><span>${yr}년 합계</span><b>${(negoPay(s)*yr).toFixed(1)}억 · 더 이뤄면 ${(s.bonus*2).toFixed(1)}~${(s.bonus*2+yr*2.4).toFixed(1)}</b></div>
+    <div class="nego-row"><span>상대 반응</span><b class="muted">받아들일 것으로 보입니다</b></div>
+    <div class="nego-btns">
+      <button class="btn sm" data-a="spnext">이번 건은 비워 두기</button>
+      <button class="btn sm gold" data-a="spsign" data-v="${s.id}">이 조건으로 계약</button>
+    </div>`;
 }
 function spCardHTML(s,kind){
-  return `<div class="spc ${s.tier==='main'?'main':'sub'}">
+  const on=(negot.id===s.id);
+  return `<div class="spc ${s.tier==='main'?'main':'sub'} ${on?'on':''}" data-a="sppick" data-v="${esc(s.id)}" aria-selected="${on?'true':'false'}">
     <div class="spc-h"><span class="spc-logo" style="background:${s.color}22;color:${s.color}">${s.logo||'◆'}</span>
       <div><b>${esc(s.name)}</b><span>${esc(s.cat)}</span></div>
       <em class="spc-type">${s.style}</em></div>
     <div class="spc-pay"><b>${s.pay.toFixed(1)}</b> 억 / 년 <span class="spc-tag">${s.tier==='main'?'메인':'서브'}</span><span class="spc-tag sm">${s.tier==='main'?'현금형':'현금형'}</span></div>
-    <div class="spc-goal">목표 · <b>${esc(SPONSOR_GOALS[s.goal]?SPONSOR_GOALS[s.goal].n:s.goal)}</b></div>
+    <div class="spc-goal">목표 · <b>${negoGoalName(s)}</b></div>
     <div class="spc-sub">달성 시 <b class="pos">+${s.bonus.toFixed(1)}억</b> · 실패하면 보너스 없음</div>
-    <button class="spc-btn" data-a="sppick" data-v="${s.id}">이 스폰서와 협상</button>
+    <button class="spc-btn" data-a="sppick" data-v="${esc(s.id)}">${on?'협상 중 — 조건 조정 ▾':'이 스폰서와 협상'}</button>
+    ${on?`<div class="spc-nego" data-a="noop">${negoRowsHTML(s)}</div>`:''}
   </div>`;
 }
 
 /* ---------- bindings ---------- */
+let HUB_BOUND=false;
 function bindHub(){
   const c=$('view-hub'); if(!c) return;
-  if(c._bound) return;
-  c._bound=true;
-  c.addEventListener('click',ev=>{
-    const el=ev.target.closest('[data-a]'); if(!el) return;
+  /* 문서 레벨 위임: #view-hub가 다시 그려지거나 내부 노드가 교체돼도 클릭이 살아남는다 */
+  if(HUB_BOUND) return;
+  HUB_BOUND=true;
+  document.addEventListener('click',ev=>{
+    const t=ev.target;
+    if(!t||!t.closest) return;
+    const hub=document.getElementById('view-hub');
+    if(!hub||!hub.contains(t)) return;
+    const el=t.closest('[data-a]'); if(!el) return;
+    ev.__hubHandled=true;
     ev.preventDefault(); ev.stopPropagation();
-    hubAction(el.dataset.a,el.dataset.v,el);
+    try{ hubAction(el.dataset.a,el.dataset.v,el); }
+    catch(e){ toast('처리 중 오류가 발생했습니다'); try{ console.error(e); }catch(_){} }
   });
-  c.addEventListener('input',ev=>{
-    if(ev.target&&ev.target.id==='codexQ'){
-      CODEX.q=ev.target.value; renderHub();
+  document.addEventListener('input',ev=>{
+    const t=ev.target;
+    if(t&&t.id==='codexQ'&&document.getElementById('view-hub')&&document.getElementById('view-hub').contains(t)){
+      CODEX.q=t.value; renderHub();
       const el=$('codexQ'); if(el){ el.focus(); try{ el.setSelectionRange(el.value.length,el.value.length); }catch(e){} }
     }
   });
@@ -7990,22 +8029,36 @@ function hubAction(a,v,el){
   if(a==='callup'){ const r=academyCallup(Number(v)); toast(r.msg); if(r.ok) renderHub(); return; }
   if(a==='acadsign'){ academySign(); return; }
   if(a==='hire'){ const sel=$('view-hub').querySelector('[data-styears="'+v+'"]'); const n=sel?Number(sel.value):2; const r=hireStaff(v,n); if(!r.ok) toast(r.msg); else { toast('코치를 영입했습니다'); renderHub(); } return; }
-  if(a==='sppick'){ const s=SPONSOR_MAP[v]; if(s){ negot={years:2,terms:'same',id:v}; toast(s.name+' — 협상 조건을 조정하세요'); renderHub(); } return; }
-  if(a==='spyears'){ negot.years=Number(v); renderHub(); return; }
-  if(a==='spterms'){ negot.terms=v; renderHub(); return; }
+  if(a==='sppick'){
+    const s=sponsorPool().find(x=>x.id===v)||SPONSOR_MAP[v];
+    if(!s){ toast('이 제안은 이미 종료되었습니다'); renderHub(); return; }
+    const same=(negot.id===v);
+    negot={years:same?(negot.years||2):2, terms:same?(negot.terms||'same'):'same', id:(same?null:v)};
+    if(same) toast('협상을 접었습니다');
+    else toast(s.name+' — 기간·조건을 정하고 계약하세요');
+    renderHub();
+    return;
+  }
+  if(a==='spyears'){ negot.years=Number(v)||2; renderHub(); return; }
+  if(a==='spterms'){ negot.terms=(v==='base'||v==='bonus')?v:'same'; renderHub(); return; }
   if(a==='spsign'){
     const c=clubC();
-    const def=negoTarget(); if(!def) return;
-    const tier=(c.sponsors.main?'sub':'main');
+    const def=negoTarget();
+    if(!def){ toast('먼저 협상할 스폰서를 선택하세요'); renderHub(); return; }
+    const tier=(def.tier==='main'&&!c.sponsors.main)?'main':'sub';
     const r=sponsorSign(tier,def.id,negot.years,negot.terms);
     toast(r.msg);
-    if(r.ok){ negot={years:2,terms:'same',id:null}; renderHub(); }
+    if(r.ok){ negot={years:2,terms:'same',id:null}; }
+    renderHub();
     return;
   }
   if(a==='spnext'){
     const c=clubC(); const d=negoTarget();
-    if(d){ c.offers.main=(c.offers.main||[]).filter(x=>x.id!==d.id); c.offers.sub=(c.offers.sub||[]).filter(x=>x.id!==d.id); }
-    negot={years:2,terms:'same',id:null}; renderHub(); return;
+    if(!d){ toast('먼저 협상할 스폰서를 선택하세요'); renderHub(); return; }
+    c.offers.main=(c.offers.main||[]).filter(x=>x.id!==d.id);
+    c.offers.sub=(c.offers.sub||[]).filter(x=>x.id!==d.id);
+    negot={years:2,terms:'same',id:null}; saveGame(); renderHub();
+    toast(d.name+' 제안을 비워 두었습니다'); return;
   }
   if(a==='newsread'){ newsReadAll(); renderHub(); return; }
   if(a==='board'){ STAT_BOARD=v; renderHub(); return; }
