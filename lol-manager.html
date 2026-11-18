@@ -4464,6 +4464,8 @@ function v5LaneKR(l){ return ({TOP:'탑',MID:'미드',BOT:'봇'})[l]||l; }
 function v5TowerFall(side,m){
   if(!M) return null;
   if(!M.tw) v5InitMatch();
+  if(M.lastTowerAt===m) return null;   /* 1분당 타워 1개까지만 */
+  M.lastTowerAt=m;
   if(!M.inhib) M.inhib={};
   const def=side==='me'?'opp':'me';
   const pw={TOP:v5LanePrio('TOP'),MID:v5LanePrio('MID'),BOT:v5LanePrio('ADC')};
@@ -4678,7 +4680,7 @@ function v5BaronTick(m){
   const B=M.baronBuff;
   ['me','opp'].forEach(side=>{
     if(B[side]>=m){
-      if(Math.random()<0.30){
+      if(Math.random()<0.22){
         const res=v5TowerFall(side,m);
         if(res){ addGold(side,80); }
         const lane=v5Pick(['TOP','MID','BOT']);
@@ -4698,6 +4700,7 @@ function v5InhibCheck(m){
     ['MID','TOP','BOT'].forEach(l=>{
       const rec=M.inhib[def][l];
       if(!rec||!rec.alive||rec.at) return;
+      if(m<14) return;               /* 14분 이전 억제기 불가 */
       const t3=(M.tw&&M.tw[def]&&M.tw[def][l])?M.tw[def][l][2]:1;
       if(t3) return;                 /* 3차 타워 살아있으면 억제기 불가 */
       rec.alive=false; rec.at=m; rec.respawnAt=m+5;
@@ -4763,7 +4766,7 @@ function v5MacroTradeLane(kind){ return (kind==='dragon')?'TOP':(kind==='baron')
 function v5MacroTrade(side,kind,m){
   if(!M) return null;
   const lane=v5MacroTradeLane(kind);
-  const res=v5TowerFall(side,m);
+  const res=(Math.random()<0.55)?v5TowerFall(side,m):null;
   addGold(side,res?300:180);
   ROLES.forEach(r=>lvAddXp(side,r,7));
   if(M.vision) M.vision[side==='me'?0:1]+=3;
