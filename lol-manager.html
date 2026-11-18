@@ -1225,12 +1225,12 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .bx-team em.bx-winb{background:rgba(110,207,158,.18);color:#8ff0c4;border:1px solid rgba(110,207,158,.5)}
 .bx-team em.bx-loseb{background:rgba(224,104,122,.16);color:#ffb7c3;border:1px solid rgba(224,104,122,.45)}
 /* 승부 화면 — 스크롤하지 않아도 다음 세트로 갈 수 있는 하단 고정 바 */
-.bx-dock{position:sticky;bottom:0;z-index:40;display:flex;align-items:center;gap:8px;
+.bx-dock{position:sticky;bottom:0;z-index:40;display:flex;align-items:center;justify-content:center;
   padding:9px 11px calc(9px + env(safe-area-inset-bottom,0px));background:#0a0b0e;
   border-top:1px solid #2a3040;box-shadow:0 -10px 24px rgba(0,0,0,.72);border-radius:12px 12px 0 0}
-.bx-dock .bxd-t{flex:1;min-width:0;font-size:10.5px;font-weight:900;color:#c3cadb;
+.bx-dock .bxd-t{flex:0 1 auto;min-width:0;font-size:11px;font-weight:900;color:#c3cadb;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bx-dock .bxd-b{flex:0 0 auto;min-width:132px}
+.bx-dock .bxd-b{flex:1 1 auto;min-width:0}
 .bx-top{display:flex;align-items:center;gap:10px;padding:8px 12px;background:#12141a;border-left:3px solid #2a4a66}
 .bx-top.win{background:linear-gradient(90deg,rgba(230,196,129,.12),#12141a);border-left-color:#c8a45c}
 .bx-top.opp{border-left-color:#7a2f3d}
@@ -2353,12 +2353,10 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .d6-ban.on{border-color:rgba(224,104,122,.6);box-shadow:0 0 0 1px rgba(224,104,122,.25)}
 .d6-ban.on{color:#ffb7c3;border-color:rgba(224,104,122,.55);background:rgba(224,104,122,.12);text-decoration:line-through}
 .d6-mid{display:flex;flex-direction:column;gap:8px;min-width:0}
-.d6-dock{position:sticky;bottom:0;z-index:40;display:flex;align-items:center;gap:7px;justify-content:flex-end;
+.d6-dock{position:sticky;bottom:0;z-index:40;display:flex;align-items:center;justify-content:center;
   padding:9px 10px calc(9px + env(safe-area-inset-bottom,0px));background:#0a0b0e;border-top:1px solid #2a3040;
   box-shadow:0 -10px 24px rgba(0,0,0,.72);
   max-width:1240px;margin:0 auto;width:100%;box-sizing:border-box}
-.d6-dock .btn{flex:0 0 auto}
-.d6-dock .btn.d6-wide{flex:1 1 auto;width:100%}
 @media(min-width:720px){.d6-dock{border-radius:12px 12px 0 0;border:1px solid #2a3040;border-bottom:0}}
 .mb-bar .mb-t em{font-style:normal;color:#8f97a6;font-weight:700;margin-left:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
@@ -2532,15 +2530,36 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 /* 밴픽 슬롯 — 선수 이름 + 라인 표기 */
 .d6-gly{font-size:13px;opacity:.75}
 .d6-pn em .d6-cn{color:#f0d69b;font-weight:900}
-/* 하단 밴픽 바 — 좁은 화면에서도 잘리지 않게 */
-.d6-dock{gap:6px;flex-wrap:wrap}
+/* ── 하단 고정 바 안쪽 — 버튼 줄은 560px 중앙 정렬 (게임 플랜 수립 바와 같은 모양) ──
+   어느 폭에서도 오른쪽 끝에 붙거나 Fold 우측 오버레이에 잘리지 않는다. */
+.d6-dock{flex-wrap:nowrap}
 .d6-dock .d6btn{white-space:nowrap}
-.d6-dock .dt-clock{order:-1}
+.dock-in{display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;max-width:560px;margin:0 auto;min-width:0}
+.dock-in>.btn,.dock-in>.auto-draft,.dock-in>.dt-toggle{flex:1 1 0;min-width:0;max-width:280px;
+  display:inline-flex;align-items:center;justify-content:center;text-align:center;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+.dock-in>.btn{font-size:13.5px;padding:11px 12px;border-radius:11px}
+.dock-in>.btn.d6-wide{flex:1 1 100%;max-width:none}
+.dock-in>.auto-draft{font-size:12.5px;padding:9px 10px;border-radius:9px}
+.dock-in>.dt-toggle{font-size:11.5px;padding:8px 10px}
+.dock-in>.dt-clock{flex:0 0 auto;order:-1;margin:0}
 @media(max-width:719px){
   .d6-dock{padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
-  .d6-dock .dt-clock{width:100%;justify-content:flex-start;margin:0 0 2px}
-  .d6-dock .btn,.d6-dock .auto-draft,.d6-dock .dt-toggle{flex:1 1 0;min-width:0;padding:8px 5px;font-size:10.5px;
-    text-align:center;justify-content:center;letter-spacing:-.02em;white-space:nowrap}
+  .dock-in{gap:7px}
+  .dock-in>.btn{font-size:12px;padding:10px 8px}
+  .dock-in>.auto-draft{font-size:11px;padding:8px 7px}
+  .dock-in>.dt-toggle{font-size:11px;padding:8px 7px}
+}
+@media(max-width:430px){
+  .dock-in{flex-wrap:wrap}
+  .dock-in>.dt-clock{flex:1 1 100%;justify-content:flex-start;margin:0 0 2px}
+}
+/* 승부 화면 바 — 좁은 화면에서는 라벨 위 · 버튼 아래 전폭 */
+@media(max-width:560px){
+  .bx-dock .dock-in{flex-direction:column;align-items:stretch;gap:6px}
+  .bx-dock .bxd-t{text-align:center}
+  .bx-dock .bxd-b{max-width:none}
 }
 
 /* ================= 챔프폭 · 저격 밴 심리전 ================= */
@@ -22052,7 +22071,7 @@ function renderBox(){
     </div>
     <div class="bx-foot">▶ 다음 세트 진행 선택으로 넘어갑니다. 그런 뒤 라커룸으로 이어집니다.</div>
     <div style="height:8px"></div>
-    <div class="bx-dock">
+    <div class="bx-dock"><div class="dock-in">
       <div class="bxd-t">${meWin?'🏆':'💀'} ${esc(meWin?t.tag:opp.tag)} ${meWin?'승리':'패배'} · 제${(M.gameIdx||0)+1}세트</div>
       <button class="btn primary bxd-b" id="boxGo">${(function(){
         try{
@@ -22062,7 +22081,7 @@ function renderBox(){
           return decided?'결과 확정 →':'다음 세트 →';
         }catch(e){ return '계속 →'; }
       })()}</button>
-    </div>
+    </div></div>
   </div>`;
   show('box');
   window.scrollTo(0,0);
@@ -25731,7 +25750,7 @@ function renderDraft(){
       </section>
       <aside class="d6-side opp${actOpp?' active':''}">${v6DraftSideHTML('opp')}</aside>
     </div>
-    <div class="d6-dock">
+    <div class="d6-dock"><div class="dock-in">
       ${timerBlock}
       ${phase==='assign'?`
         <button class="btn sm" id="dockAuto">추천 배정</button>
@@ -25743,7 +25762,7 @@ function renderDraft(){
         <button class="btn sm d6btn" id="dtStep" title="코치가 이번 턴만 대신 선택합니다">⚡ 1턴 자동</button>
         <button class="auto-draft d6btn" data-auto="draft">🤖 전체 자동</button>
       `}
-    </div>`;
+    </div></div>`;
   bindDraft();
   bindAutoDraft();
   const dtb=$('dtToggle'); if(dtb) dtb.onclick=()=>dtToggleUnlimited();
