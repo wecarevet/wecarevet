@@ -56,6 +56,15 @@ h1 .grad{background:linear-gradient(100deg,var(--gold),#fff2d6 45%,var(--gold2))
 .fx b{font-size:14.5px;font-weight:800;letter-spacing:-.02em}
 .fx .fxd{font-size:10.5px;font-weight:800}
 @media(max-width:420px){ .fx .fxk{display:none} .fx b{font-size:13px} }
+@media(max-width:430px){
+  .hdrow{flex-direction:column;gap:10px}
+  .fx{align-self:flex-start}
+  h1{font-size:20px}
+  .eyebrow{font-size:9.5px;letter-spacing:.11em}
+  .sub{font-size:11.5px}
+  #hubQ{font-size:13.5px;padding:12px 38px 12px 34px}
+  .qwrap .qi{left:11px}
+}
 .pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
 .pill{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border:1px solid var(--line);border-radius:999px;
   background:rgba(255,255,255,.02);font-size:11px;color:var(--txt2);white-space:nowrap}
@@ -481,6 +490,16 @@ details.acc .body code{background:rgba(255,255,255,.06);padding:1px 5px;border-r
 .mbs i.on.am{background:#ffd166;box-shadow:0 0 6px rgba(255,209,102,.45)}
 .mbs-txt{display:none;font-size:11px;color:var(--txt2);font-variant-numeric:tabular-nums;white-space:nowrap}
 
+@media(max-width:380px){
+  .form{grid-template-columns:1fr}
+  .etf .mets{gap:4px}
+  .met{padding:6px 5px}
+  .met .k{font-size:9px}
+  .met .v{font-size:12px}
+  .arow{grid-template-columns:1fr 52px}
+  .total{flex-wrap:wrap}
+  .panel,.card-pad{padding:13px}
+}
 @media(max-width:620px){
   #finTable th:nth-child(3), #finTable td:nth-child(3){display:none}
   #calTable th:nth-child(2), #calTable td:nth-child(2),
