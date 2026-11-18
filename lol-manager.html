@@ -23127,8 +23127,8 @@ function renderDraft(){
     <div class="d6-dock">
       ${timerBlock}
       ${phase==='assign'?`
-        <button class="btn sm" id="autoAssign">추천 배정</button>
-        <button class="btn primary" id="confirmAssign">라인 확정 →</button>
+        <button class="btn sm" id="dockAuto">추천 배정</button>
+        <button class="btn primary" id="dockConfirm">라인 확정 →</button>
       `:phase==='done'?`
         <button class="btn primary" id="toPlan">게임 플랜 수립 →</button>
       `:`
@@ -23141,6 +23141,11 @@ function renderDraft(){
   bindAutoDraft();
   const dtb=$('dtToggle'); if(dtb) dtb.onclick=()=>dtToggleUnlimited();
   const dts=$('dtStep'); if(dts) dts.onclick=()=>v6DraftStepAuto();
+  /* 하단 고정 바 버튼은 본문 버튼과 같은 동작을 호출 (id 중복 방지) */
+  const da=$('dockAuto');
+  if(da) da.onclick=function(){ const b=$('autoAssign'); if(b&&b.onclick) b.onclick(); else { D.assign.me=recommendAssign(dMyPicks()); D.result=evalDraft(); renderDraft(); } };
+  const dc=$('dockConfirm');
+  if(dc) dc.onclick=function(){ const b=$('confirmAssign'); if(b&&b.onclick) b.onclick(); };
   try{ if(typeof v6BgmBind==='function') v6BgmBind(); }catch(e){}
   show('draft');
   dtStart();
