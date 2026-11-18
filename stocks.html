@@ -187,6 +187,7 @@ textarea{width:100%;min-height:90px;background:var(--bg2);border:1px solid var(-
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' fill='none' stroke='%237f8fa4' stroke-width='1.6'/></svg>");
   background-repeat:no-repeat;background-position:right 9px center}
 .list{display:flex;flex-direction:column;gap:8px}
+@media(min-width:980px){ .list{display:grid;grid-template-columns:1fr 1fr;gap:9px;align-items:start} }
 .item{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:14px;
   padding:11px 12px;cursor:pointer;transition:border-color .15s,transform .12s}
 .item:hover{border-color:var(--line2)}
@@ -860,8 +861,8 @@ body.pkopen{overflow:hidden}
         <div class="field"><label>은퇴 후 인출률</label><div class="unit"><input type="number" id="fiWithdraw" value="4" min="1" max="10" step="0.5"><span>%</span></div></div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:13px">
-        <button class="btn ghost" id="fiUseCagr" type="button">탭2 포트폴리오 CAGR 넣기</button>
-        <span class="fine" id="fiCagrNote">탭2에서 포트폴리오를 먼저 구성하면 실제 CAGR을 그대로 쓸 수 있습니다.</span>
+        <button class="btn ghost" id="fiUseCagr" type="button">백테스트 포트폴리오 CAGR 넣기</button>
+        <span class="fine" id="fiCagrNote">백테스트 탭에서 포트폴리오를 먼저 구성하면 실제 CAGR을 그대로 쓸 수 있습니다.</span>
       </div>
       <p class="fine" style="margin:10px 0 0">목표 금액은 지금의 구매력 기준입니다. 계산은 <b>월 복리 + 매월 말 적립</b>이고, 목표선은 물가상승률만큼 매년 올라갑니다.</p>
     </div>
@@ -898,7 +899,7 @@ body.pkopen{overflow:hidden}
 
     <div class="sec" style="margin-top:0">
       <h2><span class="bar"></span>내 포트폴리오</h2>
-      <span class="hint">탭2 구성이 자동 반영됩니다</span>
+      <span class="hint">백테스트 구성이 자동 반영됩니다</span>
     </div>
     <div class="card card-pad">
       <div class="pflist" id="taxPortfolio"></div>
@@ -914,7 +915,7 @@ body.pkopen{overflow:hidden}
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:11px">
-        <button class="btn ghost" id="txFromBacktest" type="button">탭2 결과 평가액 불러오기</button>
+        <button class="btn ghost" id="txFromBacktest" type="button">백테스트 결과 평가액 불러오기</button>
         <span class="fine" id="txAccNote"></span>
       </div>
     </div>
@@ -973,9 +974,9 @@ body.pkopen{overflow:hidden}
       <p class="fine" style="margin:10px 0 0">종목별 분배 주기(공시 월 + 최근 12개월 실적)를 그대로 씁니다. 그래서 월배당 상품이 한 달을 건너뛰거나 분기 배당이 1·4·7·10월에 몰리는 것도 표시됩니다.</p>
     </div>
   
-  </section>
+    <p class="disc" id="disc"></p>
+</section>
 
-  <p class="disc" id="disc"></p>
   <p class="foot">위케어동물의료센터 개인용 · 검색 비노출 페이지 · <a href="my.html">런처로</a></p>
 </div>
 
@@ -1074,7 +1075,6 @@ body.pkopen{overflow:hidden}
     if (cd.US) p.push('<span class="pill">🇺🇸 미국장 <b>'+cd.US+'</b> 종가</span>');
     if (cd.KR) p.push('<span class="pill">🇰🇷 한국장 <b>'+cd.KR+'</b> 종가</span>');
     const fx = DATA.usd_krw || {};
-    if (fx.rate) p.push('<span class="pill hot">USD/KRW <b class="num">'+nf(fx.rate,2)+'</b> <span class="'+cls(fx.d1)+'">'+arrow(fx.d1)+' '+Math.abs(fx.d1||0).toFixed(2)+'%</span></span>');
     if (DATA.updated_kst) p.push('<span class="pill">갱신 <b class="num">'+DATA.updated_kst+'</b> KST</span>');
     p.push('<span class="pill">추적 <b class="num">'+ITEMS.length+'</b>종목</span>');
     if (!ITEMS.length) p.push('<span class="pill">⚠️ 시세 미수집</span>');
@@ -1423,7 +1423,7 @@ function liveOf(id){ return LIVE[id] || LIVE[id + '.KS'] || null; }
 function liveHtml(id){
   const it = liveOf(id);
   if(!it || it.px == null) return '';
-  const money = (it.cur === 'KRW' ? 'â‚©' : '$') + nf(it.px, it.cur === 'KRW' ? 0 : 2);
+  const money = (it.cur === 'KRW' ? '\u20a9' : '$') + nf(it.px, it.cur === 'KRW' ? 0 : 2);
   return `<div class="live">
     <span class="lk">종가</span>
     <b class="num">${money}</b>
