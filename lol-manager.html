@@ -23134,9 +23134,12 @@ function v6HudHp(){
         card.classList.toggle('dead',dead);
         const dt=document.getElementById?document.getElementById('bhpd-'+side+'-'+role):null;
         if(dt&&dead){
-          const left=Math.max(0,Math.ceil((u.deadUntil-now)/1000));
+          /* 부활 시각이 비어 있으면 기본 8초로 채운다 (Infinity/NaN 표시 방지) */
+          if(!isFinite(u.deadUntil)||u.deadUntil<=now) u.deadUntil=now+8000;
+          const left=Math.max(0,Math.min(60,Math.ceil((u.deadUntil-now)/1000)));
           dt.textContent='💀 '+left+'초 후 복귀';
         }
+        else if(dt&&!dead){ dt.textContent=''; }
       }
       if(num&&!dead) num.textContent=pct+'%';
     });
