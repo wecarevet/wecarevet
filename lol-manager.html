@@ -2342,8 +2342,15 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .d6-pn em i{font-style:normal;color:#6f7a8c;font-weight:800}
 .d6-pn em b{display:inline;font-size:9px;font-weight:900;color:#cfd6e2}
 .d6-banrow{display:flex;gap:3px;margin-top:7px;flex-wrap:wrap}
-.d6-ban{font-size:8px;font-weight:900;padding:2px 5px;border-radius:4px;background:#15171d;color:#5f6a7d;border:1px solid #232833;
-  max-width:56px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d6-ban{position:relative;width:44px;height:44px;display:grid;place-items:center;overflow:hidden;
+  font-size:9px;font-weight:900;padding:0;border-radius:9px;background:#15171d;color:#5f6a7d;border:1px solid #232833;
+  flex:0 0 auto}
+.d6-ban img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.45) brightness(.85)}
+.d6-ban i{position:absolute;left:0;right:0;bottom:0;font-style:normal;font-size:7px;font-weight:900;text-align:center;
+  color:#fff;background:rgba(8,10,16,.72);padding:1px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.d6-ban i.txt{position:static;background:none;color:#c9d2e2;font-size:8px}
+.d6-ban b{font-size:13px;color:#4a5466}
+.d6-ban.on{border-color:rgba(224,104,122,.6);box-shadow:0 0 0 1px rgba(224,104,122,.25)}
 .d6-ban.on{color:#ffb7c3;border-color:rgba(224,104,122,.55);background:rgba(224,104,122,.12);text-decoration:line-through}
 .d6-mid{display:flex;flex-direction:column;gap:8px;min-width:0}
 .d6-dock{position:sticky;bottom:0;z-index:40;display:flex;align-items:center;gap:7px;justify-content:flex-end;
@@ -2534,6 +2541,70 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .d6-dock .dt-clock{width:100%;justify-content:flex-start;margin:0 0 2px}
   .d6-dock .btn,.d6-dock .auto-draft,.d6-dock .dt-toggle{flex:1 1 0;min-width:0;padding:8px 5px;font-size:10.5px;
     text-align:center;justify-content:center;letter-spacing:-.02em;white-space:nowrap}
+}
+
+/* ================= 챔프폭 · 저격 밴 심리전 ================= */
+.asg-pool{font-size:9px;font-weight:900;padding:2px 6px;border-radius:999px;border:1px solid var(--line2);
+  color:#9aa3b8;background:rgba(255,255,255,.05);white-space:nowrap}
+.asg-pool.wide{color:#8bf0c6;border-color:rgba(61,220,151,.45);background:rgba(61,220,151,.12)}
+.asg-pool.good{color:#9fd8ff;border-color:rgba(37,224,255,.35);background:rgba(37,224,255,.1)}
+.asg-pool.narrow{color:#ffb3c1;border-color:rgba(255,77,109,.45);background:rgba(255,77,109,.12)}
+.asg-flex{font-size:9px;font-weight:900;padding:2px 7px;border-radius:999px;white-space:nowrap;
+  color:#ffe1a8;border:1px solid rgba(255,201,74,.5);background:rgba(255,201,74,.14)}
+.asg-flex:active{transform:scale(.96)}
+.cb-tip.mindgame{color:#ffe1a8}
+.cb-tip.warn{color:#ffb3c1}
+.asg-flex.loose{color:#c9c2a8;border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.06)}
+
+/* ================= 직책 선택 · 감독 잠금 ================= */
+.sel-role{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0 10px}
+.role-pick{display:flex;flex-direction:column;gap:2px;text-align:left;padding:9px 10px;border-radius:12px;
+  background:rgba(255,255,255,.035);border:1px solid var(--line)}
+.role-pick b{font-size:12px;font-weight:900;color:#e8edf7}
+.role-pick em{font-style:normal;font-size:9.5px;font-weight:700;color:#8f99ad;line-height:1.35}
+.role-pick.on{border-color:rgba(230,196,129,.6);background:rgba(230,196,129,.12);box-shadow:0 0 0 1px rgba(230,196,129,.25)}
+.role-pick.on b{color:#ffe6b0}
+.lock-card{text-align:center;padding:22px 16px}
+.lock-ic{font-size:30px;filter:grayscale(.1)}
+.lock-t{font-size:13px;font-weight:900;color:#ffe1a8;margin:8px 0 4px;line-height:1.4}
+.lock-row{display:flex;gap:8px;justify-content:center;margin-top:14px}
+.lock-row .btn{flex:1}
+
+/* ================= 구단 서브탭 (상단 고대비 필) ================= */
+.club-tabs{display:flex;gap:6px;padding:10px 14px 0;flex-wrap:wrap}
+.club-tabs.sub{padding-top:6px}
+.ctab{flex:1 1 0;min-width:0;white-space:nowrap;text-align:center;padding:9px 8px;border-radius:11px;
+  font-size:12px;font-weight:900;letter-spacing:-.02em;color:#c3ccdd;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.ctab.gold{color:#ffe6b0;border-color:rgba(255,201,74,.4);background:rgba(255,201,74,.10)}
+.ctab.cyan{color:#bfe9ff;border-color:rgba(37,224,255,.4);background:rgba(37,224,255,.10)}
+.ctab.on{background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.08));color:#fff;
+  border-color:rgba(255,255,255,.55);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.ctab.gold.on{background:linear-gradient(180deg,#ffe6b0,#e6c481);color:#2a1d02;border-color:#ffe6b0}
+.ctab.cyan.on{background:linear-gradient(180deg,#bff4ff,#37d5ff);color:#04222b;border-color:#bff4ff}
+.ctab.sm{padding:6px 8px;font-size:10.5px;border-radius:9px;flex:0 0 auto}
+
+/* ================= 밴픽 사이드바 세로 확장 · 슬롯 확대 ================= */
+.d6-side{display:flex;flex-direction:column}
+.d6-picks{flex:1 1 auto}
+.d6-pick{min-height:70px;padding:7px 8px;gap:9px;border-radius:11px}
+.d6-ava{width:44px;height:44px;border-radius:10px;font-size:14px}
+.d6-pn b{font-size:12.5px}
+.d6-pn em{font-size:10px}
+.d6-banrow{gap:5px;margin-top:10px}
+@media(min-width:720px){
+  .d6-side{min-height:calc(100dvh - 210px)}
+  .d6-picks{justify-content:space-between;gap:8px}
+  .d6-pick{min-height:76px;flex:1 1 0}
+  .d6-ava{width:50px;height:50px;border-radius:12px}
+  .d6-pn b{font-size:14px}
+  .d6-pn em{font-size:11px}
+  .d6-ban{width:48px;height:48px;border-radius:10px}
+}
+@media(max-width:719px){
+  .d6-picks{overflow-x:auto;flex-direction:row}
+  .d6-pick{min-height:70px;min-width:132px}
+  .d6-ban{width:40px;height:40px}
 }
 
 </style>
@@ -4072,6 +4143,14 @@ function laneScore(p,c,role){
   try{ if(typeof metaPower==='function') s+=metaPower(c.n); }catch(e){}
   s += traitSum(p,'lane')*0.7;
   s += (p.sigs.includes(c.n)?1.6:0);
+  /* 챔프폭 — 주력은 강하게, 풀 안쪽은 무난하게, 풀 밖은 확실히 떨어진다 */
+  try{
+    if(!p.sigs.includes(c.n)&&typeof champPoolOf==='function'){
+      const cp=champPoolOf(p);
+      if(cp.indexOf(c.n)>=0) s+=0.9;
+      else s-=2.4;
+    }
+  }catch(e){}
   if(c.sigK==='lane'||c.sigK==='poke') s+=0.4;
   if(c.sigK==='scale'&&role!=='SUP') s+=0.2;
   s*=offRolePenalty(p,c,role);
@@ -4588,7 +4667,9 @@ function aiPickChamp(){
     try{ if(typeof metaPower==='function') s+=metaPower(c.n)*1.6; }catch(e){}
     let bestFit=-9;
     players.forEach(p=>{
-      const sc=(laneScore(p,c,p.role)-72)*0.22 + styleSynergy(p,c,p.role)*0.5 + (p.sigs.includes(c.n)?4.2:0);
+      let poolBonus=0;
+      try{ if(typeof poolInPool==='function'&&poolInPool(p,c.n)) poolBonus=1.6; }catch(e){}
+      const sc=(laneScore(p,c,p.role)-72)*0.22 + styleSynergy(p,c,p.role)*0.5 + (p.sigs.includes(c.n)?4.2:poolBonus);
       if(sc>bestFit) bestFit=sc;
     });
     s+=bestFit;
@@ -4639,10 +4720,12 @@ function aiBanChamp(){
     let sig=0;
     Object.values(me.lineup).forEach(n=>{const p=S.players[n]; if(p&&(p.sigs||[]).includes(c.n)) sig+=7;});
     s+=sig;
-    /* 상대 시그니처(상대가 아직 못 뽑은 카드) */
+    /* 상대 시그니처(상대가 아직 못 뽑은 카드) — 챔프폭이 좁을수록 저격 가치가 크다 */
     let oppSig=0;
     try{
-      Object.values(T(D.oppId).lineup).forEach(n=>{ const p=S.players[n]; if(p&&(p.sigs||[]).includes(c.n)&&oppPicks.indexOf(c.n)<0) oppSig+=3.4; });
+      Object.values(T(D.oppId).lineup).forEach(n=>{ const p=S.players[n]; if(!p||oppPicks.indexOf(c.n)>=0) return;
+        oppSig+=(typeof banValueFor==='function')?banValueFor(p,c.n):((p.sigs||[]).indexOf(c.n)>=0?3.4:0);
+      });
     }catch(e){}
     s+=oppSig;
     /* 2라운드 밴: 상대가 아직 채우지 않은 포지션의 위협만 노린다 */
@@ -4710,6 +4793,12 @@ function assignScoreFor(p, champName, role){
   else if(roles.includes(role)) s+=2.5;
   else s-=60;                       // 자연 포지션이 아닌 챔프는 사실상 배정 불가 (라칸 원딜 방지)
   if(p.sigs.includes(champName)) s+=3;
+  /* 챔프폭 — 풀 안 챔프인지에 따라 배정·효율이 갈린다 */
+  try{
+    if(typeof champPoolOf==='function'){
+      if(!p.sigs.includes(champName)) s += (champPoolOf(p).indexOf(champName)>=0?1.4:-5);
+    }
+  }catch(e){}
   /* 플렉스 성향은 조커픽 일부 허용 */
   if(!roles.includes(role)&&flex) s+=34;
   return s;
@@ -7164,6 +7253,7 @@ function startWorldsMode(teamId){
 /* ---------- offseason: 계약 만료 · 재계약 / FA ---------- */
 function startOffseason(){
   try{ if(typeof maybeJobOffers==='function') maybeJobOffers(); }catch(e){}
+  try{ if(typeof maybeCoachOffers==='function') maybeCoachOffers(); }catch(e){}
   const st={players:[],staff:[],aiLog:[]};
   // 계약 1년 차감
   Object.values(S.players).forEach(p=>{
@@ -7349,6 +7439,166 @@ function loadGame(){
 }
 function hasSave(){ try{ return !!localStorage.getItem(SAVE_KEY); }catch(e){ return false; } }
 function deleteSave(){ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} }
+
+/* ============ CHAMP POOL — 고티어 챔프폭 · 저격 밴 심리전 ============
+   · OVR·챔프폭 스탯·특성에 따라 '편하게 다룰 수 있는 챔피언' 수가 달라진다.
+   · S급(OVR 88+)은 7~10개 + 플렉스/포켓 픽 → 2~3개 저격 밴으로 무너지지 않는다.
+   · 좁은 챔프폭(2~4개) 선수는 주력이 밴되면 그 라인 효율이 눈에 띄게 떨어진다.
+*/
+
+const CPOOL_CACHE={};
+const CPOOL_WIDE_PLAY=(p)=>{
+  if(!p) return false;
+  return p.playKey==='champOcean'||p.playKey==='multiRole'||p.playKey==='flexAce'||p.playKey==='joker';
+};
+function champPoolSize(p){
+  if(!p) return 0;
+  const ovr=rawOverall(p);
+  const poolStat=(p.stats&&p.stats.pool)||70;
+  let n=3;
+  n+=clamp(Math.round((ovr-70)/4.5),0,5);      /* 70→0 · 80→2 · 88→4 · 92→5 */
+  n+=clamp(Math.round((poolStat-70)/14),-1,2); /* 60→-1 · 84→+1 · 98→+2 */
+  if(CPOOL_WIDE_PLAY(p)) n+=2;
+  let tp=0;
+  (p.good||[]).forEach(id=>{ const t=TRAIT_MAP[id]; if(t&&t.e&&t.e.pool) tp+=t.e.pool; });
+  if(tp>=1.2) n+=1;
+  return clamp(Math.round(n),2,10);
+}
+function champPoolOf(p){
+  if(!p) return [];
+  const role=p.role||'MID';
+  const ovr=rawOverall(p);
+  const key=[p.name,role,ovr,(p.stats&&p.stats.pool)||0,(p.sigs||[]).join('/'),p.playKey||'',(p.good||[]).join('.')].join('|');
+  const hit=CPOOL_CACHE[key];
+  if(hit) return hit;
+  const size=champPoolSize(p);
+  const out=[];
+  const push=n=>{ if(n&&CHAMP_MAP[n]&&out.indexOf(n)<0) out.push(n); };
+  /* 1) 주력 시그니처 먼저 (기존 데이터 그대로) */
+  (p.sigs||[]).filter(n=>CHAMP_MAP[n]).forEach(push);
+  /* 2) 나머지는 포지션 적합 챔프에서 티어·숙련 순으로 */
+  const seed=nameHash(p.name+role);
+  const cands=CHAMPS.filter(c=>champRolesOf(c).indexOf(role)>=0&&out.indexOf(c.n)<0);
+  const byTier=list=>list.slice().sort((a,b)=>{
+    const d=(champTier(b)||0)-(champTier(a)||0);
+    if(d) return d;
+    return (nameHash(a.n+seed)%997)-(nameHash(b.n+seed)%997);
+  });
+  const flex=cands.filter(c=>champRolesOf(c).length>1);
+  const normal=cands.filter(c=>champRolesOf(c).length<=1);
+  const add=list=>{ byTier(list).forEach(c=>{ if(out.length<size) push(c.n); }); };
+  if(size>=7) add(flex.slice(0,Math.max(2,Math.round(size*0.25))));   /* 넓은 챔프폭 = 플렉스/포켓 픽 */
+  add(flex); add(normal);
+  const res=out.slice(0,size);
+  CPOOL_CACHE[key]=res;
+  return res;
+}
+/* 플렉스/포켓 픽 — 두 라인 이상 소화 가능한 챔프 */
+function flexPoolOf(p){
+  return champPoolOf(p).filter(n=>{
+    const c=CHAMP_MAP[n];
+    return c&&champRolesOf(c).length>1;
+  });
+}
+function poolInPool(p,champName){ return !!p&&champPoolOf(p).indexOf(champName)>=0; }
+/* 상대 선수 1명 기준 저격 밴 가치 — 챔프폭이 좁을수록 그 선수의 주력 밴이 아프다 */
+function banValueFor(p,champName){
+  if(!p) return 0;
+  const cp=champPoolOf(p);
+  if(cp.indexOf(champName)<0&&(p.sigs||[]).indexOf(champName)<0) return 0;
+  const vuln=cp.length<=4?2.1:cp.length<=6?1.35:0.7;
+  return 3.4*vuln;
+}
+function poolTagOf(p){
+  const s=champPoolSize(p);
+  if(s>=8) return {size:s,k:'wide',label:'매우 넓음'};
+  if(s>=6) return {size:s,k:'good',label:'넓음'};
+  if(s>=5) return {size:s,k:'mid',label:'보통'};
+  return {size:s,k:'narrow',label:'좁음'};
+}
+/* 상대 라인 저격 밴이 통하는가 — 팀 단위 리포트 */
+function banMindgameReport(teamId,perspective){
+  const t=T(teamId); if(!t) return {line:'',rows:[]};
+  const isOpp=(perspective!=='me');
+  const bans=(isOpp?(typeof dMyBans==='function'?dMyBans():[]):(typeof dOppBans==='function'?dOppBans():[]));
+  const rows=ROLES.map(r=>{
+    const p=S.players[t.lineup[r]];
+    if(!p) return null;
+    const cp=champPoolOf(p);
+    const hit=bans.filter(n=>cp.indexOf(n)>=0).length;
+    return {role:r,roleKr:ROLE_KR[r]||r,name:p.name,size:cp.length,flex:flexPoolOf(p).length,
+      hit:hit,left:Math.max(0,cp.length-hit),ovr:rawOverall(p),tag:poolTagOf(p)};
+  }).filter(Boolean);
+  if(!rows.length) return {line:'',rows:[]};
+  const sorted=rows.slice().sort((a,b)=>a.size-b.size);
+  const weakest=sorted[0];
+  let line='';
+  if(weakest.size<=4){
+    line='상대 '+weakest.roleKr+' '+weakest.name+' 주력 '+weakest.size+'개! 2밴이면 무너집니다';
+  }else if(weakest.size<=6){
+    line='상대 '+weakest.roleKr+' '+weakest.name+' 챔프폭 '+weakest.size+'개 — 1~2밴으로 흔들 수 있습니다';
+  }else{
+    const widest=sorted[sorted.length-1];
+    line='상대 '+widest.roleKr+' '+widest.name+' 챔프폭 '+widest.size+'개 · 저격 밴 비효율 — 다른 라인 저격 추천';
+  }
+  const flexRow=rows.slice().sort((a,b)=>b.flex-a.flex)[0];
+  if(flexRow&&flexRow.flex>=2) line+=' · '+flexRow.name+' 플렉스 '+flexRow.flex+'개(라인 스왑 주의)';
+  return {line:line,rows:rows,weakest:weakest};
+}
+/* 우리 선수가 저격 밴으로 흔들렸는가 */
+function myBanPressureLine(){
+  try{
+    if(!S||!D) return '';
+    const t=myTeam();
+    const bans=(typeof dOppBans==='function')?dOppBans():[];
+    if(!bans.length) return '';
+    let worst=null;
+    ROLES.forEach(r=>{
+      const p=S.players[t.lineup[r]];
+      if(!p) return;
+      const cp=champPoolOf(p);
+      const hit=bans.filter(n=>cp.indexOf(n)>=0).length;
+      if(!hit) return;
+      const left=Math.max(0,cp.length-hit);
+      if(!worst||hit>worst.hit||(hit===worst.hit&&left<worst.left)) worst={role:r,name:p.name,size:cp.length,hit:hit,left:left};
+    });
+    if(!worst) return '';
+    if(worst.left<=2) return '⚠ 우리 '+ROLE_KR[worst.role]+' '+worst.name+' 주력 '+worst.hit+'개 밴됨 — 남은 챔프폭 '+worst.left+'개뿐, 이 라인이 흔들립니다';
+    return '우리 '+ROLE_KR[worst.role]+' '+worst.name+' 주력 '+worst.hit+'개 밴됨 — 남은 챔프폭 '+worst.left+'개로 버팁니다';
+  }catch(e){ return ''; }
+}
+/* 밴픽 종료 후 라인 스왑 후보 (플렉스 픽) — 두 라인 이상 소화 가능한 챔프 */
+function flexTargetsDetailed(champName,team){
+  const c=CHAMP_MAP[champName];
+  if(!c||!team||!team.lineup) return [];
+  const roles=champRolesOf(c);
+  if(roles.length<2) return [];
+  const out=[];
+  ROLES.forEach(r=>{
+    if(roles.indexOf(r)<0) return;
+    const p=S.players[team.lineup[r]];
+    if(!p) return;
+    const inPool=champPoolOf(p).indexOf(champName)>=0;
+    out.push({role:r,inPool:inPool||CPOOL_WIDE_PLAY(p),name:p.name});
+  });
+  /* 자기 라인(주력)인 곳을 먼저 */
+  return out.sort((a,b)=>(b.inPool?1:0)-(a.inPool?1:0));
+}
+function flexTargetsFor(champName,team){
+  return flexTargetsDetailed(champName,team).map(x=>x.role);
+}
+/* 전체 라인 스왑 대안 — 지금 배정에서 옮길 수 있는 (현재 라인 → 대상 라인) 목록 */
+function flexSwapOptions(assign,team){
+  const a=assign||{}; const out=[];
+  ROLES.forEach(r=>{
+    const champ=a[r]; if(!champ) return;
+    flexTargetsFor(champ,team).forEach(tr=>{
+      if(tr===r) return;
+      out.push({from:r,to:tr,champ:champ});
+    });
+  });
+  return out;
+}
 
 /* ============ CUSTOM TEAM — 나만의 구단 창단 모드 ============
    LCK 신생 구단을 직접 만든다: 이름·태그·컬러·엠블럼 + 5인 로스터 + 감독.
@@ -7611,6 +7861,7 @@ function ctStart(cfg,opts){
       coach:cfg.coach,cap:mode.cap,created:Date.now()
     }});
   }catch(e){ return {ok:false,msg:'창단 중 오류: '+(e&&e.message||e)}; }
+  try{ if(typeof setCareerRole==='function') setCareerRole('owner'); }catch(e){}
   ctApplyRoster(st,cfg,def.id);
   ctApplyCoach(st,cfg,def.id);
   const t=st.teams[def.id];
@@ -7890,7 +8141,7 @@ function ownerGoals(){
     {k:'final', n:'결승 진출',          grant:0,   bonus:10.2, trust:-6,  must:false, icon:'○'},
     {k:'kespa', n:'LCK컵 or 케스파컵 4강 진출', grant:0, bonus:1.5, trust:-4, must:false, icon:'☐'},
     {k:'worlds',n:'국제대회 1회 이상 진출', grant:0, bonus:2.0, trust:-5, must:false, icon:'☐'},
-    {k:'top3',  n:'T1 상대 전적 우위 확보', grant:0, bonus:1.0, trust:-3, must:false, icon:'☐'},
+    {k:'top3',  n:'정규시즌 3위 이상', grant:0, bonus:1.0, trust:-3, must:false, icon:'☐'},
   ];
 }
 function goalProgressLine(){
@@ -8243,10 +8494,37 @@ function collabRun(sponsorId, typeK){
 }
 
 /* ---------- 아카데미 (2군) ---------- */
+/* 2군 유망주 닉네임 — 프로게이머식 영어 핸들 */
 const ACAD_NAMES=[
-  ['최도윤','MID'],['한지후','TOP'],['서준혁','ADC'],['오민재','JGL'],['김태율','SUP'],
-  ['문시현','MID'],['임하람','ADC'],['백건우','TOP'],['류지한','JGL'],['차은성','SUP'],
+  ['Kite','TOP'],['Vortex','TOP'],['Breeze','TOP'],['Atlas','TOP'],
+  ['Tempo','JGL'],['Feral','JGL'],['Drift','JGL'],['Echo','JGL'],
+  ['Lumen','MID'],['Haze','MID'],['Nova','MID'],['Pulse','MID'],
+  ['Arrow','ADC'],['Blaze','ADC'],['Comet','ADC'],['Spark','ADC'],
+  ['Aegis','SUP'],['Beacon','SUP'],['Harbor','SUP'],['Nimbus','SUP'],
+  ['Cinder','TOP'],['Rogue','JGL'],['Trace','JGL'],['Prism','MID'],
+  ['Ember','MID'],['Vivid','ADC'],['Quill','ADC'],['Solace','SUP'],
+  ['Ward','SUP'],['Hollow','JGL'],
 ];
+/* 옛 세이브의 한글 2군 이름 → 핸들로 교체 (한 번만) */
+function acadEnsureHandles(){
+  try{
+    const c=(typeof clubC==='function')?clubC():null;
+    if(!c||!Array.isArray(c.academy)) return;
+    const used={};
+    Object.values(S.players||{}).forEach(p=>{ if(p&&p.name) used[p.name]=1; });
+    c.academy.forEach(a=>{ if(a&&a.name) used[a.name]=1; });
+    c.academy.forEach((a,i)=>{
+      if(!a||!a.name) return;
+      if(!/[가-힣]/.test(a.name)) return;
+      const pool=ACAD_NAMES.map(x=>x[0]).filter(n=>!used[n]);
+      if(!pool.length) return;
+      delete used[a.name];
+      const nm=pool[Math.abs(hashN('acad'+(S.season||1)+i))%pool.length];
+      used[nm]=1;
+      a.name=nm;
+    });
+  }catch(e){}
+}
 function academyGen(){
   const out=[]; const used={};
   const pool=ACAD_NAMES.slice().filter(x=>x&&x[0]&&!(S&&S.players&&S.players[x[0]])&&!(used[x[0]]));
@@ -8397,7 +8675,7 @@ function clubWeekAdvance(){
   if(S.phase==='regular'){ const r=myRank(); if(r<=3) c.facts.top3=true; }
   c.community=null;
   if(gi>0) newsAdd('merch','🛍 굿즈 판매 수익 +'+gi.toFixed(2)+'억');
-  // 목표 달성 시 구단주 신뢰
+  // 목표 달성 시 이사회 신뢰
   c.tickWeek=S.week;
   saveGame();
 }
@@ -10724,6 +11002,14 @@ function coachDraftAdvice(){
   const oppSigs=[];
   ROLES.forEach(r=>{ const p=S.players[oppTeam.lineup[r]]; if(p&&p.sigs) p.sigs.forEach(n=>oppSigs.push(n)); });
   if(phase==='ban'){
+    /* 저격 밴 심리전 — 상대 라인별 챔프폭을 읽고 밴 가치를 알려준다 */
+    try{
+      if(typeof banMindgameReport==='function'){
+        const mg=banMindgameReport(D.oppId,'me');
+        if(mg.line&&sharp>=1) tips.unshift({k:'mindgame', t:mg.line});
+        else if(mg.line&&!opB.length) tips.push({k:'mindgame', t:mg.line});
+      }
+    }catch(e){}
     const threat=oppSigs.filter(n=>!dOppBans().includes(n)&&!CHAMP_MAP[n]==false);
     if(opP.length===0&&threat.length){
       tips.push({k:'ban', t:'상대 주특기 '+threat.slice(0,3).join('·')+' 를 먼저 잘라내는 게 좋습니다.'});
@@ -10758,6 +11044,13 @@ function coachDraftAdvice(){
     const sigs=mySigs().filter(n=>!dUsed().includes(n));
     if(sigs.length) tips.push({k:'sig', t:'내 선수 주특기 '+sigs.slice(0,2).join('·')+' 가 아직 열려 있습니다.'});
   }
+  /* 상대 저격 밴으로 우리 라인이 흔들렸는가 */
+  try{
+    if(typeof myBanPressureLine==='function'){
+      const pl=myBanPressureLine();
+      if(pl) tips.push({k:'warn', t:pl});
+    }
+  }catch(e){}
   // 상대 카운터 (레이팅 높을수록 구체적)
   if(opP.length&&sharp>=1){
     const topOpp=opP.slice(0,3);
@@ -10821,9 +11114,14 @@ function autoDraftChoose(kind){
   if(!pool.length) return null;
   if(kind==='ban'){
     const opp=T(D.oppId);
-    const sigs=[];
-    ROLES.forEach(r=>{ const p=S.players[opp.lineup[r]]; if(p&&p.sigs) p.sigs.forEach(n=>sigs.push(n)); });
-    const scored=pool.map(ch=>({n:ch.n, s:(sigs.indexOf(ch.n)>=0?9*q:0)+champTier(ch)*1.1+Math.random()*9*(1-q)}));
+    /* 저격 밴 가치 — 챔프폭이 좁은 선수의 주력일수록 크고, 넓은 선수는 효율이 떨어진다 */
+    const val={};
+    ROLES.forEach(r=>{
+      const p=S.players[opp.lineup[r]]; if(!p) return;
+      let cp=[]; try{ cp=(typeof champPoolOf==='function')?champPoolOf(p):(p.sigs||[]); }catch(e){ cp=p.sigs||[]; }
+      cp.concat(p.sigs||[]).forEach(n=>{ const v=(typeof banValueFor==='function')?(banValueFor(p,n)/3.4):1; val[n]=Math.max(val[n]||0,v||1); });
+    });
+    const scored=pool.map(ch=>({n:ch.n, s:(val[ch.n]?9*q*val[ch.n]:0)+champTier(ch)*1.1+Math.random()*9*(1-q)}));
     scored.sort((a,b)=>b.s-a.s);
     return scored[0].n;
   }
@@ -10858,6 +11156,7 @@ function autoDraftChoose(kind){
       if(s>best) best=s;
     });
     if(myS.indexOf(ch.n)>=0) best+=4*q;
+    else { try{ if(typeof poolInPool==='function'&&ROLES.some(r=>{const p=S.players[myTeam().lineup[r]];return p&&poolInPool(p,ch.n);})) best+=2.2*q; }catch(e){} }
     return {n:ch.n, s:best+champTier(ch)*0.6+Math.random()*11*(1-q)};
   });
   scored.sort((a,b)=>b.s-a.s);
@@ -10955,6 +11254,129 @@ function synergyBadgesHTML(names){
   const list=activeSynergies(names);
   if(!list.length) return '';
   return list.map(s=>`<span class="syn-badge" title="${esc(s.d)}">✨ ${esc(s.n)}</span>`).join('');
+}
+
+/* ============ DUAL CAREER — 구단주(기본) vs 감독 ============
+   · 구단주: 마케팅·스폰서·예산/목표·스태프 영입·로스터·밴픽·작전 전부.
+   · 감독: 밴픽·게임 플랜·훈련·2군 콜업·기자회견. 프론트 영역(마케팅/스폰서/예산/스태프)은 잠금.
+   · 감독으로 성과를 내면 상위 구단 감독 오퍼가 커진다.
+*/
+function careerRole(){ return (S&&S.careerRole==='coach')?'coach':'owner'; }
+function isCoachRole(){ return !!(S&&S.careerRole==='coach'); }
+function careerRoleLabel(){ return isCoachRole()?'감독':'구단주'; }
+const COACH_LOCK_NOTE='🔒 구단주·프론트 영역 — 감독 직책에서는 밴픽·작전·훈련에 집중합니다';
+function coachLockHTML(area){
+  const map={marketing:'마케팅',sponsor:'스폰서 협상',budget:'시즌 목표 & 예산 장부',staff:'코칭스태프 영입'};
+  return `<div class="pg">
+    <div class="pg-h"><h2>${map[area]||'프론트 영역'}</h2><span class="pg-s">FRONT OFFICE · LOCKED</span></div>
+    <div class="card lock-card">
+      <div class="lock-ic">🔒</div>
+      <div class="lock-t">${COACH_LOCK_NOTE}</div>
+      <div class="tiny" style="line-height:1.6;margin-top:6px">감독은 <b>밴픽 · 게임 플랜 · 선수 훈련 · 2군 콜업 · 기자회견</b>에 집중합니다.<br>마케팅 · 스폰서 · 예산 배분 · 스태프 영입은 구단주와 프론트가 결정합니다.</div>
+      <div class="lock-row">
+        <button class="btn sm primary" data-a="tab" data-v="club:training">🏋️ 선수 훈련으로</button>
+        <button class="btn sm ghost" data-a="tab" data-v="club:roster">선수단으로</button>
+      </div>
+    </div>
+    <div class="card tight"><div class="tiny">💡 감독 직책에서도 이적시장 영입 · 아카데미 콜업 · 밴픽 · 작전은 그대로 사용할 수 있습니다.</div></div>
+  </div>`;
+}
+/* ---------- 감독 평판 ---------- */
+function coachRep(){
+  if(!S) return 25;
+  let r=25;
+  try{
+    const t=myTeam();
+    r += (t.wins||0)*1.5 - (t.losses||0)*0.35;
+    if(S.lckChampion===S.userTeam) r+=16; else if(S.lckRunnerUp===S.userTeam) r+=8;
+    if(S.msi&&S.msi.champion===S.userTeam) r+=14;
+    if(S.worlds&&S.worlds.champion===S.userTeam) r+=22;
+    if(S.springChampion===S.userTeam) r+=4;
+    if(S.summerChampion===S.userTeam) r+=4;
+    r += ((S.seasonArchive||[]).length)*1.5;
+  }catch(e){}
+  return Math.round(clamp(r,1,99));
+}
+function coachOfferCandidates(){
+  const me=S.userTeam;
+  return Object.values(S.teams).filter(t=>t&&t.id!==me).map(t=>{
+    let ovr=70;
+    try{ ovr=teamPowerRaw(t); }catch(e){}
+    const tierW={'S+':30,'S':26,'A+':20,'A':16,'B+':10,'B':6,'B-':3,'C':0}[t.tier]||4;
+    return {id:t.id,name:t.name,tag:t.tag,region:t.region,tier:t.tier,budget:t.budget,
+      ovr:Math.round(ovr*10)/10, weight:tierW+ovr*0.4+(t.budget>60?5:0)};
+  }).sort((a,b)=>b.weight-a.weight);
+}
+/* 시즌 종료 시 호출 — 성과가 좋을수록 상위 구단 오퍼 */
+function maybeCoachOffers(){
+  if(!S||!isCoachRole()) return [];
+  if(S.coachOffersDoneSeason===S.season) return S.coachOffers||[];
+  S.coachOffersDoneSeason=S.season;
+  const rep=coachRep(); S.coachRep=rep;
+  if(rep<55){ S.coachOffers=[]; saveGame(); return S.coachOffers; }
+  const pool=coachOfferCandidates();
+  const n=rep>=85?3:rep>=72?2:1;
+  S.coachOffers=pool.slice(0,Math.max(n,1)).map(x=>({
+    id:x.id,name:x.name,tag:x.tag,region:x.region,tier:x.tier,ovr:x.ovr,budget:x.budget,
+    pay:Math.round((1.6+rep*0.085+(x.weight>=24?1.4:0))*10)/10,
+    season:S.season,rep:rep,kind:'coach'
+  }));
+  saveGame();
+  return S.coachOffers;
+}
+function coachOffersHTML(){
+  const offers=S.coachOffers||[];
+  if(!isCoachRole()||!offers.length) return '';
+  return `<div class="card" style="border-color:rgba(37,224,255,.5)">
+    <div class="card-h"><h4>🎙 감독 영입 오퍼</h4><span class="k">감독 평판 ${S.coachRep||coachRep()}</span></div>
+    <div class="tiny" style="margin-bottom:6px">지휘 성과를 인정받아 다른 구단에서 감독 제안이 왔습니다. 수락하면 새 구단의 감독으로 새 시즌을 시작합니다.</div>
+    ${offers.map(o=>`<div class="offer-row">
+      <div class="grow">
+        <div class="offer-tt">${esc(o.name)} <em>${esc(o.region)} · ${esc(o.tier||'')}</em></div>
+        <div class="tiny">로스터 OVR ${o.ovr} · 예산 ${(o.budget||0).toFixed(1)}억 · 연봉 ${o.pay.toFixed(1)}억</div>
+      </div>
+      <button class="btn sm primary" data-coachaccept="${esc(o.id)}">수락</button>
+    </div>`).join('')}
+    <button class="btn ghost block" style="margin-top:8px" data-coachdecline="1">🎙 현 구단 감독으로 잔류</button>
+  </div>`;
+}
+function acceptCoachOffer(id){
+  if(!S||!isCoachRole()) return {ok:false,msg:'감독 직책에서만 수락할 수 있습니다'};
+  const off=(S.coachOffers||[]).find(x=>x.id===id);
+  if(!off) return {ok:false,msg:'오퍼가 만료되었습니다'};
+  const old=S.userTeam;
+  S.userTeam=id; S.userRegion=T(id).region||'LCK';
+  S.careerMoves=S.careerMoves||[];
+  S.careerMoves.push({season:S.season,from:old,to:id,role:'coach',at:Date.now()});
+  S.coachOffers=[];
+  const wasOffseason=(S.phase==='offseason');
+  Object.values(S.teams).forEach(t=>{ t.wins=0; t.losses=0; t.gw=0; t.gl=0; t.form=[]; });
+  try{ S.schedule=[]; v6EnsureSchedule(); }catch(e){}
+  try{ S.playoffs=null; S.currentSeries=null; S.week=1; S.split='spring'; }catch(e){}
+  if(!wasOffseason){ try{ S.phase='regular'; }catch(e){} }
+  try{ S.club={}; clubInit(); }catch(e){}
+  try{ S.kespa=kespaInit(); }catch(e){}
+  try{ newsAdd('이적','🎙 '+T(id).name+' 감독 취임 — '+S.season+'시즌'); }catch(e){}
+  saveGame();
+  return {ok:true,msg:T(id).name+' 감독으로 취임했습니다'};
+}
+function declineCoachOffer(){
+  S.coachOffers=[];
+  try{ const c=clubC(); c.trust=clamp((c.trust||55)+5,0,100); }catch(e){}
+  try{ newsAdd('구단','🎙 감독 잔류 선언 — 다른 구단 오퍼를 거절했습니다. 이사회 신뢰 +5'); }catch(e){}
+  saveGame();
+  return {ok:true,msg:'현 구단에 남습니다 — 이사회 신뢰 +5'};
+}
+function setCareerRole(role){
+  if(!S) return null;
+  S.careerRole=(role==='coach')?'coach':'owner';
+  if(S.careerRole==='coach'){
+    S.owner={name:(S.owner&&S.owner.name)||'박성수', role:'감독'};
+    try{ const c=clubC(); c.trust=clamp((c.trust||55)+2,0,100); }catch(e){}
+  }else{
+    S.owner={name:(S.owner&&S.owner.name)||'박성수', role:'구단주'};
+  }
+  return S.careerRole;
 }
 
 /* ============ STATS — 시즌 개인 지표 · 어워드 · 트로피 ============ */
@@ -11701,7 +12123,7 @@ function renderTitle(){
 }
 
 /* ---------- team select ---------- */
-let SEL={fearless:true,team:null,region:'LCK'};
+let SEL={fearless:true,team:null,region:'LCK',role:'owner'};
 function diffLabel(tier){
   return {S:'우승 후보','S+':'최강 전력','A+' :'상위권',A:'상위권','B+':'중위권',B:'중하위','B-':'하위권',C:'언더독'}[tier]||'중위권';
 }
@@ -11741,6 +12163,14 @@ function renderSelect(){
       <p class="sel-p">예산 · 로스터 · 코칭스태프가 모두 달랐습니다. 약팀으로 우승하면 더 큰 기록입니다.</p>
       <div class="sel-chips"><span class="chip sm gold">정규시즌 18경기</span><span class="chip sm">더블 엘리미 PO</span><span class="chip sm">MSI · EWC</span><span class="chip sm">롤드컵</span></div>
     </div>
+    <div class="sel-role">
+      <button class="role-pick ${SEL.role!=='coach'?'on':''}" data-role="owner">
+        <b>👑 구단주</b><em>마케팅·스폰서·예산·스태프까지 전권</em>
+      </button>
+      <button class="role-pick ${SEL.role==='coach'?'on':''}" data-role="coach">
+        <b>🎙 감독</b><em>밴픽·작전·훈련에 집중 (프론트 영역 잠금)</em>
+      </button>
+    </div>
     <div class="reg-tabs">
       ${REGS.map(x=>`<button class="reg-tab ${reg===x.k?'on':''}" data-reg="${x.k}"><b>${x.n}</b><span>${x.d}</span></button>`).join('')}
     </div>
@@ -11762,9 +12192,11 @@ function renderSelect(){
     <div class="tiny" style="text-align:center;padding:14px 0 20px">팀을 선택하면 정규시즌 1주차가 시작됩니다</div>
   `;
   show('select');
+  document.querySelectorAll('[data-role]').forEach(b=>b.onclick=()=>{ SEL.role=b.dataset.role; renderSelect(); });
   document.querySelectorAll('[data-team]').forEach(b=>b.onclick=()=>{
     SEL.team=b.dataset.team;
     createState(SEL.team);
+    try{ if(typeof setCareerRole==='function') setCareerRole(SEL.role); }catch(e){}
     S.fearless=SEL.fearless;
     saveGame();
     if(typeof introStart==='function'){ introStart(); return; }
@@ -12304,6 +12736,18 @@ function openPlayer(name){
       <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:6px">주특기 챔피언</div>
       <div class="tag-row">${p.sigs.map(n=>`<span class="chip sm gold">★ ${esc(n)}</span>`).join('')}</div>
     </div>
+    ${(typeof champPoolOf==='function')?(()=>{
+      try{
+        const cp=champPoolOf(p), fx=flexPoolOf(p), tg=poolTagOf(p);
+        if(!cp.length) return '';
+        return `<div style="margin-top:10px">
+          <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:6px">챔프폭 <span class="asg-pool ${tg.k}">${tg.size}개 · ${tg.label}</span>
+            ${fx.length?`<span class="asg-pool good" style="margin-left:4px">🔀 플렉스 ${fx.length}</span>`:''}</div>
+          <div class="tag-row">${cp.map(n=>`<span class="chip sm ${fx.indexOf(n)>=0?'violet':''}">${esc(n)}</span>`).join('')}</div>
+          <div class="tiny" style="margin-top:4px">${tg.k==='wide'?'주력 2~3개를 저격 밴해도 남는 카드가 많습니다. 플렉스로 라인 스왑 심리전이 가능합니다.':tg.k==='narrow'?'주력 2개가 밴되면 이 라인 효율이 크게 떨어집니다.'  :'저격 밴 1~2개에 흔들릴 수 있는 폭입니다.'}</div>
+        </div>`;
+      }catch(e){ return ''; }
+    })():''}
     ${p.team===S.userTeam?`
       <div class="divider"></div>
       <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:6px">선발 라인 변경</div>
@@ -13241,8 +13685,8 @@ function renderHub(){
   if(TAB==='intro') c.innerHTML=introHTML();
   else if(TAB==='home') c.innerHTML=homeV3();
   else if(TAB==='news') c.innerHTML=newsV3();
-  else if(TAB==='club') c.innerHTML=clubV3();
-  else if(TAB==='marketing') c.innerHTML=mktV3();
+  else if(TAB==='club') c.innerHTML=clubTabsHTML()+clubV3();
+  else if(TAB==='marketing') c.innerHTML=(typeof isCoachRole==='function'&&isCoachRole())?coachLockHTML('marketing'):mktV3();
   else if(TAB==='league') c.innerHTML=leagueV3();
   else if(TAB==='records') c.innerHTML=recordsV3();
   else c.innerHTML=marketV3();
@@ -13429,7 +13873,7 @@ function homeV3(){
       <div class="goal">
         <div class="goal-l">구단주 기대 <b>${goals[0]?esc(goals[0].n):'우승'}</b></div>
         <div class="pbar"><i style="width:${clamp(c.trust,0,100)}%"></i></div>
-        <div class="goal-meta"><span>구단주 신뢰 ${Math.round(c.trust)}</span><span>팬심 ${Math.round(c.fanbase)}</span></div>
+        <div class="goal-meta"><span>이사회 신뢰 ${Math.round(c.trust)}</span><span>팬심 ${Math.round(c.fanbase)}</span></div>
       </div>
     </div>
 
@@ -13453,10 +13897,6 @@ function homeV3(){
       <div class="temp"><b>${Math.round(20+c.fanbase*0.28)}°</b><span>${esc(mood)}</span></div>
       <div class="pbar dim"><i style="width:${Math.round(c.fanbase)}%"></i></div>
       ${typeof gallListHTML==='function'?gallListHTML():''}
-      <div class="com3" style="margin-top:8px">
-        ${comCol('AM코리아 롤 게시판',com.am,'am')}
-        ${comCol('튜위터',com.tw,'tw')}
-      </div>
     </div>
   </div>`;
 }
@@ -13535,10 +13975,6 @@ function newsV3(){
     <div class="card">
       <div class="ch"><span>커뮤니티 여론</span><b class="ch-n">${esc(com.mood)}</b></div>
       ${typeof gallListHTML==='function'?gallListHTML():''}
-      <div class="com3 wide" style="margin-top:10px">
-        ${comCol('AM코리아 롤 게시판',com.am,'am')}
-        ${comCol('튜위터',com.tw,'tw')}
-      </div>
       <div class="tiny" style="margin-top:8px">여론은 최근 경기 결과·굿즈·팬미팅·기자회견에 따라 계속 바뀝니다.</div>
     </div>
     <div class="card">
@@ -13599,7 +14035,7 @@ function renderPress(){
             <b>${t.ic||''} ${t.n}</b><span>${esc(pressFill((q.a&&q.a[t.k])||''))}</span></button>`).join('')}
         </div>
         <div class="pr-foot">
-          <span class="tiny">남은 질문 ${left}개 · 답변은 팀 멘탈 · 팬심 · 구단주 신뢰 · 커뮤니티 여론에 반영됩니다.</span>
+          <span class="tiny">남은 질문 ${left}개 · 답변은 팀 멘탈 · 팬심 · 이사회 신뢰 · 커뮤니티 여론에 반영됩니다.</span>
           <button class="btn sm" data-a="pressauto">수석코치에게 맡기기</button>
         </div>
       </div>
@@ -13611,8 +14047,21 @@ function renderPress(){
 }
 
 /* ---------- CLUB ---------- */
+function clubTabsHTML(){
+  const sub=CLUB_TAB;
+  const main=[['roster','👥 1군 선수단'],['academy','🎓 2군/아카데미'],['training','🏋️ 선수 훈련']];
+  const more=[['schedule','📅 일정'],['staff','🤝 스태프'],['budget','💰 목표·예산'],['sponsor','🤝 스폰서']];
+  return `<div class="club-tabs">
+    ${main.map(x=>`<button class="ctab ${sub===x[0]?'on':''} ${x[0]==='academy'?'gold':x[0]==='training'?'cyan':''}" data-a="tab" data-v="club:${x[0]}">${x[1]}</button>`).join('')}
+  </div>
+  <div class="club-tabs sub">
+    ${more.map(x=>`<button class="ctab sm ${sub===x[0]?'on':''}" data-a="tab" data-v="club:${x[0]}">${x[1]}</button>`).join('')}
+  </div>`;
+}
 function clubV3(){
   const sub=CLUB_TAB;
+  /* 감독 직책 — 프론트 영역(스태프 영입·예산/목표·스폰서)은 잠금 */
+  if(typeof isCoachRole==='function'&&isCoachRole()&&(sub==='staff'||sub==='budget'||sub==='sponsor')) return coachLockHTML(sub);
   if(sub==='training') return trainingV3();
   if(sub==='schedule') return scheduleV3();
   if(sub==='staff') return staffV3();
@@ -13864,16 +14313,16 @@ function budgetV3(){
     <div class="bd">
       <div class="bd-l">
         <div class="card">
-          <div class="ch"><span>구단주 제언</span></div>
+          <div class="ch"><span>💼 구단 단장 · 모기업 이사회</span></div>
           <div class="own">
-            <div class="own-av">👤</div>
+            <div class="own-av">💼</div>
             <div>
-              <div class="own-n">${esc(S.owner&&S.owner.name?S.owner.name:'박성수')} 구단주</div>
-              <div class="own-q">우리 전력이면 올해는 우승까지가 가구주나 합니다. 약속드린만 해 주시면 됩니다.</div>
+              <div class="own-n">구단 단장 · 모기업 이사회 → ${esc(S.owner&&S.owner.name?S.owner.name:'박성수')} 구단주님</div>
+              <div class="own-q">박성수 구단주님, 올해 우리 전력이면 우승까지 노려볼 만합니다. 목표 달성 시 지원금을 전폭 배정하겠습니다.</div>
             </div>
           </div>
           <div class="own-bar">
-            <span>구단주 신뢰도 <b>${Math.round(c.trust)}</b></span>
+            <span>이사회 신뢰도 <b>${Math.round(c.trust)}</b></span>
             <div class="pbar"><i style="width:${clamp(c.trust,0,100)}%"></i></div>
             <span class="tiny">달성 ${Math.round(c.trust)}  미달 ${Math.max(0,Math.round(65-c.trust))}</span>
           </div>
@@ -13885,7 +14334,7 @@ function budgetV3(){
             ${(c.goals||[]).map(g=>{
               const done=g.k==='lck'?c.facts.lckWin:g.k==='final'?c.facts.final:g.k==='kespa'?c.facts.kespa4:g.k==='worlds'?c.facts.worlds:g.k==='top3'?c.facts.top3:false;
               return `<div class="gt-r ${done?'done':''}">
-                <span class="gt-n"><i>${done?'◉':'○'}</i>${esc(g.n)}${g.must?'<em>구단주 제안</em>':''}</span>
+                <span class="gt-n"><i>${done?'◉':'○'}</i>${esc(g.n)}${g.must?'<em>이사회 요구</em>':''}</span>
                 <span class="pos">${g.grant?'+'+g.grant+'억':'—'}</span>
                 <span class="pos">+${g.bonus}억</span>
                 <span class="neg">${g.trust}</span>
@@ -14461,9 +14910,9 @@ function introStart(){
 }
 const PLEDGES=[
   {k:'win', n:'공격적 우승 선언', d:'“올해 목표는 우승 하나입니다.” 구단주와 팬의 기대가 커집니다.', icon:'🏆',
-   eff:{prestige:8, trust:6, fan:2}, tags:['구단주 신뢰 +6','구단 명성 +8','팬심 +2']},
+   eff:{prestige:8, trust:6, fan:2}, tags:['이사회 신뢰 +6','구단 명성 +8','팬심 +2']},
   {k:'grow', n:'육성 · 장기 플랜', d:'“3년 안에 왕조를 만들겠습니다.” 유망주 투자와 안정 운영에 힘이 실립니다.', icon:'🌱',
-   eff:{prestige:-2, trust:4, fan:4}, tags:['구단주 신뢰 +4','팬심 +4','명성 -2']},
+   eff:{prestige:-2, trust:4, fan:4}, tags:['이사회 신뢰 +4','팬심 +4','명성 -2']},
   {k:'fan', n:'팬 소통 · 마케팅 중심', d:'“팬과 함께하는 구단이 되겠습니다.” 팬심과 굿즈·행사 수익이 커집니다.', icon:'📣',
    eff:{prestige:2, trust:-2, fan:10}, tags:['팬심 +10','명성 +2','신뢰 -2']},
 ];
@@ -14472,10 +14921,10 @@ function introHTML(){
   if(INTRO.step===1){
     return `<div class="intro">
       <div class="in-k">INAUGURATION · 2026 SEASON</div>
-      <h1 class="in-h">구단주 취임식</h1>
-      <div class="in-sub">${esc(t.name)}의 새 구단주가 되신 것을 환영합니다.</div>
+      <h1 class="in-h">${(typeof isCoachRole==='function'&&isCoachRole())?'감독 취임식':'구단주 취임식'}</h1>
+      <div class="in-sub">${esc(t.name)}의 새 ${(typeof isCoachRole==='function'&&isCoachRole())?'감독':'구단주'}가 되신 것을 환영합니다.</div>
       <div class="card in-card">
-        <div class="ch"><span>구단주 이름</span></div>
+        <div class="ch"><span>${(typeof isCoachRole==='function'&&isCoachRole())?'감독 이름':'구단주 이름'}</span></div>
         <input class="in-input" id="ownerName" value="${esc(INTRO.name||'박성수')}" maxlength="12" placeholder="이름을 입력하세요">
         <div class="ch" style="margin-top:14px"><span>취임 선언</span><b class="ch-n">하나를 선택하세요</b></div>
         <div class="pledges">
@@ -15574,7 +16023,7 @@ function assignHTML(myComp,oppComp,me,opp){
         ${dMyPicks().map(n=>{const c=CHAMP_MAP[n];return `<button class="ap ${D.sel===n?'on':''} ${Object.values(a).includes(n)?'placed':''}" data-sel="${n}">
           <img src="${DD(c.k)}" alt="" onerror="this.style.opacity=0"><span>${esc(n)}</span></button>`;}).join('')}
       </div>
-      <div class="tiny" style="margin:6px 0 4px">챔피언을 고른 뒤 라인을 누르면 배정됩니다 · ${left.length?'미배정 '+left.length+'명':'전원 배정 완료'}</div>
+      <div class="tiny" style="margin:6px 0 4px">챔피언을 고른 뒤 라인을 누르면 배정됩니다 · 플렉스 픽은 🔀 버튼으로 라인 스왑 · ${left.length?'미배정 '+left.length+'명':'전원 배정 완료'}</div>
       <div class="stack" style="gap:6px">
         ${ROLES.map(role=>{
           const champ=a[role]; const c=champ?CHAMP_MAP[champ]:null;
@@ -15595,6 +16044,8 @@ function assignHTML(myComp,oppComp,me,opp){
               ${champ&&c&&!champRoleFit(c,role)?`<span class="offrole" title="이 라인은 챔피언의 주 포지션이 아닙니다">⚠️ 비주류 라인 (-15%)</span>`:
                 (champ&&mp&&mp.role!==role?`<span class="offrole soft">포지션 전환 (-4%)</span>`:'')}
               ${champ&&c&&champUnlockedRole(c,role)?`<span class="unlock">✨ 패치 이색 픽</span>`:''}
+              ${mp?`<span class="asg-pool ${(typeof poolTagOf==='function')?poolTagOf(mp).k:''}" title="편하게 다룰 수 있는 챔피언 수">챔프폭 ${(typeof champPoolSize==='function')?champPoolSize(mp):'-'}</span>`:''}
+              ${champ&&mp&&typeof flexTargetsDetailed==='function'?flexTargetsDetailed(champ,me).filter(x2=>x2.role!==role).map(x2=>`<button class="asg-flex ${x2.inPool?'':'loose'}" data-flexswap="${x2.role}" data-flexchamp="${esc(champ)}" title="${esc(x2.name)}에게 ${x2.inPool?'숙련된':'폭은 넓지만 숙련도가 낮은'} 플렉스 라인">🔀 ${ROLE_KR[x2.role]}${x2.inPool?'':'?'}</button>`).join(''):''}
             </div>
           </div>`;
         }).join('')}
@@ -15696,6 +16147,14 @@ function bindDraft(){
     else { const cur=D.assign.me[role]; if(cur) D.sel=cur; renderDraft(); }
   });
   const aa=$('autoAssign'); if(aa) aa.onclick=()=>{ D.assign.me=recommendAssign(dMyPicks()); D.sel=null; D.result=evalDraft(); renderDraft(); toast('추천 배정을 적용했습니다'); };
+  v.querySelectorAll('[data-flexswap]').forEach(b=>b.onclick=(ev)=>{
+    if(ev&&ev.stopPropagation) ev.stopPropagation();
+    if(!D||D.phase!=='assign') return;
+    const tr=b.dataset.flexswap, ch=b.dataset.flexchamp;
+    if(!tr||!ch) return;
+    swapAssign(tr,ch); D.sel=null; D.result=evalDraft(); renderDraft();
+    try{ toast('🔀 '+ch+' → '+ROLE_KR[tr]+' 플렉스 스왑'); }catch(e){}
+  });
   const ca=$('confirmAssign'); if(ca) ca.onclick=()=>{
     if(ROLES.some(r=>!D.assign.me[r])){ toast('5개 라인을 모두 배정하세요'); return; }
     confirmAssign();
@@ -19385,7 +19844,7 @@ function talkRender(result){
           <span class="chip sm ${r.dForm>=0?'green':'red'}">폼 ${r.dForm>=0?'+':''}${r.dForm}</span>
           <span class="chip sm ${r.dFat<=0?'green':'red'}">피로 ${r.dFat>=0?'+':''}${r.dFat}</span>
           ${r.dChem?`<span class="chip sm ${r.dChem>=0?'green':'red'}">${esc(r.chemName||'동료')} 케미 ${r.dChem>=0?'+':''}${r.dChem}</span>`:''}
-          ${r.dTrust?`<span class="chip sm">구단주 신뢰 ${r.dTrust>=0?'+':''}${r.dTrust}</span>`:''}
+          ${r.dTrust?`<span class="chip sm">이사회 신뢰 ${r.dTrust>=0?'+':''}${r.dTrust}</span>`:''}
         </div>
       </div>
       <div style="height:10px"></div>
@@ -21677,6 +22136,7 @@ function renderOffseason(){
     <div class="card tight">
       <div class="tiny">남은 만료자를 처리하면 다음 시즌이 시작됩니다. FA가 된 선수는 이적시장에서 다시 영입할 수 있습니다.</div>
     </div>
+    ${typeof coachOffersHTML==='function'?coachOffersHTML():''}
     ${typeof jobOfferHTML==='function'?jobOfferHTML():''}
     ${typeof stovePanelHTML==='function'?stovePanelHTML():''}
     <button class="btn primary block" id="startNextSeason">${S.season+1}시즌 시작 →</button>
@@ -21685,6 +22145,8 @@ function renderOffseason(){
   if(v){
     v.querySelectorAll('[data-jobaccept]').forEach(b=>b.onclick=()=>{ const r=acceptJobOffer(b.dataset.jobaccept); toast(r.msg,3000); renderAll(); });
     const jd=v.querySelector('[data-jobdecline]'); if(jd) jd.onclick=()=>{ const r=declineJobOffer(); toast(r.msg,2600); renderOffseason(); };
+    v.querySelectorAll('[data-coachaccept]').forEach(b=>b.onclick=()=>{ const r=acceptCoachOffer(b.dataset.coachaccept); toast(r.msg,3200); renderAll(); });
+    const cd=v.querySelector('[data-coachdecline]'); if(cd) cd.onclick=()=>{ const r=declineCoachOffer(); toast(r.msg,2600); renderOffseason(); };
   }
   v.querySelectorAll('[data-a]').forEach(b=>b.onclick=(e)=>{ e.stopPropagation(); try{ hubAction(b.dataset.a,b.dataset.v,b); }catch(err){ toast('처리 중 오류가 발생했습니다'); } });
   v.querySelectorAll('[data-signp]').forEach(b=>b.onclick=()=>{
@@ -22183,6 +22645,7 @@ function v6PotentialGrade(pot){
 function v6AcadEnsure(){
   const c=(typeof clubC==='function')?clubC():null;
   if(!c) return null;
+  try{ if(typeof acadEnsureHandles==='function') acadEnsureHandles(); }catch(e){}
   if(!Array.isArray(c.academy)) c.academy=[];
   c.academy.forEach(function(a,i){
     if(!a){ return; }
@@ -24614,7 +25077,10 @@ function v6DraftSideHTML(side){
   return `<div class="d6-team ${mine?'me':'opp'}">${badge(team,'sm')}<b>${esc(team.tag)}</b></div>
     <div class="d6-picks">${ROLES.map(function(_,i){ return roleSlot(i); }).join('')}</div>
     <div class="d6-banrow">${[0,1,2,3,4].map(function(i){
-      return `<span class="d6-ban ${bans[i]?'on':''}" title="${bans[i]?esc(bans[i]):'밴 '+(i+1)}">${bans[i]?esc(bans[i]):'B'}</span>`;
+      const bn=bans[i], bc=bn?CHAMP_MAP[bn]:null;
+      return `<span class="d6-ban ${bn?'on':''}" title="${bn?esc(bn):'밴 '+(i+1)}">
+        ${bc?`<img src="${DD(bc.k)}" alt="${esc(bn)}" loading="lazy" onerror="this.style.display='none'"><i>${esc(bn)}</i>`:(bn?`<i class="txt">${esc(bn)}</i>`:'<b>B</b>')}
+      </span>`;
     }).join('')}</div>`;
 }
 /* 밴픽 중 라인별 즉시 배정 — 픽 순서와 무관하게 가장 잘 맞는 빈 라인에 붙인다 */
