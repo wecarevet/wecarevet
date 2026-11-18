@@ -563,6 +563,7 @@ table.sh-tbl tr.blank td{height:19px}
     return s;
   }
   function commas(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function rangeTxt(a, b){ return a === b ? String(a) : a + '–' + b; }
 
   /* 분할: 1/8정 단위 */
   var FR = {1:'⅛', 2:'¼', 3:'⅜', 4:'½', 5:'⅝', 6:'¾', 7:'⅞'};
@@ -737,7 +738,7 @@ table.sh-tbl tr.blank td{height:19px}
     // 참고 범위
     if(isFinite(low) && isFinite(high) && w > 0){
       $('rRange').textContent = fmt(low * w, 2) + ' – ' + fmt(high * w, 2) + ' mg';
-      $('rRangeNote').textContent = low + ' – ' + high + ' mg/kg';
+      $('rRangeNote').textContent = (low === high ? low : low + ' – ' + high) + ' mg/kg';
       if(isFinite(use) && use < low * 0.999){
         notes.innerHTML += '<div class="note info">적용 용량이 참고 범위 <b>최소보다 낮습니다</b>. 감량 목적이 아니라면 확인하세요.</div>';
       } else if(isFinite(use) && use > high * 1.001){
@@ -874,8 +875,8 @@ table.sh-tbl tr.blank td{height:19px}
       d = DRUGS[i];
       html += '<tr><td><b>' + d.kr + '</b><br><span style="color:#8a9aaa;font-size:9.6px">' + d.en + '</span></td>' +
         '<td><span class="cat-chip">' + d.grp + '</span></td>' +
-        '<td class="c">' + d.dog[0] + '–' + d.dog[1] + '</td>' +
-        '<td class="c">' + (d.cat ? d.cat[0] + '–' + d.cat[1] : '<span style="color:#b3261e">금기·자료없음</span>') + '</td>' +
+        '<td class="c">' + rangeTxt(d.dog[0], d.dog[1]) + '</td>' +
+        '<td class="c">' + (d.cat ? rangeTxt(d.cat[0], d.cat[1]) : '<span style="color:#b3261e">금기·자료없음</span>') + '</td>' +
         '<td style="font-size:10px">' + d.freq + '<br><span style="color:#8a9aaa">' + d.route + '</span></td></tr>';
     }
     $('tblBd').innerHTML = html;
