@@ -2824,16 +2824,17 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 /* ===== 모바일(<720px) 밴픽 세부 보정 ===== */
 @media(max-width:719px){
   /* BGM 바를 한 줄로 압축 — 세로로 눌린 제목/슬라이더 제거 */
-  .bgm-bar{padding:5px 8px;gap:6px;min-height:0}
-  .bgm-bar .bgm-t{min-width:0;flex:0 1 auto}
-  .bgm-bar .bgm-t b{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+  .bgm-bar{padding:5px 8px;gap:6px;min-height:0;height:auto;overflow:visible;flex-wrap:nowrap}
+  .bgm-bar .bgm-t{flex:0 0 auto;width:auto;min-width:88px;max-width:120px;min-height:0}
+  .bgm-bar .bgm-t b{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:1.2}
   .bgm-bar .bgm-t .tiny{display:none}
   .bgm-bar input[type=range]{display:none}
   .bgm-bar .bgm-v{display:none}
   .bgm-bar .bgm-kick,.bgm-bar .bgm-on{font-size:9.5px;padding:4px 8px;white-space:nowrap}
   .bgm-bar .bgm-on.next,.bgm-bar .bgm-on.pin{font-size:9px;padding:4px 6px}
-  /* 타임라인은 줄여서 스크롤 없이 (가로 스크롤바 제거) */
-  .d6-mid .draft-timeline{overflow:visible;gap:1px}
+  /* 타임라인·필터 줄은 스크롤 없이 (작은 흰 스크롤바 제거) */
+  #view-draft .d6-mid .draft-timeline{overflow:visible;gap:1px}
+  #draftFilters{overflow:visible}
   .d6-mid .draft-timeline .dt{min-width:0;font-size:8px;height:15px;border-radius:4px}
   /* 챔피언 그리드 — 4열, 살짝 낮은 카드 */
   #champGrid .champ{aspect-ratio:1/0.94;border-radius:8px}
