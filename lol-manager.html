@@ -8059,7 +8059,9 @@ function clubInit(){
   if(typeof c.membership!=='number') c.membership=1.0;
   if(!c.sponsors) c.sponsors={main:null, sub:[]};
   if(!Array.isArray(c.sponsors.sub)) c.sponsors.sub=[];
-  if(!c.offers||!c.offers.main||!c.offers.main.length) rollSponsorOffers();
+  /* 스폰서 제안 버전 — 도전형/안정형 위약금 체계(v2)로 기존 세이브도 새로 굴린다 */
+  if(!c.offers||!c.offers.main||!c.offers.main.length||c.offers.ver!==2) rollSponsorOffers();
+  if(!c.sponsorLog) c.sponsorLog=[]; if(!c.sponsorWarn) c.sponsorWarn={};
   if(!c.plan) c.plan={};
   if(!Array.isArray(c.academy)||!c.academy.length) c.academy=academyGen();
   if(!c.acadInvest) c.acadInvest='std';
@@ -8189,7 +8191,7 @@ function rollSponsorOffers(){
   const sc=(x)=>Math.round(x*mul*10)/10;
   const mains=SPONSOR_DEFS.filter(s=>s.tier==='main').map(s=>Object.assign({},s,{pay:sc(s.pay),bonus:sc(s.bonus)}));
   const subs=SPONSOR_DEFS.filter(s=>s.tier==='sub').map(s=>Object.assign({},s,{pay:sc(s.pay),bonus:sc(s.bonus)}));
-  c.offers={main:mains, sub:subs, cap:cap, rolledAt:S.season+'-'+S.week};
+  c.offers={main:mains, sub:subs, cap:cap, rolledAt:S.season+'-'+S.week, ver:2};
 }
 function sponsorSign(tier,id,years,terms){
   const c=clubC();
