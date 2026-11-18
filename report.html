@@ -242,16 +242,23 @@ body.guardian .guardbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-in
   #sharebox,.toast,.guardbar,.addrow,.linkbox{display:none !important}
   .layout{display:block !important;max-width:none;padding:0 !important;margin:0 !important}
   .preview-col{background:none !important;border:none !important;padding:0 !important;max-height:none !important;overflow:visible !important;position:static !important}
-  .sheet{max-width:none !important;width:auto !important;box-shadow:none !important;border:none !important;border-radius:0 !important;padding:0 !important;font-size:9.8pt;line-height:1.6}
-  .doc-clinic-n{font-size:14pt}
-  .doc-title{font-size:14.5pt;margin:9px 0 4px}
-  .doc-title.long{font-size:13pt}
-  .doc-sec{margin-top:10px}
-  .doc-h2{margin-bottom:4px}
-  .doc-sign{margin-top:15px}
-  .doc-foot{margin-top:12px}
-  .doc-memo{margin-top:10px}
-  table.dt td,table.dt th{padding:3px 6px}
+  .sheet{max-width:none !important;width:auto !important;box-shadow:none !important;border:none !important;border-radius:0 !important;padding:0 !important;font-size:9.4pt;line-height:1.55}
+  .doc-clinic-n{font-size:13pt}
+  .doc-logo{width:15mm;height:15mm}
+  .doc-head{padding-bottom:7px}
+  .doc-title{font-size:13.5pt;margin:8px 0 3px;letter-spacing:.2em}
+  .doc-title.long{font-size:12.5pt;letter-spacing:.04em}
+  .doc-no{margin-bottom:8px}
+  .doc-sec{margin-top:8px}
+  .doc-h2{margin-bottom:3px}
+  .doc-body p{margin-bottom:3px}
+  .doc-sign{margin-top:12px;line-height:1.7}
+  .doc-foot{margin-top:9px;padding-top:6px;font-size:7.6pt;line-height:1.5}
+  .doc-memo{margin-top:8px;padding:6px 9px}
+  .doc-recheck{margin-top:5px;padding:4px 8px}
+  table.dt{font-size:8.9pt}
+  table.dt td,table.dt th{padding:2.4px 5px}
+  .doc-stamp{width:13mm;height:13mm}
   .doc-sec{break-inside:auto}
   .doc-sec.keep{break-inside:avoid}
   table.dt{font-size:9.2pt}
@@ -982,6 +989,11 @@ function draftGeneral(){
 
 function draft(){
   try{
+    var any = false;
+    for(var i = 0; i < S.f.length; i++){
+      if(String(S.f[i].val).trim() !== ''){ any = true; break; }
+    }
+    if(!any) return '';
     if(S.tpl === 'heart') return S.mode === 'hcm' ? draftHeartHCM() : draftHeartMMVD();
     if(S.tpl === 'renal') return draftRenal();
     if(S.tpl === 'checkup') return draftCheckup();
