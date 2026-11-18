@@ -1,0 +1,38 @@
+# 위케어동물의료센터 — 보호자 안내 사이트
+# 공개: 보호자 안내 · 질환 안내 · 보호자 도구
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /heart.html
+Allow: /kidney.html
+Allow: /anesthesia.html
+Allow: /pancreatitis.html
+Allow: /cie.html
+Allow: /diabetes.html
+Allow: /urology.html
+Allow: /atopy.html
+Allow: /dental.html
+Allow: /cancer.html
+Allow: /senior.html
+Allow: /iliopsoas.html
+Allow: /food.html
+Allow: /bcs.html
+Allow: /vaccine.html
+Allow: /homecare.html
+Allow: /visit.html
+Allow: /intake.html
+Allow: /pricing.html
+Allow: /faq.html
+Allow: /og-image.png
+
+# 내부용 · 비공개 도구 (검색 노출 제외)
+Disallow: /staff.html
+Disallow: /soap.html
+Disallow: /discharge.html
+Disallow: /cri_calculator.html
+Disallow: /research.html
+Disallow: /etf-sim.html
+Disallow: /lol-manager.html
+Disallow: /papers.json
+
+Sitemap: https://wecarevet.github.io/wecarevet/sitemap.xml
