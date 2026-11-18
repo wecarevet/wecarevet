@@ -2292,6 +2292,11 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .gp6-tabs button i{font-style:normal;font-size:8px;font-weight:700;color:#6b7486}
 .gp6-tabs button.on{color:#fff;border-color:#3a4457;background:#171c26}
 .gp6-body{display:flex;flex-direction:column;gap:8px}
+.bgm-bar .bgm-on.pin.on{color:#ffe6a6;border-color:rgba(230,196,129,.8);background:rgba(230,196,129,.14)}
+.mb-bar .mb-b.on{color:#ffe6a6;border-color:rgba(230,196,129,.7)}
+.bgm-bar.finals5{border-color:rgba(255,206,94,.85);background:linear-gradient(180deg,rgba(52,38,10,.9),rgba(18,13,5,.92));
+  box-shadow:0 0 18px rgba(255,201,74,.35) inset}
+.bgm-bar.finals5 .bgm-t b{color:#ffe6a6;text-shadow:0 0 10px rgba(255,201,74,.6)}
 
 </style>
 </head>
@@ -19410,6 +19415,7 @@ function buildMatchDOM(v,key){
       <button class="mb-b" id="mbPlay" data-mb="play">⏸ 멈춤</button>
       <button class="mb-b" id="mbNext" data-mb="next">⏭ 다음 곡</button>
       <button class="mb-b" id="mbMute" data-mb="mute">🔊 음소거</button>
+      <button class="mb-b" id="mbPin" data-mb="pin">📌 고정</button>
     </div>
     <div class="bwp">
       <span class="wp-l">${esc(t.tag)} ${wp}%</span>
@@ -21974,16 +21980,19 @@ function v6BgmMode(m){
 function v6BgmBarHTML(){
   const on=V6BGM.on;
   const src=V6BGM.mode==='synth'?'WebAudio 신스':(V6BGM.dead?'신스 (유튜브 차단)':'YouTube');
-  return `<div class="bgm-bar" id="bgmBar">
+  const finals5=!!(V6BGM.finals5||((typeof v6IsFinalsGame==='function')&&v6IsFinalsGame()));
+  return `<div class="bgm-bar ${finals5?'finals5':''}" id="bgmBar">
     <span class="bgm-live ${on?'on':''}"></span>
     <div class="bgm-t">
-      <b>🎵 밴픽 BGM</b>
+      <b>${finals5?'🏆 결승 5세트 스페셜 BGM':'🎵 밴픽 BGM'}</b>
       <span class="tiny" style="color:var(--dim2)">${esc(src)} · ${on?'재생 중':'꺼짐'}</span>
     </div>
     <button class="bgm-on ${on?'on':''}" data-bgm="toggle">${on?'ON':'OFF'}</button>
     <input type="range" min="0" max="100" step="5" value="${V6BGM.vol}" data-bgm="vol" aria-label="BGM 볼륨">
     <span class="bgm-v">${V6BGM.vol}</span>
     <button class="bgm-on" data-bgm="src" title="음원 전환">${V6BGM.mode==='synth'?'신스':'YT'}</button>
+    <button class="bgm-on pin ${v6PinGet('draft')===V6BGM.ytId?'on':''}" data-bgm="pin"
+      title="이 곡 고정 / 랜덤 재생">${v6PinGet('draft')===V6BGM.ytId?'📌 고정':'🎲 랜덤'}</button>
   </div>`;
 }
 function v6BgmBind(){
@@ -21996,6 +22005,7 @@ function v6BgmBind(){
     const k=b.dataset.bgm;
     if(k==='toggle') v6BgmToggle();
     else if(k==='src') v6BgmMode(V6BGM.mode==='synth'?'yt':'synth');
+    else if(k==='pin'){ v6BgmPinToggle(); try{ renderDraft(); }catch(e){} }
   });
   const rng=bar.querySelector?bar.querySelector('input[data-bgm="vol"]'):null;
   if(rng&&rng.addEventListener) rng.addEventListener('input',function(){ v6BgmVol(rng.value); });
@@ -22808,6 +22818,44 @@ function v6LaneRush(role,sec){
 /* ==========================================================================
    10. 인게임 BGM (유튜브 5곡 랜덤) · 미니맵 실제 오브젝트 아이콘
    ========================================================================== */
+const V6_DRAFT_TRACKS=['V1gTYew5k4U','b0FcJOv4T3A','uqy_v0P0sKk','xNdxQ2CJdQs'];   /* 결승 5세트는 MJzqr9qdopQ 고정 */
+function v6LsGet(k){ try{ return (typeof localStorage!=='undefined')?localStorage.getItem(k):null; }catch(e){ return null; } }
+function v6LsSet(k,v){ try{ if(typeof localStorage!=='undefined'){ if(v==null) localStorage.removeItem(k); else localStorage.setItem(k,v); } }catch(e){} }
+function v6PinGet(scope){ return v6LsGet('lolmgr.pin.'+scope)||null; }
+function v6PinSet(scope,id){ v6LsSet('lolmgr.pin.'+scope,id||null); }
+function v6DraftTrackPick(){
+  const pin=v6PinGet('draft');
+  if(pin&&V6_DRAFT_TRACKS.indexOf(pin)>=0) return pin;
+  return V6_DRAFT_TRACKS[Math.floor(Math.random()*V6_DRAFT_TRACKS.length)];
+}
+/* 결승 5세트(2:2) 스페셜 밴픽 BGM */
+function v6IsFinalsGame(){
+  try{
+    if(typeof S==='undefined'||!S) return false;
+    const sr=S.currentSeries||null;
+    const stage=(sr&&(sr.stage||(sr.meta&&sr.meta.stage)))||(S.stage||'');
+    const finalish=/final|결승|gf/i.test(String(stage))||!!(sr&&(sr.isFinal||(sr.meta&&sr.meta.final)))||!!(S.playoffFinal);
+    if(!finalish) return false;
+    const sc=sr&&sr.score?sr.score:(D&&D.series?D.series.score:null);
+    const g=(typeof D!=='undefined'&&D&&D.gameIdx!=null)?D.gameIdx:(sr&&sr.gameIdx!=null?sr.gameIdx:0);
+    return !!(sc&&sc.me===2&&sc.opp===2) && g>=4;
+  }catch(e){ return false; }
+}
+function v6DraftTrackEnsure(){
+  try{
+    if(v6IsFinalsGame()){
+      V6BGM.ytId='MJzqr9qdopQ'; V6BGM.pendingId='MJzqr9qdopQ';
+      V6BGM.finals5=true;
+      if(V6BGM.current!=='MJzqr9qdopQ'){ V6BGM.current='MJzqr9qdopQ'; V6BGM.blocked=false; V6BGM.playT=0; }
+      return;
+    }
+    V6BGM.finals5=false;
+    const pick=v6DraftTrackPick();
+    V6BGM.ytId=pick;
+    V6BGM.pendingId=pick;
+    if(V6BGM.current&&V6BGM.current!==pick){ V6BGM.current=pick; V6BGM.blocked=false; V6BGM.playT=0; }
+  }catch(e){}
+}
 const V6MB={
   tracks:[
     {id:'fB8TyLTD7EE', title:'RISE', artist:'League of Legends (ft. The Glitch Mob, Mako, The Word Alive)'},
@@ -22839,6 +22887,11 @@ function v6MbTitle(id){
   return t.title+(t.artist?' · '+t.artist:'');
 }
 function v6MbPick(){
+  const pin=v6PinGet('match');
+  if(pin){
+    const pi=V6MB.tracks.map(function(t){ return (t&&t.id)||t; }).indexOf(pin);
+    if(pi>=0) return pi;
+  }
   if(V6MB.tracks.length<2) return 0;
   let i=V6MB.idx, guard=0;
   while(i===V6MB.idx&&guard++<20) i=Math.floor(Math.random()*V6MB.tracks.length);
@@ -22901,6 +22954,13 @@ function v6MbUi(){
   if(pb) pb.textContent=V6MB.on?'⏸ 멈춤':'▶ 재생';
   const mb=document.getElementById('mbMute');
   if(mb) mb.textContent=V6MB.muted?'🔇 해제':'🔊 음소거';
+  const pb2=document.getElementById('mbPin');
+  if(pb2){
+    const cur=v6MbTrackId(V6MB.idx);
+    const pinned=!!(cur&&v6PinGet('match')===cur);
+    pb2.textContent=pinned?'📌 고정됨':'📌 고정';
+    if(pb2.classList) pb2.classList.toggle('on',pinned);
+  }
   const lv=document.getElementById('mbLive');
   if(lv){ if(V6MB.on) lv.classList.add('on'); else lv.classList.remove('on'); }
 }
@@ -22916,6 +22976,7 @@ function v6MatchBgmMount(){
       if(k==='play') v6MbToggle();
       else if(k==='next') v6MbNext();
       else if(k==='mute') v6MbMute();
+      else if(k==='pin') v6MbPin();
     });
   }
   /* 경기 시작과 동시에 인게임 BGM 랜덤 재생 */
@@ -23079,6 +23140,7 @@ function v6DraftSideHTML(side){
     }).join('')}</div>`;
 }
 function renderDraft(){
+  try{ if(typeof v6DraftTrackEnsure==='function') v6DraftTrackEnsure(); }catch(e){}
   const me=myTeam(), opp=T(D.oppId);
   const myComp=evalComp(dMyPicks()), oppComp=evalComp(dOppPicks());
   const myTurn=dActor()==='me';
@@ -23861,6 +23923,24 @@ function v6DeadLock(){
       u.vx=0; u.vy=0;
     });
   });
+}
+
+/* --- 곡 고정 토글 (밴픽 / 인게임) --- */
+function v6MbPin(){
+  const cur=v6MbTrackId(V6MB.idx);
+  if(!cur) return false;
+  const pinned=v6PinGet('match')===cur;
+  v6PinSet('match',pinned?null:cur);
+  v6MbUi();
+  try{ toast(pinned?'🎲 인게임 BGM 랜덤으로 전환':'📌 인게임 BGM 고정 — 이 곡이 계속 재생됩니다'); }catch(e){}
+  return !pinned;
+}
+function v6BgmPinToggle(){
+  const cur=V6BGM.current||V6BGM.ytId;
+  const pinned=v6PinGet('draft')===cur;
+  v6PinSet('draft',pinned?null:cur);
+  try{ toast(pinned?'🎲 밴픽 BGM 랜덤으로 전환':'📌 밴픽 BGM 고정 — 이 곡이 계속 재생됩니다'); }catch(e){}
+  return !pinned;
 }
 
 
