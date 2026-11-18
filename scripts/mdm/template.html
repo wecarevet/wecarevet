@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>나만의 한국어 마듀 메타 · 내부용</title>
+<meta name="robots" content="noindex,nofollow,noarchive,noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#0a0f1a">
+<meta name="description" content="개인용 마스터듀얼 한국어 메타 노트. masterduelmeta.com 공개 데이터를 수집해 티어표·탑덱·금제·리포트를 한글로 정리. 검색 비노출 내부 도구.">
+<style>
+:root{
+  --bg:#080d17; --bg2:#0c1424; --panel:#111b2e; --panel2:#16233b;
+  --line:#24344f; --gold:#d8b45a; --gold2:#f3dd97;
+  --text:#e9eefb; --muted:#94a3bf; --dim:#6d7d99;
+  --ur:#ffcf5c; --sr:#c9a6ff; --r:#78c6ff; --n:#9fb0c8;
+  --ok:#3ddc97; --bad:#ff6b6b;
+  --pad:14px; --rad:14px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1100px 500px at 50% -180px, rgba(216,180,90,.16), transparent 65%),
+    radial-gradient(700px 420px at 100% 10%, rgba(60,120,220,.10), transparent 70%),
+    var(--bg);
+  color:var(--text);
+  font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.5;
+  min-height:100vh;
+  word-break:keep-all;
+}
+a{color:var(--gold2);text-decoration:none}
+button{font:inherit;color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--pad)}
+
+/* header */
+header.top{position:sticky;top:0;z-index:30;background:linear-gradient(180deg,rgba(8,13,23,.98),rgba(8,13,23,.92));border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.hrow{display:flex;align-items:center;gap:10px;padding:12px 0 8px}
+.logo{font-size:26px;line-height:1;filter:drop-shadow(0 0 8px rgba(216,180,90,.45))}
+h1{font-size:17px;margin:0;letter-spacing:-.2px}
+h1 b{color:var(--gold2)}
+.subline{font-size:11px;color:var(--dim);margin:2px 0 0}
+.stamp{font-size:11px;color:var(--muted);padding-bottom:8px;display:flex;flex-wrap:wrap;gap:6px}
+.stamp .dot{color:var(--dim)}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none;-ms-overflow-style:none}
+nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{
+  flex:0 0 auto;border:1px solid var(--line);background:var(--panel);color:var(--muted);
+  padding:8px 12px;border-radius:999px;font-size:13px;cursor:pointer;white-space:nowrap;transition:.15s;
+}
+nav.tabs button.on{background:linear-gradient(180deg,#2a2410,#3a3016);border-color:var(--gold);color:var(--gold2);font-weight:700}
+
+main{padding:14px 0 90px}
+section.tab{display:none}
+section.tab.on{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* generic */
+.sec-h{display:flex;align-items:baseline;gap:8px;margin:18px 0 10px;flex-wrap:wrap}
+.sec-h h2{font-size:15px;margin:0;color:var(--gold2)}
+.sec-h .hint{font-size:11px;color:var(--dim)}
+.card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--rad);padding:12px}
+.note{font-size:12px;color:var(--muted);background:rgba(216,180,90,.06);border:1px solid rgba(216,180,90,.22);border-radius:12px;padding:10px 12px;margin:10px 0}
+.note b{color:var(--gold2)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.chip{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted);background:rgba(255,255,255,.02)}
+.chip.ur{color:var(--ur);border-color:rgba(255,207,92,.4)}
+.chip.sr{color:var(--sr);border-color:rgba(201,166,255,.4)}
+.chip.r{color:var(--r);border-color:rgba(120,198,255,.35)}
+.chip.n{color:var(--n)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}
+.filters button{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:6px 11px;font-size:12px;cursor:pointer}
+.filters button.on{border-color:var(--gold);color:var(--gold2);background:rgba(216,180,90,.12);font-weight:700}
+input[type=search],input[type=text],textarea{
+  width:100%;background:#0a1220;border:1px solid var(--line);border-radius:10px;color:var(--text);
+  padding:10px 12px;font:inherit;outline:none
+}
+input:focus,textarea:focus{border-color:rgba(216,180,90,.6);box-shadow:0 0 0 3px rgba(216,180,90,.12)}
+textarea{min-height:130px;resize:vertical;line-height:1.6;font-size:13px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;padding:8px 12px;font-size:13px;cursor:pointer}
+.btn.gold{border-color:var(--gold);color:#1a1405;background:linear-gradient(180deg,var(--gold2),var(--gold));font-weight:700}
+.btn.ghost{background:transparent;color:var(--muted)}
+.small{font-size:11px;color:var(--dim)}
+
+/* tier */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;align-items:start}
+.tcard{position:relative;background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--rad);padding:12px 13px;cursor:pointer;transition:.15s;overflow:hidden}
+.tcard:active{transform:scale(.99)}
+.tcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--dim)}
+.tcard.t1::before{background:linear-gradient(180deg,#ffd76a,#b98d1f)}
+.tcard.t2::before{background:linear-gradient(180deg,#9ec4ff,#3f6fbf)}
+.tcard.t3::before{background:linear-gradient(180deg,#b6f0c9,#3c8a5c)}
+.tcard.rg::before{background:linear-gradient(180deg,#9aa8c2,#4a566d)}
+.tcard .row1{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.tcard .ko{font-size:16px;font-weight:800;letter-spacing:-.3px}
+.tcard .en{font-size:11px;color:var(--dim)}
+.tcard .badge{font-size:10px;border:1px solid var(--line);border-radius:6px;padding:1px 5px;color:var(--muted);margin-left:auto}
+.pwrap{display:flex;align-items:center;gap:8px;margin:9px 0 6px}
+.pbar{flex:1;height:7px;border-radius:99px;background:#0a1220;border:1px solid var(--line);overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#8a6a1a,var(--gold2))}
+.pval{font-size:12px;color:var(--gold2);font-weight:700;min-width:34px;text-align:right}
+.tcard .stat{font-size:11.5px;color:var(--muted)}
+.tcard .stat b{color:var(--text)}
+.tcard .tierlab{font-size:10px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+
+/* decks */
+.deck{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--rad);margin-bottom:10px;overflow:hidden}
+.dhead{display:flex;align-items:center;gap:8px;padding:12px 13px 0;flex-wrap:wrap}
+.place{font-size:11px;font-weight:800;border-radius:7px;padding:2px 7px;white-space:nowrap}
+.place.p1{background:linear-gradient(180deg,#ffe08a,#c79a20);color:#221a04}
+.place.p2{background:linear-gradient(180deg,#e2e9f5,#9aa7bd);color:#161b26}
+.place.p4{background:linear-gradient(180deg,#f0c9a0,#b07a3c);color:#221604}
+.place.p8{background:#22314a;color:#bcd0ee;border:1px solid var(--line)}
+.place.p16{background:#1a2537;color:#93a6c4;border:1px solid var(--line)}
+.dname{font-weight:800;font-size:15px}
+.dname .en{font-weight:400;font-size:11px;color:var(--dim);margin-left:6px}
+.dmeta{padding:4px 13px 0;font-size:11.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px}
+.dmeta b{color:var(--text)}
+.dbtns{display:flex;gap:8px;padding:10px 13px 12px;flex-wrap:wrap}
+.dbody{border-top:1px solid var(--line);padding:10px 13px 14px;display:none}
+.dbody.open{display:block}
+.dcols{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:560px){.dcols{grid-template-columns:1fr 1fr}}
+.dl-h{font-size:12px;color:var(--gold2);margin:6px 0 6px;display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding-bottom:4px}
+ul.dl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
+ul.dl li{display:flex;gap:7px;align-items:baseline;font-size:12.5px}
+ul.dl .n{color:var(--gold2);font-weight:700;min-width:16px;text-align:right}
+ul.dl .c{flex:1}
+ul.dl .c em{display:block;font-style:normal;font-size:10.5px;color:var(--dim)}
+ul.dl .rr{font-size:10px;font-weight:700}
+
+/* banlist */
+.bangrp{margin-top:14px}
+.banhead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.banhead h3{font-size:14px;margin:0}
+.banhead .cnt{font-size:11px;color:var(--dim)}
+.bantag{font-size:10px;font-weight:800;padding:2px 7px;border-radius:6px}
+.bantag.f{background:#3a1218;color:#ff8f8f;border:1px solid #6d2530}
+.bantag.l1{background:#3a2a10;color:#ffcb7a;border:1px solid #6d5220}
+.bantag.l2{background:#16293a;color:#8fd0ff;border:1px solid #2b4f6d}
+.bangrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.bancard{display:flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:7px 9px;font-size:12px;min-height:38px}
+.bancard .nm{flex:1;line-height:1.25}
+.bancard .nm em{display:block;font-style:normal;font-size:10px;color:var(--dim)}
+.bancard .r{font-size:9.5px;font-weight:700}
+.empty{color:var(--dim);font-size:12px;padding:12px}
+
+/* news */
+.art{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;padding:12px 13px;margin-bottom:10px}
+.art .ah{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.art .k{font-size:10px;font-weight:800;color:#1a1405;background:var(--gold2);border-radius:5px;padding:1px 6px}
+.art .d{font-size:11px;color:var(--dim)}
+.art h3{font-size:14px;margin:6px 0 6px;line-height:1.35}
+.art ul{margin:0;padding-left:16px}
+.art li{font-size:12.5px;color:#cfd9ea;margin:3px 0}
+.art .lnk{margin-top:8px;font-size:11.5px}
+
+/* stat bars */
+.statrow{display:flex;align-items:center;gap:8px;font-size:12px;margin:5px 0}
+.statrow .lab{flex:0 0 auto;min-width:110px;max-width:46%}
+.statrow .lab em{font-style:normal;display:block;font-size:10px;color:var(--dim)}
+.statrow .bb{flex:1;height:8px;background:#0a1220;border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.statrow .bb i{display:block;height:100%;background:linear-gradient(90deg,#3f6fbf,#9ec4ff)}
+.statrow .vv{min-width:52px;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* search results */
+.res{display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(36,52,79,.6);padding:8px 2px}
+.res:last-child{border-bottom:0}
+.res .nm{flex:1;font-size:13px;min-width:0}
+.res .nm em{display:block;font-style:normal;font-size:10.5px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.res .r{font-size:10px;font-weight:800}
+.addb{border:1px solid var(--line);background:var(--panel2);color:var(--gold2);border-radius:8px;padding:5px 9px;font-size:11px;cursor:pointer;white-space:nowrap}
+
+/* craft list */
+.craft{display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(36,52,79,.6);padding:7px 2px;font-size:12.5px}
+.craft .nm{flex:1;min-width:0}
+.craft .nm em{display:block;font-style:normal;font-size:10.5px;color:var(--dim)}
+.stepper{display:flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.stepper button{background:var(--panel2);border:0;width:26px;height:26px;font-size:14px;cursor:pointer;color:var(--muted)}
+.stepper span{width:26px;text-align:center;font-size:12px}
+.total{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0;font-size:12.5px}
+.total b{color:var(--gold2);font-size:15px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10.5px;color:var(--dim);margin-top:8px}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
+
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:60;display:none}
+.sheet.open{display:block}
+.sheet .bg{position:absolute;inset:0;background:rgba(4,7,12,.72);backdrop-filter:blur(3px)}
+.sheet .panel{position:absolute;left:0;right:0;bottom:0;max-height:86vh;overflow:auto;background:linear-gradient(180deg,#121c2f,#0d1524);border-top:1px solid var(--gold);border-radius:18px 18px 0 0;padding:14px var(--pad) calc(18px + var(--safe-b))}
+.sheet .ph{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sheet .ph b{font-size:16px}
+.sheet .x{margin-left:auto;background:var(--panel2);border:1px solid var(--line);border-radius:8px;width:30px;height:30px;cursor:pointer}
+.sheet h4{font-size:12px;color:var(--gold2);margin:12px 0 5px}
+.sheet p{font-size:12.5px;color:#cdd8ea;margin:4px 0}
+.sheet .grab{width:38px;height:4px;border-radius:99px;background:var(--line);margin:2px auto 10px}
+
+footer{position:fixed;left:0;right:0;bottom:0;z-index:25;background:linear-gradient(0deg,rgba(8,13,23,.98),rgba(8,13,23,.85));border-top:1px solid var(--line);padding:8px var(--pad) calc(8px + var(--safe-b));font-size:10.5px;color:var(--dim);display:flex;gap:8px;align-items:center}
+footer .grow{flex:1;line-height:1.3}
+
+@media (max-width:420px){
+  :root{--pad:10px;--rad:12px}
+  body{font-size:14px}
+  h1{font-size:15px}
+  .logo{font-size:22px}
+  .tgrid{grid-template-columns:1fr}
+  .bangrid{grid-template-columns:repeat(auto-fill,minmax(135px,1fr))}
+  .statrow .lab{min-width:86px}
+  nav.tabs button{padding:7px 10px;font-size:12px}
+}
+@media (max-width:320px){
+  .bangrid{grid-template-columns:1fr}
+  .dmeta{font-size:11px}
+}
+@media print{ nav.tabs,footer,.filters{display:none} section.tab{display:block!important} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="hrow">
+      <div class="logo" aria-hidden="true">🃏</div>
+      <div>
+        <h1>나만의 <b>한국어 마듀 메타</b></h1>
+        <p class="subline">Master Duel · 개인 메타 노트 · 검색 비노출</p>
+      </div>
+    </div>
+    <div class="stamp">
+      <span id="stampText"></span>
+      <span class="dot">·</span>
+      <span>출처 masterduelmeta.com</span>
+      <span class="dot">·</span>
+      <span id="stampBan"></span>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="탭">
+      <button data-tab="tier" class="on">🏆 티어표</button>
+      <button data-tab="decks">🃏 탑 덱</button>
+      <button data-tab="ban">🚫 금제</button>
+      <button data-tab="news">📰 리포트</button>
+      <button data-tab="memo">🔍 검색·메모</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ TIER ============ -->
+  <section class="tab on" id="tab-tier">
+    <div class="note">
+      <b>읽는 법</b> — MDM 티어표는 <b>최근 커뮤니티 토너먼트 입상 덱(최근 100개)</b>을 기준으로 계산한 Power 값으로 나뉩니다.
+      Tier 1 = 12 이상, Tier 2 = 7~12, Tier 3 = 3~7, Rogue = 1~3.
+      ‘래더 점유’는 최근 2주 마스터1 덱에서의 비중(%), ‘표본’은 이 페이지가 직접 모은 대회 덱 수, ‘평균’은 MDM 덱 통계의 평균 매수입니다. 승률은 MDM이 수치로 공개하지 않아 이 페이지에도 넣지 않았습니다.
+    </div>
+    <div class="filters" id="tierFilters">
+      <button data-f="all" class="on">전체</button>
+      <button data-f="T1">Tier 1</button>
+      <button data-f="T2">Tier 2</button>
+      <button data-f="T3">Tier 3</button>
+      <button data-f="RG">Rogue</button>
+      <button data-f="deck">덱 타입만</button>
+    </div>
+    <div class="tgrid" id="tierGrid"></div>
+    <div class="legend">
+      <span><i style="background:var(--gold)"></i>Power 바 = MDM Power 점수</span>
+      <span><i style="background:#9ec4ff"></i>표본 = 이 페이지가 실제로 수집한 덱 수</span>
+    </div>
+  </section>
+
+  <!-- ============ DECKS ============ -->
+  <section class="tab" id="tab-decks">
+    <div class="note">
+      <b>실제 덱리스트</b> — MDM이 공개한 토너먼트 입상 덱을 그대로 옮겼습니다.
+      가루 비용은 <b>UR 1장 = 30 UR CP, SR 1장 = 15 SR CP</b>로 계산한 값(MDM 표기와 동일)입니다.
+      카드 한글명은 공식 한글명이 확인된 카드만 표기하고, 신규 카드는 영문으로 둡니다.
+    </div>
+    <div class="filters" id="deckFilters">
+      <button data-e="all" class="on">전체</button>
+      <button data-e="MW">MW #256</button>
+      <button data-e="CC">Challenger Cup</button>
+    </div>
+    <input type="search" id="deckSearch" placeholder="테마·플레이어 검색 (예: 엘프노트, 리카)" autocomplete="off">
+    <div id="deckList" style="margin-top:10px"></div>
+  </section>
+
+  <!-- ============ BAN ============ -->
+  <section class="tab" id="tab-ban">
+    <div class="note">
+      <b>2026-11-05 시행 금제</b> — MDM ‘Forbidden/Limited List’ 마스터듀얼 탭에서 그대로 옮겼습니다.
+      이번 변경: 신규 금지 4장(<b>Spell Canceller · Dracotail Phryxul · Go! - D/D/D Divine Zero King Rage · Protector of the Sanctuary</b>),
+      제한1 신규/강화 5장(<b>Kewl Tune Reco · Kewl Tune Mix · Elfnote Tinia · Elfnote Power Patron · Premature Burial</b>).
+      카드 이름은 한글/영문 아무거나로 검색됩니다.
+    </div>
+    <input type="search" id="banSearch" placeholder="금지 카드 검색 (예: 포트 오브 그리드, Maxx)" autocomplete="off">
+    <div id="banWrap"></div>
+  </section>
+
+  <!-- ============ NEWS ============ -->
+  <section class="tab" id="tab-news">
+    <div class="sec-h"><h2>📊 이번 주 톱16이 실제로 쓴 견제 카드</h2><span class="hint">MW #256 톱16 · 16덱 기준</span></div>
+    <div class="card" id="htBox"></div>
+
+    <div class="sec-h"><h2>🌍 플래닛 런 제출 덱 분포</h2><span class="hint" id="prHint"></span></div>
+    <div class="card" id="prBox"></div>
+
+    <div class="sec-h"><h2>📰 대회·메타 리포트</h2><span class="hint">MDM 원문을 한글로 요약</span></div>
+    <div id="artList"></div>
+  </section>
+
+  <!-- ============ MEMO ============ -->
+  <section class="tab" id="tab-memo">
+    <div class="sec-h"><h2>🔍 카드·테마 검색</h2><span class="hint" id="cardCount"></span></div>
+    <input type="search" id="cardSearch" placeholder="한글 또는 영문 카드명 (예: 증식, Ash, 드라코테일)" autocomplete="off">
+    <div class="card" style="margin-top:10px;padding:6px 12px">
+      <div id="cardResults"><div class="empty">검색어를 넣으면 이 페이지가 수집한 카드에서 찾습니다.</div></div>
+    </div>
+
+    <div class="sec-h"><h2>⭐ 크래프트 체크리스트</h2><span class="hint">이 기기에 저장(localStorage)</span></div>
+    <div class="card">
+      <div id="craftList"><div class="empty">검색 결과에서 ‘추가’를 눌러 담으세요.</div></div>
+      <div class="total" id="craftTotal"></div>
+      <button class="btn ghost" id="craftClear">비우기</button>
+    </div>
+
+    <div class="sec-h"><h2>📝 내 덱 메모 · 가루 계산</h2><span class="hint">붙여넣으면 UR/SR 가루를 계산합니다</span></div>
+    <div class="card">
+      <textarea id="deckMemo" placeholder="예)
+3 하루 우라라
+1 Maxx &quot;C&quot;
+3 드라코테일 파이메나
+&#10;줄마다 ‘수량 + 카드명’으로 적으면 아래에 UR/SR 장수와 가루가 계산됩니다."></textarea>
+      <div class="total" id="memoTotal"></div>
+      <div id="memoUnknown" class="small"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="grow">개인용 · 검색 비노출 · 수치는 수집 시점 기준입니다. 카드명 (EN)은 신규 카드의 공식 한글명이 확인되지 않아 영문으로 표기했습니다.</div>
+</footer>
+
+<div class="sheet" id="sheet">
+  <div class="bg" data-close="1"></div>
+  <div class="panel" id="sheetPanel">
+    <div class="grab"></div>
+    <div class="ph"><b id="shTitle">—</b><button class="x" id="shClose" aria-label="닫기">✕</button></div>
+    <div id="shBody"></div>
+  </div>
+</div>
+
+<script>
+const D = __DATA__;
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const RARCLS = r => (r === 'UR' ? 'ur' : r === 'SR' ? 'sr' : r === 'R' ? 'r' : 'n');
+const RARCOL = r => (r === 'UR' ? 'var(--ur)' : r === 'SR' ? 'var(--sr)' : r === 'R' ? 'var(--r)' : 'var(--n)');
+const BAND = {T1:{lab:'TIER 1',cls:'t1'},T2:{lab:'TIER 2',cls:'t2'},T3:{lab:'TIER 3',cls:'t3'},RG:{lab:'ROGUE',cls:'rg'}};
+const PLACE = {'1st Place':['1위','p1'],'2nd Place':['2위','p2'],'Top 4':['톱4','p4'],'Top 8':['톱8','p8'],'Top 16':['톱16','p16']};
+
+function fmt(n){ return (n==null? '—' : Number(n).toLocaleString('ko-KR')); }
+function koName(c){ return c.ko || c.en; }
+
+/* localStorage */
+function lsGet(k, fb){ try{ const v = localStorage.getItem(k); return v == null ? fb : JSON.parse(v); }catch(e){ return fb; } }
+function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+
+/* ---------- header ---------- */
+$('#stampText').textContent = '데이터 ' + D.builtAt.slice(0,16).replace('T',' ') + ' KST';
+$('#stampBan').textContent = '금제 ' + D.banlistDate + ' 시행 · ' + D.latestSet.name;
+
+/* ---------- tabs ---------- */
+const tabs = document.getElementById('tabs');
+tabs.addEventListener('click', e => {
+  const b = e.target.closest('button[data-tab]'); if(!b) return;
+  setTab(b.dataset.tab);
+});
+function setTab(name){
+  [...tabs.querySelectorAll('button')].forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  document.querySelectorAll('section.tab').forEach(s => s.classList.toggle('on', s.id === 'tab-' + name));
+  lsSet('mdm_tab', name);
+  window.scrollTo({top:0, behavior:'instant'});
+}
+const savedTab = lsGet('mdm_tab', 'tier');
+if (typeof savedTab === 'string' && document.getElementById('tab-' + savedTab)) setTab(savedTab);
+
+/* ---------- sheet ---------- */
+const sheet = $('#sheet');
+function openSheet(title, html){
+  $('#shTitle').textContent = title;
+  $('#shBody').innerHTML = html;
+  sheet.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSheet(){ sheet.classList.remove('open'); document.body.style.overflow = ''; }
+sheet.addEventListener('click', e => { if (e.target.dataset.close) closeSheet(); });
+$('#shClose').addEventListener('click', closeSheet);
+
+/* ---------- TIER ---------- */
+const tierGrid = $('#tierGrid');
+let tierFilter = 'all';
+function maxPower(){ return Math.max(...D.tiers.map(t => t.power || 0), 1); }
+function renderTiers(){
+  const mp = maxPower();
+  const list = D.tiers.filter(t => {
+    if (tierFilter === 'all') return true;
+    if (tierFilter === 'deck') return t.kind === 'deck';
+    return t.band === tierFilter;
+  });
+  if (!list.length){ tierGrid.innerHTML = '<div class="empty">해당 구간이 없습니다.</div>'; return; }
+  tierGrid.innerHTML = list.map(t => {
+    const b = BAND[t.band] || BAND.RG;
+    const pct = Math.max(3, Math.round((t.power / mp) * 100));
+    const pop = (t.pop == null) ? '—' : t.pop + '%';
+    const top = (t.topCards || []).slice(0,3).map(c => '<span class="chip">' + esc(c) + '</span>').join('');    return '<article class="tcard ' + b.cls + '" data-tier="' + esc(t.en) + '" data-kind="' + t.kind + '">' +
+      '<div class="row1"><span class="ko">' + esc(t.ko || t.en) + '</span>' +
+        (t.ko ? '<span class="en">' + esc(t.en) + '</span>' : '') +
+        '<span class="badge">' + (t.kind === 'engine' ? '엔진' : b.lab) + '</span></div>' +
+      '<div class="pwrap"><div class="pbar"><i style="width:' + pct + '%"></i></div><span class="pval">' + t.power.toFixed(1) + '</span></div>' +
+      '<div class="stat">점유 <b>' + pop + '</b>' +
+        (t.kind === 'deck' ? (' · ' + (t.decks ? ('표본 <b>' + t.decks + '</b>덱') : '표본 없음')) : '') +
+        (t.avgSize ? ' · 평균 <b>' + t.avgSize + '</b>장' : '') + '</div>' +
+      (top ? '<div class="chips">' + top + '</div>' : '') +
+      '</article>';
+  }).join('');
+}
+$('#tierFilters').addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  tierFilter = b.dataset.f;
+  [...$('#tierFilters').children].forEach(x => x.classList.toggle('on', x === b));
+  renderTiers();
+});
+tierGrid.addEventListener('click', e => {
+  const card = e.target.closest('.tcard'); if(!card) return;
+  showTierDetail(card.dataset.tier, card.dataset.kind);
+});
+function showTierDetail(en, kind){
+  const t = D.tiers.find(x => x.en === en && x.kind === kind) || D.tiers.find(x => x.en === en);
+  if (!t) return;
+  const decks = D.decks.filter(d => d.archetype === en);
+  const mp = maxPower();
+  const b = BAND[t.band] || BAND.RG;
+  let h = '';
+  h += '<div class="pwrap"><div class="pbar"><i style="width:' + Math.max(3, Math.round(t.power/mp*100)) + '%"></i></div>' +
+       '<span class="pval">' + t.power.toFixed(1) + '</span></div>';
+  h += '<p class="small">' + (t.kind === 'engine' ? '엔진 단위 통계 — 여러 덱 타입이 이 엔진을 함께 씁니다.' : 'MDM Power ' + t.power.toFixed(1) + ' (' + b.lab + ')') +
+       ' · 래더 점유 ' + (t.pop == null ? '—' : t.pop + '%') + '</p>';
+  if (t.avgSize) h += '<h4>덱 통계 (MDM)</h4><p>평균 ' + t.avgSize + '장 · 평균 코스트 UR ' + fmt(t.avgUr) + ' + SR ' + fmt(t.avgSr) + '</p>';
+  if (t.note) h += '<h4>구성</h4><p>' + esc(t.note) + '</p>';
+  if (t.choke) h += '<h4>견제 포인트 <span class="small">(피클 정리)</span></h4><p>' + esc(t.choke) + '</p>';
+  if ((t.topCards||[]).length) h += '<h4>표본 덱에서 많이 쓴 카드</h4><div class="chips">' + t.topCards.map(c => '<span class="chip">' + esc(c) + '</span>').join('') + '</div>';
+  if (decks.length){
+    h += '<h4>이 페이지의 표본 덱 ' + decks.length + '개</h4>';
+    h += decks.map(d => '<p>· ' + esc((PLACE[d.placement]||[d.placement])[0]) + ' ' + esc(d.player) + ' — ' + esc(d.eventShort) + ' (' + d.mainCount + '+' + d.extraCount + ')</p>').join('');
+  } else {
+    h += '<h4>표본 덱</h4><p class="small">이 페이지가 수집한 대회 덱에는 이 테마가 없습니다(티어 수치는 MDM 통계).</p>';
+  }
+  h += '<div style="margin-top:14px"><a class="btn gold" href="' + t.slug + '" target="_blank" rel="noopener noreferrer">MDM에서 보기 ↗</a></div>';
+  openSheet(t.ko ? t.ko + ' · ' + t.en : t.en, h);
+}
+
+/* ---------- DECKS ---------- */
+const deckList = $('#deckList');
+let deckEvent = 'all';
+let deckQuery = '';
+function deckMatches(d){
+  if (deckEvent !== 'all' && d.src !== deckEvent) return false;
+  if (!deckQuery) return true;
+  const q = deckQuery.toLowerCase();
+  const ko = tierKo(d.archetype);
+  return (d.archetype + ' ' + ko + ' ' + d.player + ' ' + d.event).toLowerCase().includes(q);
+}
+function tierKo(name){
+  const t = D.tiers.find(x => x.en === name && x.kind === 'deck') || D.tiers.find(x => x.en === name);
+  return (t && t.ko) ? t.ko : '';
+}
+function deckRowHTML(d){
+  const pl = PLACE[d.placement] || [d.placement, 'p16'];
+  const ko = tierKo(d.archetype);
+  const dust = (d.ur || 0) + (d.sr || 0);
+  const cardLines = arr => arr.map(([n, nm]) => {
+    const c = cardByName(nm);
+    const ko2 = c && c.ko ? '<em>' + esc(c.ko) + '</em>' : '';
+    const rt = c && c.rarity ? '<span class="rr" style="color:' + RARCOL(c.rarity) + '">' + c.rarity + '</span>' : '';
+    return '<li><span class="n">' + n + '</span><span class="c">' + esc(nm) + ko2 + '</span>' + rt + '</li>';
+  }).join('');
+  return '<article class="deck" data-deck="' + esc(d.player) + '|' + esc(d.eventShort) + '">' +
+    '<div class="dhead"><span class="place ' + pl[1] + '">' + esc(pl[0]) + '</span>' +
+      '<span class="dname">' + esc(ko || d.archetype) + '<span class="en">' + esc(d.archetype) + '</span></span></div>' +
+    '<div class="dmeta"><span>' + esc(d.event) + '</span><span>' + esc(d.player) + '</span>' +
+      '<span>메인 <b>' + d.mainCount + '</b> + 엑스트라 <b>' + d.extraCount + '</b></span>' +
+      '<span>가루 <b>' + fmt(dust) + '</b> (UR ' + (d.urCount||0) + ' · SR ' + (d.srCount||0) + ')</span></div>' +
+    '<div class="dbtns"><button class="btn dl" type="button">덱리스트 보기</button>' +
+      '<a class="btn ghost" href="' + esc(d.url) + '" target="_blank" rel="noopener noreferrer">MDM 원문 ↗</a></div>' +
+    '<div class="dbody"><div class="dcols">' +
+      '<div><div class="dl-h"><span>메인 덱</span><span>' + d.mainCount + '장</span></div><ul class="dl">' + cardLines(d.main) + '</ul></div>' +
+      '<div><div class="dl-h"><span>엑스트라 덱</span><span>' + d.extraCount + '장</span></div><ul class="dl">' + cardLines(d.extra) + '</ul>' +
+      (d.side && d.side.length ? '<div class="dl-h" style="margin-top:10px"><span>사이드</span><span></span></div><ul class="dl">' + cardLines(d.side) + '</ul>' : '') +
+      '</div></div></div></article>';
+}
+function renderDecks(){
+  const list = D.decks.filter(deckMatches);
+  if (!list.length){ deckList.innerHTML = '<div class="empty">조건에 맞는 덱이 없습니다.</div>'; return; }
+  deckList.innerHTML = list.map(deckRowHTML).join('');
+}
+$('#deckFilters').addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  deckEvent = b.dataset.e;
+  [...$('#deckFilters').children].forEach(x => x.classList.toggle('on', x === b));
+  renderDecks();
+});
+$('#deckSearch').addEventListener('input', e => { deckQuery = e.target.value.trim(); renderDecks(); });
+deckList.addEventListener('click', e => {
+  const btn = e.target.closest('button.dl'); if(!btn) return;
+  const body = btn.closest('.deck').querySelector('.dbody');
+  const open = body.classList.toggle('open');
+  btn.textContent = open ? '덱리스트 접기' : '덱리스트 보기';
+});
+
+/* ---------- BAN ---------- */
+const banWrap = $('#banWrap');
+let banQuery = '';
+function banMatch(c){
+  if (!banQuery) return true;
+  const q = banQuery.toLowerCase();
+  return (c.en + ' ' + (c.ko||'')).toLowerCase().includes(q);
+}
+function renderBan(){
+  const groups = [
+    ['forbidden', '금지', 'f', '덱에 1장도 넣을 수 없음'],
+    ['limited1', '제한 1', 'l1', '같은 이름 1장까지'],
+    ['limited2', '제한 2', 'l2', '같은 이름 2장까지']
+  ];
+  let h = '';
+  groups.forEach(([key, label, cls, desc]) => {
+    const all = D.ban[key];
+    const list = all.filter(banMatch);
+    h += '<div class="bangrp"><div class="banhead"><span class="bantag ' + cls + '">' + label + '</span>' +
+      '<h3>' + desc + '</h3><span class="cnt">' + list.length + ' / ' + all.length + '장</span></div>';
+    if (!list.length){ h += '<div class="empty">해당 없음</div></div>'; return; }
+    h += '<div class="bangrid">' + list.map(c =>
+      '<div class="bancard"><span class="nm">' + esc(c.ko || c.en) +
+        (c.ko ? '<em>' + esc(c.en) + '</em>' : '') + '</span>' +
+      (c.rarity ? '<span class="r" style="color:' + RARCOL(c.rarity) + '">' + c.rarity + '</span>' : '') +
+      '</div>').join('') + '</div></div>';
+  });
+  banWrap.innerHTML = h;
+}
+$('#banSearch').addEventListener('input', e => { banQuery = e.target.value.trim(); renderBan(); });
+
+/* ---------- NEWS ---------- */
+function renderHT(){
+  const max = Math.max(...D.handtraps.map(h => h.decks), 1);
+  $('#htBox').innerHTML = D.handtraps.map(h => {
+    const pct = Math.round(h.decks / max * 100);
+    return '<div class="statrow"><span class="lab">' + esc(h.ko || h.en) + (h.ko ? '<em>' + esc(h.en) + '</em>' : '') + '</span>' +
+      '<span class="bb"><i style="width:' + pct + '%"></i></span><span class="vv">' + h.decks + '/16덱</span></div>';
+  }).join('') + '<p class="small" style="margin-top:8px">막대 = MW #256 톱16(16덱) 중 이 카드를 메인에 넣은 덱 수. 위에서부터 많이 쓴 순.</p>';
+}
+function renderPR(){
+  const max = Math.max(...D.planetrun.list.map(x => x.n), 1);
+  $('#prHint').textContent = '최근 제출 덱 ' + D.planetrun.total + '개';
+  $('#prBox').innerHTML = D.planetrun.list.map(x =>
+    '<div class="statrow"><span class="lab">' + esc(x.ko || x.en) + (x.ko ? '<em>' + esc(x.en) + '</em>' : '') + '</span>' +
+    '<span class="bb"><i style="width:' + Math.round(x.n/max*100) + '%"></i></span><span class="vv">' + x.n + '덱</span></div>').join('') +
+    '<p class="small" style="margin-top:8px">이벤트 제출 덱은 MDM 통계 가중치가 0이라 티어표 수치와 직접 비교하면 안 됩니다.</p>';
+}
+function renderArts(){
+  $('#artList').innerHTML = D.articles.map(a =>
+    '<article class="art"><div class="ah"><span class="k">' + esc(a.kind) + '</span><span class="d">' + esc(a.date) + ' · ' + esc(a.event) + '</span></div>' +
+    '<h3>' + esc(a.title) + '</h3><ul>' + a.summary.map(s => '<li>' + esc(s) + '</li>').join('') + '</ul>' +
+    '<div class="lnk"><a href="' + esc(a.url) + '" target="_blank" rel="noopener noreferrer">MDM 원문 ↗</a></div></article>').join('');
+}
+
+/* ---------- CARD INDEX ---------- */
+const CARD_BY_KEY = new Map();
+D.cards.forEach(c => {
+  CARD_BY_KEY.set(c.en.toLowerCase(), c);
+  if (c.ko) CARD_BY_KEY.set(c.ko.toLowerCase(), c);
+});
+function cardByName(name){ return CARD_BY_KEY.get(String(name).toLowerCase()) || null; }
+function searchCards(q){
+  q = q.trim().toLowerCase();
+  if (!q) return [];
+  const starts = [], has = [];
+  const seen = new Set();
+  D.cards.forEach(c => {
+    const en = c.en.toLowerCase(), ko = (c.ko||'').toLowerCase();
+    if (seen.has(c.en)) return;
+    if (en.startsWith(q) || ko.startsWith(q)) { starts.push(c); seen.add(c.en); }
+    else if (en.includes(q) || ko.includes(q)) { has.push(c); seen.add(c.en); }
+  });
+  return starts.concat(has).slice(0, 60);
+}
+$('#cardCount').textContent = '수집 카드 ' + D.cards.length + '장 · 한글명 ' + D.cards.filter(c => c.ko).length + '장';
+const cardResults = $('#cardResults');
+$('#cardSearch').addEventListener('input', e => {
+  const q = e.target.value;
+  const res = searchCards(q);
+  const qq = q.trim().toLowerCase();
+  const themes = qq ? D.tiers.filter(t => ((t.ko||'') + ' ' + t.en).toLowerCase().includes(qq)).slice(0,3) : [];
+  const themeHtml = themes.map(t =>
+    '<div class="res"><span class="nm">테마 · <b>' + esc(t.ko || t.en) + '</b><em>' + esc(t.en) + ' · Power ' + t.power.toFixed(1) + ' (' + (BAND[t.band]||BAND.RG).lab + ')</em></span>' +
+    '<button class="addb" data-theme="' + esc(t.en) + '" data-kind="' + t.kind + '">보기</button></div>').join('');
+  if (!q.trim()){ cardResults.innerHTML = '<div class="empty">검색어를 넣으면 이 페이지가 수집한 카드에서 찾습니다.</div>'; return; }
+  if (!res.length && !themes.length){ cardResults.innerHTML = '<div class="empty">결과 없음. 영문 이름 일부로 다시 시도해 보세요.</div>'; return; }
+  cardResults.innerHTML = themeHtml + res.map(c =>
+    '<div class="res"><span class="nm">' + esc(c.ko || c.en) + (c.ko ? '<em>' + esc(c.en) + '</em>' : '') +
+      '<em class="small">' + (c.in && c.in.length ? '출처: ' + c.in.slice(0,3).map(esc).join(', ') : '스테이플') + '</em></span>' +
+      (c.rarity ? '<span class="r" style="color:' + RARCOL(c.rarity) + '">' + c.rarity + '</span>' : '') +
+      '<button class="addb" data-add="' + esc(c.en) + '">+ 담기</button></div>').join('');
+});
+cardResults.addEventListener('click', e => {
+  const th = e.target.closest('button[data-theme]');
+  if (th){ showTierDetail(th.dataset.theme, th.dataset.kind); return; }
+  const b = e.target.closest('button[data-add]'); if(!b) return;
+  addCraft(b.dataset.add);
+});
+
+/* ---------- CRAFT LIST ---------- */
+let craft = lsGet('mdm_craft', {});   // {enName: count}
+function saveCraft(){ lsSet('mdm_craft', craft); }
+function addCraft(en){
+  craft[en] = (craft[en] || 0) + 1;
+  saveCraft(); renderCraft();
+}
+function renderCraft(){
+  const keys = Object.keys(craft);
+  if (!keys.length){
+    $('#craftList').innerHTML = '<div class="empty">검색 결과에서 ‘+ 담기’를 눌러 담으세요.</div>';
+    $('#craftTotal').innerHTML = '';
+    return;
+  }
+  let ur = 0, sr = 0;
+  $('#craftList').innerHTML = keys.map(k => {
+    const c = cardByName(k) || {en:k, ko:'', rarity:''};
+    if (c.rarity === 'UR') ur += craft[k];
+    if (c.rarity === 'SR') sr += craft[k];
+    return '<div class="craft"><span class="nm">' + esc(c.ko || c.en) + (c.ko ? '<em>' + esc(c.en) + '</em>' : '') + '</span>' +
+      (c.rarity ? '<span class="r small" style="color:' + RARCOL(c.rarity) + '">' + c.rarity + '</span>' : '') +
+      '<span class="stepper"><button data-dec="' + esc(k) + '" aria-label="줄이기">−</button><span>' + craft[k] + '</span>' +
+      '<button data-inc="' + esc(k) + '" aria-label="늘리기">+</button></span></div>';
+  }).join('');
+  $('#craftTotal').innerHTML = '<span>UR <b>' + ur + '</b>장 → ' + fmt(ur*30) + ' UR CP</span><span>SR <b>' + sr + '</b>장 → ' + fmt(sr*15) + ' SR CP</span>' +
+    '<span>합계 <b>' + fmt(ur*30 + sr*15) + '</b> CP</span>';
+}
+$('#craftList').addEventListener('click', e => {
+  const inc = e.target.closest('button[data-inc]');
+  const dec = e.target.closest('button[data-dec]');
+  if (inc){ craft[inc.dataset.inc]++; saveCraft(); renderCraft(); }
+  if (dec){
+    const k = dec.dataset.dec; craft[k]--;
+    if (craft[k] <= 0) delete craft[k];
+    saveCraft(); renderCraft();
+  }
+});
+$('#craftClear').addEventListener('click', () => { craft = {}; saveCraft(); renderCraft(); });
+
+/* ---------- DECK MEMO ---------- */
+const memoEl = $('#deckMemo');
+memoEl.value = lsGet('mdm_memo', '');
+let memoTimer = null;
+function analyzeMemo(){
+  const txt = memoEl.value;
+  const lines = txt.split(/\n/).map(s => s.trim()).filter(Boolean);
+  let ur = 0, sr = 0, known = 0, unknown = [];
+  lines.forEach(line => {
+    const m = line.match(/^(\d{1,2})\s*[xX×]?\s*(.+)$/);
+    let cnt = 1, name = line;
+    if (m){ cnt = parseInt(m[1], 10); name = m[2].trim(); }
+    const hit = cardByName(name) || searchCards(name)[0] || null;
+    if (hit){
+      known++;
+      if (hit.rarity === 'UR') ur += cnt;
+      else if (hit.rarity === 'SR') sr += cnt;
+    } else unknown.push(name);
+  });
+  const nLines = lines.length;
+  if (!nLines){ $('#memoTotal').innerHTML = ''; $('#memoUnknown').textContent = ''; return; }
+  $('#memoTotal').innerHTML = '<span>읽은 줄 <b>' + known + '/' + nLines + '</b></span>' +
+    '<span>UR <b>' + ur + '</b>장 → ' + fmt(ur*30) + ' UR CP</span>' +
+    '<span>SR <b>' + sr + '</b>장 → ' + fmt(sr*15) + ' SR CP</span>' +
+    '<span>합계 <b>' + fmt(ur*30 + sr*15) + '</b> CP</span>';
+  $('#memoUnknown').textContent = unknown.length ? ('못 찾은 줄: ' + unknown.slice(0,6).join(' / ') + (unknown.length > 6 ? ' 외 ' + (unknown.length-6) : '')) : '';
+}
+memoEl.addEventListener('input', () => {
+  clearTimeout(memoTimer);
+  memoTimer = setTimeout(() => { lsSet('mdm_memo', memoEl.value); analyzeMemo(); }, 400);
+});
+
+/* ---------- init ---------- */
+renderTiers(); renderDecks(); renderBan(); renderHT(); renderPR(); renderArts(); renderCraft(); analyzeMemo();
+</script>
+</body>
+</html>
