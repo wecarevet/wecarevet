@@ -13599,6 +13599,8 @@ function show(name){
     if(SND.on||(typeof V6BGM!=='undefined'&&V6BGM.on)){ try{ bgmStart(bgmCtx()); }catch(e){} }
   }else{
     bgmStop();
+    /* 밴픽/게임 플랜 밖에서는 유튜브 iframe 자체를 제거 (잔여 오디오 원천 차단) */
+    try{ if(typeof v6BgmUnload==='function') v6BgmUnload(); }catch(e){}
   }
   const shellish=(S&&(name==='hub'||name==='offseason'||name==='kespa'||name==='press'));
   const tb=$('topbar'); if(tb) tb.classList.toggle('hidden', !shellish);
@@ -23716,6 +23718,28 @@ function v6BgmStop(){
   try{ if(M&&M.running){ /* 경기 중에는 인게임 브금과 섞이지 않게 */ } }catch(e){}
 }
 /* 밴픽·게임 플랜 화면을 떠날 때 일시정지 — 돌아오면 이어서 */
+/* 밴픽·게임 플랜을 벗어나면 iframe 자체를 제거 — 소리가 남을 물리적 여지를 없앤다 */
+function v6BgmUnload(){
+  const p=V6BGM.player;
+  if(p){
+    try{ p.pauseVideo(); }catch(e){}
+    try{ if(p.stopVideo) p.stopVideo(); }catch(e){}
+    try{ if(p.destroy) p.destroy(); }catch(e){}
+  }
+  V6BGM.player=null; V6BGM.ready=false; V6BGM.playing=false; V6BGM.started=0; V6BGM.playT=0; V6BGM.blocked=false;
+  try{
+    const host=(typeof v6BgmHost==='function')?v6BgmHost():null;
+    if(host&&typeof host.innerHTML!=='undefined') host.innerHTML='';   /* yt iframe 제거 */
+  }catch(e){}
+  try{
+    const old=(typeof document!=='undefined'&&document.getElementById)?document.getElementById('ytbgmPlayer'):null;
+    if(old&&old.parentNode) old.parentNode.removeChild(old);
+  }catch(e){}
+  /* 다음 밴픽/경기에서 새로 만든다 */
+  try{ if(typeof V6MB!=='undefined'){ V6MB.on=false; V6MB.idx=-1; } }catch(e){}
+  V6BGM.unloadedAt=Date.now();
+  return true;
+}
 function v6BgmPause(){
   V6BGM.pausedByNav=true;
   V6BGM.playing=false; V6BGM.playT=0;
@@ -23723,11 +23747,14 @@ function v6BgmPause(){
   if(p){ try{ p.pauseVideo(); }catch(e){} }
   return true;
 }
-function v6BgmResume(ctxKey){
+function v6BgmResume(){
   if(!V6BGM.pausedByNav) return false;
   V6BGM.pausedByNav=false;
   if(!V6BGM.on||V6BGM.dead) return false;
-  try{ return v6BgmPlay(ctxKey||'draft'); }catch(e){ return false; }
+  /* 생성된 플레이어가 살아 있을 때만 이어서 재생 (없으면 화면 진입 경로가 새로 만든다) */
+  const p=V6BGM.player;
+  if(p&&V6BGM.ready){ try{ p.setVolume(V6BGM.vol); p.unMute(); p.playVideo(); V6BGM.playing=true; return true; }catch(e){} }
+  return false;
 }
 function v6BgmToggle(){
   V6BGM.on=!V6BGM.on;
@@ -23762,7 +23789,7 @@ function v6BgmBarHTML(){
   const on=V6BGM.on;
   const finals5=!!(V6BGM.finals5||((typeof v6IsFinalsGame==='function')&&v6IsFinalsGame()));
   const state=!on?'꺼짐':V6BGM.dead?'유튜브 차단 — 무음':V6BGM.playing?'재생 중':V6BGM.blocked?'탭해서 켜기':'준비 중';
-  const needKick=!!(on&&!V6BGM.dead&&!V6BGM.playing);
+  const needKick=!!(on&&!V6BGM.playing);   /* 차단/실패 상태에서도 다시 켤 수 있게 항상 노출 */
   return `<div class="bgm-bar ${finals5?'finals5':''}" id="bgmBar">
     <span class="bgm-live ${on&&V6BGM.playing?'on':''}"></span>
     <div class="bgm-t">
