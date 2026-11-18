@@ -26052,18 +26052,12 @@ function v6EnforceLaneSides(){
       const f=fronts[lane]==null?0.5:fronts[lane];
       const margin=(role==='SUP')?0.014:0.010;
       const lo=f-margin, hi=f+margin;
-      /* 실제 위치 교정 (부드럽게) */
-      const pos=v6LaneParamAt(lane,u.x,u.y);
-      if(pos&&pos.d<0.075){
-        let want=null;
-        if(side==='me'&&pos.t>lo) want=lo;
-        if(side==='opp'&&pos.t<hi) want=hi;
-        if(want!=null){
-          const p=mmPathPoint(LANE_PATH[lane],want);
-          u.x+=(p[0]-u.x)*0.4; u.y+=(p[1]-u.y)*0.4;
-        }
-      }
-      /* 목표 지점도 같은 규칙 */
+      /* 위치는 절대 직접 만지지 않는다.
+         (예전에는 u.x+=(p[0]-u.x)*0.4 로 매 프레임 위치를 잡아당겨,
+          mmUpdate 의 이동 적분과 매 프레임 서로 밀고 당기며 챔피언이 1.4px 씩
+          떨리는 원인이었다. 이제 목표 지점만 같은 규칙으로 눌러 두면
+          이동 적분이 그 목표로 한 방향으로만 수렴한다.)
+         목표 지점도 같은 규칙 */
       const tgt=MM.tgt[k];
       if(!tgt) return;
       const tp=v6LaneParamAt(lane,tgt.x,tgt.y);
@@ -26166,15 +26160,8 @@ function v6ArriveCheck(){
       const lane=v6LaneOf(role,sec);
       const p=mmLaneFrontPos(lane,side,0.012);
       if(!p||!isFinite(p[0])||!isFinite(p[1])) return;
-      const d=Math.hypot(u.x-p[0],u.y-p[1]);
-      /* 목표는 항상 경험치 사거리 */
+      /* 목표만 경험치 사거리로 둔다 — 위치를 직접 옮기면 이동 적분과 충돌해 떨린다 */
       MM.tgt[side+'-'+role]={x:p[0],y:p[1]};
-      /* 1:24 이후에도 0.10 밖이면 부드럽게 끌어당긴다 (도착 보장) */
-      const urgency=sec>=84?0.45:(sec>=78?0.3:0.18);
-      if(d>0.08){
-        u.x+=(p[0]-u.x)*urgency;
-        u.y+=(p[1]-u.y)*urgency;
-      }
     });
   });
 }
@@ -26242,8 +26229,8 @@ function v6TurretRangeGuard(){
       if(cover) return;
       const p=mmLaneFrontPos(lane,side,-0.02);
       if(!p||!isFinite(p[0])||!isFinite(p[1])) return;
+      /* 타워 사거리 밖으로는 목표만 옮긴다 (위치 직접 보정 금지 — 떨림 방지) */
       MM.tgt[side+'-'+role]={x:p[0],y:p[1]};
-      u.x+=(p[0]-u.x)*0.25; u.y+=(p[1]-u.y)*0.25;
     });
   });
 }
