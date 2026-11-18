@@ -250,11 +250,13 @@ body.guardian .guardbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-in
   .doc-title.long{font-size:12.5pt;letter-spacing:.04em}
   .doc-no{margin-bottom:8px}
   .doc-sec{margin-top:8px}
+  .doc-sec.keep{break-inside:avoid}
   .doc-h2{margin-bottom:3px}
   .doc-body p{margin-bottom:3px}
-  .doc-sign{margin-top:12px;line-height:1.7}
-  .doc-foot{margin-top:9px;padding-top:6px;font-size:7.6pt;line-height:1.5}
-  .doc-memo{margin-top:8px;padding:6px 9px}
+  .doc-memo{margin-top:8px;padding:6px 9px;break-inside:auto}
+  .doc-sign{margin-top:10px;line-height:1.65;break-inside:auto}
+  .doc-foot{margin-top:8px;padding-top:5px;font-size:7.6pt;line-height:1.5;break-inside:auto}
+  .doc-sign .sn,.doc-sign .sd,.doc-foot .fl2{break-inside:avoid}
   .doc-recheck{margin-top:5px;padding:4px 8px}
   table.dt{font-size:8.9pt}
   table.dt td,table.dt th{padding:2.4px 5px}
