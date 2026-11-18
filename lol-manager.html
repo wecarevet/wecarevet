@@ -2224,6 +2224,8 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .gp6-auto{display:flex;align-items:center;gap:6px;justify-content:center;width:100%;
   padding:9px;border-radius:9px;font-weight:900;font-size:12px;
   background:linear-gradient(180deg,#f4dda6,#e6c481);color:#17110a;border:1px solid #e6c481;cursor:pointer}
+.po-nav{display:flex;align-items:center;gap:6px;padding:8px 10px;position:sticky;top:0;z-index:20;
+  background:linear-gradient(180deg,rgba(9,11,16,.98),rgba(9,11,16,.86));border-bottom:1px solid #1c1f27}
 
 </style>
 </head>
@@ -7836,29 +7838,100 @@ function gallViews(seed,hot){
 }
 
 /* ---------- 후푸 평점 ---------- */
-function hupuScore(row,win){
+function hupuQ(row){
   if(!row) return 0;
-  const k=row.k||0,d=row.d||0,a=row.a||0,dpm=row.dpm||0,kp=row.kp||0,cs=row.cs||0;
-  let s=5.0 + k*0.62 + a*0.26 - d*0.52 + (dpm-480)/220 + kp/42 + (cs-190)/160;
-  s += win?0.85:-0.55;
-  if(row.pog) s+=0.5;
-  return clamp(Math.round(s*10)/10,0.8,10);
+  const k=row.k||0,d=row.d||0,a=row.a||0,dpm=row.dpm||0,kp=(row.kp==null?45:row.kp),cs=row.cs||0;
+  /* 0~1 성과 지수 — 실제 후푸 평점처럼 좁은 분포로 정규화 */
+  const kda=(k+a*0.55)/Math.max(1,d);
+  const qK=clamp((kda-1.1)/3.3,0,1);
+  const qD=clamp((dpm-330)/520,0,1);
+  const qKP=clamp((kp-42)/40,0,1);
+  const qCS=clamp((cs-140)/170,0,1);
+  const qDeath=clamp(1-(d-2)/6,0,1);
+  let q=qK*0.34+qD*0.24+qKP*0.16+qCS*0.10+qDeath*0.16;
+  if(row.pog) q+=0.10;
+  return clamp(q,0,1);
+}
+function hupuScore(row,win,opts){
+  if(!row) return 0;
+  const o=opts||{};
+  const qAbs=hupuQ(row);
+  const qMax=Math.max(0.30,o.qMax||1);
+  const qn=clamp(qAbs/qMax,0,1);            /* 경기 내 상대 지수 */
+  const r1=x=>Math.round(clamp(x,0,10)*10)/10;
+  if(win){
+    let s=6.8+qn*2.0;                        /* 6.8 ~ 8.8 */
+    if(o.top) s=8.9+qn*0.72;                 /* 상위 1~2명 8.9 ~ 9.6 */
+    if(o.top&&qn>=0.99&&Math.random()<0.30) s=9.8;
+    if(o.top&&qn>=0.995&&Math.random()<0.08) s=10.0;   /* 10.0은 극히 드물게 */
+    return r1(clamp(s,6.8,10));
+  }
+  let s=3.2+qn*3.4;                          /* 3.2 ~ 6.6 */
+  if(qn>=0.92) s=7.0+((qn-0.92)/0.08)*1.4;   /* 1v9 에이스 7.0 ~ 8.4 */
+  if(qAbs<0.18) s=2.1+(qAbs/0.18)*1.7;       /* 트롤 2.1 ~ 3.8 */
+  return r1(clamp(s,2.1,8.4));
 }
 function hupuStars(v){
   const full=Math.round(v/2);
   return '★'.repeat(clamp(full,0,5))+'☆'.repeat(clamp(5-full,0,5));
 }
+/* 같은 경기에서 같은 한 줄이 반복되지 않도록 사용 이력 관리 */
+const HUPU_MEM={key:null, used:{}};
+function hupuMemKey(){
+  try{ return (M&&M.series?(M.series.startedAt||0):0)+'-'+(M?M.gameIdx:0); }catch(e){ return 'x'; }
+}
+function hupuResetMem(){
+  const k=hupuMemKey();
+  if(HUPU_MEM.key!==k){ HUPU_MEM.key=k; HUPU_MEM.used={}; }
+}
+const HUPU_LINES={
+  god:['오늘 협곡의 신','이 경기 하나로 전설이 됐다','역대급 캐리, 눈물난다','이건 뭐라고 해야 되나','혼자서 게임 끝냈다'],
+  mvp:['미쳤다 이건 MVP','혼자 게임 이겼네','오늘 이 선수만 봤다','이 정도면 상대가 불쌍하다'],
+  good:['묵묵히 캐리한 숨은 주역','딜 넣는 각이 다 보인다','조용히 다 해먹음','자기 몫은 확실히 했다'],
+  ok:['무난하게 자기 몫 이상','한타에서 제대로 터졌다','이 정도면 합격','라인전은 이겼다'],
+  meh:['딱 본인 몫만 했다','특별히 나쁘진 않음','라인전은 나쁘지 않았는데','조용히 사라짐'],
+  bad:['존재감이 애매했다','뭘 했는지 모르겠음','반반인데 임팩트 없음','한타에서 안 보임'],
+  awful:['이겨도 되는 게임을 놓쳤다','포지션이 계속 어긋남','딜 교환마다 손해','각이 계속 안 나온다'],
+  troll:['집에 가고 싶었나 봄 ㅋㅋ','오늘은 부진 인정','라인에서 아무것도 못함','이건 좀 심했다'],
+  int:['팀을 이기기 않고 이기는 쪽이 나음','숲으로 돌아가라','이건 못 참지 ㅋㅋㅋ','던지는 걸 넘어서 재앙'],
+};
+const HUPU_ORDER=['god','mvp','good','ok','meh','bad','awful','troll','int'];
+function hupuBand(v){
+  if(v>=9.5) return 'god';
+  if(v>=9.0) return 'mvp';
+  if(v>=8.0) return 'good';
+  if(v>=7.0) return 'ok';
+  if(v>=6.0) return 'meh';
+  if(v>=5.0) return 'bad';
+  if(v>=4.0) return 'awful';
+  if(v>=3.0) return 'troll';
+  return 'int';
+}
 function hupuLine(v,row){
-  const k=(row&&row.k)||0,d=(row&&row.d)||0;
-  if(v>=9.5) return pickOf(['오늘 협곡의 신','이 경기 하나로 전설이 됐다','역대급 캐리, 눈물난다']);
-  if(v>=9.0) return pickOf(['미쳤다 이건 MVP','혼자 게임 이겼네','오늘 이 선수만 봤다']);
-  if(v>=8.0) return pickOf(['묵묵히 캐리한 숨은 주역','딜 넣는 각이 다 보인다','조용히 다 해먹음']);
-  if(v>=7.0) return pickOf(['무난하게 자기 몫 이상','한타에서 제대로 터졌다','이 정도면 합격']);
-  if(v>=6.0) return pickOf(['딱 본인 몫만 했다','특별히 나쁘진 않음','라인전은 나쁘지 않았는데']);
-  if(v>=5.0) return pickOf(['존재감이 애매했다','뭘 했는지 모르겠음','반반인데 임팩트 없음']);
-  if(v>=4.0) return pickOf(['이겨도 되는 게임을 놓쳤다','포지션이 계속 어긋남','딜 교환마다 손해']);
-  if(v>=3.0) return pickOf(['집에 가고 싶었나 봄 ㅋㅋ','오늘은 부진 인정','라인에서 아무것도 못함']);
-  return pickOf(['팀을 이기기 않고 이기는 쪽이 나음','숲으로 돌아가라','이건 못 참지 ㅋㅋㅋ']);
+  hupuResetMem();
+  const band=hupuBand(v);
+  const used=HUPU_MEM.used;
+  const tryPick=(k,allow)=>{
+    const pool=(HUPU_LINES[k]||[]).filter(l=>!used[l]);
+    if(!pool.length) return null;
+    if(allow&&allow.indexOf(k)<0) return null;
+    const line=pool[Math.floor(Math.random()*pool.length)];
+    used[line]=1;
+    return line;
+  };
+  let line=tryPick(band);
+  /* 밴드 문장이 동나면 인접 밴드에서, 그래도 없으면 새로 조합 */
+  if(!line){
+    const i=HUPU_ORDER.indexOf(band);
+    for(let off=1;off<HUPU_ORDER.length&&!line;off++){
+      line=tryPick(HUPU_ORDER[clamp(i-off,0,HUPU_ORDER.length-1)])||tryPick(HUPU_ORDER[clamp(i+off,0,HUPU_ORDER.length-1)]);
+    }
+  }
+  if(!line){
+    const extra=['오늘 경기는 넘어가자','다음 경기에서 보자','여론이 좋지 않다','팬들이 난리다'];
+    line=extra[Math.floor(Math.random()*extra.length)]+' ('+((row&&row.name)||'')+')';
+  }
+  return line;
 }
 /* 경기 후 10명 평점 (우리 팀 + 상대) */
 function hupuRatings(){
@@ -7869,11 +7942,20 @@ function hupuRatings(){
   [['me',ps.me],['opp',ps.opp]].forEach(([side,arr])=>{
     arr.forEach(x=>{
       const win=(side==='me')?!!ps.win:!ps.win;
-      const v=hupuScore(x,win);
-      out.push({side:side, name:x.name, champ:x.champ, role:x.role, k:x.k, d:x.d, a:x.a,
-        kda:(x.d?((x.k+x.a)/x.d):(x.k+x.a)).toFixed(1), dpm:x.dpm||0, score:v, stars:hupuStars(v),
-        line:hupuLine(v,x)});
+      out.push({side:side, win:win, raw:x, q:hupuQ(x), name:x.name, champ:x.champ, role:x.role,
+        k:x.k, d:x.d, a:x.a, kda:(x.d?((x.k+x.a)/x.d):(x.k+x.a)).toFixed(1), dpm:x.dpm||0});
     });
+  });
+  /* 승리 팀 상위 1~2명만 '탑 퍼포먼스'로 표시 → 9.1~9.8 구간 */
+  const winSide=ps.win?'me':'opp';
+  const qMax=out.reduce(function(a,b){ return Math.max(a,b.q); },0);
+  const wTop=out.filter(function(r){ return r.side===winSide; }).sort(function(a,b){ return b.q-a.q; });
+  if(wTop[0]&&wTop[0].q>=qMax*0.45) wTop[0].top=true;
+  if(wTop[1]&&wTop[1].q>=wTop[0].q*0.93) wTop[1].top=true;
+  out.forEach(function(r){
+    r.score=hupuScore(r.raw,r.win,{top:!!r.top,qMax:qMax});
+    r.stars=hupuStars(r.score);
+    r.line=hupuLine(r.score,r.raw);
   });
   return out.sort((a,b)=>b.score-a.score);
 }
@@ -10837,7 +10919,7 @@ function renderSelect(){
       <div class="sel-kicker">SELECT YOUR CLUB · 2026 SEASON</div>
       <h1 class="sel-h">어느 구단의 구단주가 되시겠습니까?</h1>
       <p class="sel-p">예산 · 로스터 · 코칭스태프가 모두 달랐습니다. 약팀으로 우승하면 더 큰 기록입니다.</p>
-      <div class="sel-chips"><span class="chip sm gold">정규시즌 9주</span><span class="chip sm">플레이오프</span><span class="chip sm">MSI · EWC</span><span class="chip sm">롤드컵</span></div>
+      <div class="sel-chips"><span class="chip sm gold">정규시즌 18경기</span><span class="chip sm">더블 엘리미 PO</span><span class="chip sm">MSI · EWC</span><span class="chip sm">롤드컵</span></div>
     </div>
     <div class="reg-tabs">
       ${REGS.map(x=>`<button class="reg-tab ${reg===x.k?'on':''}" data-reg="${x.k}"><b>${x.n}</b><span>${x.d}</span></button>`).join('')}
@@ -13246,8 +13328,8 @@ function introNext(step){
 /* ---------- 대회 개막 스플래시 ---------- */
 const SPLASH_DEF={
   kespa:{k:'KESPA CUP',year:2026,title:'KeSPA CUP',sub:'새 시즌의 첫 번째 대회.<br>새 로스터, 새 판도, 첫 성적표.',big:'시즌은 이미 시작됐습니다.',big2:'먼저 치고 나가세요.',cls:'kespa',line:'8팀 토너먼트 · 8강/4강/결승 · Bo3'},
-  spring:{k:'LCK SPRING',year:2026,title:'LCK SPRING',sub:'정규시즌 5주.<br>10팀이 하나의 왕좌를 두고 겨룹니다.',big:'스프링이 시작됩니다.',big2:'첫 경기부터 증명하세요.',cls:'spring',line:'정규 5주 · 상위 6팀 플레이오프 · 우승팀 MSI 진출'},
-  summer:{k:'LCK SUMMER',year:2026,title:'LCK SUMMER',sub:'서머 9주.<br>롤드컵 진출권이 걸린 마지막 리그.',big:'여름이 왔습니다.',big2:'끝까지 살아남으세요.',cls:'summer',line:'정규 9주 · 중간 EWC 브레이크 · 상위 4팀 롤드컵'},
+  spring:{k:'LCK SPRING',year:2026,title:'LCK SPRING',sub:'정규시즌 18경기(2라운드).<br>10팀이 하나의 왕좌를 두고 겨룹니다.',big:'스프링이 시작됩니다.',big2:'첫 경기부터 증명하세요.',cls:'spring',line:'정규 18경기 · Legend/Rise 레이스 · 더블 엘리미네이션 Bo5 · 우승팀 MSI 진출'},
+  summer:{k:'LCK SUMMER',year:2026,title:'LCK SUMMER',sub:'서머 18경기.<br>롤드컵 진출권이 걸린 마지막 리그.',big:'여름이 왔습니다.',big2:'끝까지 살아남으세요.',cls:'summer',line:'정규 18경기 · 중간 EWC 브레이크 · 더블 엘리미네이션 · 상위 4팀 롤드컵'},
   msi:{k:'MSI',year:2026,title:'MID-SEASON INVITATIONAL',sub:'각 지역의 챔피언들이 모입니다.<br>국제 무대의 첫 시험대.',big:'MSI가 시작됩니다.',big2:'지역의 자존심을 걸고.',cls:'msi',line:'8팀 토너먼트 · Bo5 · 우승 상금과 명성'},
   ewc:{k:'Esports World Cup',year:2026,title:'ESPORTS WORLD CUP',sub:'리야드의 여름.<br>세계 최강 클럽이 한자리에.',big:'EWC가 시작됩니다.',big2:'여름의 왕좌를 가져오세요.',cls:'ewc',line:'8팀 초청 · 단판 토너먼트 · Bo5 결승'},
   worlds:{k:'WORLD CHAMPIONSHIP',year:2026,title:'WORLD CHAMPIONSHIP',sub:'10월. 세계 16팀.<br>한 해의 마지막 페이지.',big:'롤드컵이 시작됩니다.',big2:'여기서 끝내세요.',cls:'worlds',line:'16팀 스위스 · 8강/4강/결승 · Bo5'},
@@ -20433,7 +20515,7 @@ function v6KillEntry(side, role, kind){
   if(V6FEED.first){ tag='🩸 FIRST BLOOD'; cls='blood'; }
   else if(kind==='solo'){ tag='💥 솔로킬'; cls=''; }
   const now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
-  if(V6FEED.combo&&V6FEED.combo.side===side&&V6FEED.combo.role===role&&now-V6FEED.combo.at<11000){
+  if(V6FEED.combo&&V6FEED.combo.side===side&&V6FEED.combo.role===role&&now-V6FEED.combo.at<6000){
     V6FEED.combo.n++;
   }else{
     V6FEED.combo={side,role,at:now,n:1};
@@ -21381,7 +21463,12 @@ function renderPlayoffs(){
     }).join('')}
   </div>`).join('');
   $('view-playoffs').innerHTML=`
-    <div class="hero" style="padding:16px 14px 4px">
+    <div class="po-nav">
+      <button class="btn sm" id="poHome">🏠 홈으로</button>
+      <span class="tiny" style="flex:1;text-align:center;color:var(--dim2)">${P.done?'대회 종료':(S.playoffSplit==='spring'?'스프링':'서머')+' PO 진행 중'}</span>
+      <button class="btn sm gold" id="poAuto">⏩ 남은 대진 자동 진행</button>
+    </div>
+    <div class="hero" style="padding:10px 14px 4px">
       <div class="kicker">LCK ${S.playoffSplit==='spring'?'SPRING':'SUMMER'} PLAYOFFS · 더블 엘리미네이션 Bo5</div>
       <h1 style="font-size:25px">${S.season}시즌 ${S.playoffSplit==='spring'?'스프링':'서머'} 플레이오프</h1>
       <p>6팀 · 승자조/패자조 · 상위 4팀 롤드컵 진출</p>
@@ -21436,9 +21523,43 @@ function renderPlayoffs(){
   const pb=$('poBtn'); if(pb) pb.onclick=()=>playoffAction();
   const pr=$('poResume'); if(pr) pr.onclick=()=>{ if(resumable.pendingSide) renderSideChoice(); else startDraft(resumable); };
   const pd=$('poDone'); if(pd) pd.onclick=()=>{ if(!S.worlds) startWorlds(); if(S.worlds) renderWorlds(); else renderChampion(); };
+  const home=$('poHome'); if(home) home.onclick=()=>{ TAB='home'; renderHub(); };
+  const autoBtn=$('poAuto'); if(autoBtn) autoBtn.onclick=()=>v6PoAutoAdvance();
   const picks=$('view-playoffs').querySelectorAll('[data-po="pick"]');
   if(picks&&picks.forEach) picks.forEach(b=>{ b.onclick=()=>{ const r=v6PickOpponent(b.dataset.v); toast(r.msg); saveGame(); renderPlayoffs(); }; });
   show('playoffs');
+}
+/* AI 경기만 자동으로 돌려 다음 내 경기(또는 대회 종료)까지 진행 */
+function v6PoAutoAdvance(){
+  const P=S.playoffs;
+  if(!P) return {action:'none'};
+  let guard=0, simmed=0;
+  while(!P.done&&guard++<40){
+    const before=v6CountPlayed();
+    const r=playoffNext();
+    simmed+=v6CountPlayed()-before;
+    if(r.action==='done') break;
+    if(r.action==='user'){ toast('⏩ 다음 내 경기까지 진행했습니다 — '+(r.roundName||'플레이오프')+' 밴픽을 시작하세요'); break; }
+    if(r.action==='pick'){ toast('🎯 1시드 지목 차례입니다 — 상대를 선택하세요'); break; }
+    if(r.action==='none') break;
+  }
+  if(P.done){
+    try{ toast('🏆 플레이오프 종료 — '+T(poFinal().winner).name+' 우승'); }catch(e){}
+    if(S.phase==='worlds'){ renderWorlds(); return {action:'done'}; }
+    if(S.phase==='end'){ renderChampion(); return {action:'done'}; }
+    renderAfterSeries();
+    return {action:'done'};
+  }
+  if(S.phase==='worlds'){ renderWorlds(); return {action:'worlds'}; }
+  renderPlayoffs();
+  return {action:'advanced', simmed:simmed};
+}
+function v6CountPlayed(){
+  const P=S.playoffs;
+  if(!P) return 0;
+  let n=0;
+  P.rounds.forEach(function(rd){ rd.matches.forEach(function(m){ if(m.done) n++; }); });
+  return n;
 }
 function v6NextUserMatch(){
   const P=S.playoffs; if(!P) return null;
@@ -21527,7 +21648,9 @@ function v6BgmCreate(){
       playerVars:{autoplay:0,controls:0,loop:1,playlist:V6BGM.ytId,rel:0,modestbranding:1,playsinline:1,disablekb:1},
       events:{
         onReady:function(ev){ V6BGM.ready=true; try{ ev.target.setVolume(V6BGM.vol); }catch(e){} v6BgmTryPlay(); },
-        onStateChange:function(ev){ if(ev&&ev.data===1){ V6BGM.started=1; V6BGM.playing=true; } },
+        onStateChange:function(ev){
+          if(ev&&ev.data===1){ V6BGM.started=1; V6BGM.playing=true; V6BGM.blocked=false; try{ v6SynthStop(); }catch(e){} }
+        },
         onError:function(){ V6BGM.dead=true; V6BGM.apiState='fail'; try{ v6BgmFallbackSynth(); }catch(e){} },
       }
     });
@@ -21541,16 +21664,40 @@ function v6BgmTryPlay(){
   const p=V6BGM.player;
   if(!p||!V6BGM.ready) return;
   try{ p.setVolume(V6BGM.vol); p.unMute(); p.playVideo(); V6BGM.started=1; }catch(e){}
-  /* 자동재생 차단 대비 — 3.5초 뒤에도 재생 전이면 신스 폴백 */
+  /* 자동재생 차단 대비 — 3.5초 뒤에도 재생 전이면 신스로 임시 재생,
+     유튜브는 살려두고 다음 사용자 터치에서 다시 시도한다 */
   if(!V6BGM.playT){
     V6BGM.playT=1;
     setTimeout(function(){
       if(!V6BGM.on) return;
       if(V6BGM.playing) return;
-      V6BGM.dead=true;
-      try{ v6BgmFallbackSynth(); }catch(e){}
+      V6BGM.blocked=true;
+      try{ v6BgmFallbackSymthSafe(); }catch(e){}
     },3500);
   }
+}
+function v6BgmFallbackSymthSafe(){ try{ v6BgmFallbackSynth(); }catch(e){} }
+function v6SynthStop(){
+  try{
+    if(typeof SND==='undefined') return;
+    if(SND.playing==='custom') return;
+    SND.playing=null;
+    if(SND.timer){ clearInterval(SND.timer); SND.timer=null; }
+    if(SND.ctx&&SND.bgmGain){ SND.bgmGain.gain.value=0.0001; }
+  }catch(e){}
+}
+/* 사용자가 화면을 만질 때마다 유튜브 재생을 한 번 더 시도 (자동재생 차단 우회) */
+function v6BgmArmGesture(){
+  if(typeof document==='undefined'||!document.addEventListener) return;
+  document.addEventListener('pointerdown',function(){
+    if(!V6BGM.on||V6BGM.dead) return;
+    if(V6BGM.mode!=='yt') return;
+    if(!V6BGM.player||!V6BGM.ready||V6BGM.playing) return;
+    try{
+      V6BGM.player.setVolume(V6BGM.vol); V6BGM.player.unMute(); V6BGM.player.playVideo();
+      setTimeout(function(){ if(V6BGM.playing) v6SynthStop(); },400);
+    }catch(e){}
+  },{passive:true});
 }
 function v6BgmFallbackSynth(){
   /* 유튜브 차단/오프라인 → WebAudio 신스 밴픽 BGM */
@@ -21563,6 +21710,7 @@ function v6BgmPlay(ctxKey){
   if(!V6BGM.on) return false;
   if(V6BGM.mode==='synth') return false;
   if(V6BGM.dead) return false;
+  if(V6BGM.blocked) return false;   /* 이미 신스로 재생 중 — 터치 때 재시도 */
   if(!v6BgmApiReady()){
     v6BgmEnsureApi();
     return true;   /* 로딩 중 — 준비되면 자동 재생, 실패하면 신스 폴백 */
@@ -22170,6 +22318,12 @@ function v6LaneRush(role,sec){
   if(role==='JGL') return false;
   return (sec||0)>=74;                              /* 01:14부터 라인 복귀 */
 }
+
+/* 부팅: 자동재생 차단 대비 제스처 리스너 등록 */
+try{
+  if(typeof v6BgmLoad==='function') v6BgmLoad();
+  if(typeof v6BgmArmGesture==='function') v6BgmArmGesture();
+}catch(e){}
 
 
 /* boot */
