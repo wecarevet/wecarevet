@@ -55,7 +55,7 @@ h1 .grad{background:linear-gradient(100deg,var(--gold),#fff2d6 45%,var(--gold2))
 .fx .fxk{font-size:9.5px;letter-spacing:.1em;color:var(--gold);font-weight:800}
 .fx b{font-size:14.5px;font-weight:800;letter-spacing:-.02em}
 .fx .fxd{font-size:10.5px;font-weight:800}
-@media(max-width:420px){ .fx .fxk{display:none} .fx b{font-size:13px} }
+@media(max-width:420px){ .fx .fxk{font-size:8px;letter-spacing:.05em} .fx b{font-size:13.5px} }
 @media(max-width:430px){
   .hdrow{flex-direction:column;gap:10px}
   .fx{align-self:flex-start}
@@ -111,6 +111,10 @@ h1 .grad{background:linear-gradient(100deg,var(--gold),#fff2d6 45%,var(--gold2))
   .tab{flex-direction:row;gap:6px;font-size:13px;padding:11px 8px}
   .tab .tl{display:inline} .tab .ts{display:none}
   .tab .ic{font-size:14px}
+}
+@media(min-width:560px) and (max-width:900px){
+  .tab{font-size:11.5px;gap:5px;padding:10px 6px;letter-spacing:-.02em}
+  .tab .ic{font-size:13px}
 }
 
 /* ── cards ── */
