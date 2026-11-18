@@ -8737,6 +8737,36 @@ function kespaSimOthers(){
     m.sa=a; m.sb=b; m.done=true; m.winner=a>b?m.a:m.b;
   });
 }
+/* 유저가 탈락한 뒤에도 남은 케스파컵 경기를 끝까지 자동 진행한다.
+   (예전에는 유저 경기가 없으면 아무도 라운드를 진행시키지 못해 정규시즌이 시작되지 않았다) */
+function kespaResolveRest(){
+  const k=S.kespa; if(!k||k.done) return false;
+  let guard=0;
+  while(!k.done&&guard++<12){
+    const r=kespaRound(); if(!r) break;
+    /* 유저 경기가 아직 남아 있으면 직접 플레이하도록 멈춘다 */
+    if(r.matches.some(m=>!m.done&&(m.a===S.userTeam||m.b===S.userTeam))) break;
+    kespaSimOthers();
+    if(r.matches.some(m=>!m.done)) break;
+    kespaAdvanceRound();
+  }
+  return !!k.done;
+}
+/* 케스파컵 종료 → LCK 정규시즌 1주차로 확실히 넘긴다 (승패 무관) */
+function kespaFinalize(){
+  const k=S.kespa; if(!k||!k.done) return false;
+  if(S.phase!=='kespa') return false;
+  S.phase='regular'; S.splashPending=S.splashPending||'spring'; S.actionApplied=false;
+  if(!S.week||S.week<1) S.week=1;
+  const last=k.rounds[k.rounds.length-1];
+  const champ=(last&&last.matches&&last.matches[0])?last.matches[0].winner:null;
+  const t=myTeam();
+  if(k.prize) t.budget=Math.round((t.budget+k.prize)*10)/10;
+  try{ S.club.prestige=clamp(S.club.prestige+(champ===S.userTeam?6:2),0,100); }catch(e){}
+  newsAdd('cup','🏆 케스파컵 종료 — 우승 '+(champ?(champ===S.userTeam?'우리 팀! 상금 '+(k.prize||3).toFixed(1)+'억':T(champ).name):'확정')+' · LCK 스프링 1주차 개막');
+  try{ saveGame(); }catch(e){}
+  return true;
+}
 function kespaRecord(matchRef, meScore, oppScore){
   const k=S.kespa; const r=kespaRound(); if(!r) return;
   const m=r.matches.find(x=>x.a===matchRef.a&&x.b===matchRef.b)||r.matches.find(x=>!x.done&&(x.a===S.userTeam||x.b===S.userTeam));
@@ -8747,14 +8777,8 @@ function kespaRecord(matchRef, meScore, oppScore){
   if(m.winner===S.userTeam && !S.club.facts.kespa4){ S.club.facts.kespa4=true; newsAdd('cup','🏆 케스파컵 4강 진출 달성'); }
   kespaSimOthers();
   kespaAdvanceRound();
-  if(k.done){
-    S.phase='regular'; S.splashPending='spring'; S.actionApplied=false;
-    newsAdd('cup','🏆 케스파컵 종료 — LCK 스프링 개막');
-    const t=myTeam();
-    if(k.prize) t.budget=Math.round((t.budget+k.prize)*10)/10;
-    S.club.prestige=clamp(S.club.prestige+(k.rounds[k.rounds.length-1].matches[0].winner===S.userTeam?6:2),0,100);
-    newsAdd('cup','🏆 케스파컵 종료 — 우승 '+(k.rounds[k.rounds.length-1].matches[0].winner===S.userTeam?'우리 팀! 상금 3.0억':T(k.rounds[k.rounds.length-1].matches[0].winner).name));
-  }
+  kespaResolveRest();     /* 유저 탈락 시 남은 라운드 자동 진행 */
+  kespaFinalize();        /* 승패와 무관하게 정규시즌으로 전환 */
   saveGame();
 }
 
@@ -15971,7 +15995,18 @@ function kespaBegin(){
   const k=S.kespa||kespaInit();
   if(!k.started){ k.started=true; saveGame(); sfx('start'); }
   const m=kespaMyMatch();
-  if(!m) return;
+  if(!m){
+    /* 유저가 이미 탈락(또는 결승 종료) — 남은 경기를 자동 진행하고 정규시즌으로 넘긴다 */
+    try{ kespaSimOthers(); }catch(e){}
+    try{ kespaResolveRest(); }catch(e){}
+    if(typeof kespaFinalize==='function'&&kespaFinalize()){
+      try{ toast('🏆 케스파컵 종료 — LCK 스프링 1주차를 시작합니다'); }catch(e){}
+      try{ renderAll(); }catch(e){}
+      return;
+    }
+    try{ toast('케스파컵 대진을 정리했습니다'); }catch(e){}
+    return;
+  }
   const oppId=m.a===S.userTeam?m.b:m.a;
   const s=createSeries(oppId,3,'kespa',{roundName:(kespaRound()||{}).name,kespaMatch:{a:m.a,b:m.b}});
   s.meta.pressDone=false;
