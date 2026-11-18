@@ -1,0 +1,50 @@
+name: 마듀 메타 자동 업데이트
+
+on:
+  schedule:
+    # 매일 21:00 UTC = 06:00 KST
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-mdm
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python 설정
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 필요한 패키지 설치
+        run: pip install --quiet beautifulsoup4 lxml
+
+      - name: 데이터 빌드 (티어표 라이브 갱신 + 스냅샷 덱)
+        run: |
+          python3 scripts/mdm/build_data.py
+          python3 scripts/mdm/build.py
+
+      - name: md-meta.html 변경 시 커밋·푸시
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add md-meta.html
+          if git diff --cached --quiet; then
+            echo "변경 없음 — 커밋하지 않습니다"
+            exit 0
+          fi
+          git commit -m "md-meta 자동 업데이트: $(date -u -d '+9 hours' +'%Y-%m-%d')"
+          git pull --rebase --autostash origin main
+          git push origin main
