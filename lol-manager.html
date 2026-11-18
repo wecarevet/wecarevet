@@ -2755,6 +2755,72 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .f-b .bj-start input{width:14px;height:14px;accent-color:#ffc94a}
 .btn.gold{background:linear-gradient(180deg,rgba(255,201,74,.22),rgba(255,201,74,.08));border-color:rgba(255,201,74,.5);color:#ffd98f}
 
+/* ================= PRO MACRO v7 — 운영 HUD 칩 ================= */
+.mx-tag{display:inline-block;margin-left:5px;padding:1px 7px;border-radius:999px;font-size:9.5px;font-weight:900;
+  letter-spacing:.01em;color:#cfe6ff;background:rgba(60,180,255,.12);border:1px solid rgba(60,180,255,.34);white-space:nowrap}
+
+/* ================= V6.5 밴픽 — 모바일 전용 레이아웃 (<720px) =================
+   ≥720px(폴드 펼침·데스크톱)는 기존 3열 방송 레이아웃을 그대로 유지한다.
+   <720px: 상단 고정 두 팀 헤더(5픽+5밴) · 4열 챔피언 그리드 · 필터/검색 · 하단 고정 바 */
+.d6-mob{display:none}
+@media(max-width:719px){
+  .d6-mob{display:block;position:sticky;top:0;z-index:36;padding:5px 7px 6px;
+    background:linear-gradient(180deg,rgba(8,10,15,.995),rgba(10,13,19,.965));
+    border-bottom:1px solid #232a38;box-shadow:0 8px 20px rgba(0,0,0,.62)}
+  .dm-top{display:flex;align-items:center;gap:6px;margin-bottom:5px;min-width:0}
+  .dm-phase{font-size:9.5px;font-weight:900;color:#e6c481;letter-spacing:.05em;white-space:nowrap}
+  .dm-whos{flex:1 1 auto;min-width:0;font-size:9.5px;font-weight:900;padding:2px 7px;border-radius:999px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid #2a3345;background:#10141b;color:#cfd8e8}
+  .dm-whos.mine{color:#c7ecff;border-color:rgba(60,180,255,.62);background:rgba(50,170,255,.16)}
+  .dm-whos.enemy{color:#ffc3cd;border-color:rgba(255,90,120,.55);background:rgba(255,70,100,.14)}
+  .dm-clock{flex:0 0 auto;font-size:11px;font-weight:900;color:#ffe6a8;font-variant-numeric:tabular-nums}
+  .dm-head{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .dm-team{min-width:0;padding:5px 6px;border-radius:10px;background:#0b0e14;border:1px solid #1e2532;
+    transition:box-shadow .2s ease,border-color .2s ease}
+  .dm-team.me{border-color:rgba(58,168,255,.30)}
+  .dm-team.opp{border-color:rgba(255,90,120,.26)}
+  .dm-team.on.me{border-color:#3aa8ff;box-shadow:0 0 0 1px rgba(60,170,255,.5),0 0 14px rgba(40,150,255,.34)}
+  .dm-team.on.opp{border-color:#ff5e7a;box-shadow:0 0 0 1px rgba(255,90,120,.46),0 0 12px rgba(255,70,100,.3)}
+  .dm-tag{display:flex;align-items:center;gap:4px;margin-bottom:4px;min-width:0}
+  .dm-tag b{font-size:10px;font-weight:900;color:#e8eefb;white-space:nowrap}
+  .dm-team.opp .dm-tag{flex-direction:row-reverse}
+  .dm-tag em{font-style:normal;font-size:8px;font-weight:900;color:#7d8aa0;margin-left:auto;white-space:nowrap}
+  .dm-team.opp .dm-tag em{margin-left:0;margin-right:auto}
+  .dm-picks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}
+  .dm-pick{position:relative;aspect-ratio:1/1;min-width:0;border-radius:7px;overflow:hidden;
+    background:#141a23;border:1px solid #242b38;display:grid;place-items:center;
+    font-size:9px;font-weight:900;color:#5b6577}
+  .dm-pick img{width:100%;height:100%;object-fit:cover;display:block}
+  .dm-pick.on{border-color:#3b4659;background:#1a202b}
+  .dm-pick.hot{border-color:#3aa8ff;box-shadow:0 0 0 1px rgba(60,170,255,.6),0 0 10px rgba(50,170,255,.4)}
+  .dm-pick i{position:absolute;left:0;right:0;bottom:0;font-style:normal;font-size:7px;font-weight:900;
+    color:#fff;background:rgba(6,9,14,.74);text-align:center;padding:0 1px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dm-bans{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;margin-top:3px}
+  .dm-ban{height:13px;min-width:0;border-radius:4px;overflow:hidden;display:grid;place-items:center;
+    background:#141821;border:1px solid #232a36}
+  .dm-ban img{width:100%;height:100%;object-fit:cover;filter:grayscale(.52) brightness(.82)}
+  .dm-ban b{font-size:7px;font-weight:900;color:#4a5466}
+  .dm-ban.on{border-color:rgba(224,104,122,.5);background:rgba(224,104,122,.14)}
+  .dm-ban.on b{color:#ffb7c3}
+  .dm-ban.nx{border-color:#3aa8ff;box-shadow:0 0 8px rgba(58,168,255,.55)}
+  /* 3열 방송 레이아웃의 양 사이드 카드는 <720px에서 숨긴다 (상단 헤더가 대신한다) */
+  .d6-wrap{grid-template-columns:1fr;padding:6px;gap:6px}
+  .d6-wrap .d6-side{display:none}
+  .d6-top{display:none}
+  .d6-mid{gap:6px}
+  .d6-mid .d6-turn{display:none}
+  .d6-mid .card.tight{padding:8px 9px}
+  .d6-mid .draft-timeline{overflow-x:auto}
+  /* 챔피언 그리드 4열 + 필터/검색 */
+  #champGrid,.champ-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+  #draftFilters{gap:4px}
+  #draftFilters .chip{font-size:10.5px;padding:4px 9px}
+  #draftFilters .champ-q{flex:1 0 100%;margin-top:2px;font-size:12px;padding:7px 9px}
+  .champ-info{display:none}
+  .d6-dock{padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+}
+
 </style>
 </head>
 <body>
@@ -5647,6 +5713,10 @@ function startMatch(draftResult){
     campSteal:{me:0,opp:0}, campStealAtMe:-9, campStealAtOpp:-9, tpAt:null,
   };
   try{ if(typeof v5InitMatch==='function') v5InitMatch(); }catch(e){}
+  /* PRO MACRO v7 — 웨이브·턴·시야·포메이션 상태 초기화 */
+  try{ if(typeof macroInit==='function') macroInit(); }catch(e){}
+  /* KILL GATE — 미니맵-중계 동기화 큐 */
+  try{ if(typeof kgInit==='function') kgInit(); }catch(e){}
   /* V6 — 게임플랜을 실제 매치 파라미터로 반영 */
   try{ if(typeof v6GpApplyToMatch==='function') v6GpApplyToMatch(M,gp,draftResult); }catch(e){}
   /* ---- 세트 간 코칭 지시 반영 (지난 세트 분석 기반) ---- */
@@ -5756,7 +5826,9 @@ function laneLossApply(killerSide, role, m, tag){
   const dfn=victimSide==='me'?myTeam().tag:T(M.oppId).tag;
   const laneName=ROLE_KR[laneRole]||'미드';
   const txt=(m||M.minute||0)+'분 · 🌊 <b>라인 손해</b> — '+dfn+' '+laneName+' 라이너가 비는 사이 '+atk+'이(가) 웨이브를 밀어 넣어 CS '+cs+'개 · '+xp+'XP 손실'+(plate?(' · 포탑 방패 +'+plate+'G'):'')+'.';
-  try{ logEvent(killerSide==='me'?'blue':'red', txt); }catch(e){}
+  try{ tlEmit({kind:'wave', team:killerSide, lane:laneRole, cs:cs, xp:xp,
+    lines:[{kind:killerSide==='me'?'blue':'red', text:txt}], mm:false }); }
+  catch(e){ try{ logEvent(killerSide==='me'?'blue':'red', txt); }catch(e2){} }
   return {cs:cs,xp:xp,plate:plate};
 }
 function logEvent(kind,text,minute){
@@ -5819,6 +5891,10 @@ function tickBody(silent){
   try{ if(typeof v5Scuttle==='function'&&(!M.scuttleWar||!M.scuttleWar.fired)&&M.sec>=V5_SCUTTLE_SEC) v5Scuttle(); }catch(e){}
   /* 00:30~01:25 초반 시야·와드 싸움 */
   try{ if(typeof v5EarlyWardTick==='function') v5EarlyWardTick(M.sec); }catch(e){}
+  /* PRO MACRO v7 — 오브젝트 35~45초 전 시야 장악 (초 단위) */
+  try{ if(typeof macroTick==='function') macroTick(M.sec); }catch(e){}
+  /* KILL GATE — 보류된 킬이 지도에서 만났는지 확인 (초 단위) */
+  try{ if(typeof kgTick==='function') kgTick(); }catch(e){}
   if(!M.lv) lvInit();
   lvTick(1);
   if(M.sec%60===0) simStep(silent);
@@ -5901,6 +5977,8 @@ function simStep(silent){
   if(!M.lane) M.lane={TOP:{my:60,opp:60},MID:{my:60,opp:60},ADC:{my:60,opp:60},JGL:{my:60,opp:60},SUP:{my:60,opp:60}};
   M.minute++;
   const m=M.minute;
+  /* PRO MACRO v7 — 웨이브 관리·오브젝트 셔브·포메이션 판단 */
+  try{ if(typeof macroMinuteTick==='function') macroMinuteTick(m); }catch(e){}
   /* 시간대가 끝난 전술은 자동 종료하고, 지금 쓸 수 있는 운영 전술로 바꾼다 */
   if(M.focusKey&&FOCUS_MAP[M.focusKey]){
     const tm=tacticTimeOk(M.focusKey);
@@ -5949,22 +6027,22 @@ function simStep(silent){
         const kg=commitKill('me',{role:cp.role, kind:'clutch', gold:330});
         lvAddXp('me',cp.role,26);
         M.clutch=(M.clutch||0)+1;
-        logEvent('blue', m+'분 · ⚡ <b>슈퍼플레이</b> — '+cp.name+'('+myChampAt(cp.role)+')이(가) '+pickOf(['대박 이니시','바론 스틸','퀵실버 역전 한타','1대3 처형'])+'로 판을 뒤집습니다!');
-        logEvent('sys','🎤 전용준: 이건 개인 기량입니다! '+cp.name+'가 게임을 바꿉니다!');
+        kgLog(kg,'blue', m+'분 · ⚡ <b>슈퍼플레이</b> — '+cp.name+'('+myChampAt(cp.role)+')이(가) '+pickOf(['대박 이니시','바론 스틸','퀵실버 역전 한타','1대3 처형'])+'로 판을 뒤집습니다!');
+        kgLog(kg,'sys','🎤 전용준: 이건 개인 기량입니다! '+cp.name+'가 게임을 바꿉니다!');
       }
     }else if(m>=4&&Math.random()<teamMisplayRate(opp,press)*0.35){
       const ipo=pickMisplayPlayer(opp);
       if(ipo){
         const kg2=commitKill('me',{role:ipo.role, kind:'misplay', gold:240});
-        logEvent('blue', m+'분 · 💥 <b>상대 미스플레이</b> — '+ipo.name+'('+oppChampAt(ipo.role)+')이(가) '+(press>1.2?'큰 무대 압박 속에 ':'')+pickOf(['각을 못 보고 짤렸습니다','스킬을 헛쳤습니다','혼자 들어가다 잡혔습니다'])+'!');
+        kgLog(kg2,'blue', m+'분 · 💥 <b>상대 미스플레이</b> — '+ipo.name+'('+oppChampAt(ipo.role)+')이(가) '+(press>1.2?'큰 무대 압박 속에 ':'')+pickOf(['각을 못 보고 짤렸습니다','스킬을 헛쳤습니다','혼자 들어가다 잡혔습니다'])+'!');
       }
     }
     if(m>=4&&Math.random()<teamMisplayRate(t,press)*0.4*(1-((typeof pressMod==='function')?pressMod().focus:0))){
       const mp=pickMisplayPlayer(t);
       if(mp){
         const kg3=commitKill('opp',{role:mp.role, kind:'misplay', gold:240});
-        logEvent('red', m+'분 · 💥 <b>미스플레이</b> — '+mp.name+'('+myChampAt(mp.role)+')이(가) '+(press>1.2?'무대 압박에 ':'')+pickOf(['포지션을 잃고 짤렸습니다','점멸 없이 들어가다 잡혔습니다','킬 욕심에 진형이 무너졌습니다'])+'.');
-        if(press>1.2) logEvent('sys','🎙 클템: 큰 무대에서 그 실수가 나옵니다, 경험이 필요한 부분이에요');
+        kgLog(kg3,'red', m+'분 · 💥 <b>미스플레이</b> — '+mp.name+'('+myChampAt(mp.role)+')이(가) '+(press>1.2?'무대 압박에 ':'')+pickOf(['포지션을 잃고 짤렸습니다','점멸 없이 들어가다 잡혔습니다','킬 욕심에 진형이 무너졌습니다'])+'.');
+        if(press>1.2) kgLog(kg3,'sys','🎙 클템: 큰 무대에서 그 실수가 나옵니다, 경험이 필요한 부분이에요');
       }
     }
   }catch(e){}
@@ -6025,17 +6103,18 @@ function simStep(silent){
     if(Math.random()<0.42){
       const victim=team==='me'?oppNameAt(role):myNameAt(role);
       M.lastKill.kind='solo';
-      logEvent(sideCls, m+'분 · <b>'+nm+'</b>('+champ+') 솔로킬! '+(sigLine?sigLine+' — ':'')+(flavour?'<i>'+flavour+'</i> · ':'')+ROLE_KR[role]+'에서 '+victim+'를 잡아냅니다.');
+      kgLog(kgL, sideCls, m+'분 · <b>'+nm+'</b>('+champ+') 솔로킬! '+(sigLine?sigLine+' — ':'')+(flavour?'<i>'+flavour+'</i> · ':'')+ROLE_KR[role]+'에서 '+victim+'를 잡아냅니다.');
     }else{
       const gankRole=pickOf(ROLES.filter(r=>r!==role));
       const gankName=team==='me'?myNameAt(gankRole):oppNameAt(gankRole);
       const gankChamp=team==='me'?myChampAt(gankRole):oppChampAt(gankRole);
       const gc=CHAMP_MAP[gankChamp];
       M.lastKill.kind='gank'; M.lastKill.gankRole=gankRole;
-      logEvent(sideCls, m+'분 · '+ROLE_KR[role]+' 로밍 킬 — <b>'+gankName+'</b>('+gankChamp+')이(가) '+(gc&&gc.sig?'<i>'+gc.sig.split('·')[0].trim()+'</i>으로 ':'')+(flavour?flavour+'으로 ':'')+'마무리합니다.');
+      kgLog(kgL, sideCls, m+'분 · '+ROLE_KR[role]+' 로밍 킬 — <b>'+gankName+'</b>('+gankChamp+')이(가) '+(gc&&gc.sig?'<i>'+gc.sig.split('·')[0].trim()+'</i>으로 ':'')+(flavour?flavour+'으로 ':'')+'마무리합니다.');
     }
-    /* 죽은 라이너의 웨이브 손실 → CS·XP·판 골드 */
-    try{ laneLossApply(team, role, m); }catch(e){}
+    /* 죽은 라이너의 웨이브 손실 → CS·XP·판 골드 (킬 확정 시점에 함께 처리) */
+    if(kgL&&kgL.deferred) kgL.q.after=function(){ try{ laneLossApply(team, role, m); }catch(e){} };
+    else try{ laneLossApply(team, role, m); }catch(e){}
   }
   // 픽오프 (바론/용 시야 낚시)
   if(fo&&fo.pickoff&&Math.random()<fo.pickoff*0.5){
@@ -6044,7 +6123,7 @@ function simStep(silent){
     const role=pickOf(['SUP','JGL','MID']);
     const kgP=commitKill(team,{role:role, kind:'pickoff', lane:'MID', gold:380});
     lvAddXp(team,role,30); ROLES.forEach(r=>{ if(r!==role) lvAddXp(team,r,12); });
-    logEvent(team==='me'?'blue':'red', m+'분 · <b>부시 매복 픽오프</b> — '+(team==='me'?myNameAt(role):oppNameAt(role))+'이(가) 시야 밖에서 끊어냅니다.');
+    kgLog(kgP, team==='me'?'blue':'red', m+'분 · <b>부시 매복 픽오프</b> — '+(team==='me'?myNameAt(role):oppNameAt(role))+'이(가) 시야 밖에서 끊어냅니다.');
   }
   // 위험 특성
   const riskMe=Math.max(0,M.trait.me.risk-1.2)*((M.gpe&&M.gpe.riskMul)||1), riskOp=Math.max(0,M.trait.opp.risk-1.2);
@@ -6056,7 +6135,7 @@ function simStep(silent){
     const kgC=commitKill(team,{role:role, kind:'counter', gold:420});
     const pl=playerAt(team==='me'?'opp':'me',role);
     const bad=badStyleLine(pl)||'무리한 진입';
-    logEvent(team==='me'?'blue':'red', m+'분 · <b>'+bad+'</b> — '+(team==='me'?M.oppName:M.myName)+'이(가) 역습 킬을 챙깁니다.');
+    kgLog(kgC, team==='me'?'blue':'red', m+'분 · <b>'+bad+'</b> — '+(team==='me'?M.oppName:M.myName)+'이(가) 역습 킬을 챙깁니다.');
   }
   // 공허 유충
   if(m===6||m===10){
@@ -6068,14 +6147,21 @@ function simStep(silent){
     const objEdge=(M.trait.me.obj-M.trait.opp.obj)*0.012+(M.trait.me.vision-M.trait.opp.vision)*0.006;
     let favor=killFavor+focus+objEdge+(sta.obj||0);
     try{ if(typeof v6NumEdge==='function') favor+=v6NumEdge('grub'); }catch(e){}
+    try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('grub',m); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.08;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.92;
     const meWins=Math.random()<clamp(favor,0.08,0.92);
-    const team=meWins?'me':'opp';
+    let team=meWins?'me':'opp';
+    try{ if(typeof macroSteal==='function') team=macroSteal('grub',team,m); }catch(e){}
+    /* 타임라인-미니맵 락: 핏에 실제로 있는 팀이 가져간다 */
+    try{ if(typeof macroObjPresenceFix==='function'){ const g=macroObjPresenceFix('grub',team,m); if(g) team=g; } }catch(e){}
     M.grubs[sideIdx(team)]+=3; addGold(team,190*S.meta.obj.grub);
-    try{ if(typeof mmNote==='function') mmNote('obj',{obj:'grub',team:team}); }catch(e){}
     ROLES.forEach(r=>lvAddXp(team,r,16));
-    logEvent(team==='me'?'blue':'red', m+'분 · 공허 유충 3스택 — <b>'+(team==='me'?M.myName:M.oppName)+'</b>이(가) 유충을 가져갑니다.');
+    try{
+      tlEmit({kind:'obj', obj:'grub', team:team, label:'공허 유충 '+(M.grubs[sideIdx(team)])+'스택 — <em>'+esc(team==='me'?myTeam().tag:T(M.oppId).tag)+'</em> 확보',
+        lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 공허 유충 3스택 — <b>'+(team==='me'?M.myName:M.oppName)+'</b>이(가) 유충을 가져갑니다.'}],
+        mmKind:'obj', mm:{obj:'grub',team:team}});
+    }catch(e){ logEvent(team==='me'?'blue':'red', m+'분 · 공허 유충 3스택 — <b>'+(team==='me'?M.myName:M.oppName)+'</b>이(가) 유충을 가져갑니다.'); }
     try{ if(typeof v6NumComment==='function') v6NumComment('grub',team); }catch(e){}
   }
   // ---------- 드래곤: 원소 · 영혼 · 장로 ----------
@@ -6093,39 +6179,51 @@ function simStep(silent){
     try{ const dm=drakeBonus('me'), dop=drakeBonus('opp'); objEdge+=(dm.rotate-dop.rotate)*0.08+(dm.tempo-dop.tempo)*0.05; }catch(e){}
     let favor=killFavor+dFocus+objEdge;
     try{ if(typeof v6NumEdge==='function') favor+=v6NumEdge('dragon'); }catch(e){}
+    try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('dragon',m); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.06;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.94;
     else if(macro.me==='trade'&&macro.opp==='trade') favor=0.5;
     const meWins=Math.random()<clamp(favor,0.04,0.96);
-    const team=meWins?'me':'opp';
+    let team=meWins?'me':'opp';
+    try{ if(typeof macroSteal==='function') team=macroSteal('dragon',team,m); }catch(e){}
+    try{ if(typeof macroObjPresenceFix==='function'){ const g=macroObjPresenceFix('dragon',team,m); if(g) team=g; } }catch(e){}
     const n=(M.dragons[sideIdx(team)]||0)+1;
     M.dragons[sideIdx(team)]=n;
     const elem=(n>=4&&M.soulType[team])?M.soulType[team]:(pickOf(DRAKE_ELEMENTS).k);
     M.dragonElems[team].push(elem);
     addGold(team,380*S.meta.obj.dragon);
     ROLES.forEach(r=>lvAddXp(team,r,18));
-    try{ if(typeof mmNote==='function') mmNote('obj',{obj:'dragon',team:team,elem:elem}); }catch(e){}
+    M._tlDragon={team:team,elem:elem,n:n};
+    const dcl=team==='me'?'blue':'red';
+    const dlines=[];
     if(n===3&&!M.soulType[team]){
       M.soulType[team]=elem;
-      logEvent(team==='me'?'blue':'red', m+'분 · <b>3용</b> — '+(team==='me'?M.myName:M.oppName)+'의 드래곤 영혼 예고: <b>'+drakeName(elem)+'의 영혼</b>');
+      dlines.push({kind:dcl, text:m+'분 · <b>3용</b> — '+(team==='me'?M.myName:M.oppName)+'의 드래곤 영혼 예고: <b>'+drakeName(elem)+'의 영혼</b>'});
     }else if(n>=4&&!M.soulGranted[team]){
       M.soulGranted[team]=true; M.soulType[team]=M.soulType[team]||elem;
       M.elderAt=m+6;
-      logEvent(team==='me'?'blue':'red', m+'분 · 💠 <b>드래곤 영혼 획득!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) '+drakeName(M.soulType[team])+'의 영혼을 흡수했습니다 — '+drakeName(M.soulType[team])+' 영혼 효과: '+(DRAKE_DESC[M.soulType[team]]||'한타력 급상승'));
-      logEvent('sys','🎤 전용준: '+(M.soulType[team]?('드래곤 영혼! '+drakeName(M.soulType[team])+' 영혼이 '+((team==='me')?M.myName:M.oppName)+' 손에 들어옵니다!'):'영혼 획득입니다!'));
+      dlines.push({kind:dcl, text:m+'분 · 💠 <b>드래곤 영혼 획득!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) '+drakeName(M.soulType[team])+'의 영혼을 흡수했습니다 — '+drakeName(M.soulType[team])+' 영혼 효과: '+(DRAKE_DESC[M.soulType[team]]||'한타력 급상승')});
+      dlines.push({kind:'sys', text:'🎤 전용준: '+(M.soulType[team]?('드래곤 영혼! '+drakeName(M.soulType[team])+' 영혼이 '+((team==='me')?M.myName:M.oppName)+' 손에 들어옵니다!'):'영혼 획득입니다!')});
     }else{
-      logEvent(team==='me'?'blue':'red', m+'분 · '+drakeIcon(elem)+' '+drakeName(elem)+' 드래곤 처치 — <b>'+(team==='me'?M.myName:M.oppName)+'</b> ('+n+'스택)');
+      dlines.push({kind:dcl, text:m+'분 · '+drakeIcon(elem)+' '+drakeName(elem)+' 드래곤 처치 — <b>'+(team==='me'?M.myName:M.oppName)+'</b> ('+n+'스택)'});
     }
+    const dLabel=(n>=4&&M.soulGranted[team])?'드래곤 영혼':(drakeName(elem)+' 드래곤');
+    try{ tlEmit({kind:'obj', obj:'dragon', team:team, elem:elem, lines:dlines,
+      label:dLabel+' — <em>'+esc(team==='me'?myTeam().tag:T(M.oppId).tag)+'</em>', mmKind:'obj', mm:{obj:'dragon',team:team,elem:elem}}); }
+    catch(e){ dlines.forEach(function(l){ try{ logEvent(l.kind,l.text); }catch(e2){} }); }
   }
   // 장로 드래곤 (영혼 획득 6분 후)
   if(M.elderAt && m>=M.elderAt && (m-M.elderAt)%6===0){
     const objEdge=(M.trait.me.obj-M.trait.opp.obj)*0.012+soulEdgeDiff;
-    const meWins=Math.random()<clamp(killFavor+0.02+objEdge,0.08,0.92);
-    const team=meWins?'me':'opp';
+    const meWins=Math.random()<clamp(killFavor+0.02+objEdge+((typeof macroVisionEdge==='function')?macroVisionEdge('elder',m):0),0.08,0.92);
+    let team=meWins?'me':'opp';
+    try{ if(typeof macroSteal==='function') team=macroSteal('elder',team,m); }catch(e){}
     M.elder[team]=true; M.elderUntil[team]=m+3; M.elderCount[sideIdx(team)]++;
-    try{ if(typeof mmNote==='function') mmNote('obj',{obj:'elder',team:team}); }catch(e){}
     addGold(team,600);
-    logEvent(team==='me'?'blue':'red', m+'분 · 🐲 <b>장로 드래곤 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 처형 버프를 얻습니다 (3분)');
+    try{ tlEmit({kind:'obj', obj:'elder', team:team, label:'장로 드래곤 — <em>'+esc(team==='me'?myTeam().tag:T(M.oppId).tag)+'</em> 처형 버프',
+      lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 🐲 <b>장로 드래곤 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 처형 버프를 얻습니다 (3분)'}],
+      mmKind:'obj', mm:{obj:'elder',team:team}}); }
+    catch(e){ logEvent(team==='me'?'blue':'red', m+'분 · 🐲 <b>장로 드래곤 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 처형 버프를 얻습니다 (3분)'); }
   }
   // 협곡의 전령
   if(m===14){
@@ -6135,14 +6233,19 @@ function simStep(silent){
     if(macro.opp==='trade') try{ v5MacroTrade('opp','herald',m); }catch(e){}
     let favor=killFavor+(fo&&fo.mm==='top'?0.1:0)+(M.gp.firstObj==='grub'?0.05:0)+(M.gp.firstObj==='herald'?0.18:0);
     try{ if(typeof v6NumEdge==='function') favor+=v6NumEdge('herald'); }catch(e){}
+    try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('herald',m); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.06;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.94;
     const meWins=Math.random()<clamp(favor,0.06,0.94);
-    const team=meWins?'me':'opp';
+    let team=meWins?'me':'opp';
+    try{ if(typeof macroSteal==='function') team=macroSteal('herald',team,m); }catch(e){}
+    try{ if(typeof macroObjPresenceFix==='function'){ const g=macroObjPresenceFix('herald',team,m); if(g) team=g; } }catch(e){}
     M.heralds[sideIdx(team)]++;
     addGold(team,450);
-    try{ if(typeof mmNote==='function') mmNote('obj',{obj:'herald',team:team}); }catch(e){}
-    logEvent(team==='me'?'blue':'red', m+'분 · 🕯 <b>협곡의 전령 처치</b> — '+(team==='me'?M.myName:M.oppName)+'이(가) 전령을 확보해 타워 압박에 나섭니다.');
+    try{ tlEmit({kind:'obj', obj:'herald', team:team, label:'협곡의 전령 — <em>'+esc(team==='me'?myTeam().tag:T(M.oppId).tag)+'</em> 확보',
+      lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 🕯 <b>협곡의 전령 처치</b> — '+(team==='me'?M.myName:M.oppName)+'이(가) 전령을 확보해 타워 압박에 나섭니다.'}],
+      mmKind:'obj', mm:{obj:'herald',team:team}}); }
+    catch(e){ logEvent(team==='me'?'blue':'red', m+'분 · 🕯 <b>협곡의 전령 처치</b> — '+(team==='me'?M.myName:M.oppName)+'이(가) 전령을 확보해 타워 압박에 나섭니다.'); }
     try{ if(typeof v6NumComment==='function') v6NumComment('herald',team); }catch(e){}
   }
   // 타워 (라인 전선 잠금: T1→T2→T3→억제기→넥서스 순서만)
@@ -6151,8 +6254,9 @@ function simStep(silent){
     const team=meWins?'me':'opp';
     if(typeof v5TowerFall==='function') v5TowerFall(team,m); else M.towers[sideIdx(team)]++;
   }
-  // 한타
-  if(m>=13 && Math.random()<0.07*(1+((fo&&fo.fight)||0))*(1+(M.stance==='aggro'?0.5:M.stance==='defensive'?-0.35:0))){
+  // 한타 (불리하면 5:5를 열지 않고 시야 트랩·역바론으로 전환)
+  if(m>=13 && Math.random()<0.07*(1+((fo&&fo.fight)||0))*(1+(M.stance==='aggro'?0.5:M.stance==='defensive'?-0.35:0))
+     && !(typeof macroAvoidFight==='function'&&macroAvoidFight(m))){
     let fightEdge=(M.myComp.tags.fight-M.oppComp.tags.fight)*0.015+(M.myComp.front-M.oppComp.front)*0.01+(M.myComp.cc-M.oppComp.cc)*0.006+(M.trait.me.fight-M.trait.opp.fight)*0.012;
     if(M.soulGranted.me) fightEdge+=0.035; if(M.soulGranted.opp) fightEdge-=0.035;
     if(M.elder.me&&m<=(M.elderUntil.me||0)) fightEdge+=0.06; if(M.elder.opp&&m<=(M.elderUntil.opp||0)) fightEdge-=0.06;
@@ -6162,11 +6266,15 @@ function simStep(silent){
     const kgF=commitKill(team,{role:pickOf(ROLES), kind:'fight', lane:'MID', teamfight:true, n:n, gold:n*300+120});
     M.fights[sideIdx(team)]++;
     M.fightAt={min:m,sec:M.sec};
+    /* 한타 승리 → 귀환이 아니라 바론·용·타워 전환 (에이스 후 전환 실패 금지)
+       킬이 지도에서 확정된 뒤에 전환한다 (보류 중이면 after 훅) */
+    const conv=function(){ try{ if(typeof macroConvertAfterAce==='function') macroConvertAfterAce(team,m); }catch(e){} };
+    if(kgF&&kgF.deferred) kgF.q.after=conv; else conv();
     const hero=pickOf(ROLES);
     const pl=playerAt(team,hero);
     const flavour=pl?styleLine(pl):'';
     const archTag=(M.arch&&M.arch.label)?(' <i>'+M.arch.label[(team==='me'?M.arch.me:M.arch.opp).arch]+'</i>'):'';
-    logEvent(team==='me'?'blue':'red', m+'분 · <b>대규모 한타</b> — '+(team==='me'?M.myName:M.oppName)+archTag+'이(가) '+n+'킬 스왑'+(flavour?' · '+flavour+'!':'하며 주도권을 가져갑니다.'));
+    kgLog(kgF, team==='me'?'blue':'red', m+'분 · <b>대규모 한타</b> — '+(team==='me'?M.myName:M.oppName)+archTag+'이(가) '+n+'킬 스왑'+(flavour?' · '+flavour+'!':'하며 주도권을 가져갑니다.'));
   }
   // 바론
   if([20,26,32].includes(m)){
@@ -6178,16 +6286,21 @@ function simStep(silent){
     const objEdge=(M.trait.me.obj-M.trait.opp.obj)*0.016+(typeof v5ObjVision==='function'?v5ObjVision():0);
     let favor=killFavor+baronFocus+objEdge;
     try{ if(typeof v6NumEdge==='function') favor+=v6NumEdge('baron'); }catch(e){}
+    try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('baron',m); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.04;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.96;
     const meWins=Math.random()<clamp(favor,0.04,0.96);
-    const team=meWins?'me':'opp';
+    let team=meWins?'me':'opp';
+    try{ if(typeof macroSteal==='function') team=macroSteal('baron',team,m); }catch(e){}
+    try{ if(typeof macroObjPresenceFix==='function'){ const g=macroObjPresenceFix('baron',team,m); if(g) team=g; } }catch(e){}
     M.barons[sideIdx(team)]++;
     addGold(team,1200*S.meta.obj.baron);
-    try{ if(typeof mmNote==='function') mmNote('obj',{obj:'baron',team:team}); }catch(e){}
     ROLES.forEach(r=>lvAddXp(team,r,22));
     try{ if(typeof v5BaronTaken==='function') v5BaronTaken(team,m); }catch(e){}
-    logEvent(team==='me'?'blue':'red', m+'분 · <b>바론 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 바론 버프로 공성을 시작합니다 — 3분간 2차·3차 타워 압박, 슈퍼 미니언과 함께 넥서스를 노립니다.');
+    try{ tlEmit({kind:'obj', obj:'baron', team:team, label:'바론 — <em>'+esc(team==='me'?myTeam().tag:T(M.oppId).tag)+'</em> 확보',
+      lines:[{kind:team==='me'?'blue':'red', text:m+'분 · <b>바론 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 바론 버프로 공성을 시작합니다 — 3분간 2차·3차 타워 압박, 슈퍼 미니언과 함께 넥서스를 노립니다.'}],
+      mmKind:'obj', mm:{obj:'baron',team:team}}); }
+    catch(e){ logEvent(team==='me'?'blue':'red', m+'분 · <b>바론 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 바론 버프로 공성을 시작합니다 — 3분간 2차·3차 타워 압박, 슈퍼 미니언과 함께 넥서스를 노립니다.'); }
     try{ if(typeof v6NumComment==='function') v6NumComment('baron',team); }catch(e){}
   }
   // V5: 시야전 · 바론 공성 · 억제기
@@ -6303,6 +6416,209 @@ function analyzeGame(game){
   return {reasons};
 }
 
+/* ============================================================================
+   MATCH TIMELINE — 경기의 단일 진실 소스 (Single Source of Truth)
+
+   규칙: 시뮬레이션이 만든 '타임라인 이벤트' 하나가
+         · 중계 텍스트(피드)
+         · 킬/오브젝트/타워/억제기 배너
+         · 미니맵 연출 노트(교전 비트)
+         · 박스스코어·스탯 카운터
+   를 전부 1:1로 파생시킨다. 타임라인 밖에서 배너를 만드는 경로는 없다.
+   미니맵은 이 이벤트 좌표로 30~40게임초 전에 미리 이동하고,
+   킬은 실제 거리 0.12 이하가 확인된 시점(= 이벤트 확정 시점)에만 방출된다.
+   ========================================================================== */
+function tlInit(){
+  if(!M) return;
+  M.timeline=[];
+  M.tlSeq=0;
+  M.tlStats={kill:0,obj:0,tower:0,inhib:0,wave:0,sys:0};
+}
+function tlEmit(ev){
+  if(!M||!ev) return null;
+  if(!M.timeline||!M.tlSeq) tlInit();
+  ev.id=++M.tlSeq;
+  ev.minute=(M.minute||0);
+  ev.sec=(M.sec||0);
+  ev.at=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+  M.timeline.push(ev);
+  if(M.timeline.length>600) M.timeline.shift();
+  /* 1) 중계 텍스트 — 이 이벤트의 문장만 */
+  if(ev.lines&&ev.lines.length){
+    ev.lines.forEach(function(l){ try{ logEvent(l.kind,l.text); }catch(e){} });
+  }
+  /* 2) 미니맵 연출 노트 */
+  if(ev.mm!==false){
+    try{ mmNote(ev.mmKind||ev.kind, ev.mm||{kind:ev.kind, team:ev.team, obj:ev.obj, lane:ev.lane, pt:ev.pt}); }catch(e){}
+  }
+  /* 3) 배너 — 같은 이벤트에서만 */
+  try{ if(typeof v6BannerFromTL==='function') v6BannerFromTL(ev); }catch(e){}
+  if(M.tlStats) M.tlStats[ev.kind]=(M.tlStats[ev.kind]||0)+1;
+  /* 오브젝트 캡처 후 — 진 팀 생존자는 자기 진영으로 먼저 빠진다 */
+  if(ev.kind==='obj'&&ev.team){
+    try{ if(typeof macroPostObjSeparation==='function') macroPostObjSeparation(ev.obj||'obj',ev.team,ev.minute||0); }catch(e){}
+  }
+  return ev;
+}
+function tlLast(n){ return (M&&M.timeline)?M.timeline.slice(-(n||1)):[]; }
+function tlCount(kind){ return (M&&M.timeline)?M.timeline.filter(function(e){ return e.kind===kind; }).length:0; }
+
+/* ============================================================================
+   KILL GATE v7 — 중계와 미니맵의 동기화 (시각 검증 게이트)
+
+   문제: 엔진이 킬을 확정하는 순간 미니맵의 토큰은 아직 교전 지점으로
+         걸어오는 중이라, 중계(킬 배너·피드)가 '먼 곳에 있는 선수'의 킬로 보였다.
+
+   원칙:
+     1) 교전은 30~40게임초 전부터 미리 이동한다 (mmd 로테이션 + 여기서는 rush 속도).
+     2) 글로벌 궁(애쉬·쉔 등)이 아닌 모든 킬은, 미니맵 위 킬러와 피해자의
+        실제 거리가 KG_NEAR(0.12) 이하일 때만 확정한다.
+     3) 아직 멀면 '보류'하고 두 유닛을 교전 지점으로 달려가게 한다 (순간이동 금지).
+        간격이 좁혀지는 순간 확정되고, 중계 멘트도 그때 함께 나간다.
+     4) 제한 시간(KG_WAIT 게임초) 안에 만나지 못하면 그 킬은 무산된다.
+   ========================================================================== */
+const KG_NEAR=0.12;      /* 확정 조건 — 미니맵 거리 */
+const KG_WAIT=18;        /* 보류 최대 게임초 */
+const KG_WAIT_TF=26;     /* 한타는 조금 더 기다린다 */
+
+function kgInit(){
+  if(!M) return;
+  M.killQ=[];
+  M.kgStats={deferred:0,committed:0,aborted:0,instant:0,maxDefer:0,lastDist:null};
+}
+function kgSec(){ return (M&&M.sec)||0; }
+function kgUnit(side,role){
+  try{ return (MM&&MM.units&&role)?(MM.units[side+'-'+role]||null):null; }catch(e){ return null; }
+}
+function kgDist(a,b){ return (a&&b)?Math.hypot(a.x-b.x,a.y-b.y):99; }
+function kgGlobalRole(side,role){
+  try{
+    const ch=((lineupAt(side,role)||{}).champ)||'';
+    if(typeof V6_GLOBAL_ULT!=='undefined') return V6_GLOBAL_ULT.indexOf(ch)>=0;
+  }catch(e){}
+  return false;
+}
+
+/* 보류된 킬의 참가자들을 교전 지점으로 달려가게 한다 (위치를 직접 옮기지 않는다) */
+function kgConverge(e){
+  if(!M||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return;
+  const pt=e.pt||null;
+  const now=kgSec();
+  const order=function(side,role){
+    const k=side+'-'+role;
+    const u=kgUnit(side,role);
+    if(!u||!u.alive||u.tp||u.recallT) return;
+    if(pt) MM.tgt[k]={x:pt[0],y:pt[1]};
+    u.mode='fight';
+    u.rush=now+5;                     /* 이동 속도 부스트 — 순간이동이 아니라 빠른 합류 */
+  };
+  if(e.role) order(e.team,e.role);
+  if(e.victimRole) order((e.team==='me')?'opp':'me',e.victimRole);
+  if(e.teamfight&&pt){
+    ROLES.forEach(function(r){
+      const u=kgUnit(e.team,r);
+      if(u&&u.alive&&Math.hypot(u.x-pt[0],u.y-pt[1])<0.26) order(e.team,r);
+      const v=kgUnit((e.team==='me')?'opp':'me',r);
+      if(v&&v.alive&&Math.hypot(v.x-pt[0],v.y-pt[1])<0.26) order((e.team==='me')?'opp':'me',r);
+    });
+  }
+}
+
+/* 사이트가 이어서 M.lastKill 을 만질 수 있도록 보류 상태에서도 기본값을 깔아 둔다 */
+function kgTouchLast(e){
+  if(!M) return;
+  M.lastKill={team:e.team, role:e.role, victimRole:e.victimRole, kind:e.kind,
+    lane:e.lane||((typeof mmLaneOfRole==='function')?mmLaneOfRole(e.role):'MID'),
+    sec:M.sec, minute:M.minute, teamfight:!!e.teamfight, gankRole:e.gankRole||null};
+  M.killAt={min:M.minute,sec:M.sec};
+}
+
+/* 킬 확정의 단일 창구 — 킬 수·골드·킬피드·미니맵 노트를 여기서만 만진다 */
+function kgApply(e){
+  if(!M) return null;
+  const i=(typeof sideIdx==='function')?sideIdx(e.team):(e.team==='me'?0:1);
+  const n=Math.max(1,e.n||1);
+  /* 사이트가 커밋 직후 M.lastKill.kind/gankRole 을 다듬었으면 그 값을 살린다 */
+  const prev=M.lastKill;
+  const same=!!(prev&&prev.team===e.team&&prev.role===e.role);
+  kgTouchLast({team:e.team, role:e.role, victimRole:e.victimRole,
+    kind:(same&&prev.kind)?prev.kind:e.kind,
+    lane:e.lane||((same&&prev.lane)?prev.lane:null),
+    teamfight:!!e.teamfight,
+    gankRole:(same&&prev.gankRole)?prev.gankRole:(e.gankRole||null)});
+  M.kills[i]=(M.kills[i]||0)+n;
+  if(e.gold) addGold(e.team,e.gold);
+  /* 단일 소스 — 이 킬은 타임라인에 한 번만 기록되고,
+     피드 문장·킬 배너·미니맵 교전 비트가 모두 여기서 1:1로 파생한다. */
+  const lines=(e.lines||[]).slice();
+  e.lines=[];
+  try{
+    tlEmit({kind:'kill', team:e.team, role:e.role, victimRole:e.victimRole,
+      sub:M.lastKill.kind, lane:M.lastKill.lane, teamfight:!!e.teamfight,
+      gold:e.gold||0, n:n, d:e.d||0, lines:lines, pt:e.pt, exempt:!!e.exempt,
+      mmKind:'kill', mm:{kind:M.lastKill.kind, team:e.team, role:e.role,
+        victimRole:e.victimRole, lane:M.lastKill.lane, teamfight:!!e.teamfight, pt:e.pt}});
+  }catch(err){
+    lines.forEach(function(l){ try{ logEvent(l.kind,l.text); }catch(e2){} });
+  }
+  if(M.kgStats) M.kgStats.committed++;
+  if(typeof e.after==='function'){ try{ e.after(); }catch(err){} }
+  return {ok:true, team:e.team, role:e.role, victimRole:e.victimRole, d:e.d||0};
+}
+
+/* 보류 등록 */
+function kgPush(team,opts,chk){
+  if(!M) return null;
+  if(!M.killQ) kgInit();
+  const wait=opts.teamfight?KG_WAIT_TF:KG_WAIT;
+  const e={team:team, role:chk.role||opts.role||null, victimRole:chk.victimRole||opts.victimRole||null,
+    kind:opts.kind||'lane', lane:opts.lane||null, gold:opts.gold||0, n:opts.n||1,
+    teamfight:!!opts.teamfight, gankRole:opts.gankRole||null, pt:chk.pt||null,
+    at:kgSec(), deadline:kgSec()+wait, d:chk.d||0, lines:[]};
+  M.killQ.push(e);
+  if(M.killQ.length>8) M.killQ.shift();
+  /* 사이트가 이어서 M.lastKill 을 만질 수 있게 기본값을 깔아 둔다 */
+  kgTouchLast(e);
+  if(M.kgStats){
+    M.kgStats.deferred++;
+    M.kgStats.maxDefer=Math.max(M.kgStats.maxDefer||0,wait);
+  }
+  kgConverge(e);
+  return e;
+}
+function kgLog(kg,kind,text){
+  if(kg&&kg.deferred&&kg.q){ kg.q.lines.push({kind:kind,text:String(text)}); return; }
+  try{ logEvent(kind,text); }catch(e){}
+}
+/* 매 게임초 — 보류된 킬이 실제로 만났는지 확인 */
+function kgTick(){
+  if(!M||!M.killQ||!M.killQ.length) return;
+  const now=kgSec();
+  const keep=[];
+  for(let i=0;i<M.killQ.length;i++){
+    const e=M.killQ[i];
+    const K=e.role?kgUnit(e.team,e.role):null;
+    const V=e.victimRole?kgUnit((e.team==='me')?'opp':'me',e.victimRole):null;
+    if(!K||!V||!K.alive||!V.alive){ kgAbort(e); continue; }
+    const d=kgDist(K,V);
+    if(M.kgStats) M.kgStats.lastDist=Math.round(d*1000)/1000;
+    /* 글로벌 궁은 거리 조건 없이, 그 외에는 실제로 붙었을 때만 */
+    if(d<=KG_NEAR||kgGlobalRole(e.team,e.role)){ e.d=d; kgApply(e); continue; }
+    if(now>e.deadline){ kgAbort(e); continue; }
+    kgConverge(e);
+    keep.push(e);
+  }
+  M.killQ=keep;
+}
+function kgAbort(e){
+  if(!M) return;
+  if(M.kgStats) M.kgStats.aborted++;
+  /* 무산된 킬이 남긴 lastKill 흔적은 지운다 (없는 킬이 배너로 뜨지 않게) */
+  if(M.lastKill&&M.lastKill.team===e.team&&M.lastKill.role===e.role&&M.lastKill.kind===e.kind){ M.lastKill=null; }
+}
+/* 테스트/진단 — 현재 대기 중인 킬 */
+function kgPending(){ return (M&&M.killQ)?M.killQ.slice():[]; }
+
 /* ============ V5: 03:30 바위게 · 시야/와드 전쟁 · 바론 공성·억제기 ============ */
 const V5_SCUTTLE_SEC=210;          /* 03:30 바위게 */
 const V5_WARD_LIFE=3;              /* 와드 유지(분) */
@@ -6390,19 +6706,40 @@ function v5EarlyWardTick(sec){
   });
 }
 function v5LaneKR(l){ return ({TOP:'탑',MID:'미드',BOT:'봇'})[l]||l; }
-/* 타워 하나 철거 — 해당 라인의 첫 생존 타워(T1→T2→T3)만 붕괴 */
-function v5TowerFall(side,m){
+/* 타워 하나 철거 — 해당 라인의 첫 생존 타워(T1→T2→T3)만 붕괴
+   라인 선택은 프로 운영 우선순위를 따른다: 미드 1차(맵 개방) > 봇 1차 ≥ 탑 1차
+   forceLane 을 주면 그 라인을 강제한다 (스플릿·사이드 압박·4:3 전환 연출용) */
+function v5TowerFall(side,m,forceLane){
   if(!M) return null;
   if(!M.tw) v5InitMatch();
   if(M.lastTowerAt===m) return null;   /* 1분당 타워 1개까지만 */
-  M.lastTowerAt=m;
   if(!M.inhib) M.inhib={};
   const def=side==='me'?'opp':'me';
   const pw={TOP:v5LanePrio('TOP'),MID:v5LanePrio('MID'),BOT:v5LanePrio('ADC')};
   const lanes=['TOP','MID','BOT'];
-  const w=lanes.map(l=>Math.max(0.08,0.7+pw[l]*0.9+(pw[l]>0.25?0.5:0)+(l==='MID'?0.1:0)+Math.random()*0.5));
-  let lane=lanes[0], r=Math.random()*w.reduce((a,b)=>a+b,0);
-  for(let i=0;i<lanes.length;i++){ r-=w[i]; if(r<=0){ lane=lanes[i]; break; } }
+  const prio=(typeof macroTowerLanePriority==='function')?macroTowerLanePriority(side):{MID:1.2,BOT:1.08,TOP:1.0};
+  const w=lanes.map(l=>Math.max(0.06,(prio[l]||1)*(0.72+pw[l]*0.55+(pw[l]>0.25?0.30:0))+Math.random()*0.34));
+  const canFall=function(l){
+    const arr=(M.tw[def]&&M.tw[def][l])||[1,1,1];
+    if(arr.indexOf(1)>=0) return true;
+    const inh=(M.inhib[def]&&M.inhib[def][l])||null;
+    if(inh&&inh.alive) return false;
+    const key=def==='me'?'meNex':'oppNex';
+    return ((M.tw[key]||[1,1])).indexOf(1)>=0;
+  };
+  let lane=(forceLane&&lanes.indexOf(forceLane)>=0)?forceLane:null;
+  if(!lane){
+    let r=Math.random()*w.reduce((a,b)=>a+b,0);
+    lane=lanes[0];
+    for(let i=0;i<lanes.length;i++){ r-=w[i]; if(r<=0){ lane=lanes[i]; break; } }
+  }
+  /* 선택된 라인에 부술 타워가 없으면 가장 우선순위가 높은 다른 라인으로 */
+  if(!canFall(lane)){
+    const alt=lanes.slice().sort((a,b)=>w[lanes.indexOf(b)]-w[lanes.indexOf(a)]).filter(canFall)[0];
+    if(!alt) return null;
+    lane=alt;
+  }
+  M.lastTowerAt=m;
   const arr=M.tw[def]&&M.tw[def][lane]?M.tw[def][lane]:[1,1,1];
   let tier=arr.indexOf(1), nx=false;
   if(tier<0){
@@ -6418,10 +6755,18 @@ function v5TowerFall(side,m){
   M.towers[idx]=(M.towers[idx]||0)+1;
   addGold(side,nx?320:240);
   ROLES.forEach(r2=>lvAddXp(side,r2,10));
-  if(typeof mmNote==='function'){ try{ mmNote('tower',{side:side,enemy:def,lane:lane,tier:tier,nx:nx}); }catch(e){} }
   const teamNm=side==='me'?M.myName:M.oppName;
   const tierNm=nx?'넥서스 타워':('T'+(tier+1)+' 타워');
-  logEvent(side==='me'?'blue':'red', m+'분 · '+v5LaneKR(lane)+' '+tierNm+' 철거 — <b>'+teamNm+'</b>'+(tier===0?'이(가) 1차 타워를 부수고 2차로 진입합니다':tier===1?'이(가) 2차 타워를 부수고 3차(억제기) 앞으로':tier===2?'이(가) 3차 타워를 부수고 억제기를 노출했습니다':'이(가) 넥서스 타워를 밀어냅니다'));
+  const line=m+'분 · '+v5LaneKR(lane)+' '+tierNm+' 철거 — <b>'+teamNm+'</b>'+(tier===0?'이(가) 1차 타워를 부수고 2차로 진입합니다':tier===1?'이(가) 2차 타워를 부수고 3차(억제기) 앞으로':tier===2?'이(가) 3차 타워를 부수고 억제기를 노출했습니다':'이(가) 넥서스 타워를 밀어냅니다');
+  /* 단일 소스 — 타워 철거도 타임라인 이벤트로 한 번만 기록 (배너/미니맵/피드가 여기서 파생) */
+  try{
+    tlEmit({kind:'tower', team:side, side:side, enemy:def, lane:lane, tier:tier, nx:nx,
+      lines:[{kind:side==='me'?'blue':'red', text:line}],
+      mmKind:'tower', mm:{side:side, enemy:def, lane:lane, tier:tier, nx:nx}});
+  }catch(e){
+    logEvent(side==='me'?'blue':'red', line);
+    if(typeof mmNote==='function'){ try{ mmNote('tower',{side:side,enemy:def,lane:lane,tier:tier,nx:nx}); }catch(e2){} }
+  }
   return {lane:lane,tier:tier,nx:nx};
 }
 
@@ -6484,11 +6829,14 @@ function v5Scuttle(){
   ['me','opp'].forEach(side=>{
     const k=W.kills[side==='me'?0:1]||0;
     if(!k) return;
-    M.kills[side==='me'?0:1]+=k;
-    addGold(side,300*k);
     const r=(W.roam[side]&&W.roam[side][0])||'JGL';
+    /* KILL GATE — 바위게 교전 킬도 미니맵에서 만난 뒤에 확정된다 */
+    const kg=(typeof commitKill==='function')
+      ? commitKill(side,{role:r, kind:'scuttle', lane:'MID', gold:300*k, n:k})
+      : null;
+    if(!kg){ M.kills[side==='me'?0:1]+=k; addGold(side,300*k); }
     lvAddXp(side,r,14);
-    logEvent(side==='me'?'blue':'red', '3분 · <b>바위게 교전 '+k+'킬</b> — '+
+    kgLog(kg, side==='me'?'blue':'red', '3분 · <b>바위게 교전 '+k+'킬</b> — '+
       (side==='me'?myNameAt(r):oppNameAt(r))+'('+(side==='me'?myChampAt(r):oppChampAt(r))+')이(가) 강타 싸움에서 이깁니다.');
   });
   W.edgeScore=(W.me-W.opp)*0.012+(W.kills[0]-W.kills[1])*0.004;
@@ -6569,14 +6917,8 @@ function v5VisionTick(m){
   if(!M) return;
   if(!M.visionWar) v5InitMatch();
   const W=M.visionWar;
-  ['dragon','baron','grub'].forEach(kind=>{
-    (V5_OBJ_AT[kind]||[]).forEach(t=>{
-      if(m===t-1){
-        const key=kind+':'+t;
-        if(!W.lastSetup[key]){ W.lastSetup[key]=1; v5WardSetup(kind,m); }
-      }
-    });
-  });
+  /* 오브젝트 시야 세팅은 PRO MACRO v7 이 35~45초 전에 직접 한다 (macroVisionSetup).
+     여기서는 와드 수명·시야 점수·부시 매복만 담당해 중복 세팅/중복 멘트를 줕인다. */
   ['me','opp'].forEach(side=>{
     W.wards[side]=W.wards[side].filter(w=>(w.until||0)>m);
   });
@@ -6590,11 +6932,14 @@ function v5VisionTick(m){
     const side=diff>0?'me':'opp';
     const role=v5Pick(['SUP','JGL','MID']);
     const idx=side==='me'?0:1;
-    M.kills[idx]=(M.kills[idx]||0)+1;
-    addGold(side,380);
+    /* KILL GATE — 부시 매복 픽오프도 지도에서 만난 뒤에 확정 */
+    const kg=(typeof commitKill==='function')
+      ? commitKill(side,{role:role, kind:'pickoff', lane:'MID', gold:380})
+      : null;
+    if(!kg){ M.kills[idx]=(M.kills[idx]||0)+1; addGold(side,380); }
     lvAddXp(side,role,26);
     W.ambush[side]=(W.ambush[side]||0)+1;
-    logEvent(side==='me'?'blue':'red', m+'분 · <b>시야 매복 픽오프</b> — '+
+    kgLog(kg, side==='me'?'blue':'red', m+'분 · <b>시야 매복 픽오프</b> — '+
       (side==='me'?myNameAt(role):oppNameAt(role))+'('+(side==='me'?myChampAt(role):oppChampAt(role))+
       ')이(가) 부시에서 상대를 끊어냅니다 (시야 '+Math.round(M.vision[0])+':'+Math.round(M.vision[1])+')');
   }
@@ -6628,22 +6973,34 @@ function v5BaronTick(m){
 }
 function v5InhibCheck(m){
   if(!M||!M.inhib) return;
+  if(m<14) return;                 /* 14분 이전 억제기 불가 */
   ['me','opp'].forEach(atk=>{
     const def=atk==='me'?'opp':'me';
-    ['MID','TOP','BOT'].forEach(l=>{
-      const rec=M.inhib[def][l];
-      if(!rec||!rec.alive||rec.at) return;
-      if(m<14) return;               /* 14분 이전 억제기 불가 */
+    if(M.inhibAt&&M.inhibAt[atk]===m) return;      /* 한 분에 억제기 하나 */
+    /* 억제기 우선순위: 탑 ≥ 봇 > 미드 — 슈퍼 미니언이 바론/용 반대편을 압박한다 */
+    const order=(typeof macroInhibOrder==='function')?macroInhibOrder():['TOP','BOT','MID'];
+    let lane=null;
+    for(let i=0;i<order.length;i++){
+      const l=order[i];
+      const rec=M.inhib[def]&&M.inhib[def][l];
+      if(!rec||!rec.alive||rec.at) continue;
       const t3=(M.tw&&M.tw[def]&&M.tw[def][l])?M.tw[def][l][2]:1;
-      if(t3) return;                 /* 3차 타워 살아있으면 억제기 불가 */
-      rec.alive=false; rec.at=m; rec.respawnAt=m+5;
-      if(!M.inhibCount) M.inhibCount=[0,0];
-      M.inhibCount[atk==='me'?0:1]++;
-      addGold(atk,420);
-      logEvent(atk==='me'?'blue':'red', m+'분 · <b>억제기 파괴!</b> '+
-        (def==='me'?M.myName:M.oppName)+' '+v5LaneKR(l)+' 억제기 붕괴 — '+
-        (atk==='me'?M.myName:M.oppName)+' 슈퍼 미니언 출현');
-    });
+      if(t3) continue;               /* 3차 타워 살아있으면 억제기 불가 */
+      lane=l; break;
+    }
+    if(!lane) return;
+    const rec=M.inhib[def][lane];
+    rec.alive=false; rec.at=m; rec.respawnAt=m+5;
+    M.inhibAt=M.inhibAt||{}; M.inhibAt[atk]=m;
+    if(!M.inhibCount) M.inhibCount=[0,0];
+    M.inhibCount[atk==='me'?0:1]++;
+    addGold(atk,420);
+    const inhLine=m+'분 · <b>억제기 파괴!</b> '+
+      (def==='me'?M.myName:M.oppName)+' '+v5LaneKR(lane)+' 억제기 붕괴 — '+
+      (atk==='me'?M.myName:M.oppName)+' 슈퍼 미니언 출현';
+    try{ tlEmit({kind:'inhib', team:atk, side:atk, lane:lane,
+      lines:[{kind:atk==='me'?'blue':'red', text:inhLine}], mm:false }); }
+    catch(e){ logEvent(atk==='me'?'blue':'red', inhLine); }
   });
 }
 function v5InhibRespawn(m){
@@ -6693,6 +7050,11 @@ function v5MacroPlan(kind,m){
   /* 앞 라인 억제기를 이미 밀고 있으면 바로 사이드로 갈라지는 게 정답 */
   if(kind==='baron'&&M.inhib&&M.inhib.opp&&M.inhib.opp.MID&&!M.inhib.opp.MID.alive) plan.me='trade';
   if(kind==='dragon'&&M.inhib&&M.inhib.me&&M.inhib.me.BOT&&!M.inhib.me.BOT.alive) plan.me='trade';
+  /* 준비 단계(macroObjPrep)의 교차 이득 판단과 실제 결전 판단을 맞춘다 */
+  try{
+    const rec=(M.macro&&M.macro.prep)?M.macro.prep[kind+':'+m]:null;
+    if(rec){ if(rec.me&&rec.me.trade) plan.me='trade'; if(rec.opp&&rec.opp.trade) plan.opp='trade'; }
+  }catch(e){}
   return plan;
 }
 function v5MacroTradeLane(kind){ return (kind==='dragon')?'TOP':(kind==='baron')?'BOT':(kind==='grub'?'BOT':'BOT'); }
@@ -16884,6 +17246,7 @@ function renderMatch(){
       <div class="draft-line"><span>밴픽 ${dp}% : ${100-dp}%</span>
         <span class="dotsep">·</span><span>${st?st.icon+' '+st.n:'표준 운영'}</span>
         ${fo?`<span class="dotsep">·</span><span style="color:#ffe6a8">${fo.icon} ${esc(fo.n)}</span>`:''}
+        ${(typeof macroHudHTML==='function')?macroHudHTML():''}
       </div>
     </div>
     <div class="map-card">
@@ -17661,7 +18024,7 @@ function mmComputeTargets(){
       else if(m<14){
         u.mode='lane';
         const lane=mmRoleLane(role,sec);
-        const back=role==='SUP'?0.016:role==='ADC'?0.008:0.006;
+        const back=role==='SUP'?0.047:0.045;   /* 웨이브를 사이에 둔 스탠드오프 (~0.09) */
         const p=mmLaneFrontPos(lane,side,back);
         /* 진동 금지 — 라인 목표는 전선 그 자리 (사인 잔떨림 제거) */
         tx=p[0];
@@ -17671,7 +18034,7 @@ function mmComputeTargets(){
       else{
         u.mode='rotate';
         if(role==='ADC'||role==='SUP'){
-          const mid=mmLaneFrontPos('MID',side,role==='SUP'?0.02:0.010);
+          const mid=mmLaneFrontPos('MID',side,role==='SUP'?0.052:0.046);
           tx=mid[0];
           ty=mid[1];
         }else if(role==='TOP'){
@@ -17802,6 +18165,14 @@ function mmComputeTargets(){
   if(typeof mmdPostTargets==='function'){ try{ mmdPostTargets(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr=String(e); } }
   /* V6 — 게임플랜(정글 시작 캠프 · 라인 스탠스)을 실제 동선에 반영 */
   if(typeof v6MinimapPlan==='function'){ try{ v6MinimapPlan(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='gp:'+String(e); } }
+  /* PRO MACRO v7 — 웨이브 대기 · 시야 장악 · 1-3-1/4-1 스플릿 · 한타 후 전환 */
+  if(typeof macroMinimapPlan==='function'){ try{ macroMinimapPlan(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='mx:'+String(e); } }
+  /* 바텀 듀오 결속 — 서폿은 원딜 곁에 (이탈은 시야 트립·협동 로밍만) */
+  if(typeof duoGuard==='function'){ try{ duoGuard(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='duo:'+String(e); } }
+  /* 라인 스탠드오프 — 상대와 같은 픽셀에 서지 않는다 (마지막 시각 보정) */
+  if(typeof laneStandoffGuard==='function'){ try{ laneStandoffGuard(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='stand:'+String(e); } }
+  /* 오브젝트 핏 스탠드오프 — 핏 안에서 적과 나란히 서지 않는다 */
+  if(typeof pitStandoffGuard==='function'){ try{ pitStandoffGuard(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='pit:'+String(e); } }
 }
 
 /* ---------- 텔레포트 ---------- */
@@ -18985,6 +19356,8 @@ function mmdSpeedOf(u,sec){
   if(sec<28) s*=1.7;                       /* 홈가드 */
   if(u.mode==='obj'||u.mode==='fight') s*=1.15;
   if(u.mode==='recall') s*=1.1;
+  /* 교전 합류 러시 — 보류된 킬의 참가자가 지도에서 만나려고 빨리 뛰는 구간 (게임 시계 기준) */
+  if(u.rush&&u.rush>sec) s*=1.55;
   return s;
 }
 
@@ -19039,10 +19412,12 @@ function mmdInitScript(){
 /* ============================================================================
    KILL GATE — 모든 킬은 이 한 곳을 통해서만 확정된다.
    규칙: 킬러와 피해자는 '지금 미니맵 위 실제 좌표'에서 반드시 붙어 있어야 한다.
-     · 사건 지점(라인/오브젝트 핏)을 정하고
-     · 그 지점에서 가장 가까운 아군을 킬러, 가장 가까운 적을 피해자로 세운 뒤
-     · 둘이 0.15 이상 떨어져 있으면(크로스맵 킬) 지점으로 끌어다 붙인다.
-   이렇게 하면 "바텀에 있던 선수가 탑 킬" 같은 사건이 구조적으로 불가능하다.
+     · 사건 지점(라인/오브젝트 핏)에서 가장 가까운 아군을 킬러, 가장 가까운 적을 피해자로 세운다
+     · 둘 사이 실제 거리가 KG_NEAR(0.12) 이하면 즉시 확정
+     · 아직 멀면 **보류**하고 두 유닛을 교전 지점으로 달려가게 한다 (순간이동 금지).
+       간격이 좁혀지는 순간 확정되고, 중계 멘트도 그때 함께 나간다 (killgate.js).
+   이렇게 하면 "바텀에 있던 선수가 탑 킬" 같은 사건이 구조적으로 불가능하고,
+   지도에 없는 킬이 먼저 뜨는 일도 없다.
    ============================================================================ */
 function mmLaneOfRole(r){ return (r==='ADC'||r==='SUP')?'BOT':(r==='JGL'?'MID':(r||'MID')); }
 function mmUnitOf(side,role){ try{ return MM.units[mmTokenKey(side,role)]||null; }catch(e){ return null; } }
@@ -19065,22 +19440,22 @@ function validateAndCommitKill(team, role, opts){
     return best; };
   let K=nearUnit(team, role);
   let V=nearUnit(enemy, opts.victimRole);
-  /* 같은 라인 1:1 교전인데 상대 라이너가 더 가까우면 그를 피해자로 */
   if(!V){ out.ok=false; out.reason='no-victim'; return out; }
-  const snapTo=u=>{ if(Math.hypot(u.x-p[0],u.y-p[1])>0.12){ u.x=p[0]+(u.side==='me'?-0.008:0.008); u.y=p[1]; u.vx=0; u.vy=0; out.moved=true; } };
   if(!K){
-    /* 킬러가 전장에 없으면(사망·귀환) 사건을 취소하거나 가장 가까운 아군으로 대체한다 */
+    /* 킬러가 전장에 없으면(사망·귀환) 가장 가까운 아군으로 대체한다 */
     K=nearUnit(team,null);
     if(!K){ out.ok=false; out.reason='no-killer'; return out; }
   }
-  snapTo(K.u); snapTo(V.u);
-  let d=Math.hypot(K.u.x-V.u.x,K.u.y-V.u.y);
-  if(d>0.15){
-    /* 크로스맵 킬 금지 — 피해자를 킬러 앞으로, 킬러를 사건 지점으로 붙인다 */
-    V.u.x=K.u.x+(K.u.side==='me'?0.012:-0.012); V.u.y=K.u.y; V.u.vx=0; V.u.vy=0;
-    d=Math.abs(V.u.x-K.u.x); out.moved=true; out.forced=true;
+  out.role=K.r; out.victimRole=V.r;
+  const d=Math.hypot(K.u.x-V.u.x,K.u.y-V.u.y);
+  out.d=d;
+  /* 2) 시각 검증 게이트 — 지도에서 만나지 않았으면 보류 (위치 스냅 금지) */
+  if(d>KG_NEAR){
+    /* 글로벌 궁(애쉬·쉔·녹턴 등)은 지도 반대편에서도 킬이 가능하다 */
+    if(typeof kgGlobalRole==='function'&&kgGlobalRole(team,K.r)){ out.exemptGlobal=true; return out; }
+    out.ok=false; out.deferred=true; out.reason='not-met';
+    return out;
   }
-  out.role=K.r; out.victimRole=V.r; out.d=d;
   return out;
 }
 /* 킬 확정의 단일 창구 — 킬 수·골드·킬피드·미니맵 노트를 여기서만 만진다 */
@@ -19088,20 +19463,20 @@ function commitKill(team, opts){
   opts=opts||{};
   if(!M) return null;
   const chk=validateAndCommitKill(team, opts.role, opts);
+  if(chk.deferred){
+    /* 아직 지도에서 만나지 않았다 → 보류하고 두 유닛을 교전 지점으로 달려가게 한다 */
+    let e=null;
+    try{ e=(typeof kgPush==='function')?kgPush(team,opts,chk):null; }catch(err){ e=null; }
+    if(e) return {ok:true, deferred:true, q:e, role:e.role, victimRole:e.victimRole};
+  }
   /* 검증이 불가능한 극단 상황(전원 사망·좌표 없음)에는 사건을 버리지 않고 기록만 남긴다 */
   if(!chk.ok){ chk.ok=true; chk.role=chk.role||opts.role||null; chk.unverified=true; }
-  const i=sideIdx(team), n=Math.max(1,opts.n||1);
-  /* 검증 로그 — 테스트가 '크로스맵 킬 0건'을 확인한다 */
-  try{ MMD.killLog=MMD.killLog||[]; MMD.killLog.push({team:team, role:chk.role, victim:chk.victimRole, d:Math.round((chk.d||0)*10000)/10000, moved:!!chk.moved, sec:(M&&M.minute)||0}); if(MMD.killLog.length>400) MMD.killLog.shift(); }catch(e){}
-  M.kills[i]=(M.kills[i]||0)+n;
-  if(opts.gold) addGold(team, opts.gold);
-  const lane=opts.lane||mmLaneOfRole(chk.role);
-  M.lastKill={team:team, role:chk.role, victimRole:chk.victimRole, kind:opts.kind||'lane',
-    lane:lane, sec:M.sec, minute:M.minute, teamfight:!!opts.teamfight, gankRole:opts.gankRole||null};
-  M.killAt={min:M.minute,sec:M.sec};
-  try{ mmNote('kill',{kind:opts.kind||'lane', team:team, role:chk.role, victimRole:chk.victimRole,
-    lane:lane, teamfight:!!opts.teamfight, pt:chk.pt}); }catch(e){}
-  return chk;
+  try{ MMD.killLog=MMD.killLog||[]; MMD.killLog.push({team:team, role:chk.role, victim:chk.victimRole, d:Math.round((chk.d||0)*10000)/10000, moved:false, exempt:!!chk.exemptGlobal, sec:(M&&M.minute)||0}); if(MMD.killLog.length>400) MMD.killLog.shift(); }catch(e){}
+  if(M.kgStats) M.kgStats.instant++;
+  return kgApply({team:team, role:chk.role, victimRole:chk.victimRole, kind:opts.kind||'lane',
+    lane:opts.lane||null, gold:opts.gold||0, n:opts.n||1, teamfight:!!opts.teamfight,
+    gankRole:opts.gankRole||null, pt:chk.pt||null, d:chk.d||0, lines:[],
+    exempt:!!chk.exemptGlobal});
 }
 
 /* ---------- 엔진 → 미니맵 이벤트 노트 ---------- */
@@ -19176,14 +19551,16 @@ function mmdActiveBeats(sec){
     if(!b) continue;
     if(sec>=b.at-b.pre&&sec<=b.at+b.post) out.push(b);
   }
-  /* 예정 오브젝트 로테이션 (15초 전) */
+  /* 예정 오브젝트 로테이션 — 35초 전에 미리 움직인다 (30~40게임초 전 합류)
+     바위게는 정글 동선 중간이라 20초 전에 움직인다 (정글 첫 클리어 방해 금지) */
   for(let i=0;i<MMD.plan.length;i++){
     const q=MMD.plan[i];
-    if(sec>=q.at-15&&sec<q.at){
+    const pre=(q.obj==='scuttle')?20:35;
+    if(sec>=q.at-pre&&sec<q.at){
       /* V6 — 이미 잡혔거나 20초 안에 안 나오는 오브젝트 핏에는 모이지 않는다 */
       if(typeof v6ObjTakenAt==='function'&&v6ObjTakenAt(q.obj,q.at)) continue;
       if(typeof v6PitGuard==='function'&&!v6PitGuard(q.obj,sec/60)) continue;
-      out.push({kind:'obj',at:q.at,pre:15,post:6,x:mmdPitPoint(q.obj)[0],y:mmdPitPoint(q.obj)[1],
+      out.push({kind:'obj',at:q.at,pre:pre,post:6,x:mmdPitPoint(q.obj)[0],y:mmdPitPoint(q.obj)[1],
         obj:q.obj,roles:(q.roles||mmdObjRoles(q.obj,q.at)),label:q.obj==='baron'?'바론 준비':q.obj==='dragon'?'드래곤 준비':q.obj==='grub'?'유충 준비':q.obj==='herald'?'전령 준비':'바위게 준비',planned:true});
     }
   }
@@ -19256,7 +19633,8 @@ function mmdWaveFrontT(lane,side){
 }
 /* 라인 슬롯: 웨이브가 있으면 웨이브 뒤, 없으면 라인 전선 */
 function mmdLaneSlot(lane,side,role,sec){
-  const behind=role==='SUP'?0.020:role==='ADC'?0.012:0.010;
+  /* 웨이브를 사이에 두고 마주 본다 — 상대와 같은 픽셀에 겹치지 않게 0.045씩 물러난다 (~0.09 간격) */
+  const behind=role==='SUP'?0.047:0.045;
   const posture=(M&&M.gp&&M.gp.posture)||'push';
   const wt=mmdWaveFrontT(lane,side);
   /* 미니언이 아직 본진 근처면(라인 도착 전) 라인 전선 기준으로 선다 */
@@ -19383,7 +19761,7 @@ function mmdMove(u,dt,dSim,now){
   if(!rate) return {vx:0,vy:0};
   const dtSec=Math.max(0,dt)/1000;
   const gameDt=Math.max(0,rate*dtSec);          /* 이번 프레임에 흐른 게임 시간 */
-  const maxStep=MMD_MAX_STEP*gameDt;            /* 이동 상한 */
+  const maxStep=MMD_MAX_STEP*((u.rush&&u.rush>sec)?1.6:1)*gameDt;            /* 이동 상한 */
   let spd=mmdSpeedOf(u,sec)*rate;               /* 맵 단위 / 실제 초 */
   /* 01:06~01:40 라인 복귀 — 라이너는 실제로 뛴다 (위치 순간이동 대신 속도로 해결) */
   if(sec>=66&&sec<=100&&u.role!=='JGL'){
@@ -22943,10 +23321,72 @@ function v6KillEntry(side, role, kind, victimOverride){
     victim:{name:victimL2.name||ROLE_KR[victimRole],champ:victimL2.champ||'',role:victimRole},
     assists, tag, cls};
 }
-/* 프레임마다 상태 델타를 읽어 배너를 띄운다 (엔진을 건드리지 않고 관찰) */
+/* ==========================================================================
+   타임라인 이벤트 → 배너 (1:1)
+   배너는 오직 시뮬레이션 타임라인 이벤트에서만 파생한다 (델타 관찰 금지).
+   ========================================================================== */
+function v6BannerFromTL(ev){
+  if(!M||!ev) return null;
+  const side=ev.team||'me';
+  try{
+    if(ev.kind==='kill'){
+      if(!ev.role) return null;
+      const e=v6KillEntry(side,ev.role,ev.sub||ev.kind2||'lane',ev.victimRole);
+      if(!e) return null;
+      e.tlId=ev.id;
+      if(ev.lane!=null) e.lane=ev.lane;
+      v6FeedPush(e);
+      ev.banner=!!e;
+      return e;
+    }
+    if(ev.kind==='obj'){
+      const meta={dragon:['🐉','드래곤'],grub:['👾','공허 유충'],baron:['🐲','바론'],
+        herald:['👁','협곡의 전령'],elder:['🐲','장로 드래곤'],scuttle:['🦀','바위게']}[ev.obj]||['🏆','오브젝트'];
+      let txt=ev.label||(meta[1]+' — <em>'+esc(v6SideTag(side))+'</em> 확보');
+      const e={type:'obj', side, icon:ev.icon||meta[0], kind:ev.obj||'obj',
+        text:txt, cls:side==='me'?'':'enemy', tlId:ev.id};
+      v6FeedPush(e); ev.banner=!!e; return e;
+    }
+    if(ev.kind==='tower'){
+      const e={type:'tower', side, icon:'🏰',
+        text:ev.label||(esc(v6SideTag(side==='me'?'opp':'me'))+' '+({TOP:'탑',MID:'미드',BOT:'봇'}[ev.lane]||'')+' 타워 파괴 — <em>'+esc(v6SideTag(side))+'</em>'),
+        cls:side==='me'?'':'enemy', tlId:ev.id};
+      v6FeedPush(e); ev.banner=!!e; return e;
+    }
+    if(ev.kind==='inhib'){
+      const e={type:'inhib', side, icon:'💥',
+        text:ev.label||(esc(v6SideTag(side==='me'?'opp':'me'))+' '+({TOP:'탑',MID:'미드',BOT:'봇'}[ev.lane]||'')+' 억제기 파괴'),
+        cls:side==='me'?'':'enemy', tlId:ev.id};
+      v6FeedPush(e); ev.banner=!!e; return e;
+    }
+  }catch(e){}
+  return null;
+}
+/* 프레임마다 배너 스택을 갱신한다. 배너 생성은 타임라인(tlEmit)에서만 일어나고,
+   여기서는 상태 스냅샷만 맞춰 둔다 (델타 관찰로 배너를 만들지 않는다). */
 function v6FeedTick(){
   if(!M) return;
   const kd=M.kills||[0,0];
+  if(M.timeline){
+    V6FEED.kills=kd.slice();
+    V6FEED.dragons=(M.dragons||[0,0]).slice();
+    V6FEED.grubs=(M.grubs||[0,0]).slice();
+    V6FEED.barons=(M.barons||[0,0]).slice();
+    V6FEED.heralds=(M.heralds||[0,0]).slice();
+    V6FEED.towers=(M.towers||[0,0]).slice();
+    V6FEED.tw={me:{},opp:{}}; V6FEED.inh={me:{},opp:{}};
+    if(M.tw){
+      ['me','opp'].forEach(function(side){
+        const enemy=side==='me'?'opp':'me';
+        ['TOP','MID','BOT'].forEach(function(lane){
+          V6FEED.tw[enemy][lane]=(((M.tw[enemy]&&M.tw[enemy][lane])||[1,1,1])).slice();
+          if(M.inhib&&M.inhib[enemy]&&M.inhib[enemy][lane]) V6FEED.inh[enemy][lane]=!!M.inhib[enemy][lane].alive;
+        });
+      });
+    }
+    return;
+  }
+  const kd2=kd;
   ['me','opp'].forEach((side,i)=>{
     let d=(kd[i]||0)-(V6FEED.kills[i]||0);
     while(d>0){
@@ -23076,6 +23516,21 @@ function v6RespawnSec(role,minute){
   return v6Clamp(s,4,26);
 }
 function v6HpSet(u,v){ if(!u) return; u.hpMax=u.hpMax||100; u.hp=v6Clamp(v,0,u.hpMax); }
+/* 라인전 기준 HP — 선수·라인 우위별로 55~85% 사이에서 형성된다 */
+function v6HpTarget(side,role){
+  let h=0.5;
+  try{ h=(typeof mxHash==='function')?mxHash('hp|'+side+'|'+role):0.5; }catch(e){ h=0.5; }
+  let t=0.58+h*0.26;
+  try{
+    const key=(role==='ADC'||role==='SUP')?'ADC':role;
+    const L=M&&M.lane&&M.lane[key];
+    if(L){
+      const lead=((L[side==='me'?'my':'opp']||60)-((L[side==='me'?'opp':'my'])||60));
+      t+=v6Clamp(lead*0.006,-0.06,0.06);
+    }
+  }catch(e){}
+  return v6Clamp(t,0.52,0.88);
+}
 /* mmUpdate 에서 매 프레임 호출 — 교전 중 감소, 이탈 시 회복, 기지에서는 급회복 */
 function v6HpTick(step,now){
   if(!M||!MM||!MM.units) return;
@@ -23105,12 +23560,29 @@ function v6HpTick(step,now){
         u.regenAt=now;
         return;
       }
-      const engaged=(nd<0.075)||inFight;
-      if(engaged){
-        const swing=0.05+(Math.random()*0.09);
-        u.hp=Math.max(u.hpMax*0.08,u.hp-u.hpMax*swing*dt);
-        u.regenAt=now;
-        if(recentKill&&lcNear(lk,u)) u.hp=Math.max(u.hpMax*0.08,u.hp-u.hpMax*0.5*dt);
+      /* ---- 라인전 트레이드 창 ----
+         실제 라인전은 계속 때리는 게 아니라 짧게 주고받고 물약·도란으로 회복한다.
+         그래서 0:0 라인전에서 HP는 55~85%를 오간다. */
+      const laning=(sec>=95&&sec<840);
+      let trading=inFight||(recentKill&&lcNear(lk,u));
+      if(!trading&&laning){
+        if((u.tradeUntil||0)>=now) trading=true;
+        else if(Math.random()<0.030*dt*(0.6+Math.max(0,(nd<0.05?0.4:0)))) u.tradeUntil=now+1400+Math.random()*2400;
+      }
+      if(trading){
+        /* 실제 교전 — 한 번의 트레이드에 8~14%씩 빠진다.
+           한타·갱·킬 창이 아니면 라인전 트레이드만으로 45% 아래로 떨어지지 않는다. */
+        const swing=0.028+(Math.random()*0.032);
+        const nearKill=!!(recentKill&&lcNear(lk,u));
+        const floorPct=inFight?0.06:(nearKill?0.12:0.45);
+        u.hp=Math.max(u.hpMax*floorPct,u.hp-u.hpMax*swing*dt*1.8);
+        u.regenAt=now; u.lastHitAt=now;
+      }else if(laning){
+        /* 물약·도란 sustain — 자기 라인 기준 HP(55~85%)로 천천히 수렴 */
+        const tgt=v6HpTarget(side,role)*u.hpMax;
+        const rate=(u.hp<tgt)?0.10:0.40;
+        u.hp+=v6Clamp((tgt-u.hp)*rate*dt,-u.hpMax*0.05*dt,u.hpMax*0.10*dt);
+        if(Math.random()<0.035*dt) u.hp=Math.max(u.hpMax*0.52,u.hp-u.hpMax*(0.004+Math.random()*0.008));
       }else{
         /* 교전 이탈 후 2.5초 뒤부터 회복 */
         if(!u.regenAt||now-u.regenAt>2500) u.hp=Math.min(u.hpMax,u.hp+u.hpMax*0.055*dt);
@@ -25202,6 +25674,54 @@ function v6RecallCtx(side,role,u){
   });
   return {laneKey,front,waveAtMyTower,wavePushed,objIn,fightNow,objFightNow,greedy,enemyDist:nd};
 }
+/* 안전한 귀환 지점 — 아군 최전방 생존 타워 '뒤' (적 사거리 밖) */
+function v6SafeRecallPoint(side,role){
+  const lane=v6TpLane(role);
+  let tw=null;
+  try{ tw=(typeof v6FurthestAllyTower==='function')?v6FurthestAllyTower(side,lane):null; }catch(e){}
+  const pt=(tw&&tw.pt)?tw.pt:null;
+  if(pt){
+    try{
+      const pf=mmPointFront(lane,pt[0],pt[1]);
+      if(pf.dist<0.13){
+        const q=mmPathPoint(LANE_PATH[lane],v6Clamp(pf.param+(side==='me'?-0.040:0.040),0.04,0.96));
+        return [q[0],q[1]];
+      }
+    }catch(e){}
+    return [pt[0],pt[1]];
+  }
+  return MM_NEXUS[side];
+}
+/* 아군 진영(넥서스 쪽 절반) 또는 아군 타워 근처인가 */
+function v6OwnSafeHalf(side,x,y){
+  try{
+    const my=MM_NEXUS[side];
+    if(Math.hypot(x-my[0],y-my[1])<0.62) return true;      /* 본진에서 가까운 쪽 */
+    const tw=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[side])?MAP_TOWERS[side]:null;
+    if(tw){
+      let near=false;
+      ['TOP','MID','BOT'].forEach(function(l){
+        (tw[l]||[]).forEach(function(p){ if(Math.hypot(x-p[0],y-p[1])<0.14) near=true; });
+      });
+      if(near) return true;
+    }
+    /* 진영 대각선 분할 — 블루(me)는 x+y<1 쪽이 자기 진영 */
+    return (side==='me')?((x+y)<=1.0):((x+y)>=1.0);
+  }catch(e){}
+  return true;
+}
+/* 적이 가까이 있는지 (지점 기준) */
+function v6EnemyNearPoint(side,x,y,rad){
+  const enemy=(side==='me')?'opp':'me';
+  let near=99;
+  ROLES.forEach(function(r){
+    const u=v6Unit(enemy,r);
+    if(!u||!u.alive) return;
+    const d=Math.hypot(u.x-x,u.y-y);
+    if(d<near) near=d;
+  });
+  return near<=(rad||0.10);
+}
 function v6RecallLogic(now){
   if(!M||!MM||!MM.units||!MM.tgt) return;
   const t=(now==null)?((typeof performance!=='undefined'&&performance.now)?performance.now():Date.now()):now;
@@ -25210,22 +25730,26 @@ function v6RecallLogic(now){
     ['me','opp'].forEach(function(side){
       const k=side+'-'+role;
       const u=MM.units[k]; if(!u) return;
-      if(!u.alive){ u.recallT=null; return; }
-      if(u.tp){ u.recallT=null; return; }
+      if(!u.alive){ u.recallT=null; u.recallWalk=false; return; }
+      if(u.tp){ u.recallT=null; u.recallWalk=false; return; }
       const max=u.hpMax||100;
       const pct=(u.hp||0)/max;
       const c=v6RecallCtx(side,role,u);
+      /* ---- 채널 중 (B 4초) ---- */
       if(u.recallT){
-        MM.tgt[k]={x:u.x,y:u.y};
-        u.mode='recall';
-        if(c.enemyDist<0.028||pct<=0.06){    /* 맞거나 위급하면 취소 */
-          u.recallT=null; u.recallCd=t+3500;
+        /* 안전 지점을 벗어났거나 적이 붙으면 채널 취소 */
+        const sp=u.recallSpot||[u.x,u.y];
+        const atSpot=Math.hypot(u.x-sp[0],u.y-sp[1])<0.045;
+        MM.tgt[k]={x:sp[0],y:sp[1]};
+        if(c.enemyDist<0.22||pct<=0.04||!atSpot){
+          u.recallT=null; u.recallCd=t+2500; u.mode='recallWalk';
           if(typeof mmAddFx==='function') mmAddFx({type:'burst',x:u.x,y:u.y,col:'#ff6b84',life:520,label:'CANCEL'});
           return;
         }
+        u.mode='recall';
         if(t>=u.recallT.end){
           const f=MM_NEXUS[side];
-          u.x=f[0]; u.y=f[1]; u.hp=max; u.recallT=null; u.regenAt=t;
+          u.x=f[0]; u.y=f[1]; u.hp=max; u.recallT=null; u.recallSpot=null; u.recallWalk=false; u.regenAt=t;
           if(typeof mmAddFx==='function'){
             mmAddFx({type:'ring',x:f[0],y:f[1],col:'#7cf7ff',life:800,r:0.035});
             mmAddFx({type:'burst',x:f[0],y:f[1],col:'#7cf7ff',life:900,label:'RECALL'});
@@ -25233,26 +25757,40 @@ function v6RecallLogic(now){
         }
         return;
       }
-      if(pct>0.30||m<2) return;
+      if(pct>0.30||m<2){ u.recallWalk=false; u.recallSpot=null; return; }
       if((u.recallCd||0)>t) return;
       /* --- 상황 판단 --- */
       const needReady=(c.objIn<=50);                       /* 오브젝트 50초 전 → 정비하고 와야 한다 */
-      const safe=c.enemyDist>0.05&&(c.wavePushed||c.enemyDist>0.09);
       const crashing=c.waveAtMyTower;                      /* 우리 타워로 빅웨이브 → CS 미련 */
       const critical=pct<=0.12;                            /* 실피면 무조건 귀환 */
       let stay=false;
       if(critical) stay=false;
-      else if(needReady) stay=false;                       /* 오브젝트 준비 우선 */
+      else if(needReady) stay=false;
       else if(c.fightNow||c.objFightNow) stay=true;        /* 지금 한타 중 → 버틴다 */
       else if(crashing&&pct>0.16) stay=(Math.random()<(c.greedy?0.75:0.45));
       else if(c.greedy&&pct>0.14) stay=(Math.random()<0.35);
-      else if(!safe&&pct>0.18) stay=true;                  /* 위험 구역에서 무리한 귀환은 손해 */
       if(stay){
         u.recallCd=t+5000;
         u.greedy=(u.greedy||0)+1;
         return;
       }
+      /* ---- 안전 지점으로 먼저 이동한 뒤에만 채널 ----
+         라인 한복판·적 챔피언 옆에서 B를 차는 일은 없다. */
+      const spot=v6SafeRecallPoint(side,role);
+      const dSpot=Math.hypot(u.x-spot[0],u.y-spot[1]);
+      const spotSafe=!v6EnemyNearPoint(side,spot[0],spot[1],0.22)&&v6OwnSafeHalf(side,spot[0],spot[1]);
+      if(dSpot>0.035||!spotSafe){
+        const dest=spotSafe?spot:MM_NEXUS[side];
+        u.recallSpot=dest; u.recallWalk=true;
+        u.mode='recallWalk';
+        MM.tgt[k]={x:dest[0],y:dest[1]};
+        return;
+      }
+      /* 안전 지점 도착 + 주변에 적이 없을 때만 B 채널 */
+      /* 적이 0.22 이내면 B 금지 — 상대 챔피언 옆에서 귀환 채널을 차지 않는다 */
+      if(c.enemyDist<0.22){ u.recallCd=t+1500; return; }
       u.recallT={end:t+3600,total:3600};
+      u.recallSpot=spot; u.recallWalk=false;
       u.mode='recall';
       MM.tgt[k]={x:u.x,y:u.y};
     });
@@ -25656,6 +26194,53 @@ function v6DraftSideHTML(side){
       </span>`;
     }).join('')}</div>`;
 }
+/* ==========================================================================
+   모바일 전용 밴픽 헤더 (<720px) — 좌: 블루 5픽+5밴 / 우: 레드 5픽+5밴, 활성 턴 발광
+   데스크톱·Fold 펼침(≥720px)은 기존 3열 방송 레이아웃을 그대로 쓴다.
+   ========================================================================== */
+function v6MobileDraftHTML(){
+  if(typeof D==='undefined'||!D) return '';
+  const me=myTeam(), opp=T(D.oppId);
+  const ti=(typeof d6TurnInfo==='function')?d6TurnInfo():null;
+  const actMe=!!(ti&&ti.k==='turn'&&ti.mine);
+  const actOpp=!!(ti&&ti.k==='turn'&&!ti.mine);
+  const cur=(typeof dCur==='function')?dCur():null;
+  const phase=(D.phase==='assign')?'라인 배정':(D.phase==='done')?'밴픽 완료':(cur&&cur.t==='ban'?'BAN':'PICK');
+  const sideBlock=function(side,team,on){
+    const picks=(side==='me')?dMyPicks():dOppPicks();
+    const bans=(side==='me')?dMyBans():dOppBans();
+    const live=on&&!!cur;
+    const pickCell=function(i){
+      const n=picks[i]||null;
+      const c=n?CHAMP_MAP[n]:null;
+      const hot=(live&&cur.t==='pick'&&i===picks.length);
+      return `<div class="dm-pick ${c?'on':''} ${hot?'hot':''}" title="${n?esc(n):((i+1)+'픽')}">`+
+        (c?`<img src="${DD(c.k)}" alt="${esc(n)}" loading="lazy" onerror="this.style.display='none'"><i>${esc(n)}</i>`:`<span>${i+1}</span>`)+`</div>`;
+    };
+    const banCell=function(i){
+      const n=bans[i]||null;
+      const c=n?CHAMP_MAP[n]:null;
+      const nx=(live&&cur.t==='ban'&&!n);
+      return `<div class="dm-ban ${n?'on':''} ${nx?'nx':''}" title="${n?esc(n):('밴 '+(i+1))}">`+
+        (c?`<img src="${DD(c.k)}" alt="${esc(n)}" loading="lazy" onerror="this.style.display='none'">`:(n?'<b>✕</b>':'<b>B</b>'))+`</div>`;
+    };
+    return `<div class="dm-team ${side} ${on?'on':''}">
+      <div class="dm-tag">${badge(team,'sm')}<b>${esc(team.tag)}</b><em>픽 ${picks.length}/5 · 밴 ${bans.length}/5</em></div>
+      <div class="dm-picks">${[0,1,2,3,4].map(pickCell).join('')}</div>
+      <div class="dm-bans">${[0,1,2,3,4].map(banCell).join('')}</div>
+    </div>`;
+  };
+  const clock=(D.phase!=='assign'&&D.phase!=='done'&&(typeof dActor==='function')&&dActor()==='me')
+    ? `<span class="dm-clock">${(typeof DRAFT_UNLIMITED!=='undefined'&&DRAFT_UNLIMITED)?'∞':((typeof DT!=='undefined')?DT.left+'s':'')}</span>` : '';
+  return `<div class="d6-mob" id="d6Mob">
+    <div class="dm-top">
+      <span class="dm-phase">${phase} · ${D.mySide==='blue'?'블루':'레드'} 사이드</span>
+      ${ti?`<span class="dm-whos ${ti.k==='turn'?(ti.mine?'mine':'enemy'):'neutral'}">${ti.ic} ${esc(ti.label)}</span>`:''}
+      ${clock}
+    </div>
+    <div class="dm-head">${sideBlock('me',me,actMe)}${sideBlock('opp',opp,actOpp)}</div>
+  </div>`;
+}
 /* 밴픽 중 라인별 즉시 배정 — 픽 순서와 무관하게 가장 잘 맞는 빈 라인에 붙인다 */
 function v6LiveRoleAssign(team,picks){
   const out={}; const used={};
@@ -25727,6 +26312,7 @@ function renderDraft(){
       <div class="tiny" style="margin-left:auto">밴 ${dMyBans().length}/5 · 픽 ${dMyPicks().length}/5</div>
     </div>
     ${(typeof v6BgmBarHTML==='function')?v6BgmBarHTML():''}
+    ${v6MobileDraftHTML()}
     <div class="d6-wrap">
       <aside class="d6-side me${actMe?' active':''}">${v6DraftSideHTML('me')}</aside>
       <section class="d6-mid">
@@ -26115,13 +26701,11 @@ function v6KillVictim(side){
     if(d<bd){ bd=d; best=k; }
   });
   if(!best) return null;
-  if(isGlobal||bd<0.14) return best;
-  /* 너무 멀면 스크럼 지점으로 수렴시킨 뒤 킬 (맵 반대편 킬 방지) */
-  const v=MM.units[best];
-  const mx=(ku.unit.x+v.x)/2, my=(ku.unit.y+v.y)/2;
-  ku.unit.x=v6Clamp(mx+0.008,0.05,0.95); ku.unit.y=v6Clamp(my+0.008,0.05,0.95);
-  v.x=v6Clamp(mx-0.008,0.05,0.95); v.y=v6Clamp(my-0.008,0.05,0.95);
-  return best;
+  /* 지도에서 실제로 붙었을 때만 사망을 표시한다.
+     (예전에는 먼 유닛을 스크럼 지점으로 순간이동시켜 붙였다 — 원거리 킬의 원인)
+     KILL GATE 가 0.12 이내로 좁혀진 뒤에만 킬을 확정하므로, 여기서는 스냅하지 않는다. */
+  if(isGlobal||bd<=0.14) return best;
+  return null;
 }
 /* 킬 배너의 피해자도 실제로 쓰러진 유닛과 일치시킨다 */
 function v6RecentDeadRole(side){
@@ -26250,7 +26834,7 @@ function v6EnforceLaneSides(){
       if(!u||!u.alive||u.tp||u.recallT) return;
       const lane=(typeof mmRoleLane==='function')?mmRoleLane(role,sec):(role==='TOP'?'TOP':role==='MID'?'MID':'BOT');
       const f=fronts[lane]==null?0.5:fronts[lane];
-      const margin=(role==='SUP')?0.014:0.010;
+      const margin=(role==='SUP')?0.048:0.046;      /* 웨이브 앞 스탠드오프 (~0.09 간격) */
       const lo=f-margin, hi=f+margin;
       /* 위치는 절대 직접 만지지 않는다.
          (예전에는 u.x+=(p[0]-u.x)*0.4 로 매 프레임 위치를 잡아당겨,
@@ -26523,6 +27107,1188 @@ function v6BgmNextTrack(){
   try{ toast('🎵 다른 곡으로 넘어갑니다'); }catch(e){}
   v6BgmRefresh();
   return true;
+}
+
+/* ============================================================================
+   PRO MACRO v7 — 프로팀 운영 엔진
+   근거: 나무위키 『리그 오브 레전드/전략』 — 웨이브 관리, 시야 장악, 스플릿 운영,
+         오브젝트 우선순위, 한타 후 전환.
+
+   이 모듈이 하는 일 (기존 '걸어다니며 타워 때리기' 를 대체):
+     1) 웨이브 관리(밀기·당기기·프리징)와 턴 이코노미
+        · 오브젝트/로밍/귀환 전에 반드시 빅웨이브를 만든다 (셔브)
+        · 셔브 없이 라인을 비우면 상대가 프리징·크래시 → 실제 CS/XP/판 골드 손실
+        · 리드 매치업은 포탑 방패·카정 우선권, 지는 매치업은 T1 근처 프리징
+     2) 오브젝트 35~45초 전 시야 장악
+        · 서폿·정글러가 핏 입구를 렌즈로 스윕하고 제어와드를 박는다 (미니맵에 실제로 보인다)
+        · 시야 우위가 픽오프·스틸·한타 확률에 직접 반영된다
+     3) 실제 매크로 포메이션
+        · 1-3-1 / 4-1 스플릿 + 탑 텔포 합류
+        · 상대가 2명을 보내면 즉시 4:3 바론·드래곤 전환, 방치하면 T2/억제기
+        · 뒤지면 5:5 대신 바론 낚시(시야 트랩)·역바론
+     4) 오브젝트·공성 우선순위
+        · 타워: 미드 1차 > 봇 1차 ≥ 탑 1차 (맵 개방)
+        · 억제기: 탑 ≥ 봇 > 미드 (슈퍼 미니언이 바론/용 반대편을 압박)
+        · 한타 승리 후에는 귀환이 아니라 바론·용·타워로 바로 전환
+   ========================================================================== */
+
+const MX_SPAWN={dragon:[5,11,17,23,29],grub:[6,10],herald:[14],baron:[20,26,32]};
+const MX_OBJ_KR={dragon:'드래곤',baron:'바론',grub:'공허 유충',herald:'협곡의 전령',elder:'장로 드래곤'};
+const MX_LANE_KR={TOP:'탑',MID:'미드',BOT:'봇'};
+/* 핏 입구 — 부시/강가 진입로 (블루 기준 좌표, 레드는 +오프셋으로 겹치지 않게) */
+const MX_PIT_ENTRY={
+  dragon:[[0.652,0.688],[0.700,0.752],[0.748,0.700],[0.640,0.736]],
+  baron:[[0.252,0.312],[0.300,0.248],[0.348,0.300],[0.300,0.358]],
+  grub:[[0.332,0.252],[0.268,0.360],[0.360,0.330]],
+  elder:[[0.652,0.688],[0.700,0.752],[0.748,0.700]],
+};
+
+function mxClamp(v,a,b){ return (v<a?a:(v>b?b:v)); }
+function mxTag(side){
+  try{ return side==='me'?myTeam().tag:T(M.oppId).tag; }catch(e){ return side==='me'?'우리 팀':'상대 팀'; }
+}
+function mxPit(kind){
+  try{
+    if(kind==='dragon'||kind==='elder') return PIT.dragon;
+    return PIT.baron;
+  }catch(e){}
+  return [0.5,0.5];
+}
+function mxLaneOf(role,sec){
+  try{ if(typeof mmRoleLane==='function') return mmRoleLane(role,sec); }catch(e){}
+  return role==='TOP'?'TOP':role==='MID'?'MID':'BOT';
+}
+function mxRoleOfLane(lane){ return lane==='BOT'?'ADC':(lane==='TOP'?'TOP':'MID'); }
+function mxSec(){ try{ return (typeof mmGameSec==='function')?mmGameSec():((M&&M.sec)||0); }catch(e){ return (M&&M.sec)||0; } }
+function mxLog(side,text){ try{ if(typeof logEvent==='function') logEvent(side,text); }catch(e){} }
+function mxRand(){ return Math.random(); }
+
+/* ---------- 상태 ---------- */
+function macroNewWave(lane,side){
+  return {lane:lane,side:side,size:4,push:0,frozen:false,mode:'hold',prio:0,at:0};
+}
+function macroBlankForm(side){
+  return {side:side,kind:'group',pushers:[],sideLane:'TOP',at:0,changedAt:0};
+}
+function macroInit(){
+  if(!M) return null;
+  const wave={};
+  ['TOP','MID','BOT'].forEach(function(l){
+    wave[l]={me:macroNewWave(l,'me'),opp:macroNewWave(l,'opp')};
+  });
+  M.macro={
+    seed:String(Math.random()).slice(2,10),
+    wave:wave, turn:{TOP:null,MID:null,BOT:null},
+    vision:{}, prep:{}, holdLane:{},
+    form:{me:macroBlankForm('me'),opp:macroBlankForm('opp')},
+    foe:null, forced:null, convert:null,
+    bait:0, baitUntil:-9, trapAt:-9, plateLog:0, freezeLog:0,
+    stats:{shove:{me:0,opp:0},fail:{me:0,opp:0},cs:{me:0,opp:0},plates:{me:0,opp:0},
+      late:{me:0,opp:0},sideTowers:{me:0,opp:0},converts:0,steals:0,forced:0,traps:0},
+    log:[]
+  };
+  return M.macro;
+}
+function mxEnsure(){
+  if(!M) return null;
+  if(!M.macro||!M.macro.wave) macroInit();
+  return M.macro;
+}
+
+/* ============================================================================
+   1. 웨이브 관리 · 턴 이코노미
+   ========================================================================== */
+
+/* 라인 주도권 -1..1 (양수 = 우리가 밀고 있다) */
+function macroLanePrio(lane){
+  if(!M) return 0;
+  const L=M.lane||{};
+  let my=60, op=60;
+  if(lane==='BOT'){
+    const a=L.ADC||{}, b=L.SUP||{};
+    my=((a.my!=null?a.my:60)*0.7)+((b.my!=null?b.my:60)*0.3);
+    op=((a.opp!=null?a.opp:60)*0.7)+((b.opp!=null?b.opp:60)*0.3);
+  }else{
+    const l=L[lane]||{};
+    my=(l.my!=null?l.my:60); op=(l.opp!=null?l.opp:60);
+  }
+  let v=(my-op)/18;
+  try{
+    const tr=((M.trait.me&&M.trait.me.lane)||0)-((M.trait.opp&&M.trait.opp.lane)||0);
+    v+=tr*0.03;
+  }catch(e){}
+  /* 게임플랜 라인 자세 */
+  try{
+    const st=(M.gp&&M.gp.lanes&&M.gp.lanes[lane])||((M.gp6&&M.gp6.lanes)?M.gp6.lanes[lane]:null);
+    if(st==='push') v+=0.16;
+    else if(st==='freeze') v-=0.16;
+    else if(st==='dive') v+=0.24;
+  }catch(e){}
+  return mxClamp(v,-1,1);
+}
+
+/* 매 분: 각 라인의 웨이브 상태(밀기/프리징/유지)와 턴(웨이브 우선권)을 갱신 */
+function macroWaveTick(m){
+  const mx=mxEnsure(); if(!mx) return;
+  const W=mx.wave;
+  const posture=(M.gp&&M.gp.posture)||'push';
+  const lanes=(M.gp&&M.gp.lanes)||((M.gp6&&M.gp6.lanes)||null);
+  ['TOP','MID','BOT'].forEach(function(lane){
+    const p=macroLanePrio(lane);
+    ['me','opp'].forEach(function(side){
+      const w=W[lane][side];
+      const pr=p*(side==='me'?1:-1);
+      let mode='hold';
+      if(pr>0.16) mode='shove';
+      else if(pr<-0.16) mode='freeze';
+      /* 내 팀 라인 자세는 직접 지시 (상대는 주도권으로만 결정) */
+      if(side==='me'&&lanes&&lanes[lane]){
+        const st=lanes[lane];
+        if(st==='push') mode='shove';
+        else if(st==='freeze') mode='freeze';
+      }
+      if(side==='me'&&posture==='pull'&&pr<0.30) mode='freeze';
+      if(side==='me'&&posture==='push'&&pr>-0.24) mode='shove';
+      w.mode=mode; w.prio=Math.round(pr*100)/100; w.at=m;
+      if(mode==='shove'){ w.push=mxClamp(w.push+0.20,0,1); w.size=Math.min(12,w.size+2); w.frozen=false; }
+      else if(mode==='freeze'){ w.push=mxClamp(w.push-0.16,0,1); w.size=Math.max(4,w.size-1); w.frozen=true; }
+      else { w.push=mxClamp(w.push*0.88,0,1); w.frozen=false; }
+    });
+    const meW=W[lane].me, opW=W[lane].opp;
+    const net=(meW.push*meW.size)-(opW.push*opW.size);
+    mx.turn[lane]=net>2.2?'me':(net<-2.2?'opp':null);
+  });
+  /* 리드 라인 = 포탑 방패 채굴 / 지는 라인 = T1 근처 프리징 */
+  if(m<14){
+    ['TOP','MID','BOT'].forEach(function(lane){
+      const pr=macroLanePrio(lane);
+      if(pr>0.34&&W[lane].me.push>0.5&&mxRand()<0.22) macroPlateMine('me',lane,m);
+      if(pr<-0.34&&W[lane].opp.push<0.3&&mxRand()<0.12) macroFreezeSafe('opp',lane,m);
+    });
+  }
+}
+
+/* 포탑 방패 채굴 — 리드 매치업이 빅웨이브로 방패 골드를 챈다 */
+function macroPlateMine(side,lane,m){
+  const mx=mxEnsure(); if(!mx) return null;
+  const role=mxRoleOfLane(lane);
+  addGold(side,125);
+  mx.stats.plates[side]=(mx.stats.plates[side]||0)+125;
+  try{ lvAddXp(side,role,6); }catch(e){}
+  const L=M.lane&&M.lane[role];
+  if(L){ const s=0.8; if(side==='me'){ L.my=mxClamp(L.my+s,5,95); } else { L.opp=mxClamp(L.opp+s,5,95); } }
+  if((mx.plateLog=(mx.plateLog||0)+1)<=3){
+    mxLog(side==='me'?'blue':'red', m+'분 · 💰 <b>포탑 방패</b> — '+mxTag(side)+' '+
+      MX_LANE_KR[lane]+'이(가) 빅웨이브를 밀어 넣고 방패 골드를 채굴합니다 (주도권 유지).');
+  }
+  return {gold:125};
+}
+/* 지는 쪽은 T1 근처로 당겨 프리징 — 갱 위험 없이 파밍 */
+function macroFreezeSafe(side,lane,m){
+  const mx=mxEnsure(); if(!mx) return null;
+  if((mx.freezeLog=(mx.freezeLog||0)+1)>2) return null;
+  mxLog(side==='me'?'blue':'red', m+'분 · 🛡 <b>프리징</b> — '+mxTag(side)+' '+MX_LANE_KR[lane]+
+    '이(가) 1차 타워 앞으로 웨이브를 당겨 안전하게 받아 먹습니다 (갱 로밍 차단).');
+  return true;
+}
+
+/* ---------- 오브젝트 전 셔브 ---------- */
+function macroObjRoles(kind,at){
+  try{ if(typeof mmdObjRoles==='function') return mmdObjRoles(kind,at); }catch(e){}
+  if(kind==='grub') return ['TOP','JGL','MID'];
+  if(kind==='dragon') return ['JGL','MID','ADC','SUP'];
+  return ['TOP','JGL','MID','ADC','SUP'];
+}
+/* 웨이브 우위로 셔브 성공 확률 */
+function macroShoveRoll(side,prio){
+  const mx=mxEnsure();
+  if(mx&&mx.forceShove&&mx.forceShove[side]) return mx.forceShove[side]==='ok';
+  let ch=0.46+prio*0.40;
+  try{
+    const tr=side==='me'?(((M.trait.me||{}).macro||0)-((M.trait.opp||{}).macro||0))
+                        :(((M.trait.opp||{}).macro||0)-((M.trait.me||{}).macro||0));
+    ch+=tr*0.035;
+  }catch(e){}
+  return mxRand()<mxClamp(ch,0.07,0.93);
+}
+/* 셔브 성공 — 빅웨이브를 밀어넣고 로테이션 (상대는 웨이브를 받느라 늦는다) */
+function macroShove(side,role,lane,o){
+  const mx=mxEnsure(); if(!mx) return null;
+  const other=side==='me'?'opp':'me';
+  const cs=Math.round(5+mxRand()*7);
+  macroCsSwing(side,role,cs,Math.round(8+mxRand()*10),(o.at<=14));
+  mx.stats.shove[side]=(mx.stats.shove[side]||0)+1;
+  const L=M.lane&&M.lane[role];
+  if(L){ if(side==='me'){ L.my=mxClamp(L.my+1.1,5,95); } else { L.opp=mxClamp(L.opp+1.1,5,95); } }
+  return {ok:true,cs:cs};
+}
+/* 셔브 실패 — 라인을 비우면 상대가 프리징/크래시, CS·XP·판 골드 손실 + 합류 지연 */
+function macroShoveFail(side,role,lane,o){
+  const mx=mxEnsure(); if(!mx) return null;
+  const other=side==='me'?'opp':'me';
+  const cs=Math.round(6+mxRand()*8);
+  macroCsSwing(other,role,cs,Math.round(9+mxRand()*9),(o.at<=14));
+  mx.stats.fail[side]=(mx.stats.fail[side]||0)+1;
+  mx.stats.late[side]=(mx.stats.late[side]||0)+1;
+  /* 웨이브를 받아내야 하므로 25초 전까지 라인에 묶인다 → 핏에 늦게 도착 */
+  mx.holdLane[side+'-'+role]=Math.max(0,o.at*60-25);
+  const L=M.lane&&M.lane[role];
+  if(L){ if(side==='me'){ L.my=mxClamp(L.my-1.2,5,95); } else { L.opp=mxClamp(L.opp-1.2,5,95); } }
+  return {ok:false,cs:cs};
+}
+/* CS·골드·경험치 스윙 (웨이브 손익의 단일 창구) */
+function macroCsSwing(side,role,cs,xp,plate){
+  const mx=mxEnsure(); if(!mx) return null;
+  const me=(side==='me'), other=me?'opp':'me';
+  const L=M&&M.lane&&M.lane[role];
+  const s=mxClamp(cs*0.16,0.4,3.0);
+  if(L){
+    if(me){ L.my=mxClamp(L.my+s,5,95); L.opp=mxClamp(L.opp-s*0.8,5,95); }
+    else { L.opp=mxClamp(L.opp+s,5,95); L.my=mxClamp(L.my-s*0.8,5,95); }
+  }
+  M.csLost=M.csLost||{me:0,opp:0};
+  M.csLost[other]=(M.csLost[other]||0)+cs;
+  const gold=Math.round(cs*16+(plate?125:0));
+  addGold(side,gold);
+  if(plate) mx.stats.plates[side]=(mx.stats.plates[side]||0)+125;
+  if(xp>0){ try{ lvAddXp(side,role,xp); }catch(e){} }
+  mx.stats.cs[side]=(mx.stats.cs[side]||0)+cs;
+  return {cs:cs,gold:gold};
+}
+/* 교차 이득(사이드 교환) 의도 — 준비 단계와 실제 결정 판단을 맞춘다
+   · 게임·오브젝트·진영별로 같은 값을 내는 결정적 난수 (준비/시야/결전 판단이 엇갈리지 않게)
+   · 기본은 교전, 크게 뒤지거나 스플릿 조합일 때만 일부 오브젝트를 교환한다 */
+function mxHash(str){
+  let h=0;
+  for(let i=0;i<str.length;i++){ h=(h*31+str.charCodeAt(i))%1000003; }
+  return h/1000003;
+}
+function macroTradeIntent(kind,at,side){
+  if(!M) return false;
+  const mx=(M&&M.macro)?M.macro:null;
+  if(mx&&mx.forceTrade===false) return false;
+  if(mx&&mx.forceTrade===true) return true;
+  const gd=(side==='me')?(M.gold[0]-M.gold[1]):(M.gold[1]-M.gold[0]);
+  const comp=(side==='me')?M.myComp:M.oppComp;
+  const split=!!(comp&&comp.tags&&(comp.tags.split||0)>=3);
+  const roll=mxHash('trade|'+((mx&&mx.seed)||'')+'|'+kind+'|'+at+'|'+side);
+  let ch=0.10;
+  if(gd<-2000) ch+=0.40; else if(gd<-1000) ch+=0.18;
+  if(split) ch+=0.16;
+  if(side==='me'&&M.gp&&M.gp.macro==='late'&&at<20) ch+=0.25;
+  if(side==='me'&&M.gp&&M.gp.macro==='cross') ch+=0.35;
+  return roll<ch;
+}
+
+/* 오브젝트 1분 전 — 참가 라인이 셔브를 했는지 판정하고 손익을 확정한다 */
+function macroObjPrep(m){
+  const mx=mxEnsure(); if(!mx) return [];
+  const out=[];
+  Object.keys(MX_SPAWN).forEach(function(kind){
+    (MX_SPAWN[kind]||[]).forEach(function(t){
+      if(t!==m+1) return;
+      try{ if(typeof v6ObjTakenAt==='function'&&v6ObjTakenAt(kind,t*60)) return; }catch(e){}
+      out.push(macroPrepOne(kind,t,m));
+    });
+  });
+  return out;
+}
+function macroPrepOne(kind,at,m){
+  const mx=mxEnsure();
+  const roles=macroObjRoles(kind,at);
+  const rec={kind:kind,at:at,me:{ok:0,fail:0,trade:false,lanes:[]},opp:{ok:0,fail:0,trade:false,lanes:[]}};
+  rec.me.trade=macroTradeIntent(kind,at,'me');
+  rec.opp.trade=macroTradeIntent(kind,at,'opp');
+  /* 양 팀이 동시에 교환을 택할 수는 없다 — 골드 우위 팀이 오브젝트를 가져간다 */
+  if(rec.me.trade&&rec.opp.trade){
+    if(M.gold[0]>=M.gold[1]) rec.opp.trade=false; else rec.me.trade=false;
+  }
+  ['me','opp'].forEach(function(side){
+    const r=rec[side];
+    if(r.trade) return;
+    const done={};
+    roles.forEach(function(role){
+      if(role==='JGL') return;
+      const lane=mxLaneOf(role,at*60);
+      if(done[lane]) return;              /* 같은 라인(바텀 듀오)은 웨이브 하나로 판정 */
+      done[lane]=1;
+      const prio=macroLanePrio(lane)*(side==='me'?1:-1);
+      const ok=macroShoveRoll(side,prio);
+      if(ok){ macroShove(side,role,lane,{kind:kind,at:at}); r.ok++; }
+      else { macroShoveFail(side,role,lane,{kind:kind,at:at}); r.fail++; }
+      r.lanes.push(lane);
+    });
+  });
+  mx.prep[kind+':'+at]=rec;
+  /* 중계 — 턴 우위를 한 줄로 */
+  const kr=MX_OBJ_KR[kind]||'오브젝트';
+  if(rec.me.trade||rec.opp.trade){
+    const who=rec.me.trade&&rec.opp.trade?'양 팀':(rec.me.trade?mxTag('me'):mxTag('opp'));
+    mxLog('sys', at+'분 · 🔀 <b>교차 이득</b> — '+who+'이(가) '+kr+' 교전을 포기하고 사이드 타워·플레이트를 밀어 교환합니다.');
+    return rec;
+  }
+  if(rec.me.ok!==rec.opp.ok){
+    const win=rec.me.ok>rec.opp.ok?'me':'opp';
+    const n=Math.max(rec.me.ok,rec.opp.ok), lose=Math.min(rec.me.ok,rec.opp.ok);
+    mxLog(win==='me'?'blue':'red', at+'분 · 🌊 <b>웨이브 · 턴 우위</b> — '+mxTag(win)+
+      '이(가) '+n+'개 라인 빅웨이브를 밀어 넣고 먼저 로테이션합니다. '+mxTag(win==='me'?'opp':'me')+
+      '은(는) '+(n-lose)+'개 라인이 웨이브를 받느라 '+kr+' 합류가 늦습니다.');
+  }
+  return rec;
+}
+
+/* ============================================================================
+   2. 시야 장악 (오브젝트 35~45초 전)
+   ========================================================================== */
+function macroWardsNear(side,pt,rad){
+  let n=0;
+  try{
+    const w=(M.visionWar&&M.visionWar.wards&&M.visionWar.wards[side])||[];
+    const r=rad||0.17;
+    w.forEach(function(x){ if(Math.hypot(x.x-pt[0],x.y-pt[1])<=r) n++; });
+  }catch(e){}
+  return n;
+}
+/* 초 단위 — 35~45초 전 창에서 한 번만 */
+function macroVisionTick(sec){
+  const mx=mxEnsure(); if(!mx) return [];
+  const s=Number(sec)||0;
+  const fired=[];
+  const list=[];
+  Object.keys(MX_SPAWN).forEach(function(kind){
+    (MX_SPAWN[kind]||[]).forEach(function(t){ list.push({kind:kind,at:t}); });
+  });
+  if(M.elderAt) list.push({kind:'elder',at:M.elderAt});
+  list.forEach(function(o){
+    const left=o.at*60-s;
+    if(left>45||left<35) return;
+    const key=o.kind+':'+o.at;
+    if(mx.vision[key]) return;
+    try{ if(typeof v6ObjTakenAt==='function'&&v6ObjTakenAt(o.kind,o.at*60)) return; }catch(e){}
+    const rec=macroVisionSetup(o.kind,o.at,left);
+    if(rec) fired.push(rec);
+  });
+  return fired;
+}
+function macroVisionSetup(kind,at,left){
+  const mx=mxEnsure(); if(!mx) return null;
+  const entry=MX_PIT_ENTRY[kind]||MX_PIT_ENTRY.dragon;
+  const pit=mxPit(kind);
+  const rec={kind:kind,at:at,left:Math.round(left),me:0,opp:0,owner:null,
+    swept:{me:0,opp:0},wards:{me:0,opp:0},trading:{me:false,opp:false}};
+  /* 진영별 계획 — 교차 이득을 택한 팀은 시야를 버린다 */
+  const plan={};
+  ['me','opp'].forEach(function(side){
+    if(macroTradeIntent(kind,at,side)){ rec.trading[side]=true; plan[side]={trading:true}; return; }
+    const vis=(side==='me')?(((M.trait.me||{}).vision)||0):(((M.trait.opp||{}).vision)||0);
+    plan[side]={trading:false,off:(side==='me')?-0.013:0.013,nWard:mxClamp(1+Math.round(vis*0.8),1,3)};
+  });
+  /* 1) 렌즈 스윕 — 양 팀이 먼저 상대 와드를 지운다 (서폿·정글러) */
+  ['me','opp'].forEach(function(side){
+    const pl=plan[side]; if(!pl||pl.trading) return;
+    for(let i=0;i<pl.nWard;i++){
+      const p=entry[i%entry.length]; if(!p) continue;
+      const sx=mxClamp(p[0]+pl.off,0.04,0.96), sy=mxClamp(p[1]+pl.off,0.04,0.96);
+      try{
+        if(typeof v5Sweep==='function'){
+          const rm=v5Sweep(side,sx,sy,Math.max(0,at-1));
+          if(rm>0) rec.swept[side]+=rm;
+        }
+      }catch(e){}
+    }
+  });
+  /* 2) 제어와드(핑크) → 일반 와드 */
+  ['me','opp'].forEach(function(side){
+    const pl=plan[side]; if(!pl||pl.trading) return;
+    for(let i=0;i<pl.nWard;i++){
+      const p=entry[i%entry.length]; if(!p) continue;
+      const sx=mxClamp(p[0]+pl.off,0.04,0.96), sy=mxClamp(p[1]+pl.off,0.04,0.96);
+      try{
+        if(typeof v5WardPut==='function'){
+          v5WardPut(side,(i===0?'pink':'yellow'),sx,sy,Math.max(0,at-1));
+          rec.wards[side]=(rec.wards[side]||0)+1;
+        }
+      }catch(e){}
+    }
+  });
+  rec.me=macroWardsNear('me',pit,0.17);
+  rec.opp=macroWardsNear('opp',pit,0.17);
+  rec.owner=rec.me>rec.opp?'me':(rec.opp>rec.me?'opp':'even');
+  mx.vision[kind+':'+at]=rec;
+  if(rec.owner!=='even'&&M.vision){
+    const idx=rec.owner==='me'?0:1;
+    M.vision[idx]=(M.vision[idx]||0)+3;
+  }
+  /* 중계 — 핏 시야 소유권 */
+  const kr=MX_OBJ_KR[kind]||'오브젝트';
+  if(rec.owner==='opp'){
+    mxLog('sys','🕯 <b>'+kr+' '+rec.left+'초 전 시야</b> — '+mxTag('opp')+'이(가) 핏 시야 장악 (상대 '+rec.opp+' : '+rec.me+' 우리). '+
+      mxTag('me')+'은(는) 렌즈로 걸러내고 부시 진입을 조심해야 합니다.');
+  }else if(rec.owner==='me'){
+    mxLog('sys','🕯 <b>'+kr+' '+rec.left+'초 전 시야 장악</b> — '+mxTag('me')+' 서폿·정글러가 핏 입구를 스윕'+
+      (rec.swept.me?(' '+rec.swept.me+'개'):'')+'하고 제어와드를 박았습니다 (우리 '+rec.me+' : '+rec.opp+' 상대).');
+  }else{
+    mxLog('sys','🕯 <b>'+kr+' '+rec.left+'초 전 시야</b> — 양 팀이 핏 입구 시야를 나눠 가졌습니다 (우리 '+rec.me+' : '+rec.opp+' 상대).');
+  }
+  return rec;
+}
+function macroVisionEdge(kind,m){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx) return 0;
+  const rec=mx.vision[kind+':'+m];
+  if(!rec) return 0;
+  return mxClamp((rec.me-rec.opp)*0.022,-0.06,0.06);
+}
+
+/* ============================================================================
+   3. 오브젝트 확률 보정 · 스틸 (시야·웨이브·포메이션)
+   ========================================================================== */
+function macroObjEdge(kind,m){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx) return 0;
+  let e=0;
+  const rec=mx.prep[kind+':'+m];
+  if(rec){
+    e+=mxClamp((rec.me.ok-rec.opp.ok)*0.014,-0.05,0.05);
+    if(rec.me.trade&&!rec.opp.trade) e-=0.035;
+    if(rec.opp.trade&&!rec.me.trade) e+=0.035;
+  }
+  e+=macroVisionEdge(kind,m);
+  if(mx.forced&&Math.abs((mx.forced.at||0)-m)<=1&&mx.forced.kind===kind) e+=0.05;
+  if(mx.convert&&mx.convert.kind===kind&&m>=mx.convert.from&&m<=mx.convert.at+1) e+=0.05;
+  return mxClamp(e,-0.11,0.11);
+}
+/* 스틸 — 핏 시야를 가진 쪽은 강타 각을 잡는다 (역바론 포함) */
+function macroSteal(kind,team,m){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx||!team) return team;
+  const loser=team==='me'?'opp':'me';
+  let ch=0;
+  const rec=mx.vision[kind+':'+m];
+  if(rec&&rec.owner===loser) ch+=0.06;
+  if(kind==='baron'&&mx.baitUntil>=m-2) ch+=0.09;
+  if(mx.forceSteal!=null) ch=mx.forceSteal;
+  ch=mxClamp(ch,0,0.24);
+  if(ch<=0||mxRand()>=ch) return team;
+  mx.stats.steals=(mx.stats.steals||0)+1;
+  mx.lastSteal={kind:kind,at:m,by:loser};
+  mxLog(loser==='me'?'blue':'red', m+'분 · 🚨 <b>'+MX_OBJ_KR[kind]+' 스틸!</b> '+mxTag(loser)+
+    ' 정글러가 시야 우위를 이용해 강타로 가져옵니다'+(kind==='baron'?' (역바론 성공)':'')+'!');
+  return loser;
+}
+
+/* ============================================================================
+   4. 포메이션 — 1-3-1 · 4-1 · 바론 낚시
+   ========================================================================== */
+function macroPushers(kind,side){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(kind==='1-3-1') return ['TOP','MID'];
+  if(kind==='4-1') return ['TOP'];
+  return [];
+}
+/* 스플릿이 밀 사이드 — 다음 오브젝트의 반대편 (바론 시간엔 봇, 용 시간엔 탑) */
+function macroSideLaneFor(m){
+  if(m>=19) return 'BOT';
+  if((MX_SPAWN.dragon||[]).some(function(t){ return Math.abs(t-m)<=3; })) return 'TOP';
+  return 'BOT';
+}
+function macroFormationTick(m){
+  const mx=mxEnsure(); if(!mx) return;
+  if(m<13) return;
+  ['me','opp'].forEach(function(side){
+    const f=mx.form[side]||(mx.form[side]=macroBlankForm(side));
+    const gd=(side==='me')?(M.gold[0]-M.gold[1]):(M.gold[1]-M.gold[0]);
+    const comp=(side==='me')?M.myComp:M.oppComp;
+    const splitTags=(comp&&comp.tags&&(comp.tags.split||0))||0;
+    const gpMacro=(side==='me'&&M.gp&&M.gp.macro)||null;
+    const ahead=gd>1200, behind=gd<-1200;
+    let kind='group';
+    if(m>=15&&(splitTags>=3||gpMacro==='split131'||gpMacro==='split14')) kind=(splitTags>=4||m>=20)?'1-3-1':'4-1';
+    else if(ahead&&m>=18) kind='4-1';
+    if(behind&&m>=20&&splitTags<3) kind='bait';
+    if(kind!==f.kind){
+      f.kind=kind; f.at=m; f.pushers=macroPushers(kind,side); f.sideLane=macroSideLaneFor(m);
+    }else{
+      f.pushers=macroPushers(kind,side);
+    }
+  });
+  /* 상대 대응 — 2명을 보내면 4:3 강제 교전, 방치하면 사이드 타워 (3분 간격·최대 4회) */
+  const myF=mx.form.me;
+  if((myF.kind==='1-3-1'||myF.kind==='4-1')&&m>=16){
+    const due=!mx.foe||(m-(mx.foe.at||0)>=3);
+    const capOk=(mx.stats.forced||0)<4;
+    if(due&&capOk){
+      let pick=null;
+      if(mx.forceFoe==='send2'||mx.forceFoe==='ignore') pick=mx.forceFoe;
+      else{
+        const gd=M.gold[0]-M.gold[1];
+        const send2=mxRand()<mxClamp(0.44+(gd<-800?0.14:0)+(gd>2500?-0.14:0),0.2,0.72);
+        pick=send2?'send2':'ignore';
+      }
+      mx.foe={kind:pick,at:m};
+      if(pick==='send2') macroForcedEngage(m); else macroSidePressure(m);
+    }
+  }
+  /* 상대 스플릿도 우리 타워를 민다 */
+  const opF=mx.form.opp;
+  if((opF.kind==='1-3-1'||opF.kind==='4-1')&&M.lastTowerAt!==m){
+    if(mxRand()<0.34){
+      const res=(typeof v5TowerFall==='function')?v5TowerFall('opp',m,opF.sideLane):null;
+      if(res) mxLog('red', m+'분 · 🧭 <b>사이드 압박</b> — '+mxTag('opp')+' '+MX_LANE_KR[res.lane]+
+        ' 사이드가 비어 '+((res.tier||0)+1)+'차 타워를 철거합니다.');
+    }
+  }
+  /* 바론 낚시 세팅 */
+  if(myF.kind==='bait'&&m>=19&&mx.baitUntil<m) macroBaitSetup(m);
+}
+/* 상대가 2명을 사이드로 → 즉시 4:3 오브젝트/한타 전환 */
+function macroForcedEngage(m){
+  const mx=mxEnsure(); if(!mx) return null;
+  const nt=[20,26,32].filter(function(t){ return t>=m; })[0];
+  let kind='mid';
+  if(m>=19&&nt!=null&&(nt-m)<=2) kind='baron';
+  else if((MX_SPAWN.dragon||[]).some(function(t){ return t>=m&&t-m<=2; })) kind='dragon';
+  mx.forced={kind:kind,at:m,until:m+2};
+  mx.stats.forced=(mx.stats.forced||0)+1;
+  const where=kind==='baron'?'바론':(kind==='dragon'?'드래곤':'미드');
+  mxLog('blue', m+'분 · ⚡ <b>4:3 강제 전환</b> — 상대가 스플릿 푸셔를 막으러 2명을 내려보냈습니다. '+
+    mxTag('me')+'은(는) 5:4 인원 우위로 즉시 '+where+' 압박'+(kind==='mid'?' (미드 2차 공성)':'')+'에 들어갑니다.');
+  if(kind==='mid'&&mxRand()<0.6){
+    const res=(typeof v5TowerFall==='function')?v5TowerFall('me',m,'MID'):null;
+    if(res) mx.stats.sideTowers.me=(mx.stats.sideTowers.me||0)+1;
+  }
+  return mx.forced;
+}
+/* 상대가 응수하지 않으면 스플릿 푸셔가 T2/억제기를 가져간다 */
+function macroSidePressure(m){
+  const mx=mxEnsure(); if(!mx) return null;
+  const f=mx.form.me;
+  if(!f||!f.pushers||!f.pushers.length) return null;
+  const lane=(f.pushers.indexOf('MID')>=0)?'BOT':(f.sideLane||'TOP');
+  const res=(typeof v5TowerFall==='function')?v5TowerFall('me',m,lane):null;
+  if(!res) return null;
+  mx.stats.sideTowers.me=(mx.stats.sideTowers.me||0)+1;
+  mxLog('blue', m+'분 · 🧭 <b>'+(f.kind==='1-3-1'?'1-3-1':'4-1')+' 사이드 압박</b> — 상대가 응수하지 않아 '+
+    mxTag('me')+' '+MX_LANE_KR[res.lane]+' '+((res.tier||0)+1)+'차 타워가 그대로 밀립니다'+
+    (res.tier>=1?' (억제기 사거리 진입)':'')+'.');
+  return res;
+}
+/* 바론 낚시 — 시야 트랩 */
+function macroBaitSetup(m){
+  const mx=mxEnsure(); if(!mx) return;
+  const entry=MX_PIT_ENTRY.baron;
+  try{
+    if(typeof v5WardPut==='function'){
+      v5WardPut('me','pink',entry[1][0]-0.013,entry[1][1]-0.013,m);
+      v5WardPut('me','yellow',entry[0][0]-0.013,entry[0][1]-0.013,m);
+    }
+  }catch(e){}
+  mx.bait++; mx.baitUntil=m+4;
+  mxLog('sys', m+'분 · 🕳 <b>바론 낚시</b> — '+mxTag('me')+'이(가) 바론 부시에 제어와드를 박고 상대의 바론 시작을 기다립니다. '+
+    '불리한 5:5 대신 시야 트랩·역바론으로 판을 뒤집습니다.');
+}
+/* 뒤질 때 5:5 회피 — 시야 트랩 픽오프로 전환 */
+function macroAvoidFight(m){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx) return false;
+  const f=mx.form.me;
+  if(!f) return false;
+  if(!(f.kind==='bait'||((M.gold[0]-M.gold[1])<-1800))) return false;
+  if((M.gold[0]-M.gold[1])>-800) return false;
+  if(mx.trapAt>=0&&m-mx.trapAt<2) return true;
+  if(mxRand()<0.6){
+    mx.trapAt=m;
+    mx.stats.traps=(mx.stats.traps||0)+1;
+    const role=(mxRand()<0.5)?'SUP':'JGL';
+    let kg=null;
+    try{ kg=commitKill('me',{role:role,kind:'pickoff',lane:'MID',gold:360}); }catch(e){}
+    /* 킬이 지도에서 확정된 순간에 중계한다 */
+    const line=m+'분 · 🕳 <b>시야 트랩</b> — '+mxTag('me')+'은(는) 5:5를 열지 않고 바론 부시 시야로 픽오프를 노립니다. '+
+      myNameAt(role)+'이(가) 시야 밖에서 상대를 끊어냈습니다.';
+    if(kg&&kg.deferred&&kg.q) kg.q.lines.push({kind:'blue',text:line});
+    else mxLog('blue', line);
+  }
+  return true;
+}
+
+/* ============================================================================
+   5. 오브젝트·공성 우선순위 · 한타 후 전환
+   ========================================================================== */
+/* 타워 우선순위 — 미드 1차(맵 개방) > 봇 1차 ≥ 탑 1차 */
+function macroTowerLanePriority(side){
+  const def=(side==='me')?'opp':'me';
+  const tw=(M&&M.tw&&M.tw[def])||{};
+  const w={MID:1.55,BOT:1.20,TOP:0.92};
+  ['TOP','MID','BOT'].forEach(function(l){
+    const arr=(tw[l]||[1,1,1]);
+    if(!arr[0]) w[l]*=(arr[1]?0.92:0.72);          /* 1차가 이미 없으면 다음 차 순위 */
+    const pr=macroLanePrio(l)*(side==='me'?1:-1);
+    w[l]+=mxClamp(pr,-1,1)*0.35;                    /* 웨이브가 밀리는 라인을 먼저 */
+  });
+  return w;
+}
+/* 억제기 우선순위 — 탑 ≥ 봇 > 미드 (반대편 오브젝트 압박) */
+function macroInhibOrder(){ return ['TOP','BOT','MID']; }
+
+/* 한타 승리 후 전환 — 귀환하지 않고 바론/용/타워로 골드를 굳힌다 */
+function macroBestSiegeLane(side,m){
+  const prio=macroTowerLanePriority(side);
+  const lanes=['MID','BOT','TOP'];
+  let best='MID', bs=-9;
+  lanes.forEach(function(l){
+    const s=(prio[l]||1)+macroLanePrio(l)*(side==='me'?1:-1)*0.3;
+    if(s>bs){ bs=s; best=l; }
+  });
+  return best;
+}
+function macroConvertAfterAce(team,m){
+  const mx=mxEnsure(); if(!mx) return null;
+  const side=(team==='me')?'me':'opp';
+  const taken=(M.barons[0]||0)+(M.barons[1]||0);
+  const nt=[20,26,32].filter(function(t){ return t>=m; })[0];
+  let conv=null;
+  if(m>=19&&nt!=null&&(nt-m)<=3&&taken<3){
+    conv={kind:'baron',at:nt,from:m,side:side};
+  }else{
+    const lane=macroBestSiegeLane(side,m);
+    const res=(typeof v5TowerFall==='function')?v5TowerFall(side,m,lane):null;
+    conv={kind:'tower',lane:lane,at:m,from:m,side:side,res:res};
+  }
+  mx.convert=conv;
+  mx.stats.converts=(mx.stats.converts||0)+1;
+  if(conv.kind==='baron'){
+    mxLog(side==='me'?'blue':'red', m+'분 · 🎯 <b>한타 승리 → 바로 바론</b> — '+mxTag(side)+
+      '이(가) 귀환하지 않고 정비 후 5인 바론으로 전환합니다 ('+nt+'분 바론으로 골드 회수).');
+  }else{
+    mxLog(side==='me'?'blue':'red', m+'분 · 🎯 <b>한타 승리 → 타워 전환</b> — '+mxTag(side)+'이(가) '+
+      MX_LANE_KR[conv.lane]+' 타워를 그대로 밀어냅니다'+(conv.res?(' (T'+((conv.res.tier||0)+1)+' 철거)'):'')+'.');
+  }
+  return conv;
+}
+
+/* ============================================================================
+   6. 진입점 — 초/분 단위 틱
+   ========================================================================== */
+function macroTick(sec){
+  try{ macroVisionTick(sec); }catch(e){}
+  /* 타임라인 캡처 30초 전 — 해당 역할이 실제로 그 핏으로 걸어간다 */
+  try{
+    const s=Number(sec)||0;
+    Object.keys(MX_SPAWN).forEach(function(kind){
+      (MX_SPAWN[kind]||[]).forEach(function(t){ macroObjStageAt(kind,t,s); });
+    });
+    if(M.elderAt) macroObjStageAt('elder',M.elderAt,s);
+    macroSeparateTick(s);
+  }catch(e){}
+}
+function macroMinuteTick(m){
+  const mx=mxEnsure(); if(!mx) return;
+  try{ macroWaveTick(m); }catch(e){}
+  try{ macroObjPrep(m); }catch(e){}
+  try{ macroFormationTick(m); }catch(e){}
+  if(mx.convert&&mx.convert.kind==='baron'&&m>mx.convert.at+1) { /* 바론 창이 지나면 정리 */ }
+}
+
+/* ============================================================================
+   7. 미니맵 동선 — 웨이브 대기 · 시야 장악 · 스플릿 · 전환
+   ========================================================================== */
+function macroLaneSlot(lane,side,role){
+  try{
+    const back=(role==='SUP')?0.047:0.045;      /* 상대와 0.09 간격 스탠드오프 */
+    return mmLaneFrontPos(lane,side,back);
+  }catch(e){}
+  return [side==='me'?0.4:0.6,0.5];
+}
+/* 목표를 안정적으로 고정 — 같은 지점은 그대로 둔다 (덜덜거림 방지) */
+function macroTgt(k,pt,mode){
+  const u=MM.units[k]; if(!u||!pt) return;
+  if(u.recallT||u.recallWalk) return;               /* 귀환·안전 복귀 중에는 개입하지 않는다 */
+  const hold=u._mxHold;
+  if(hold&&Math.hypot(hold.x-pt[0],hold.y-pt[1])<0.008){
+    MM.tgt[k]={x:hold.x,y:hold.y};
+  }else{
+    u._mxHold={x:pt[0],y:pt[1]};
+    MM.tgt[k]={x:pt[0],y:pt[1]};
+  }
+  if(mode) u.mode=mode;
+}
+function macroSiegePoint(side,lane){
+  const enemy=(side==='me')?'opp':'me';
+  const arr=(M.tw&&M.tw[enemy]&&M.tw[enemy][lane])||[1,1,1];
+  const pts=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[enemy]&&MAP_TOWERS[enemy][lane])||[];
+  for(let i=0;i<3;i++){
+    if(arr[i]&&pts[i]){
+      return [mxClamp(pts[i][0]+(side==='me'?0.018:-0.018),0.05,0.95),
+              mxClamp(pts[i][1]+(side==='me'?0.008:-0.008),0.05,0.95)];
+    }
+  }
+  const p=pts[2]||pts[1]||[0.5,0.5];
+  return [mxClamp(p[0]+(side==='me'?0.030:-0.030),0.05,0.95),mxClamp(p[1],0.05,0.95)];
+}
+function macroVisionKeyAt(s){
+  const list=[];
+  Object.keys(MX_SPAWN).forEach(function(kind){
+    (MX_SPAWN[kind]||[]).forEach(function(t){ list.push({kind:kind,at:t}); });
+  });
+  if(M.elderAt) list.push({kind:'elder',at:M.elderAt});
+  for(let i=0;i<list.length;i++){
+    const left=list[i].at*60-s;
+    if(left>=35&&left<=45) return list[i].kind+':'+list[i].at;
+  }
+  return null;
+}
+function macroFormationRoute(s,m){
+  const mx=mxEnsure();
+  ['me','opp'].forEach(function(side){
+    const f=mx.form[side]; if(!f) return;
+    const pushers=f.pushers||[];
+    /* 스플릿 푸셔 */
+    pushers.forEach(function(role){
+      const k=side+'-'+role, u=MM.units[k];
+      if(!u||!u.alive||u.tp||u.recallT) return;
+      /* 텔포 합류 — 교전이 열리면 사이드에서 핏으로 붙는다 */
+      if(role==='TOP'&&side==='me'&&M.fightAt&&Math.abs((M.fightAt.min||0)-m)<=1){
+        const pit=mxPit('baron');
+        macroTgt(k,pit,'obj');
+        return;
+      }
+      const lane=(role==='MID')?'BOT':(((f.pushers||[]).indexOf('MID')>=0)?'TOP':(f.sideLane||'TOP'));
+      macroTgt(k,macroSiegePoint(side,lane),'split');
+    });
+    /* 본대 — 미드 웨이브 + 오브젝트 리버 시야 */
+    const mainRoles=ROLES.filter(function(r){ return pushers.indexOf(r)<0; });
+    mainRoles.forEach(function(role){
+      const k=side+'-'+role, u=MM.units[k];
+      if(!u||!u.alive||u.tp||u.recallT) return;
+      if(role==='JGL') return;
+      if(role==='SUP'){
+        const entry=MX_PIT_ENTRY[(m>=19)?'baron':'dragon'];
+        const off=(side==='me')?-0.010:0.010;
+        macroTgt(k,[mxClamp(entry[0][0]+off,0.05,0.95),mxClamp(entry[0][1]+off,0.05,0.95)],'ward');
+        return;
+      }
+      const mid=macroLaneSlot('MID',side,role);
+      /* 4-1이면 3인이 미드, 1-3-1이면 원딜·서폿·정글이 미드 */
+      macroTgt(k,mid,'rotate');
+    });
+  });
+}
+function macroMinimapPlan(sec){
+  const mx=mxEnsure(); if(!mx) return;
+  if(typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return;
+  const s=(sec==null)?mxSec():sec;
+  const m=Math.floor(s/60);
+  if(s<95) return;                                  /* 스폰·홈가드 구간은 그대로 */
+  /* 1) 셔브 없이 로테이션한 라이너는 웨이브를 받아내느라 라인에 남는다 */
+  Object.keys(mx.holdLane).forEach(function(k){
+    const until=mx.holdLane[k];
+    if(!until||s>until){ delete mx.holdLane[k]; return; }
+    const parts=k.split('-'); const side=parts[0], role=parts[1];
+    if(role==='JGL') return;
+    const u=MM.units[k]; if(!u||!u.alive||u.tp||u.recallT) return;
+    macroTgt(k,macroLaneSlot(mxLaneOf(role,s),side,role),'lane');
+  });
+  /* 2) 시야 장악 동선 — 35~45초 전 서폿·정글러가 핏 입구로 */
+  const vkey=macroVisionKeyAt(s);
+  if(vkey){
+    const rec=mx.vision[vkey];
+    const kind=vkey.split(':')[0];
+    const entry=MX_PIT_ENTRY[kind]||MX_PIT_ENTRY.dragon;
+    ['me','opp'].forEach(function(side){
+      if(rec&&rec.trading&&rec.trading[side]) return;
+      [['SUP',0],['JGL',1]].forEach(function(pair){
+        const k=side+'-'+pair[0], u=MM.units[k];
+        if(!u||!u.alive||u.tp||u.recallT) return;
+        const pt=entry[pair[1]]||entry[0];
+        const off=(side==='me')?-0.010:0.010;
+        macroTgt(k,[mxClamp(pt[0]+off,0.05,0.95),mxClamp(pt[1]+off,0.05,0.95)],'ward');
+      });
+    });
+  }
+  /* 3) 포메이션 (14분 이후) */
+  if(m>=14) macroFormationRoute(s,m);
+  /* 4) 한타 후 전환 — 그 오브젝트/라인에 그대로 붙는다 */
+  const cv=mx.convert;
+  if(cv&&s>=cv.from*60-6&&s<=(cv.at+1)*60+10){
+    if(cv.kind==='baron'){
+      const pit=mxPit('baron');
+      ROLES.forEach(function(r){
+        const k='me-'+r, u=MM.units[k];
+        if(!u||!u.alive||u.tp||u.recallT) return;
+        const sp={TOP:[-0.040,0.028],MID:[-0.018,-0.026],ADC:[0.028,0.038],SUP:[0.046,-0.008],JGL:[0,0]}[r]||[0,0];
+        macroTgt(k,[mxClamp(pit[0]+sp[0],0.05,0.95),mxClamp(pit[1]+sp[1],0.05,0.95)],'obj');
+      });
+    }else if(cv.kind==='tower'&&cv.lane){
+      const p=macroSiegePoint('me',cv.lane);
+      ['TOP','MID','ADC','SUP'].forEach(function(r){
+        const k='me-'+r, u=MM.units[k];
+        if(!u||!u.alive||u.tp||u.recallT) return;
+        macroTgt(k,p,'siege');
+      });
+    }
+  }
+}
+
+/* ---------- HUD 한 줄 (현재 운영) ---------- */
+function macroHudHTML(){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx) return '';
+  const f=mx.form&&mx.form.me?mx.form.me:null;
+  const parts=[];
+  if(f){
+    if(f.kind==='1-3-1') parts.push('🧭 1-3-1');
+    else if(f.kind==='4-1') parts.push('🚀 4-1');
+    else if(f.kind==='bait') parts.push('🕳 바론 낚시');
+  }
+  let vk=null;
+  const m=(M.minute||0);
+  Object.keys(mx.vision).forEach(function(k){
+    const rec=mx.vision[k];
+    if(rec&&Math.abs((rec.at||0)-m)<=1&&Math.abs(rec.left-(60-(M.sec||0)%60))<=70){
+      if(rec.owner==='me') vk='👁 시야 우위';
+      else if(rec.owner==='opp') vk='👁 시야 열세';
+      else if(rec.owner==='even') vk='👁 시야 팽팽';
+    }
+  });
+  if(vk) parts.push(vk);
+  if(mx.forced&&Math.abs((mx.forced.at||0)-m)<=1) parts.push('⚡ 4:3 전환');
+  if(mx.convert&&Math.abs((mx.convert.at||0)-m)<=1) parts.push('🎯 '+(mx.convert.kind==='baron'?'바론 전환':'타워 전환'));
+  return parts.map(function(x){ return '<span class="mx-tag">'+x+'</span>'; }).join('');
+}
+
+/* ============================================================================
+   8. 바텀 듀오 결속 (ADC + 서폿)
+      · 라인전(<14분 · 봇 1차 생존): 서폿은 원딜 그림자 (0.14 이내).
+        예외는 (a) 오브젝트 35~45초 전 시야 트립(≤10게임초, 원딜 안전할 때),
+        (b) 봇 웨이브를 밀어넣은 뒤의 협동 유충·미드 로밍 — 이때 원딜은 아군 T1 쪽으로 물러난다.
+      · 미드·후반(>=14분 또는 봇 1차 철거): 원딜+서폿이 함께 미드/강가로 스왑.
+   ========================================================================== */
+function duoFotoSide(side){ return side==='opp'?'me':'opp'; }
+function duoBotT1Alive(side){
+  const enemy=(side==='me')?'opp':'me';
+  try{ return !!(M.tw&&M.tw[enemy]&&M.tw[enemy].BOT&&M.tw[enemy].BOT[0]); }catch(e){ return true; }
+}
+function duoAdcSafe(side,adc){
+  if(!adc) return false;
+  if(adc.recallT) return true;
+  try{
+    if(adc.mode==='recall'||adc.mode==='recallWalk') return true;
+    const front=mmLaneFrontT('BOT');
+    const pf=mmPointFront('BOT',adc.x,adc.y);
+    if(pf.dist>0.12) return true;           /* 라인을 벗어나 있으면(기지·정글) 안전 판정 */
+    return (side==='me')?(pf.front<=front-0.004):(pf.front>=front+0.004);
+  }catch(e){}
+  return false;
+}
+/* 서폿이 잠깐 빠져도 되는가 — 'vision' | 'roam' | null */
+function duoAllowedTrip(side,sup,adc,s){
+  const mx=(M&&M.macro)?M.macro:null;
+  const safe=duoAdcSafe(side,adc);
+  if(!safe) return null;
+  /* (a) 오브젝트 35~45초 전 시야 트립 — 짧고 원딜은 안전 */
+  try{
+    if(typeof macroVisionKeyAt==='function'){
+      const key=macroVisionKeyAt(s);
+      if(key) return 'vision';
+    }
+  }catch(e){}
+  /* (b) 봇 웨이브를 밀어넣은 뒤의 협동 로밍 (유충·미드) */
+  const w=(mx&&mx.wave&&mx.wave.BOT)?mx.wave.BOT[side]:null;
+  if(w&&(w.push>0.55||w.mode==='shove')&&s>=300&&s<=780) return 'roam';
+  return null;
+}
+function duoGuard(sec){
+  if(typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return;
+  if(!M) return;
+  const s=(sec==null)?mxSec():sec;
+  if(s<95) return;                                  /* 레벨1 설계는 그대로 */
+  const m=Math.floor(s/60);
+  if(typeof MMD!=='undefined'&&MMD.clash>0) return; /* 한타 중에는 각자 싸운다 */
+  if(M.fightAt&&Math.abs((M.fightAt.min||0)-m)<=1) return;
+  ['me','opp'].forEach(function(side){
+    const sup=MM.units[side+'-SUP'], adc=MM.units[side+'-ADC'];
+    if(!sup||!adc||!sup.alive||!adc.alive) return;
+    if(sup.tp||adc.tp) return;
+    if(sup.recallWalk||adc.recallWalk) return;
+    const lanePhase=(m<14)&&(duoBotT1Alive(side)||m<8);   /* 봇 1차 철거 시 스왑, 단 초반엔 예외 */
+    /* 다른 지시(시야·오브젝트·스플릿·공성·한타)가 내려진 유닛은 건드리지 않는다 (떨림 방지) */
+    const busy=function(u){
+      return u.mode==='ward'||u.mode==='obj'||u.mode==='fight'||u.mode==='siege'||u.mode==='split'||u.mode==='recall'||u.mode==='recallWalk';
+    };
+    if(!lanePhase){
+      /* ---- 미드-봇 스왑: 함께 미드로 (지시가 없는 유닛만) ---- */
+      if(adc.recallT||sup.recallT) return;
+      const adcT=MM.tgt[side+'-ADC'];
+      let adcOnMid=false;
+      try{ adcOnMid=adcT?mmPointFront('MID',adcT.x,adcT.y).dist<0.13:false; }catch(e){}
+      if(!adcOnMid&&!busy(adc)) macroTgt(side+'-ADC',macroLaneSlot('MID',side,'ADC'),'rotate');
+      const supT=MM.tgt[side+'-SUP'];
+      const supMid=supT?((function(){ try{ return mmPointFront('MID',supT.x,supT.y).dist<0.20; }catch(e){ return false; } })()):false;
+      if(!supMid&&!busy(sup)) macroTgt(side+'-SUP',macroLaneSlot('MID',side,'SUP'),'rotate');
+      return;
+    }
+    if(sup.recallT||adc.recallT) return;
+    if(busy(adc)&&busy(sup)) return;
+    const trip=duoAllowedTrip(side,sup,adc,s);
+    if(trip==='roam'){
+      /* 협동 로밍 — 원딜은 아군 T1 쪽으로 물러난다 (혼자 적 T1 푸시 금지) */
+      if(!adc.recallT) macroTgt(side+'-ADC',macroLaneSlot('BOT',side,'ADC'),'lane');
+      return;
+    }
+    if(trip==='vision') return;                    /* 짧은 시야 트립 허용 */
+    /* ---- 라인전: 서폿은 원딜 그림자 ---- */
+    const at=mxTgtObj(MM.tgt[side+'-ADC'])||{x:adc.x,y:adc.y};
+    const d=Math.hypot(sup.x-at.x,sup.y-at.y);
+    const supT0=mxTgtObj(MM.tgt[side+'-SUP'])||{x:sup.x,y:sup.y};
+    const dTgt=Math.hypot(supT0.x-at.x,supT0.y-at.y);
+    if(d>0.14||dTgt>0.14){
+      const off=(side==='me')?-0.012:0.012;
+      macroTgt(side+'-SUP',[mxClamp(at.x+off,0.05,0.95),mxClamp(at.y+off,0.05,0.95)],'lane');
+    }
+  });
+}
+
+/* ============================================================================
+   9. 오브젝트 스테이징 · 포기 팀의 크로스맵 · 캡처 후 분리
+      · 타임라인 캡처 30초 전, 캡처에 참여하는 팀의 정글(+탑/미드, 봇/미드)이
+        실제로 그 핏으로 걸어간다. 아무도 없는 핏에서 배너가 뜨지 않는다.
+      · 포기(교환)를 택한 팀의 정글은 같은 핏으로 걸어가지 않고 반대편 정글로 간다.
+      · 캡처가 끝나면 진 쪽 생존자는 자기 진영으로 먼저 빠진다 (핏에서 함께 B 금지).
+   ========================================================================== */
+function mxObjPitKey(kind,at){ return kind+':'+at; }
+/* 30초 전 스테이징 — 양 팀의 해당 역할을 핏으로 러시 */
+function macroObjStageAt(kind,at,s){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return;
+  const left=at*60-s;
+  if(left>32||left<0) return;
+  const roles=macroObjRoles(kind,at);
+  const pit=mxPit(kind);
+  ['me','opp'].forEach(function(side){
+    if(macroTradeIntent(kind,at,side)){
+      /* 포기한 팀: 정글은 반대편 사이드로 (같은 핏에서 마주치지 않는다) */
+      mxConcedeCross(side,kind,at,s);
+      return;
+    }
+    if(mx.objQ&&mx.objQ[side+':'+kind+':'+at]) return;
+    roles.forEach(function(role){
+      const k=side+'-'+role;
+      const u=MM.units[k];
+      if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+      MM.tgt[k]={x:pit[0],y:pit[1]};
+      u.mode='obj';
+      u.rush=s+4;
+    });
+  });
+}
+/* 포기한 팀의 정글 — 반대편 정글로 (드래곤을 주면 적 탑 정글, 유충·바론을 주면 적 봇 정글) */
+function mxConcedeCross(side,kind,at,s){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx||typeof MM==='undefined'||!MM||!MM.camps) return;
+  const enemy=(side==='me')?'opp':'me';
+  const camps=(MM.camps[enemy]||[]);
+  if(!camps.length) return;
+  const pit=mxPit(kind);
+  const botPit=(kind==='dragon'||kind==='elder');
+  /* 핏에서 가장 먼 적 캠프 = 반대편 사이드 (같은 핏에서 마주치지 않는다) */
+  const sorted=camps.slice().sort(function(a,b){
+    return Math.hypot(b.x-pit[0],b.y-pit[1])-Math.hypot(a.x-pit[0],a.y-pit[1]);
+  });
+  const target=sorted[0]||camps[0];
+  mx.cross=mx.cross||{};
+  mx.cross[side]={kind:kind, at:at, until:at*60+18, x:target.x, y:target.y};
+  ['JGL','TOP','MID','ADC','SUP'].forEach(function(role){
+    const pass=(role==='JGL')||(botPit?(role==='TOP'):(role==='ADC'||role==='SUP'));
+    if(!pass) return;
+    const k=side+'-'+role, u=MM.units[k];
+    if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+    MM.tgt[k]={x:target.x,y:target.y};
+    u.mode='invade';
+    u.rush=s+4;
+  });
+}
+/* 캡처 직전 인원 확인 — 있으면 그 팀, 없으면 상대, 아무도 없으면 null */
+function macroObjPresence(kind,at){
+  let cnt={me:0,opp:0};
+  try{ cnt=(typeof v6CountAt==='function')?v6CountAt(kind):{me:1,opp:1}; }catch(e){ cnt={me:1,opp:1}; }
+  return cnt;
+}
+/* 배정된 팀이 핏에 없으면 실제로 있는 팀으로 돌린다 (없으면 null) */
+function macroObjPresenceFix(kind,team,at){
+  const cnt=macroObjPresence(kind,at);
+  const mine=cnt[team]||0, theirs=cnt[team==='me'?'opp':'me']||0;
+  let out=null;
+  if(mine>0) out=team;
+  else if(theirs>0) out=(team==='me')?'opp':'me';
+  const mx=(M&&M.macro)?M.macro:null;
+  if(mx) mx.lastPresence={kind:kind, at:at, me:cnt.me||0, opp:cnt.opp||0, rolled:team, final:out};
+  return out;
+}
+/* 캡처 후 분리 — 진 팀은 자기 진영으로 빠진다 */
+function macroPostObjSeparation(kind,winner,at){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx||typeof MM==='undefined'||!MM||!MM.units) return;
+  const loser=(winner==='me')?'opp':'me';
+  const s=(at||0)*60;
+  mx.separate=mx.separate||{};
+  mx.separate[loser]={kind:kind, until:s+16};
+  mx.separate[winner]={kind:kind, until:s+16, side2:true};
+}
+function macroSeparateTick(s){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx||!mx.separate||typeof MM==='undefined'||!MM||!MM.units) return;
+  Object.keys(mx.separate).forEach(function(side){
+    const rec=mx.separate[side];
+    if(!rec){ return; }
+    if(s>rec.until){ delete mx.separate[side]; return; }
+    if(rec.side2) return;                       /* 이긴 팀은 그대로 (다음 오브젝트·공성) */
+    ROLES.forEach(function(role){
+      const k=side+'-'+role, u=MM.units[k];
+      if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+      const enemy=(side==='me')?'opp':'me';
+      const tw=(MAP_TOWERS[side]||{})[v6TpLaneSafe(role)]||[];
+      const p=tw[0]||MM_NEXUS[side];
+      const dx=(MM_NEXUS[side][0]-p[0]), dy=(MM_NEXUS[side][1]-p[1]);
+      const d=Math.hypot(dx,dy)||1;
+      MM.tgt[k]={x:mxClamp(p[0]+dx/d*0.03,0.05,0.95), y:mxClamp(p[1]+dy/d*0.03,0.05,0.95)};
+      u.mode='lane';
+      u.rush=s+3;
+    });
+  });
+}
+function v6TpLaneSafe(role){ return role==='TOP'?'TOP':role==='MID'?'MID':'BOT'; }
+
+/* ============================================================================
+   10. 라인 스탠드오프 가드 — 같은 픽셀에 겹치지 않는다
+      라인전에서 양 팀 라이너의 목표가 0.07 안쪽으로 붙으면,
+      공유 전선(mid)을 기준으로 블루 -0.05 / 레드 +0.05 로 벌린다 (≈0.09 간격).
+      여러 시스템이 목표를 덮어써도 이 가드가 마지막에 시각 간격을 보장한다.
+   ========================================================================== */
+function mxTgtObj(t){ return t?(Array.isArray(t)?{x:t[0],y:t[1]}:t):null; }
+function mxLanePointAtFront(lane,front){
+  try{ return mmPathPoint(LANE_PATH[lane], laneFrontParam(lane,mxClamp(front,0.03,0.97))); }catch(e){ return null; }
+}
+function laneStandoffGuard(sec){
+  if(typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return;
+  if(!M) return;
+  const s=(sec==null)?mxSec():sec;
+  if(s<116||s>840) return;                       /* 라인전 구간만 */
+  const m=Math.floor(s/60);
+  if(m<2) return;
+  if(typeof MMD!=='undefined'&&MMD.clash>0) return;
+  const lanes=[['TOP','TOP'],['MID','MID'],['BOT','ADC'],['BOT','SUP']];
+  const done={};
+  lanes.forEach(function(pair){
+    const lane=pair[0], role=pair[1];
+    const key=lane+'|'+role;
+    if(done[key]) return;
+    const kMe='me-'+role, kOp='opp-'+role;
+    const uMe=MM.units[kMe], uOp=MM.units[kOp];
+    if(!uMe||!uOp||!uMe.alive||!uOp.alive) return;
+    if(uMe.mode!=='lane'||uOp.mode!=='lane') return;      /* 교전·로테이션 중엔 그대로 */
+    if(uMe.tp||uOp.tp||uMe.recallT||uOp.recallT||uMe.recallWalk||uOp.recallWalk) return;
+    const tMe=mxTgtObj(MM.tgt[kMe]), tOp=mxTgtObj(MM.tgt[kOp]);
+    if(!tMe||!tOp) return;
+    let fMe=0.5,fOp=0.5;
+    try{
+      const a=mmPointFront(lane,tMe.x,tMe.y), b=mmPointFront(lane,tOp.x,tOp.y);
+      if(a.dist>0.12||b.dist>0.12) return;
+      fMe=a.front; fOp=b.front;
+    }catch(e){ return; }
+    if(Math.abs(fMe-fOp)>=0.07) return;                    /* 이미 벌어져 있다 */
+    const mid=(fMe+fOp)/2;
+    const pMe=mxLanePointAtFront(lane,mid-0.05);
+    const pOp=mxLanePointAtFront(lane,mid+0.05);
+    if(pMe){ MM.tgt[kMe]={x:pMe[0],y:pMe[1]}; uMe._mxHold={x:pMe[0],y:pMe[1]}; }
+    if(pOp){ MM.tgt[kOp]={x:pOp[0],y:pOp[1]}; uOp._mxHold={x:pOp[0],y:pOp[1]}; }
+  });
+}
+
+/* ============================================================================
+   11. 오브젝트 핏 스탠드오프 — 핏 안에서 적과 나란히 서지 않는다
+      · 경합이면 핏 양쪽(각 0.085, 총 ~0.15)에 벌려 서서 시야·견제를 하고,
+        한 번은 실제 교전(HP·킬·후퇴)으로 붙는다.
+      · 포기한 팀은 핏에 남지 않는다 — 크로스맵 지점이나 자기 타워 뒤로 빠진다.
+   ========================================================================== */
+function mxDirUnit(from,to){
+  const dx=to[0]-from[0], dy=to[1]-from[1];
+  const d=Math.hypot(dx,dy)||1;
+  return [dx/d,dy/d];
+}
+function mxOwnSafePoint(side,role){
+  try{
+    const lane=(role==='ADC'||role==='SUP')?'BOT':(role==='MID'?'MID':'TOP');
+    const tw=(MAP_TOWERS[side]||{})[lane]||[];
+    if(tw.length) return {x:tw[tw.length-1][0],y:tw[tw.length-1][1]};
+  }catch(e){}
+  return {x:MM_NEXUS[side][0],y:MM_NEXUS[side][1]};
+}
+function pitStandoffGuard(sec){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return;
+  const s=(sec==null)?mxSec():sec;
+  if(s<150) return;
+  mx.skirmish=mx.skirmish||{};
+  const rollNow=(mx._skSec!==s);
+  const list=[];
+  Object.keys(MX_SPAWN).forEach(function(kind){
+    (MX_SPAWN[kind]||[]).forEach(function(t){ list.push({kind:kind,at:t}); });
+  });
+  if(M.elderAt) list.push({kind:'elder',at:M.elderAt});
+  list.forEach(function(o){
+    const left=o.at*60-s;
+    if(left>36||left<-8) return;                     /* 준비~캡처 창만 */
+    const pit=mxPit(o.kind);
+    const key=o.kind+':'+o.at;
+    const near={me:[],opp:[]};
+    ROLES.forEach(function(role){
+      ['me','opp'].forEach(function(side){
+        const u=MM.units[side+'-'+role];
+        if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+        if(Math.hypot(u.x-pit[0],u.y-pit[1])<0.14) near[side].push({role:role,u:u});
+      });
+    });
+    /* 포기(교환)한 팀은 핏에 남지 않는다 */
+    ['me','opp'].forEach(function(side){
+      if(!macroTradeIntent(o.kind,o.at,side)) return;
+      near[side].forEach(function(x){
+        const cr=(mx.cross&&mx.cross[side])?mx.cross[side]:null;
+        const tgt=cr?{x:cr.x,y:cr.y}:mxOwnSafePoint(side,x.role);
+        MM.tgt[side+'-'+x.role]={x:mxClamp(tgt.x,0.05,0.95),y:mxClamp(tgt.y,0.05,0.95)};
+        x.u.mode='invade';
+        x.u.rush=s+3;
+      });
+      near[side].length=0;
+    });
+    if(!near.me.length||!near.opp.length) return;
+    /* 경합 — 핏 양쪽으로 벌린다 (적과 0.12 미만으로 붙지 않는다) */
+    const dm=mxDirUnit(pit,MM_NEXUS.me), dop=mxDirUnit(pit,MM_NEXUS.opp);
+    const spread=0.085;
+    near.me.forEach(function(x){
+      MM.tgt['me-'+x.role]={x:mxClamp(pit[0]+dm[0]*spread,0.05,0.95),y:mxClamp(pit[1]+dm[1]*spread,0.05,0.95)};
+      x.u.mode='obj';
+    });
+    near.opp.forEach(function(x){
+      MM.tgt['opp-'+x.role]={x:mxClamp(pit[0]+dop[0]*spread,0.05,0.95),y:mxClamp(pit[1]+dop[1]*spread,0.05,0.95)};
+      x.u.mode='obj';
+    });
+    /* 한 번은 실제 교전 — 킬 게이트가 붙는 순간까지 수렴시킨 뒤 확정한다 */
+    if(rollNow&&!mx.skirmish[key]){
+      mx.skirmish[key]=1;
+      if(mx.forceSkirmish===true||mxRand()<0.62){
+        try{
+          if(typeof MMD!=='undefined'){
+            MMD.clash=0.9; MMD.clashPt=[pit[0],pit[1]]; MMD.clashKind='fight';
+            MMD.clashAt=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+          }
+        }catch(e){}
+        const side=(near.me.length>=near.opp.length)?'me':'opp';
+        const role=((near[side][0]||{}).role)||'JGL';
+        try{ commitKill(side,{role:role, kind:'fight', teamfight:true, pt:pit, gold:320, n:1}); }catch(e){}
+      }
+    }
+  });
+  if(rollNow) mx._skSec=s;
 }
 
 /* ============================================================================
