@@ -16937,6 +16937,7 @@ function homeV3(){
     </div>
 
     ${(typeof skipCardHTML==='function')?skipCardHTML():''}
+    ${(typeof seasonCalendarHTML==='function')?seasonCalendarHTML():''}
     ${(typeof scandalCardHTML==='function')?scandalCardHTML():''}
     ${(typeof sponsorRiskCardHTML==='function')?sponsorRiskCardHTML():''}
 
@@ -17230,7 +17231,8 @@ function rosterV3(){
   return `
   <div class="pg">
     <div class="pg-h"><h2>선수단</h2><span class="pg-s">${esc(t.name)} · ${S.season}시즌</span>
-      <div class="pg-r"><span class="pill sm">총연봉 ${sal.toFixed(1)}억</span><span class="pill sm">스태프 ${staffPayroll(t.id).toFixed(1)}억</span></div></div>
+      <div class="pg-r"><span class="pill sm">총연봉 ${sal.toFixed(1)}억</span><span class="pill sm">스태프 ${staffPayroll(t.id).toFixed(1)}억</span>${(typeof talkAutoBtnHTML==='function')?talkAutoBtnHTML():''}</div></div>
+    ${(c.talkAuto)?`<div class="card tight" style="padding:8px 10px"><div class="tiny" style="line-height:1.45">🤖 <b>선수 면담 자동 켜짐</b> — 매주 면담 필요도가 높은 선수부터 성격·상태에 맞춰 대응합니다.${(c.talkAutoLog&&(c.talkAutoLog.lines||[]).length)?`<br><em style="color:var(--dim2)">최근 (${esc(c.talkAutoLog.at||'-')}) — ${esc(c.talkAutoLog.lines.join(' · '))}</em>`:''}</div></div>`:''}
     <div class="squad-switch">
       <button class="sq-pill on" data-a="noop">1군 선수단 <b>${starters.length+bench.length}</b></button>
       <button class="sq-pill acad" data-a="tab" data-v="club:academy">🎓 2군/아카데미 <b>${acad.length}</b></button>
