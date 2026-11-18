@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LoL 매니저 26 · 화면 미리보기</title>
+<style>html,body{margin:0;padding:0;background:#0b0d12}iframe{border:0;display:block;height:100vh}</style></head>
+<body>
+<iframe id="f"></iframe>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var w=parseInt(q.get('w')||'375',10);
+  var go=q.get('go')||'trade';
+  var team=q.get('team')||'BRO';
+  var f=document.getElementById('f');
+  f.style.width=w+'px';
+  f.src='lol-preview-game-v2.html';
+  var tries=0;
+  function boot(){
+    tries++;
+    var g=null;
+    try{ g=f.contentWindow; }catch(e){ document.title='XERR'; return; }
+    if(!g||typeof g.createState!=='function'){ if(tries<60) setTimeout(boot,200); else document.title='NOLOAD'; return; }
+    try{
+      g.createState(team); g.clubInit();
+      if(go==='trade'){
+        g.hubAction('tab','market'); g.hubAction('stovetab','trade');
+        g.hubAction('stoveteam','T1'); g.hubAction('stovetarget','Faker');
+        g.hubAction('stovemine','Clozer'); g.stoveCashSet(4);
+      }else if(go==='trade2'){
+        g.hubAction('tab','market'); g.hubAction('stovetab','trade');
+        g.hubAction('stoveteam','KT'); g.hubAction('stovetarget','Bdd');
+        g.hubAction('stovemine','deokdam'); g.stoveCashSet(12);
+      }else if(go==='staff'){ g.hubAction('tab','club:staff'); }
+      else if(go==='budget'){ g.hubAction('tab','club:budget'); }
+      else if(go==='market'){ g.hubAction('tab','market'); g.hubAction('stovetab','bj'); }
+      else if(go==='match'){
+        g.hubAction('tab','home');
+        g.prepareMatch();
+        for(var i=0;i<12 && !g.__game.D;i++){ try{ g.pressAuto(); }catch(e){} }
+        if(!g.__game.D) throw new Error('no draft');
+        g.autoDraftRun();
+        try{ g.confirmAssign(); }catch(e){}
+        var sb=g.document.getElementById('startGameBtn');
+        if(!sb) throw new Error('no start button');
+        sb.click();
+        var M=g.__game.M;
+        if(M){ M.speed=8; M.running=true; }
+        document.title='MATCH LIVE';
+        return;
+      }
+      document.title='READY '+go+' '+w;
+    }catch(e){ document.title='ERR '+go+' '+(e&&e.message||e); }
+  }
+  f.addEventListener('load',function(){ setTimeout(boot,150); });
+})();
+</script>
+</body></html>
