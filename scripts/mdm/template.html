@@ -1184,7 +1184,7 @@ function saveDraft(){ lsSet('mdm_deck_draft', curDeck); }
 
 const TAG_RE_HAND = /(ash blossom|maxx\s*"?c"?|effect veiler|droll\s*&?\s*lock bird|ghost ogre|ghost belle|ghost mourner|mulcharmy|nibiru|dimension shifter|psy-framegear|infinite impermanence|herald of orange light|dominus impulse|dominus purge|dominus spark|artifact lancea|token collector|d\.d\. crow|retaliating "c")/i;
 const TAG_RE_BREAK = /(forbidden droplet|dark ruler no more|super polymerization|lightning storm|harpie'?s feather duster|raigeki|triple tactics|forbidden crown|kaiju|lava golem|sphere mode|evenly matched|book of eclipse|mind control|change of heart|mystical space typhoon)/i;
-const TAG_RE_ENGINE = /(power patron|portal - terminus)/i;   /* 이번 메타 엔진 카드: 사실상 초동 */
+const TAG_RE_ENGINE = /portal - terminus/i;   /* 이번 메타 1장 초동 카드 */
 const TAG_RE_NICE = /(pot of |upstart goblin|one for one|foolish burial|reinforcement of the army|terraforming|chicken game|reasoning|monster reborn|card destruction|crossout designator|called by the grave|gold sarcophagus|foolish burial goods)/i;
 function autoTag(en, arch){
   const s = String(en || '');
