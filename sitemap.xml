@@ -49,6 +49,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://wecarevet.github.io/wecarevet/water-food.html</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://wecarevet.github.io/wecarevet/homecare.html</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>monthly</changefreq>

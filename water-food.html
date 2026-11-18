@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#10335E">
+<meta name="description" content="위케어동물의료센터 심장·신장 아이 하루 음수량·사료량 계산기. 체중과 질환(MMVD·HCM, IRIS 신부전, 결석)에 맞춘 하루 목표 음수량(ml)과 건사료·습식 혼합 급여량(g·캔·계량컵)을 계산하고, 습식 사료로 채워지는 수분까지 반영합니다.">
+<title>심장·신장 아이 하루 음수량·사료량 계산기 · 위케어동물의료센터</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://wecarevet.github.io/wecarevet/water-food.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="위케어동물의료센터">
+<meta property="og:title" content="심장·신장 아이 하루 음수량·사료량 계산기 · 위케어동물의료센터">
+<meta property="og:description" content="체중과 질환(심장병 MMVD·HCM, 만성신부전 IRIS, 결석·요로계)에 맞춘 하루 목표 음수량(ml)과 건사료·습식 혼합 급여량을 한 번에. 습식으로 채워지는 수분까지 자동 반영합니다.">
+<meta property="og:url" content="https://wecarevet.github.io/wecarevet/water-food.html">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://wecarevet.github.io/wecarevet/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://wecarevet.github.io/wecarevet/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --red:#b3261e;--red-bg:#fdf0ef;--red-border:#f0c8c4;
+  --amber:#9a6207;--amber-bg:#fff8e6;--amber-border:#f0dcae;
+  --green:#166534;--green-bg:#eefaf3;--green-border:#c6e9d5;
+  --max:760px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;min-height:100vh;word-break:keep-all;-webkit-font-smoothing:antialiased}
+
+/* TOPBAR */
+.topbar{background:var(--navy);padding:0 1.25rem;position:sticky;top:0;z-index:200}
+.topbar-inner{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;gap:.6rem}
+.logo-text{color:#fff;font-size:12.5px;font-weight:500;line-height:1.3;white-space:nowrap}
+.logo-group{display:flex;align-items:center;gap:.5rem;min-width:0;text-decoration:none}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#fff;object-fit:contain;flex-shrink:0;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+@media(max-width:520px){.logo-mark{width:26px;height:26px;padding:1px;border-radius:7px}}
+@media(max-width:420px){.logo-text{display:none}.logo-mark,.logo-mark img{width:24px;height:24px}.logo-group{gap:0}}
+.logo-text small{display:block;font-size:9.5px;font-weight:300;opacity:.7;letter-spacing:.06em}
+.topbar-btns{display:flex;gap:.35rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:4px;padding:6px 10px;border-radius:6px;font-size:11.5px;font-weight:500;text-decoration:none;cursor:pointer;transition:all .15s;white-space:nowrap;border:none;background:transparent;color:#fff}
+.tbtn.call{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tbtn.call:active{background:rgba(255,255,255,.24)}
+.tbtn.kako{background:#FEE500;color:#1a1a1a;border:1px solid #FEE500}
+.tbtn.back{background:rgba(255,255,255,.08);color:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.15);font-size:10.5px}
+
+/* HERO */
+.hero{background:var(--navy);padding:1.75rem 1.25rem 1.9rem}
+.hero-inner{max-width:var(--max);margin:0 auto;text-align:center}
+.hero-eyebrow{font-size:10.5px;font-weight:500;letter-spacing:.16em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-bottom:.7rem}
+.hero h1{font-size:21px;font-weight:700;color:#fff;line-height:1.45;margin-bottom:.6rem}
+.hero h1 span{color:#7eb8f7}
+.hero-desc{font-size:12.5px;color:rgba(255,255,255,.58);line-height:1.8}
+
+/* SPECIES BAR */
+.sel-bar{background:var(--navy-dark);border-top:1px solid rgba(255,255,255,.1);padding:1rem 1.25rem .9rem}
+.sel-inner{max-width:var(--max);margin:0 auto}
+.sel-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
+.sel-lbl{font-size:11px;font-weight:500;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase;min-width:56px;flex-shrink:0}
+.pill-group{display:flex;gap:.4rem;flex-wrap:wrap}
+.pill{padding:7px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-size:12.5px;font-weight:500;cursor:pointer;background:transparent;color:rgba(255,255,255,.6);transition:all .15s;font-family:inherit;line-height:1.4}
+.pill:active{border-color:rgba(255,255,255,.5);color:#fff}
+.pill.active{background:#fff;border-color:#fff;color:var(--navy);font-weight:700}
+.sel-hint{font-size:10.5px;color:rgba(255,255,255,.34);line-height:1.7;margin-top:.55rem}
+
+.main{max-width:var(--max);margin:0 auto;padding:1.5rem 1.25rem 2.5rem}
+
+/* NOTE */
+.pnote{display:flex;gap:.5rem;align-items:flex-start;background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.8rem .9rem;font-size:11.5px;color:var(--text-mid);line-height:1.7;margin-bottom:1rem}
+.pnote strong{color:var(--navy);font-weight:600}
+
+/* SECTIONS */
+.sect{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:1.05rem 1.1rem 1.2rem;margin-bottom:1rem}
+.sect-head{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:1rem;padding-bottom:.7rem;border-bottom:1px solid var(--navy-xlight)}
+.sect-num{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.sect-title{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.5}
+.sect-sub{font-size:11.5px;color:var(--text-muted);line-height:1.6;margin-top:2px}
+.sect-tag{margin-left:auto;flex-shrink:0;font-size:9.5px;font-weight:700;letter-spacing:.08em;color:var(--accent);background:var(--accent-light);border-radius:5px;padding:2px 7px;text-transform:uppercase;line-height:1.8}
+
+/* FIELDS */
+.field{margin-bottom:.9rem}
+.field:last-child{margin-bottom:0}
+.field > label,.flabel{display:block;font-size:12px;font-weight:600;color:var(--text-mid);margin-bottom:5px;letter-spacing:.01em}
+.flabel .opt,.field > label .opt{font-weight:400;color:var(--text-muted);font-size:10.5px;margin-left:4px}
+input[type=text],input[type=number],input[type=date],select,textarea{
+  width:100%;font-family:inherit;font-size:16px;color:var(--text);
+  background:var(--navy-xlight);border:1.5px solid var(--border);border-radius:9px;
+  padding:10px 12px;outline:none;transition:border-color .15s,background .15s;line-height:1.5;
+  -webkit-appearance:none;appearance:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);background:#fff}
+input::placeholder{color:#a9b7c5;font-size:13.5px}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--text-muted) 50%),linear-gradient(135deg,var(--text-muted) 50%,transparent 50%);background-position:calc(100% - 18px) 21px,calc(100% - 13px) 21px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.unit-wrap{position:relative}
+.unit-wrap input{padding-right:36px}
+.unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12.5px;color:var(--text-muted);pointer-events:none}
+.hint{font-size:11px;color:var(--text-muted);margin-top:5px;line-height:1.6}
+.hint b{color:var(--text-mid);font-weight:600}
+.hidden{display:none !important}
+
+/* SEGMENTED */
+.seg{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
+.seg label{position:relative;flex:1;min-width:0}
+.seg input{position:absolute;opacity:0;width:0;height:0}
+.seg span{display:block;text-align:center;padding:9px 6px;border:1.5px solid var(--border);border-radius:9px;background:var(--white);color:var(--text-mid);font-size:12.5px;font-weight:500;cursor:pointer;transition:all .15s}
+.seg input:checked + span{background:var(--navy);border-color:var(--navy);color:#fff;font-weight:600}
+.seg input:focus-visible + span{outline:2px solid var(--accent);outline-offset:2px}
+.seg.two label{flex:1}
+
+/* DISEASE CARDS */
+.dz{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.dzc{display:flex;flex-direction:column;gap:1px;text-align:left;font-family:inherit;border:1.5px solid var(--border);border-radius:10px;background:#fff;padding:.6rem .7rem;cursor:pointer;transition:all .15s;width:100%}
+.dzc:hover{border-color:#b7d0ee}
+.dzc .dzc-n{font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.5}
+.dzc .dzc-d{font-size:10.5px;color:var(--text-muted);line-height:1.55}
+.dzc.sel{border-color:var(--accent);background:#f6faff;box-shadow:0 0 0 2px rgba(45,108,192,.12)}
+.dzc.sel .dzc-d{color:var(--accent)}
+@media(max-width:400px){.dz{grid-template-columns:1fr}}
+
+/* RANGE */
+.range-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.1rem}
+.range-head .flabel{margin-bottom:0}
+.range-val{font-size:12.5px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;height:26px;accent-color:var(--accent);background:transparent;cursor:pointer;padding:0;border:none}
+.split{display:flex;height:8px;border-radius:999px;overflow:hidden;background:#e3ebf5;margin-top:.15rem}
+.split span{display:block;height:100%;transition:width .2s}
+.split .sp-dry{background:var(--navy)}
+.split .sp-wet{background:var(--accent)}
+.split-lbl{display:flex;justify-content:space-between;font-size:10.5px;color:var(--text-muted);margin-top:4px}
+.split-lbl b{color:var(--text-mid);font-weight:600}
+
+/* RESULT */
+#resEmpty{display:flex;gap:.6rem;align-items:center;background:var(--navy-xlight);border:1px dashed var(--border);border-radius:12px;padding:1rem .95rem;font-size:12px;color:var(--text-muted);line-height:1.7}
+.stage{background:linear-gradient(165deg,#123A6B 0%,var(--navy) 60%,#0b2242 100%);border-radius:14px;padding:1.1rem 1.15rem;color:#fff;margin-bottom:.8rem}
+.stage-k{font-size:10px;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.5);text-transform:uppercase;margin-bottom:.2rem}
+.stage-n{font-size:26px;font-weight:700;line-height:1.28;letter-spacing:-.02em}
+.stage-n em{font-style:normal;color:#8ec2f8}
+.stage-n small{font-size:14px;font-weight:600;color:rgba(255,255,255,.75);margin-left:2px}
+.stage-meta{font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.7;margin-top:.3rem}
+.stage-wait{font-size:12.5px;color:rgba(255,255,255,.78);line-height:1.7;margin-top:.45rem;padding-top:.5rem;border-top:1px solid rgba(255,255,255,.12)}
+.stage-wait b{color:#fff;font-weight:700}
+
+.rcards{display:grid;gap:.6rem;margin-bottom:.8rem}
+@media(min-width:600px){.rcards{grid-template-columns:1fr 1fr}}
+.rc{background:var(--white);border:1px solid var(--border);border-radius:13px;padding:.85rem .95rem}
+.rc.wide{grid-column:1/-1}
+.rc-head{display:flex;align-items:center;gap:.45rem;margin-bottom:.25rem;flex-wrap:wrap}
+.rc-k{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.02em}
+.rc-date{font-size:20px;font-weight:700;color:var(--navy);line-height:1.35;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.rc-date.alert{font-size:13.5px;font-weight:600;color:var(--amber);letter-spacing:0;line-height:1.6}
+.rc-date small{font-size:12.5px;font-weight:600;color:var(--text-muted);margin-left:2px;letter-spacing:0}
+.rc-note{font-size:11px;color:var(--text-muted);line-height:1.65;margin-top:.35rem}
+.rc-note b{color:var(--text-mid);font-weight:600}
+.rc-note a{color:var(--accent);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(45,108,192,.3)}
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:5px;line-height:1.7;white-space:nowrap;margin-left:auto;flex-shrink:0}
+.badge.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.badge.warn{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.badge.bad{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.badge.blue{background:var(--accent-light);color:var(--accent);border:1px solid #c5dbf3}
+
+/* PLAN ROWS */
+.plan{display:grid;gap:.3rem;margin-top:.15rem}
+.prow{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;padding:.42rem .6rem;border-radius:8px;background:var(--navy-xlight);border:1px solid #e6edf5}
+.prow .pk{font-size:11.5px;font-weight:600;color:var(--text-mid);flex-shrink:0}
+.prow .pv{font-size:13px;font-weight:700;color:var(--navy);text-align:right;font-variant-numeric:tabular-nums}
+.prow .pv small{display:block;font-size:10.5px;font-weight:500;color:var(--text-muted);letter-spacing:0}
+.prow.sub{background:#fff;border-style:dashed}
+.prow.sub .pv{font-size:12px;color:var(--text-mid)}
+
+/* WATER GAUGE */
+.gauge{margin-top:.2rem}
+.gbar{display:flex;height:14px;border-radius:999px;overflow:hidden;background:#e3ebf5;border:1px solid #dbe5f0}
+.gbar span{display:block;height:100%;transition:width .2s}
+.gbar .g-food{background:#9cc6f2}
+.gbar .g-drink{background:var(--accent)}
+.gbar .g-rest{background:#e9eff7}
+.glegend{display:flex;flex-wrap:wrap;gap:.35rem .9rem;font-size:10.5px;color:var(--text-muted);margin-top:5px}
+.glegend i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.glegend i.food{background:#9cc6f2}
+.glegend i.drink{background:var(--accent)}
+.glegend b{color:var(--text-mid);font-weight:600}
+
+/* FLAGS */
+.flag{display:flex;gap:.55rem;align-items:flex-start;border-radius:11px;padding:.75rem .85rem;font-size:11.5px;line-height:1.7;border:1px solid;margin-bottom:.55rem}
+.flag:last-child{margin-bottom:0}
+.flag.warn{background:var(--amber-bg);border-color:var(--amber-border);color:#7a4e06}
+.flag.bad{background:var(--red-bg);border-color:var(--red-border);color:#8a1e18}
+.flag.ok{background:var(--green-bg);border-color:var(--green-border);color:#155e3a}
+.flag.info{background:var(--navy-xlight);border-color:var(--border);color:var(--text-mid)}
+.flag b{font-weight:700}
+.flag a{color:var(--accent);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(45,108,192,.3)}
+
+/* EMERG */
+.egrid{display:grid;gap:.45rem}
+@media(min-width:560px){.egrid{grid-template-columns:1fr 1fr}}
+.ecard{display:flex;gap:.55rem;align-items:flex-start;background:#fff;border:1px solid var(--border);border-left:3px solid var(--red);border-radius:10px;padding:.6rem .7rem}
+.ecard .ei{font-size:15px;line-height:1.4;flex-shrink:0}
+.ecard .en{font-size:12px;font-weight:700;color:var(--navy);line-height:1.5}
+.ecard .ed{font-size:10.8px;color:var(--text-muted);line-height:1.6;margin-top:1px}
+
+/* TABLE */
+.tbl-wrap{border:1px solid var(--border);border-radius:11px;overflow:hidden;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tb{width:100%;border-collapse:collapse;font-size:11.5px;min-width:540px}
+.tb th{background:var(--navy-xlight);color:var(--navy);font-weight:700;font-size:11px;text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--border);white-space:nowrap}
+.tb td{padding:.6rem .7rem;border-bottom:1px solid var(--navy-xlight);color:var(--text-mid);line-height:1.6;vertical-align:top}
+.tb tr:last-child td{border-bottom:none}
+.tb td:first-child{font-weight:600;color:var(--text);white-space:nowrap}
+.tb td b{color:var(--navy);font-weight:600}
+.tb tr.hi td{background:#f6faff}
+
+/* LIST */
+.ulst{list-style:none;margin:.1rem 0 0}
+.ulst li{position:relative;padding-left:1rem;font-size:12px;color:var(--text-mid);line-height:1.75;margin-bottom:.35rem}
+.ulst li::before{content:"";position:absolute;left:2px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.ulst li:last-child{margin-bottom:0}
+.ulst b{color:var(--navy);font-weight:600}
+
+/* LINK CARDS */
+.lnks{display:grid;gap:.4rem;margin-top:.7rem}
+@media(min-width:560px){.lnks{grid-template-columns:1fr 1fr}}
+.lnk{display:flex;align-items:flex-start;gap:.5rem;background:#fff;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:9px;padding:.55rem .7rem;text-decoration:none;transition:all .15s}
+.lnk:hover{border-color:#b7d0ee;border-left-color:var(--accent);background:#f9fcff}
+.lnk .lk-e{font-size:15px;line-height:1.4;flex-shrink:0}
+.lnk .lk-n{display:block;font-size:12px;font-weight:700;color:var(--navy);line-height:1.5}
+.lnk .lk-d{display:block;font-size:10.5px;color:var(--text-muted);line-height:1.6;margin-top:1px}
+
+/* HOURS */
+.hours{display:grid;gap:.35rem;margin-top:.1rem}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:.5rem;font-size:12px;padding:.4rem .65rem;border-radius:8px;background:var(--navy-xlight);border:1px solid var(--border)}
+.hrow .hd{font-weight:600;color:var(--text)}
+.hrow .ht{font-variant-numeric:tabular-nums;color:var(--text-mid);font-weight:500}
+.hrow.closed{background:var(--red-bg);border-color:var(--red-border)}
+.hrow.closed .hd,.hrow.closed .ht{color:var(--red)}
+
+.disc{font-size:11px;color:var(--text-muted);line-height:1.8;text-align:center;margin-top:1.2rem}
+
+/* ACTIONS */
+.acts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.9rem}
+.btn{flex:1;min-width:132px;font-family:inherit;font-size:13.5px;font-weight:600;border-radius:10px;padding:12px 10px;border:1.5px solid transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:5px;transition:all .15s;line-height:1.3;text-decoration:none}
+.btn.primary{background:var(--navy);color:#fff;flex:1.3}
+.btn.primary:active{background:var(--navy-dark)}
+.btn.light{background:var(--white);color:var(--navy);border-color:var(--border)}
+.btn.light:active{background:var(--navy-xlight)}
+.btn.kako{background:#FEE500;color:#1a1a1a;border-color:#FEE500;flex:1.3}
+.btn.kako:active{background:#f0d800}
+
+/* TOAST */
+.toast{position:fixed;left:50%;bottom:1.6rem;transform:translate(-50%,14px);z-index:500;
+  background:var(--navy-dark);color:#fff;font-size:12.5px;font-weight:500;padding:11px 18px;border-radius:999px;
+  box-shadow:0 8px 28px rgba(10,34,64,.3);opacity:0;pointer-events:none;transition:all .25s;max-width:88vw;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* FOOT */
+.foot{background:var(--navy);padding:1.5rem 1.25rem;margin-top:1rem}
+.foot-inner{max-width:var(--max);margin:0 auto}
+.foot-disc{font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.85;margin-bottom:1rem}
+.foot-disc strong{color:rgba(255,255,255,.72);font-weight:500}
+.foot-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.foot-ref{margin-top:.9rem;font-size:10.5px;color:rgba(255,255,255,.2)}
+
+@media(min-width:560px){
+  .hero h1{font-size:24px}
+  .stage-n{font-size:30px}
+}
+@media(max-width:380px){
+  .logo-text{font-size:11px}
+  .logo-text small{display:none}
+  .tbtn.back{font-size:10px;padding:6px 7px}
+  .tbtn.call{padding:6px 8px}
+  .rc-date{font-size:18px}
+  .btn{font-size:12.5px;padding:11px 8px;min-width:118px}
+  .stage-n{font-size:23px}
+}
+@media print{
+  .topbar,.acts,.toast,.sel-bar,.pnote,.egrid{display:none}
+  body{background:#fff}
+  .sect{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo-group" href="index.html" aria-label="위케어동물의료센터 홈"><img class="logo-mark" src="logo-mark.png" width="28" height="28" alt=""><div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div></a>
+    <div class="topbar-btns">
+      <a class="tbtn back" href="/wecarevet/index.html">← 전체 안내</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · 심장 · 신장 · 수분</div>
+    <h1>심장·신장 아이,<br><span>하루에 물 얼마나 마셔야 할까요?</span></h1>
+    <p class="hero-desc">체중과 질환, 먹이는 사료의 열량·수분만 넣으면<br>하루 목표 음수량과 건사료·습식 급여량을 함께 계산해 드립니다.</p>
+  </div>
+</div>
+
+<div class="sel-bar">
+  <div class="sel-inner">
+    <div class="sel-row">
+      <span class="sel-lbl">아이 종류</span>
+      <div class="pill-group" role="group" aria-label="아이 종류 선택">
+        <button type="button" class="pill active" data-sp="dog" onclick="WECARE_WF.setSpecies('dog')">🐶 강아지</button>
+        <button type="button" class="pill" data-sp="cat" onclick="WECARE_WF.setSpecies('cat')">🐱 고양이</button>
+      </div>
+    </div>
+    <div class="sel-hint" id="spHint">강아지 기준 · 중성화 성견의 하루 열량 계수는 1.6입니다. 고양이는 계수가 더 낮아 같은 체중이라도 필요 열량이 적습니다.</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="pnote">
+    <span style="font-size:15px;flex-shrink:0" aria-hidden="true">🔒</span>
+    <span><strong>입력한 정보는 이 휴대폰 안에서만 계산</strong>됩니다. 서버로 전송되지 않고, 병원에 보여주실 요약은 아래 <strong>요약 복사</strong> 버튼을 누르실 때만 복사됩니다.</span>
+  </div>
+
+  <!-- ① 아이 정보 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">1</div>
+      <div>
+        <div class="sect-title">아이 체중과 상태</div>
+        <div class="sect-sub">체중이 가장 중요합니다. 집에서 잰 값을 넣어 주세요.</div>
+      </div>
+      <span class="sect-tag">Input</span>
+    </div>
+
+    <div class="field">
+      <label for="bw">현재 체중</label>
+      <div class="unit-wrap">
+        <input type="number" id="bw" min="0.2" max="90" step="0.1" inputmode="decimal" placeholder="예) 5.2" oninput="WECARE_WF.render()">
+        <span class="unit">kg</span>
+      </div>
+      <div class="hint">몸무게는 같은 시간(아침 식사 전)에 재면 가장 정확합니다. <b>3일 사이 5% 이상</b> 늘면 심장병에서 체액이 찬 신호일 수 있습니다.</div>
+    </div>
+
+    <div class="field">
+      <label for="stage">생활 단계 · 활동량</label>
+      <select id="stage" onchange="WECARE_WF.setStage()">
+        <option value="neuter" selected>중성화 완료 · 활동 보통</option>
+        <option value="normal">중성화 안 함 · 활동 보통</option>
+        <option value="senior">노령기 · 활동 적음 (7세 이상)</option>
+        <option value="growth">성장기 (1세 미만)</option>
+        <option value="loss">체중 감량 중</option>
+      </select>
+      <div class="hint" id="stageHint">하루 열량 계수에 반영됩니다. 잘 모르시면 <b>중성화 완료 · 활동 보통</b>으로 두세요.</div>
+    </div>
+
+    <div class="field hidden" id="fieldTarget">
+      <label for="targetBw">목표 체중<span class="opt">감량 계산에 사용</span></label>
+      <div class="unit-wrap">
+        <input type="number" id="targetBw" min="0.2" max="90" step="0.1" inputmode="decimal" placeholder="예) 4.5" oninput="WECARE_WF.render()">
+        <span class="unit">kg</span>
+      </div>
+      <div class="hint">감량은 <b>목표 체중</b> 기준으로 열량을 잡습니다. 모르시면 비어 두세요 — 현재 체중으로 계산하며 조금 높게 나옵니다. <a href="bcs.html" style="color:var(--accent);font-weight:600;text-decoration:none">체형(BCS)으로 목표 체중 보기 →</a></div>
+    </div>
+
+    <div class="field" style="margin-bottom:0">
+      <span class="flabel">질환 상태<span class="opt">음수량 기준이 달라집니다</span></span>
+      <div class="dz" role="group" aria-label="질환 상태 선택">
+        <button type="button" class="dzc sel" data-dz="health" onclick="WECARE_WF.setDisease('health')">
+          <span class="dzc-n">일반 건강</span>
+          <span class="dzc-d">예방 · 일상 관리</span>
+        </button>
+        <button type="button" class="dzc" data-dz="heart" onclick="WECARE_WF.setDisease('heart')">
+          <span class="dzc-n">심장병</span>
+          <span class="dzc-d">MMVD · HCM · 이뇨제 복용</span>
+        </button>
+        <button type="button" class="dzc" data-dz="kidney" onclick="WECARE_WF.setDisease('kidney')">
+          <span class="dzc-n">만성신부전</span>
+          <span class="dzc-d">IRIS 1~4단계</span>
+        </button>
+        <button type="button" class="dzc" data-dz="urinary" onclick="WECARE_WF.setDisease('urinary')">
+          <span class="dzc-n">결석 · 요로계</span>
+          <span class="dzc-d">방광염 · 결석 · 요도</span>
+        </button>
+      </div>
+      <div class="hint">심장병과 신장 질환이 <b>함께</b> 있다면 목표가 서로 달라집니다. 이 계산기 대신 담당 수의사와 상의해 주세요.</div>
+    </div>
+  </div>
+
+  <!-- ② 사료 정보 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">2</div>
+      <div>
+        <div class="sect-title">먹이는 사료의 열량과 수분</div>
+        <div class="sect-sub">사료 봉투·캔 뒷면의 숫자를 그대로 넣으시면 됩니다.</div>
+      </div>
+      <span class="sect-tag">Food</span>
+    </div>
+
+    <div class="field">
+      <span class="flabel">건사료 열량 표기 단위</span>
+      <div class="seg two" role="group" aria-label="건사료 열량 단위">
+        <label><input type="radio" name="dryUnit" value="100g" checked onchange="WECARE_WF.setDryUnit('100g')"><span>kcal / 100g</span></label>
+        <label><input type="radio" name="dryUnit" value="kg" onchange="WECARE_WF.setDryUnit('kg')"><span>kcal / kg</span></label>
+      </div>
+      <div class="unit-wrap">
+        <input type="number" id="dryKcal" min="0" max="6000" step="1" inputmode="decimal" value="350" oninput="WECARE_WF.render()" style="padding-right:80px">
+        <span class="unit" id="dryKcalUnit" style="font-size:10.5px">kcal/100g</span>
+      </div>
+      <div class="hint">봉투에 <b>3,500 kcal/kg</b>처럼 적혀 있으면 위에서 <b>kcal/kg</b>을 고르고 3500을 넣으세요. 모르시면 350 kcal/100g으로 두시면 됩니다.</div>
+    </div>
+
+    <div class="field">
+      <label for="wetKcal">습식(캔) 열량<span class="opt">캔 1개 기준</span></label>
+      <div class="row">
+        <div class="unit-wrap">
+          <input type="number" id="wetKcal" min="0" max="2000" step="1" inputmode="decimal" value="90" oninput="WECARE_WF.render()" style="padding-right:40px">
+          <span class="unit" style="font-size:11px">kcal</span>
+        </div>
+        <div class="unit-wrap">
+          <input type="number" id="wetG" min="0" max="800" step="1" inputmode="decimal" value="85" oninput="WECARE_WF.render()" style="padding-right:28px">
+          <span class="unit" style="font-size:11px">g</span>
+        </div>
+      </div>
+      <div class="hint">캔 1개(85g)에 90 kcal 정도가 일반적입니다. 캔 중량을 함께 넣으면 수분량까지 계산합니다.</div>
+    </div>
+
+    <div class="field">
+      <label for="wetMoist">습식 사료 수분 함량</label>
+      <div class="unit-wrap">
+        <input type="number" id="wetMoist" min="0" max="95" step="1" inputmode="decimal" value="78" oninput="WECARE_WF.render()">
+        <span class="unit">%</span>
+      </div>
+      <div class="hint">캔·파우치는 보통 <b>75~82%</b>입니다. 표기된 수분(조단백·조지방 옆)을 넣으면 더 정확합니다.</div>
+    </div>
+
+    <div class="field">
+      <label for="meals">하루 급여 횟수</label>
+      <select id="meals" onchange="WECARE_WF.render()">
+        <option value="2" selected>2회 (아침 · 저녁)</option>
+        <option value="3">3회</option>
+        <option value="1">1회</option>
+      </select>
+      <div class="hint">하루 급여량을 몇 번에 나눠 줄지 정하면 <b>1회 분량</b>까지 계산합니다.</div>
+    </div>
+
+    <div class="field" style="margin-bottom:0">
+      <div class="range-head">
+        <span class="flabel">하루 열량 중 습식 비율</span>
+        <span class="range-val" id="ratioVal">25%</span>
+      </div>
+      <input type="range" id="wetRatio" min="0" max="100" step="5" value="25" oninput="WECARE_WF.render()" aria-label="하루 열량 중 습식 비율">
+      <div class="split" aria-hidden="true"><span class="sp-dry" id="splitDry" style="width:75%"></span><span class="sp-wet" id="splitWet" style="width:25%"></span></div>
+      <div class="split-lbl"><span>건사료 <b id="splitDryLbl">75%</b></span><span>습식 <b id="splitWetLbl">25%</b></span></div>
+      <div class="hint">건사료만 주시면 <b>0%</b>, 습식만 주시면 <b>100%</b>로 맞춰 주세요. 습식 비율을 올릴수록 물그릇에서 마셔야 하는 양이 줄어듭니다.</div>
+    </div>
+  </div>
+
+  <!-- ③ 계산 결과 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">3</div>
+      <div>
+        <div class="sect-title">하루 목표 음수량 · 급여량</div>
+        <div class="sect-sub">체중을 입력하면 바로 계산됩니다.</div>
+      </div>
+      <span class="sect-tag">Result</span>
+    </div>
+
+    <div id="resEmpty">
+      <span style="font-size:18px;flex-shrink:0" aria-hidden="true">💧</span>
+      <span>위 <b>현재 체중</b>을 입력하시면 하루 목표 음수량과 사료량이 여기에 표시됩니다. RER(70 × 체중<sup>0.75</sup>)에 생활 단계 계수를 곱해 열량을 먼저 구하고, 그 열량에 맞춰 사료량과 수분을 계산합니다.</span>
+    </div>
+
+    <div id="res" style="display:none">
+      <div class="stage">
+        <div class="stage-k">하루 목표 음수량</div>
+        <div class="stage-n"><em id="stWater">–</em> <small>ml</small></div>
+        <div class="stage-meta" id="stMeta">–</div>
+        <div class="stage-wait" id="stWait">–</div>
+      </div>
+
+      <div class="rcards">
+        <div class="rc">
+          <div class="rc-head"><span class="rc-k">하루 필요 열량</span><span class="badge blue" id="derFactor">×1.6</span></div>
+          <div class="rc-date" id="derKcal">–</div>
+          <div class="rc-note" id="derNote">–</div>
+        </div>
+
+        <div class="rc">
+          <div class="rc-head"><span class="rc-k">물그릇에서 마실 양</span></div>
+          <div class="rc-date" id="drinkMl">–</div>
+          <div class="rc-note" id="drinkNote">–</div>
+        </div>
+      </div>
+
+      <div class="rc wide" style="margin-bottom:.6rem">
+        <div class="rc-head"><span class="rc-k">하루 급여량</span><span class="badge" id="mealBadge">2회 급여</span></div>
+        <div class="plan" id="planRows"></div>
+        <div class="rc-note" id="planNote">–</div>
+      </div>
+
+      <div class="rc wide" style="margin-bottom:.6rem">
+        <div class="rc-head"><span class="rc-k">사료로 채워지는 수분</span></div>
+        <div class="rc-date" id="foodWater">–</div>
+        <div class="gauge">
+          <div class="gbar" aria-hidden="true">
+            <span class="g-food" id="gFood" style="width:0%"></span>
+            <span class="g-drink" id="gDrink" style="width:0%"></span>
+            <span class="g-rest" id="gRest" style="width:100%"></span>
+          </div>
+          <div class="glegend">
+            <span><i class="food"></i>사료 수분 <b id="lgFood">–</b></span>
+            <span><i class="drink"></i>물그릇 <b id="lgDrink">–</b></span>
+          </div>
+        </div>
+        <div class="rc-note" id="foodNote">–</div>
+      </div>
+
+      <div id="dzNote" style="margin-top:.2rem"></div>
+    </div>
+
+    <div class="acts">
+      <button type="button" class="btn primary" onclick="WECARE_WF.copySummary()">📋 요약 복사</button>
+      <a class="btn light" href="homecare.html">📈 7일 기록지</a>
+    </div>
+  </div>
+
+  <!-- ④ 질환별 기준 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">4</div>
+      <div>
+        <div class="sect-title">질환별 하루 물 기준</div>
+        <div class="sect-sub">같은 체중이라도 질환에 따라 목표가 다릅니다.</div>
+      </div>
+      <span class="sect-tag">Guide</span>
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="tb">
+        <thead><tr><th>상태</th><th>하루 목표</th><th>핵심</th><th>주의</th></tr></thead>
+        <tbody>
+          <tr><td>일반 건강</td><td><b>50–60</b> mL/kg</td><td>자유급수, 하루 평균으로 확인</td><td>100 mL/kg을 넘어 마시면 다뇨 검사</td></tr>
+          <tr><td>심장병<br>(MMVD·HCM)</td><td><b>50–60</b> mL/kg</td><td>이뇨제 복용 시 음수·소변량 증가는 정상 반응</td><td>임의로 물을 줄이지 않음 · 호흡수·체중 변화 확인</td></tr>
+          <tr><td>만성신부전<br>(IRIS)</td><td><b>60–80</b> mL/kg</td><td>충분한 수분 섭취가 신장 보호의 기본</td><td>구토·식욕 저하로 못 마시면 피하수액 상담</td></tr>
+          <tr><td>결석 · 요로계</td><td><b>60–80</b> mL/kg</td><td>소변을 희석해 재발을 줄임</td><td>결석 종류별 처방식은 진료 후 결정</td></tr>
+          <tr><td>성장기<br>(1세 미만)</td><td><b>+10</b> mL/kg</td><td>성장에 물이 더 필요합니다</td><td>체중이 빠르게 변하므로 자주 다시 재기</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flag info" style="margin-top:.7rem">
+      <span aria-hidden="true">💡</span>
+      <span><b>심장병 아이에게 물을 무조건 줄이면 안 됩니다.</b> 물 제한은 폐수종이 반복되는 일부 환자에서 수의사 판단으로만 합니다. 집에서 임의로 줄이면 탈수와 신장 손상이 먼저 옵니다. 대신 <b>수면호흡수</b>와 <b>체중</b>을 매일 확인해 주세요.</span>
+    </div>
+  </div>
+
+  <!-- ⑤ 재는 법 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">5</div>
+      <div>
+        <div class="sect-title">집에서 물 섭취량 재는 법</div>
+        <div class="sect-sub">하루 한 번, 3일만 재면 평소 양을 알 수 있습니다.</div>
+      </div>
+      <span class="sect-tag">Tips</span>
+    </div>
+
+    <ul class="ulst">
+      <li><b>눈금 있는 물그릇</b>에 아침에 물을 채우고 양(ml)을 적습니다. 다음 날 같은 시간에 남은 양을 빼면 하루 섭취량입니다. 여러 마리면 그릇을 따로 두세요.</li>
+      <li><b>사료의 수분도 물입니다.</b> 습식 캔은 약 78%, 건사료는 약 10%가 물입니다. 위 계산기는 이 양을 빼고 <b>물그릇에서 마실 양</b>을 알려 드립니다.</li>
+      <li><b>3일 평균</b>으로 보세요. 날씨·산책·사료 교체로 하루 이틀은 흔들립니다. 한 번의 기록으로 걱정하지 않으셔도 됩니다.</li>
+      <li><b>100 mL/kg/일 이상</b>을 마시는 날이 이어지면 신장·당뇨·쿠싱·자궁축농증 같은 다뇨 원인을 확인해야 합니다.</li>
+      <li>물을 잘 안 마시면 <b>물그릇을 여러 개</b>, 분수형 급수기, 사료에 물 섞기, 습식 비율 올리기 순서로 시도해 보세요.</li>
+      <li>소변량·횟수·색도 함께 적으면 진찰에 큰 도움이 됩니다. <a href="homecare.html" style="color:var(--accent);font-weight:600;text-decoration:none">홈 케어 기록지</a>에 7일치를 남겨 내원 시 그대로 보여주세요.</li>
+    </ul>
+  </div>
+
+  <!-- ⑥ 내원 기준 -->
+  <div class="sect">
+    <div class="sect-head">
+      <div class="sect-num">6</div>
+      <div>
+        <div class="sect-title">위케어 내원 기준</div>
+        <div class="sect-sub">아래 중 하나라도 있으면 기록보다 전화가 먼저입니다.</div>
+      </div>
+      <span class="sect-tag">Call</span>
+    </div>
+
+    <div class="egrid">
+      <div class="ecard"><span class="ei">💧</span><div><div class="en">물을 거의 마시지 않음</div><div class="ed">24시간 물 섭취가 크게 줄고 소변도 줄면 탈수입니다</div></div></div>
+      <div class="ecard"><span class="ei">📈</span><div><div class="en">물을 갑자기 2배 이상</div><div class="ed">1주 이상 이어지면 신장·당뇨·내분비 검사가 필요합니다</div></div></div>
+      <div class="ecard"><span class="ei">🫁</span><div><div class="en">수면호흡수 30회/분 이상</div><div class="ed">심장병 아이에서 폐수종의 초기 신호일 수 있습니다</div></div></div>
+      <div class="ecard"><span class="ei">⚖️</span><div><div class="en">3일 사이 체중 5% 증가</div><div class="ed">심장병에서 체액이 찬 신호 — 물이 아니라 저류입니다</div></div></div>
+      <div class="ecard"><span class="ei">🤢</span><div><div class="en">물을 마시고 바로 토함</div><div class="ed">구토·식욕 저하와 함께면 신부전 악화를 봅니다</div></div></div>
+      <div class="ecard"><span class="ei">🚨</span><div><div class="en">소변이 한 방울도 안 나옴</div><div class="ed">수컷 고양이는 24~48시간 안에 위험 — 즉시 전화</div></div></div>
+    </div>
+
+    <div class="hours" style="margin-top:.9rem">
+      <div class="hrow"><span class="hd">월 · 화 · 목 · 토 · 일</span><span class="ht">10:00 – 20:00</span></div>
+      <div class="hrow"><span class="hd">금요일</span><span class="ht">10:00 – 16:00</span></div>
+      <div class="hrow closed"><span class="hd">수요일</span><span class="ht">정기휴무</span></div>
+    </div>
+    <p class="hint" style="margin-top:.45rem">접수 마감 · 평일·주말 19:40 / 금요일 15:40 · 점심 13:00–14:00</p>
+
+    <div class="acts">
+      <a class="btn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 상담</a>
+      <a class="btn primary" href="tel:031-994-6346">📞 031-994-6346</a>
+    </div>
+
+    <div class="lnks">
+      <a class="lnk" href="heart.html"><span class="lk-e">🫀</span><span><span class="lk-n">심장 질환 안내</span><span class="lk-d">MMVD·HCM 병기와 약물, 수면호흡수</span></span></a>
+      <a class="lnk" href="kidney.html"><span class="lk-e">🫘</span><span><span class="lk-n">신장 질환 안내</span><span class="lk-d">IRIS 단계와 피하수액, 식이 관리</span></span></a>
+      <a class="lnk" href="urology.html"><span class="lk-e">💧</span><span><span class="lk-n">비뇨기 결석 안내</span><span class="lk-d">결석 종류별 식이와 재발 예방</span></span></a>
+      <a class="lnk" href="bcs.html"><span class="lk-e">⚖️</span><span><span class="lk-n">비만도·칼로리 계산기</span><span class="lk-d">체형으로 목표 체중과 감량 칼로리</span></span></a>
+    </div>
+  </div>
+
+  <p class="disc">
+    이 계산기는 보호자 안내용입니다. 열량은 RER(70 × 체중<sup>0.75</sup>)에 생활 단계 계수를 곱한 DER로 구하고, 수분은 체중당 유지 수분 요구량(50~60 mL/kg/일)을 기준으로 합니다.<br>
+    처방식·수액·이뇨제 용량은 개별 아이의 심장·신장 상태에 따라 달라지므로, 실제 급여량과 물 관리 목표는 담당 수의사와 확인해 주세요.
+  </p>
+</div>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <p class="foot-disc">
+      <strong>위케어동물의료센터</strong> · WECARE Animal Medical Center<br>
+      문의사항이 있으시면 언제든지 연락 주세요.<br>
+      진료시간 · 월·화·목·토·일 10:00–20:00 / 금 10:00–16:00 / 수요일 정기휴무
+    </p>
+    <div class="foot-btns">
+      <a class="tbtn call" href="tel:031-994-6346">📞 031-994-6346</a>
+      <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡 문의</a>
+    </div>
+    <p class="foot-ref">WECARE Animal Medical Center · wecarevet.github.io/wecarevet</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var WECARE_WF = (function(){
+  'use strict';
+
+  /* 생활 단계 계수 (DER = RER × 계수) */
+  var FACTOR = {
+    dog: { normal:1.8, neuter:1.6, senior:1.4, growth:2.5, loss:1.0 },
+    cat: { normal:1.4, neuter:1.2, senior:1.1, growth:2.5, loss:0.8 }
+  };
+  var STAGE_LABEL = {
+    normal: { dog:'일반 성견', cat:'일반 성묘' },
+    neuter: { dog:'중성화 성견', cat:'중성화 성묘' },
+    senior: { dog:'노령견', cat:'노령묘' },
+    growth: { dog:'성장기 강아지', cat:'성장기 고양이' },
+    loss:   { dog:'체중 감량 · 성견', cat:'체중 감량 · 성묘' }
+  };
+  /* 체중당 유지 수분 요구량 (mL/kg/일) */
+  var WATER = {
+    health: [50,60],
+    heart:  [50,60],
+    kidney: [60,80],
+    urinary:[60,80]
+  };
+  var DZ_NAME = { health:'일반 건강', heart:'심장병', kidney:'만성신부전', urinary:'결석·요로계' };
+  var SP_NAME = { dog:'강아지', cat:'고양이' };
+
+  var DRY_MOIST = 0.10;   /* 건사료 수분 약 10% */
+  var CUP_G = 100;        /* 계량컵 1컵 ≈ 100 g 기준 */
+  var PAPER_CUP = 180;    /* 종이컵 1컵 ≈ 180 ml */
+
+  var state = { sp:'dog', dz:'health', dryUnit:'100g', last:null };
+
+  function $(id){ return document.getElementById(id); }
+  function num(id){
+    var e = $(id);
+    if(!e) return null;
+    var v = parseFloat(String(e.value).replace(/,/g,''));
+    return isFinite(v) ? v : null;
+  }
+  function fmt(v,d){ var p=Math.pow(10,d); return (Math.round(v*p)/p).toFixed(d); }
+  function r0(v){ return String(Math.round(v)); }
+  function toast(msg){
+    var t = $('toast');
+    if(!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toast._tm);
+    toast._tm = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  }
+
+  function setSpecies(sp){
+    state.sp = sp;
+    var btns = document.querySelectorAll('.pill[data-sp]');
+    Array.prototype.forEach.call(btns, function(b){
+      b.classList.toggle('active', b.getAttribute('data-sp') === sp);
+    });
+    var hint = $('spHint');
+    if(hint){
+      hint.innerHTML = (sp === 'dog')
+        ? '강아지 기준 · 중성화 성견의 하루 열량 계수는 1.6입니다. 고양이는 계수가 더 낮아 같은 체중이라도 필요 열량이 적습니다.'
+        : '고양이 기준 · 중성화 성묘의 하루 열량 계수는 1.2입니다. 강아지보다 필요 열량이 적고, 물을 잘 마시지 않아 습식 비율이 중요합니다.';
+    }
+    render();
+  }
+
+  function setStage(){
+    var st = $('stage');
+    if(!st) return;
+    var v = st.value;
+    var f = $('fieldTarget');
+    if(f) f.classList.toggle('hidden', v !== 'loss');
+    var hint = $('stageHint');
+    if(hint){
+      hint.innerHTML = (v === 'loss')
+        ? '감량은 <b>한 달에 체중의 2~3%</b>가 안전합니다. 간식은 하루 사료량의 10% 이내로 줄여 주세요.'
+        : '하루 열량 계수에 반영됩니다. 잘 모르시면 <b>중성화 완료 · 활동 보통</b>으로 두세요.';
+    }
+    render();
+  }
+
+  function setDisease(dz){
+    state.dz = dz;
+    var btns = document.querySelectorAll('.dzc[data-dz]');
+    Array.prototype.forEach.call(btns, function(b){
+      b.classList.toggle('sel', b.getAttribute('data-dz') === dz);
+    });
+    render();
+  }
+
+  function setDryUnit(u){
+    state.dryUnit = u;
+    var e = $('dryKcal');
+    var lbl = $('dryKcalUnit');
+    if(lbl) lbl.textContent = (u === 'kg') ? 'kcal/kg' : 'kcal/100g';
+    if(e){
+      e.max = (u === 'kg') ? 6000 : 600;
+      if(u === 'kg' && e.value && parseFloat(e.value) < 100){
+        e.value = Math.round(parseFloat(e.value) * 10); /* 350 → 3500 */
+      } else if(u === '100g' && e.value && parseFloat(e.value) > 600){
+        e.value = Math.round(parseFloat(e.value) / 10); /* 3500 → 350 */
+      }
+    }
+    render();
+  }
+
+  function ratio(){
+    var e = $('wetRatio');
+    if(!e) return 0;
+    var v = parseInt(e.value,10);
+    return isFinite(v) ? Math.min(1, Math.max(0, v/100)) : 0;
+  }
+
+  function dryPer100(){
+    var v = num('dryKcal');
+    if(v === null || v <= 0) return null;
+    return (state.dryUnit === 'kg') ? v/10 : v;
+  }
+
+  function diseaseNote(){
+    if(state.dz === 'heart'){
+      return '<div class="flag warn"><span aria-hidden="true">🫀</span><span><b>심장병 — 이뇨제를 먹는 중이라면 음수량과 소변량이 늘어나는 것이 정상 반응입니다.</b> 물을 임의로 줄이면 탈수와 신장 손상이 먼저 옵니다. 물 제한은 폐수종이 반복되는 경우 수의사 판단으로만 하고, 집에서는 <b>수면호흡수(30회/분 미만)</b>와 <b>체중(3일 5% 증가)</b>을 확인해 주세요. 물을 갑자기 2배 이상 마시거나 거의 마시지 않으면 연락 주세요.</span></div>';
+    }
+    if(state.dz === 'kidney'){
+      return '<div class="flag warn"><span aria-hidden="true">🫘</span><span><b>만성신부전 — 충분히 마시게 하는 것이 관리의 기본입니다.</b> 목표는 60–80 mL/kg/일이고, 습식 비율을 올리면 물그릇 부담이 줄어듭니다. 구토·식욕 저하로 물을 못 마시거나 하루 소변이 크게 줄면 <b>피하수액 상담</b>이 필요합니다. IRIS 3~4단계는 목표가 더 높아질 수 있습니다.</span></div>';
+    }
+    if(state.dz === 'urinary'){
+      return '<div class="flag warn"><span aria-hidden="true">💧</span><span><b>결석·요로계 — 소변을 희석하는 것이 재발 예방의 핵심입니다.</b> 60–80 mL/kg/일을 목표로 하고, 습식 비율을 높이는 것이 가장 효과적입니다. 스트루바이트와 옥살산칼슘은 처방식이 정반대이므로, 이 계산 결과는 <b>열량·수분 목표</b>로만 쓰시고 사료 선택은 진료 후 결정해 주세요.</span></div>';
+    }
+    return '<div class="flag ok"><span aria-hidden="true">✅</span><span><b>일반 건강 — 50–60 mL/kg/일이 기준입니다.</b> 활동량이 많거나 더운 날, 건사료만 먹는 아이는 조금 더 마실 수 있습니다. 하루 100 mL/kg을 넘게 마시는 날이 이어지면 신장·당뇨·내분비 검사를 권합니다. 예방접종·검진 일정은 <a href="vaccine.html">검진 계산기</a>에서 확인하실 수 있습니다.</span></div>';
+  }
+
+  function render(){
+    var rt = ratio();
+    if($('ratioVal')) $('ratioVal').textContent = Math.round(rt*100) + '%';
+    if($('splitDry')) $('splitDry').style.width = (100 - rt*100) + '%';
+    if($('splitWet')) $('splitWet').style.width = (rt*100) + '%';
+    if($('splitDryLbl')) $('splitDryLbl').textContent = Math.round(100 - rt*100) + '%';
+    if($('splitWetLbl')) $('splitWetLbl').textContent = Math.round(rt*100) + '%';
+
+    var res = $('res'), empty = $('resEmpty');
+    var bw = num('bw');
+
+    if(bw === null || bw <= 0){
+      state.last = null;
+      if(res) res.style.display = 'none';
+      if(empty) empty.style.display = 'flex';
+      return;
+    }
+    if(res) res.style.display = '';
+    if(empty) empty.style.display = 'none';
+
+    var sp = state.sp;
+    var stEl = $('stage');
+    var stage = stEl ? stEl.value : 'neuter';
+    var dz = state.dz;
+
+    var f = FACTOR[sp][stage] || FACTOR[sp].neuter;
+
+    /* 체중 감량은 목표 체중 기준 */
+    var calcBw = bw;
+    if(stage === 'loss'){
+      var tb = num('targetBw');
+      if(tb && tb > 0) calcBw = tb;
+    }
+
+    var rer = 70 * Math.pow(calcBw, 0.75);
+    var der = rer * f;
+
+    /* 수분 목표 */
+    var wper = WATER[dz].slice();
+    if(stage === 'growth'){ wper = [wper[0] + 10, wper[1] + 10]; }
+    var waterLow = wper[0] * bw;
+    var waterHigh = wper[1] * bw;
+
+    /* 사료 */
+    var d100 = dryPer100();
+    var wk = num('wetKcal');
+    var wg = num('wetG');
+    var wm = num('wetMoist');
+    if(wm !== null) wm = Math.min(95, Math.max(0, wm));
+
+    var wetKcal = der * rt;
+    var dryKcal = der - wetKcal;
+
+    var dryG = (d100 !== null && d100 > 0) ? dryKcal / (d100/100) : null;
+    var wetG = null, cans = null;
+    if(wk !== null && wk > 0 && rt > 0){
+      cans = wetKcal / wk;
+      wetG = (wg !== null && wg > 0) ? cans * wg : null;
+    }
+
+    var wetWater = (wetG !== null && wm !== null) ? wetG * (wm/100) : 0;
+    var dryWater = (dryG !== null) ? dryG * DRY_MOIST : 0;
+    var foodWater = wetWater + dryWater;
+
+    var drinkLow = Math.max(0, waterLow - foodWater);
+    var drinkHigh = Math.max(0, waterHigh - foodWater);
+
+    /* ── 대표 수치 ── */
+    $('stWater').textContent = r0(waterLow) + '–' + r0(waterHigh);
+    $('stMeta').textContent = fmt(bw,1) + ' kg · ' + wper[0] + '–' + wper[1] + ' mL/kg/일 · ' +
+      STAGE_LABEL[stage][sp] + ' · ' + DZ_NAME[dz];
+
+    if(foodWater > 0){
+      $('stWait').innerHTML = '이 중 사료로 <b>' + r0(foodWater) + ' ml</b>가 들어오니, 물그릇에서는 <b>' +
+        r0(drinkLow) + '–' + r0(drinkHigh) + ' ml</b>를 마시면 됩니다.';
+    } else {
+      $('stWait').innerHTML = '사료 수분을 넣으면 <b>물그릇에서 마실 양</b>까지 계산해 드립니다. 물그릇 목표는 <b>' +
+        r0(drinkLow) + '–' + r0(drinkHigh) + ' ml</b>입니다.';
+    }
+
+    $('derFactor').textContent = '×' + f;
+    $('derKcal').innerHTML = r0(der) + ' <small>kcal/일</small>';
+    var derNote = 'RER ' + r0(rer) + ' kcal (70 × ' + fmt(calcBw,1) + '<sup>0.75</sup>) × ' + f + ' (' + STAGE_LABEL[stage][sp] + ')';
+    if(stage === 'loss'){
+      derNote += (calcBw !== bw)
+        ? '<br>감량 목표 체중 <b>' + fmt(calcBw,1) + ' kg</b> 기준입니다.'
+        : '<br>목표 체중을 넣으면 더 정확합니다. 현재 체중 기준이라 조금 높게 나옵니다.';
+    }
+    $('derNote').innerHTML = derNote;
+
+    $('drinkMl').innerHTML = r0(drinkLow) + '–' + r0(drinkHigh) + ' <small>ml/일</small>';
+    if(drinkHigh <= 0){
+      $('drinkNote').innerHTML = '사료만으로 목표 수분을 채웁니다. 물그릇은 <b>자유급수</b>로 두세요.';
+    } else {
+      $('drinkNote').innerHTML = '종이컵(약 180 ml) <b>' + fmt(drinkLow/PAPER_CUP,1) + '–' + fmt(drinkHigh/PAPER_CUP,1) + '컵</b> · 하루 ' +
+        fmt(waterLow,0) + '–' + fmt(waterHigh,0) + ' ml에서 사료 수분 ' + r0(foodWater) + ' ml를 뺀 양입니다.';
+    }
+
+    /* ── 급여량 ── */
+    var mealsEl = $('meals');
+    var meals = mealsEl ? (parseInt(mealsEl.value,10) || 2) : 2;
+    $('mealBadge').textContent = meals + '회 급여';
+
+    var rows = '';
+    if(rt >= 1 && cans !== null){
+      rows += '<div class="prow"><span class="pk">습식 캔</span><span class="pv">' + fmt(cans,1) + ' 캔' +
+        (wetG !== null ? '<small>' + r0(wetG) + ' g</small>' : '') + '</span></div>';
+    } else {
+      if(dryG !== null){
+        rows += '<div class="prow"><span class="pk">건사료</span><span class="pv">' + r0(dryG) + ' g' +
+          '<small>계량컵 약 ' + fmt(dryG/CUP_G,1) + '컵</small></span></div>';
+      } else {
+        rows += '<div class="prow"><span class="pk">건사료</span><span class="pv" style="color:var(--amber)">열량을 입력해 주세요</span></div>';
+      }
+      if(rt > 0){
+        if(cans !== null){
+          rows += '<div class="prow"><span class="pk">습식 캔</span><span class="pv">' + fmt(cans,1) + ' 캔' +
+            (wetG !== null ? '<small>' + r0(wetG) + ' g</small>' : '') + '</span></div>';
+        } else {
+          rows += '<div class="prow"><span class="pk">습식 캔</span><span class="pv" style="color:var(--amber)">캔 열량을 입력해 주세요</span></div>';
+        }
+      }
+    }
+
+    var perMeal = [];
+    if(rt < 1 && dryG !== null) perMeal.push('건사료 ' + r0(dryG/meals) + ' g');
+    if(rt > 0 && cans !== null) perMeal.push('습식 ' + fmt(cans/meals,1) + '캔');
+    if(perMeal.length){
+      rows += '<div class="prow sub"><span class="pk">1회 급여</span><span class="pv">' + perMeal.join(' + ') + '</span></div>';
+    }
+    $('planRows').innerHTML = rows;
+
+    var planNote = '건사료 수분은 약 10%로 계산했습니다. 계량컵은 <b>1컵 100 g</b> 기준이니 제품에 적힌 용량을 우선해 주세요.';
+    if(rt > 0 && wk === null){
+      planNote = '습식 비율이 ' + Math.round(rt*100) + '%인데 캔 열량이 비어 있어 습식량을 계산하지 못했습니다.';
+    } else if(d100 === null && rt < 1){
+      planNote = '건사료 열량(kcal/100g)을 넣으면 하루 급여량(g·컵)까지 계산됩니다.';
+    } else if(stage === 'loss'){
+      planNote += ' 감량 중에는 <b>간식을 하루 사료량의 10% 이내</b>로 줄여 주세요.';
+    }
+    $('planNote').innerHTML = planNote;
+
+    /* ── 수분 구성 ── */
+    var fw = r0(foodWater);
+    $('foodWater').innerHTML = fw + ' <small>ml/일</small>';
+    var fparts = [];
+    if(dryWater > 0) fparts.push('건사료 ' + r0(dryWater) + ' ml');
+    if(wetWater > 0) fparts.push('습식 ' + r0(wetWater) + ' ml');
+    $('foodNote').innerHTML = fparts.length
+      ? fparts.join(' + ') + ' (건사료 10% · 습식 ' + (wm !== null ? wm : 0) + '% 기준)'
+      : '사료 정보를 넣으면 사료로 들어오는 수분량을 계산합니다.';
+
+    var base = Math.max(waterHigh, foodWater, 1);
+    var gf = Math.min(100, foodWater/base*100);
+    var gd = Math.min(100 - gf, (waterHigh - foodWater)/base*100);
+    if(gd < 0) gd = 0;
+    $('gFood').style.width = gf.toFixed(1) + '%';
+    $('gDrink').style.width = gd.toFixed(1) + '%';
+    $('gRest').style.width = Math.max(0, 100 - gf - gd).toFixed(1) + '%';
+    $('lgFood').textContent = r0(foodWater) + ' ml';
+    $('lgDrink').textContent = r0(drinkLow) + '–' + r0(drinkHigh) + ' ml';
+
+    $('dzNote').innerHTML = diseaseNote();
+
+    state.last = {
+      sp: sp, stage: stage, dz: dz, bw: bw, calcBw: calcBw, meals: meals,
+      rer: rer, der: der, f: f,
+      wper: wper, waterLow: waterLow, waterHigh: waterHigh,
+      dryG: dryG, cans: cans, wetG: wetG, rt: rt,
+      foodWater: foodWater, drinkLow: drinkLow, drinkHigh: drinkHigh
+    };
+  }
+
+  function copySummary(){
+    var s = state.last;
+    if(!s){ toast('먼저 체중을 입력해 주세요'); return; }
+    var L = [];
+    L.push('[위케어] ' + fmt(s.bw,1) + 'kg ' + SP_NAME[s.sp] + ' · ' + STAGE_LABEL[s.stage][s.sp] + ' · ' + DZ_NAME[s.dz]);
+    L.push('하루 필요 열량 : ' + r0(s.der) + ' kcal (RER ' + r0(s.rer) + ' × ' + s.f + ')');
+    L.push('하루 물 목표 : ' + r0(s.waterLow) + '–' + r0(s.waterHigh) + ' ml (' + s.wper[0] + '–' + s.wper[1] + ' mL/kg/일)');
+    L.push('사료 수분 : ' + r0(s.foodWater) + ' ml');
+    L.push('물그릇 목표 : ' + r0(s.drinkLow) + '–' + r0(s.drinkHigh) + ' ml');
+    var food = [];
+    if(s.dryG !== null && s.rt < 1) food.push('건사료 ' + r0(s.dryG) + ' g(약 ' + fmt(s.dryG/CUP_G,1) + '컵)');
+    if(s.cans !== null) food.push('습식 ' + fmt(s.cans,1) + '캔' + (s.wetG !== null ? '(' + r0(s.wetG) + ' g)' : ''));
+    if(food.length) L.push('하루 급여량 : ' + food.join(' + ') + ' · ' + s.meals + '회 급여');
+    if(s.stage === 'loss') L.push('감량 기준 체중 : ' + fmt(s.calcBw,1) + ' kg');
+    L.push('wecarevet.github.io/wecarevet/water-food.html');
+
+    var txt = L.join('\n');
+    function done(){ toast('요약을 복사했습니다'); }
+    function fail(){
+      var ta = document.createElement('textarea');
+      ta.value = txt;
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); }
+      catch(e){ toast('복사하지 못했습니다'); }
+      document.body.removeChild(ta);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, fail);
+    } else {
+      fail();
+    }
+  }
+
+  function init(){
+    var st = $('stage');
+    if(st) setStage();
+    render();
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+
+  return {
+    setSpecies: setSpecies,
+    setStage: setStage,
+    setDisease: setDisease,
+    setDryUnit: setDryUnit,
+    render: render,
+    copySummary: copySummary
+  };
+})();
+</script>
+<script src="wecare-ui.js" defer></script>
+</body>
+</html>
