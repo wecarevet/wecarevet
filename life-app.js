@@ -261,7 +261,7 @@
     $('rBiz').textContent = won(c.biz);
     $('rTaxable').textContent = won(c.taxable);
     $('rGross').textContent = won(c.gross);
-    $('rBracket').textContent = bracketName(c.taxable);
+    $('rBracket').textContent = c.taxable > 0 ? bracketName(c.taxable) : '—';
     $('rDed').textContent = won(c.ded);
     $('rDedNote').textContent = '기본 ' + eok(c.baseDed) + ' · 연금 ' + eok(c.penDed) + ' · 노란우산 ' + eok(c.yuUse);
     $('rCredit').textContent = won(c.credit);
@@ -332,7 +332,7 @@
     /* 적립 통장 */
     var mSave = Math.round(c.all / 12 / 10000) * 10000;
     $('monthSave').textContent = won(mSave);
-    $('monthSaveSub').textContent = c.all > 0 ? '매출의 ' + (mSave / Math.max(1, num(S.clinic.rev)) * 100).toFixed(1) + '% · 12개월 적립' : '손익을 넣으면 계산됩니다';
+    $('monthSaveSub').textContent = c.all > 0 ? '연 세금의 1/12 · 매출 대비 ' + (c.all / Math.max(1, num(S.clinic.rev)) * 100).toFixed(1) + '%' : '손익을 넣으면 계산됩니다';
     $('midTax').textContent = won(c.det * 0.5);
     $('restTax').textContent = won(rest);
     $('saveRate').textContent = (num(S.clinic.rev) > 0 ? (c.all / num(S.clinic.rev) * 100).toFixed(1) : '0') + '%';
@@ -455,7 +455,7 @@
           if (dc === 'hot') lvl = 'hot'; else if (dc === 'soon' && lvl !== 'hot') lvl = 'soon';
           pills += '<span class="pill ' + dc + '">' + (st.dayLeft <= 0 ? Math.abs(st.dayLeft) + '일 지남' : st.dayLeft + '일 남음') + ' · ' + dateLabel(st.dueDate) + '</span>';
         }
-        if (!S.car.odo && it.km) pills = '<span class="pill none">주행거리 입력 필요</span>' + pills;
+        if (!S.car.odo && it.km && st.rec.km != null && st.rec.km !== '') pills = '<span class="pill none">주행거리 입력 필요</span>' + pills;
         if (!pills) pills = '<span class="pill none">마지막 기록을 넣으면 계산됩니다</span>';
         if (lvl === 'hot') hot++; else if (lvl === 'soon') soon++;
 
@@ -756,6 +756,7 @@
     $('npension').value = num(S.clinic.npension) || '';
     $('interim').value = num(S.clinic.interim) || '';
     $('faithful').checked = !!S.clinic.faithful;
+    $('lgDate').value = todayISO();
     buildExp();
     buildLevers();
     fillCarFields();
