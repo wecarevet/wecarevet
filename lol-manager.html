@@ -2544,6 +2544,9 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .dock-in>.auto-draft{font-size:12.5px;padding:9px 10px;border-radius:9px}
 .dock-in>.dt-toggle{font-size:11.5px;padding:8px 10px}
 .dock-in>.dt-clock{flex:0 0 auto;order:-1;margin:0}
+/* 승부 화면 바 — 라벨은 남는 폭, 버튼은 280px 한도 */
+.bx-dock .dock-in>.bxd-t{flex:1 1 auto}
+.bx-dock .dock-in>.bxd-b{flex:0 0 auto;min-width:180px;max-width:280px}
 @media(max-width:719px){
   .d6-dock{padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
   .dock-in{gap:7px}
