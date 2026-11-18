@@ -1986,6 +1986,46 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .trd-sums{display:flex;gap:10px;margin-top:8px;font-size:9.5px;color:var(--dim2);font-weight:800;flex-wrap:wrap}
 .trd-sums b{color:#dfe3ea;font-size:11px}
 
+/* ---------- 트레이드 v2: 구단·포지션 필터 · 제안 비교 ---------- */
+.trd-bar .trd-lg{margin:0 0 7px}
+.trd-tools{display:flex;align-items:center;gap:7px;margin:0 0 7px}
+.trd-tl{flex:0 0 auto;font-size:10px;font-weight:900;color:var(--dim2)}
+.trd-teamsel{flex:1;min-width:0;font-size:11px;font-weight:900;padding:7px 8px}
+.trd-pos{display:flex;gap:4px;flex-wrap:wrap}
+.trd-posb{padding:5px 10px;border-radius:7px;background:#161920;border:1px solid #262b35;font-size:10px;font-weight:900;color:#8d95a5;white-space:nowrap;touch-action:manipulation}
+.trd-posb.on{background:rgba(230,196,129,.16);border-color:rgba(230,196,129,.5);color:#ffd98f}
+.trd-lock{font-size:8.5px;opacity:.9}
+.trd-vs2{display:grid;grid-template-columns:minmax(0,1fr) 18px minmax(0,1fr);gap:5px;align-items:stretch;margin:2px 0 8px}
+.trd-side{background:#14161c;border:1px solid #24272f;border-radius:9px;padding:8px;min-width:0}
+.trd-side.mine{border-color:rgba(96,165,250,.3)}
+.trd-side.them{border-color:rgba(230,196,129,.32)}
+.trd-sd-h{font-size:8.5px;font-weight:900;letter-spacing:.08em;color:var(--dim2);margin-bottom:4px}
+.trd-sd-n{font-size:12.5px;font-weight:900;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trd-sd-s{font-size:9.5px;font-weight:800;color:#9aa3b3;margin-top:1px}
+.trd-sd-v{font-size:11px;font-weight:900;color:#cfe2f5;margin-top:3px}
+.trd-sd-cash{font-size:9.5px;font-weight:900;color:#ffd98f;margin-top:5px;padding-top:5px;border-top:1px dashed #262b35}
+.trd-sd-e{font-size:10px;font-weight:800;color:#5f6673;padding:10px 0;text-align:center}
+.trd-vs-mid{display:flex;align-items:center;justify-content:center;font-size:13px;color:#6b7280;font-weight:900}
+.trd-reasons{display:flex;flex-direction:column;gap:4px;margin-top:7px}
+.trd-reason{font-size:10px;line-height:1.4;font-weight:800;padding:5px 7px;border-radius:6px;background:#161920;border:1px solid #24272f;color:#b9c1cf}
+.trd-reason.warn{border-color:rgba(255,154,74,.32);color:#ffcf95;background:rgba(255,154,74,.06)}
+.trd-reason.bad{border-color:rgba(255,77,109,.38);color:#ffb3c0;background:rgba(255,77,109,.07)}
+.trd-reason.ok{border-color:rgba(61,220,151,.35);color:#a8f2d0;background:rgba(61,220,151,.07)}
+@media(max-width:420px){
+  .trd-posb{padding:5px 7px;font-size:9.5px}
+  .trd-sd-n{font-size:11.5px}
+}
+
+/* ---------- 스태프 해고 ---------- */
+.st-fire{min-height:24px;padding:3px 9px;font-size:9.5px;line-height:1.1}
+.fm-k{font-size:9px;letter-spacing:.18em;font-weight:900;color:var(--gold2);margin-bottom:3px}
+.fm-h{font-size:17px;font-weight:900;margin:0 0 9px}
+.fm-rows{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:9px}
+.fm-rows>div{background:#14161c;border:1px solid #24272f;border-radius:8px;padding:7px 9px}
+.fm-rows span{display:block;font-size:9px;font-weight:900;color:var(--dim2);margin-bottom:2px}
+.fm-rows b{font-size:13px;font-weight:900}
+.fm-note{font-size:10.5px;line-height:1.5;color:#9aa3b3;margin-bottom:10px}
+
 /* ---------- 미니맵 상단 상태바 (겹침 제로) ---------- */
 .bmap-st{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 6px;padding:0 2px;min-height:18px}
 .bmap-st>span{font-size:9.5px;font-weight:900;letter-spacing:.01em;padding:2px 8px;border-radius:6px;
@@ -2886,6 +2926,29 @@ function moneyText(v){
   if(n===0) return '0';
   if(Math.abs(n)<1) return Math.round(n*10000).toLocaleString('ko-KR')+'만원';
   return (Math.round(n*10)/10).toFixed(1)+'억';
+}
+/* ---------- LCK 실제 연봉 스케일 ----------
+   C(≤73) 0.6~1.7억 · B(74~79) 2.0~4.2억 · A(80~85) 5.0~10.0억
+   S(86~89) 12~22억 · S+(90+) 25~36억 — 계약·FA·BJ 요구액이 모두 이 곡선을 쓴다. */
+const SALARY_CURVE=[[60,0.5],[65,0.6],[73,1.7],[74,2.0],[79,4.2],[80,5.0],[85,10.0],[86,12.0],[89,22.0],[90,25.0],[99,36.0]];
+function lolSalaryFor(ovr){
+  const v=Math.max(50,Math.min(99,Number(ovr)||60));
+  let lo=SALARY_CURVE[0], hi=SALARY_CURVE[SALARY_CURVE.length-1];
+  for(let i=0;i<SALARY_CURVE.length-1;i++){
+    if(v>=SALARY_CURVE[i][0]&&v<=SALARY_CURVE[i+1][0]){ lo=SALARY_CURVE[i]; hi=SALARY_CURVE[i+1]; break; }
+  }
+  const span=(hi[0]-lo[0])||1;
+  const t=(v-lo[0])/span;
+  return Math.round((lo[1]+(hi[1]-lo[1])*t)*10)/10;
+}
+/* 등급별 연봉 상한 — 레전드 프리미엄도 이 선을 넘지 않는다 */
+function lolSalaryBandMax(ovr){
+  const v=Math.max(50,Math.min(99,Number(ovr)||60));
+  if(v<=73) return 1.8;
+  if(v<=79) return 4.5;
+  if(v<=85) return 10.5;
+  if(v<=89) return 24.0;
+  return 38.0;
 }
 const ROLES = ['TOP','JGL','MID','ADC','SUP'];
 const ROLE_KR = {TOP:'탑',JGL:'정글',MID:'미드',ADC:'원딜',SUP:'서폿'};
@@ -4201,15 +4264,50 @@ function renewStaff(id){
   toast('📝 '+st.name+' 재계약 — 계약 '+st.contract+'시즌 남음');
   saveGame(); renderHub(); return {ok:true};
 }
+function staffSeverance(st){
+  if(!st) return 0;
+  const left=Math.max(1,Math.round(Number(st.contract)||1));
+  return Math.round((st.salary||0)*left*0.5*10)/10;
+}
 function fireStaff(id){
   const st=S.staffLib[id]; if(!st||st.team!==S.userTeam) return {ok:false,msg:'우리 스태프가 아닙니다'};
   const cur=S.staff[S.userTeam];
-  const penalty=Math.round(st.salary*0.3*10)/10;
+  if(!cur) return {ok:false,msg:'스태프 정보를 찾을 수 없습니다'};
+  const left=Math.max(1,Math.round(Number(st.contract)||1));
+  const penalty=staffSeverance(st);
   if(st.role==='HEAD') cur.head=null; else cur.coaches=cur.coaches.filter(x=>x!==id);
   st.team=null; st.contract=0;
   myTeam().budget=Math.round((myTeam().budget-penalty)*10)/10;
-  toast('🚪 '+st.name+' '+staffRoleLabel(st.role)+' 계약 해지 — 위약금 '+penalty.toFixed(1)+'억');
-  saveGame(); renderHub(); return {ok:true};
+  try{ newsAdd('구단','🚪 '+st.name+' '+staffRoleLabel(st.role)+' 해고 — 남은 '+left+'시즌 · 위약금 '+penalty.toFixed(1)+'억 · FA 시장 복귀'); }catch(e){}
+  toast('🚪 '+st.name+' '+staffRoleLabel(st.role)+' 해고 — 위약금 '+penalty.toFixed(1)+'억 (FA 시장 복귀)');
+  saveGame(); renderHub(); return {ok:true,penalty:penalty};
+}
+/* 해고 확인 창 — 남은 계약·위약금을 먼저 보여준다 */
+function openStaffFireModal(id){
+  const st=S.staffLib&&S.staffLib[id];
+  if(!st||st.team!==S.userTeam){ toast('우리 스태프가 아닙니다'); return; }
+  const left=Math.max(1,Math.round(Number(st.contract)||1));
+  const pen=staffSeverance(st);
+  $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal fire-modal">
+    <div class="grab"></div>
+    <div class="fm-k">STAFF RELEASE</div>
+    <h3 class="fm-h">${esc(st.name)} ${staffRoleLabel(st.role)} 해고</h3>
+    <div class="fm-rows">
+      <div><span>레이팅</span><b>${st.rating}</b></div>
+      <div><span>연봉</span><b>${(st.salary||0).toFixed(1)}억</b></div>
+      <div><span>남은 계약</span><b>${left}시즌</b></div>
+      <div><span>위약금</span><b class="neg">-${pen.toFixed(1)}억</b></div>
+    </div>
+    <div class="fm-note">해고하면 남은 계약의 50%를 위약금으로 내고 ${esc(st.name)}은(는) FA 시장으로 돌아갑니다.</div>
+    <div class="btn-row">
+      <button class="btn danger" id="fireYes">해고 확정 (-${pen.toFixed(1)}억)</button>
+      <button class="btn" id="fireNo">취소</button>
+    </div>
+  </div></div>`;
+  $('modal').classList.remove('hidden');
+  const yes=$('fireYes'); if(yes) yes.onclick=()=>{ closeModal(); const r=fireStaff(id); if(!r.ok) toast(r.msg); };
+  const no=$('fireNo'); if(no) no.onclick=closeModal;
+  const wrap=$('modalWrap'); if(wrap) wrap.onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
 }
 /* 감독·코치가 주는 시리즈 보정 (세트 사이) */
 function seriesStaffBonus(teamId){ const m=staffMods(teamId); return (m.series||0); }
@@ -4276,10 +4374,13 @@ function mkPlayer(name,role,age,rating,styleKey,sigs,teamId){
   const st=STYLES[styleKey]||STYLES.stable;
   const stats={};
   ['lane','fight','macro','pool','mental'].forEach(k=>{ stats[k]=clamp(Math.round(rating+st[k]+ri(-3,3)),40,99); });
-  /* LCK 실제 연봉 스케일: 2군 0.6~1.2억 · 주전 3~6억 · 스타 7.5~15억 · 레전드 18~30억 */
-  const baseSal=0.8*Math.exp((clamp(rating,60,99)-70)*0.1546);
+  /* LCK 실제 연봉 스케일 — lolSalaryFor 곡선(2군 0.6억 · 주전 2~4억 · 스타 12~22억 · 레전드 25억+)
+     연봉은 지명 레이팅이 아니라 스탯에서 나온 실제 OVR을 기준으로 잡는다(밴드를 벗어나지 않게). */
   const p={name,role,age,stats,sigs:sigs.filter(n=>!!CHAMP_MAP[n]),form:ri(68,88),fatigue:ri(4,18),
-    salary:Math.max(0.6,Math.round(baseSal*2)/2), team:teamId, growth:age<=21?ri(0,2):0};
+    salary:1, team:teamId, growth:age<=21?ri(0,2):0};
+  const ovrNow=rawOverall(p);
+  const baseSal=(typeof lolSalaryFor==='function')?lolSalaryFor(ovrNow):0.8*Math.exp((clamp(ovrNow,60,99)-70)*0.1546);
+  p.salary=Math.max(0.5,Math.round(baseSal*(0.98+Math.random()*0.04)*10)/10);
   p.contract=ri(1,3);
   p.grade = gradeOfRating(rating);
   p.cure = {};
@@ -4289,7 +4390,11 @@ function mkPlayer(name,role,age,rating,styleKey,sigs,teamId){
   p.persons = shuffled.slice(0, 2+Math.floor(Math.random()*2)).map(x=>x.k);
   p.pers = p.persons[0];
   rollTraits(p, p.grade);
-  if(teamId&&FRANCHISE_LEGENDS[name]===teamId){ p.legend=teamId; p.loyalty=98; p.salary=Math.max(18,Math.round(p.salary*1.35*2)/2); }
+  if(teamId&&FRANCHISE_LEGENDS[name]===teamId){
+    p.legend=teamId; p.loyalty=98;
+    const cap=(typeof lolSalaryBandMax==='function')?lolSalaryBandMax(ovrNow):38;
+    p.salary=Math.round(Math.min(cap,Math.max(18,p.salary*1.2))*10)/10;
+  }
   return p;
 }
 function rawOverall(p){const s=p.stats;return Math.round(s.lane*.24+s.fight*.26+s.macro*.2+s.pool*.15+s.mental*.15);}
@@ -8354,8 +8459,9 @@ function ctApplyRoster(st,cfg,teamId){
   /* 연봉은 OVR 기준으로 다시 계산 — 창단 예산과 맞물린다 */
   Object.values(st.players).forEach(p=>{
     if(!p||p.team!==teamId) return;
-    const baseSal=0.8*Math.exp((clamp(rawOverall(p),60,99)-70)*0.1546);
-    p.salary=Math.max(0.5,Math.round(baseSal*2)/2);
+    const ovr=clamp(rawOverall(p),60,99);
+    const baseSal=(typeof lolSalaryFor==='function')?lolSalaryFor(ovr):0.8*Math.exp((ovr-70)*0.1546);
+    p.salary=Math.max(0.5,Math.round(baseSal*10)/10);
   });
 }
 
@@ -8505,7 +8611,7 @@ function ctFillFirstTeam(st,teamId){
         const nm=uniqPlayerName(a.name);
         const p=mkPlayer(nm,role,Math.min(22,a.age||19),a.rating||64,'balanced',[],teamId);
         p.starter=true; p.contract=3;
-        p.salary=Math.max(0.5,Math.round((a.rating||64)*0.035*10)/10);
+        p.salary=Math.max(0.5,(typeof lolSalaryFor==='function')?lolSalaryFor(rawOverall(p)):Math.round((a.rating||64)*0.035*10)/10);
         p.fromAcademy=true;
         st.players[p.name]=p; t.roster.push(p.name); t.lineup[role]=p.name;
         c.academy.splice(bi,1);
@@ -8789,25 +8895,81 @@ function sponsorGoalMet(goal){
   return false;
 }
 
-/* ---------- 구단주 목표 ---------- */
+/* ---------- 구단주 목표 ----------
+   목표는 내 전력(평균 OVR · 전력 순위)에 맞춰 잡힌다.
+   바닥권 구단에 "우승"을 요구하지 않는다. */
+function boardStrength(){
+  const t=myTeam();
+  const ps=lineupOf(t);
+  const ovr=ps.length?Math.round(ps.reduce((a,p)=>a+rawOverall(p),0)/ps.length):60;
+  let rank=1, count=1;
+  try{
+    const lgTeams=Object.values(S.teams||{}).filter(x=>(x.region||'LCK')===(t.region||'LCK'));
+    const ranked=lgTeams.slice().sort((a,b)=>teamPowerRaw(b)-teamPowerRaw(a));
+    count=ranked.length||1;
+    const i=ranked.findIndex(x=>x.id===t.id);
+    rank=i>=0?i+1:count;
+  }catch(e){}
+  let tier='mid';
+  if(ovr>=83||rank<=3) tier='top';
+  else if(ovr<77||rank>=Math.max(1,count-2)) tier='bottom';
+  return {ovr:ovr,rank:rank,count:count,tier:tier};
+}
+function boardTier(){ return boardStrength().tier; }
+function boardExpectLabel(tier){
+  tier=tier||boardTier();
+  if(tier==='top') return '결승 진출 · 우승';
+  if(tier==='bottom') return '탈꼴찌 · 6강 PO 도전';
+  return 'PO 4강 · 국제대회 1회';
+}
+function boardMessage(){
+  const s=boardStrength();
+  const nm=(S&&S.owner&&S.owner.name)?S.owner.name:'박성수';
+  if(s.tier==='top') return nm+' 구단주님, 올해 우리 전력(평균 OVR '+s.ovr+')이면 우승까지 노려볼 만합니다. 결승 진출, 그리고 우승을 기대하겠습니다. 목표 달성 시 지원금을 전폭 배정하겠습니다.';
+  if(s.tier==='bottom') return nm+' 구단주님, 올해는 첫 시즌 탈꼴찌 & 플레이오프 도전입니다. 무리한 요구는 하지 않겠습니다 — 꼴찌만 벗어나 6강에 들면 성공입니다.';
+  return nm+' 구단주님, 올해 우리 전력(평균 OVR '+s.ovr+')이면 플레이오프 4강까지는 가야 합니다. 4강과 국제대회 1회 진출을 기대하겠습니다.';
+}
+function goalFactDone(g,f){
+  f=f||{};
+  const k=(g&&g.k)||'';
+  if(k==='lck') return !!f.lckWin;
+  if(k==='final') return !!f.final;
+  if(k==='kespa') return !!f.kespa4;
+  if(k==='worlds') return !!f.worlds;
+  if(k==='top3') return !!f.top3;
+  if(k==='po4') return !!f.po4;
+  if(k==='po6') return !!f.po6;
+  if(k==='wins5') return !!f.wins5;
+  if(k==='escapeLast') return !!f.escapeLast;
+  return false;
+}
 function ownerGoals(){
-  return [
+  const tier=boardTier();
+  if(tier==='top') return [
     {k:'lck',   n:'우승',              grant:1.5, bonus:11.9, trust:-10, must:true,  icon:'◎'},
     {k:'final', n:'결승 진출',          grant:0,   bonus:10.2, trust:-6,  must:false, icon:'○'},
     {k:'kespa', n:'LCK컵 or 케스파컵 4강 진출', grant:0, bonus:1.5, trust:-4, must:false, icon:'☐'},
     {k:'worlds',n:'국제대회 1회 이상 진출', grant:0, bonus:2.0, trust:-5, must:false, icon:'☐'},
     {k:'top3',  n:'정규시즌 3위 이상', grant:0, bonus:1.0, trust:-3, must:false, icon:'☐'},
   ];
+  if(tier==='bottom') return [
+    {k:'wins5',      n:'정규시즌 5승',            grant:0.5, bonus:1.2, trust:-4, must:true,  icon:'◎'},
+    {k:'escapeLast', n:'탈꼴찌 (정규 최하위 탈출)', grant:0,   bonus:1.6, trust:-3, must:false, icon:'○'},
+    {k:'po6',        n:'6강 플레이오프 진출',     grant:0,   bonus:3.0, trust:-4, must:false, icon:'☐'},
+    {k:'kespa',      n:'LCK컵 or 케스파컵 4강 진출', grant:0, bonus:1.5, trust:-3, must:false, icon:'☐'},
+    {k:'top3',       n:'정규시즌 3위 이상',        grant:0,   bonus:2.5, trust:-2, must:false, icon:'☐'},
+  ];
+  return [
+    {k:'top3',  n:'정규시즌 3위 이상',      grant:0.5, bonus:2.5, trust:-5, must:true,  icon:'◎'},
+    {k:'po4',   n:'플레이오프 4강 진출',    grant:0,   bonus:3.5, trust:-4, must:false, icon:'○'},
+    {k:'worlds',n:'국제대회 1회 이상 진출', grant:0,   bonus:2.0, trust:-4, must:false, icon:'☐'},
+    {k:'kespa', n:'LCK컵 or 케스파컵 4강 진출', grant:0, bonus:1.5, trust:-3, must:false, icon:'☐'},
+    {k:'final', n:'결승 진출',              grant:0,   bonus:6.0, trust:-3, must:false, icon:'☐'},
+  ];
 }
 function goalProgressLine(){
   const c=clubC(); const f=c.facts||{};
-  const done=[];
-  if(f.lckWin) done.push('우승');
-  if(f.final) done.push('결승 진출');
-  if(f.kespa4) done.push('케스파컵 4강');
-  if(f.worlds) done.push('월즈 진출');
-  if(f.top3) done.push('정규 3위');
-  return done;
+  return (c.goals||[]).filter(g=>goalFactDone(g,f)).map(g=>g.n);
 }
 
 /* ---------- 소식 ---------- */
@@ -9349,10 +9511,7 @@ function clubWeekAdvance(){
     else{ c.prestige=clamp(c.prestige-0.3,0,100); c.fanbase=clamp(c.fanbase-0.8,0,100); }
   }
   // 사실 기록
-  if(S.playoffs&&S.playoffs.rounds){ c.facts.playoffs=true; }
-  if(S.msi&&S.msi.rounds&&(S.msi.seeds||[]).indexOf(S.userTeam)>=0) c.facts.msi=true;
-  if(S.worlds&&S.worlds.seeds&&S.worlds.seeds.indexOf(S.userTeam)>=0) c.facts.worlds=true;
-  if(S.phase==='regular'){ const r=myRank(); if(r<=3) c.facts.top3=true; }
+  boardFactsTick();
   c.community=null;
   if(gi>0) newsAdd('merch','🛍 굿즈 판매 수익 +'+gi.toFixed(2)+'억');
   /* 스폰서 리스크 — 연패 슬럼프·물의로 경고/해지 판정 */
@@ -9366,6 +9525,33 @@ function clubWeekAdvance(){
   saveGame();
 }
 
+/* ---------- 목표 판정에 쓰는 시즌 사실 ---------- */
+function boardFactsTick(){
+  const c=clubC(); const t=myTeam();
+  if(!c.facts) c.facts={};
+  const f=c.facts;
+  if(S.playoffs&&S.playoffs.rounds){
+    f.playoffs=true;
+    let reached=-1;
+    S.playoffs.rounds.forEach((r,i)=>{
+      if(((r&&r.matches)||[]).some(m=>m&&((m.a&&m.a===S.userTeam)||(m.b&&m.b===S.userTeam)))) reached=Math.max(reached,i);
+    });
+    if(reached>=0) f.po6=true;
+    if(reached>=1) f.po4=true;
+    if(reached>=2) f.final=true;
+  }
+  if(S.lckChampion&&S.lckChampion===S.userTeam) f.lckWin=true;
+  if(S.msi&&S.msi.rounds&&(S.msi.seeds||[]).indexOf(S.userTeam)>=0) f.msi=true;
+  if(S.worlds&&S.worlds.seeds&&S.worlds.seeds.indexOf(S.userTeam)>=0) f.worlds=true;
+  if((t.wins||0)>=5) f.wins5=true;
+  if(S.phase==='regular'){ const r=myRank(); if(r<=3) f.top3=true; }
+  try{
+    const n=Object.values(S.teams||{}).filter(x=>(x.region||'LCK')===(t.region||'LCK')).length;
+    if(S.phase==='regular'&&n>1){ const r=myRank(); if(r>0&&r<n) f.escapeLast=true; }
+  }catch(e){}
+  return f;
+}
+
 /* ---------- 시즌 결산 ---------- */
 function clubSeasonSettle(){
   const c=clubC(); const t=myTeam();
@@ -9376,12 +9562,7 @@ function clubSeasonSettle(){
   const goals=c.goals||[];
   let bonus=0, trustDelta=0;
   goals.forEach(g=>{
-    let ok=false;
-    if(g.k==='lck') ok=!!c.facts.lckWin;
-    else if(g.k==='final') ok=!!c.facts.final;
-    else if(g.k==='kespa') ok=!!c.facts.kespa4;
-    else if(g.k==='worlds') ok=!!c.facts.worlds;
-    else if(g.k==='top3') ok=!!c.facts.top3;
+    const ok=goalFactDone(g,c.facts||{});
     if(ok){ bonus+=g.bonus; }
     else if(g.must){ trustDelta+=g.trust; }
   });
@@ -10263,27 +10444,40 @@ function stoveReaction(good,kind,vars){
   try{ newsAdd(good?'호평':'여론', (good?'🔥 ':'💢 ')+'롤갤 · "'+stoveFanLine(good?'good':(kind==='trade'?'trade':'bad'),vars)+'"'); }catch(e){}
 }
 
-/* ---------- 가치 · 요구액 ---------- */
+/* ---------- 가치 · 요구액 ----------
+   연봉·이적료는 모두 lolSalaryFor(OVR) 곡선에서 나온다.
+   OVR 1 차이가 곱셈으로 벌어지므로 75와 91 사이는 현금 몇억으로 메울 수 없다. */
 function stoveMarketSalary(p){
   const ovr=rawOverall(p);
-  const raw=Math.pow(Math.max(ovr,50)-54,1.62)/11*2;
-  return Math.max(0.5,Math.round(raw*2)/2);
+  return Math.max(0.5,(typeof lolSalaryFor==='function')?lolSalaryFor(ovr):0.8*Math.exp((ovr-70)*0.1546));
 }
 function stoveDemand(p,years){
   const yrs=clamp(Math.round(Number(years)||2),1,3);
-  const base=Math.max(p.salary||0.5,stoveMarketSalary(p));
-  const ageF=p.age<=21?1.14:p.age<=23?1.07:p.age<=26?1.0:p.age<=28?0.93:0.86;
-  const formF=0.96+((p.form||70)/100)*0.1;
-  const gradeF=({'S+':1.15,'S':1.12,'A+':1.08,'A':1.05,'B+':1.0,'B':0.95,'B-':0.95,'C':0.9})[p.grade]||1;
-  const yrsF=yrs>=3?0.96:yrs===1?1.04:1;
-  return Math.max(0.5,Math.round(base*ageF*formF*gradeF*yrsF*10)/10);
+  const base=stoveMarketSalary(p);
+  const ageF=p.age<=21?1.02:p.age<=23?1.0:p.age<=26?1.0:p.age<=28?0.98:0.95;
+  const formF=0.98+((p.form||70)/100)*0.04;          /* 0.98 ~ 1.02 */
+  const yrsF=yrs>=3?0.99:yrs===1?1.01:1;
+  const gd=({'S+':1.02,'S':1.01,'A+':1.005,'A':1,'B+':0.995,'B':0.99,'B-':0.985,'C':0.98})[p.grade]||1;
+  const mult=clamp(ageF*formF*yrsF*gd,0.9,1.03);
+  const cur=Number(p.salary)||0;
+  const floor=Math.min(cur,Math.round(base*1.03*10)/10);   /* 기존 연봉보다 낮게 부르지는 않는다 */
+  return Math.max(0.5,Math.round(Math.max(base*mult,floor)*10)/10);
 }
+/* 트레이드 가치(억) — 연봉 곡선 × 나이/성장 프리미엄 */
 function stoveValue(p){
   if(!p) return 0;
   const ovr=rawOverall(p);
-  const ageF=p.age<=20?1.3:p.age<=22?1.2:p.age<=24?1.1:p.age<=26?1.0:p.age<=28?0.85:p.age<=30?0.7:0.5;
-  const potF=1+Math.max(0,(24-(p.age||24)))*0.02;
-  return Math.round(Math.pow(Math.max(ovr-40,1),1.55)*ageF*potF/10)/10;
+  const age=p.age||24;
+  const ageF=age<=20?1.32:age<=22?1.2:age<=24?1.08:age<=26?1.0:age<=28?0.86:age<=30?0.72:0.55;
+  const talent=1.35+Math.max(0,ovr-70)*0.018;
+  return Math.round(lolSalaryFor(ovr)*ageF*talent*10)/10;
+}
+/* 프랜차이즈 에이스 — 명단에 있거나 OVR 89+ 인 구단 에이스는 팔지 않는다 */
+const FRANCHISE_ACES=['Faker','Chovy','ShowMaker','Gumayusi','Keria','Canyon','Ruler','Viper','Bin','knight'];
+function isFranchiseAce(p){
+  if(!p) return false;
+  if(FRANCHISE_ACES.indexOf(p.name)>=0) return true;
+  return rawOverall(p)>=89;
 }
 
 /* ---------- 1) 재계약 협상 (연봉·계약기간) ---------- */
@@ -10325,11 +10519,16 @@ function stoveReSign(name,salary,years){
 function stoveRivals(name){
   const p=S.players[name];
   if(!p) return [];
+  const ovr=rawOverall(p);
   return Object.values(S.teams).filter(t=>t.id!==S.userTeam&&t.roster.length<9)
     .map(t=>{
       const cur=t.lineup[p.role]?S.players[t.lineup[p.role]]:null;
-      const need=!cur||rawOverall(cur)<rawOverall(p)+4;
-      const v=clamp(((teamPower(t)-66)/28)+(t.budget>14?0.18:-0.12)+(need?0.22:-0.18)+Math.random()*0.5,-1,1);
+      const need=!cur||rawOverall(cur)<ovr+4;
+      let v=clamp(((teamPower(t)-66)/28)+(t.budget>14?0.18:-0.12)+(need?0.22:-0.18)+Math.random()*0.5,-1,1);
+      /* 상위권·자금력 구단은 C/B급 유망주를 쫓지 않는다 (아카데미·하위권 구단 몫) */
+      const big=(t.tier==='S+'||t.tier==='S'||t.tier==='A+'||(t.budget||0)>=50);
+      if(big&&ovr<80) v-=0.62;
+      if(ovr>=80&&(t.budget||0)<20) v-=0.5;          /* 자금 없는 구단은 스타 경쟁에서 빠진다 */
       return {id:t.id,t:t,v:v,need:need};
     })
     .filter(r=>r.v>-0.2)
@@ -10411,12 +10610,17 @@ function stoveTradePropose(theirName,myName,cash){
   const money=Math.max(0,Math.round((Number(cash)||0)*10)/10);
   if(money>t.budget) return {ok:false,msg:'예산 부족 (현금 '+money.toFixed(1)+'억)'};
   const odds=stoveTradeOdds(tp.name,mp.name,money);
+  /* 프랜차이즈 에이스는 조건을 만족하지 못하면 확률을 굴리지도 않는다 */
+  if(odds.locked){
+    stoveLog('trade-fail',tp.name+' 트레이드 불가 — '+odds.lockWhy);
+    return {ok:false,msg:theirT.name+' — '+odds.lockWhy,locked:true,odds:0,need:odds.need,ask:0};
+  }
   /* 화면에 보이는 확률 그대로 굴린다 (게이지와 결과가 어긋나지 않게) */
   const accept=Math.random()<odds.p;
   if(!accept){
     const ask=odds.ask;
     stoveLog('trade-fail',tp.name+' 트레이드 거절 — 현금 '+ask.toFixed(1)+'억 이상 필요');
-    return {ok:false,msg:theirT.name+' 거절 — 내 선수 가치가 부족합니다 (현금 '+ask.toFixed(1)+'억 이상 필요)',need:odds.need,ask:ask,odds:odds.p};
+    return {ok:false,msg:theirT.name+' 거절 — '+tradeShortWhy(odds,tp,mp),need:odds.need,ask:ask,odds:odds.p};
   }
   const from=tp.team;
   t.budget=Math.round((t.budget-money)*10)/10;
@@ -10435,7 +10639,7 @@ function stoveTradePropose(theirName,myName,cash){
   try{ newsAdd('이적','🔄 트레이드 성사 — '+mp.name+' ↔ '+tp.name+(money?' + '+money.toFixed(1)+'억':'')); }catch(e){}
   stoveReaction(good,'trade',{a:mp.name,b:tp.name});
   saveStateAfterStove();
-  return {ok:true,msg:'트레이드 성사 — '+mp.name+' ↔ '+tp.name+(money?' + '+money.toFixed(1)+'억':''),trade:rec};
+  return {ok:true,msg:'트레이드 성사 — '+mp.name+'('+stoveValue(mp)+'억) ↔ '+tp.name+'('+stoveValue(tp)+'억)'+(money?' + '+money.toFixed(1)+'억':''),trade:rec};
 }
 function stoveBuyout(theirName,cash){
   stoveInit();
@@ -10443,6 +10647,7 @@ function stoveBuyout(theirName,cash){
   if(!p) return {ok:false,msg:'선수를 찾을 수 없습니다'};
   if(!p.team||p.team===S.userTeam) return {ok:false,msg:'상대 구단 소속 선수만 제안할 수 있습니다'};
   const t=myTeam(), theirT=T(p.team);
+  if(isFranchiseAce(p)) return {ok:false,msg:theirT.name+' — 프랜차이즈 에이스 '+p.name+'은(는) 어떤 이적료에도 팔지 않습니다',locked:true};
   if(theirT.roster.length<=6) return {ok:false,msg:theirT.name+' 로스터가 6명 이하라 이적료 제안을 받지 않습니다'};
   const money=Math.round((Number(cash)||0)*10)/10;
   if(money<=0) return {ok:false,msg:'이적료를 입력하세요'};
@@ -10529,33 +10734,64 @@ function stoveResignHTML(){
       </div>
     </div>`;
 }
+/* ---------- 트레이드 판정 · UI ---------- */
+const STOVE_POS=[{k:'ALL',n:'전체'},{k:'TOP',n:'탑'},{k:'JGL',n:'정글'},{k:'MID',n:'미드'},{k:'ADC',n:'원딜'},{k:'SUP',n:'서폿'}];
+let STOVE_POSV='ALL';
+const STOVE_CASH_FACTOR=0.8;          /* 트레이드에서 현금 1억 = 가치 0.8억 */
+function stovePosSet(k){ if(STOVE_POS.some(x=>x.k===k)) STOVE_POSV=k; try{ stoveRender(); }catch(e){} return true; }
+function stoveTeamPick(id){
+  if(!id) return true;
+  STOVE_SEL.team=id; STOVE_SEL.target=null;
+  try{ const tm=T(id); const rg=tm?(tm.region||'LCK'):null; if(rg&&STOVE_LEAGUES.some(l=>l.k===rg)) STOVE_LG=rg; }catch(e){}
+  try{ stoveRender(); }catch(e){}
+  return true;
+}
+function stoveTeamOvr(t){
+  try{ const p=lineupOf(t); return p.length?Math.round(p.reduce((a,x)=>a+rawOverall(x),0)/p.length):0; }catch(e){ return 0; }
+}
 function stoveTradeOdds(theirName,myName,cash){
   const tp=S.players[theirName], mp=S.players[myName];
   const vT=tp?stoveValue(tp):0, vM=mp?stoveValue(mp):0;
   let need=vT*((tp&&tp.age<=21)?1.08:1);
-  if(tp&&mp&&tp.role!==mp.role) need*=1.14;
+  const roleMis=!!(tp&&mp&&tp.role!==mp.role);
+  if(roleMis) need*=1.14;
   if(tp&&mp&&rawOverall(tp)>=86&&rawOverall(tp)>=rawOverall(mp)+6) need*=1.22;
   const money=Math.max(0,Number(cash)||0);
-  const offer=vM+money*2.2;
+  const offer=vM+money*STOVE_CASH_FACTOR;
   const ratio=need>0?offer/need:0;
-  const p=clamp((ratio-0.86)/0.28,0.02,0.98);
-  const ask=Math.max(0,Math.ceil(((need-vM)/2.2)*10)/10);
-  return {p:p,need:Math.round(need*10)/10,offer:Math.round(offer*10)/10,ratio:ratio,ask:ask};
+  const ask=Math.max(0,Math.ceil(((need-vM)/STOVE_CASH_FACTOR)*10)/10);
+  let p=clamp((ratio-0.9)/0.2,0.02,0.98);
+  let locked=false, lockNeed=0, lockWhy='';
+  if(tp&&isFranchiseAce(tp)){
+    lockNeed=Math.round(Math.max(12,need*0.45)*10)/10;
+    const sPlus=!!mp&&rawOverall(mp)>=88&&rawOverall(mp)>=rawOverall(tp)-1;
+    if(!sPlus){
+      locked=true;
+      lockWhy='프랜차이즈 에이스 — OVR 88 이상 동급 슈퍼스타를 내줘야 협상이 열립니다';
+    }else if(money<lockNeed){
+      locked=true;
+      lockWhy='프랜차이즈 에이스 — 이적료 '+lockNeed.toFixed(1)+'억 이상이어야 협상이 열립니다';
+    }
+    if(locked) p=0;
+  }
+  return {p:p,need:Math.round(need*10)/10,offer:Math.round(offer*10)/10,ratio:ratio,ask:ask,
+    locked:locked,lockNeed:lockNeed,lockWhy:lockWhy,roleMis:roleMis,vT:vT,vM:vM,cash:money};
+}
+function tradeShortWhy(odds,tp,mp){
+  if(!odds) return '내 선수 가치가 부족합니다';
+  if(odds.ratio<1) return '내 선수 가치가 '+(odds.need-odds.offer).toFixed(1)+'억 모자랍니다 (현금 '+odds.ask.toFixed(1)+'억 이상 필요)';
+  if(odds.roleMis) return '포지션이 달라 상대가 손해를 봅니다('+ROLE_KR[tp.role]+' 자리에 '+ROLE_KR[mp.role]+')';
+  return '가치는 맞지만 상대가 에이스급을 놓기를 꺼립니다 — 현금 '+odds.ask.toFixed(1)+'억 이상 필요';
 }
 function stoveTradeGM(odds,tp,mp){
-  if(!tp||!mp) return {t:'영입 대상과 내보낼 선수를 고르면 상대 단장의 반응이 나옵니다',k:'idle'};
+  if(!tp||!mp) return {t:(tp?'내보낼 선수를 고르면':'영입 대상과 내보낼 선수를 고르면')+' 상대 단장의 반응이 나옵니다',k:'idle'};
+  if(odds.locked) return {t:odds.lockWhy,k:'bad'};
   const p=odds.p;
   if(p>=0.85) return {t:'상대 단장이 흔쾌히 수락할 각입니다. 지금 제안하면 성사됩니다',k:'good'};
   if(p>=0.62) return {t:'협상 테이블에는 앉을 만한 제안입니다. 조금만 더 얹으면 확실합니다',k:'ok'};
   if(p>=0.38) return {t:'반응이 미지근합니다. 현금 '+odds.ask.toFixed(1)+'억 정도를 더 얹어야 대화가 됩니다',k:'meh'};
   if(p>=0.15) return {t:'가치가 모자라 보입니다. 현금 '+odds.ask.toFixed(1)+'억 이상이 필요합니다',k:'bad'};
   return {t:'이 조건은 거절 쪽입니다. 카드를 바꾸거나 현금 '+odds.ask.toFixed(1)+'억 이상을 준비하세요',k:'bad'};
-}
-function stoveTeamCard(x,on){
-  const ov=Math.round((lineupOf(x).reduce((a,p)=>a+rawOverall(p),0)/(lineupOf(x).length||1)));
-  return `<button class="trd-tm ${on?'on':''}" data-a="stoveteam" data-v="${x.id}">
-    ${badge(x,'sm')}<b>${esc(x.tag)}</b>
-    <span>${x.wins||0}승 ${x.losses||0}패</span><i>OVR ${ov}</i></button>`;
 }
 function stoveTradeHTML(){
   const t=myTeam();
@@ -10564,78 +10800,102 @@ function stoveTradeHTML(){
   const lg=leagues.some(l=>l.k===STOVE_LG)?STOVE_LG:(leagues[0]?leagues[0].k:'LCK');
   STOVE_LG=lg;
   const inLg=teams.filter(x=>(x.region||'LCK')===lg);
-  /* 첫 구단 자동 선택 — 화면이 비어 있지 않게 */
   if(!STOVE_SEL.team||!teams.some(x=>x.id===STOVE_SEL.team)) STOVE_SEL.team=(inLg[0]||teams[0]||{}).id||null;
   const sel=STOVE_SEL.team;
   const selT=sel?T(sel):null;
+  const pos=STOVE_POS.some(x=>x.k===STOVE_POSV)?STOVE_POSV:'ALL';
+  const posOk=p=>pos==='ALL'||(p&&p.role===pos);
   const tp=STOVE_SEL.target?S.players[STOVE_SEL.target]:null;
   const mp=STOVE_SEL.mine?S.players[STOVE_SEL.mine]:null;
-  const cash=Number(STOVE_CASH);
-  const odds=(tp&&mp)?stoveTradeOdds(tp.name,mp.name,isFinite(cash)?cash:0):null;
+  const cash=isFinite(Number(STOVE_CASH))?Math.max(0,Number(STOVE_CASH)):0;
+  const odds=(tp&&mp)?stoveTradeOdds(tp.name,mp.name,cash):null;
   const gm=stoveTradeGM(odds,tp,mp);
   const gauge=odds?Math.round(odds.p*100):0;
-  const gcol=!odds?'#4a5260':gauge>=80?'#3ddc97':gauge>=55?'#ffc94a':gauge>=30?'#ff9a4a':'#ff4d6d';
+  const gcol=!odds?'#4a5260':odds.locked?'#ff4d6d':gauge>=80?'#3ddc97':gauge>=55?'#ffc94a':gauge>=30?'#ff9a4a':'#ff4d6d';
   const st=stoveInit();
+  const theirList=selT?(selT.roster||[]).map(n=>S.players[n]).filter(Boolean).filter(posOk).sort((a,b)=>rawOverall(b)-rawOverall(a)):[];
+  const myList=t.roster.map(n=>S.players[n]).filter(Boolean).filter(posOk).sort((a,b)=>rawOverall(b)-rawOverall(a));
+  const reasons=[];
+  if(odds){
+    if(odds.locked) reasons.push(['bad',odds.lockWhy]);
+    else if(odds.ratio<1) reasons.push(['warn','가치 차이 '+(odds.need-odds.offer).toFixed(1)+'억 — 현금 '+odds.ask.toFixed(1)+'억 이상 필요']);
+    else reasons.push(['ok','가치 조건 충족 — 성사 가능성 '+gauge+'%']);
+    if(odds.roleMis) reasons.push(['warn','포지션 불일치('+ROLE_KR[tp.role]+' ↔ '+ROLE_KR[mp.role]+') — 같은 포지션이면 확률이 올라갑니다']);
+    if(tp&&mp&&rawOverall(tp)>=86&&rawOverall(tp)>=rawOverall(mp)+6) reasons.push(['warn','상대 에이스급(OVR '+rawOverall(tp)+') — 격차 보정이 붙습니다']);
+  }
+  const maxCash=Math.max(4,Math.min(60,Math.floor(t.budget||0)));
   return `
-    <div class="card">
-      <div class="ch"><span>트레이드 데스크</span><b class="ch-n">${selT?esc(selT.name)+' · '+(selT.wins||0)+'승 '+(selT.losses||0)+'패':'구단 선택'}</b></div>
+    <div class="card tight trd-bar">
+      <div class="ch"><span>트레이드 데스크</span><b class="ch-n">${selT?esc(selT.tag)+' · '+(selT.wins||0)+'승 '+(selT.losses||0)+'패':'구단 선택'}</b></div>
       <div class="trd-lg">
         ${leagues.map(l=>`<button class="trd-lgbtn ${lg===l.k?'on':''}" data-a="stovelg" data-v="${l.k}">${l.n}</button>`).join('')}
       </div>
-      <div class="trd-teams">
-        ${inLg.map(x=>stoveTeamCard(x,sel===x.id)).join('')}
+      <div class="trd-tools">
+        <label class="trd-tl">구단</label>
+        <select class="mini-select trd-teamsel" onchange="stoveTeamPick(this.value)">
+          ${leagues.map(l=>`<optgroup label="${l.n}">${teams.filter(x=>(x.region||'LCK')===l.k).map(x=>`<option value="${x.id}" ${sel===x.id?'selected':''}>${esc(x.tag)} · OVR ${stoveTeamOvr(x)} · ${x.wins||0}승 ${x.losses||0}패</option>`).join('')}</optgroup>`).join('')}
+        </select>
+      </div>
+      <div class="trd-pos">
+        ${STOVE_POS.map(x=>`<button class="trd-posb ${pos===x.k?'on':''}" data-a="stovepos" data-v="${x.k}">${x.n}</button>`).join('')}
       </div>
     </div>
     <div class="trd">
       <div class="trd-col">
         <div class="card tight">
-          <div class="ch"><span>${selT?esc(selT.tag):'—'} 로스터</span><b class="ch-n">${selT?(selT.roster||[]).length:0}명 · 선택: ${tp?esc(tp.name):'없음'}</b></div>
+          <div class="ch"><span>${selT?esc(selT.tag):'—'} 로스터</span><b class="ch-n">${theirList.length}명 · ${pos==='ALL'?'전체':ROLE_KR[pos]}</b></div>
           <div class="flist trd-list">
-            ${selT?selT.roster.map(n=>S.players[n]).filter(Boolean).sort((a,b)=>rawOverall(b)-rawOverall(a)).map(p=>`
-              <button class="trd-pl ${STOVE_SEL.target===p.name?'on':''}" data-a="stovetarget" data-v="${esc(p.name)}">
+            ${theirList.map(p=>`<button class="trd-pl ${STOVE_SEL.target===p.name?'on':''}" data-a="stovetarget" data-v="${esc(p.name)}">
                 <div class="f-av">${pAvatarHTML(p,32)}</div>
                 <div class="trd-pm">
-                  <b>${esc(p.name)}</b>
+                  <b>${esc(p.name)}${isFranchiseAce(p)?' <span class="trd-lock">🔒</span>':''}</b>
                   <span>${ROLE_KR[p.role]} · ${p.age}세 · ${esc(p.grade||'')}</span>
                 </div>
-                <div class="trd-pv"><b>${rawOverall(p)}</b><span>${p.salary}억</span></div>
-              </button>`).join('')||'<div class="empty-note">선수가 없습니다</div>':'<div class="empty-note">구단을 선택하세요</div>'}
+                <div class="trd-pv"><b>${rawOverall(p)}</b><span>${stoveValue(p).toFixed(1)}억</span></div>
+              </button>`).join('')||'<div class="empty-note">해당 포지션 선수가 없습니다</div>'}
           </div>
         </div>
-        ${tp?`<div class="card tight trd-target">
-          <div class="ch"><span>영입 대상</span><b class="ch-n">${esc(tp.name)}</b></div>
-          <div class="trd-tp">
-            ${pAvatarHTML(tp,54)}
-            <div>
-              <div class="trd-tn">${esc(tp.name)} <span class="role-tag">${ROLE_KR[tp.role]}</span></div>
-              <div class="tiny">OVR ${rawOverall(tp)} · ${tp.age}세 · 연봉 ${tp.salary}억 · 가치 ${stoveValue(tp)}</div>
-              <div class="tiny">${contractTxt(tp)}</div>
-            </div>
-          </div>
-        </div>`:''}
       </div>
       <div class="trd-col">
         <div class="card tight">
-          <div class="ch"><span>내 제안</span><b class="ch-n">${mp?esc(mp.name)+' + '+((isFinite(cash)?cash:0).toFixed(1))+'억':'내보낼 선수 선택'}</b></div>
+          <div class="ch"><span>내 제안</span><b class="ch-n">${mp?esc(mp.name)+' + '+cash.toFixed(1)+'억':'내보낼 선수 선택'}</b></div>
           <div class="trd-mine">
-            ${t.roster.map(n=>S.players[n]).filter(Boolean).sort((a,b)=>rawOverall(b)-rawOverall(a)).map(p=>`
+            ${myList.map(p=>`
               <button class="trd-chip ${STOVE_SEL.mine===p.name?'on':''}" data-a="stovemine" data-v="${esc(p.name)}">
-                <b>${esc(p.name)}</b><span>${ROLE_KR[p.role]} ${rawOverall(p)}</span></button>`).join('')}
+                <b>${esc(p.name)}</b><span>${ROLE_KR[p.role]} ${rawOverall(p)} · ${stoveValue(p).toFixed(1)}억</span></button>`).join('')||'<div class="empty-note">해당 포지션 선수가 없습니다</div>'}
           </div>
           <div class="trd-cash">
-            <div class="row between"><span class="tiny">현금 추가</span><b class="trd-cashv">${(isFinite(cash)?cash:0).toFixed(1)}억</b></div>
-            <input class="trd-range" type="range" min="0" max="${Math.max(4,Math.min(40,Math.round(t.budget)))}" step="1" value="${isFinite(cash)?cash:0}" data-tcash="1" oninput="stoveCashSet(this.value)" onchange="stoveCashSet(this.value)">
+            <div class="row between"><span class="tiny">현금 추가</span><b class="trd-cashv">${cash.toFixed(1)}억</b></div>
+            <input class="trd-range" type="range" min="0" max="${maxCash}" step="1" value="${Math.min(cash,maxCash)}" data-tcash="1" oninput="stoveCashSet(this.value)" onchange="stoveCashSet(this.value)">
             <div class="tiny">보유 예산 ${t.budget.toFixed(1)}억 · 현금은 성사 시 즉시 차감</div>
           </div>
         </div>
         <div class="card tight trd-odds">
-          <div class="ch"><span>수락 확률</span><b class="ch-n" style="color:${gcol}">${odds?gauge+'%':'—'}</b></div>
+          <div class="ch"><span>제안 비교</span><b class="ch-n" style="color:${gcol}">${odds?(odds.locked?'판매 불가':gauge+'%'):'—'}</b></div>
+          <div class="trd-vs2">
+            <div class="trd-side mine">
+              <div class="trd-sd-h">내 제안</div>
+              ${mp?`<div class="trd-sd-n">${esc(mp.name)}</div>
+                <div class="trd-sd-s">${ROLE_KR[mp.role]} · ${mp.age}세 · OVR ${rawOverall(mp)}</div>
+                <div class="trd-sd-v">가치 ${stoveValue(mp).toFixed(1)}억</div>`:'<div class="trd-sd-e">선수를 고르세요</div>'}
+              <div class="trd-sd-cash">+ 현금 ${cash.toFixed(1)}억</div>
+            </div>
+            <div class="trd-vs-mid">↔</div>
+            <div class="trd-side them">
+              <div class="trd-sd-h">영입 대상</div>
+              ${tp?`<div class="trd-sd-n">${esc(tp.name)}${isFranchiseAce(tp)?' 🔒':''}</div>
+                <div class="trd-sd-s">${ROLE_KR[tp.role]} · ${tp.age}세 · OVR ${rawOverall(tp)}</div>
+                <div class="trd-sd-v">가치 ${stoveValue(tp).toFixed(1)}억</div>`:'<div class="trd-sd-e">대상을 고르세요</div>'}
+              <div class="trd-sd-cash">${tp?'연봉 '+tp.salary+'억':'—'}</div>
+            </div>
+          </div>
           <div class="trd-gauge"><i style="width:${odds?Math.max(3,gauge):0}%;background:${gcol}"></i></div>
           <div class="trd-gm ${gm.k}">${esc(gm.t)}</div>
+          ${reasons.length?`<div class="trd-reasons">${reasons.map(r=>`<div class="trd-reason ${r[0]}">${r[0]==='ok'?'✅':r[0]==='bad'?'⛔':'⚠️'} ${esc(r[1])}</div>`).join('')}</div>`:''}
           <div class="trd-sums">
-            <span>내 가치 <b>${mp?stoveValue(mp):'—'}</b></span>
-            <span>상대 가치 <b>${tp?stoveValue(tp):'—'}</b></span>
-            <span>필요 현금 <b>${odds?odds.ask.toFixed(1):'—'}</b></span>
+            <span>내 가치 <b>${mp?stoveValue(mp).toFixed(1):'—'}</b></span>
+            <span>상대 가치 <b>${tp?stoveValue(tp).toFixed(1):'—'}</b></span>
+            <span>필요 현금 <b>${odds&&!odds.locked?odds.ask.toFixed(1):'—'}</b></span>
           </div>
           <div class="btn-row" style="margin-top:8px">
             <button class="btn primary" data-a="stovetrade">트레이드 제안</button>
@@ -10650,6 +10910,7 @@ function stoveTradeHTML(){
     </div>`:''}
   `;
 }
+
 function stovePanelHTML(){
   const tab=STOVE_TAB||'fa';
   return `
@@ -10672,7 +10933,8 @@ function stoveAction(a,v,root){
     return el?String(el.value||'').trim():null;
   };
   if(a==='tab'){ STOVE_TAB=v||'fa'; stoveRender(); return true; }
-  if(a==='team'){ STOVE_SEL.team=v||null; STOVE_SEL.target=null; stoveRender(); return true; }
+  if(a==='pos'){ return stovePosSet(v||'ALL'); }
+  if(a==='team'){ return stoveTeamPick(v||null); }
   if(a==='lg'){ STOVE_LG=v||'LCK'; STOVE_SEL.team=null; STOVE_SEL.target=null; stoveRender(); return true; }
   if(a==='target'){ STOVE_SEL.target=(STOVE_SEL.target===v?null:v); stoveRender(); return true; }
   if(a==='mine'){ STOVE_SEL.mine=(STOVE_SEL.mine===v?null:v); stoveRender(); return true; }
@@ -14726,7 +14988,7 @@ function homeV3(){
     <div class="card sp2">
       <div class="ch"><span>시즌 목표</span></div>
       <div class="goal">
-        <div class="goal-l">구단주 기대 <b>${goals[0]?esc(goals[0].n):'우승'}</b></div>
+        <div class="goal-l">구단주 기대 <b>${esc(typeof boardExpectLabel==='function'?boardExpectLabel():'결승 진출 · 우승')}</b></div>
         <div class="pbar"><i style="width:${clamp(c.trust,0,100)}%"></i></div>
         <div class="goal-meta"><span>이사회 신뢰 ${Math.round(c.trust)}</span><span>팬심 ${Math.round(c.fanbase)}</span></div>
       </div>
@@ -14842,7 +15104,7 @@ function goalRowsHTML(){
   const c=clubC();
   return `<div class="goaltbl">
     ${(c.goals||[]).map(g=>{
-      const done=g.k==='lck'?c.facts.lckWin:g.k==='final'?c.facts.final:g.k==='kespa'?c.facts.kespa4:g.k==='worlds'?c.facts.worlds:g.k==='top3'?c.facts.top3:false;
+      const done=(typeof goalFactDone==='function')?goalFactDone(g,c.facts||{}):false;
       return `<div class="gr ${done?'done':''}">
         <span class="gr-ic">${done?'◉':'○'}</span>
         <span class="gr-n">${esc(g.n)}${g.must?' <em>필수</em>':''}</span>
@@ -15116,7 +15378,8 @@ function staffV3(){
           <span>토론 <b>${st.rating}</b></span><span>밴픽 <b>${Math.round(st.rating*0.92)}</b></span><span>선수관리 <b>${Math.round(st.rating*0.95)}</b></span><span>스크림 <b>${Math.round(st.rating*0.88)}</b></span>
         </div>
         <div class="st-b">
-          <span class="pill sm ${st.role==='HEAD'?'gold':''}">${st.role==='HEAD'?'유지':'유지'}</span>
+          <span class="pill sm ${st.role==='HEAD'?'gold':''}">유지</span>
+          <button class="btn sm danger st-fire" data-a="firestaff" data-v="${st.id}">해고</button>
           <span class="st-pay">-${(st.salary||0).toFixed(1)}억</span>
         </div>
       </div>`).join(''):'<div class="empty-note">코칭스태프가 없습니다</div>'}
@@ -15180,7 +15443,7 @@ function budgetV3(){
             <div class="own-av">💼</div>
             <div>
               <div class="own-n">구단 단장 · 모기업 이사회 → ${esc(S.owner&&S.owner.name?S.owner.name:'박성수')} 구단주님</div>
-              <div class="own-q">박성수 구단주님, 올해 우리 전력이면 우승까지 노려볼 만합니다. 목표 달성 시 지원금을 전폭 배정하겠습니다.</div>
+              <div class="own-q">${esc(typeof boardMessage==='function'?boardMessage():'올해 우리 전력이면 우승까지 노려볼 만합니다. 목표 달성 시 지원금을 전폭 배정하겠습니다.')}</div>
             </div>
           </div>
           <div class="own-bar">
@@ -15194,7 +15457,7 @@ function budgetV3(){
           <div class="gtbl">
             <div class="gt-h"><span>목표</span><span>예상 지원금</span><span>달성 보너스</span><span>실패 시</span></div>
             ${(c.goals||[]).map(g=>{
-              const done=g.k==='lck'?c.facts.lckWin:g.k==='final'?c.facts.final:g.k==='kespa'?c.facts.kespa4:g.k==='worlds'?c.facts.worlds:g.k==='top3'?c.facts.top3:false;
+              const done=(typeof goalFactDone==='function')?goalFactDone(g,c.facts||{}):false;
               return `<div class="gt-r ${done?'done':''}">
                 <span class="gt-n"><i>${done?'◉':'○'}</i>${esc(g.n)}${g.must?'<em>이사회 요구</em>':''}</span>
                 <span class="pos">${g.grant?'+'+g.grant+'억':'—'}</span>
@@ -15462,6 +15725,7 @@ function hubAction(a,v,el){
   if(a==='acadment'){ const r=v6AcadMentorSet(Number(el&&el.dataset?el.dataset.i:0),v||null); if(r&&r.msg) toast(r.msg); renderHub(); return; }
   if(a==='acadsend'){ const r=v6AcadSendDown(v); if(r&&r.msg) toast(r.msg); renderHub(); return; }
   if(a==='hire'){ const sel=$('view-hub').querySelector('[data-styears="'+v+'"]'); const n=sel?Number(sel.value):2; const r=hireStaff(v,n); if(!r.ok) toast(r.msg); else { toast('코치를 영입했습니다'); renderHub(); } return; }
+  if(a==='firestaff'){ openStaffFireModal(v); return; }
   if(a==='sppick'){
     const s=sponsorPool().find(x=>x.id===v)||SPONSOR_MAP[v];
     if(!s){ toast('이 제안은 이미 종료되었습니다'); renderHub(); return; }
@@ -16835,7 +17099,7 @@ function assignHTML(myComp,oppComp,me,opp){
                 (champ&&mp&&mp.role!==role?`<span class="offrole soft">포지션 전환 (-4%)</span>`:'')}
               ${champ&&c&&champUnlockedRole(c,role)?`<span class="unlock">✨ 패치 이색 픽</span>`:''}
               ${mp?`<span class="asg-pool ${(typeof poolTagOf==='function')?poolTagOf(mp).k:''}" title="편하게 다룰 수 있는 챔피언 수">챔프폭 ${(typeof champPoolSize==='function')?champPoolSize(mp):'-'}</span>`:''}
-              ${champ&&mp&&typeof flexTargetsDetailed==='function'?flexTargetsDetailed(champ,me).filter(x2=>x2.role!==role).map(x2=>`<button class="asg-flex ${x2.inPool?'':'loose'}" data-flexswap="${x2.role}" data-flexchamp="${esc(champ)}" title="${esc(x2.name)}에게 ${x2.inPool?'숙련된':'폭은 넓지만 숙련도가 낮은'} 플렉스 라인">🔀 ${ROLE_KR[x2.role]}${x2.inPool?'':'?'}</button>`).join(''):''}
+              ${champ&&mp&&typeof flexTargetsDetailed==='function'?flexTargetsDetailed(champ,me).filter(x2=>x2.role!==role).map(x2=>`<button class="asg-flex ${x2.inPool?'':'loose'}" data-flexswap="${x2.role}" data-flexchamp="${esc(champ)}" title="${esc(x2.name)}에게 ${x2.inPool?'숙련된':'폭은 넓지만 숙련도가 낮은'} 플렉스 라인">🔀 ${ROLE_KR[x2.role]} 스왑</button>`).join(''):''}
             </div>
           </div>`;
         }).join('')}
@@ -28694,7 +28958,7 @@ function seasonReportCompute(){
     const budgetScore=scrClamp((t.budget||0)/2.6,0,10);
     const goalScore=scrClamp(((c.goals||[]).filter(g=>{
       const f=c.facts||{};
-      return (g.k==='lck'&&f.lckWin)||(g.k==='final'&&f.final)||(g.k==='kespa'&&f.kespa4)||(g.k==='worlds'&&f.worlds)||(g.k==='top3'&&f.top3);
+      return (typeof goalFactDone==='function')?goalFactDone(g,f):false;
     }).length)*2.5,0,5);
     bizScore=scrClamp(spScore+budgetScore+goalScore,0,25);
     bizNote='스폰서 '+sN+'건 · 예산 '+(t.budget||0).toFixed(1)+'억 · 목표 달성 '+Math.round(goalScore/2.5)+'건';
@@ -28831,9 +29095,9 @@ const BJ_REACTIONS={
 };
 function bjDefOf(name){ return BJ_DEFS.find(d=>d.n===name)||null; }
 function bjSignSalary(def){
-  /* 방송 수입이 있는 사람은 몸값이 비싸다 */
-  const base=(def.ovr-58)*0.42+0.8;
-  return Math.round(base*(def.ex?1.0:1.28)*10)/10;
+  /* 방송 수입이 있는 사람은 같은 OVR이라도 몸값이 높다 — 기본은 LCK 연봉 곡선 */
+  const base=(typeof lolSalaryFor==='function')?lolSalaryFor(def.ovr):((def.ovr-58)*0.42+0.8);
+  return Math.max(0.8,Math.round(base*(def.ex?1.2:1.5)*10)/10);
 }
 function bjFanValue(def){
   return Math.round(def.fan*(def.ex?0.6:1.1)*10)/10;
@@ -28933,7 +29197,7 @@ function stoveBjHTML(){
               <input class="inp sm" type="number" step="0.5" min="0.5" data-bjsal="${esc(d.n)}" value="${demand}">
               <select class="mini-select" data-bjyears="${esc(d.n)}"><option value="1">1년</option><option value="2" selected>2년</option><option value="3">3년</option></select>
               <label class="bj-start"><input type="checkbox" data-bjstart="${esc(d.n)}">스타터 보장</label>
-              <button class="btn sm gold" data-a="bjsign" data-v="${esc(d.n)}">영입 제안</button>
+              <button class="btn sm gold" data-a="stovebjsign" data-v="${esc(d.n)}">영입 제안</button>
             </div>
           </div>`;
         }).join('')||'<div class="empty-note">지금은 제안할 수 있는 BJ가 없습니다 — 이미 다른 구단과 계약했거나 모두 영입했습니다</div>'}
