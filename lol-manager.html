@@ -4799,6 +4799,13 @@ function b4ItemStarter(side,role){
   try{ const u=(MM&&MM.units)?MM.units[side+'-'+role]:null; if(u) u.itemPow=st.pow; }catch(e){}
   return st.starter;
 }
+/* 실제로 존재하는 아이템 ID 화이트리스트 (Data Dragon 아이콘·상점 데이터 기준) */
+const VALID_ITEM_IDS=(function(){
+  const a=[];
+  [B4_BOOTS,B4_PREMIUM,B4_SUPPORT,B4_TANK,B4_STD].forEach(function(t){ Object.keys(t).forEach(function(k){ a.push(Number(k)); }); });
+  Object.keys(B4_DEFAULT_CORE).forEach(function(r){ B4_DEFAULT_CORE[r].forEach(function(id){ a.push(Number(id)); }); });
+  return a;
+})();
 function b4ItemName(id){ return (typeof lolpsItemName==='function'&&lolpsItemName(id))||('아이템 '+id); }
 /* 실제 가격대 — 등급표에 없으면 포지션/가격대 규칙으로 결정 (지어낸 0원 없음) */
 function b4ItemPrice(id, role){
@@ -4832,7 +4839,10 @@ function b4ItemPlan(side,role){
       let sh=Number(L.build.shoes)||0;
       if(B4_SHOES_FIX[sh]) sh=B4_SHOES_FIX[sh];
       if(B4_BOOTS[sh]) boots=sh;              /* 실제 신발 ID만 인정 — 아니면 포지션 기본 신발 */
-      cores=(L.build.items||[]).filter(Boolean).slice(0,3);
+      /* 이름·아이콘을 모르는 ID(2510 같은 더미)는 빌드에서 걸러 포지션 기본 코어로 채운다 */
+      cores=(L.build.items||[]).filter(function(id){
+        return id&&b4ItemName(id).indexOf('아이템 ') !== 0 && VALID_ITEM_IDS.indexOf(Number(id))>=0;
+      }).slice(0,3);
     }
   }catch(e){}
   const def=B4_DEFAULT_CORE[role]||B4_DEFAULT_CORE.MID;
