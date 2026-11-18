@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>위케어동물의료센터 보호자 안내 | 심장 · 신장 · 고난이도 내과 전문 (고양 일산)</title>
-<meta name="description" content="경기도 고양시 일산동구 위시티4로 46, 위케어동물의료센터가 직접 만든 질환별 보호자 안내 12종. 심장(심초음파) · 신장 · 고난이도 내과 전문 — 증상 빠른 검색, 응급 신호, 사전 문진, 진료비용, 금지 음식, 예방접종·건강검진까지 한곳에.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="경기도 고양시 일산동구 위시티4로 46, 위케어동물의료센터. 심장(심초음파) · 신장 · 고난이도 내과 전문 — 질환별 보호자 안내 12종, 증상 빠른 검색, 응급 신호, 사전 문진, 진료비용, 금지 음식, 예방접종·건강검진까지 한곳에.">
 <meta name="keywords" content="위케어동물의료센터, 고양시 동물병원, 일산 동물병원, 식사동 동물병원, 위시티 동물병원, 심장초음파, 심장병, 신장질환, 고난이도 내과, 강아지 기침, 고양이 신부전">
 <meta name="author" content="위케어동물의료센터">
 <meta name="robots" content="index,follow">
@@ -95,6 +97,10 @@ a{color:inherit}
 .topbar{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.08)}
 .topbar-inner{max-width:var(--max);margin:0 auto;padding:0 1.35rem;display:flex;align-items:center;justify-content:space-between;height:60px;gap:1rem}
 .logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3}
+.logo-group{display:flex;align-items:center;gap:.5rem;min-width:0;text-decoration:none}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#fff;object-fit:contain;flex-shrink:0;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+@media(max-width:520px){.logo-mark{width:26px;height:26px;padding:1px;border-radius:7px}}
+@media(max-width:420px){.logo-text{display:none}.logo-mark,.logo-mark img{width:24px;height:24px}.logo-group{gap:0}}
 .logo-text small{display:block;font-size:10px;font-weight:300;opacity:.65;letter-spacing:.08em;margin-top:1px}
 .topbar-btns{display:flex;gap:.45rem;flex-shrink:0}
 .tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s,transform .15s;white-space:nowrap}
@@ -143,7 +149,7 @@ a{color:inherit}
 .doc-card{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--white);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 14px 34px -28px rgba(16,51,94,.8)}
 .doc-aside{background:radial-gradient(130% 110% at 0% 0%,#1b4a7e 0%,#10335E 58%,#0a2240 100%);color:#fff;padding:1.7rem 1.55rem;display:flex;flex-direction:column;justify-content:space-between;gap:1.15rem}
 .doc-head{display:flex;align-items:center;gap:.65rem}
-.doc-mark{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;letter-spacing:.08em;flex-shrink:0}
+.doc-mark{width:38px;height:38px;border-radius:11px;background:#fff;border:1px solid rgba(255,255,255,.35);padding:4px;object-fit:contain;flex-shrink:0;display:block}
 .doc-label{font-size:9.5px;font-weight:600;letter-spacing:.15em;color:rgba(255,255,255,.5);text-transform:uppercase}
 .doc-name{font-size:13px;font-weight:600;color:#fff;margin-top:2px;line-height:1.4}
 .doc-quote{font-size:14.5px;font-weight:500;color:#fff;line-height:1.75;letter-spacing:-.01em;padding-left:.85rem;border-left:3px solid #7eb8f7;word-break:keep-all}
@@ -238,11 +244,6 @@ a{color:inherit}
   .dcard:hover,.qcard:hover,.pill:hover,.tool:hover{transform:none}
 }
 
-/* ── HERO SPEC CHIPS ──────────────────── */
-.hero-spec{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin-top:1.05rem}
-.hero-spec span{font-size:11px;font-weight:500;letter-spacing:.02em;color:rgba(255,255,255,.72);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:4px 10px;line-height:1.5}
-.hero-spec .spec-main{font-size:12.5px;font-weight:700;color:#0a2240;background:#cfe3fb;border-color:#cfe3fb;padding:5px 13px;letter-spacing:-.01em}
-
 /* ── QUICK SEARCH ────────────────────── */
 .ws{position:relative;z-index:7;margin-top:-2.9rem}
 .ws-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:1.15rem 1.2rem 1rem;box-shadow:0 20px 44px -26px rgba(16,51,94,.75)}
@@ -307,9 +308,6 @@ a{color:inherit}
   .tool{padding:.8rem .85rem .75rem}
   .tool-name{font-size:12.5px}
   .tool-desc{font-size:10.5px}
-  .hero-spec{gap:.3rem;margin-top:.9rem}
-  .hero-spec span{font-size:10.5px;padding:3px 9px}
-  .hero-spec .spec-main{font-size:11.5px;padding:4px 11px}
 }
 </style>
 </head>
@@ -317,7 +315,7 @@ a{color:inherit}
 
 <div class="topbar">
   <div class="topbar-inner">
-    <div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div>
+    <a class="logo-group" href="index.html" aria-label="위케어동물의료센터 홈"><img class="logo-mark" src="logo-mark.png" width="28" height="28" alt=""><div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div></a>
     <div class="topbar-btns">
       <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
       <a class="tbtn kako" href="http://pf.kakao.com/_lxhxmxnG" target="_blank" rel="noopener">💬 카카오톡</a>
@@ -329,13 +327,7 @@ a{color:inherit}
   <div class="hero-inner">
     <span class="hero-badge">WECARE · 보호자 안내</span>
     <h1>심장 · 신장 · 고난이도 내과<br><span class="hl">위케어동물의료센터</span></h1>
-    <p class="hero-desc">우리 아이의 건강, 제대로 알고 함께 관리해요.<br>경기도 고양시 일산동구 위시티4로 46 · 질환별 보호자 안내 12종을 직접 만들었습니다.</p>
-    <div class="hero-spec">
-      <span class="spec-main">심장 · 신장 · 고난이도 내과 전문</span>
-      <span>심장초음파</span>
-      <span>IRIS · SDMA 신장 평가</span>
-      <span>중증 내과</span>
-    </div>
+    <p class="hero-desc">우리 아이의 건강, 제대로 알고 함께 관리해요. <br>경기도 고양시 일산동구 위시티4로 46</p>
     <div class="hero-actions">
       <a class="pill pill-primary" href="intake.html">📝 방문 전 사전 문진</a>
       <a class="pill pill-ghost" href="faq.html">🚨 응급 신호 · FAQ</a>
@@ -436,7 +428,7 @@ a{color:inherit}
     <div class="doc-card">
       <div class="doc-aside">
         <div class="doc-head">
-          <span class="doc-mark" aria-hidden="true">WE</span>
+          <img class="doc-mark" src="logo-mark.png" width="38" height="38" alt="위케어동물의료센터 로고">
           <div>
             <div class="doc-label">의료진 소개</div>
             <div class="doc-name">위케어동물의료센터</div>
