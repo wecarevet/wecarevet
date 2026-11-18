@@ -22821,6 +22821,16 @@ function v6GpEnsure(G){
   if(!gp.vision) gp.vision='std';
   if(!gp.macro) gp.macro='std';
   if(!gp.matchup) gp.matchup='none';
+  /* 예전 버전 값(push·objfight 등)이 남아 있으면 현재 항목 목록으로 정규화 */
+  const pickOK=function(list,k){ return (list||[]).some(function(o){ return o.k===k; }); };
+  if(!pickOK(V6_GP_LEVEL1,gp.level1)) gp.level1='standard';
+  if(!pickOK(V6_GP_JUNGLE,gp.jungleStart)) gp.jungleStart='auto';
+  if(!pickOK(V6_GP_CARE,gp.care)) gp.care='auto';
+  if(!pickOK(V6_GP_OBJ,gp.objPriority)) gp.objPriority='grub';
+  if(!pickOK(V6_GP_POSTURE,gp.posture)) gp.posture='front';
+  if(!pickOK(V6_GP_VISION,gp.vision)) gp.vision='std';
+  if(!pickOK(V6_GP_MACRO,gp.macro)) gp.macro='std';
+  if(typeof V6_GP_MATCHUP!=='undefined'&&!pickOK(V6_GP_MATCHUP,gp.matchup)) gp.matchup='none';
   /* 기존 필드와 양방향 동기화 */
   if(gp.level1==='swap1'){ gp.laneSwap=true; gp.invade='none'; }
   else if(gp.level1==='fiveMan'){ gp.laneSwap=false; gp.invade='steal'; }
