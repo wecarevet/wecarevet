@@ -225,7 +225,7 @@ ul.dl .rr{font-size:10px;font-weight:700}
 .drawn{width:66px;height:92px;border-radius:9px;border:1px solid var(--line);background:linear-gradient(180deg,#16233b,#0d1524);padding:6px;font-size:10.5px;line-height:1.25;display:flex;flex-direction:column;gap:4px;animation:pop .18s ease}
 @keyframes pop{from{opacity:0;transform:translateY(6px) scale(.96)}to{opacity:1;transform:none}}
 .drawn .t{font-size:9px;font-weight:800;border-radius:5px;padding:1px 4px;align-self:flex-start}
-.drawn .nm{flex:1;color:#dbe4f3;overflow:hidden;overflow-wrap:anywhere}
+.drawn .nm{flex:1;color:#dbe4f3;overflow:hidden;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical}
 .drawn.g0{border-color:rgba(255,207,92,.55)}.drawn.g0 .t{background:rgba(255,207,92,.16);color:var(--ur)}
 .drawn.g1{border-color:rgba(255,107,107,.55)}.drawn.g1 .t{background:rgba(255,107,107,.16);color:#ff9b9b}
 .drawn.g2{border-color:rgba(120,198,255,.5)}.drawn.g2 .t{background:rgba(120,198,255,.14);color:var(--r)}
@@ -1184,10 +1184,12 @@ function saveDraft(){ lsSet('mdm_deck_draft', curDeck); }
 
 const TAG_RE_HAND = /(ash blossom|maxx\s*"?c"?|effect veiler|droll\s*&?\s*lock bird|ghost ogre|ghost belle|ghost mourner|mulcharmy|nibiru|dimension shifter|psy-framegear|infinite impermanence|herald of orange light|dominus impulse|dominus purge|dominus spark|artifact lancea|token collector|d\.d\. crow|retaliating "c")/i;
 const TAG_RE_BREAK = /(forbidden droplet|dark ruler no more|super polymerization|lightning storm|harpie'?s feather duster|raigeki|triple tactics|forbidden crown|kaiju|lava golem|sphere mode|evenly matched|book of eclipse|mind control|change of heart|mystical space typhoon)/i;
+const TAG_RE_ENGINE = /(power patron|portal - terminus)/i;   /* 이번 메타 엔진 카드: 사실상 초동 */
 const TAG_RE_NICE = /(pot of |upstart goblin|one for one|foolish burial|reinforcement of the army|terraforming|chicken game|reasoning|monster reborn|card destruction|crossout designator|called by the grave|gold sarcophagus|foolish burial goods)/i;
 function autoTag(en, arch){
   const s = String(en || '');
   if (TAG_RE_HAND.test(s)) return 1;
+  if (TAG_RE_ENGINE.test(s)) return 0;
   if (TAG_RE_BREAK.test(s)) return 2;
   if (TAG_RE_NICE.test(s)) return 3;
   const words = String(arch || '').split(/[\s\-:&]+/).filter(w => w.length >= 3);
