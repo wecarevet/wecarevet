@@ -1367,11 +1367,8 @@ function regenerate(){
    ═══════════════════════════════════════════════════════════ */
 var saveTimer = null;
 function save(){
-  if(guardian || saveTimer === 'off') return;
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(function(){
-    try{ localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch(e){}
-  }, 400);
+  if(guardian) return;
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch(e){}
 }
 function loadSaved(){
   try{
@@ -1863,22 +1860,29 @@ function boot(){
   }
 
   bind();
-  if(!loadSaved()){
+  var restored = loadSaved();
+  if(!restored){
     S.tpl = 'heart';
     S.mode = 'mmvd';
     buildRowsKeepValues();
     S.care = careDefault();
     S.assess = draft();
+  } else {
+    /* 값은 복원됐는데 소견·안내가 비어 있으면 다시 만들어 준다 */
+    var hasVals = false;
+    for(var i = 0; i < S.f.length; i++){
+      if(String(S.f[i].val).trim() !== ''){ hasVals = true; break; }
+    }
+    if(hasVals){
+      if(!String(S.assess).trim()) S.assess = draft();
+      if(!String(S.care).trim()) S.care = careDefault();
+    }
   }
   paintTabs();
   syncFields();
   renderRows();
   renderStage();
   renderDoc();
-  saveTimer = null;
-  setTimeout(function(){
-    if(!guardian && localStorage.getItem(STORE_KEY)) { /* 조용히 복원 */ }
-  }, 100);
 }
 
 /* 테스트용 내부 훅 (화면에는 영향 없음) */
@@ -1895,8 +1899,14 @@ window.__wc = {
   reset: function(){ S = freshState(); applyTemplate(); }
 };
 
-if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-else boot();
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+
+  if(window.addEventListener){
+    window.addEventListener('pagehide', function(){
+      if(!guardian){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(S)); }catch(e){} }
+    });
+  }
 
 })();
 </script>
