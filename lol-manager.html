@@ -26255,13 +26255,18 @@ function v6MobileDraftHTML(){
   };
   const clock=(D.phase!=='assign'&&D.phase!=='done'&&(typeof dActor==='function')&&dActor()==='me')
     ? `<span class="dm-clock">${(typeof DRAFT_UNLIMITED!=='undefined'&&DRAFT_UNLIMITED)?'∞':((typeof DT!=='undefined')?DT.left+'s':'')}</span>` : '';
+  /* 방송 관례: 왼쪽 블루 사이드, 오른쪽 레드 사이드 (우리 팀이 어느 쪽이든 고정) */
+  const blueSide=(D.mySide==='blue')?'me':'opp';
+  const redSide=(blueSide==='me')?'opp':'me';
+  const onOf=(sd)=>(sd==='me'?actMe:actOpp);
+  const teamOf=(sd)=>(sd==='me'?me:opp);
   return `<div class="d6-mob" id="d6Mob">
     <div class="dm-top">
       <span class="dm-phase">${phase} · ${D.mySide==='blue'?'블루':'레드'} 사이드</span>
       ${ti?`<span class="dm-whos ${ti.k==='turn'?(ti.mine?'mine':'enemy'):'neutral'}">${ti.ic} ${esc(ti.label)}</span>`:''}
       ${clock}
     </div>
-    <div class="dm-head">${sideBlock('me',me,actMe)}${sideBlock('opp',opp,actOpp)}</div>
+    <div class="dm-head">${sideBlock(blueSide,teamOf(blueSide),onOf(blueSide))}${sideBlock(redSide,teamOf(redSide),onOf(redSide))}</div>
   </div>`;
 }
 /* 밴픽 중 라인별 즉시 배정 — 픽 순서와 무관하게 가장 잘 맞는 빈 라인에 붙인다 */
