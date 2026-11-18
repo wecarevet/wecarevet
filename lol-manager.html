@@ -31189,12 +31189,16 @@ function macroEndgameTick(sec){
       touched++;
     });
   }
-  /* 상태 기록 + 안내 한 줄 (상태가 바뀔 때만) */
+  /* 상태 기록 + 안내 한 줄 (국면이 바뀔 때만 · 같은 국면은 45게임초에 한 번만) */
   const prev=M.endgame;
-  const changed=!prev||prev.atk!==atk||prev.lane!==lane||prev.kind!==tgt.kind||(s-(prev.since||0))>=150;
-  M.endgame={atk:atk,def:def,lane:lane,kind:tgt.kind,tier:tgt.tier,at:s,
-    since:(prev&&prev.atk===atk&&prev.lane===lane&&prev.kind===tgt.kind)?(prev.since||s):s};
-  if(changed){
+  const sig=atk+'|'+lane+'|'+tgt.kind+'|'+tgt.tier;
+  const sameState=!!(prev&&prev.sig===sig);
+  const changed=!sameState;
+  const since=sameState?(prev.since||s):s;
+  const lastLog=prev?Number(prev.logAt)||0:0;
+  const doLog=(!sameState||s-lastLog>=45)&&(s-lastLog>=12);
+  M.endgame={atk:atk,def:def,lane:lane,kind:tgt.kind,tier:tgt.tier,at:s,sig:sig,since:since,logAt:(doLog?s:lastLog)};
+  if(doLog){
     const kindKr=(tgt.kind==='tower')?((tgt.tier||0)+1)+'차 타워':tgt.kind==='inhib'?'억제기':tgt.kind==='nextower'?'넥서스 포탑':'넥서스';
     try{
       mxLog(atk==='me'?'blue':'red', m+'분 · 🏁 <b>끝내기 전환</b> — '+mxTag(atk)+' 5인이 '+
