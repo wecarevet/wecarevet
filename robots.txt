@@ -33,7 +33,6 @@ Disallow: /cri_calculator.html
 Disallow: /research.html
 Disallow: /etf-sim.html
 Disallow: /lol-manager.html
-Disallow: /md-meta.html
 Disallow: /papers.json
 
 Sitemap: https://wecarevet.github.io/wecarevet/sitemap.xml
