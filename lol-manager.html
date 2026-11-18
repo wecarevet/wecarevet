@@ -26344,8 +26344,8 @@ function v6ArriveCheck(){
 function v6XpCheck(){
   if(!M||!MM||!MM.units) return;
   const m=M.minute||0;
-  /* 라인전은 02:30부터 — 그 전(커버·인베이드 구간)에는 라인 도착 판정을 하지 않는다 */
-  if(m<3||m>14) return;
+  /* 라인전은 02:30부터, 라인 도착 판정은 04:00 이후 — 그 전에는 커버·복귀 중이다 */
+  if(m<4||m>14) return;
   if(V6XP.last===m) return;
   V6XP.last=m;
   const sec=m*60;
@@ -26357,7 +26357,7 @@ function v6XpCheck(){
       const lane=v6LaneOf(role,sec);
       const p=mmLaneFrontPos(lane,side,0.02);
       const d=Math.hypot(u.x-p[0],u.y-p[1]);
-      if(d<0.13) return;                     /* 사거리 안 → 정상 */
+      if(d<0.22) return;                     /* 라인 근처(복귀 중 포함) → 정상 */
       try{
         if(M.lane&&M.lane[lane]&&typeof M.lane[lane][side]==='number'){
           M.lane[lane][side]=Math.max(20,M.lane[lane][side]-1.4);
