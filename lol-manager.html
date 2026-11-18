@@ -2607,6 +2607,78 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .d6-ban{width:40px;height:40px}
 }
 
+/* ===== 스폰서 다운사이드 (도전형 위약금 · 안정형 무위험) ===== */
+.spc-risk{border-radius:8px;padding:6px 8px;margin-top:6px;font-size:10.5px;font-weight:800;line-height:1.35}
+.spc-risk.high{background:rgba(255,70,100,.10);border:1px solid rgba(255,90,120,.45);color:#ffc3ce}
+.spc-risk.high b{color:#ff8ea2}
+.spc-risk.safe{background:rgba(60,220,150,.08);border:1px solid rgba(60,220,150,.35);color:#a9f2cd}
+.spc-risk.safe b{color:#8ff0c4}
+.spc-risk-chip{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;font-size:9px;font-weight:900;letter-spacing:.02em;vertical-align:middle}
+.spc-risk-chip.high{background:rgba(255,70,100,.16);color:#ffb0bf;border:1px solid rgba(255,90,120,.5)}
+.spc-risk-chip.safe{background:rgba(60,220,150,.14);color:#9ef0c8;border:1px solid rgba(60,220,150,.45)}
+.spc.risk-high{border-color:rgba(255,90,120,.35)}
+.spc.risk-safe{border-color:rgba(60,220,150,.3)}
+.spc-type.high{color:#ffb0bf;border-color:rgba(255,90,120,.45)}
+.spc-type.safe{color:#9ef0c8;border-color:rgba(60,220,150,.45)}
+.sp-risk-mini{display:inline-block;margin-left:4px;padding:0 5px;border-radius:6px;font-size:8.5px;font-weight:900}
+.sp-risk-mini.high{background:rgba(255,70,100,.16);color:#ffb0bf}
+.sp-risk-mini.safe{background:rgba(60,220,150,.14);color:#9ef0c8}
+.sp-warn{display:inline-block;margin-left:3px;padding:0 5px;border-radius:6px;font-size:8.5px;font-weight:900;background:rgba(255,170,60,.2);color:#ffcf8a;border:1px solid rgba(255,170,60,.45)}
+.sp-riskcard{border-left:3px solid rgba(255,170,60,.7)}
+
+/* ===== 밴픽 현재 차례 배너 · 활성 진영 하이라이트 ===== */
+.d6-turn{display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:11px;font-weight:900;line-height:1.2;
+  border:1px solid #2a3345;background:#0d1117;font-size:12.5px;letter-spacing:.01em}
+.d6-turn .dt-ic{font-size:15px;line-height:1}
+.d6-turn .dt-team{font-weight:900}
+.d6-turn .dt-sub{font-size:10px;font-weight:800;color:#93a0b8}
+.d6-turn .dt-cd{margin-left:auto;font-variant-numeric:tabular-nums;font-size:12px;font-weight:900;color:#ffe6a8}
+.d6-turn.mine{color:#c7ecff;border-color:rgba(60,180,255,.7);
+  background:linear-gradient(90deg,rgba(18,92,166,.45),rgba(11,19,30,.92));
+  box-shadow:0 0 0 1px rgba(70,190,255,.3),0 0 22px rgba(50,170,255,.28);animation:d6TurnPulse 1.7s ease-in-out infinite}
+.d6-turn.enemy{color:#ffc3cd;border-color:rgba(255,80,110,.6);
+  background:linear-gradient(90deg,rgba(150,30,55,.40),rgba(24,12,16,.94));
+  box-shadow:0 0 0 1px rgba(255,90,120,.26),0 0 18px rgba(255,70,100,.24)}
+.d6-turn.neutral{color:#cfd8e8}
+@keyframes d6TurnPulse{0%,100%{box-shadow:0 0 0 1px rgba(70,190,255,.3),0 0 16px rgba(50,170,255,.22)}50%{box-shadow:0 0 0 2px rgba(90,200,255,.6),0 0 30px rgba(60,180,255,.45)}}
+.d6-whos{font-size:10px;font-weight:900;padding:2px 8px;border-radius:999px;letter-spacing:.02em;white-space:nowrap}
+.d6-whos.mine{background:rgba(50,170,255,.18);color:#c7ecff;border:1px solid rgba(60,180,255,.55);box-shadow:0 0 10px rgba(50,170,255,.28)}
+.d6-whos.enemy{background:rgba(255,70,100,.16);color:#ffc3cd;border:1px solid rgba(255,90,120,.5)}
+.d6-whos.neutral{background:rgba(255,255,255,.06);color:#cfd8e8;border:1px solid #2a3345}
+.d6-side.active.me{border-color:#3aa8ff;box-shadow:0 0 0 1px rgba(60,170,255,.55),0 0 26px rgba(40,150,255,.28)}
+.d6-side.active.opp{border-color:#ff5e7a;box-shadow:0 0 0 1px rgba(255,90,120,.5),0 0 22px rgba(255,70,100,.24)}
+.d6-act{margin-left:auto;font-size:9px;font-weight:900;letter-spacing:.04em;padding:2px 7px;border-radius:999px}
+.d6-side.active.me .d6-act{background:rgba(58,168,255,.2);color:#c7ecff;border:1px solid rgba(58,168,255,.55)}
+.d6-side.active.opp .d6-act{background:rgba(255,70,100,.18);color:#ffc3cd;border:1px solid rgba(255,90,120,.5)}
+.d6-picks.next{outline:1px dashed rgba(58,168,255,.6);outline-offset:3px;border-radius:12px}
+.d6-side.active.opp .d6-picks.next{outline-color:rgba(255,90,120,.6)}
+.d6-ban.next{border-color:#3aa8ff;box-shadow:0 0 12px rgba(58,168,255,.6);animation:d6SlotBlink 1.4s ease-in-out infinite}
+.d6-side.active.opp .d6-ban.next{border-color:#ff5e7a;box-shadow:0 0 12px rgba(255,90,120,.55)}
+.d6-ban.next b{color:#dff3ff}
+@keyframes d6SlotBlink{0%,100%{opacity:.75}50%{opacity:1}}
+.d6-ban .txt.noban{color:#93a0b8;font-weight:900;font-size:9px}
+.draft-timeline .dt.on.mine{box-shadow:0 0 0 2px rgba(70,180,255,.85),0 0 14px rgba(50,170,255,.55);color:#dff3ff}
+.draft-timeline .dt.on.enemy{box-shadow:0 0 0 2px rgba(255,90,120,.85),0 0 14px rgba(255,70,100,.55);color:#ffd8e0}
+
+/* ===== 마케팅 팀장 자동 위임 ===== */
+.mkt-auto{border-color:#243043}
+.mkt-auto.on{border-color:rgba(60,180,255,.55);box-shadow:0 0 16px rgba(50,170,255,.18);background:rgba(20,60,100,.18)}
+.mkt-auto .seg-b{padding:6px 10px;border-radius:9px;font-size:11px;font-weight:900;background:#161b24;border:1px solid #2a3345;color:#cfd8e8}
+.mkt-auto .seg-b.on{background:rgba(58,168,255,.22);border-color:rgba(58,168,255,.6);color:#c7ecff}
+
+/* ===== 기자회견 답변 효과 표시 ===== */
+.pr-eff{margin-top:8px;border:1px solid #23303f;border-radius:10px;padding:8px 10px;background:rgba(14,20,28,.75)}
+.pr-eff-h{font-size:10px;font-weight:900;color:#cfe3f7;letter-spacing:.02em;margin-bottom:5px}
+.pr-eff-list{display:flex;flex-direction:column;gap:4px}
+.pr-eff-row{display:flex;gap:8px;align-items:baseline;font-size:10px;line-height:1.35}
+.pr-eff-row b{min-width:104px;font-weight:900;color:#dbe6f5}
+.pr-eff-row span{color:#9fb0c6}
+.pr-eff-row.trash b{color:#ffb0bf}
+.pr-eff-row.trash span{color:#ffc3ce}
+.pr-eff-row.respect b{color:#9ef0c8}
+.pr-eff-row.tactic b{color:#9fe4ff}
+.pr-eff-row.fan b{color:#ffd98f}
+
 </style>
 </head>
 <body>
@@ -4755,9 +4827,21 @@ function aiDraftAct(){
 }
 
 /* ---- user actions ---- */
+const DRAFT_NOBAN='노밴';
+/* 시간 초과 — 밴을 하나 날리고(노밴) 바로 다음 턴으로 넘긴다 */
+function draftForfeitBan(){
+  if(!D||D.done) return false;
+  const cur=dCur(); if(!cur||cur.t!=='ban'||dActor()!=='me') return false;
+  D.bans[D.mySide].push(DRAFT_NOBAN);
+  D.noban=(D.noban||0)+1;
+  D.anim={t:'ban', name:DRAFT_NOBAN, at:Date.now(), side:'me', forfeit:true};
+  advanceDraft();
+  return true;
+}
 function draftMyBan(name){
   if(!D||D.done) return;
   const cur=dCur(); if(!cur||cur.t!=='ban'||dActor()!=='me') return;
+  if(name===DRAFT_NOBAN) return;
   const c=CHAMP_MAP[name]; if(!c||dUsed().includes(name)) return;
   D.bans[D.mySide].push(name);
   D.anim={t:'ban', name:name, at:Date.now(), side:'me'};
@@ -5445,6 +5529,7 @@ function startMatch(draftResult){
   try{ if(typeof v6GameplanEdge==='function'){ const g6=v6GameplanEdge(gp,draftResult); gp6edge=g6.edge||0; edge+=gp6edge; } }catch(e){}
   edge += (S.seriesMomentum||0) + ((S.currentSeries&&S.currentSeries.nextEdge)||0);
   edge += (S.pressEdge||0)*0.55;
+  try{ const pm=pressMod(); edge += pm.fire*10 + pm.focus*8 + pm.form*0.12; }catch(e){}
   try{
     const myNames=(D&&D.picks&&D.picks[D.mySide])||[];
     const opNames=(D&&D.picks&&D.picks[otherSide(D.mySide)])||[];
@@ -5785,28 +5870,23 @@ function simStep(silent){
     if(m>=6&&Math.random()<teamClutchRate(t)*0.5) {
       const cp=pickClutchPlayer(t);
       if(cp){
-        M.kills[0]=(M.kills[0]||0)+1; addGold('me',330); lvAddXp('me',cp.role,26);
+        const kg=commitKill('me',{role:cp.role, kind:'clutch', gold:330});
+        lvAddXp('me',cp.role,26);
         M.clutch=(M.clutch||0)+1;
-        M.lastKill={team:'me',role:cp.role,kind:'clutch',sec:M.sec,minute:m};
-        M.killAt={min:m,sec:M.sec};
         logEvent('blue', m+'분 · ⚡ <b>슈퍼플레이</b> — '+cp.name+'('+myChampAt(cp.role)+')이(가) '+pickOf(['대박 이니시','바론 스틸','퀵실버 역전 한타','1대3 처형'])+'로 판을 뒤집습니다!');
         logEvent('sys','🎤 전용준: 이건 개인 기량입니다! '+cp.name+'가 게임을 바꿉니다!');
       }
     }else if(m>=4&&Math.random()<teamMisplayRate(opp,press)*0.35){
       const ipo=pickMisplayPlayer(opp);
       if(ipo){
-        M.kills[0]=(M.kills[0]||0)+1; addGold('me',240);
-        M.lastKill={team:'me',role:ipo.role,kind:'misplay',sec:M.sec,minute:m};
-        M.killAt={min:m,sec:M.sec};
+        const kg2=commitKill('me',{role:ipo.role, kind:'misplay', gold:240});
         logEvent('blue', m+'분 · 💥 <b>상대 미스플레이</b> — '+ipo.name+'('+oppChampAt(ipo.role)+')이(가) '+(press>1.2?'큰 무대 압박 속에 ':'')+pickOf(['각을 못 보고 짤렸습니다','스킬을 헛쳤습니다','혼자 들어가다 잡혔습니다'])+'!');
       }
     }
-    if(m>=4&&Math.random()<teamMisplayRate(t,press)*0.4){
+    if(m>=4&&Math.random()<teamMisplayRate(t,press)*0.4*(1-((typeof pressMod==='function')?pressMod().focus:0))){
       const mp=pickMisplayPlayer(t);
       if(mp){
-        M.kills[1]=(M.kills[1]||0)+1; addGold('opp',240);
-        M.lastKill={team:'opp',role:mp.role,kind:'misplay',sec:M.sec,minute:m};
-        M.killAt={min:m,sec:M.sec};
+        const kg3=commitKill('opp',{role:mp.role, kind:'misplay', gold:240});
         logEvent('red', m+'분 · 💥 <b>미스플레이</b> — '+mp.name+'('+myChampAt(mp.role)+')이(가) '+(press>1.2?'무대 압박에 ':'')+pickOf(['포지션을 잃고 짤렸습니다','점멸 없이 들어가다 잡혔습니다','킬 욕심에 진형이 무너졌습니다'])+'.');
         if(press>1.2) logEvent('sys','🎙 클템: 큰 무대에서 그 실수가 나옵니다, 경험이 필요한 부분이에요');
       }
@@ -5816,7 +5896,7 @@ function simStep(silent){
   const aggr=Math.max(0.35,1+(sta.aggr||0)+((fo&&fo.fight)||0)*0.4);
   // 라인 킬
   const gpeM=(M.gpe||{});
-  if(Math.random()<Math.max(0.12,0.30*aggr+(fo&&fo.kill?fo.kill:0))*(gpeM.killMul||1)){
+  if(Math.random()<Math.max(0.12,0.30*aggr+(fo&&fo.kill?fo.kill:0))*(gpeM.killMul||1)*(1+((typeof pressMod==='function')?pressMod().fire:0))){
     const lb=(fo&&fo.laneBias)||{};
     const gkl=gpeM.laneKill||{};
     const laneBias={TOP:(lb.TOP||1)*(gkl.TOP||1),MID:(lb.MID||1)*(gkl.MID||1),ADC:(lb.ADC||1)*(gkl.ADC||1),
@@ -5856,10 +5936,7 @@ function simStep(silent){
     }catch(e){}
     const meWins=Math.random()<laneFavor;
     const team=meWins?'me':'opp';
-    addGold(team,300); M.kills[sideIdx(team)]++;
-    try{ if(typeof mmNote==='function') mmNote('kill',{kind:'lane',team:team,role:role,lane:role==='ADC'||role==='SUP'?'BOT':role==='JGL'?'MID':role,lanes:[role==='ADC'||role==='SUP'?'BOT':role==='JGL'?'MID':role]}); }catch(e){}
-    M.lastKill={team:team,role:role,lane:role==='ADC'||role==='SUP'?'BOT':role==='JGL'?'MID':role,sec:M.sec,minute:m};
-    M.killAt={min:m,sec:M.sec};
+    const kgL=commitKill(team,{role:role, kind:'lane', lane:mmLaneOfRole(role), gold:300});
     lvAddXp(team,role,30);
     ROLES.forEach(r=>{ if(r!==role) lvAddXp(team,r,8); });
     const champ=team==='me'?myChampAt(role):oppChampAt(role);
@@ -5889,10 +5966,7 @@ function simStep(silent){
     const meWins=Math.random()<clamp(killFavor+0.08,0.1,0.92);
     const team=meWins?'me':'opp';
     const role=pickOf(['SUP','JGL','MID']);
-    addGold(team,380); M.kills[sideIdx(team)]++;
-    try{ if(typeof mmNote==='function') mmNote('kill',{kind:'pickoff',team:team,role:role,lane:'MID'}); }catch(e){}
-    M.lastKill={team:team,role:role,lane:'MID',kind:'pickoff',sec:M.sec,minute:m};
-    M.killAt={min:m,sec:M.sec};
+    const kgP=commitKill(team,{role:role, kind:'pickoff', lane:'MID', gold:380});
     lvAddXp(team,role,30); ROLES.forEach(r=>{ if(r!==role) lvAddXp(team,r,12); });
     logEvent(team==='me'?'blue':'red', m+'분 · <b>부시 매복 픽오프</b> — '+(team==='me'?myNameAt(role):oppNameAt(role))+'이(가) 시야 밖에서 끊어냅니다.');
   }
@@ -5902,11 +5976,8 @@ function simStep(silent){
   if(Math.abs(M.gold[0]-M.gold[1])>1800 && Math.random()<0.035*(riskMe+riskOp)*calmMul){
     const loser=(M.gold[0]>M.gold[1])?'me':'opp';
     const team=loser==='me'?'opp':'me';
-    addGold(team,420); M.kills[sideIdx(team)]++;
     const role=pickOf(ROLES);
-    M.lastKill={team:team,role:role,kind:'counter',sec:M.sec,minute:m};
-    M.killAt={min:m,sec:M.sec};
-    try{ if(typeof mmNote==='function') mmNote('kill',{kind:'counter',team:team,role:role,lane:role==='ADC'||role==='SUP'?'BOT':role==='JGL'?'MID':role}); }catch(e){}
+    const kgC=commitKill(team,{role:role, kind:'counter', gold:420});
     const pl=playerAt(team==='me'?'opp':'me',role);
     const bad=badStyleLine(pl)||'무리한 진입';
     logEvent(team==='me'?'blue':'red', m+'분 · <b>'+bad+'</b> — '+(team==='me'?M.oppName:M.myName)+'이(가) 역습 킬을 챙깁니다.');
@@ -6012,11 +6083,9 @@ function simStep(silent){
     const meWins=Math.random()<clamp(killFavor+fightEdge+(M.stance==='aggro'?0.04:0)-(M.stance==='defensive'?0.05:0),0.05,0.95);
     const team=meWins?'me':'opp';
     const n=ri(1,3);
-    M.kills[sideIdx(team)]+=n; addGold(team,n*300+120);
+    const kgF=commitKill(team,{role:pickOf(ROLES), kind:'fight', lane:'MID', teamfight:true, n:n, gold:n*300+120});
     M.fights[sideIdx(team)]++;
-    M.lastKill={team:team,role:pickOf(ROLES),kind:'fight',teamfight:true,sec:M.sec,minute:m};
-    M.killAt={min:m,sec:M.sec}; M.fightAt={min:m,sec:M.sec};
-    try{ if(typeof mmNote==='function') mmNote('kill',{kind:'fight',team:team,teamfight:true,role:'MID',lane:'MID',roles:['TOP','JGL','MID','ADC','SUP']}); }catch(e){}
+    M.fightAt={min:m,sec:M.sec};
     const hero=pickOf(ROLES);
     const pl=playerAt(team,hero);
     const flavour=pl?styleLine(pl):'';
@@ -6786,8 +6855,9 @@ function finishSeries(){
           c.fanbase=clamp(c.fanbase+8,0,100); c.prestige=clamp(c.prestige+3,0,100); c.trust=clamp((c.trust||55)+2,0,100);
           newsAdd('press','🔥 도발 적중 — 여론 폭발! 팬심 +8 · 명성 +3');
         }else{
-          c.fanbase=clamp(c.fanbase-6,0,100); c.prestige=clamp(c.prestige-2,0,100); c.trust=clamp((c.trust||55)-3,0,100);
-          newsAdd('press','💬 도발 역풍 — 커뮤니티가 들끓습니다. 팬심 -6 · 명성 -2');
+          const bl=(typeof pressMod==='function')?pressMod().backlash:1;
+          c.fanbase=clamp(c.fanbase-6*bl,0,100); c.prestige=clamp(c.prestige-2*bl,0,100); c.trust=clamp((c.trust||55)-3*bl,0,100);
+          newsAdd('press','💬 도발 역풍'+(bl>1?' ×'+bl:'')+' — 커뮤니티가 들끓습니다. 팬심 -'+(6*bl).toFixed(0)+' · 명성 -'+(2*bl).toFixed(0));
         }
         S.pressTrash=null; c.community=null;
       }
@@ -7919,13 +7989,19 @@ const SPONSOR_GOALS={
   playoff:{n:'플레이오프 진출'}, top3:{n:'정규 3위 이내'}, kespa:{n:'케스파컵 4강 진출'},
   final:{n:'결승 진출'},
 };
+/* 스폰서 계약에는 두 가지 성격이 있다.
+   · 도전형(하이리스크) — 기본금도 크고 성과 보너스도 크다. 대신 시즌 목표를 못 채우면
+     계약금의 pen(20~35%)을 위약금으로 토해내고 구단 명성·팬심이 함께 떨어진다.
+   · 안정형 — 기본금은 낮지만 목표를 못 채워도 위약금이 0. 약팀이 안전하게 가는 선택. */
 const SPONSOR_DEFS=[
-  {id:'milk', name:'밍크시플러라', cat:'전기차',   color:'#e8322e', logo:'⚡', tier:'main', pay:5.2, goal:'msi',     bonus:4.6, style:'도전형'},
-  {id:'nike', name:'나이케',      cat:'스포츠 브랜드', color:'#f2f4f8', logo:'✓', tier:'main', pay:6.4, goal:'lck',   bonus:7.0, style:'도전형'},
-  {id:'gaegul', name:'개귤',      cat:'검색·IT',   color:'#4285f4', logo:'◉', tier:'main', pay:5.8, goal:'worlds',  bonus:5.2, style:'도전형'},
-  {id:'woori', name:'우리금행',    cat:'금융',      color:'#0b6bb5', logo:'◈', tier:'sub',  pay:8.7, goal:'playoff', bonus:2.3, style:'안정형'},
-  {id:'adidas', name:'아이다도스', cat:'스포츠 의류', color:'#111418', logo:'≡', tier:'sub',  pay:8.1, goal:'top3',   bonus:2.9, style:'안정형'},
-  {id:'hansub', name:'한섭전자',   cat:'가전·가정용', color:'#1e9e6a', logo:'◎', tier:'sub',  pay:7.4, goal:'kspo'? 'playoff':'playoff', bonus:2.1, style:'안정형'},
+  {id:'milk',   name:'밍크시플러라', cat:'전기차',       color:'#e8322e', logo:'⚡', tier:'main', pay:7.6, goal:'msi',     bonus:5.2, style:'도전형', risk:'high', pen:0.30},
+  {id:'nike',   name:'나이케',      cat:'스포츠 브랜드', color:'#f2f4f8', logo:'✓', tier:'main', pay:8.4, goal:'lck',     bonus:7.6, style:'도전형', risk:'high', pen:0.35},
+  {id:'gaegul', name:'개귤',        cat:'검색·IT',       color:'#4285f4', logo:'◉', tier:'main', pay:7.2, goal:'worlds',  bonus:6.2, style:'도전형', risk:'high', pen:0.25},
+  {id:'samsoong',name:'삼숭화재',   cat:'보험',          color:'#1e4fa3', logo:'▣', tier:'main', pay:5.4, goal:'playoff', bonus:1.6, style:'안정형', risk:'safe', pen:0},
+  {id:'cu',     name:'씨유편의점',  cat:'유통·프랜차이즈', color:'#7b4ecb', logo:'▤', tier:'main', pay:5.8, goal:'kespa',   bonus:1.2, style:'안정형', risk:'safe', pen:0},
+  {id:'woori',  name:'우리금행',    cat:'금융',          color:'#0b6bb5', logo:'◈', tier:'sub',  pay:5.8, goal:'playoff', bonus:1.6, style:'안정형', risk:'safe', pen:0},
+  {id:'adidas', name:'아이다도스',  cat:'스포츠 의류',   color:'#111418', logo:'≡', tier:'sub',  pay:5.2, goal:'top3',    bonus:1.9, style:'안정형', risk:'safe', pen:0},
+  {id:'hansub', name:'한섭전자',    cat:'가전·가정용',   color:'#1e9e6a', logo:'◎', tier:'sub',  pay:4.8, goal:'playoff', bonus:1.4, style:'안정형', risk:'safe', pen:0},
 ];
 const SPONSOR_MAP={}; SPONSOR_DEFS.forEach(s=>SPONSOR_MAP[s.id]=s);
 
@@ -8113,14 +8189,23 @@ function sponsorSign(tier,id,years,terms){
   let pay=def.pay, bonus=def.bonus;
   if(terms==='base'){ pay=Math.round(def.pay*1.08*10)/10; bonus=Math.round(def.bonus*0.78*10)/10; }
   else if(terms==='bonus'){ pay=Math.round(def.pay*0.93*10)/10; bonus=Math.round(def.bonus*1.3*10)/10; }
+  const risk=(def.risk==='high'||def.style==='도전형')?'high':'safe';
+  let pen=0;
+  if(risk==='high'){
+    const base=(typeof def.pen==='number'&&def.pen>0)?def.pen:0.3;
+    const mul=terms==='base'?0.85:terms==='bonus'?1.15:1;
+    pen=Math.min(0.35,Math.max(0.2,Math.round(base*mul*100)/100));
+  }
   const con={id:def.id, name:def.name, cat:def.cat, color:def.color, logo:def.logo, tier:tier,
-    pay:pay, bonus:bonus, goal:def.goal, years:years, left:years, terms:terms||'same', signed:S.season};
+    pay:pay, bonus:bonus, goal:def.goal, years:years, left:years, terms:terms||'same', signed:S.season,
+    style:def.style||(risk==='high'?'도전형':'안정형'), risk:risk, pen:pen, warn:0};
   if(tier==='main') c.sponsors.main=con; else c.sponsors.sub.push(con);
   c.offers.main=(c.offers.main||[]).filter(s=>s.id!==id);
   c.offers.sub=(c.offers.sub||[]).filter(s=>s.id!==id);
-  newsAdd('sponsor', '🤝 스폰서 계약 — '+def.name+' ('+(tier==='main'?'메인':'서브')+') · '+(con.years)+'년 · 연 '+con.pay.toFixed(1)+'억');
+  newsAdd('sponsor', '🤝 스폰서 계약 — '+def.name+' ('+(tier==='main'?'메인':'서브')+') · '+(con.years)+'년 · 연 '+con.pay.toFixed(1)+'억'
+    +(pen>0?(' · 도전형 · 목표 미달 시 위약금 '+Math.round(pen*100)+'% ('+(con.pay*pen).toFixed(1)+'억)'):' · 안정형 · 위약금 없음'));
   saveGame();
-  return {ok:true,msg:def.name+'와 '+years+'년 계약을 체결했습니다'};
+  return {ok:true,msg:def.name+'와 '+years+'년 계약을 체결했습니다'+(pen>0?' (도전형 — 미달 시 위약금 '+Math.round(pen*100)+'%)':' (안정형 — 위약금 없음)')};
 }
 
 function sponsorGoalMet(goal){
@@ -8675,6 +8760,12 @@ function clubWeekAdvance(){
   if(S.phase==='regular'){ const r=myRank(); if(r<=3) c.facts.top3=true; }
   c.community=null;
   if(gi>0) newsAdd('merch','🛍 굿즈 판매 수익 +'+gi.toFixed(2)+'억');
+  /* 스폰서 리스크 — 연패 슬럼프·물의로 경고/해지 판정 */
+  try{ if(typeof sponsorRiskWeekly==='function') sponsorRiskWeekly(); }catch(e){}
+  /* AI 구단도 부진하면 FA 시장에 뛰어든다 ([오피셜] 소식) */
+  try{ if(typeof aiFaSigningTick==='function') aiFaSigningTick(); }catch(e){}
+  /* 마케팅 팀장 자동 위임 (구단주 모드) */
+  try{ if(typeof autoMarketingTick==='function') autoMarketingTick(); }catch(e){}
   // 목표 달성 시 이사회 신뢰
   c.tickWeek=S.week;
   saveGame();
@@ -8700,9 +8791,8 @@ function clubSeasonSettle(){
     else if(g.must){ trustDelta+=g.trust; }
   });
   if(bonus>0) t.budget=Math.round((t.budget+bonus*0.15)*10)/10;
-  // 스폰서 보너스
-  const all=[c.sponsors.main].concat(c.sponsors.sub||[]).filter(Boolean);
-  all.forEach(s=>{ if(sponsorGoalMet(s.goal)){ t.budget=Math.round((t.budget+s.bonus*0.1)*10)/10; } });
+  // 스폰서 정산 — 달성 보너스 + 도전형 위약금(회수) + 안정형 무위험
+  try{ if(typeof sponsorSettleSeason==='function') sponsorSettleSeason(); }catch(e){}
   c.trust=clamp((c.trust||55)+trustDelta+Math.round((t.wins-t.losses)*0.4),0,100);
   // 다음 시즌 준비
   c.carry=t.budget;
@@ -8784,6 +8874,47 @@ function postDetail(kind, idx){
   }
   return {kind:kind, idx:idx, title:p.t, up:p.c, body:body, comments:comments,
     when:(com.key?S.week+'주차':'최근'), tag:(kind==='gall'?'디시아웃사이드.com 롤갤':kind==='am'?'AM코리아 롤 게시판':'튜위터')};
+}
+
+/* ---------- 마케팅 팀장 자동 위임 ----------
+   구단주 모드에서 켜 두면 매주 예산·체력 안전선 안에서 굿즈/팬 행사를 알아서 돌린다.
+   · 굿즈: 체력을 쓰지 않는다 → 예산 여유가 있을 때 소량~보통으로 자동 제작
+   · 팬 행사: 체력을 쓴다 → 평균 피로가 낮을 때만, 최소 예산 확보 시에만
+   · 선수 피로가 안전선(평균 62)을 넘으면 어떤 행사도 잡지 않는다 */
+const AUTO_MKT={minBudget:3.0, goodsBudget:6.0, meetBudget:8.0, fatigueMax:62};
+function autoMktOn(){ const c=clubC(); return !!(c&&c.autoMkt); }
+function autoMktToggle(){
+  const c=clubC(); if(!c) return {ok:false,msg:'구단 정보를 찾을 수 없습니다'};
+  c.autoMkt=!c.autoMkt;
+  newsAdd('mkt',(c.autoMkt?'🤖 마케팅 팀장 자동 위임 ON':'⏸ 마케팅 팀장 자동 위임 OFF')+' — '+(c.autoMkt?'매주 예산·체력 안전선 안에서 굿즈/행사를 자동 진행':'이제 직접 운영합니다'));
+  try{ saveGame(); }catch(e){}
+  return {ok:true,msg:c.autoMkt?'🤖 마케팅 팀장에게 위임했습니다':'마케팅 자동 운영을 껐습니다'};
+}
+function autoMktAvgFatigue(){
+  try{ const l=lineupOf(myTeam()).filter(Boolean); return l.length?l.reduce((a,p)=>a+(p.fatigue||0),0)/l.length:0; }catch(e){ return 0; }
+}
+function autoMarketingTick(){
+  const c=clubC(), t=myTeam(); if(!c||!t) return null;
+  if(!c.autoMkt) return null;
+  if(typeof isCoachRole==='function'&&isCoachRole()) return null;
+  const fat=autoMktAvgFatigue();
+  const budget=Number(t.budget)||0;
+  const acts=[];
+  /* 1) 진행 중인 굿즈가 없으면 예산 안에서 자동 제작 */
+  const running=(c.goods||[]).filter(g=>!g.done).length;
+  if(!running&&budget>=AUTO_MKT.goodsBudget){
+    const qty=budget>=AUTO_MKT.goodsBudget*1.8?'mid':'low';
+    const model=(goodsModels()[0]||{}).name||null;
+    const r=(typeof merchCreate==='function')?merchCreate('uniform',qty,model):{ok:false};
+    if(r&&r.ok){ acts.push('굿즈 '+(qty==='mid'?'보통':'소량')+' 제작'); }
+  }
+  /* 2) 체력이 충분하고 예산이 넉넉하면 소규모 팬 행사 */
+  if(fat<AUTO_MKT.fatigueMax-6&&budget>=AUTO_MKT.meetBudget){
+    const r=(typeof meetingHold==='function')?meetingHold('winter','small'):{ok:false};
+    if(r&&r.ok) acts.push('소극장 팬미팅');
+  }
+  if(acts.length) newsAdd('mkt','🤖 마케팅 팀장 — '+acts.join(' · ')+' (평균 피로 '+Math.round(fat)+' · 예산 '+budget.toFixed(1)+'억)');
+  return acts;
 }
 
 /* ============ GALL — DC인사이드 롤갤 스타일 커뮤니티 · 후푸 평점 ============
@@ -9980,6 +10111,69 @@ function hubActionStove(a,v){
   return stoveAction(a.slice(5),v,root);
 }
 
+/* ---------- AI 구단 FA 영입 — 부진한 구단이 먼저 움직인다 ----------
+   매주(격주) 리그 전체를 훑어 성적이 전력보다 처지는 구단이 FA 시장에 뛰어든다.
+   모든 계약은 소식 탭에 [오피셜] 포스트로 남는다. */
+function aiTeamRankInfo(){
+  const teams=Object.values(S.teams||{});
+  const byRecord=teams.slice().sort((a,b)=>((b.wins||0)-(b.losses||0))-((a.wins||0)-(a.losses||0)));
+  let byPower=[];
+  try{ byPower=teams.slice().sort((a,b)=>teamPowerRaw(b)-teamPowerRaw(a)); }catch(e){ byPower=teams.slice(); }
+  return {byRecord:byRecord, byPower:byPower};
+}
+function aiFaSigningTick(){
+  if(!S||!S.players) return null;
+  if(S.phase!=='regular'&&S.phase!=='offseason') return null;
+  if(((S.week||1)%2)!==0) return null;                  /* 격주에 한 번 */
+  const fas=Object.values(S.players).filter(p=>p&&p.fa&&!p.team&&!p.retired);
+  if(!fas.length) return null;
+  const info=aiTeamRankInfo();
+  const rankOf={}; info.byRecord.forEach((t,i)=>rankOf[t.id]=i);
+  const powerOf={}; info.byPower.forEach((t,i)=>powerOf[t.id]=i);
+  const needy=Object.values(S.teams||{}).filter(t=>{
+    if(!t||t.id===S.userTeam) return false;
+    const roster=(t.roster||[]).length;
+    const slump=(t.losses||0)>=(t.wins||0)+3;
+    const below=((rankOf[t.id]||0)-(powerOf[t.id]||0))>=3;
+    return roster<=8||slump||below;
+  });
+  if(!needy.length) return null;
+  const t=needy[Math.floor(Math.random()*needy.length)];
+  /* 가장 약한 라인을 채운다 */
+  let weakRole=null,weakVal=999;
+  ROLES.forEach(r=>{
+    const n=t.lineup&&t.lineup[r];
+    const p=n?S.players[n]:null;
+    const v=p?rawOverall(p):0;
+    if(v<weakVal){ weakVal=v; weakRole=r; }
+  });
+  const pool=fas.filter(p=>p.role===weakRole);
+  const list=(pool.length?pool:fas).slice().sort((a,b)=>rawOverall(b)-rawOverall(a));
+  const budget=Number(t.budget)||0;
+  let cand=null;
+  for(let i=0;i<list.length;i++){
+    const p=list[i];
+    const fee=Math.round(((p.fee||(p.salary||1)*1.7))*10)/10;
+    const sal=Math.max(0.4,Math.round((p.salary||1)*10)/10);
+    if(fee+(t.budget||0)*0<budget*0.45||sal<=budget*0.2){ cand={p:p,fee:fee,sal:sal}; break; }
+    if(!cand&&i===list.length-1&&sal<=budget*0.25){ cand={p:p,fee:fee,sal:sal}; }
+  }
+  if(!cand) return null;
+  const p=cand.p, yrs=2;
+  try{
+    t.budget=Math.round(((budget-(cand.fee||0)))*10)/10;
+    p.team=t.id; p.fa=false; p.fee=0; p.contract=yrs; p.salary=cand.sal;
+    if(!(t.roster||[]).includes(p.name)) t.roster.push(p.name);
+    if(typeof stoveFillLineup==='function') stoveFillLineup(t.id);
+    const tag=t.tag||t.id;
+    newsAdd('이적','[오피셜] ✍️ '+tag+' '+p.name+' 영입 — '+ROLE_KR[p.role]+' · 연봉 '+cand.sal.toFixed(1)+'억 · '+yrs+'년');
+    newsAdd('fmk','📱 [FM코리아] [오피셜] '+tag+' '+p.name+' 영입 떴다 — '+(p.role==='JGL'?'정글 보강':'전력 보강')+' 인정?');
+  }catch(e){}
+  try{ if(typeof stoveLog==='function') stoveLog('ai',(t.tag||t.id)+' '+p.name+' 영입 — 연봉 '+cand.sal.toFixed(1)+'억'); }catch(e){}
+  try{ saveGame(); }catch(e){}
+  return {team:t.id, name:p.name, salary:cand.sal};
+}
+
 /* ============ CHEM: 선수 케미 · 듀오 시너지 · 라커룸 불화 ============ */
 const CHEM_BAD=['hothead','maverick','genius','glassmental','perfectionist','trashtalker'];
 const CHEM_GOOD=['moodmaker','teamfirst','mentalcarer','loyalist','orderleader','clown','ironheart'];
@@ -10283,13 +10477,21 @@ function pressScore(){
 /* ---------- 답변 톤 ---------- */
 const PRESS_TONES=[
   {k:'respect', n:'겸손·존중', ic:'🙏',
-   eff:{fan:1.3, form:1.1, trust:1.3, prestige:0.3, edge:0.4}, tag:'존중'},
+   eff:{fan:1.3, form:1.1, trust:1.3, prestige:0.3, edge:0.4}, tag:'존중',
+   m:{fire:0, focus:0.02, form:1.2},
+   pill:'안정·집중력 +2% · 당일 폼 +1.2'},
   {k:'tactic',  n:'전술·밴픽 자신감', ic:'📐',
-   eff:{fan:1.1, form:1.7, trust:0.8, prestige:0.2, edge:1.3}, tag:'전술'},
-  {k:'trash',   n:'도발·트래시토크', ic:'🔥',
-   eff:{fan:3.2, form:2.0, trust:-1.6, prestige:0.5, edge:-0.2}, tag:'도발', trash:true},
+   eff:{fan:1.1, form:1.7, trust:0.8, prestige:0.2, edge:1.3}, tag:'전술',
+   m:{fire:0.01, focus:0.02, form:1.0},
+   pill:'밴픽·초반 설계 +1% · 집중력 +2% · 폼 +1.0'},
+  {k:'trash',   n:'도발·트레시토크', ic:'🔥',
+   eff:{fan:3.2, form:2.0, trust:-1.6, prestige:0.5, edge:-0.2}, tag:'도발', trash:true,
+   m:{fire:0.03, focus:-0.01, form:1.4, backlash:2},
+   pill:'사기·초반 화력 +3% · 당일 폼 +1.4 · 패배 시 여론 역풍 ×2'},
   {k:'fan',     n:'팬서비스·유머', ic:'🎉',
-   eff:{fan:2.4, form:0.9, trust:0.4, prestige:0.6, edge:0.2}, tag:'유머'},
+   eff:{fan:2.4, form:0.9, trust:0.4, prestige:0.6, edge:0.2}, tag:'유머',
+   m:{fire:0, focus:0.01, form:0.8},
+   pill:'사기 +1% · 팬심 강화 · 폼 +0.8'},
 ];
 const PRESS_MAP={}; PRESS_TONES.forEach(t=>PRESS_MAP[t.k]=t);
 
@@ -10851,6 +11053,22 @@ function pressFinish(){
   ctx.answers.forEach(a=>{ const e=PRESS_MAP[a.tone].eff; edge+=e.edge; fan+=e.fan; trust+=e.trust; });
   const avg=edge/Math.max(1,ctx.answers.length);
   S.pressEdge=Math.round(avg*10)/10;
+  /* 답변 톤을 경기 수치로 환산 — 사기·초반 화력·집중력·폼 */
+  const mb={fire:0,focus:0,form:0,backlash:1,tones:[]};
+  ctx.answers.forEach(a=>{
+    const m=(PRESS_MAP[a.tone]||{}).m; if(!m) return;
+    mb.fire+=m.fire||0; mb.focus+=m.focus||0; mb.form+=m.form||0;
+    if(m.backlash) mb.backlash=Math.max(mb.backlash,m.backlash);
+    mb.tones.push(PRESS_MAP[a.tone].n);
+  });
+  const n=Math.max(1,ctx.answers.length);
+  mb.fire=Math.round((mb.fire/n)*1000)/1000;
+  mb.focus=Math.round((mb.focus/n)*1000)/1000;
+  mb.form=Math.round((mb.form/n)*10)/10;
+  S.pressBonus=mb;
+  try{
+    if(ctx.series){ ctx.series.meta=ctx.series.meta||{}; ctx.series.meta.pressBonus=mb; }
+  }catch(e){}
   /* 같은 톤을 4번 반복해도 '겸손·존중 · 겸손·존중 ...' 처럼 보이지 않게 집계 */
   const counts={};
   ctx.answers.forEach(a=>{ const n=PRESS_MAP[a.tone].n; counts[n]=(counts[n]||0)+1; });
@@ -10883,6 +11101,21 @@ function pressAuto(){
   else if(c.fanbase<48) pick='trash';
   const tone=PRESS_MAP[pick];
   pressAnswer(tone?pick:'respect');
+}
+
+/* ---------- 기자회견 → 경기 수치 ----------
+   답변 톤이 만든 사기·초반 화력·집중력·폼을 경기 엔진이 그대로 읽어 쓴다. */
+function pressMod(){
+  const b=(S&&S.pressBonus)||null;
+  const clampv=(x,a,b2)=>Math.max(a,Math.min(b2,x||0));
+  if(!b) return {fire:0,focus:0,form:0,backlash:1,active:false};
+  return {fire:clampv(b.fire,-0.05,0.05), focus:clampv(b.focus,-0.05,0.05),
+    form:clampv(b.form,-4,4), backlash:b.backlash||1, active:true};
+}
+function pressModLine(){
+  const m=pressMod(); if(!m.active) return '';
+  const pct=v=>(v>0?'+':'')+Math.round(v*100)+'%';
+  return '🎤 기자회견 효과 — 초반 화력 '+pct(m.fire)+' · 집중력 '+pct(m.focus)+' · 당일 폼 '+(m.form>0?'+':'')+m.form;
 }
 
 /* ============ COACH — 코치·감독 전용 전술 & 밴픽 훈수 ============ */
@@ -13816,6 +14049,7 @@ function homeV3(){
 
     ${(typeof skipCardHTML==='function')?skipCardHTML():''}
     ${(typeof scandalCardHTML==='function')?scandalCardHTML():''}
+    ${(typeof sponsorRiskCardHTML==='function')?sponsorRiskCardHTML():''}
 
     <div class="card sp2">
       <div class="ch"><span>재정</span><button class="lnk" data-a="tab" data-v="club:budget">예산 ›</button></div>
@@ -14036,6 +14270,13 @@ function renderPress(){
           ${PRESS_TONES.map(t=>`<button class="pr-tone ${t.k}" data-a="press" data-v="${t.k}">
             <b>${t.ic||''} ${t.n}</b><span>${esc(pressFill((q.a&&q.a[t.k])||''))}</span></button>`).join('')}
         </div>
+        ${post?'':`<div class="pr-eff">
+          <div class="pr-eff-h">📊 이 답변들의 <b>경기 반영 수치</b></div>
+          <div class="pr-eff-list">
+            ${PRESS_TONES.map(t=>`<div class="pr-eff-row ${t.k}"><b>${t.ic||''} ${t.n}</b><span>${esc(t.pill||'')}</span></div>`).join('')}
+          </div>
+          <div class="tiny" style="color:var(--dim2);margin-top:4px">답변 4개가 누적돼 초반 교전(화력) · 실수 억제(집중력) · 당일 폼에 바로 반영됩니다.</div>
+        </div>`}
         <div class="pr-foot">
           <span class="tiny">남은 질문 ${left}개 · 답변은 팀 멘탈 · 팬심 · 이사회 신뢰 · 커뮤니티 여론에 반영됩니다.</span>
           <button class="btn sm" data-a="pressauto">수석코치에게 맡기기</button>
@@ -14382,6 +14623,7 @@ function budgetV3(){
         </div>
       </div>
     </div>
+    ${(typeof sponsorRiskCardHTML==='function')?sponsorRiskCardHTML():''}
     <div class="bd-foot"><span class="tiny">장부는 스폰서 · 코칭스태프 계약 · CL 투자에 따라 실시간으로 바뀝니다.</span><button class="btn gold" data-a="tab" data-v="club:sponsor">스폰서 협상으로</button></div>
   </div>`;
 }
@@ -14414,11 +14656,12 @@ function sponsorV3(){
           <div class="ch"><span>협상</span><b class="ch-n">${(()=>{const s=negoTarget();return s?esc(s.name):(main?'메인 완료':'대기 중');})()}</b></div>
           ${(()=>{const s=negoTarget();return s?negoRowsHTML(s):'<div class="empty-note">왼쪽 스폰서 카드를 누르면 협상 조건이 열립니다.</div>';})()}
         </div>
+        ${(typeof sponsorRiskCardHTML==='function')?sponsorRiskCardHTML():''}
         <div class="card">
           <div class="ch"><span>이번 시즌 계약</span><b class="ch-n">연 합계 ${sponsorAnnualTotal().toFixed(1)}억</b></div>
           ${(main||c.sponsors.sub.length)?`
-            ${main?`<div class="sign-row"><span class="sign-ic">${main.logo||'◆'}</span><div><b>${esc(main.name)}</b><span>메인 · ${esc(SPONSOR_GOALS[main.goal]?SPONSOR_GOALS[main.goal].n:main.goal)}</span></div><b>${main.pay.toFixed(1)}억</b></div>`:''}
-            ${c.sponsors.sub.map(s=>`<div class="sign-row"><span class="sign-ic">${s.logo||'◆'}</span><div><b>${esc(s.name)}</b><span>서브 · ${esc(SPONSOR_GOALS[s.goal]?SPONSOR_GOALS[s.goal].n:s.goal)}</span></div><b>${s.pay.toFixed(1)}억</b></div>`).join('')}
+            ${main?`<div class="sign-row"><span class="sign-ic">${main.logo||'◆'}</span><div><b>${esc(main.name)}</b><span>메인 · ${esc(SPONSOR_GOALS[main.goal]?SPONSOR_GOALS[main.goal].n:main.goal)} ${sponsorRiskBadgeHTML(main)}${sponsorWarnBadgeHTML(main)}</span></div><b>${main.pay.toFixed(1)}억</b></div>`:''}
+            ${c.sponsors.sub.map(s=>`<div class="sign-row"><span class="sign-ic">${s.logo||'◆'}</span><div><b>${esc(s.name)}</b><span>서브 · ${esc(SPONSOR_GOALS[s.goal]?SPONSOR_GOALS[s.goal].n:s.goal)} ${sponsorRiskBadgeHTML(s)}${sponsorWarnBadgeHTML(s)}</span></div><b>${s.pay.toFixed(1)}억</b></div>`).join('')}
           `:'<div class="empty-note">아직 체결한 계약이 없습니다</div>'}
         </div>
       </div>
@@ -14440,12 +14683,15 @@ function negoPay(s){ return s.pay*(negot.terms==='base'?1.08:negot.terms==='bonu
 function negoGoalName(s){ return esc(SPONSOR_GOALS[s.goal]?SPONSOR_GOALS[s.goal].n:s.goal); }
 function negoRowsHTML(s){
   const yr=negot.years||2, tm=negot.terms||'same';
+  const penRate=spPenRateOf(s,tm), penAmt=Math.round((s.pay||0)*penRate*10)/10;
   return `
     <div class="nego-row"><span>계약 기간</span><div class="seg2"><button class="${yr===2?'on':''}" data-a="spyears" data-v="2">2년</button><button class="${yr===3?'on':''}" data-a="spyears" data-v="3">3년</button></div><b>${yr}년</b></div>
     <div class="nego-row"><span>조건</span><div class="seg3"><button class="${tm==='same'?'on':''}" data-a="spterms" data-v="same">그대로</button><button class="${tm==='base'?'on':''}" data-a="spterms" data-v="base">기본금 ↑</button><button class="${tm==='bonus'?'on':''}" data-a="spterms" data-v="bonus">보너스 ↑</button></div><b>${negoPay(s).toFixed(1)}억</b></div>
     <div class="nego-row"><span>목표</span><b class="pos">${negoGoalName(s)}</b></div>
+    <div class="nego-row"><span>위약금</span><b class="${penAmt>0?'neg':'pos'}">${penAmt>0?('미달 시 -'+penAmt.toFixed(1)+'억 (계약금 '+spPct(penRate)+'%)'):'없음 · 안정형'}</b></div>
+    <div class="nego-row"><span>미달 시 명성/팬심</span><b class="${penAmt>0?'neg':'pos'}">${penAmt>0?'-2.4 / -4':'변동 없음'}</b></div>
     <div class="nego-row"><span>${yr}년 합계</span><b>${(negoPay(s)*yr).toFixed(1)}억 · 더 이뤄면 ${(s.bonus*2).toFixed(1)}~${(s.bonus*2+yr*2.4).toFixed(1)}</b></div>
-    <div class="nego-row"><span>상대 반응</span><b class="muted">받아들일 것으로 보입니다</b></div>
+    <div class="nego-row"><span>상대 반응</span><b class="muted">${penAmt>0?'위약금 조항을 계약서에 명시합니다':'위약금 조항 없이 서명합니다'}</b></div>
     <div class="nego-btns">
       <button class="btn sm" data-a="spnext">이번 건은 비워 두기</button>
       <button class="btn sm gold" data-a="spsign" data-v="${s.id}">이 조건으로 계약</button>
@@ -14453,13 +14699,16 @@ function negoRowsHTML(s){
 }
 function spCardHTML(s,kind){
   const on=(negot.id===s.id);
-  return `<div class="spc ${s.tier==='main'?'main':'sub'} ${on?'on':''}" data-a="sppick" data-v="${esc(s.id)}" aria-selected="${on?'true':'false'}">
+  const risk=spRiskOf(s);
+  const terms=on?(negot.terms||'same'):'same';
+  return `<div class="spc ${s.tier==='main'?'main':'sub'} ${on?'on':''} risk-${risk}" data-a="sppick" data-v="${esc(s.id)}" aria-selected="${on?'true':'false'}">
     <div class="spc-h"><span class="spc-logo" style="background:${s.color}22;color:${s.color}">${s.logo||'◆'}</span>
       <div><b>${esc(s.name)}</b><span>${esc(s.cat)}</span></div>
-      <em class="spc-type">${s.style}</em></div>
-    <div class="spc-pay"><b>${s.pay.toFixed(1)}</b> 억 / 년 <span class="spc-tag">${s.tier==='main'?'메인':'서브'}</span><span class="spc-tag sm">${s.tier==='main'?'현금형':'현금형'}</span></div>
+      <em class="spc-type ${risk}">${risk==='high'?'도전형':'안정형'}</em></div>
+    <div class="spc-pay"><b>${s.pay.toFixed(1)}</b> 억 / 년 <span class="spc-tag">${s.tier==='main'?'메인':'서브'}</span>${spRiskChipHTML(s)}</div>
     <div class="spc-goal">목표 · <b>${negoGoalName(s)}</b></div>
-    <div class="spc-sub">달성 시 <b class="pos">+${s.bonus.toFixed(1)}억</b> · 실패하면 보너스 없음</div>
+    <div class="spc-sub">달성 시 <b class="pos">+${s.bonus.toFixed(1)}억</b> 보너스</div>
+    ${spDownsideHTML(s,terms)}
     <button class="spc-btn" data-a="sppick" data-v="${esc(s.id)}">${on?'협상 중 — 조건 조정 ▾':'이 스폰서와 협상'}</button>
     ${on?`<div class="spc-nego" data-a="noop">${negoRowsHTML(s)}</div>`:''}
   </div>`;
@@ -14480,6 +14729,8 @@ function openContractStamp(def,years,terms){
       <div><span>계약 기간</span><b>${years||2}시즌</b></div>
       <div><span>연 지급액</span><b>${(def.pay||0).toFixed(1)}억</b></div>
       <div><span>보너스 조건</span><b>${esc(goal)}${bonus?' +'+bonus+'억':''}</b></div>
+      <div><span>계약 성격</span><b>${spRiskOf(def)==='high'?'도전형 · 하이리스크':'안정형 · 무위험'}</b></div>
+      <div><span>위약금 조항</span><b class="${spPenRateOf(def,terms)>0?'neg':'pos'}">${spPenRateOf(def,terms)>0?('목표 미달 시 계약금 '+spPct(spPenRateOf(def,terms))+'% ('+((def.pay||0)*spPenRateOf(def,terms)).toFixed(1)+'억) 환수 · 명성 -2.4 · 팬심 -4'):'없음 (안정형)'}</b></div>
       <div><span>조건</span><b>${terms==='bonus'?'성과 보너스형':'기본 고정형'}</b></div>
     </div>
     <div class="stamp-sign">${esc(myTeam().name)}</div>
@@ -15031,7 +15282,22 @@ function mktV3(){
   else if(tab==='perf') body=mktPerfV3();
   else if(tab==='rift') body=riftboundV3();
   else body=goodsV3();
-  return `<div class="mkt-nav">${nav}</div>${body}`;
+  return `<div class="mkt-nav">${nav}</div>${mktAutoBarHTML()}${body}`;
+}
+/* 🤖 마케팅 팀장 자동 위임 토글 (구단주 전용) */
+function mktAutoBarHTML(){
+  try{
+    if(typeof isCoachRole==='function'&&isCoachRole()) return '';
+    const on=(typeof autoMktOn==='function')?autoMktOn():false;
+    const fat=(typeof autoMktAvgFatigue==='function')?Math.round(autoMktAvgFatigue()):0;
+    return `<div class="card tight mkt-auto ${on?'on':''}">
+      <div class="row between" style="gap:8px;align-items:center">
+        <div><div class="tiny" style="font-weight:900">🤖 마케팅 팀장 자동 위임</div>
+        <div class="tiny" style="color:var(--dim2);margin-top:2px">${on?'매주 예산·체력 안전선 안에서 굿즈/팬 행사를 자동으로 돌립니다 (평균 피로 '+fat+')':'켜두면 굿즈·팬 행사를 팀장이 알아서 예산 안에서 진행합니다'}</div></div>
+        <button class="seg-b ${on?'on':''}" data-a="mktauto" data-v="1">${on?'ON · 직접 운영으로':'OFF'}</button>
+      </div>
+    </div>`;
+  }catch(e){ return ''; }
 }
 const MKT_NAV=[
   {k:'goods',  n:'굿즈 제작', ic:'👕'},
@@ -15694,6 +15960,7 @@ function kespaBegin(){
   startDraft(s);
 }
 function hubActionMkt(a,v,el){
+  if(a==='mktauto'){ const r=autoMktToggle(); toast(r.msg); renderHub(); return true; }
   if(a==='mkind'){ MKT_SEL.kind=v; renderHub(); return true; }
   if(a==='mqty'){ MKT_SEL.qty=v; renderHub(); return true; }
   if(a==='mmodel'){ MKT_SEL.model=(MKT_SEL.model===v?null:v); renderHub(); return true; }
@@ -15741,30 +16008,6 @@ let FM_SEL={when:'summer',place:'hall'};
 
 /* ============ UI: DRAFT / PLAN / MATCH ============ */
 function mySigs(){ return lineupOf(myTeam()).flatMap(p=>p.sigs); }
-function draftHead(){
-  const cur=dCur();
-  const phase=D.phase==='assign'?'라인 배정':D.phase==='done'?'밴픽 완료':(cur&&cur.t==='ban'?'BAN PHASE':'PICK PHASE');
-  const sr=D.series;
-  return `<div class="draft-head">
-    <div>
-      <div class="draft-phase">${phase} · ${D.mySide==='blue'?'블루':'레드'} 사이드</div>
-      <div class="tiny" style="margin-top:2px">${esc(myTeam().tag)} ${sr.score.me} : ${sr.score.opp} ${esc(T(D.oppId).tag)} · ${D.gameIdx+1}세트${D.series.bo>1?' · Bo'+D.series.bo:''}${typeof isRival==='function'&&isRival(D.oppId)?' <em class="derby">라이벌전</em>':''}</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:6px">
-      <button class="auto-draft" data-auto="draft">자동 밴픽</button>
-    </div>
-    <div style="text-align:right">
-      <div class="draft-timer">${D.phase==='assign'?'감독 배정':D.phase==='done'?'확정':(dActor()==='me'?'내 차례':'상대 차례')}</div>
-      <div class="tiny">밴 ${dMyBans().length}/5 · 픽 ${dMyPicks().length}/5</div>
-      ${(D.phase!=='assign'&&D.phase!=='done'&&dActor()==='me')?`
-      <div class="dt-clock ${DRAFT_UNLIMITED?'off':''}" id="draftClock">
-        <b id="draftSec">${DRAFT_UNLIMITED?'∞':DT.left}</b><span>s</span>
-        <i class="dt-bar"><u id="draftBar" style="width:${DRAFT_UNLIMITED?100:(DT.left/30*100)}%"></u></i>
-      </div>
-      <button class="chip sm dt-toggle" id="dtToggle">${DRAFT_UNLIMITED?'⏱ 30초 제한':'⏸ 무제한'}</button>`:''}
-    </div>
-  </div>`;
-}
 function draftTimeline(){
   return `<div class="draft-timeline">${DRAFT_ORDER.map((o,i)=>{
     const active=i===D.step&&D.phase!=='assign'&&D.phase!=='done';
@@ -15772,31 +16015,6 @@ function draftTimeline(){
     const mine=o.s===D.mySide;
     return `<span class="dt ${o.t} ${mine?'mine':'enemy'} ${active?'on':''} ${done?'done':''}" title="${o.t==='ban'?'밴':'픽'} ${mine?'(우리)':'(상대)'}">${o.t==='ban'?'B':'P'}</span>`;
   }).join('')}</div>`;
-}
-function banSlots(list, mine){
-  let h='';
-  for(let i=0;i<5;i++){
-    const n=list[i];
-    const slam=(n&&D.anim&&D.anim.t==='ban'&&D.anim.name===n&&(Date.now()-(D.anim.at||0))<1200)?'slam':'';
-    h+=`<div class="ban-slot ${n?'filled':''} ${mine?'':'enemy'} ${slam}">${n?esc(n):'—'}</div>`;
-  }
-  return h;
-}
-function pickSlots(names, mine){
-  const roles=D.assign&&D.assign[mine?'me':'opp'];
-  const arr=(names||[]).slice(0,5); while(arr.length<5) arr.push(null);
-  return arr.map((n,i)=>{
-    const c=n?CHAMP_MAP[n]:null;
-    const roleKey=mine?'me':'opp';
-    const role=roles?Object.keys(roles).find(r=>roles[r]===n):null;
-    const lockin=(n&&D.anim&&D.anim.t==='pick'&&D.anim.name===n&&(Date.now()-(D.anim.at||0))<1400)?'lockin':'';
-    return `<div class="pick-slot ${n?'':'empty'} ${mine?'':'enemy'} ${lockin}">
-      <div class="role">${role?ROLE_KR[role]:'P'+(i+1)}</div>
-      ${c?`<img src="${DD(c.k)}" alt="" onerror="this.style.opacity=0">`:'<div style="flex:1"></div>'}
-      <div class="ps-name">${n?esc(n):'—'}</div>
-      ${n&&mySigs().includes(n)&&mine?'<span class="sig">★</span>':''}
-    </div>`;
-  }).join('');
 }
 function compMini(comp){
   const v=k=>Math.round((comp.tags[k]/15)*100);
@@ -15851,15 +16069,25 @@ function dtUpdateUI(){
   if(b) b.textContent=DRAFT_UNLIMITED?'∞':Math.max(0,DT.left);
   if(bar) bar.style.width=(DRAFT_UNLIMITED?100:Math.max(0,DT.left/30*100))+'%';
   const c=$('draftClock'); if(c) c.classList.toggle('warn',!DRAFT_UNLIMITED&&DT.left<=10);
+  const tc=$('d6TurnCd'); if(tc) tc.textContent=DRAFT_UNLIMITED?'':Math.max(0,DT.left)+'s';
 }
+/* 0초 도달 — 밴 턴은 노밴 포기, 픽 턴은 자동 픽 후 즉시 다음 턴 */
 function dtAutoPick(){
   const cur=(typeof dCur==='function')?dCur():null;
   if(!cur||!D||D.done) return;
   if((typeof dActor==='function'?dActor():'me')!=='me') return;
-  const nm=(typeof autoDraftChoose==='function')?autoDraftChoose(cur.t):null;
-  if(!nm) return;
-  try{ toast('⏱ 시간 초과 — 코치 추천으로 자동 선택'); }catch(e){}
-  if(cur.t==='ban') draftMyBan(nm); else draftMyPick(nm);
+  if(cur.t==='ban'){
+    try{ toast('🚫 시간 초과 — 이번 밴을 포기합니다'); }catch(e){}
+    if(typeof draftForfeitBan==='function') draftForfeitBan();
+    return;
+  }
+  /* 픽 턴: 코치 추천 → 실패하면 메타 상위 챔프로 자동 픽 */
+  let nm=null;
+  try{ if(typeof autoDraftChoose==='function') nm=autoDraftChoose('pick'); }catch(e){}
+  if(!nm){ try{ const av=dAvailable(); const cand=av.slice().sort((a,b)=>champTier(b)-champTier(a))[0]; nm=cand?cand.n:null; }catch(e){} }
+  if(!nm){ dtStop(); return; }
+  try{ toast('⏱ 시간 초과 — 자동 픽'); }catch(e){}
+  draftMyPick(nm);
 }
 function dtStart(){
   dtStop();
@@ -15937,77 +16165,6 @@ function bindChampGrid(){
       }
     };
   });
-}
-function renderDraft(){
-  const me=myTeam(), opp=T(D.oppId);
-  const myComp=evalComp(dMyPicks()), oppComp=evalComp(dOppPicks());
-  const myTurn=dActor()==='me';
-  const phaseNow=(D.phase==='assign'||D.phase==='done')?D.phase:dPhaseNow();
-  const grid=draftGridHTML();
-  const phase=phaseNow;
-  $('view-draft').innerHTML=`
-    ${draftHead()}
-    ${(typeof v6BgmBarHTML==='function')?v6BgmBarHTML():''}
-    <div class="draft-body">
-      ${typeof coachAdviceHTML==='function'?coachAdviceHTML():''}
-      ${DRAFT_ORDER&&phase!=='assign'&&phase!=='done'?`<div class="card tight" style="padding:9px 10px">${draftTimeline()}</div>`:''}
-      ${phase==='done'?draftSummaryHTML(myComp,oppComp,me,opp):phase==='assign'?assignHTML(myComp,oppComp,me,opp):`
-      <div class="card tight" style="padding:10px">
-        <div class="row between" style="margin-bottom:6px"><span class="tiny" style="font-weight:800">내 밴 ${dMyBans().length}/5</span><span class="tiny">상대 밴 ${dOppBans().length}/5</span></div>
-        <div class="row" style="gap:8px">
-          <div style="flex:1"><div class="ban-row">${banSlots(dMyBans(),true)}</div></div>
-          <div style="flex:1"><div class="ban-row">${banSlots(dOppBans(),false)}</div></div>
-        </div>
-      </div>
-      <div class="card tight" style="padding:10px">
-        <div class="row between" style="margin-bottom:6px"><span class="tiny" style="font-weight:800;color:var(--cyan)">${esc(me.tag)} 픽 (픽 순서)</span><span class="tiny" style="color:var(--red)">${esc(opp.tag)} 픽</span></div>
-        <div class="pick-row" style="margin-bottom:6px">${pickSlots(dMyPicks(),true)}</div>
-        <div class="pick-row">${pickSlots(dOppPicks(),false)}</div>
-        <div class="tiny" style="margin-top:6px">라인은 밴픽이 끝난 뒤 배정합니다 — 플렉스 픽으로 상대를 흔들어 보세요</div>
-      </div>
-      <div class="card tight">
-        <div class="row between" style="margin-bottom:7px">
-          <span class="tiny" style="font-weight:800;letter-spacing:.08em">내 조합 진단</span>
-          <span class="tiny">${dMyPicks().length}/5 픽</span>
-        </div>
-        ${dMyPicks().length?compMini(myComp):'<div class="empty-note" style="padding:8px">챔피언을 픽하면 조합 진단이 표시됩니다</div>'}
-        ${typeof synergyBadgesHTML==='function'&&dMyPicks().length?`<div class="syn-row">${synergyBadgesHTML(dMyPicks())}</div>`:''}
-        ${dMyPicks().length>=2?`
-          <div class="divider" style="margin:9px -14px"></div>
-          <div class="row between" style="margin-bottom:5px"><span class="tiny">피해 유형</span>
-          <span class="tiny"><b style="color:var(--gold)">AD ${myComp.ad}</b> · <b style="color:#c4b1ff">AP ${myComp.ap}</b> · 탱커 ${myComp.tank}</span></div>
-          <div class="row between" style="margin-bottom:5px"><span class="tiny">파워 스파이크</span><span class="tiny">CC ${myComp.cc}/15 · 프론트 ${myComp.front}/15</span></div>
-          ${curveBars(myComp)}
-          ${myComp.warnings.length?`<div class="tag-row" style="margin-top:7px">${myComp.warnings.map(w=>`<span class="chip sm red">⚠ ${esc(w)}</span>`).join('')}</div>`:''}
-          ${myComp.strengths.length?`<div class="tag-row" style="margin-top:5px">${myComp.strengths.map(w=>`<span class="chip sm green">✓ ${esc(w)}</span>`).join('')}</div>`:''}
-        `:''}
-        ${dOppPicks().length>=3?`
-          <div class="divider" style="margin:9px -14px"></div>
-          <div class="row between" style="margin-bottom:4px"><span class="tiny" style="color:var(--red)">상대 조합</span>
-          <span class="tiny">AD ${oppComp.ad} · AP ${oppComp.ap} · CC ${oppComp.cc}</span></div>
-          <div class="tag-row">${oppComp.warnings.slice(0,2).map(w=>`<span class="chip sm red">${esc(w)}</span>`).join('')}
-          ${oppComp.strengths.slice(0,2).map(w=>`<span class="chip sm">${esc(w)}</span>`).join('')}</div>
-        `:''}
-      </div>
-      <div class="row between" style="padding:0 4px">
-        <span class="tiny" style="font-weight:800">${phase==='pick'?(myTurn?'내 픽 차례 — 아무 챔피언이나 가능':'상대 픽 대기'):(myTurn?'내 밴 차례':'상대 밴 대기')}</span>
-        ${D.mySide==='blue'?'<span class="tiny">블루: 1픽 우선권</span>':'<span class="tiny">레드: 카운터픽 우선</span>'}
-      </div>
-      <div class="role-tabs">
-        ${['ALL',...ROLES].map(r=>`<button class="chip ${D.roleFilter===r?'on':''}" data-rf="${r}">${r==='ALL'?'전체':ROLE_KR[r]}</button>`).join('')}
-        <input class="champ-q" id="champQ" placeholder="챔피언 검색" value="${esc(D.q||'')}" autocomplete="off" spellcheck="false">
-      </div>
-      <div class="champ-grid" id="champGrid">${grid}</div>
-      <div class="champ-info" id="champInfo">챔피언을 길게 누르거나 마우스를 올리면 <b>고유 특징</b>이 표시됩니다</div>
-      <div class="tiny" style="text-align:center;padding:6px 0">★ = 우리 팀 주특기 · 숫자 = 메타 티어 · 픽 순서와 라인은 무관</div>
-      `}
-    </div>`;
-  bindDraft();
-  bindAutoDraft();
-  const dtb=$('dtToggle'); if(dtb) dtb.onclick=()=>dtToggleUnlimited();
-  try{ if(typeof v6BgmBind==='function') v6BgmBind(); }catch(e){}
-  show('draft');
-  dtStart();
 }
 /* ---------- 라인 배정 (스왑) ---------- */
 function assignHTML(myComp,oppComp,me,opp){
@@ -16127,9 +16284,22 @@ function draftSummaryHTML(myComp,oppComp,me,opp){
       <div class="row between"><span class="tiny" style="font-weight:800">상대 밴</span><span class="tiny">${dOppBans().map(esc).join(' · ')||'-'}</span></div>
       <div class="row between" style="margin-top:4px"><span class="tiny" style="font-weight:800">내 밴</span><span class="tiny">${dMyBans().map(esc).join(' · ')||'-'}</span></div>
     </div>
-    <button class="btn primary block" id="toPlan">게임 플랜 수립 →</button>
+    <button class="btn primary block to-plan-btn" id="toPlanBody" data-toplan="1">게임 플랜 수립 →</button>
     <div style="height:8px"></div>
   `;
+}
+/* 게임 플랜 수립 버튼 — 본문/하단 고정 바 어느 쪽을 눌러도 같은 동작 (id 중복 없이 클래스로 묶음) */
+function bindToPlanButtons(){
+  const v=$('view-draft'); if(!v||!v.querySelectorAll) return;
+  const go=function(ev){
+    if(ev&&ev.preventDefault) ev.preventDefault();
+    if(ev&&ev.stopPropagation) ev.stopPropagation();
+    try{ renderGameplan(); }
+    catch(e){ try{ toast('게임 플랜 화면을 열 수 없습니다'); }catch(_){} }
+  };
+  v.querySelectorAll('.to-plan-btn').forEach(function(b){ b.onclick=go; b.disabled=false; });
+  /* 예전 캐시에 남은 구버전 플랜 버튼도 살려 둔다 */
+  const legacy=$('toPlan'); if(legacy&&!legacy.classList.contains('to-plan-btn')) legacy.onclick=go;
 }
 function bindDraft(){
   const v=$('view-draft');
@@ -16161,7 +16331,7 @@ function bindDraft(){
     if(ROLES.some(r=>!D.assign.me[r])){ toast('5개 라인을 모두 배정하세요'); return; }
     confirmAssign();
   };
-  const tp=$('toPlan'); if(tp) tp.onclick=()=>renderGameplan();
+  bindToPlanButtons();
 }
 
 /* ---------- pre-game plan ---------- */
@@ -16732,7 +16902,9 @@ const MM={
 };
 
 /* ---------- 실제 협곡 좌표계 ---------- */
-const MM_NEXUS={me:[0.06,0.94],opp:[0.94,0.06]};
+const MM_NEXUS={me:[0.09,0.91],opp:[0.91,0.09]};
+/* 0초 스폰 좌표 — 10명 전원이 자기 본진 분수대 위에서 정확히 시작한다 */
+const MM_FOUNTAIN={me:[0.09,0.91],opp:[0.91,0.09]};
 /* 라인은 두 개의 반쪽(넥서스→라인 중앙, 라인 중앙→넥서스)으로 만든다.
    중앙 지점은 실제 미니맵 기준 좌표를 그대로 쓴다. */
 const LANE_MEET={TOP:[0.155,0.11],MID:[0.50,0.50],BOT:[0.875,0.85]};
@@ -16930,12 +17102,10 @@ function mmReset(){
   ROLES.forEach(role=>{
     ['me','opp'].forEach(side=>{
       const k=mmTokenKey(side,role);
-      const f=MM_NEXUS[side];
-      const off={TOP:[-0.012,-0.004],MID:[0.004,-0.010],JGL:[0.004,0.006],ADC:[0.012,0.004],SUP:[0.018,0.012]}[role]||[0,0];
-      const b=role==='JGL'?GUARD[side].JGL:GUARD[side][role];
-      MM.units[k]={x:f[0]+off[0],y:f[1]+off[1],vx:0,vy:0,hp:100,hpMax:100,alive:true,deadUntil:0,
-        side,role,cool:Math.random()*1.2,step:0.12,tp:null,tpCd:0,mode:'pre',recall:false,flash:0};
-      MM.tgt[k]={x:b[0],y:b[1]};
+      const f=MM_FOUNTAIN[side];
+      MM.units[k]={x:f[0],y:f[1],vx:0,vy:0,hp:100,hpMax:100,alive:true,deadUntil:0,
+        side,role,cool:0,step:0.12,tp:null,tpCd:0,mode:'spawn',recall:false,flash:0,tgtHold:null};
+      MM.tgt[k]={x:f[0],y:f[1]};
     });
   });
   MM.init=true;
@@ -16946,10 +17116,9 @@ function mmJumpTargets(){
     ['me','opp'].forEach(side=>{
       const k=mmTokenKey(side,role);
       if(!MM.units[k]){
-        const f=MM_NEXUS[side];
-        const b=GUARD[side][role];
-        MM.units[k]={x:f[0],y:f[1],vx:0,vy:0,hp:100,hpMax:100,alive:true,deadUntil:0,side,role,cool:0,step:0.12,tp:null,tpCd:0,mode:'pre'};
-        MM.tgt[k]={x:b[0],y:b[1]};
+        const f=MM_FOUNTAIN[side];
+        MM.units[k]={x:f[0],y:f[1],vx:0,vy:0,hp:100,hpMax:100,alive:true,deadUntil:0,side,role,cool:0,step:0.12,tp:null,tpCd:0,mode:'spawn',tgtHold:null};
+        MM.tgt[k]={x:f[0],y:f[1]};
       }
     });
   });
@@ -17641,9 +17810,10 @@ function mmUpdate(dt){
   const now=performance.now();
   const paused=!M.running&&!M.over;
   const step=paused?0:Math.min(dt,50)/1000;
-  /* 프레임 당 최대 이동 — 탭 전환·렉·배속에서 챔피언이 순간이동하지 않게 */
+  /* 프레임 당 최대 이동 — 게임 시간 기준 상한(0.018/게임초). 배속·렉과 무관하게 실제 롤 속도 */
   const gspd=(M&&Number(M.speed))?Number(M.speed):1;
-  const maxStep=0.035*Math.max(0.5,Math.min(8,gspd))*step;
+  const gameDt=(typeof mmdRate==='function')?Math.max(0,mmdRate()*step):step*gspd;
+  const maxStep=0.018*Math.max(0,gameDt);
   MM.t+=step;
   const dSim=paused?0:mmSimDelta();
   const sec=mmGameSec();
@@ -17695,7 +17865,7 @@ function mmUpdate(dt){
     /* 이동은 게임 시계 기준(mmdrive.js) — 배속과 무관하게 시계와 속도가 맞는다 */
     if(typeof mmdMove==='function'){
       const mv=mmdMove(u,dt,dSim,now);
-      const boost=pulsing?2.2:1;
+      const boost=1;   /* 전술 펄스는 연출만 — 이동 속도를 바꾸지 않는다 */
       const nx0=u.x+mv.vx*step*boost, ny0=u.y+mv.vy*step*boost;
       let ddx=nx0-u.x, ddy=ny0-u.y;
       const dl=Math.hypot(ddx,ddy);
@@ -18609,14 +18779,83 @@ function mmdInitScript(){
   MMD.variety=v; MMD.tempo=tempo; MMD.routes={}; MMD.routeAnnounced=false;
   /* 예정된 오브젝트 비트는 미리 깔아 15초 전 로테이션을 보여준다 */
   const plan=[];
-  if(v.firstObj==='dragon') plan.push({at:300,kind:'obj',obj:'dragon'});
-  plan.push({at:195,kind:'obj',obj:'scuttle'});
-  [360,600].forEach(t=>plan.push({at:t,kind:'obj',obj:'grub'}));
-  plan.push({at:840,kind:'obj',obj:'herald'});
-  [300,660,1020,1380,1740].forEach(t=>plan.push({at:t,kind:'obj',obj:'dragon'}));
-  [1200,1560,1920].forEach(t=>plan.push({at:t,kind:'obj',obj:'baron'}));
+  const addPlan=(at,obj)=>plan.push({at:at,kind:'obj',obj:obj,roles:mmdObjRoles(obj,at)});
+  if(v.firstObj==='dragon') addPlan(300,'dragon');
+  addPlan(195,'scuttle');
+  [360,600].forEach(t=>addPlan(t,'grub'));
+  addPlan(840,'herald');
+  [300,660,1020,1380,1740].forEach(t=>addPlan(t,'dragon'));
+  [1200,1560,1920].forEach(t=>addPlan(t,'baron'));
   MMD.plan=plan;
   return v;
+}
+
+/* ============================================================================
+   KILL GATE — 모든 킬은 이 한 곳을 통해서만 확정된다.
+   규칙: 킬러와 피해자는 '지금 미니맵 위 실제 좌표'에서 반드시 붙어 있어야 한다.
+     · 사건 지점(라인/오브젝트 핏)을 정하고
+     · 그 지점에서 가장 가까운 아군을 킬러, 가장 가까운 적을 피해자로 세운 뒤
+     · 둘이 0.15 이상 떨어져 있으면(크로스맵 킬) 지점으로 끌어다 붙인다.
+   이렇게 하면 "바텀에 있던 선수가 탑 킬" 같은 사건이 구조적으로 불가능하다.
+   ============================================================================ */
+function mmLaneOfRole(r){ return (r==='ADC'||r==='SUP')?'BOT':(r==='JGL'?'MID':(r||'MID')); }
+function mmUnitOf(side,role){ try{ return MM.units[mmTokenKey(side,role)]||null; }catch(e){ return null; } }
+function validateAndCommitKill(team, role, opts){
+  opts=opts||{};
+  const out={ok:true, team:team, role:role, victimRole:opts.victimRole||null, pt:null, d:0, moved:false};
+  if(!M||typeof MM==='undefined'||!MM||!MM.units) return out;
+  const enemy=(team==='me')?'opp':'me';
+  /* 1) 사건 지점 — 라인/오브젝트/직접 좌표 */
+  let p=opts.pt||null;
+  if(!p&&opts.obj){ try{ p=mmdPitPoint(opts.obj); }catch(e){ p=null; } }
+  if(!p&&opts.lane){ try{ p=mmdLanePoint(opts.lane==='JGL'?'MID':opts.lane, team, 0.002); }catch(e){ p=null; } }
+  if(!p&&role){ try{ p=mmdLanePoint(mmLaneOfRole(role), team, 0.002); }catch(e){ p=null; } }
+  if(!p){ out.pt=null; return out; }        /* 지점을 모르는 사건은 위치 검증 생략 */
+  out.pt=p;
+  const nearUnit=(side,pref)=>{ let best=null,bd=9;
+    ROLES.forEach(r=>{ const u=mmUnitOf(side,r); if(!u||!u.alive) return;
+      const d=Math.hypot(u.x-p[0],u.y-p[1]); const bias=(pref&&r===pref)?-0.02:0;
+      if(d+bias<bd){ bd=d+bias; best={r:r,u:u,d:d}; } });
+    return best; };
+  let K=nearUnit(team, role);
+  let V=nearUnit(enemy, opts.victimRole);
+  /* 같은 라인 1:1 교전인데 상대 라이너가 더 가까우면 그를 피해자로 */
+  if(!V){ out.ok=false; out.reason='no-victim'; return out; }
+  const snapTo=u=>{ if(Math.hypot(u.x-p[0],u.y-p[1])>0.12){ u.x=p[0]+(u.side==='me'?-0.008:0.008); u.y=p[1]; u.vx=0; u.vy=0; out.moved=true; } };
+  if(!K){
+    /* 킬러가 전장에 없으면(사망·귀환) 사건을 취소하거나 가장 가까운 아군으로 대체한다 */
+    K=nearUnit(team,null);
+    if(!K){ out.ok=false; out.reason='no-killer'; return out; }
+  }
+  snapTo(K.u); snapTo(V.u);
+  let d=Math.hypot(K.u.x-V.u.x,K.u.y-V.u.y);
+  if(d>0.15){
+    /* 크로스맵 킬 금지 — 피해자를 킬러 앞으로, 킬러를 사건 지점으로 붙인다 */
+    V.u.x=K.u.x+(K.u.side==='me'?0.012:-0.012); V.u.y=K.u.y; V.u.vx=0; V.u.vy=0;
+    d=Math.abs(V.u.x-K.u.x); out.moved=true; out.forced=true;
+  }
+  out.role=K.r; out.victimRole=V.r; out.d=d;
+  return out;
+}
+/* 킬 확정의 단일 창구 — 킬 수·골드·킬피드·미니맵 노트를 여기서만 만진다 */
+function commitKill(team, opts){
+  opts=opts||{};
+  if(!M) return null;
+  const chk=validateAndCommitKill(team, opts.role, opts);
+  /* 검증이 불가능한 극단 상황(전원 사망·좌표 없음)에는 사건을 버리지 않고 기록만 남긴다 */
+  if(!chk.ok){ chk.ok=true; chk.role=chk.role||opts.role||null; chk.unverified=true; }
+  const i=sideIdx(team), n=Math.max(1,opts.n||1);
+  /* 검증 로그 — 테스트가 '크로스맵 킬 0건'을 확인한다 */
+  try{ MMD.killLog=MMD.killLog||[]; MMD.killLog.push({team:team, role:chk.role, victim:chk.victimRole, d:Math.round((chk.d||0)*10000)/10000, moved:!!chk.moved, sec:(M&&M.minute)||0}); if(MMD.killLog.length>400) MMD.killLog.shift(); }catch(e){}
+  M.kills[i]=(M.kills[i]||0)+n;
+  if(opts.gold) addGold(team, opts.gold);
+  const lane=opts.lane||mmLaneOfRole(chk.role);
+  M.lastKill={team:team, role:chk.role, victimRole:chk.victimRole, kind:opts.kind||'lane',
+    lane:lane, sec:M.sec, minute:M.minute, teamfight:!!opts.teamfight, gankRole:opts.gankRole||null};
+  M.killAt={min:M.minute,sec:M.sec};
+  try{ mmNote('kill',{kind:opts.kind||'lane', team:team, role:chk.role, victimRole:chk.victimRole,
+    lane:lane, teamfight:!!opts.teamfight, pt:chk.pt}); }catch(e){}
+  return chk;
 }
 
 /* ---------- 엔진 → 미니맵 이벤트 노트 ---------- */
@@ -18629,6 +18868,21 @@ function mmNote(kind,info){
 function mmdLanePoint(lane,side,back){
   try{ return mmLaneFrontPos(lane,side,back||0.006); }catch(e){ return [0.5,0.5]; }
 }
+/* ---------- 오브젝트 인원 배분 ----------
+   초반 유충/1·2용에 5인이 몰려 사이드 타워·CS를 통째로 버리는 것을 막는다.
+   · 유충(6분·10분): 탑 + 정글 + 미드만 (원딜·서폿은 봇 유지)
+   · 1·2용(첫 용 ~13분): 정글 + 미드 + 원딜 + 서폿 (탑은 탑 파밍/압박)
+   · 3·4용(영혼 포인트) · 전령 미드 시즈 · 바론 · 장로 · 후반 본진 공성: 5인 */
+function mmdObjRoles(obj, atSec){
+  const s=Number(atSec)||0;
+  if(obj==='grub') return ['TOP','JGL','MID'];
+  if(obj==='dragon') return (s<900)?['JGL','MID','ADC','SUP']:['TOP','JGL','MID','ADC','SUP'];
+  if(obj==='scuttle') return ['JGL','MID'];
+  if(obj==='herald'||obj==='baron'||obj==='elder') return ['TOP','JGL','MID','ADC','SUP'];
+  return ['TOP','JGL','MID','ADC','SUP'];
+}
+function mmdObjCount(obj, atSec){ return mmdObjRoles(obj,atSec).length; }
+
 function mmdPitPoint(kind){
   if(kind==='grub'||kind==='herald') return [0.300,0.280];
   if(kind==='baron'||kind==='elder') return [0.300,0.280];
@@ -18649,7 +18903,7 @@ function mmdBeatFromNote(n){
     const kind=i.obj||'dragon';
     const p=mmdPitPoint(kind);
     push({kind:'obj',at:s,pre:14,post:0,x:p[0],y:p[1],side:i.team||null,obj:kind,
-      roles:['JGL','SUP','MID','ADC'],label:kind==='baron'?'바론':kind==='dragon'?'드래곤':kind==='grub'?'유충':kind==='herald'?'전령':'바위게'});
+      roles:mmdObjRoles(kind,s),label:kind==='baron'?'바론':kind==='dragon'?'드래곤':kind==='grub'?'유충':kind==='herald'?'전령':'바위게'});
   }else if(n.kind==='tower'){
     const lane=i.lane||'MID';
     const tw=(MAP_TOWERS[i.enemy||'opp'][lane]||[])[Math.min(2,i.tier||0)]||[0.5,0.5];
@@ -18684,7 +18938,7 @@ function mmdActiveBeats(sec){
       if(typeof v6ObjTakenAt==='function'&&v6ObjTakenAt(q.obj,q.at)) continue;
       if(typeof v6PitGuard==='function'&&!v6PitGuard(q.obj,sec/60)) continue;
       out.push({kind:'obj',at:q.at,pre:15,post:6,x:mmdPitPoint(q.obj)[0],y:mmdPitPoint(q.obj)[1],
-        obj:q.obj,roles:['JGL','SUP'],label:q.obj==='baron'?'바론 준비':q.obj==='dragon'?'드래곤 준비':q.obj==='grub'?'유충 준비':q.obj==='herald'?'전령 준비':'바위게 준비',planned:true});
+        obj:q.obj,roles:(q.roles||mmdObjRoles(q.obj,q.at)),label:q.obj==='baron'?'바론 준비':q.obj==='dragon'?'드래곤 준비':q.obj==='grub'?'유충 준비':q.obj==='herald'?'전령 준비':'바위게 준비',planned:true});
     }
   }
   return out;
@@ -18740,11 +18994,8 @@ function mmdCoverFor(side,role,sec,v){
     return {x:clamp(p[0],0.05,0.95),y:clamp(p[1],0.05,0.95),mode:'ward'};
   }
   const p=(typeof v6CoverPoint==='function')?v6CoverPoint(side,role):mir(MMD_COVER[role]||[0.30,0.62]);
-  /* V6: 00:25~01:12 커버 구간에는 왔다갔다 하지 않는다 (01:12 이후에만 미세 패트롤) */
-  if(sec<72) return {x:clamp(p[0],0.05,0.95),y:clamp(p[1],0.05,0.95),mode:'cover'};
-  const cyc=Math.floor(sec/9)%2;
-  const ox=(cyc?0.012:-0.006)*(side==='me'?1:-1), oy=(cyc?-0.008:0.005)*(side==='me'?1:-1);
-  return {x:clamp(p[0]+ox,0.05,0.95),y:clamp(p[1]+oy,0.05,0.95),mode:'cover'};
+  /* 00:25~01:12 커버 구간에는 왔다갔다 하지 않는다 — 고정 거점 (덜덜거림 제거) */
+  return {x:clamp(p[0],0.05,0.95),y:clamp(p[1],0.05,0.95),mode:'cover'};
 }
 
 /* 자기 미니언 웨이브 앞쪽 t (없으면 null) */
@@ -18859,6 +19110,13 @@ function mmdPostTargets(){
       }
       if(!tgt) return;
       if(beat2&&sec>=beat2.at-beat2.pre&&sec<beat2.at&&tgt.mode!=='fight') tgt.mode='rotate';
+      /* 목표 흔들림 방지 — 같은 모드에서 0.012 미만 변화는 무시한다 (블루 진영 덜덜거림의 원인) */
+      const hold=u.tgtHold;
+      if(hold&&hold.mode===tgt.mode&&tgt.mode!=='fight'&&tgt.mode!=='siege'&&Math.hypot(tgt.x-hold.x,tgt.y-hold.y)<0.012){
+        tgt={x:hold.x,y:hold.y,mode:hold.mode};
+      }else{
+        u.tgtHold={x:tgt.x,y:tgt.y,mode:tgt.mode};
+      }
       MM.tgt[k]={x:tgt.x,y:tgt.y};
       u.mode=tgt.mode;
     });
@@ -18869,13 +19127,18 @@ function mmdPostTargets(){
 
 /* ---------- 이동 (게임 시계 기준 속도) ---------- */
 const MMD_ARRIVE=0.004, MMD_DAMP=110;
+/* 게임 1초당 최대 이동 거리 — 프레임 델타와 무관한 절대 상한 */
+const MMD_MAX_STEP=0.018;
 function mmdMove(u,dt,dSim,now){
   const sec=mmdSec();
   const t=MM.tgt[mmTokenKey(u.side,u.role)]||{x:u.x,y:u.y};
   const dx=t.x-u.x, dy=t.y-u.y, d=Math.hypot(dx,dy);
   const rate=mmdRate();
   if(!rate) return {vx:0,vy:0};
-  const spd=mmdSpeedOf(u,sec)*rate;              /* 맵 단위 / 실제 초 */
+  const dtSec=Math.max(0,dt)/1000;
+  const gameDt=Math.max(0,rate*dtSec);          /* 이번 프레임에 흐른 게임 시간 */
+  const maxStep=MMD_MAX_STEP*gameDt;            /* 이동 상한 */
+  const spd=mmdSpeedOf(u,sec)*rate;             /* 맵 단위 / 실제 초 */
   /* 도착 데드존 — 목표에 붙었으면 완전히 정지 (잔떨림 금지) */
   if(d<=MMD_ARRIVE){
     u.x=t.x; u.y=t.y; u.vx=0; u.vy=0;
@@ -18892,11 +19155,16 @@ function mmdMove(u,dt,dSim,now){
     }
   }
   /* 지수 감쇠(프레임레이트 무관) */
-  const k=1-Math.exp(-Math.max(0,dt)/MMD_DAMP);
+  const k=1-Math.exp(-dtSec*1000/MMD_DAMP);
   u.vx=(u.vx==null?vx:u.vx+(vx-u.vx)*k);
   u.vy=(u.vy==null?vy:u.vy+(vy-u.vy)*k);
+  /* 게임 시간 기준 상한 — 어떤 배속에서도 0.018/게임초를 넘지 않는다 */
+  let stepLen=Math.hypot(u.vx,u.vy)*dtSec;
+  if(maxStep>0&&stepLen>maxStep){
+    const kk=maxStep/stepLen;
+    stepLen=maxStep; u.vx*=kk; u.vy*=kk;
+  }
   /* 남은 거리보다 큰 이동은 목표에 정확히 멈춘다 */
-  const stepLen=Math.hypot(u.vx,u.vy)*Math.max(0,dt)/1000;
   if(stepLen>=d){ u.x=t.x; u.y=t.y; u.vx=0; u.vy=0; return {vx:0,vy:0}; }
   return {vx:u.vx,vy:u.vy};
 }
@@ -19132,6 +19400,14 @@ function scandalTrigger(name,typeK,sevOverride){
   }
   S.scandals.pending=ev;
   newsAdd('scandal','🚨 [사건] '+p.name+' — '+type.head+' ('+SC_SEV_NAME[sev]+'). 구단주 결단이 필요합니다.');
+  /* 중대 사건이면 스폰서가 먼저 경고장을 보낸다 — 결단의 무게를 미리 보여준다 */
+  try{
+    if(sev>=3&&typeof sponsorCrisisInit==='function'){
+      const c=sponsorCrisisInit();
+      const tgt=(c.sponsors.sub&&c.sponsors.sub[0])||c.sponsors.main;
+      if(tgt) sponsorIssueWarning(tgt, p.name+' '+type.n+' 논란 — 즉각 대응 요구');
+    }
+  }catch(e){}
   return ev;
 }
 /* 주간 사건 판정 (유저 팀 + AI 팀) — 리그 전체에서 '가끔' 터지는 드라마.
@@ -19233,6 +19509,10 @@ function scandalResolve(id,action){
   (S.scandals.history=S.scandals.history||[]).push({id:ev.id,name:p.name,type:ev.type,sev:sev,action:action,week:S.week});
   if(ev===S.scandals.pending) S.scandals.pending=null;
   newsAdd('scandal','📋 결단 — '+msg);
+  /* 스폰서 반응 — 방출(만족) / 자숙·벌금(경고) / 무마·강행(이탈) */
+  let spon=null;
+  try{ if(typeof sponsorScandalReact==='function') spon=sponsorScandalReact(p,ev,action,sev); }catch(e){}
+  if(spon&&spon.msg){ ev.sponsor=spon.k; msg=msg+' · '+spon.msg; }
   if(bench) scandalBench(p,bench);
   try{ saveGame(); }catch(e){}
   return {ok:true,msg:msg,bench:bench};
@@ -19305,6 +19585,10 @@ function scandalModalHTML(ev){
       <div class="tiny" style="font-weight:800">${esc(ev.name)} · ${esc((T(ev.team)||{}).name||'FA')}</div>
       <div class="tiny" style="color:var(--dim2);margin-top:2px">누적 사건 ${ev.count}건 · ${S.season}시즌 ${ev.week}주</div>
     </div>
+    ${(()=>{ try{ const c=(typeof sponsorCrisisInit==='function')?sponsorCrisisInit():null; const l=c?[c.sponsors.main].concat(c.sponsors.sub||[]).filter(Boolean):[]; if(!l.length) return '';
+      return `<div class="card tight" style="padding:8px;border-color:rgba(255,170,60,.45);margin-top:8px">
+        <div class="tiny" style="font-weight:900;color:#ffcf8a">⚠ 스폰서 반응이 걸린 사건</div>
+        <div class="tiny" style="margin-top:3px;color:var(--dim2)">${esc(l[0].name)} 외 ${l.length}건 — 방출은 만족, 자숙·벌금은 경고, 무마·강행은 계약 해지로 이어집니다.</div></div>`; }catch(e){ return ''; } })()}
     <div class="stack" style="gap:6px;margin-top:10px">
       ${SC_ACTIONS.map(a=>`<button class="btn sm" data-scact="${a.k}" style="justify-content:flex-start">
         <span>${a.icon} <b>${a.n}</b></span><span class="tiny" style="color:var(--dim2);margin-left:auto">${a.d}</span></button>`).join('')}
@@ -25101,12 +25385,16 @@ function v6DraftSideHTML(side){
       <div class="d6-pn"><b>${esc(pname)}</b><em>${rk}${c?` · <i class="d6-cn">${esc(champ)}</i>`:''}</em></div>
     </div>`;
   };
-  return `<div class="d6-team ${mine?'me':'opp'}">${badge(team,'sm')}<b>${esc(team.tag)}</b></div>
-    <div class="d6-picks">${ROLES.map(function(_,i){ return roleSlot(i); }).join('')}</div>
+  const active=(D&&D.phase!=='assign'&&D.phase!=='done'&&typeof dActor==='function'&&dActor()===side);
+  const curT=active?((typeof dCur==='function'&&dCur())?dCur().t:null):null;
+  return `<div class="d6-team ${mine?'me':'opp'}">${badge(team,'sm')}<b>${esc(team.tag)}</b>${active?`<span class="d6-act">${curT==='ban'?'밴 차례':'픽 차례'}</span>`:''}</div>
+    <div class="d6-picks ${active&&curT==='pick'?'next':''}">${ROLES.map(function(_,i){ return roleSlot(i); }).join('')}</div>
     <div class="d6-banrow">${[0,1,2,3,4].map(function(i){
       const bn=bans[i], bc=bn?CHAMP_MAP[bn]:null;
-      return `<span class="d6-ban ${bn?'on':''}" title="${bn?esc(bn):'밴 '+(i+1)}">
-        ${bc?`<img src="${DD(bc.k)}" alt="${esc(bn)}" loading="lazy" onerror="this.style.display='none'"><i>${esc(bn)}</i>`:(bn?`<i class="txt">${esc(bn)}</i>`:'<b>B</b>')}
+      const noban=(bn==='노밴');
+      const nx=(active&&curT==='ban'&&!bn);
+      return `<span class="d6-ban ${bn?'on':''} ${nx?'next':''}" title="${bn?(noban?'시간 초과 — 노밴':esc(bn)):'밴 '+(i+1)+' · 지금 차례'}">
+        ${bc?`<img src="${DD(bc.k)}" alt="${esc(bn)}" loading="lazy" onerror="this.style.display='none'"><i>${esc(bn)}</i>`:(noban?'<i class="txt noban">🚫 노밴</i>':(bn?`<i class="txt">${esc(bn)}</i>`:'<b>B</b>'))}
       </span>`;
     }).join('')}</div>`;
 }
@@ -25129,12 +25417,40 @@ function v6LiveRoleAssign(team,picks){
   });
   return out;
 }
+/* 현재 누구 차례인지 — 화면 맨 위·타임라인 위·사이드 카드에 동시에 표시 */
+function d6TurnInfo(){
+  if(typeof D==='undefined'||!D) return null;
+  if(D.phase==='assign') return {k:'assign', mine:false, ic:'👤', team:null, ord:0, t:null, label:'라인 배정 차례', sub:'5개 라인을 채우면 전략 수립으로 넘어갑니다'};
+  if(D.phase==='done') return {k:'done', mine:false, ic:'✅', team:null, ord:0, t:null, label:'밴픽 완료', sub:'아래 ‘게임 플랜 수립 →’로 전략을 세우세요'};
+  const cur=(typeof dCur==='function')?dCur():null; if(!cur) return null;
+  const actor=(typeof dActor==='function')?dActor():null; if(!actor) return null;
+  const mine=actor==='me';
+  const team=mine?myTeam():T(D.oppId);
+  const ord=DRAFT_ORDER.slice(0,D.step+1).filter(function(o){ return o.s===cur.s&&o.t===cur.t; }).length;
+  const t=cur.t==='ban'?'밴':'픽';
+  return {k:'turn', mine:mine, ic:mine?'🟦':'🟥', team:team, ord:ord, t:t,
+    label:(team?team.tag:'')+(mine?' (우리 팀)':' (상대)')+' · '+ord+'번째 '+t+' '+(mine?'차례':'진행 중'),
+    sub:mine?('지금 '+t+'할 챔피언을 고르세요'):('상대가 '+t+'을 고르는 중입니다')};
+}
+function d6TurnBannerHTML(){
+  const ti=d6TurnInfo(); if(!ti) return '';
+  if(ti.k!=='turn') return `<div class="d6-turn neutral" id="d6Turn"><span class="dt-ic">${ti.ic}</span><b class="dt-team">${esc(ti.label)}</b><span class="dt-sub">${esc(ti.sub)}</span></div>`;
+  return `<div class="d6-turn ${ti.mine?'mine':'enemy'}" id="d6Turn">
+    <span class="dt-ic">${ti.ic}</span>
+    <b class="dt-team">${esc(ti.label)}</b>
+    <span class="dt-sub">${esc(ti.sub)}</span>
+    ${ti.mine?`<span class="dt-cd" id="d6TurnCd">${(typeof DRAFT_UNLIMITED!=='undefined'&&DRAFT_UNLIMITED)?'':((typeof DT!=='undefined')?DT.left+'s':'')}</span>`:''}
+  </div>`;
+}
 function renderDraft(){
   try{ if(typeof v6DraftTrackEnsure==='function') v6DraftTrackEnsure(); }catch(e){}
   try{ if(typeof v6BgmResume==='function') v6BgmResume('draft'); }catch(e){}
   const me=myTeam(), opp=T(D.oppId);
   const myComp=evalComp(dMyPicks()), oppComp=evalComp(dOppPicks());
   const myTurn=dActor()==='me';
+  const ti=d6TurnInfo();
+  const actMe=!!(ti&&ti.k==='turn'&&ti.mine);
+  const actOpp=!!(ti&&ti.k==='turn'&&!ti.mine);
   const phaseNow=(D.phase==='assign'||D.phase==='done')?D.phase:dPhaseNow();
   const phase=phaseNow;
   const sr=D.series;
@@ -25148,13 +25464,15 @@ function renderDraft(){
   $('view-draft').innerHTML=`
     <div class="d6-top">
       <div class="d6-ph">${phaseLabel} · ${D.mySide==='blue'?'블루':'레드'} 사이드</div>
+      ${ti?`<span class="d6-whos ${ti.k==='turn'?(ti.mine?'mine':'enemy'):'neutral'}">${ti.ic} ${esc(ti.label)}</span>`:''}
       <div class="tiny">${esc(me.tag)} ${sr.score.me} : ${sr.score.opp} ${esc(opp.tag)} · ${D.gameIdx+1}세트${D.series.bo>1?' · Bo'+D.series.bo:''}${typeof isRival==='function'&&isRival(D.oppId)?' <em class="derby">라이벌전</em>':''}</div>
       <div class="tiny" style="margin-left:auto">밴 ${dMyBans().length}/5 · 픽 ${dMyPicks().length}/5</div>
     </div>
     ${(typeof v6BgmBarHTML==='function')?v6BgmBarHTML():''}
     <div class="d6-wrap">
-      <aside class="d6-side me">${v6DraftSideHTML('me')}</aside>
+      <aside class="d6-side me${actMe?' active':''}">${v6DraftSideHTML('me')}</aside>
       <section class="d6-mid">
+        ${d6TurnBannerHTML()}
         ${DRAFT_ORDER&&phase!=='assign'&&phase!=='done'?`<div class="card tight" style="padding:8px 10px">${draftTimeline()}</div>`:''}
         ${typeof coachAdviceHTML==='function'&&phase!=='done'?coachAdviceHTML():''}
         ${phase==='done'?draftSummaryHTML(myComp,oppComp,me,opp):phase==='assign'?assignHTML(myComp,oppComp,me,opp):`
@@ -25175,7 +25493,7 @@ function renderDraft(){
           <div class="tiny" style="text-align:center;padding:4px 0">★ 우리 팀 주특기 · 숫자 = 메타 티어 · 픽 순서와 라인은 무관</div>
         `}
       </section>
-      <aside class="d6-side opp">${v6DraftSideHTML('opp')}</aside>
+      <aside class="d6-side opp${actOpp?' active':''}">${v6DraftSideHTML('opp')}</aside>
     </div>
     <div class="d6-dock">
       ${timerBlock}
@@ -25183,7 +25501,7 @@ function renderDraft(){
         <button class="btn sm" id="dockAuto">추천 배정</button>
         <button class="btn primary" id="dockConfirm">라인 확정 →</button>
       `:phase==='done'?`
-        <button class="btn primary d6-wide" id="toPlan">게임 플랜 수립 →</button>
+        <button class="btn primary d6-wide to-plan-btn" id="toPlanDock" data-toplan="1">게임 플랜 수립 →</button>
       `:`
         <button class="dt-toggle chip sm" id="dtToggle">${DRAFT_UNLIMITED?'⏱ 30초':'⏸ 무제한'}</button>
         <button class="btn sm d6btn" id="dtStep" title="코치가 이번 턴만 대신 선택합니다">⚡ 1턴 자동</button>
@@ -25200,11 +25518,8 @@ function renderDraft(){
   const dc=$('dockConfirm');
   if(dc) dc.onclick=function(){ const b=$('confirmAssign'); if(b&&b.onclick) b.onclick(); };
   /* 하단 바 ‘게임 플랜 수립’ — 이 버튼이 죽어 있던 버그 수정 */
-  const tp=$('toPlan');
-  if(tp) tp.onclick=function(){
-    if(typeof renderGameplan==='function'){ renderGameplan(); return; }
-    const b=$('toPlanPlan'); if(b&&b.onclick) b.onclick();
-  };
+  /* 본문·하단 바 ‘게임 플랜 수립’ 둘 다 같은 동작 — id 중복 없이 클래스로 묶는다 */
+  if(typeof bindToPlanButtons==='function') bindToPlanButtons();
   try{ if(typeof v6BgmBind==='function') v6BgmBind(); }catch(e){}
   show('draft');
   dtStart();
@@ -25962,6 +26277,282 @@ function v6BgmNextTrack(){
   try{ toast('🎵 다른 곡으로 넘어갑니다'); }catch(e){}
   v6BgmRefresh();
   return true;
+}
+
+/* ============================================================================
+   SPONSOR RISK — 스폰서 다운사이드 (도전형 위약금 · 스캔들 계약 해지 · 연패 슬럼프)
+   ----------------------------------------------------------------------------
+   · 도전형(하이리스크): 기본금·보너스가 모두 크다. 시즌 목표를 못 채우면
+     계약금의 20~35%를 위약금으로 회수당하고 명성·팬심이 떨어진다.
+   · 안정형: 기본금은 낮지만 목표를 못 채워도 위약금 0 — 약팀의 안전한 선택.
+   · 선수 물의(스캔들) 또는 4연패 이상 슬럼프가 이어지면 스폰서가
+     경고 → 계약 해지(지원금 삭감·위약금) 순으로 움직인다. FM코리아 여론도 붙는다.
+   ============================================================================ */
+
+const SP_RISK_NAME={high:'도전형', safe:'안정형'};
+const SP_SLUMP_STREAK=4;                 /* 이만큼 연패하면 스폰서가 움직인다 */
+const SP_FMK_WARN=[
+  '스폰서들도 이제 손 놓으려나 ㅋㅋ',
+  '광고주가 왜 참고 있냐',
+  '구단 이미지 이거 맞냐',
+  '브랜드 이미지 타격 오지게 크네',
+  '경고 한 번 먹었으면 다음엔 진짜 나간다',
+];
+const SP_FMK_OUT=[
+  'ㅋㅋㅋ 스폰서 이탈 떴다',
+  '돈줄 끊겼네 이제 어떡함',
+  '이건 구단 자업자득 아님?',
+  '스폰서도 도장빵 해버리네',
+  '위약금까지 물었네 ㅋㅋㅋ',
+];
+const SP_FMK_CUT=[
+  '선수 내보냈네',
+  '그래도 스폰서 지킨 건 잘한 듯',
+  '전력 손실 큰데...',
+  '잘랐으니 광고는 유지되겠지',
+];
+const SP_FMK_CALM=[
+  '구단 PR 잘했다',
+  '스폰서도 만족했다는 소문 있음',
+  '이 정도면 깔끔하게 정리한 듯',
+];
+
+/* ---------- 도전형/안정형 판정과 위약금 계산 ---------- */
+function spRiskOf(s){
+  if(!s) return 'safe';
+  if(s.risk==='high'||s.risk==='safe') return s.risk;
+  return (s.style==='도전형')?'high':'safe';
+}
+function spPenRateOf(s, terms){
+  const risk=spRiskOf(s);
+  if(risk!=='high') return 0;
+  const base=(typeof s.pen==='number'&&s.pen>0)?s.pen:(typeof s.penStand==='number'?s.penStand:0.3);
+  const mul=terms==='bonus'?1.15:terms==='base'?0.85:1;
+  return Math.min(0.35,Math.max(0.2,Math.round(base*mul*100)/100));
+}
+function spPenAmount(s){
+  if(!s) return 0;
+  const rate=(typeof s.pen==='number')?s.pen:spPenRateOf(s,s.terms);
+  if(!rate) return 0;
+  return Math.round(((s.pay||0)*rate)*10)/10;
+}
+function spPct(rate){ return Math.round((rate||0)*100); }
+/* 카드·계약서에 붙는 한 줄 다운사이드 표시 */
+function spDownsideHTML(s, terms){
+  const risk=spRiskOf(s);
+  if(risk==='high'){
+    const rate=spPenRateOf(s,terms), amt=Math.round((s.pay||0)*rate*10)/10;
+    return `<div class="spc-risk high">⚠ 목표 미달 시 위약금 <b>-${amt.toFixed(1)}억</b> (계약금 ${spPct(rate)}%) · 명성 -2.4 · 팬심 -4</div>`;
+  }
+  return `<div class="spc-risk safe">✓ 목표 미달 위약금 <b>없음</b> — 기본금 안정형 (약팀 추천)</div>`;
+}
+function spRiskChipHTML(s){
+  const risk=spRiskOf(s);
+  return risk==='high'
+    ? '<span class="spc-risk-chip high">하이리스크 · 도전형</span>'
+    : '<span class="spc-risk-chip safe">무위험 · 안정형</span>';
+}
+
+/* ---------- 계약/경고 상태 ---------- */
+function sponsorCrisisInit(){
+  const c=(typeof clubC==='function')?clubC():null; if(!c) return null;
+  if(!c.sponsors) c.sponsors={main:null, sub:[]};
+  if(!c.sponsors.sub) c.sponsors.sub=[];
+  c.sponsorLog=c.sponsorLog||[];
+  c.sponsorWarn=c.sponsorWarn||{};
+  return c;
+}
+function sponsorActiveList(){
+  const c=sponsorCrisisInit(); if(!c) return [];
+  return [c.sponsors.main].concat(c.sponsors.sub||[]).filter(Boolean);
+}
+function sponsorWarnCount(con){
+  const c=sponsorCrisisInit(); if(!c||!con) return 0;
+  const rec=c.sponsorWarn[con.id];
+  return (rec&&rec.n)||0;
+}
+function sponsorFmk(key, pool){
+  try{ return (typeof seeded==='function')?seeded(key,pool):pool[0]; }catch(e){ return pool[0]; }
+}
+function sponsorLogPush(rec){
+  const c=sponsorCrisisInit(); if(!c) return;
+  c.sponsorLog.unshift(rec);
+  if(c.sponsorLog.length>20) c.sponsorLog.length=20;
+  c.community=null;
+}
+
+/* ---------- 경고 ---------- */
+function sponsorIssueWarning(con, reason){
+  const c=sponsorCrisisInit(); if(!c||!con) return null;
+  const rec=c.sponsorWarn[con.id]||{n:0,w:[]};
+  rec.n++; rec.w.push({week:S.week, season:S.season, reason:reason});
+  c.sponsorWarn[con.id]=rec;
+  c.trust=clamp((c.trust||55)-2,0,100);
+  c.prestige=clamp((c.prestige||50)-0.8,0,100);
+  const fmk=sponsorFmk('spw'+con.id+S.season+'-'+S.week,SP_FMK_WARN);
+  newsAdd('sponsor','⚠ 스폰서 경고 — '+con.name+' "'+reason+'" · 재발하면 계약 해지 통보 (경고 '+rec.n+'회)');
+  newsAdd('fmk','📱 [FM코리아] '+fmk);
+  sponsorLogPush({k:'warn', id:con.id, name:con.name, reason:reason, week:S.week, season:S.season, at:Date.now(), fmk:fmk});
+  try{ saveGame(); }catch(e){}
+  return {k:'warn', con:con, count:rec.n, msg:con.name+' 경고 '+rec.n+'회 — 재발 시 계약 해지'};
+}
+
+/* ---------- 계약 해지 (위약금 회수) ---------- */
+function sponsorTerminate(con, reason){
+  const c=sponsorCrisisInit(); if(!c||!con) return null;
+  const t=myTeam();
+  const rate=Math.max(0.2, (con.pen||spPenRateOf(con,'same')||0.25));
+  const amt=Math.round(((con.pay||0)*rate)*10)/10;
+  if(c.sponsors.main&&c.sponsors.main.id===con.id) c.sponsors.main=null;
+  else c.sponsors.sub=(c.sponsors.sub||[]).filter(x=>x&&x.id!==con.id);
+  if(t) t.budget=Math.round((t.budget-amt)*10)/10;
+  c.prestige=clamp((c.prestige||50)-3.5,0,100);
+  c.fanbase=clamp((c.fanbase||60)-5,0,100);
+  c.trust=clamp((c.trust||55)-3,0,100);
+  const fmk=sponsorFmk('spo'+con.id+S.season+'-'+S.week,SP_FMK_OUT);
+  newsAdd('sponsor','💔 스폰서 계약 해지 — '+con.name+' ('+reason+') · 위약금 '+amt.toFixed(1)+'억 회수 · 명성 -3.5 · 팬심 -5');
+  newsAdd('fmk','📱 [FM코리아] '+fmk);
+  sponsorLogPush({k:'out', id:con.id, name:con.name, reason:reason, amt:amt, week:S.week, season:S.season, at:Date.now(), fmk:fmk});
+  try{ saveGame(); }catch(e){}
+  return {k:'out', con:con, amt:amt, msg:con.name+' 계약 해지 — 위약금 '+amt.toFixed(1)+'억 회수'};
+}
+
+/* ---------- 사건(스캔들) 발생 시 스폰서 반응 ----------
+   인자: 물의를 일으킨 선수, 사건, 구단주 선택, 심각도 */
+function sponsorScandalReact(p, ev, action, sev){
+  const c=sponsorCrisisInit(); if(!c) return null;
+  const list=sponsorActiveList();
+  if(!list.length) return {k:'none', msg:'스폰서 계약이 없어 반응이 없습니다'};
+  sev=sev||2;
+  /* 가장 약한 계약(서브 → 메인)이 먼저 반응한다 */
+  const target=(c.sponsors.sub&&c.sponsors.sub[0])||c.sponsors.main;
+  if(action==='cut'){
+    /* 방출로 스폰서를 달랜다 — 경고 1회 소거, 계약 유지 */
+    if(target&&c.sponsorWarn&&c.sponsorWarn[target.id]&&c.sponsorWarn[target.id].n>0){
+      c.sponsorWarn[target.id].n=Math.max(0,c.sponsorWarn[target.id].n-1);
+    }
+    c.trust=clamp((c.trust||55)+1,0,100);
+    const fmk=sponsorFmk('spc'+target.id+S.season+S.week,SP_FMK_CUT);
+    newsAdd('sponsor','🤝 스폰서 반응 — '+target.name+' "선수단 정리에 신뢰를 보였다" · 계약 유지');
+    newsAdd('fmk','📱 [FM코리아] '+fmk);
+    sponsorLogPush({k:'keep', id:target.id, name:target.name, week:S.week, season:S.season, at:Date.now(), fmk:fmk});
+    return {k:'keep', con:target, msg:'스폰서 만족 — 계약 유지, 위약금 없음'};
+  }
+  if(action==='bench'||action==='fine'){
+    /* 부분 완화 — 자숙/벌금으로 넘기면 경고 1회 (심각하면 확정) */
+    const chance=sev>=3?1:0.55;
+    if(Math.random()<chance){
+      const r=sponsorIssueWarning(target,'소속 선수 물의 — 자정 요구');
+      return {k:'warn', con:target, msg:'스폰서 경고 1회 — 재발 시 계약 해지', warn:r};
+    }
+    return {k:'ok', con:target, msg:'스폰서가 일단 지켜보겠다고 밝혔습니다'};
+  }
+  if(action==='defend'){
+    /* 무마·강행 — 스폰서가 버티지 못한다 */
+    if(sev>=2){
+      const r=sponsorTerminate(target,'선수 물의에 대한 구단의 미온적 대응');
+      return {k:'out', con:target, amt:r?r.amt:0, msg:'스폰서 이탈 — 계약 해지 · 위약금 '+(r?r.amt.toFixed(1):'0')+'억'};
+    }
+    const w=sponsorIssueWarning(target,'물의 은폐 시도에 대한 우려');
+    return {k:'warn', con:target, msg:'스폰서 경고 1회', warn:w};
+  }
+  return {k:'none', msg:''};
+}
+
+/* ---------- 시즌 결산: 달성 보너스 + 미달 위약금 ---------- */
+function sponsorSettleSeason(){
+  const c=sponsorCrisisInit(); if(!c) return {pen:0, bonus:0, list:[]};
+  const t=myTeam(); if(!t) return {pen:0, bonus:0, list:[]};
+  const all=sponsorActiveList();
+  let penTotal=0, bonusTotal=0; const list=[];
+  all.forEach(s=>{
+    const met=(typeof sponsorGoalMet==='function')?sponsorGoalMet(s.goal):false;
+    const goalName=(SPONSOR_GOALS[s.goal]&&SPONSOR_GOALS[s.goal].n)||s.goal;
+    if(met){
+      const b=Math.round((s.bonus||0)*0.1*10)/10;
+      t.budget=Math.round((t.budget+b)*10)/10;
+      bonusTotal+=b;
+      list.push({k:'bonus', name:s.name, amt:b});
+      return;
+    }
+    const rate=(typeof s.pen==='number')?s.pen:0;
+    if(rate>0){
+      const amt=Math.round(((s.pay||0)*rate)*10)/10;
+      t.budget=Math.round((t.budget-amt)*10)/10;
+      c.prestige=clamp((c.prestige||50)-2.4,0,100);
+      c.fanbase=clamp((c.fanbase||60)-4,0,100);
+      c.trust=clamp((c.trust||55)-2,0,100);
+      penTotal+=amt;
+      list.push({k:'pen', name:s.name, amt:amt, rate:rate});
+      newsAdd('sponsor','⚠ 스폰서 위약금 — '+s.name+' '+goalName+' 미달 · 계약금 '+spPct(rate)+'% ('+amt.toFixed(1)+'억) 환수 · 명성 -2.4 · 팬심 -4');
+      sponsorLogPush({k:'pen', id:s.id, name:s.name, amt:amt, rate:rate, week:S.week, season:S.season, at:Date.now()});
+    }else{
+      list.push({k:'safe', name:s.name, amt:0});
+      newsAdd('sponsor','🛡 안정형 스폰서 — '+s.name+' '+goalName+' 미달이지만 위약금 없음 (계약 유지)');
+    }
+  });
+  if(penTotal>0){
+    newsAdd('sponsor','📉 시즌 스폰서 정산 — 달성 보너스 +'+bonusTotal.toFixed(1)+'억 · 위약금 -'+penTotal.toFixed(1)+'억');
+  }
+  return {pen:penTotal, bonus:bonusTotal, list:list};
+}
+
+/* ---------- 연패 슬럼프 → 스폰서 이탈 ---------- */
+function loseStreakNow(){
+  const h=(S&&S.history)||[];
+  let n=0;
+  for(let i=h.length-1;i>=0;i--){
+    const r=h[i]; if(!r) break;
+    if(r.stage&&r.stage!=='regular') break;
+    if(r.win) break;
+    n++;
+  }
+  return n;
+}
+function sponsorRiskWeekly(){
+  const c=sponsorCrisisInit(); if(!c||!S) return null;
+  const list=sponsorActiveList(); if(!list.length) return null;
+  const streak=loseStreakNow();
+  if(streak<SP_SLUMP_STREAK) return null;
+  if(c.sponsorReactWeek===S.week) return null;      /* 한 주에 한 번만 움직인다 */
+  const target=(c.sponsors.sub&&c.sponsors.sub[0])||c.sponsors.main;
+  if(!target) return null;
+  const chance=clamp(0.35+(streak-SP_SLUMP_STREAK)*0.2+((c.fanbase||60)<45?0.15:0),0,0.95);
+  if(Math.random()>chance) return null;
+  c.sponsorReactWeek=S.week;
+  const reason=streak+'연패 슬럼프 — 성과 개선 요구';
+  const warned=sponsorWarnCount(target)>0;
+  if(warned) return sponsorTerminate(target, streak+'연패 슬럼프 — 지원 지속 불가');
+  return sponsorIssueWarning(target, reason);
+}
+
+/* ---------- 화면: 계약 행 배지 ---------- */
+function sponsorWarnBadgeHTML(con){
+  const n=sponsorWarnCount(con);
+  if(!n) return '';
+  return `<span class="sp-warn" title="경고 ${n}회 · 재발 시 계약 해지">경고 ${n}</span>`;
+}
+function sponsorRiskBadgeHTML(con){
+  const risk=spRiskOf(con);
+  if(risk!=='high') return '<span class="sp-risk-mini safe">안정</span>';
+  return `<span class="sp-risk-mini high">위약금 ${spPct(con.pen||spPenRateOf(con,'same'))}%</span>`;
+}
+
+/* ---------- 화면: 허브 경고 카드 ---------- */
+function sponsorRiskCardHTML(){
+  const c=sponsorCrisisInit(); if(!c) return '';
+  const list=sponsorActiveList();
+  const warned=list.filter(s=>sponsorWarnCount(s)>0);
+  const recent=(c.sponsorLog||[]).slice(0,2);
+  if(!warned.length&&!recent.length) return '';
+  return `<div class="card sp-riskcard" style="${warned.length?'border-color:rgba(255,170,60,.5)':''}">
+    <div class="card-h"><h4>⚠ 스폰서 리스크</h4><span class="k">${warned.length?'경고 '+warned.length+'건':'최근 기록'}</span></div>
+    ${warned.map(s=>`<div class="row between" style="gap:8px;align-items:center">
+      <div class="tiny" style="font-weight:800">${esc(s.name)} · 경고 ${sponsorWarnCount(s)}회</div>
+      <span class="chip sm red">재발 시 해지 · 위약금 ${spPenAmount(s).toFixed(1)}억</span></div>`).join('')}
+    ${(!warned.length?recent:[]).map(e=>`<div class="tiny" style="color:var(--dim2)">${e.k==='out'?'💔':e.k==='warn'?'⚠':'📉'} ${esc(e.name||'')} · ${esc(e.reason||'위약금 정산')}${e.amt?' · '+e.amt.toFixed(1)+'억':''}</div>`).join('')}
+    <div style="margin-top:7px"><button class="btn sm" data-a="tab" data-v="club:sponsor">스폰서 계약 확인</button></div>
+  </div>`;
 }
 
 
