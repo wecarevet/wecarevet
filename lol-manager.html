@@ -15730,7 +15730,10 @@ function mmTryTeleport(u,tx,ty,sec){
   u.vx=0; u.vy=0; u.flash=0;
   MM.tpCount++;
   mmAddFx({type:'tpring',x:u.x,y:u.y,life:900,col:'#b98cff'});
-  if(u.side==='me'&&typeof logEvent==='function') logEvent('sys','🌀 '+(lineupAt('me',u.role).name||ROLE_KR[u.role])+' 텔레포트 — '+ROLE_KR[u.role]+' 라인 합류');
+  if(u.side==='me'&&typeof logEvent==='function'){
+    const where=(typeof v6TpLog==='function')?v6TpLog('me',u.role):(ROLE_KR[u.role]+' 라인');
+    logEvent('sys','🌀 '+(lineupAt('me',u.role).name||ROLE_KR[u.role])+' 텔레포트 — '+where+' 합류');
+  }
   return true;
 }
 function mmTpTarget(side,role){
@@ -22731,6 +22734,73 @@ try{
   if(typeof v6BgmArmGesture==='function') v6BgmArmGesture();
   if(typeof v6ObjIconPreload==='function') v6ObjIconPreload();
 }catch(e){}
+
+/* ==========================================================================
+   11. 텔레포트 목적지 스냅 — 아군 타워(또는 10분 이후 아군 와드)로만
+   ========================================================================== */
+function v6TpLane(role){
+  return role==='TOP'?'TOP':role==='MID'?'MID':'BOT';
+}
+function v6FurthestAllyTower(side,lane){
+  if(!M||!M.tw||!M.tw[side]) return null;
+  const arr=M.tw[side][lane]||[1,1,1];
+  const towers=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[side]&&MAP_TOWERS[side][lane])||[];
+  for(let i=towers.length-1;i>=0;i--){
+    if(arr[i]&&towers[i]) return {pt:[towers[i][0],towers[i][1]],tier:i+1,lane:lane};
+  }
+  return null;
+}
+function v6AllyWardNear(side,focus,radius){
+  try{
+    const vw=(M&&M.visionWar&&M.visionWar.wards)?(M.visionWar.wards[side]||[]):[];
+    let best=null,bd=9;
+    vw.forEach(function(w){
+      const d=Math.hypot(w.x-focus[0],w.y-focus[1]);
+      if(d<bd){ bd=d; best=w; }
+    });
+    if(best&&bd<=(radius||0.25)) return best;
+  }catch(e){}
+  return null;
+}
+/* 기존 mmTpTarget 을 대체 — 빈 땅으로 타지 않는다 */
+function mmTpTarget(side,role){
+  const lane=v6TpLane(role);
+  const m=(M&&M.minute)||0;
+  /* 10분 이후: 교전/오브젝트 근처에 아군 와드가 있으면 그 와드로 */
+  if(m>=10){
+    let focus=null;
+    try{
+      if(M&&M.focus) focus=M.focus;
+      else if(M&&M.objMacro&&M.objMacro.kind&&typeof PIT!=='undefined') focus=PIT[M.objMacro.kind==='grub'?'baron':M.objMacro.kind];
+    }catch(e){}
+    if(!focus) focus=(typeof PIT!=='undefined')?PIT.dragon:[0.70,0.72];
+    const w=v6AllyWardNear(side,focus,0.26);
+    if(w) return [w.x,w.y];
+  }
+  /* 그 라인에서 가장 앞선 살아있는 아군 타워 */
+  const tw=v6FurthestAllyTower(side,lane);
+  if(tw) return tw.pt;
+  /* 라인 타워가 전부 부서졌으면 다른 라인 → 넥서스 타워 → 본진 */
+  const others=['TOP','MID','BOT'].filter(function(l){ return l!==lane; });
+  for(let i=0;i<others.length;i++){
+    const t2=v6FurthestAllyTower(side,others[i]);
+    if(t2) return t2.pt;
+  }
+  try{
+    const nex=(side==='me'?M.tw.meNex:M.tw.oppNex)||[1,1];
+    const npts=(MAP_TOWERS[side]&&MAP_TOWERS[side].NEXUS)||[];
+    for(let i=npts.length-1;i>=0;i--){ if(nex[i]&&npts[i]) return [npts[i][0],npts[i][1]]; }
+  }catch(e){}
+  return MM_NEXUS[side];
+}
+/* 텔레포트 시작 시 목적지 라벨을 실제 타워 이름으로 남긴다 */
+function v6TpLog(side,role){
+  if(!M) return '';
+  const lane=v6TpLane(role);
+  const tw=v6FurthestAllyTower(side,lane);
+  const laneKr={TOP:'탑',MID:'미드',BOT:'봇'}[lane]||'미드';
+  return laneKr+(tw?(' '+(tw.tier===1?'1차':tw.tier===2?'2차':'3차')+' 타워'):' 본진');
+}
 
 
 /* boot */
