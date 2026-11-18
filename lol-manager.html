@@ -19006,15 +19006,18 @@ function mmDraw(dt){
       ctx.font=`900 ${Math.max(6,Math.round(lbw*0.58))}px sans-serif`;
       ctx.textAlign='center'; ctx.textBaseline='middle';
       ctx.fillText(lv,x-r-lbw+2+lbw/2,y+0.5);
-      /* IGN */
+      /* IGN — 서폿 라벨은 아래쪽에 그린다 (바텀 듀오 라벨 겹침 방지) */
       const ign=(line&&line.name)||'';
       if(ign){
+        const bhL=Math.max(3.4,r*0.42);
+        const isSup=(u.role==='SUP');
+        const ly=isSup?(y+r+bhL*1.9+7):(y-r-13);
         ctx.font=`900 ${Math.max(7,Math.round(w*0.019))}px Pretendard,sans-serif`;
         ctx.textAlign='center'; ctx.textBaseline='bottom';
         const tw=ctx.measureText(ign).width;
-        ctx.fillStyle='rgba(4,8,14,.72)'; ctx.fillRect(x-tw/2-2,y-r-13,tw+4,10);
+        ctx.fillStyle='rgba(4,8,14,.72)'; ctx.fillRect(x-tw/2-2,ly,tw+4,10);
         ctx.fillStyle=side==='me'?'#bdf0ff':'#ffc2cd';
-        ctx.fillText(ign,x,y-r-4);
+        ctx.fillText(ign,x,ly+9);
       }
       /* V6 — 귀환(B) 채널 링 */
       if(u.recallT){
