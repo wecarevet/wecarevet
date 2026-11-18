@@ -2684,6 +2684,15 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .d6-rp{font-size:9px;font-weight:900;padding:1px 6px;border-radius:999px;background:#141922;border:1px solid #232b38;color:#aeb9cc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:72px}
 .d6-side.opp .d6-rp{background:#1b1216;border-color:#33222a;color:#d8b7bf}
 
+/* ===== 접이식 코치 훈수 (그리드 아래) ===== */
+.coachbox.collapsible{padding:0}
+.coachbox.collapsible>summary{list-style:none;cursor:pointer;padding:8px 10px;display:flex;align-items:center;gap:8px}
+.coachbox.collapsible>summary::-webkit-details-marker{display:none}
+.coachbox.collapsible>summary span{font-size:10.5px;font-weight:900;color:#dfe8f6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.coachbox.collapsible>summary em{font-size:9px;font-weight:900;color:#9fb0c6;font-style:normal;white-space:nowrap}
+.coachbox.collapsible[open]>summary{border-bottom:1px solid #1e2633}
+.coachbox.collapsible .cb-body{padding:6px 10px 9px}
+
 </style>
 </head>
 <body>
@@ -11308,14 +11317,16 @@ function coachAdviceHTML(){
   const a=coachDraftAdvice();
   if(!a) return '';
   const head=a.head;
-  return `<div class="coachbox ${a.sharp>=2?'hi':a.sharp>=1?'mid':'lo'}">
-    <div class="cb-h"><span>💬 코치 훈수</span><b>${head?esc(head.name)+' 수석코치 · '+head.rating:'스태프 없음'}</b>
-      <em>${a.sharp>=2?'정밀 분석':a.sharp>=1?'기본 분석':'제한적'}</em></div>
+  const first=(a.tips&&a.tips[0])?a.tips[0].t:'';
+  /* 방송 화면처럼 접어 두는 카드 — 한 줄 미리보기 + 1탭 펼치기 */
+  return `<details class="coachbox collapsible ${a.sharp>=2?'hi':a.sharp>=1?'mid':'lo'}" ${(typeof COACH_OPEN!=='undefined'&&COACH_OPEN)?'open':''}>
+    <summary class="cb-h"><span>💬 ${head?esc(head.name):''} ${head?'코치 훈수':'코치 훈수'}${first?' · '+esc(first).slice(0,34):''}</span><em>${a.sharp>=2?'정밀 분석':a.sharp>=1?'기본 분석':'제한적'} ▾</em></summary>
     <div class="cb-body">
       ${a.tips.map(t=>`<div class="cb-tip ${t.k}">${esc(t.t)}</div>`).join('')}
     </div>
-  </div>`;
+  </details>`;
 }
+let COACH_OPEN=false;
 function coachPresenceLine(){
   const c=coachSupport();
   if(!c.head) return '코치진 없음';
@@ -25481,7 +25492,6 @@ function renderDraft(){
       <section class="d6-mid">
         ${d6TurnBannerHTML()}
         ${DRAFT_ORDER&&phase!=='assign'&&phase!=='done'?`<div class="card tight" style="padding:8px 10px">${draftTimeline()}</div>`:''}
-        ${typeof coachAdviceHTML==='function'&&phase!=='done'?coachAdviceHTML():''}
         ${phase==='done'?draftSummaryHTML(myComp,oppComp,me,opp):phase==='assign'?assignHTML(myComp,oppComp,me,opp):`
           <div class="role-tabs" id="draftFilters">
             ${['ALL'].concat(ROLES).map(function(r){ return `<button class="chip ${D.roleFilter===r?'on':''}" data-rf="${r}">${r==='ALL'?'전체':ROLE_KR[r]}</button>`; }).join('')}
@@ -25499,6 +25509,7 @@ function renderDraft(){
           </div>
           <div class="tiny" style="text-align:center;padding:4px 0">★ 우리 팀 주특기 · 숫자 = 메타 티어 · 픽 순서와 라인은 무관</div>
         `}
+        ${typeof coachAdviceHTML==='function'&&phase!=='done'?coachAdviceHTML():''}
       </section>
       <aside class="d6-side opp${actOpp?' active':''}">${v6DraftSideHTML('opp')}</aside>
     </div>
