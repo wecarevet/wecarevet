@@ -19362,7 +19362,12 @@ function mmdMove(u,dt,dSim,now){
   const dtSec=Math.max(0,dt)/1000;
   const gameDt=Math.max(0,rate*dtSec);          /* 이번 프레임에 흐른 게임 시간 */
   const maxStep=MMD_MAX_STEP*gameDt;            /* 이동 상한 */
-  const spd=mmdSpeedOf(u,sec)*rate;             /* 맵 단위 / 실제 초 */
+  let spd=mmdSpeedOf(u,sec)*rate;               /* 맵 단위 / 실제 초 */
+  /* 01:06~01:40 라인 복귀 — 라이너는 실제로 뛴다 (위치 순간이동 대신 속도로 해결) */
+  if(sec>=66&&sec<=100&&u.role!=='JGL'){
+    const dd=Math.hypot(t.x-u.x,t.y-u.y);
+    if(dd>0.12) spd*=1.85;
+  }
   /* 도착 데드존 — 목표에 붙었으면 완전히 정지 (잔떨림 금지) */
   if(d<=MMD_ARRIVE){
     u.x=t.x; u.y=t.y; u.vx=0; u.vy=0;
@@ -26339,7 +26344,8 @@ function v6ArriveCheck(){
 function v6XpCheck(){
   if(!M||!MM||!MM.units) return;
   const m=M.minute||0;
-  if(m<1||m>14) return;
+  /* 첫 웨이브는 01:30 도착 — 1분 판정은 아직 라인에 도착하기 전이라 하지 않는다 */
+  if(m<2||m>14) return;
   if(V6XP.last===m) return;
   V6XP.last=m;
   const sec=m*60;
