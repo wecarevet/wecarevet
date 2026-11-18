@@ -490,59 +490,59 @@ table.sh-tbl tr.blank td{height:19px}
 
   /* ───── 약물 데이터 (문헌 참고 범위) ───── */
   var DRUGS = [
-    {id:'furosemide', cat:'심장', kr:'푸로세미드', en:'Furosemide', dog:[1,4], cat:[1,2], route:'PO / IV / IM', freq:'q8–12h',
+    {id:'furosemide', grp:'심장', kr:'푸로세미드', en:'Furosemide', dog:[1,4], cat:[1,2], route:'PO / IV / IM', freq:'q8–12h',
      note:'폐부종·울혈성 심부전. 신장·전해질(K) 추적', concs:[['라식스 주 20mg/2mL (10 mg/mL)',10,'mg/mL'],['정 40 mg',40,'mg/정']]},
-    {id:'pimobendan', cat:'심장', kr:'피모벤단', en:'Pimobendan', dog:[0.25,0.3], cat:[0.25,0.3], route:'PO', freq:'q12h',
+    {id:'pimobendan', grp:'심장', kr:'피모벤단', en:'Pimobendan', dog:[0.25,0.3], cat:[0.25,0.3], route:'PO', freq:'q12h',
      note:'식전 1시간 투여 권장. 고양이는 근거 제한', concs:[['츄정 1.25 mg',1.25,'mg/정'],['츄정 2.5 mg',2.5,'mg/정'],['츄정 5 mg',5,'mg/정']]},
-    {id:'enalapril', cat:'심장', kr:'에날라프릴', en:'Enalapril', dog:[0.25,0.5], cat:[0.25,0.5], route:'PO', freq:'q12–24h',
+    {id:'enalapril', grp:'심장', kr:'에날라프릴', en:'Enalapril', dog:[0.25,0.5], cat:[0.25,0.5], route:'PO', freq:'q12–24h',
      note:'ACE 억제제. 신장 수치·저혈압 확인', concs:[['정 5 mg',5,'mg/정'],['정 10 mg',10,'mg/정']]},
-    {id:'benazepril', cat:'심장', kr:'베나제프릴', en:'Benazepril', dog:[0.25,0.5], cat:[0.25,0.5], route:'PO', freq:'q12–24h',
+    {id:'benazepril', grp:'심장', kr:'베나제프릴', en:'Benazepril', dog:[0.25,0.5], cat:[0.25,0.5], route:'PO', freq:'q12–24h',
      note:'ACE 억제제. 첫 투여 후 신장·혈압 확인', concs:[['정 5 mg',5,'mg/정'],['정 10 mg',10,'mg/정'],['정 20 mg',20,'mg/정']]},
-    {id:'telmisartan', cat:'심장', kr:'텔미사르탄', en:'Telmisartan', dog:[0.5,1], cat:[0.5,1], route:'PO', freq:'q24h',
+    {id:'telmisartan', grp:'심장', kr:'텔미사르탄', en:'Telmisartan', dog:[0.5,1], cat:[0.5,1], route:'PO', freq:'q24h',
      note:'단백뇨·전신고혈압. ARB', concs:[['정 10 mg',10,'mg/정'],['정 20 mg',20,'mg/정'],['정 40 mg',40,'mg/정'],['정 80 mg',80,'mg/정']]},
-    {id:'spironolactone', cat:'심장', kr:'스피로노락톤', en:'Spironolactone', dog:[1,2], cat:[1,2], route:'PO', freq:'q12h',
+    {id:'spironolactone', grp:'심장', kr:'스피로노락톤', en:'Spironolactone', dog:[1,2], cat:[1,2], route:'PO', freq:'q12h',
      note:'이뇨제 병용. 고칼륨 주의', concs:[['정 12.5 mg',12.5,'mg/정'],['정 25 mg',25,'mg/정']]},
-    {id:'torasemide', cat:'심장', kr:'토라세미드', en:'Torasemide', dog:[0.1,0.2], cat:[0.1,0.2], route:'PO / IV', freq:'q12–24h',
+    {id:'torasemide', grp:'심장', kr:'토라세미드', en:'Torasemide', dog:[0.1,0.2], cat:[0.1,0.2], route:'PO / IV', freq:'q12–24h',
      note:'루프 이뇨제. 푸로세미드에서 교체 시 감량', concs:[['정 5 mg',5,'mg/정'],['정 10 mg',10,'mg/정'],['주 10 mg/mL',10,'mg/mL']]},
-    {id:'sildenafil', cat:'심장', kr:'실데나필', en:'Sildenafil', dog:[1,2], cat:[1,2], route:'PO', freq:'q8–12h',
+    {id:'sildenafil', grp:'심장', kr:'실데나필', en:'Sildenafil', dog:[1,2], cat:[1,2], route:'PO', freq:'q8–12h',
      note:'폐고혈압. 저혈압·실신 주의', concs:[['정 20 mg',20,'mg/정'],['정 50 mg',50,'mg/정']]},
-    {id:'maropitant', cat:'소화기', kr:'마로피탄트', en:'Maropitant', dog:[1,2], cat:[1,1], route:'SC / PO', freq:'q24h',
+    {id:'maropitant', grp:'소화기', kr:'마로피탄트', en:'Maropitant', dog:[1,2], cat:[1,1], route:'SC / PO', freq:'q24h',
      note:'구토·멀미. 개 PO는 2 mg/kg, SC는 1 mg/kg', concs:[['주 10 mg/mL',10,'mg/mL'],['정 16 mg',16,'mg/정'],['정 24 mg',24,'mg/정'],['정 60 mg',60,'mg/정'],['정 160 mg',160,'mg/정']]},
-    {id:'metoclopramide', cat:'소화기', kr:'메토클로프라미드', en:'Metoclopramide', dog:[0.2,0.5], cat:[0.2,0.5], route:'IV / IM / PO', freq:'q6–8h',
+    {id:'metoclopramide', grp:'소화기', kr:'메토클로프라미드', en:'Metoclopramide', dog:[0.2,0.5], cat:[0.2,0.5], route:'IV / IM / PO', freq:'q6–8h',
      note:'위장 운동 촉진·구토. 폐색 의심 시 금기', concs:[['주 5 mg/mL',5,'mg/mL'],['정 5 mg',5,'mg/정'],['정 10 mg',10,'mg/정']]},
-    {id:'famotidine', cat:'소화기', kr:'파모티딘', en:'Famotidine', dog:[0.5,1], cat:[0.5,1], route:'IV / PO', freq:'q12–24h',
+    {id:'famotidine', grp:'소화기', kr:'파모티딘', en:'Famotidine', dog:[0.5,1], cat:[0.5,1], route:'IV / PO', freq:'q12–24h',
      note:'H2 차단제. 위산 억제', concs:[['주 10 mg/mL',10,'mg/mL'],['정 10 mg',10,'mg/정'],['정 20 mg',20,'mg/정']]},
-    {id:'omeprazole', cat:'소화기', kr:'오메프라졸', en:'Omeprazole', dog:[1,1], cat:[1,1], route:'PO', freq:'q24h',
+    {id:'omeprazole', grp:'소화기', kr:'오메프라졸', en:'Omeprazole', dog:[1,1], cat:[1,1], route:'PO', freq:'q24h',
      note:'PPI. 식전 투여', concs:[['캡슐 10 mg',10,'mg/캡슐'],['캡슐 20 mg',20,'mg/캡슐']]},
-    {id:'ondansetron', cat:'소화기', kr:'온단세트론', en:'Ondansetron', dog:[0.1,0.2], cat:[0.1,0.2], route:'IV / PO', freq:'q6–12h',
+    {id:'ondansetron', grp:'소화기', kr:'온단세트론', en:'Ondansetron', dog:[0.1,0.2], cat:[0.1,0.2], route:'IV / PO', freq:'q6–12h',
      note:'5-HT3 차단제. 항암·중증 구토', concs:[['주 2 mg/mL',2,'mg/mL'],['정 4 mg',4,'mg/정'],['정 8 mg',8,'mg/정']]},
-    {id:'amoxi-clav', cat:'항생제', kr:'아목시실린·클라불란산', en:'Amoxicillin-Clavulanate', dog:[12.5,25], cat:[12.5,25], route:'PO', freq:'q12h',
+    {id:'amoxi-clav', grp:'항생제', kr:'아목시실린·클라불란산', en:'Amoxicillin-Clavulanate', dog:[12.5,25], cat:[12.5,25], route:'PO', freq:'q12h',
      note:'1차 선택 항생제. 식후 투여', concs:[['정 250 mg',250,'mg/정'],['정 500 mg',500,'mg/정'],['시럽 62.5 mg/mL',62.5,'mg/mL']]},
-    {id:'metronidazole', cat:'항생제', kr:'메트로니다졸', en:'Metronidazole', dog:[15,25], cat:[10,15], route:'PO / IV', freq:'q12h',
+    {id:'metronidazole', grp:'항생제', kr:'메트로니다졸', en:'Metronidazole', dog:[15,25], cat:[10,15], route:'PO / IV', freq:'q12h',
      note:'혐기성·설사. 고양이는 10~15 mg/kg', concs:[['정 250 mg',250,'mg/정'],['주 5 mg/mL',5,'mg/mL']]},
-    {id:'doxycycline', cat:'항생제', kr:'독시사이클린', en:'Doxycycline', dog:[5,10], cat:[5,10], route:'PO', freq:'q12–24h',
+    {id:'doxycycline', grp:'항생제', kr:'독시사이클린', en:'Doxycycline', dog:[5,10], cat:[5,10], route:'PO', freq:'q12–24h',
      note:'리케치아·마이코플라스마. 물과 함께 투여', concs:[['정 50 mg',50,'mg/정'],['정 100 mg',100,'mg/정']]},
-    {id:'cephalexin', cat:'항생제', kr:'세파렉신', en:'Cephalexin', dog:[15,30], cat:[15,30], route:'PO', freq:'q12h',
+    {id:'cephalexin', grp:'항생제', kr:'세파렉신', en:'Cephalexin', dog:[15,30], cat:[15,30], route:'PO', freq:'q12h',
      note:'피부·요로 감염 1세대 세팔로스포린', concs:[['캡슐 250 mg',250,'mg/캡슐'],['캡슐 500 mg',500,'mg/캡슐']]},
-    {id:'enrofloxacin', cat:'항생제', kr:'엔로플록사신', en:'Enrofloxacin', dog:[5,10], cat:[5,5], route:'PO / SC', freq:'q24h',
+    {id:'enrofloxacin', grp:'항생제', kr:'엔로플록사신', en:'Enrofloxacin', dog:[5,10], cat:[5,5], route:'PO / SC', freq:'q24h',
      note:'고양이는 5 mg/kg 초과 금기(망막 독성)', concs:[['주 50 mg/mL (5%)',50,'mg/mL'],['정 50 mg',50,'mg/정'],['정 150 mg',150,'mg/정']]},
-    {id:'clindamycin', cat:'항생제', kr:'클린다마이신', en:'Clindamycin', dog:[5.5,11], cat:[5.5,11], route:'PO / IV', freq:'q12h',
+    {id:'clindamycin', grp:'항생제', kr:'클린다마이신', en:'Clindamycin', dog:[5.5,11], cat:[5.5,11], route:'PO / IV', freq:'q12h',
      note:'치과·골·피부 감염. 식후 투여', concs:[['캡슐 150 mg',150,'mg/캡슐'],['캡슐 300 mg',300,'mg/캡슐']]},
-    {id:'gabapentin', cat:'진통·신경', kr:'가바펜틴', en:'Gabapentin', dog:[10,20], cat:[10,20], route:'PO', freq:'q8–12h',
+    {id:'gabapentin', grp:'진통·신경', kr:'가바펜틴', en:'Gabapentin', dog:[10,20], cat:[10,20], route:'PO', freq:'q8–12h',
      note:'신경병증 통증·불안. 신장 기능 저하 시 감량', concs:[['캡슐 100 mg',100,'mg/캡슐'],['캡슐 300 mg',300,'mg/캡슐'],['시럽 50 mg/mL',50,'mg/mL']]},
-    {id:'tramadol', cat:'진통·신경', kr:'트라마돌', en:'Tramadol', dog:[2,4], cat:[1,2], route:'PO / IV', freq:'q8–12h',
+    {id:'tramadol', grp:'진통·신경', kr:'트라마돌', en:'Tramadol', dog:[2,4], cat:[1,2], route:'PO / IV', freq:'q8–12h',
      note:'중등도 통증. 고양이는 1~2 mg/kg', concs:[['정 50 mg',50,'mg/정'],['주 50 mg/mL',50,'mg/mL']]},
-    {id:'carprofen', cat:'진통·신경', kr:'카프로펜', en:'Carprofen', dog:[2.2,4.4], cat:null, route:'PO / SC', freq:'q12–24h',
+    {id:'carprofen', grp:'진통·신경', kr:'카프로펜', en:'Carprofen', dog:[2.2,4.4], cat:null, route:'PO / SC', freq:'q12–24h',
      note:'고양이 사용 금기. NSAID — 신장·위장 확인', concs:[['정 25 mg',25,'mg/정'],['정 75 mg',75,'mg/정'],['주 50 mg/mL',50,'mg/mL']]},
-    {id:'meloxicam', cat:'진통·신경', kr:'멜록시캄', en:'Meloxicam', dog:[0.1,0.2], cat:[0.05,0.1], route:'PO / SC', freq:'q24h',
+    {id:'meloxicam', grp:'진통·신경', kr:'멜록시캄', en:'Meloxicam', dog:[0.1,0.2], cat:[0.05,0.1], route:'PO / SC', freq:'q24h',
      note:'첫날 부하 후 유지 용량. 고양이는 0.05 mg/kg', concs:[['주 5 mg/mL',5,'mg/mL'],['정 1 mg',1,'mg/정'],['정 2.5 mg',2.5,'mg/정']]},
-    {id:'butorphanol', cat:'진통·신경', kr:'부토판올', en:'Butorphanol', dog:[0.2,0.4], cat:[0.2,0.4], route:'IV / IM / SC', freq:'q2–4h',
+    {id:'butorphanol', grp:'진통·신경', kr:'부토판올', en:'Butorphanol', dog:[0.2,0.4], cat:[0.2,0.4], route:'IV / IM / SC', freq:'q2–4h',
      note:'진통 2~4시간. 진정·진해 작용', concs:[['주 2 mg/mL',2,'mg/mL'],['주 10 mg/mL',10,'mg/mL']]},
-    {id:'prednisolone', cat:'기타', kr:'프레드니솔론', en:'Prednisolone', dog:[0.5,1], cat:[0.5,1], route:'PO', freq:'q24h',
+    {id:'prednisolone', grp:'기타', kr:'프레드니솔론', en:'Prednisolone', dog:[0.5,1], cat:[0.5,1], route:'PO', freq:'q24h',
      note:'항염증 용량. 감량 계획 필요', concs:[['정 5 mg',5,'mg/정'],['시럽 15 mg/5mL',3,'mg/mL']]},
-    {id:'dexamethasone', cat:'기타', kr:'덱사메타손', en:'Dexamethasone', dog:[0.05,0.1], cat:[0.05,0.1], route:'IV / IM', freq:'q24h',
+    {id:'dexamethasone', grp:'기타', kr:'덱사메타손', en:'Dexamethasone', dog:[0.05,0.1], cat:[0.05,0.1], route:'IV / IM', freq:'q24h',
      note:'항염증 용량. 장기 투여 시 부작용', concs:[['주 5 mg/mL',5,'mg/mL'],['정 0.5 mg',0.5,'mg/정']]},
-    {id:'ursodiol', cat:'기타', kr:'우르소데옥시콜산', en:'Ursodiol', dog:[10,15], cat:[10,15], route:'PO', freq:'q24h',
+    {id:'ursodiol', grp:'기타', kr:'우르소데옥시콜산', en:'Ursodiol', dog:[10,15], cat:[10,15], route:'PO', freq:'q24h',
      note:'담즙淤滞·간 지원', concs:[['캡슐 100 mg',100,'mg/캡슐'],['캡슐 250 mg',250,'mg/캡슐']]}
   ];
 
@@ -551,6 +551,11 @@ table.sh-tbl tr.blank td{height:19px}
   var TABLET_UNITS = { 'mg/정':1, 'mg/캡슐':1 };
 
   function num(el, dflt){ var v = parseFloat(el.value); return isFinite(v) ? v : dflt; }
+  function perDayVal(){
+    var hrs = parseFloat($('freqSel').value);
+    if(!hrs || hrs <= 0) return 0;
+    return 24 / hrs;
+  }
   function fmt(v, d){
     if(!isFinite(v)) return '—';
     var s = v.toFixed(d === undefined ? 2 : d);
@@ -580,8 +585,8 @@ table.sh-tbl tr.blank td{height:19px}
     var sel = $('drugSel'), cats = {}, i, d;
     for(i=0;i<DRUGS.length;i++){
       d = DRUGS[i];
-      if(!cats[d.cat]) cats[d.cat] = [];
-      cats[d.cat].push(d);
+      if(!cats[d.grp]) cats[d.grp] = [];
+      cats[d.grp].push(d);
     }
     var html = '';
     for(var c in cats){
@@ -647,7 +652,7 @@ table.sh-tbl tr.blank td{height:19px}
     var high = num($('doseHigh'), NaN);
     var conc = num($('concVal'), 0);
     var unit = $('concUnit').value;
-    var perDay = parseFloat($('freqSel').value) || 0;
+    var perDay = perDayVal();
     var d = state.drug;
 
     var mg = (isFinite(use) && w > 0) ? use * w : NaN;
@@ -757,7 +762,7 @@ table.sh-tbl tr.blank td{height:19px}
     var use = num($('doseUse'), NaN);
     var conc = num($('concVal'), 0);
     var unit = $('concUnit').value;
-    var perDay = parseFloat($('freqSel').value) || 0;
+    var perDay = perDayVal();
     var d = state.drug;
     if(!d || !isFinite(use) || w <= 0) return '';
     var mg = use * w;
@@ -780,7 +785,7 @@ table.sh-tbl tr.blank td{height:19px}
     var conc = num($('concVal'), 0);
     var unit = $('concUnit').value;
     var mg = use * w;
-    var perDay = parseFloat($('freqSel').value) || 0;
+    var perDay = perDayVal();
     state.rx.push({
       name: d.kr + (d.en ? ' (' + d.en + ')' : ''),
       dose: fmt(mg, mg < 10 ? 2 : 1) + ' mg',
@@ -868,7 +873,7 @@ table.sh-tbl tr.blank td{height:19px}
     for(i=0;i<DRUGS.length;i++){
       d = DRUGS[i];
       html += '<tr><td><b>' + d.kr + '</b><br><span style="color:#8a9aaa;font-size:9.6px">' + d.en + '</span></td>' +
-        '<td><span class="cat-chip">' + d.cat + '</span></td>' +
+        '<td><span class="cat-chip">' + d.grp + '</span></td>' +
         '<td class="c">' + d.dog[0] + '–' + d.dog[1] + '</td>' +
         '<td class="c">' + (d.cat ? d.cat[0] + '–' + d.cat[1] : '<span style="color:#b3261e">금기·자료없음</span>') + '</td>' +
         '<td style="font-size:10px">' + d.freq + '<br><span style="color:#8a9aaa">' + d.route + '</span></td></tr>';
@@ -899,7 +904,7 @@ table.sh-tbl tr.blank td{height:19px}
     $('customBtn').addEventListener('click', function(){
       var kr = prompt('약물 이름(성분명)을 입력하세요', '직접 입력');
       if(!kr) return;
-      DRUGS.push({id:'custom' + DRUGS.length, cat:'직접', kr:kr, en:'', dog:[0,0], cat:[0,0], route:'PO', freq:'q12h', note:'직접 입력 약물', concs:[]});
+      DRUGS.push({id:'custom' + DRUGS.length, grp:'직접', kr:kr, en:'', dog:[0,0], cat:[0,0], route:'PO', freq:'q12h', note:'직접 입력 약물', concs:[]});
       buildDrugSelect();
       $('drugSel').value = 'custom' + (DRUGS.length - 1);
       state.drug = DRUGS[DRUGS.length - 1];
