@@ -4885,6 +4885,10 @@ function b4ItemSpikeMin(role,kind){
 }
 function b4ItemRecallWant(side,role,sec){
   if(!M) return null;
+  try{
+    const row=(MM&&MM.kda)?MM.kda[side+'-'+role]:null;
+    if(!row||(row.cs||0)<15) return null;      /* 라인전으로 CS를 쌓은 뒤에만 정비 귀환 */
+  }catch(e){}
   const nx=b4ItemNext(side,role);
   if(!nx||!nx.afford) return null;
   const s=(sec==null)?((typeof mmGameSec==='function')?mmGameSec():((M.sec)||0)):Number(sec)||0;
@@ -29178,15 +29182,19 @@ function v6RecallLogic(now){
         const gsec=(typeof mmGameSec==='function')?mmGameSec():((M&&M.sec)||0);
         const spike=(pct>0.30&&m>=2&&typeof b4ItemRecallWant==='function')?b4ItemRecallWant(side,role,gsec):null;
         if(!spike){ u.recallWalk=false; u.recallSpot=null; return; }
-        /* 라인을 잡고 있는 라이너만 골드 스파이크 귀환 (스플릿·오브젝트 대기는 그대로 둔다) */
-        if(u.mode!=='lane'&&u.mode!=='defend'&&u.mode!=='recallWalk'){ return; }
+        /* 라인·로테이션·정글 동선 중인 유닛만 골드 스파이크 귀환 (스플릿·오브젝트 대기는 그대로 둔다) */
+        const okMode=(u.mode==='lane'||u.mode==='rotate'||u.mode==='jungle'||u.mode==='defend');
+        if(!okMode){ return; }
         /* 웨이브를 밀어넣었거나, 라인에 웨이브가 있고 우리 타워로 몰리지 않을 때 귀환 */
         let waveOk=c.wavePushed;
         if(!waveOk&&!c.waveAtMyTower){
           try{
             const ln=(typeof mmRoleLane==='function')?mmRoleLane(role,gsec):'MID';
             let lm=0;
-            for(let i=0;i<(MM.minions||[]).length;i++){ const m2=MM.minions[i]; if(m2.alive&&m2.side===side&&m2.lane===ln) lm++; }
+            for(let i=0;i<(MM.minions||[]).length;i++){
+              const m2=MM.minions[i];
+              if(m2.alive&&m2.side===side&&m2.lane===ln&&m2.t>=0.28&&m2.t<=0.72) lm++;   /* 라인 한복판에 붙은 웨이브 */
+            }
             waveOk=(lm>=2);
           }catch(e){ waveOk=false; }
         }
