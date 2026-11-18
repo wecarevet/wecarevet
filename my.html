@@ -75,10 +75,9 @@ body{
 
 /* ── hero cards ── */
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(min-width:640px){ .grid{grid-template-columns:repeat(3,1fr)} }
-@media(min-width:900px){ .grid{grid-template-columns:repeat(3,1fr);gap:12px} }
-a.card{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:14px;
-  min-height:118px;padding:14px 14px 13px;border-radius:18px;text-decoration:none;color:inherit;
+@media(min-width:640px){ .grid{gap:12px} }
+a.card{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:12px;
+  min-height:112px;padding:14px 14px 13px;border-radius:18px;text-decoration:none;color:inherit;
   background:linear-gradient(160deg,var(--card2),var(--card) 70%);
   border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.34);
   transition:transform .16s cubic-bezier(.3,.7,0,1),border-color .16s,box-shadow .16s;overflow:hidden}
