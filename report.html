@@ -432,7 +432,7 @@ body.guardian .guardbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-in
     <div class="linkbox" id="sharebox">
       <div class="lb-title">보호자 전달용 링크</div>
       <input type="text" id="linkInput" readonly aria-label="공유 링크">
-      <div class="lb-warn">링크 안에 아이의 진료 정보가 그대로 담깁니다. 보호자 본인에게만 보내 주세요.</div>
+      <div class="lb-warn">링크 안에 아이의 진료 정보가 그대로 담깁니다. 보호자 본인에게만 보내 주세요. 카카오톡으로 보낼 때는 <b>[텍스트 복사]</b>가 더 안전합니다.</div>
     </div>
 
   </div>
@@ -1394,12 +1394,14 @@ function payload(){
     issued: S.issued, visit: S.visit, months: S.months, recheck: S.recheck,
     p: S.p,
     f: S.f.filter(function(r){ return String(r.val).trim() !== ''; }).map(function(r){
-      return { k:r.k, n:r.n, val:r.val, ref:resolve(r.ref), t:r.t, fl:rowFlag(r), custom:!!r.custom };
+      var o = { k:r.k, v:String(r.val), f:rowFlag(r) };
+      if(r.custom){ o.n = r.n; o.r = resolve(r.ref); o.t = r.t; }
+      return o;
     }),
     a: S.assess, c: S.care, m: S.memo
   };
 }
-function applyPayload(o, keepFlags){
+function applyPayload(o){
   if(!o) return;
   S.tpl = (o.tpl === 'renal' || o.tpl === 'checkup' || o.tpl === 'general') ? o.tpl : 'heart';
   S.mode = o.mode === 'hcm' ? 'hcm' : 'mmvd';
@@ -1409,20 +1411,33 @@ function applyPayload(o, keepFlags){
   S.months = Number(o.months) || 0;
   S.recheck = o.recheck || '';
   S.p = Object.assign(freshPatient(), o.p || {});
-  S.assess = o.a || '';
-  S.care = o.c || '';
-  S.memo = o.m || '';
+  S.assess = o.a !== undefined ? o.a : (o.assess || '');
+  S.care = o.c !== undefined ? o.c : (o.care || '');
+  S.memo = o.m !== undefined ? o.m : (o.memo || '');
   S.autoAssess = false;
   S.autoCare = false;
-  var rows = [];
-  (o.f || []).forEach(function(r){
-    rows.push({
-      k: r.k, n: r.n, val: r.val === undefined ? '' : String(r.val),
-      ref: r.ref || '', lo: '', hi: '', t: r.t || 'num', ph: '', opts: null,
-      long: false, custom: !!r.custom, fl: keepFlags && r.fl !== undefined ? r.fl : (r.fl || '')
+
+  var defs = rowsFor();
+  S.f = [];
+  (o.f || []).forEach(function(row){
+    var def = null;
+    for(var i = 0; i < defs.length; i++){ if(defs[i].k === row.k){ def = defs[i]; break; } }
+    var val = row.v !== undefined ? row.v : (row.val !== undefined ? row.val : '');
+    var fl = row.f !== undefined ? row.f : (row.fl || '');
+    S.f.push({
+      k: row.k,
+      n: def ? def.n : (row.n || ''),
+      val: String(val),
+      ref: def ? def.ref : (row.r || row.ref || ''),
+      lo: def ? def.lo : '', hi: def ? def.hi : '',
+      t: def ? (def.t || 'num') : (row.t || 'text'),
+      ph: def ? (def.ph || '') : '',
+      opts: def ? (def.opts || null) : null,
+      long: def ? !!def.long : false,
+      custom: !def,
+      fl: fl
     });
   });
-  S.f = rows;
 }
 
 function copyText(text){
@@ -1806,10 +1821,9 @@ function bind(){
     if(input) input.value = url;
     if(box) box.classList.add('show');
     copyText(url).then(function(ok){
-      if(ok) toast('보호자 링크를 복사했습니다. 보호자 본인에게만 보내 주세요.');
+      if(ok) toast('링크를 복사했습니다. 카카오톡에는 [텍스트 복사]가 더 안전합니다.');
       else toast('링크를 만들었습니다. 아래 칸에서 복사해 주세요.', true);
     });
-    if(url.length > 1900) toast('링크가 깁니다. 카카오톡에서 잘릴 수 있으니 텍스트 복사도 함께 보내 주세요.', true);
   });
 }
 
