@@ -2276,6 +2276,23 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 @media(min-width:720px){.d6-dock{border-radius:12px 12px 0 0;border:1px solid #232833;border-bottom:0}}
 .mb-bar .mb-t em{font-style:normal;color:#8f97a6;font-weight:700;margin-left:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
+/* ================= V6 — 게임 플랜 그룹 탭 ================= */
+.gp6-sum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+@media(min-width:720px){.gp6-sum{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.gp6-pill{display:flex;flex-direction:column;gap:2px;text-align:left;padding:7px 9px;border-radius:9px;
+  background:#0f1218;border:1px solid #1e232d;cursor:pointer}
+.gp6-pill em{font-style:normal;font-size:9.5px;font-weight:900;color:#8e97a8;letter-spacing:.02em}
+.gp6-pill b{font-size:9px;font-weight:800;color:#c9d0dd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gp6-pill.on{border-color:rgba(230,196,129,.75);background:linear-gradient(180deg,rgba(46,38,20,.9),rgba(18,15,8,.9))}
+.gp6-pill.on em{color:#e6c481}
+.gp6-tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:2px}
+.gp6-tabs button{flex:1 0 auto;display:flex;flex-direction:column;align-items:center;gap:1px;
+  padding:6px 10px;border-radius:8px;border:1px solid #1e232d;background:#0e1116;color:#9aa3b4;
+  font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap}
+.gp6-tabs button i{font-style:normal;font-size:8px;font-weight:700;color:#6b7486}
+.gp6-tabs button.on{color:#fff;border-color:#3a4457;background:#171c26}
+.gp6-body{display:flex;flex-direction:column;gap:8px}
+
 </style>
 </head>
 <body>
@@ -12146,8 +12163,10 @@ function show(name){
   if(name==='draft'||name==='plan'){
     try{ if(typeof V6BGM!=='undefined'&&V6BGM.on&&!SND.on) SND.on=true; }catch(e){}
     if(SND.on||(typeof V6BGM!=='undefined'&&V6BGM.on)){ try{ bgmStart(bgmCtx()); }catch(e){} }
+  }else if(name==='match'){
+    /* 밴픽 → 인게임 전환에서만 음악을 넘긴다 (탭 이동으로 끊기지 않게) */
+    bgmStop();
   }
-  else bgmStop();
   const shellish=(S&&(name==='hub'||name==='offseason'||name==='kespa'||name==='press'));
   const tb=$('topbar'); if(tb) tb.classList.toggle('hidden', !shellish);
   const rail=$('rail'); if(rail) rail.classList.toggle('hidden', !shellish);
@@ -20672,8 +20691,26 @@ function v6KillEntry(side, role, kind, victimOverride){
   V6FEED.streak[side]=(V6FEED.streak[side]||0)+1; V6FEED.streak[enemy]=0;
   if(V6FEED.streak[side]>=5){ tag='👑 ACE'; cls='ace'; V6FEED.streak[side]=0; }
   V6FEED.first=false;
+  /* 배너에 뜬 피해자는 그 순간 실제로 죽는다 (상태 동기화) */
+  try{
+    if(typeof v6SyncKillDeath==='function'){
+      let done=v6SyncKillDeath(enemy,victimRole);
+      if(!done){
+        /* 이미 죽어 있으면 살아있는 다른 유닛으로 교체 */
+        const alive=ROLES.filter(function(r2){
+          const u2=MM&&MM.units?MM.units[enemy+'-'+r2]:null;
+          return u2&&u2.alive;
+        });
+        if(alive.length){
+          const pick=alive[Math.floor(Math.random()*alive.length)];
+          if(v6SyncKillDeath(enemy,pick)){ victimRole=pick; }
+        }
+      }
+    }
+  }catch(e){}
+  const victimL2=lineupAt(enemy,victimRole)||victimL;
   return {type:'kill', side, killer:{name:killerL.name||ROLE_KR[role],champ:killerL.champ||'',role},
-    victim:{name:victimL.name||ROLE_KR[victimRole],champ:victimL.champ||'',role:victimRole},
+    victim:{name:victimL2.name||ROLE_KR[victimRole],champ:victimL2.champ||'',role:victimRole},
     assists, tag, cls};
 }
 /* 프레임마다 상태 델타를 읽어 배너를 띄운다 (엔진을 건드리지 않고 관찰) */
@@ -21745,11 +21782,18 @@ function v6BgmSave(){
   try{ localStorage.setItem('lckManager.bgm6',JSON.stringify({vol:V6BGM.vol,on:V6BGM.on,mode:V6BGM.mode})); }catch(e){}
 }
 function v6BgmUrl(){ return 'https://www.youtube.com/watch?v='+V6BGM.ytId; }
+/* 재생기 컨테이너는 #app 밖(document.body)에 1개만 — 화면 재렌더로 끊기지 않는다 */
 function v6BgmHost(){
   if(typeof document==='undefined') return null;
   if(V6BGM.host&&V6BGM.host.parentElement) return V6BGM.host;
-  let d=document.getElementById?document.getElementById('ytbgmHost'):null;
-  if(!d){ d=document.createElement('div'); d.id='ytbgmHost'; try{ document.body.appendChild(d); }catch(e){} }
+  let d=document.getElementById?document.getElementById('bgm-persistent-host'):null;
+  if(!d){
+    d=document.createElement('div');
+    d.id='bgm-persistent-host';
+    d.setAttribute('aria-hidden','true');
+    d.style.cssText='position:fixed;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:.01;pointer-events:none;z-index:-1';
+    try{ document.body.appendChild(d); }catch(e){}
+  }
   V6BGM.host=d;
   return d;
 }
@@ -22158,6 +22202,21 @@ const V6_GP_OBJ=[
   {k:'herald', n:'전령·포탑 스노우볼', ic:'🕯', d:'14분 전령으로 타워 철거 가속'},
   {k:'trade',  n:'사이드 교차 교환', ic:'🔀', d:'오브젝트 내주고 사이드 타워·CS로 교환'},
 ];
+const V6_GP_CARE=[
+  {k:'auto', n:'정글 판단', ic:'🧭', d:'상황 보고 개입 (무난)'},
+  {k:'top',  n:'탑 케어', ic:'🛡', d:'탑 3분 갱·시야 지원'},
+  {k:'mid',  n:'미드 케어', ic:'🌀', d:'미드 푸시 후 로밍 합류'},
+  {k:'bot',  n:'봇 케어', ic:'🐾', d:'봇 3분 다이브·카정 커버'},
+  {k:'none', n:'개입 없음', ic:'🚫', d:'정글 성장 우선 (갱킹 리스크 ↓)'},
+];
+const V6_GP_POSTURE=[
+  {k:'engage', n:'하드 이니시', ic:'💥', d:'선진입 — 한타 시작은 우리가'},
+  {k:'front',  n:'앞뒤 진형', ic:'🛡', d:'원딜 케어·정석 프론트투백'},
+  {k:'split',  n:'1-3-1 스플릿', ic:'🗺', d:'사이드 압박으로 인원 분산'},
+  {k:'bait',   n:'바론 낚시', ic:'🎣', d:'시야 먹고 한타 유도'},
+];
+const V6_GP_VISION=[{k:'low',n:'최소',ic:'🕯',d:'필요한 곳만'},{k:'std',n:'표준',ic:'🔦',d:'강가·핏 기본'},{k:'high',n:'적극',ic:'💡',d:'적 정글까지 장악 (골드 -)'}];
+const V6_GP_MACRO=[{k:'std',n:'균형',ic:'⚖️',d:'라인·오브젝트 균등'},{k:'fast',n:'속도전',ic:'⚡',d:'타워·오브젝트 먼저'},{k:'slow',n:'후반 지향',ic:'🌙',d:'파밍·성장 우선'}];
 const V6_GP_MAP={}; V6_GP_LEVEL1.forEach(o=>V6_GP_MAP['l1'+o.k]=o);
 function v6GpEnsure(G){
   const gp=G||((typeof GP!=='undefined')?GP:null);
@@ -22167,6 +22226,10 @@ function v6GpEnsure(G){
   if(!gp.jungleStart) gp.jungleStart='auto';
   if(gp.threat===undefined) gp.threat=null;
   if(!gp.objPriority) gp.objPriority=(gp.firstObj==='dragon')?'dragon':(gp.firstObj==='herald')?'herald':'grub';
+  if(!gp.care) gp.care='auto';
+  if(!gp.posture) gp.posture='front';
+  if(!gp.vision) gp.vision='std';
+  if(!gp.macro) gp.macro='std';
   /* 기존 필드와 양방향 동기화 */
   if(gp.level1==='swap1'){ gp.laneSwap=true; gp.invade='none'; }
   else if(gp.level1==='fiveMan'){ gp.laneSwap=false; gp.invade='steal'; }
@@ -22316,6 +22379,9 @@ function v6MinimapPlan(){
   try{ if(typeof v6StrongSideRoute==='function') v6StrongSideRoute(); }catch(e){}
   /* 라인 좌우 진영 고정 — 블루는 항상 s<front, 레드는 항상 s>front */
   try{ if(typeof v6EnforceLaneSides==='function') v6EnforceLaneSides(); }catch(e){}
+  /* 사망 상태 동기화 (부활 · 이동 금지) */
+  try{ if(typeof v6DeathTick==='function') v6DeathTick(); }catch(e){}
+  try{ if(typeof v6DeadLock==='function') v6DeadLock(); }catch(e){}
   /* 1:30 웨이브 도착 보장 · XP/포탑 사거리 */
   try{ if(typeof v6ArriveCheck==='function') v6ArriveCheck(); }catch(e){}
   try{ if(typeof v6XpCheck==='function') v6XpCheck(); }catch(e){}
@@ -22405,6 +22471,7 @@ function v6CoachPlan(r){
     posture:L.TOP==='push'?'push':'pull'};
 }
 /* --- 딥 게임플랜 화면 (구 renderGameplan 대체) --- */
+let GP6_TAB=0;
 function renderGameplan(){
   const r=D.result||evalDraft();
   const gp=v6GpEnsure(GP);
@@ -22418,6 +22485,7 @@ function renderGameplan(){
     ROLES.forEach(function(x){ const p=S.players[opp.lineup[x]]; if(p&&(!best||rawOverall(p)>rawOverall(best))) best=p; });
     return best;
   })();
+  const nm=function(list,k){ const o=(list||[]).filter(function(x){ return x.k===k; })[0]; return o?o.n:'-'; };
   const rowHTML=function(title,sub,list,cur,attr){
     return `<div class="gp6-sec"><b>${title}</b><i></i><span>${sub||''}</span></div>
     <div class="gp6-grid">
@@ -22428,31 +22496,8 @@ function renderGameplan(){
       }).join('')}
     </div>`;
   };
-  $('view-plan').innerHTML=`
-    <div class="draft-body">
-      <div class="gp6-head">
-        <div class="grow">
-          <div class="g6k">TACTICAL BOARD · ${esc(myTeam().tag)} vs ${esc(opp.tag)}</div>
-          <h3>게임 플랜</h3>
-          <div class="g6s">${D.gameIdx+1}세트 · 밴픽 우세도 ${r.myPct.toFixed(0)}% · 5개 항목이 전부 시뮬레이션·미니맵에 반영됩니다</div>
-        </div>
-      </div>
-      ${draftAdvBar(r)}
-      <div class="card tight">
-        <div class="card-h"><h4>상대 라인 분석</h4><span class="k">스카우팅</span></div>
-        <div class="kv"><span>공략 대상</span><b style="color:var(--green)">${ROLE_KR[strong]} ${esc(lane[strong].myPlayer)} (+${(lane[strong].my-lane[strong].opp).toFixed(1)})</b></div>
-        <div class="kv"><span>주의 라인</span><b style="color:var(--red)">${ROLE_KR[weak]} ${esc(lane[weak].myPlayer)} (${(lane[weak].my-lane[weak].opp).toFixed(1)})</b></div>
-        ${oppAce?`<div class="kv"><span>상대 키 플레이어</span><b style="color:#ffd98f">${esc(oppAce.name)} · ${ROLE_KR[oppAce.role]} OVR ${rawOverall(oppAce)}</b></div>`:''}
-      </div>
-      <div class="card tight">
-        <div class="card-h"><h4>실시간 작전 효과</h4><span class="k">TRADE-OFF PREVIEW</span></div>
-        ${v6GpPillsHTML(gp,r)}
-        <div class="tiny" style="margin-top:7px;line-height:1.5">초반 라인전·오브젝트는 이득, 갱킹 리스크는 손실입니다. 리스크가 높을수록 실패 시 초반 손해가 커집니다.</div>
-      </div>
-      <button class="gp6-auto" id="gpAuto">🧠 코치 추천 자동 세팅</button>
-      ${rowHTML('1레벨 설계','FIRST 90 SECONDS',V6_GP_LEVEL1,gp.level1,'l1')}
-      ${rowHTML('정글 시작 캠프','JUNGLE ROUTE',V6_GP_JUNGLE,gp.jungleStart,'js')}
-      <div class="gp6-sec"><b>라인별 스탠스</b><i></i><span>LANE STANCE</span></div>
+  const laneStanceHTML=function(){
+    return `<div class="gp6-sec"><b>라인별 스탠스</b><i></i><span>LANE STANCE</span></div>
       <div class="gp6-lanes">
         ${[['TOP','탑','TOP'],['MID','미드','MID'],['BOT','바텀','ADC/SUP']].map(function(x){
           const key=x[0];
@@ -22467,6 +22512,48 @@ function renderGameplan(){
             </div>
           </div>`;
         }).join('')}
+      </div>`;
+  };
+  const laneShort=function(key){
+    const cur=gp.lanes[key]||'push';
+    const o=V6_GP_LANES.filter(function(x){ return x.k===cur; })[0];
+    return o?o.ic+o.n:'-';
+  };
+  const tabs=[
+    {ic:'🌱',n:'초반 설계',sub:'0~5분'},
+    {ic:'⚔️',n:'라인·오브젝트',sub:'5~14분'},
+    {ic:'🐉',n:'중후반·한타',sub:'14분~'},
+    {ic:'🎯',n:'핵심 견제',sub:'매치업'},
+  ];
+  const pills=[
+    `1레벨 ${nm(V6_GP_LEVEL1,gp.level1)} · ${nm(V6_GP_JUNGLE,gp.jungleStart)}`,
+    `${nm(V6_GP_OBJ,gp.objPriority)} · 탑${laneShort('TOP')} 미드${laneShort('MID')} 봇${laneShort('BOT')}`,
+    '한타·시야 운영',
+    gp.threat?('전담 '+(S.players[opp.lineup[gp.threat]]||{}).name):'견제 없음',
+  ];
+  const tab0=`
+      ${rowHTML('1레벨 설계','FIRST 90 SECONDS',V6_GP_LEVEL1,gp.level1,'l1')}
+      ${rowHTML('정글 시작 동선','JUNGLE ROUTE',V6_GP_JUNGLE,gp.jungleStart,'js')}
+      ${rowHTML('초반 정글 케어','EARLY CARE',V6_GP_CARE,gp.care||'auto','care')}`;
+  const tab1=`
+      ${laneStanceHTML()}
+      ${rowHTML('오브젝트 우선순위','OBJECTIVE PRIORITY',V6_GP_OBJ,gp.objPriority,'obj')}
+      <div class="card tight">
+        <div class="row between">
+          <div class="grow"><div style="font-weight:800;font-size:12px">라인 스왑</div><div class="tiny">봇 열세 회피 · 유충 주도권 상실</div></div>
+          <button class="chip ${gp.laneSwap?'on':''}" data-ls="1">${gp.laneSwap?'시도':'안 함'}</button>
+        </div>
+      </div>`;
+  const tab2=`
+      ${rowHTML('한타 포메이션','TEAMFIGHT SHAPE',V6_GP_POSTURE,gp.posture||'front','posture')}
+      ${rowHTML('시야 투자 강도','VISION SPEND',V6_GP_VISION,gp.vision||'std','vision')}
+      ${rowHTML('중반 운영','MACRO TEMPO',V6_GP_MACRO,gp.macro||'std','macro')}`;
+  const tab3=`
+      <div class="card tight">
+        <div class="card-h"><h4>상대 라인 분석</h4><span class="k">스카우팅</span></div>
+        <div class="kv"><span>공략 대상</span><b style="color:var(--green)">${ROLE_KR[strong]} ${esc(lane[strong].myPlayer)} (+${(lane[strong].my-lane[strong].opp).toFixed(1)})</b></div>
+        <div class="kv"><span>주의 라인</span><b style="color:var(--red)">${ROLE_KR[weak]} ${esc(lane[weak].myPlayer)} (${(lane[weak].my-lane[weak].opp).toFixed(1)})</b></div>
+        ${oppAce?`<div class="kv"><span>상대 키 플레이어</span><b style="color:#ffd98f">${esc(oppAce.name)} · ${ROLE_KR[oppAce.role]} OVR ${rawOverall(oppAce)}</b></div>`:''}
       </div>
       <div class="gp6-sec"><b>키 스레트 견제</b><i></i><span>KEY THREAT MARK</span></div>
       <div class="gp6-threat">
@@ -22475,21 +22562,48 @@ function renderGameplan(){
           const p=S.players[opp.lineup[x]]||{};
           return `<button class="${gp.threat===x?'on':''}" data-threat="${x}">${ROLE_KR[x]} ${esc(p.name||'-')}</button>`;
         }).join('')}
-      </div>
-      ${rowHTML('오브젝트 우선순위','OBJECTIVE PRIORITY',V6_GP_OBJ,gp.objPriority,'obj')}
-      <div class="card tight">
-        <div class="row between">
-          <div class="grow"><div style="font-weight:800;font-size:12px">라인 스왑</div><div class="tiny">봇 열세 회피 · 유충 주도권 상실</div></div>
-          <button class="chip ${gp.laneSwap?'on':''}" data-ls="1">${gp.laneSwap?'시도':'안 함'}</button>
+      </div>`;
+  $('view-plan').innerHTML=`
+    <div class="draft-body">
+      <div class="gp6-head">
+        <div class="grow">
+          <div class="g6k">TACTICAL BOARD · ${esc(myTeam().tag)} vs ${esc(opp.tag)}</div>
+          <h3>게임 플랜</h3>
+          <div class="g6s">${D.gameIdx+1}세트 · 밴픽 우세도 ${r.myPct.toFixed(0)}% · 항목이 시뮬레이션·미니맵에 그대로 반영됩니다</div>
         </div>
+      </div>
+      ${draftAdvBar(r)}
+      <button class="gp6-auto" id="gpAuto">🧠 코치 추천 자동 세팅</button>
+      <div class="card tight">
+        <div class="card-h"><h4>실시간 작전 효과</h4><span class="k">TRADE-OFF PREVIEW</span></div>
+        ${v6GpPillsHTML(gp,r)}
+        <div class="tiny" style="margin-top:7px;line-height:1.5">초반 라인전·오브젝트는 이득, 갱킹 리스크는 손실입니다. 리스크가 높을수록 실패 시 초반 손해가 커집니다.</div>
+      </div>
+      <div class="gp6-sum">
+        ${pills.map(function(t,i){
+          return `<button class="gp6-pill ${GP6_TAB===i?'on':''}" data-gtab="${i}"><em>${tabs[i].ic} ${tabs[i].n}</em><b>${esc(t)}</b></button>`;
+        }).join('')}
+      </div>
+      <div class="gp6-tabs">
+        ${tabs.map(function(t,i){
+          return `<button class="${GP6_TAB===i?'on':''}" data-gtab="${i}">${t.ic} ${t.n}<i>${t.sub}</i></button>`;
+        }).join('')}
+      </div>
+      <div class="gp6-body">
+        ${GP6_TAB===0?tab0:GP6_TAB===1?tab1:GP6_TAB===2?tab2:tab3}
       </div>
       <button class="btn primary block" id="startGameBtn">경기 시작</button>
       <div style="height:6px"></div>
     </div>`;
   const v=$('view-plan');
+  v.querySelectorAll('[data-gtab]').forEach(function(b){ b.onclick=function(){ GP6_TAB=parseInt(b.dataset.gtab,10)||0; renderGameplan(); }; });
   v.querySelectorAll('[data-l1]').forEach(function(b){ b.onclick=function(){ GP.level1=b.dataset.l1; v6GpEnsure(GP); renderGameplan(); }; });
   v.querySelectorAll('[data-js]').forEach(function(b){ b.onclick=function(){ GP.jungleStart=b.dataset.js; renderGameplan(); }; });
+  v.querySelectorAll('[data-care]').forEach(function(b){ b.onclick=function(){ GP.care=b.dataset.care; renderGameplan(); }; });
   v.querySelectorAll('[data-obj]').forEach(function(b){ b.onclick=function(){ GP.objPriority=b.dataset.obj; v6GpEnsure(GP); renderGameplan(); }; });
+  v.querySelectorAll('[data-posture]').forEach(function(b){ b.onclick=function(){ GP.posture=b.dataset.posture; renderGameplan(); }; });
+  v.querySelectorAll('[data-vision]').forEach(function(b){ b.onclick=function(){ GP.vision=b.dataset.vision; renderGameplan(); }; });
+  v.querySelectorAll('[data-macro]').forEach(function(b){ b.onclick=function(){ GP.macro=b.dataset.macro; renderGameplan(); }; });
   v.querySelectorAll('[data-lane]').forEach(function(b){ b.onclick=function(){ GP.lanes=GP.lanes||{}; GP.lanes[b.dataset.lane]=b.dataset.v; v6GpEnsure(GP); renderGameplan(); }; });
   v.querySelectorAll('[data-threat]').forEach(function(b){ b.onclick=function(){ GP.threat=b.dataset.threat||null; renderGameplan(); }; });
   v.querySelectorAll('[data-ls]').forEach(function(b){ b.onclick=function(){ GP.laneSwap=!GP.laneSwap; renderGameplan(); }; });
@@ -22498,9 +22612,12 @@ function renderGameplan(){
     const plan=v6CoachPlan(r);
     GP.level1=plan.level1; GP.lanes=Object.assign({},plan.lanes); GP.jungleStart=plan.jungleStart;
     GP.objPriority=plan.objPriority; GP.threat=plan.threat; GP.focus=plan.focus; GP.macro=plan.macro; GP.posture=plan.posture;
+    if(plan.care) GP.care=plan.care; if(plan.vision) GP.vision=plan.vision;
+    GP.autoPlan=true;
     v6GpEnsure(GP);
     renderGameplan();
-    toast('🧠 코치 추천 세팅을 적용했습니다 — 5개 항목 전부 반영');
+    const q=v6CoachQuality();
+    toast('🧠 '+v6CoachName()+' 추천 세팅 적용 — 코치 판단력 '+Math.round(q*100)+'%'+(q<0.55?' (일부 항목은 물음표)':''));
   };
   const sb=$('startGameBtn');
   if(sb) sb.onclick=function(){
@@ -23683,6 +23800,60 @@ function v6TurretRangeGuard(){
       if(!p||!isFinite(p[0])||!isFinite(p[1])) return;
       MM.tgt[side+'-'+role]={x:p[0],y:p[1]};
       u.x+=(p[0]-u.x)*0.25; u.y+=(p[1]-u.y)*0.25;
+    });
+  });
+}
+
+/* ==========================================================================
+   19. 킬 배너 ↔ 실제 사망 상태 동기화
+   ========================================================================== */
+function v6SyncKillDeath(victimSide, role){
+  if(!M||!MM||!MM.units) return false;
+  const k=victimSide+'-'+role;
+  const u=MM.units[k];
+  if(!u) return false;
+  if(!u.alive) return false;
+  const sec=(typeof mmGameSec==='function')?mmGameSec():(M.sec||0);
+  const lvl=u.lvl||Math.max(1,10);
+  u.hp=0;
+  u.alive=false;
+  u.respawnAt=sec+(typeof v6RespawnSec==='function'?v6RespawnSec(lvl,sec):(6+lvl*0.6));
+  u.deadUntil=Infinity;          /* 게임 시간 기준으로만 부활 (v6DeathTick) */
+  u.dieAt=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+  u.deathSpot={x:u.x,y:u.y};
+  u.recallT=null; u.tp=null;
+  u.v6dead=true;
+  try{ if(typeof mmAddFx==='function') mmAddFx({type:'burst',x:u.x,y:u.y,col:'#ff6b84',life:600,label:'💀'}); }catch(e){}
+  return true;
+}
+function v6DeathTick(){
+  if(!M||!MM||!MM.units) return;
+  const sec=(typeof mmGameSec==='function')?mmGameSec():(M.sec||0);
+  ROLES.forEach(function(role){
+    ['me','opp'].forEach(function(side){
+      const u=MM.units[side+'-'+role];
+      if(!u||u.alive) return;
+      if(!u.v6dead) return;
+      if(u.respawnAt==null) return;
+      if(sec<u.respawnAt) return;
+      const f=MM_NEXUS[side];
+      u.x=f[0]; u.y=f[1];
+      u.hp=u.hpMax||100;
+      u.alive=true; u.v6dead=false; u.deadUntil=0; u.respawnAt=null;
+      u.regenAt=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+      try{ if(typeof mmAddFx==='function') mmAddFx({type:'ring',x:f[0],y:f[1],col:'#7cf7ff',life:700,r:0.03}); }catch(e){}
+    });
+  });
+}
+/* 죽은 유닛이 맵에서 움직이지 않게 보장 */
+function v6DeadLock(){
+  if(!M||!MM||!MM.units) return;
+  ROLES.forEach(function(role){
+    ['me','opp'].forEach(function(side){
+      const u=MM.units[side+'-'+role];
+      if(!u||u.alive) return;
+      MM.tgt[side+'-'+role]={x:u.x,y:u.y};
+      u.vx=0; u.vy=0;
     });
   });
 }
