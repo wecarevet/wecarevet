@@ -7468,7 +7468,8 @@ function coachLolpsTips(phase, myP, opP){
   if(phase==='ban'){
     const avail=lolpsBoard('ALL').filter(x=>used.indexOf(x.n)<0);
     const pick=avail[0];
-    if(pick) out.push({k:'ps', t:'lol.ps 26.22 실측 최상위: '+pick.n+' ('+ROLE_KR[pick.role]+' 승률 '+lolpsPct(pick.wr)+' · 픽률 '+lolpsPct(pick.pr)+' · 밴률 '+lolpsPct(pick.br)+') — 밴 가치가 가장 큽니다'});
+    const pv=(typeof LOLPS!=='undefined')?LOLPS.patch:'26.22';
+    if(pick) out.push({k:'ps', t:'lol.ps '+pv+' 실측 최상위: '+pick.n+' ('+ROLE_KR[pick.role]+' 승률 '+lolpsPct(pick.wr)+' · 픽률 '+lolpsPct(pick.pr)+' · 밴률 '+lolpsPct(pick.br)+') — 밴 가치가 가장 큽니다'});
     const banTop=avail.slice().sort((a,b)=>b.br-a.br)[0];
     if(banTop&&(!pick||banTop.n!==pick.n)) out.push({k:'ps', t:'밴률 1위는 '+banTop.n+' ('+lolpsPct(banTop.br)+' · 승률 '+lolpsPct(banTop.wr)+') — 상대도 노리는 카드입니다'});
   }
