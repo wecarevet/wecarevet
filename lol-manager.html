@@ -4604,9 +4604,7 @@ function kdaVictim(enemy,pt,want,used){
     if(d<bd){ bd=d; best=r; }
   });
   if(best) return best;
-  /* 전원이 이미 죽어 있으면 지정된 역할을 그대로 쓴다 (기록 유실 방지) */
-  if(want&&ROLES.indexOf(want)>=0) return want;
-  for(let i=0;i<ROLES.length;i++){ if(!used[ROLES[i]]) return ROLES[i]; }
+  /* 살아있는 적이 없으면 피해자를 만들지 않는다 (죽은 선수에게 중복 D 금지) */
   return null;
 }
 /* 사망 처리 — KDA 와 💀 타이머가 같은 선수에게 붙도록 여기서 한 번만 만진다 */
@@ -4663,10 +4661,11 @@ function kdaKill(o){
     kdaKillDeath(enemy,vr);
   }
   if(!victimRoles.length){
-    /* 피해자를 특정할 수 없어도 킬 수는 기록한다 (D 만 표시하지 않는다) */
-    kdaRow(team,killerRole).k+=1;
+    /* 살아있는 피해자가 없으면 킬로 세지 않는다 —
+       K 합계와 D 합계가 어긋나는 유령 킬을 만들지 않는다. */
+    return null;
   }
-  MM.kdaKills[team]=(MM.kdaKills[team]||0)+Math.max(1,n);
+  MM.kdaKills[team]=(MM.kdaKills[team]||0)+victimRoles.length;
   const rec={id:(M.kdaSeq=(M.kdaSeq||0)+1), team:team, role:killerRole,
     victimRole:victimRoles[0]||o.victimRole||null, victimRoles:victimRoles,
     assists:assists, pt:pt, at:(M.sec||0), n:Math.max(1,n)};
@@ -4861,7 +4860,7 @@ function b4ItemBuy(side,role,force){
   try{
     if(side==='me'&&typeof logEvent==='function'){
       const l=(typeof lineupAt==='function')?lineupAt(side,role):null;
-      logEvent('sys','🛒 '+(l&&l.name?l.name:ROLE_KR[role])+' — '+rec.name+' 구매 ('+rec.price.toLocaleString()+'G · '+rec.kind+' )');
+      logEvent('sys','🛒 '+(l&&l.name?l.name:ROLE_KR[role])+' — '+rec.name+' 구매 ('+rec.price.toLocaleString()+'G · '+(rec.kind==='boots'?'신발':'코어템')+')');
     }
   }catch(e){}
   return rec;
@@ -7621,7 +7620,7 @@ function kgTouchLast(e){
 function kgApply(e){
   if(!M) return null;
   const i=(typeof sideIdx==='function')?sideIdx(e.team):(e.team==='me'?0:1);
-  const n=Math.max(1,e.n||1);
+  let n=Math.max(1,e.n||1);
   /* 사이트가 커밋 직후 M.lastKill.kind/gankRole 을 다듬었으면 그 값을 살린다 */
   const prev=M.lastKill;
   const same=!!(prev&&prev.team===e.team&&prev.role===e.role);
@@ -7630,19 +7629,31 @@ function kgApply(e){
     lane:e.lane||((same&&prev.lane)?prev.lane:null),
     teamfight:!!e.teamfight,
     gankRole:(same&&prev.gankRole)?prev.gankRole:(e.gankRole||null)});
-  M.kills[i]=(M.kills[i]||0)+n;
   /* KDA — 킬러·피해자·어시스트를 이 자리에서 1:1로 확정한다(무작위 없음).
      피해자는 여기서 실제로 사망 처리되므로 💀 타이머와 D 가 같은 선수에게 붙는다. */
   let krec=null;
   try{ if(typeof kdaKill==='function') krec=kdaKill({team:e.team, role:e.role, victimRole:e.victimRole, pt:e.pt, n:n, teamfight:!!e.teamfight}); }catch(err){ krec=null; }
+  /* 실제로 쓰러진 피해자 수만큼만 킬로 센다 — K 합계 = 상대 D 합계 */
+  const applied = (typeof kdaKill==='function')?((krec&&krec.victimRoles)?krec.victimRoles.length:0):n;
+  if(!applied){
+    if(M.kgStats) M.kgStats.aborted++;
+    return {ok:false,skipped:'no-victim',team:e.team,role:e.role};
+  }
+  M.kills[i]=(M.kills[i]||0)+applied;
+  n=applied;
   if(krec){
     M.lastKill.victimRole=krec.victimRole||M.lastKill.victimRole;
     M.lastKill.assists=(krec.assists||[]).slice();
     if(krec.role) M.lastKill.role=krec.role;
+    /* 어시스트가 있으면 '솔로킬'로 부르지 않는다 (실제 킬 기록과 문구 일치) */
+    if((krec.assists||[]).length&&M.lastKill.kind==='solo') M.lastKill.kind='gank';
   }
   if(e.gold) addGold(e.team,e.gold);
   const lines=(e.lines||[]).slice();
   e.lines=[];
+  if(krec&&(krec.assists||[]).length){
+    lines.forEach(function(l){ if(l&&typeof l.text==='string') l.text=l.text.replace(/솔로킬/g,'합동 킬').replace(/단독으로/g,'여럿이 함께'); });
+  }
   /* BOUNTY — 연속 킬 상대를 끊으면 현상금이 기본 킬 골드 위에 얹힌다. */
   let bounty=null;
   try{
