@@ -1195,13 +1195,13 @@ function autoTag(en, arch){
   return 4;
 }
 
-function deckRowHTML(c, i, zone){
+function dbRowHTML(c, i, zone){
   const ko = cardKo(c.en), card = cardByName(c.en);
   const rar = (card && card.rarity) ? '<span class="rr" style="color:' + RARCOL(card.rarity) + '">' + card.rarity + '</span>' : '';
-  const ref = zone + ':' + i;
+  const ref = zone + ':' + i, tg = TAGS[clampInt(c.tag, 0, 4, 4)];
   return '<div class="dbrow">' +
     '<span class="nm">' + esc(ko) + (ko !== c.en ? '<em>' + esc(c.en) + '</em>' : '') + '</span>' + rar +
-    '<button class="tagb ' + TAGS[c.tag].cls + '" type="button" data-tagc="' + ref + '" title="눌러서 태그 바꾸기">' + TAGS[c.tag].ko + '</button>' +
+    '<button class="tagb ' + tg.cls + '" type="button" data-tagc="' + ref + '" title="눌러서 태그 바꾸기">' + tg.ko + '</button>' +
     '<span class="numstep">' +
       '<button type="button" data-cdec="' + ref + '" aria-label="줄이기">−</button>' +
       '<input type="number" data-cnum="' + ref + '" value="' + c.n + '" min="1" max="3" inputmode="numeric" aria-label="장수">' +
@@ -1221,10 +1221,10 @@ function renderDeck(){
   if (document.activeElement !== nameEl && nameEl.value !== curDeck.name) nameEl.value = curDeck.name;
   const mainList = $('#mainList'), extraList = $('#extraList');
   mainList.innerHTML = curDeck.main.length
-    ? curDeck.main.map((c, i) => deckRowHTML(c, i, 'main')).join('')
+    ? curDeck.main.map((c, i) => dbRowHTML(c, i, 'main')).join('')
     : '<div class="empty">카드를 담으면 여기에 쌓입니다.</div>';
   extraList.innerHTML = curDeck.extra.length
-    ? curDeck.extra.map((c, i) => deckRowHTML(c, i, 'extra')).join('')
+    ? curDeck.extra.map((c, i) => dbRowHTML(c, i, 'extra')).join('')
     : '<div class="empty">엑스트라 덱 카드를 담으면 여기에 쌓입니다.</div>';
   const mt = deckTotal('main'), et = deckTotal('extra');
   const mc = $('#mainCount'), ec = $('#extraCount');
