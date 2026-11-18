@@ -6796,7 +6796,10 @@ function simAIBo(aId,bId,bo){
 function createSeries(oppId,bo,stage,meta){
   const s={oppId,bo,stage,meta:meta||{},score:{me:0,opp:0},games:[],sides:[],fearless:!!S.fearless,
     fearlessUsed:[],done:false,pendingSide:false,coach:null,momentum:0,startedAt:Date.now()};
-  s.sides[0]=Math.random()<0.5?'blue':'red';
+  /* 1세트 진영 — 직전 시리즈의 반대로 번갈아 배정해 한쪽만 계속 블루가 되지 않게 한다 */
+  const prevStart=S.lastStartSide;
+  const start=prevStart?(prevStart==='blue'?'red':'blue'):(Math.random()<0.5?'blue':'red');
+  s.sides[0]=start; S.lastStartSide=start;
   S.currentSeries=s; S.seriesMomentum=0;
   return s;
 }
