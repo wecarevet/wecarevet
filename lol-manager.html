@@ -16826,6 +16826,7 @@ function renderHub(){
   else if(TAB==='records') c.innerHTML=recordsV3();
   else c.innerHTML=marketV3();
   bindHub();
+  try{ if(typeof b4BindLongPress==='function') b4BindLongPress(c); }catch(e){}
   show('hub');
   renderTopbar();
   renderRail();
@@ -17713,6 +17714,16 @@ function bindHub(){
     ev.preventDefault(); ev.stopPropagation();
     try{ hubAction(el.dataset.a,el.dataset.v,el); }
     catch(e){ toast('처리 중 오류가 발생했습니다'); try{ console.error(e); }catch(_){} }
+  });
+  /* 상대 구단 정보 모달 — 순위표·일정·대진의 팀 이름 */
+  document.addEventListener('click',ev=>{
+    const t=ev.target;
+    if(!t||!t.closest) return;
+    const hub=document.getElementById('view-hub');
+    if(!hub||!hub.contains(t)) return;
+    const el=t.closest('[data-teaminfo]'); if(!el) return;
+    ev.preventDefault(); ev.stopPropagation();
+    try{ if(typeof openTeamInfo==='function') openTeamInfo(el.dataset.teaminfo); }catch(e){}
   });
   document.addEventListener('input',ev=>{
     const t=ev.target;
@@ -18671,8 +18682,8 @@ function kespaV3(){
         ${k.rounds.map(rd=>`<div class="brk-col">
           <div class="brk-h">${esc(rd.name)}</div>
           ${rd.matches.map(m=>`<div class="brk-m ${m.done?'done':''} ${(m.a===S.userTeam||m.b===S.userTeam)?'mine':''}">
-            <div class="bm-s ${m.winner===m.a?'w':''}">${badge(T(m.a),'sm')}<span>${esc(T(m.a).tag)}</span><b>${m.done?m.sa:'-'}</b></div>
-            <div class="bm-s ${m.winner===m.b?'w':''}">${badge(T(m.b),'sm')}<span>${esc(T(m.b).tag)}</span><b>${m.done?m.sb:'-'}</b></div>
+            <div class="bm-s ${m.winner===m.a?'w':''}">${badge(T(m.a),'sm')}<span data-teaminfo="${m.a}" style="cursor:pointer">${esc(T(m.a).tag)}</span><b>${m.done?m.sa:'-'}</b></div>
+            <div class="bm-s ${m.winner===m.b?'w':''}">${badge(T(m.b),'sm')}<span data-teaminfo="${m.b}" style="cursor:pointer">${esc(T(m.b).tag)}</span><b>${m.done?m.sb:'-'}</b></div>
           </div>`).join('')}
         </div>`).join('')}
       </div>
@@ -18697,7 +18708,7 @@ function lckV3(){
         <thead><tr><th>TEAM</th><th>승</th><th>패</th><th>세트</th><th>최근</th></tr></thead>
         <tbody>
           ${st.map((t,i)=>`<tr class="${t.id===S.userTeam?'me':po.includes(t.id)?'po':''}">
-            <td><span class="tn2"><i>${i+1}</i>${badge(t,'sm')}<b>${esc(t.tag)}</b></span></td>
+            <td><span class="tn2" data-teaminfo="${t.id}" title="${esc(t.name)} 구단 정보" style="cursor:pointer"><i>${i+1}</i>${badge(t,'sm')}<b>${esc(t.tag)}</b></span></td>
             <td>${t.wins}</td><td>${t.losses}</td><td>${t.gw}-${t.gl}</td>
             <td><span class="frm">${t.form.slice(-4).map(f=>`<i class="${f==='W'?'w':'l'}"></i>`).join('')}</span></td>
           </tr>`).join('')}
@@ -18711,7 +18722,7 @@ function lckV3(){
         const res=S.results.find(r=>r.week===w+1&&r.stage==='regular'&&(r.a===S.userTeam||r.b===S.userTeam));
         return `<div class="sched-row ${w+1===S.week?'on':''}">
           <span class="sr-w">${w+1}</span>
-          <span class="sr-t">${myPair?esc(T(myPair[0]).tag)+' vs '+esc(T(myPair[1]).tag):'-'}</span>
+          <span class="sr-t">${myPair?`<b data-teaminfo="${myPair[0]}" style="cursor:pointer">${esc(T(myPair[0]).tag)}</b> vs <b data-teaminfo="${myPair[1]}" style="cursor:pointer">${esc(T(myPair[1]).tag)}</b>`:'-'}</span>
           <span class="sr-r">${res?res.sa+'-'+res.sb:(w+1===S.week?'이번 주':'예정')}</span>
         </div>`;
       }).join('')}
