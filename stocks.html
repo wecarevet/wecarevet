@@ -1353,6 +1353,10 @@ body.pkopen{overflow:hidden}
       + '<div class="set-row"><span>최근 1년 배당</span><b class="num">'+(it.divAmt?money(it,it.divAmt):"—")+'</b></div>'
       + '<div class="set-row"><span>배당수익률</span><b class="num">'+(it.divY==null?'—':it.divY.toFixed(2)+'%')+'</b></div>'
       + (val!=null?'<div class="set-row"><span>내 평가금액</span><b class="num">'+krw(val)+' ('+nf(held.qty,2)+'주)</b></div>':'')
+      + (etfOf(sym) ? '<div class="xlink">'
+          + '<button class="xl" type="button" data-goetf="'+sym+'">⚖️ ETF 비교</button>'
+          + '<button class="xl" type="button" data-gobt="'+sym+'">📈 백테스트에 담기</button>'
+        + '</div>' : '')
       + '<div class="divider"></div>'
       + '<div class="h2">내 보유</div>'
       + '<div class="row2 frm" style="margin-top:6px">'
