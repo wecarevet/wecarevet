@@ -2693,6 +2693,46 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .coachbox.collapsible[open]>summary{border-bottom:1px solid #1e2633}
 .coachbox.collapsible .cb-body{padding:6px 10px 9px}
 
+/* ---------- 커스텀 창단: 인수 우선계약 단계 ---------- */
+.ct-sign-list{display:flex;flex-direction:column;gap:6px}
+.ct-sign-row{display:flex;align-items:center;gap:8px;padding:10px 11px;border-radius:12px;
+  background:#0d121d;border:1px solid #232b3a;cursor:pointer}
+.ct-sign-row input[type=checkbox]{width:17px;height:17px;accent-color:#3ddc97;flex:0 0 auto}
+.ct-sr-role{flex:0 0 auto;font-size:10px;font-weight:900;color:#0a1220;background:#7cf7ff;
+  padding:2px 7px;border-radius:6px}
+.ct-sr-name{flex:1;min-width:0;font-size:13px;font-weight:900;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ct-sr-meta{font-size:10.5px;color:#8f99ad;font-weight:800;flex:0 0 auto}
+.ct-sr-state{flex:0 0 auto;font-size:10px;font-weight:900;color:#ff9aa9;border:1px solid rgba(255,120,140,.45);
+  padding:2px 7px;border-radius:20px}
+.ct-sr-state.stay{color:#3ddc97;border-color:rgba(61,220,151,.5)}
+
+/* ---------- 시즌 결산 성적표 ---------- */
+.scr-card{border-color:rgba(255,201,74,.28)}
+.scr-top{display:flex;gap:12px;align-items:center}
+.scr-badge{flex:0 0 auto;width:74px;height:74px;border-radius:20px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;border:2px solid var(--gc,#ffd166);
+  background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(0,0,0,.25))}
+.scr-badge b{font-size:26px;font-weight:900;color:var(--gc,#ffd166);line-height:1}
+.scr-badge em{font-style:normal;font-size:10px;font-weight:900;color:#c9d4e6;margin-top:3px}
+.scr-badge.lg{width:88px;height:88px;margin:0 auto}
+.scr-badge.lg b{font-size:32px}
+.scr-bars{display:flex;flex-direction:column;gap:9px;margin-top:11px}
+.scr-row{}
+.scr-h{display:flex;align-items:center;justify-content:space-between}
+.scr-n{font-size:11.5px;font-weight:900;color:#dbe3f0}
+.scr-s{font-size:12px;font-weight:900;color:#ffd98f}
+.scr-s em{font-style:normal;font-size:9.5px;color:#7d8798;font-weight:800}
+.scr-bar{height:6px;border-radius:6px;background:#151a24;overflow:hidden;margin-top:4px}
+.scr-bar i{display:block;height:100%;border-radius:6px}
+.scr-note{font-size:10px;color:#8f99ad;font-weight:700;margin-top:3px;line-height:1.35}
+
+/* ---------- 롤 BJ · 스트리머 영입 ---------- */
+.bj-row{align-items:flex-start}
+.bj-av{display:flex;align-items:center;justify-content:center;font-size:17px}
+.f-b .bj-start{display:flex;align-items:center;gap:4px;font-size:9.5px;font-weight:900;color:#8f99ad;margin:3px 0}
+.f-b .bj-start input{width:14px;height:14px;accent-color:#ffc94a}
+.btn.gold{background:linear-gradient(180deg,rgba(255,201,74,.22),rgba(255,201,74,.08));border-color:rgba(255,201,74,.5);color:#ffd98f}
+
 </style>
 </head>
 <body>
@@ -7692,17 +7732,16 @@ function flexSwapOptions(assign,team){
    창단 후에는 기존 구단과 똑같이 18경기 정규시즌 · 밴픽 · 아카데미 · 스폰서 · MSI/월즈를 탄다.
 */
 
-/* ---------- 창단 모드(난이도) ---------- */
+/* ---------- 창단 모드: 랜덤 유망주 스쿼드 하나뿐 ----------
+   난이도 선택(LCK 1군 신생 / 신인 언더독)과 OVR 직접 조절은 없앴다.
+   어떤 유망주가 뽑히는지는 운 — 이름·엠블럼·컬러만 내가 정한다. */
 const CT_MODES = {
-  lck: {k:'lck', n:'LCK 1군 신생 구단', icon:'🏟',
-    d:'즉전감 있는 1군 로스터로 시작 — 첫 시즌부터 플레이오프를 노린다',
-    tier:'B+', ovrMin:68, ovrMax:88, cap:404, budget:32, prestige:58, fanbase:38, coachRating:78},
-  underdog: {k:'underdog', n:'신인 언더독 (챌린저스 승격)', icon:'🌱',
-    d:'낮은 OVR 유망주 + 가성비 스폰서 — 3년 안에 왕조를 세우는 하드 모드',
-    tier:'C', ovrMin:60, ovrMax:78, cap:344, budget:13, prestige:40, fanbase:22, coachRating:68},
+  prospect: {k:'prospect', n:'랜덤 유망주 스쿼드', icon:'🌱',
+    d:'62~76 OVR 유망주 5인을 랜덤으로 받는다 — 어떤 선수가 뽑힐지는 운',
+    tier:'C+', ovrMin:62, ovrMax:76, cap:345, budget:20, prestige:48, fanbase:26, coachRating:72},
 };
-const CT_MODE_LIST=[CT_MODES.lck,CT_MODES.underdog];
-function ctModeOf(k){ return CT_MODES[k]||CT_MODES.lck; }
+const CT_MODE_LIST=[CT_MODES.prospect];
+function ctModeOf(k){ return CT_MODES.prospect; }
 
 /* ---------- 컬러 프리셋 ---------- */
 const CT_COLORS=[
@@ -7762,13 +7801,15 @@ function ctDefaultTrait(role){
   }catch(e){ return null; }
 }
 function ctDefaultConfig(){
-  return {
+  const cfg={
     name:'위케어 e스포츠', tag:'WCV', color:'#2f6bff', accent:'#7cf7ff', emblem:'paw',
     tagline:'동물병원에서 시작한 e스포츠 구단',
-    mode:'lck', join:'replace', victim:'BRO',
-    coach:{name:'박성수', rating:78},
-    roster:ctDefaultRoster(ctModeOf('lck')),
+    mode:'prospect', join:'replace', victim:'BRO',
+    coach:{name:'박성수', rating:ctModeOf('prospect').coachRating},
+    roster:[],
   };
+  cfg.roster=ctRandomRoster(cfg);
+  return cfg;
 }
 function ctCapOf(cfg){ return ctModeOf(cfg&&cfg.mode).cap; }
 function ctOvrTotal(cfg){ return (cfg&&cfg.roster||[]).reduce((a,r)=>a+(Number(r.ovr)||0),0); }
@@ -7818,7 +7859,7 @@ function ctValidate(cfg){
   if(tag.length<2||tag.length>4) return {ok:false,msg:'약칭(태그)은 2~4자로 입력해 주세요'};
   const mode=ctModeOf(cfg.mode);
   const roster=cfg.roster||[];
-  if(roster.length!==5) return {ok:false,msg:'5인 로스터를 모두 채워 주세요'};
+  if(roster.length!==5) return {ok:false,msg:'5인 유망주 스쿼드를 모두 채워 주세요'};
   const seen={};
   const taken=ctTakenNames();
   for(const r of roster){
@@ -7828,11 +7869,8 @@ function ctValidate(cfg){
     if(seen[nm]) return {ok:false,msg:'닉네임이 중복됩니다: '+nm};
     if(taken[nm]) return {ok:false,msg:'이미 리그에 있는 선수 이름입니다: '+nm+' — 다른 닉네임을 써주세요'};
     seen[nm]=1;
-    const ovr=Number(r.ovr);
-    if(!(ovr>=mode.ovrMin&&ovr<=mode.ovrMax)) return {ok:false,msg:nm+' OVR은 '+mode.ovrMin+'~'+mode.ovrMax+' 범위여야 합니다'};
   }
-  if(ctOvrTotal(cfg)>mode.cap) return {ok:false,msg:'OVR 총합이 창단 예산('+mode.cap+')을 넘었습니다'};
-  if(cfg.join==='replace'&&!cfg.victim) return {ok:false,msg:'대체할 구단을 골라 주세요'};
+  if(cfg.join==='replace'&&!cfg.victim) return {ok:false,msg:'인수할 구단을 골라 주세요'};
   if(!String(cfg.coach&&cfg.coach.name||'').trim()) return {ok:false,msg:'감독 이름을 입력해 주세요'};
   return {ok:true,msg:'ok'};
 }
@@ -7857,11 +7895,9 @@ function ctTeamId(tag){
 function ctBuildDef(cfg){
   const mode=ctModeOf(cfg.mode);
   const id=ctTeamId(cfg.tag);
-  const roster=(cfg.roster||[]).map(r=>{
-    let sigs=[];
-    try{ sigs=v6DefaultSigs(r.role)||[]; }catch(e){ sigs=[]; }
-    return [String(r.name||'').trim(), r.role, clamp(Number(r.age)||20,16,40), clamp(Number(r.ovr)||mode.ovrMin,mode.ovrMin,mode.ovrMax), r.style||'stable', sigs];
-  });
+  /* 1군 로스터는 창단 절차에서 채운다(인수 구단 잠류 선수 + 2군 콜업)
+     — 여기에 유망주를 넣어버리면 유망주가 1군으로 올라가 버린다. */
+  const roster=[];
   return {
     id:id, name:String(cfg.name||'').trim(), tag:ctCleanTag(cfg.tag).toUpperCase(),
     color:cfg.color||'#2f6bff', accent:cfg.accent||'#ffffff', emblem:cfg.emblem||'paw',
@@ -7938,22 +7974,45 @@ function ctStart(cfg,opts){
   if(!v.ok) return v;
   const mode=ctModeOf(cfg.mode);
   const def=ctBuildDef(cfg);
-  const drop=(cfg.join==='replace')?[cfg.victim||'BRO']:[];
+  const takeover=(cfg.join==='replace');
+  const victim=takeover?(cfg.victim||'BRO'):null;
+  const starters=takeover?ctVictimStarters(victim):[];
+  const keepArr=Array.isArray(opts.keep)?opts.keep:starters.map(s=>s.name);
+  const keep={}; keepArr.forEach(n=>{ keep[n]=1; });
+  const drop=takeover?[victim]:[];
   try{ deleteSave(); }catch(e){}
   let st=null;
   try{
     st=createState(def.id,{extraDefs:[def],dropTeam:drop,custom:{
       name:def.name,tag:def.tag,color:def.color,accent:def.accent,emblem:def.emblem,
-      mode:cfg.mode,join:cfg.join,victim:drop[0]||null,tagline:def.tagline,
-      coach:cfg.coach,cap:mode.cap,created:Date.now()
+      mode:'prospect',join:cfg.join,victim:victim,takeover:!!takeover,kept:keepArr.slice(),
+      tagline:def.tagline,coach:cfg.coach,cap:mode.cap,created:Date.now()
     }});
   }catch(e){ return {ok:false,msg:'창단 중 오류: '+(e&&e.message||e)}; }
   try{ if(typeof setCareerRole==='function') setCareerRole('owner'); }catch(e){}
-  ctApplyRoster(st,cfg,def.id);
-  ctApplyCoach(st,cfg,def.id);
-  const t=st.teams[def.id];
-  if(t) t.budget=mode.budget;
-  /* 구단 하우스(명성·팬심·스폰서)도 모드에 맞춘다 */
+  /* ---- 인수한 구단 선수: 체크 = 잔류(1군) · 해제 = FA 방출 ---- */
+  const keptNames=[], releasedNames=[];
+  if(takeover){
+    const tt=st.teams[def.id];
+    starters.forEach(s=>{
+      const stay=!!keep[s.name];
+      const p=mkPlayer(s.name,s.role,s.age,s.ovr,s.style||'stable',s.sigs||[],stay?def.id:null);
+      if(stay){
+        p.starter=true; p.contract=2; p.bj=false;
+        keptNames.push(p.name);
+        if(tt){ tt.roster.push(p.name); tt.lineup[s.role]=p.name; }
+      }else{
+        p.starter=false; p.team=null; p.fa=true; p.contract=0;
+        p.fee=Math.round(p.salary*1.7*10)/10;
+        p.formerTag=(st.teams[victim]&&st.teams[victim].tag)||victim;
+        p.relNote='인수 구단 정리로 방출';
+        releasedNames.push(p.name);
+      }
+      st.players[p.name]=p;
+    });
+  }
+  /* ---- 창단 유망주 5인은 2군(아카데미)으로 ---- */
+  const prospects=ctProspectAcademy(cfg,st);
   try{
     clubInit();
     const c=S.club||{};
@@ -7961,17 +8020,102 @@ function ctStart(cfg,opts){
     c.carry=mode.budget; c.membership=1.0;
     c.sponsors={main:null,sub:[]}; c.offers=null;
     rollSponsorOffers();
-    c.academy=academyGen();
+    c.academy=(c.academy||[]).concat(prospects);
     if(typeof v6AcadEnsure==='function') v6AcadEnsure();
   }catch(e){}
+  /* ---- 1군에 빈 라인이 있으면 2군 → FA 순서로 자동 승격 ---- */
+  const filled=ctFillFirstTeam(st,def.id);
+  ctApplyCoach(st,cfg,def.id);
+  const t=st.teams[def.id];
+  if(t) t.budget=mode.budget;
   /* 로스터가 바뀌었으니 일정·KESPA·아카데미를 다시 맞춘다 */
   try{ st.schedule=[]; v6EnsureSchedule(); }catch(e){}
   try{ st.kespa=kespaInit(); }catch(e){}
   try{ if(typeof v6FixGroups==='function') st.lckSplit=null; }catch(e){}
+  try{
+    if(releasedNames.length) newsAdd('이적','📄 '+def.name+' 인수 — '+releasedNames.join(', ')+' FA 방출');
+    if(keptNames.length) newsAdd('구단','✍️ '+def.name+' 잔류 계약 — '+keptNames.join(', '));
+    if(filled.length) newsAdd('구단','🎓 2군 콜업 — '+filled.map(f=>f.name+'('+ROLE_KR[f.role]+')').join(', '));
+  }catch(e){}
   try{ saveGame(); }catch(e){}
   if(opts.noIntro){ try{ renderAll(); }catch(e){} }
   else { try{ introStart(); }catch(e){ renderAll(); } }
-  return {ok:true,msg:'✨ '+def.name+' 창단 완료 — '+mode.n, def:def};
+  return {ok:true,msg:'✨ '+def.name+' 창단 완료 — '+mode.n, def:def,
+    kept:keptNames, released:releasedNames, promoted:filled};
+}
+
+/* ---------- 인수 구단 주전 5인 (계약 우선권 대상) ---------- */
+function ctVictimStarters(id){
+  const d=ctTeamDefOf(id);
+  if(!d) return [];
+  return (d.roster||[]).slice(0,5).map(r=>({
+    name:r[0], role:r[1], age:r[2], ovr:r[3], style:r[4], sigs:r[5]||[]
+  }));
+}
+function ctTeamDefOf(id){
+  let def=null;
+  try{ def=(TEAM_DEFS||[]).find(d=>d&&d.id===id)||null; }catch(e){ def=null; }
+  return def;
+}
+/* ---------- 창단 유망주 → 2군 명단 ---------- */
+function ctProspectAcademy(cfg,st){
+  const used={};
+  try{ Object.keys((st&&st.players)||{}).forEach(n=>{ used[n]=1; }); }catch(e){}
+  return (cfg.roster||[]).map((r,i)=>{
+    const ovr=clamp(Number(r.ovr)||68,58,84);
+    const pot=clamp(ovr+8+Math.floor(Math.random()*13),ovr+4,96);
+    let nm=String(r.name||'').trim()||('루키'+(i+1));
+    while(used[nm]){ nm=nm+'2'; }
+    used[nm]=1;
+    return {
+      name:nm, role:r.role, age:clamp(Number(r.age)||20,16,24), rating:ovr,
+      potential:pot, exp:0, weeks:0, note:'창단 유망주', focus:'lane', mentor:null, traits:[],
+      grade:(typeof v6PotentialGrade==='function')?v6PotentialGrade(pot):(pot>=88?'S':pot>=80?'A':'B'),
+      stats:{lane:ovr,fight:ovr,macro:ovr,pool:ovr,mental:ovr}, ct:true,
+    };
+  });
+}
+/* ---------- 1군 빈 라인 채우기: 2군 콜업 → FA 영입 ---------- */
+function ctFillFirstTeam(st,teamId){
+  const out=[];
+  if(!st||!st.teams||!st.teams[teamId]) return out;
+  const t=st.teams[teamId];
+  const c=(S&&S.club)||null;
+  ROLES.forEach(role=>{
+    const cur=t.lineup[role];
+    if(cur&&st.players[cur]) return;
+    /* 1) 2군에서 같은 포지션 최고 유망주 승격 */
+    if(c&&Array.isArray(c.academy)){
+      /* 창단 유망주(ct)를 먼저 — 없으면 기존 아카데미에서 잠재력 순 */
+      let bi=-1,bp=-1,bf=-1;
+      c.academy.forEach((a,i)=>{
+        if(!a||a.role!==role) return;
+        const p=(a.potential||a.rating||60)+(a.ct?40:0);
+        if(p>bp){bp=p;bi=i;bf=a.ct?1:0;}
+      });
+      if(bi>=0){
+        const a=c.academy[bi];
+        const nm=uniqPlayerName(a.name);
+        const p=mkPlayer(nm,role,Math.min(22,a.age||19),a.rating||64,'balanced',[],teamId);
+        p.starter=true; p.contract=3;
+        p.salary=Math.max(0.5,Math.round((a.rating||64)*0.035*10)/10);
+        p.fromAcademy=true;
+        st.players[p.name]=p; t.roster.push(p.name); t.lineup[role]=p.name;
+        c.academy.splice(bi,1);
+        out.push({role:role,name:p.name,from:'academy'});
+        return;
+      }
+    }
+    /* 2) FA 풀에서 영입 */
+    const fa=Object.values(st.players).filter(p=>p&&p.fa&&!p.team&&!p.retired&&p.role===role)
+      .sort((a,b)=>rawOverall(b)-rawOverall(a))[0];
+    if(fa){
+      fa.team=teamId; fa.fa=false; fa.starter=true;
+      t.roster.push(fa.name); t.lineup[role]=fa.name;
+      out.push({role:role,name:fa.name,from:'fa'});
+    }
+  });
+  return out;
 }
 
 /* ---------- 대체 후보 (리그 하위 구단) ---------- */
@@ -8619,6 +8763,7 @@ function acadEnsureHandles(){
     c.academy.forEach(a=>{ if(a&&a.name) used[a.name]=1; });
     c.academy.forEach((a,i)=>{
       if(!a||!a.name) return;
+      if(a.ct) return;              /* 창단 유망주는 사용자가 정한 닉네임 유지 */
       if(!/[가-힣]/.test(a.name)) return;
       const pool=ACAD_NAMES.map(x=>x[0]).filter(n=>!used[n]);
       if(!pool.length) return;
@@ -8847,6 +8992,8 @@ function clubSeasonSettle(){
   c.goals=ownerGoals();
   c.academy=academyGen();
   rollSponsorOffers();
+  /* 시즌 결산 성적표(구단주·감독 평가) — 한 시즌에 한 번만 저장 */
+  try{ if(typeof seasonReportSave==='function') seasonReportSave(); }catch(e){}
   newsAdd('club','📅 시즌 결산 — 목표 보너스를 정산했습니다');
   saveGame();
 }
@@ -9666,7 +9813,7 @@ function careerGenerated(p,now,curTag){
 }
 
 /* ============ STOVE LEAGUE: 재계약 협상 · FA 입찰 · 트레이드 ============ */
-const STOVE_TABS=[{k:'fa',n:'FA 입찰'},{k:'resign',n:'재계약 협상'},{k:'trade',n:'트레이드'}];
+const STOVE_TABS=[{k:'fa',n:'FA 입찰'},{k:'resign',n:'재계약 협상'},{k:'trade',n:'트레이드'},{k:'bj',n:'🎙️ 롤 BJ'}];
 let STOVE_TAB='fa';
 let STOVE_SEL={team:null,target:null,mine:null};
 let STOVE_LG='LCK';
@@ -10103,7 +10250,7 @@ function stovePanelHTML(){
     <div class="card tight"><div class="seg3">
       ${STOVE_TABS.map(x=>`<button class="seg-b ${tab===x.k?'on':''}" data-a="stovetab" data-v="${x.k}">${x.n}</button>`).join('')}
     </div></div>
-    ${tab==='fa'?stoveFaHTML():tab==='resign'?stoveResignHTML():stoveTradeHTML()}`;
+    ${tab==='fa'?stoveFaHTML():tab==='resign'?stoveResignHTML():tab==='bj'?(typeof stoveBjHTML==='function'?stoveBjHTML():''):stoveTradeHTML()}`;
 }
 function stoveRender(){
   try{
@@ -10125,6 +10272,12 @@ function stoveAction(a,v,root){
   if(a==='fa'){
     const r=stoveFaOffer(v,rd('data-fasal',v),rd('data-fayears',v));
     toast(r.msg,r.ok?2600:3800); stoveRender(); return true;
+  }
+  if(a==='bjsign'){
+    let starter=false;
+    try{ const cb=root&&root.querySelector('[data-bjstart="'+String(v).replace(/"/g,'\\"')+'"]'); starter=!!(cb&&cb.checked); }catch(e){}
+    const r=(typeof bjSign==='function')?bjSign(v,rd('data-bjsal',v),rd('data-bjyears',v),{starter:starter}):{ok:false,msg:'BJ 영입 모듈을 찾을 수 없습니다'};
+    toast(r.msg,r.ok?3000:3800); stoveRender(); return true;
   }
   if(a==='resign'){
     const r=stoveReSign(v,rd('data-rsal',v),rd('data-ryears',v));
@@ -13514,7 +13667,13 @@ document.addEventListener('click',(e)=>{
   if(rf&&D){ D.roleFilter=rf.dataset.rf; renderDraft(); return; }
 }, false);
 
-/* ============ CUSTOM TEAM — 창단 빌더 화면 ============ */
+/* ============ CUSTOM TEAM — 창단 빌더 화면 ============
+   정하는 것: 이름 · 약칭 · 슬로건 · 컬러 · 엠블럼 · 감독 이름 · 합류 방식.
+   정하지 않는 것: 난이도와 선수 OVR — 유망주 5인은 항상 랜덤이다.
+     · 하위 구단 인수 → 인수 구단 주전 5인에게 잔류/방출 우선 계약권(다음 단계)
+       잔류 = 1군, 방출 = FA 풀. 창단 유망주 5인은 2군(아카데미)에서 시작.
+     · 11번째 구단 → 유망주 5인이 1군으로 자동 승격.
+*/
 let CTCFG=null;
 function ctAvgOf(cfg){ const t=ctOvrTotal(cfg); return Math.round((t/5)*10)/10; }
 function ctCrest(cfg,size){
@@ -13525,21 +13684,7 @@ function ctJoinLabel(cfg){
   const v=(ctVictimOptions().find(x=>x.id===cfg.victim)||{}).name||cfg.victim||'—';
   return esc(v)+' 자리 인수';
 }
-function ctMeterHTML(cfg){
-  const mode=ctModeOf(cfg.mode);
-  const total=ctOvrTotal(cfg), cap=mode.cap, pct=clamp(Math.round(total/cap*100),0,100);
-  const over=total>cap;
-  return `<div class="row between"><span class="tiny" style="font-weight:900">OVR 총합</span>
-      <b class="ct-cap ${over?'over':''}">${total} / ${cap}</b></div>
-    <div class="ct-bar"><i style="width:${pct}%"></i></div>
-    <div class="tiny" id="ctMeterHint">${over?'예산 초과 — OVR을 낮춰 주세요':'남은 OVR 예산 '+Math.max(0,cap-total)+' · 선수 1인당 '+mode.ovrMin+'~'+mode.ovrMax}</div>`;
-}
-function ctPlayerRow(cfg,r,i){
-  const mode=ctModeOf(cfg.mode);
-  const pers=PERSONALITIES.map(p=>`<option value="${p.k}" ${r.persona===p.k?'selected':''}>${p.icon} ${p.n}</option>`).join('');
-  let traits=[];
-  try{ traits=(traitPoolFor(r.role,true).fit||[]); }catch(e){ traits=[]; }
-  const trOpt=traits.map(t=>`<option value="${t.id}" ${r.trait===t.id?'selected':''}>${t.n}</option>`).join('');
+function ctProspectRow(r,i){
   return `<div class="ct-p" data-i="${i}">
     <div class="ct-p-top">
       <span class="ct-role">${ROLE_KR[r.role]||r.role}</span>
@@ -13547,18 +13692,25 @@ function ctPlayerRow(cfg,r,i){
       <b class="ct-ovr" id="ctOvr${i}">${r.ovr}</b>
     </div>
     <div class="ct-p-nums">
-      <label class="ct-mini">나이<input class="ct-page" type="number" data-i="${i}" min="16" max="40" value="${r.age}"></label>
-      <label class="ct-mini ct-ovrline">OVR<input class="ct-povr" type="range" data-i="${i}" min="${mode.ovrMin}" max="${mode.ovrMax}" value="${r.ovr}"></label>
-    </div>
-    <div class="ct-p-sels">
-      <select class="ct-pers" data-i="${i}">${pers}</select>
-      <select class="ct-trait" data-i="${i}">${trOpt}</select>
+      <span class="ct-mini">나이 <b>${r.age}</b></span>
+      <span class="ct-mini">OVR <b>${r.ovr}</b></span>
+      <span class="ct-mini">${esc((PERSONALITIES.find(p=>p.k===r.persona)||{icon:'•',n:'성향'}).icon)} ${esc((PERSONALITIES.find(p=>p.k===r.persona)||{n:''}).n)}</span>
     </div>
   </div>`;
+}
+function ctSquadSumHTML(cfg){
+  const total=ctOvrTotal(cfg);
+  const avg=Math.round(total/5*10)/10;
+  return `<div class="row between"><span class="tiny" style="font-weight:900">유망주 5인 평균 OVR</span>
+      <b class="ct-cap">${avg}</b></div>
+    <div class="tiny" style="margin-top:4px">${cfg.join==='replace'
+      ? '인수 구단 주전 5인은 다음 단계에서 잔류/방출을 정합니다 · 창단 유망주는 <b>2군(아카데미)</b>에서 시작'
+      : '유망주 5인이 그대로 1군 주전으로 승격합니다'}</div>`;
 }
 function renderCustomTeam(){
   if(!CTCFG) CTCFG=ctDefaultConfig();
   const c=CTCFG, mode=ctModeOf(c.mode);
+  if(!c.roster||c.roster.length!==5) c.roster=ctRandomRoster(c);
   const victims=ctVictimOptions();
   if(c.join==='replace'&&!victims.some(v=>v.id===c.victim)) c.victim=victims[0]?victims[0].id:'BRO';
   $('view-create').innerHTML=`
@@ -13567,7 +13719,7 @@ function renderCustomTeam(){
       <button class="ct-back" id="ctBack">← 구단 선택</button>
       <div class="ct-kicker">CUSTOM TEAM · INAUGURATION</div>
       <h1 class="ct-h">나만의 구단 창단</h1>
-      <p class="ct-sub">이름 · 엠블럼 · 컬러부터 5인 로스터와 감독까지 직접. 창단하면 LCK 정규시즌 18경기를 그대로 달린다.</p>
+      <p class="ct-sub">이름 · 엠블럼 · 컬러만 직접 정합니다. 선수 5인은 <b>랜덤 유망주</b>로 자동 구성 — 창단하면 LCK 정규시즌 18경기를 그대로 달린다.</p>
     </div>
     <div class="ct-preview" style="--tc:${c.color};--ta:${c.accent}">
       <div class="ct-crest" id="ctCrest">${ctCrest(c,86)}</div>
@@ -13585,30 +13737,21 @@ function renderCustomTeam(){
       </div>
     </div>
 
-    <div class="section-title"><h3>① 창단 모드</h3><div class="line"></div></div>
-    <div class="ct-modes">
-      ${CT_MODE_LIST.map(m=>`<button class="ct-mode ${c.mode===m.k?'on':''}" data-k="${m.k}" style="--mc:${m.k==='underdog'?'#3ddc97':'#ffc94a'}">
-        <span class="cm-ic">${m.icon}</span>
-        <b>${m.n}</b>
-        <em>${m.d}</em>
-        <span class="cm-tags"><i>OVR ${m.ovrMin}~${m.ovrMax}</i><i>총합 ${m.cap}</i><i>${m.budget}억</i></span>
-      </button>`).join('')}
-    </div>
-
-    <div class="section-title"><h3>② 리그 합류 방식</h3><div class="line"></div></div>
+    <div class="section-title"><h3>① 리그 합류 방식</h3><div class="line"></div></div>
     <div class="ct-joins">
-      <button class="ct-join ${c.join==='expand'?'on':''}" data-k="expand">
-        <b>11번째 구단으로 합류</b><em>기존 10개 구단 유지 · 매주 한 팀이 휴식(바이)</em>
-      </button>
       <button class="ct-join ${c.join==='replace'?'on':''}" data-k="replace">
-        <b>하위 구단 자리 인수</b><em>기존 10개 구단 유지 · 선택한 구단은 리그에서 사라집니다</em>
+        <b>하위 구단 자리 인수</b><em>최약체 구단을 인수 · 그 구단 주전 5인에게 잔류 계약 우선권이 생깁니다</em>
+      </button>
+      <button class="ct-join ${c.join==='expand'?'on':''}" data-k="expand">
+        <b>11번째 구단으로 합류</b><em>기존 10개 구단 유지 · 유망주 5인이 1군으로 바로 승격 (매주 한 팀 휴식)</em>
       </button>
     </div>
     ${c.join==='replace'?`<div class="card ct-card"><div class="ch"><span>인수할 구단</span><b class="ch-n">최약체부터</b></div>
       <select id="ctVictim" class="ct-sel">${victims.map(v=>`<option value="${v.id}" ${c.victim===v.id?'selected':''}>${esc(v.name)} (${v.tag}) · 평균 ${v.avg} OVR</option>`).join('')}</select>
+      <div class="tiny" style="margin-top:6px">인수하면 그 구단은 리그에서 사라지고, 주전 5인은 <b>잔류 계약 체크</b>한 선수만 1군에 남습니다. 체크를 푼 선수는 FA로 풀립니다.</div>
     </div>`:''}
 
-    <div class="section-title"><h3>③ 구단 정체성</h3><div class="line"></div></div>
+    <div class="section-title"><h3>② 구단 정체성</h3><div class="line"></div></div>
     <div class="card ct-card">
       <div class="ct-field"><span>구단 이름</span><input id="ctName" value="${esc(c.name)}" maxlength="20" spellcheck="false" placeholder="예: 위케어 e스포츠"></div>
       <div class="ct-field"><span>약칭 (2~4자)</span><input id="ctTag" value="${esc(c.tag)}" maxlength="4" spellcheck="false" placeholder="WCV"></div>
@@ -13632,21 +13775,19 @@ function renderCustomTeam(){
       </div>
     </div>
 
-    <div class="section-title"><h3>④ 5인 로스터</h3><div class="line"></div></div>
-    <div class="card ct-card ct-meter" id="ctMeter">${ctMeterHTML(c)}</div>
-    <button class="btn gold block" id="ctRandom">🎲 랜덤 유망주 로스터 채우기</button>
-    <div class="ct-rosters" id="ctRosters">${c.roster.map((r,i)=>ctPlayerRow(c,r,i)).join('')}</div>
+    <div class="section-title"><h3>③ 랜덤 유망주 스쿼드</h3><div class="line"></div><span class="tiny">OVR 조절 없음 · 운</span></div>
+    <div class="card ct-card ct-meter" id="ctMeter">${ctSquadSumHTML(c)}</div>
+    <button class="btn gold block" id="ctRandom">🎲 유망주 다시 뽑기</button>
+    <div class="ct-rosters" id="ctRosters">${c.roster.map((r,i)=>ctProspectRow(r,i)).join('')}</div>
 
-    <div class="section-title"><h3>⑤ 감독</h3><div class="line"></div></div>
+    <div class="section-title"><h3>④ 감독</h3><div class="line"></div></div>
     <div class="card ct-card">
       <div class="ct-field"><span>감독 이름</span><input id="ctCoachName" value="${esc(c.coach.name)}" maxlength="12" spellcheck="false" placeholder="감독 이름"></div>
-      <div class="ct-field"><span>지도력 <b id="ctCoachVal" class="ct-cap">${c.coach.rating}</b></span>
-        <input type="range" id="ctCoachRate" min="55" max="95" value="${c.coach.rating}"></div>
-      <div class="tiny">감독 OVR이 높을수록 자동 밴픽·시리즈 보정이 좋아집니다.</div>
+      <div class="tiny">감독 지도력은 ${mode.coachRating} 고정 — 밴픽·시리즈 보정에 반영됩니다.</div>
     </div>
 
     <div class="ct-actions">
-      <button class="btn primary block" id="ctGo">✨ 구단 창단 완료 — 시즌 시작</button>
+      <button class="btn primary block" id="ctGo">✨ ${c.join==='replace'?'인수 · 잔류 계약 정하고 시즌 시작':'구단 창단 완료 — 시즌 시작'}</button>
       <div class="tiny">창단하면 기존 저장은 새 시즌으로 교체됩니다 · 창단 후 스토브리그에서 선수를 더 영입할 수 있습니다</div>
     </div>
   </div>`;
@@ -13660,7 +13801,7 @@ function ctRefreshPreview(){
   const avg=$('ctAvg'); if(avg) avg.textContent=ctAvgOf(c);
   const jc=$('ctJoinChip'); if(jc) jc.innerHTML=ctJoinLabel(c);
   const mc=$('ctModeChip'); if(mc) mc.textContent=mode.icon+' '+mode.n;
-  const mt=$('ctMeter'); if(mt) mt.innerHTML=ctMeterHTML(c);
+  const mt=$('ctMeter'); if(mt) mt.innerHTML=ctSquadSumHTML(c);
 }
 function ctScrollKeep(fn){
   const y=(typeof window!=='undefined'&&window.scrollY)||0;
@@ -13691,24 +13832,6 @@ function bindCT(){
       ctRefreshPreview();
     };
   });
-  document.querySelectorAll('.ct-mode').forEach(b=>{
-    b.onclick=()=>{ if(c.mode===b.dataset.k) return;
-      ctScrollKeep(()=>{
-        c.mode=b.dataset.k;
-        const m=ctModeOf(c.mode);
-        c.coach.rating=clamp(c.coach.rating,m.coachRating-6,Math.min(95,m.coachRating+8));
-        /* 모드가 바뀌면 OVR 예산에 맞춰 로스터를 다시 맞춘다 */
-        let over=ctOvrTotal(c)-m.cap;
-        c.roster.forEach((r,i)=>{ r.ovr=clamp(r.ovr,m.ovrMin,m.ovrMax); });
-        let guard=0;
-        while(ctOvrTotal(c)>m.cap&&guard<300){
-          const i=guard%5; if(c.roster[i].ovr>m.ovrMin) c.roster[i].ovr--;
-          guard++;
-        }
-        renderCustomTeam();
-      });
-    };
-  });
   document.querySelectorAll('.ct-join').forEach(b=>{
     b.onclick=()=>{ if(c.join===b.dataset.k) return;
       ctScrollKeep(()=>{ c.join=b.dataset.k; renderCustomTeam(); });
@@ -13718,25 +13841,92 @@ function bindCT(){
   const rnd=$('ctRandom');
   if(rnd) rnd.onclick=()=>{
     ctScrollKeep(()=>{
+      /* 닉네임은 사용자가 고친 값을 유지하고, 능력치만 새로 뽑는다 */
       c.roster=ctRandomRoster(c);
       c.coach.name=ctRandomCoachName();
-      const box=$('ctRosters'); if(box) box.innerHTML=c.roster.map((r,i)=>ctPlayerRow(c,r,i)).join('');
+      const box=$('ctRosters'); if(box) box.innerHTML=c.roster.map((r,i)=>ctProspectRow(r,i)).join('');
       const cn=$('ctCoachName'); if(cn) cn.value=c.coach.name;
       bindCTRoster();
       ctRefreshPreview();
-      toast('🎲 랜덤 로스터를 채웠습니다 — 마음에 들면 그대로 창단!');
+      toast('🎲 유망주 5인을 다시 뽑았습니다 — 마음에 들면 그대로 창단!');
     });
   };
-  const cr=$('ctCoachRate');
-  if(cr) cr.oninput=()=>{ c.coach.rating=+cr.value; const v=$('ctCoachVal'); if(v) v.textContent=cr.value; };
   const cn2=$('ctCoachName'); if(cn2) cn2.oninput=()=>{ c.coach.name=cn2.value; };
   const go=$('ctGo');
   if(go) go.onclick=()=>{
-    const res=ctStart(c);
+    if(c.join==='replace'){ ctTakeoverStep(c); return; }
+    const res=ctStart(c,{keep:[]});
     if(!res.ok){ toast('⚠️ '+res.msg,3200); return; }
     toast(res.msg,3000);
   };
   bindCTRoster();
+}
+
+/* ---------- 인수 단계: 잔류 계약 우선권 ---------- */
+function ctTakeoverStep(cfg){
+  const starters=ctVictimStarters(cfg.victim);
+  if(!starters.length){ const r=ctStart(cfg,{keep:[]}); toast(r.ok?r.msg:'⚠️ '+r.msg,3200); return; }
+  const vname=(ctVictimOptions().find(v=>v.id===cfg.victim)||{}).name||cfg.victim;
+  const keep={}; starters.forEach(s=>{ keep[s.name]=1; });
+  const rowHTML=()=>starters.map((s,i)=>`
+    <label class="ct-sign-row">
+      <input type="checkbox" data-kp="${esc(s.name)}" ${keep[s.name]?'checked':''}>
+      <span class="ct-sr-role">${ROLE_KR[s.role]||s.role}</span>
+      <span class="ct-sr-name">${esc(s.name)}</span>
+      <span class="ct-sr-meta">${s.age}세 · OVR ${s.ovr}</span>
+      <span class="ct-sr-state ${keep[s.name]?'stay':''}">${keep[s.name]?'잔류':'FA 방출'}</span>
+    </label>`).join('');
+  const sumHTML=()=>{
+    const k=starters.filter(s=>keep[s.name]);
+    const out=starters.filter(s=>!keep[s.name]);
+    return `<div class="tiny" style="line-height:1.6">✅ 1군 잔류 <b>${k.length}명</b>${k.length?' — '+k.map(s=>esc(s.name)).join(', '):''}<br>
+      📄 FA 방출 <b style="color:#ff9aa9">${out.length}명</b>${out.length?' — '+out.map(s=>esc(s.name)).join(', '):''}</div>
+      <div class="tiny" style="margin-top:6px">체크를 푼 선수는 이적시장(FA)으로 나갑니다. 창단 유망주 5인은 2군에서 대기하고, 1군에 빈 라인이 생기면 자동 콜업됩니다.</div>`;
+  };
+  $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal" style="max-height:92dvh">
+    <div class="grab"></div>
+    <div class="tiny" style="letter-spacing:.16em;font-weight:900;color:var(--gold)">TAKEOVER · PRIORITY SIGNING</div>
+    <h3 style="font-size:19px;margin:4px 0 6px">${esc(vname)} 인수 — 잔류 계약 우선권</h3>
+    <div class="tiny" style="margin-bottom:10px">원래 구단 주전 5인 중 <b>계약할 선수를 체크</b>하세요. 체크한 선수는 그대로 1군에 남고, 체크를 푼 선수는 FA로 방출됩니다.</div>
+    <div class="ct-sign-list" id="ctSignList">${rowHTML()}</div>
+    <div style="margin-top:8px" id="ctSignSum">${sumHTML()}</div>
+    <div class="btn-row" style="margin-top:10px">
+      <button class="btn sm" id="ctSignAll">✅ 전원 잔류</button>
+      <button class="btn sm" id="ctSignNone">📄 전원 방출</button>
+    </div>
+    <div class="btn-row" style="margin-top:8px">
+      <button class="btn" id="ctSignBack">← 수정</button>
+      <button class="btn primary" id="ctSignGo">이대로 시즌 시작 →</button>
+    </div>
+  </div></div>`;
+  $('modal').classList.remove('hidden');
+  const refresh=()=>{
+    const list=$('ctSignList'); if(list){ list.innerHTML=rowHTML(); bindBoxes(); }
+    const sum=$('ctSignSum'); if(sum) sum.innerHTML=sumHTML();
+  };
+  function bindBoxes(){
+    document.querySelectorAll('[data-kp]').forEach(el=>{
+      el.onchange=()=>{
+        const n=el.dataset.kp;
+        if(el.checked) keep[n]=1; else delete keep[n];
+        const st=el.parentElement.querySelector('.ct-sr-state');
+        if(st){ st.textContent=el.checked?'잔류':'FA 방출'; st.classList.toggle('stay',el.checked); }
+        const sum=$('ctSignSum'); if(sum) sum.innerHTML=sumHTML();
+      };
+    });
+  }
+  bindBoxes();
+  const all=$('ctSignAll'); if(all) all.onclick=()=>{ starters.forEach(s=>{keep[s.name]=1;}); refresh(); };
+  const none=$('ctSignNone'); if(none) none.onclick=()=>{ starters.forEach(s=>{delete keep[s.name];}); refresh(); };
+  const back=$('ctSignBack'); if(back) back.onclick=()=>{ closeModal(); };
+  const go=$('ctSignGo');
+  if(go) go.onclick=()=>{
+    const keepArr=starters.filter(s=>keep[s.name]).map(s=>s.name);
+    closeModal();
+    const res=ctStart(cfg,{keep:keepArr});
+    if(!res.ok){ toast('⚠️ '+res.msg,3200); return; }
+    toast(res.msg,3000);
+  };
 }
 function ctPaintEmblems(){
   document.querySelectorAll('.ct-emblem').forEach(b=>{
@@ -13745,32 +13935,9 @@ function ctPaintEmblems(){
   });
 }
 function bindCTRoster(){
-  const c=CTCFG, mode=ctModeOf(c.mode);
+  const c=CTCFG;
   document.querySelectorAll('.ct-pname').forEach(el=>{
     el.oninput=()=>{ const i=+el.dataset.i; c.roster[i].name=el.value; };
-  });
-  document.querySelectorAll('.ct-page').forEach(el=>{
-    el.oninput=()=>{ const i=+el.dataset.i; c.roster[i].age=clamp(Number(el.value)||20,16,40); };
-  });
-  document.querySelectorAll('.ct-povr').forEach(el=>{
-    el.oninput=()=>{
-      const i=+el.dataset.i, old=c.roster[i].ovr;
-      let v=clamp(Number(el.value)||mode.ovrMin,mode.ovrMin,mode.ovrMax);
-      if(ctOvrTotal(c)-old+v>mode.cap){
-        v=Math.max(mode.ovrMin,mode.cap-(ctOvrTotal(c)-old));
-        toast('OVR 예산('+mode.cap+')을 넘을 수 없습니다',1800);
-      }
-      c.roster[i].ovr=v;
-      el.value=v;
-      const lab=$('ctOvr'+i); if(lab) lab.textContent=v;
-      ctRefreshPreview();
-    };
-  });
-  document.querySelectorAll('.ct-pers').forEach(el=>{
-    el.onchange=()=>{ const i=+el.dataset.i; c.roster[i].persona=el.value; };
-  });
-  document.querySelectorAll('.ct-trait').forEach(el=>{
-    el.onchange=()=>{ const i=+el.dataset.i; c.roster[i].trait=el.value; };
   });
 }
 
@@ -15982,10 +16149,11 @@ function marketV3(){
       <div class="tiny" style="margin-top:7px;line-height:1.5">
         ${tab==='fa'?'타 구단·FA 선수에게 <b>연봉을 제시해 입찰</b>합니다. 경쟁 구단이 더 높은 연봉을 쓰면 영입에 실패합니다.'
           :tab==='resign'?'우리 선수와 <b>연봉·계약기간</b>을 직접 협상합니다. 요구액보다 낮으면 거절당합니다.'
+          :tab==='bj'?'현역 <b>롤 BJ·스트리머</b>를 선수로 영입합니다. 방송 수입 때문에 낮은 연봉은 거절 — <b>스타터 보장</b>을 얹으면 수락 확률이 올라갑니다.'
           :'상대 구단 선수를 <b>내 선수 + 현금</b>으로 데려옵니다. 가치·나이·포지션으로 상대가 수락 여부를 판단합니다.'}
       </div>
     </div>
-    ${tab==='fa'?stoveFaHTML():tab==='resign'?stoveResignHTML():stoveTradeHTML()}
+    ${tab==='fa'?stoveFaHTML():tab==='resign'?stoveResignHTML():tab==='bj'?(typeof stoveBjHTML==='function'?stoveBjHTML():''):stoveTradeHTML()}
     ${open?`<div class="card tight">
       <div class="ch"><span>이적 시장 소식</span><b class="ch-n">${(st.log||[]).length}건</b></div>
       <div class="stack" style="gap:4px">${(st.log||[]).slice(0,5).map(x=>`<div class="tiny" style="line-height:1.4;color:${/실패|결렬|거절/.test(x.text)?'#ff9aa9':'#c9d4e6'}">· ${esc(x.text)} <span class="muted">(${x.season}시즌 ${x.week}주차)</span></div>`).join('')}</div>
@@ -22418,6 +22586,7 @@ function renderChampion(){
       <div class="card-h"><h4>시즌 POG 랭킹</h4><span class="k">TOP 5</span></div>
       ${pogTop.map(([n,v],i)=>`<div class="slide-item"><div class="fa-rank">${i+1}</div><div class="grow"><div style="font-size:12.5px;font-weight:800">${esc(n)}</div><div class="tiny">${esc((S.teams[(S.players[n]||{}).team]||{tag:'FA'}).tag)}</div></div><b style="color:var(--gold)">${v}</b></div>`).join('')}
     </div>
+    ${(typeof seasonReportHTML==='function')?seasonReportHTML():''}
     <div class="btn-row">
       <button class="btn" id="toTitle">타이틀로</button>
       <button class="btn primary" id="toOffseason">스토브리그 →</button>
@@ -22425,6 +22594,7 @@ function renderChampion(){
     <div style="height:14px"></div>`;
   $('toTitle').onclick=()=>{ S=null; renderTitle(); };
   $('toOffseason').onclick=()=>{ startOffseason(); };
+  const sd=$('scrDetail'); if(sd) sd.onclick=()=>{ try{ seasonReportModal(); }catch(e){} };
   show('champion');
 }
 
@@ -26598,6 +26768,324 @@ function sponsorRiskCardHTML(){
     ${(!warned.length?recent:[]).map(e=>`<div class="tiny" style="color:var(--dim2)">${e.k==='out'?'💔':e.k==='warn'?'⚠':'📉'} ${esc(e.name||'')} · ${esc(e.reason||'위약금 정산')}${e.amt?' · '+e.amt.toFixed(1)+'억':''}</div>`).join('')}
     <div style="margin-top:7px"><button class="btn sm" data-a="tab" data-v="club:sponsor">스폰서 계약 확인</button></div>
   </div>`;
+}
+
+/* ============ 시즌 결산 성적표 — 구단주 / 감독 평가 ============
+   시즌이 끝나면 0~100점 + 등급(S+ / S / A / B / C / D / F)으로 결산한다.
+     · 대회 성적        (40)  정규시즌 승률 · 최종 순위 · LCK 우승 · 국제대회
+     · 재정·스폰서      (25)  구단주 모드 — 예산 · 스폰서 계약 · 목표 달성
+       전술·밴픽 지휘   (25)  감독 모드 — 밴픽 우세도 · 시리즈 승률
+     · 팬심·이사회 신뢰 (20)
+     · 선수 육성        (15)  2군 유망주 · 어린 선수 성장
+   결과는 S.seasonReports 에 남겨 커리어 기록으로 쓴다.
+*/
+function scrClamp(v,a,b){ return Math.max(a,Math.min(b,Number(v)||0)); }
+function scrGrade(score){
+  if(score>=93) return 'S+';
+  if(score>=85) return 'S';
+  if(score>=77) return 'A';
+  if(score>=68) return 'B';
+  if(score>=58) return 'C';
+  if(score>=48) return 'D';
+  return 'F';
+}
+function scrGradeColor(g){
+  return (g==='S+'||g==='S')?'#ffd166':g==='A'?'#7cf7ff':g==='B'?'#3ddc97':g==='C'?'#c9d4e6':g==='D'?'#ff9e2c':'#ff5c79';
+}
+function seasonReportCompute(){
+  if(!S) return null;
+  const t=myTeam();
+  const c=(S.club||{});
+  const isCoach=!!((typeof isCoachRole==='function')&&isCoachRole());
+  const wins=t.wins||0, losses=t.losses||0;
+  const games=wins+losses;
+  const wr=games?wins/games:0;
+
+  /* ---------- 1) 대회 성적 (40) ---------- */
+  let pos=0, teams=10;
+  try{ const st=standings(); teams=st.length||10; pos=st.findIndex(x=>x.id===S.userTeam)+1; }catch(e){}
+  const posScore=pos>0?scrClamp((1-(pos-1)/Math.max(1,teams-1))*10,0,10):0;
+  const wrScore=scrClamp(wr*10,0,10);
+  const lckScore=(S.springChampion===S.userTeam?5:0)+(S.summerChampion===S.userTeam?5:0);
+  let intl=0, intlNote='국제대회 진출 없음';
+  const W=S.worlds||{};
+  const worldsChamp=(W.champion||S.champion||null);
+  const msiWin=(S.msiChampion===S.userTeam);
+  const ewcWin=(S.ewcChampion===S.userTeam);
+  if(worldsChamp===S.userTeam){ intl=10; intlNote='월즈 우승'; }
+  else if(W.runnerUp===S.userTeam){ intl=7; intlNote='월즈 준우승'; }
+  else if(msiWin){ intl=6; intlNote='MSI 우승'; }
+  else if(ewcWin){ intl=5; intlNote='EWC 우승'; }
+  else if(W.champion&&W.userIn){ intl=3; intlNote='월즈 본선 진출'; }
+  else if(pos<=4){ intl=2; intlNote='플레이오프 상위 · 월즈 근접'; }
+  const perfScore=scrClamp(posScore+wrScore+lckScore+intl,0,40);
+
+  /* ---------- 2) 재정·스폰서 (구단주) / 전술·밴픽 (감독) — 25 ---------- */
+  let bizScore=0, bizNote='';
+  if(isCoach){
+    const res=(S.results||[]).filter(r=>typeof r.myPct==='number');
+    const draftAvg=res.length?res.reduce((a,r)=>a+r.myPct,0)/res.length:50;
+    const draftScore=scrClamp((draftAvg-40)/20*15,0,15);         /* 40% → 0, 60% → 15 */
+    const seriesScore=scrClamp(wr*10,0,10);
+    bizScore=scrClamp(draftScore+seriesScore,0,25);
+    bizNote='밴픽 우세도 평균 '+Math.round(draftAvg)+'% · 시리즈 승률 '+Math.round(wr*100)+'%';
+  }else{
+    const sp=c.sponsors||{};
+    const sN=(sp.main?1:0)+((sp.sub||[]).length);
+    const spScore=scrClamp(sN*3.4,0,10);
+    const budgetScore=scrClamp((t.budget||0)/2.6,0,10);
+    const goalScore=scrClamp(((c.goals||[]).filter(g=>{
+      const f=c.facts||{};
+      return (g.k==='lck'&&f.lckWin)||(g.k==='final'&&f.final)||(g.k==='kespa'&&f.kespa4)||(g.k==='worlds'&&f.worlds)||(g.k==='top3'&&f.top3);
+    }).length)*2.5,0,5);
+    bizScore=scrClamp(spScore+budgetScore+goalScore,0,25);
+    bizNote='스폰서 '+sN+'건 · 예산 '+(t.budget||0).toFixed(1)+'억 · 목표 달성 '+Math.round(goalScore/2.5)+'건';
+  }
+
+  /* ---------- 3) 팬심 · 이사회 신뢰도 (20) ---------- */
+  const fan=scrClamp(c.fanbase||0,0,100);
+  const trust=scrClamp(c.trust||0,0,100);
+  const fanScore=scrClamp(fan/100*10+trust/100*10,0,20);
+  const fanNote='팬심 '+Math.round(fan)+' · 이사회 신뢰 '+Math.round(trust);
+
+  /* ---------- 4) 선수 육성 (15) ---------- */
+  let acad=[], young=[];
+  try{ acad=((S.club&&S.club.academy)||[]).filter(Boolean); }catch(e){ acad=[]; }
+  try{
+    young=Object.keys(S.players||{}).map(n=>S.players[n]).filter(p=>p&&p.team===S.userTeam&&!p.retired&&p.age<=21);
+  }catch(e){ young=[]; }
+  const acadAvgPot=acad.length?acad.reduce((a,x)=>a+(x.potential||x.rating||60),0)/acad.length:0;
+  const acadAvgRat=acad.length?acad.reduce((a,x)=>a+(x.rating||60),0)/acad.length:0;
+  const acadScore=scrClamp(acad.length*1.2+Math.max(0,acadAvgPot-acadAvgRat)*0.25,0,9);
+  const youngScore=scrClamp(young.length*1.5,0,6);
+  const devScore=scrClamp(acadScore+youngScore,0,15);
+  const devNote='2군 '+acad.length+'명(평균 OVR '+Math.round(acadAvgRat)+' / 잠재 '+Math.round(acadAvgPot)+') · U21 1군 '+young.length+'명';
+
+  const total=Math.round(scrClamp(perfScore+bizScore+fanScore+devScore,0,100));
+  const grade=scrGrade(total);
+  return {
+    season:S.season, role:isCoach?'coach':'owner', total:total, grade:grade,
+    parts:[
+      {k:'perf', n:'대회 성적', icon:'🏆', score:Math.round(perfScore*10)/10, max:40,
+        note:'정규시즌 '+wins+'승 '+losses+'패'+(pos?' · '+pos+'위':'')+(lckScore?' · LCK 우승 '+Math.round(lckScore/5)+'회':'')+' · '+intlNote},
+      {k:'biz', n:isCoach?'전술·밴픽 지휘':'재정·스폰서 관리', icon:isCoach?'🧠':'💰',
+        score:Math.round(bizScore*10)/10, max:25, note:bizNote},
+      {k:'fan', n:'팬심·이사회 신뢰도', icon:'📣', score:Math.round(fanScore*10)/10, max:20, note:fanNote},
+      {k:'dev', n:'선수 육성 (2군·성장)', icon:'🎓', score:Math.round(devScore*10)/10, max:15, note:devNote},
+    ],
+    at:Date.now(),
+  };
+}
+function seasonReportBars(r){
+  if(!r) return '';
+  return (r.parts||[]).map(p=>{
+    const pct=Math.round(p.score/Math.max(1,p.max)*100);
+    return `<div class="scr-row">
+      <div class="scr-h"><span class="scr-n">${p.icon} ${esc(p.n)}</span>
+        <b class="scr-s">${p.score}<em>/${p.max}</em></b></div>
+      <div class="scr-bar"><i style="width:${pct}%;background:${scrGradeColor(r.grade)}"></i></div>
+      <div class="scr-note">${esc(p.note||'')}</div>
+    </div>`;
+  }).join('');
+}
+function seasonReportHTML(r){
+  if(!r) r=seasonReportCompute();
+  if(!r) return '';
+  const col=scrGradeColor(r.grade);
+  return `<div class="card scr-card">
+    <div class="scr-top">
+      <div class="scr-badge" style="--gc:${col}"><b>${esc(r.grade)}</b><em>${r.total}점</em></div>
+      <div class="grow">
+        <div class="tiny" style="letter-spacing:.14em;font-weight:900;color:${col}">SEASON REPORT CARD</div>
+        <div style="font-weight:900;font-size:16px;letter-spacing:-.02em">${S.season}시즌 ${r.role==='coach'?'감독':'구단주'} 평가</div>
+        <div class="tiny" style="margin-top:3px">대회 성적 · ${r.role==='coach'?'전술·밴픽':'재정·스폰서'} · 팬심·신뢰 · 선수 육성 종합</div>
+      </div>
+    </div>
+    <div class="scr-bars">${seasonReportBars(r)}</div>
+    <button class="btn sm block" id="scrDetail">📋 성적표 자세히 보기</button>
+  </div>`;
+}
+function seasonReportModal(){
+  const r=(S.seasonReports||[]).slice(-1)[0]||seasonReportCompute();
+  if(!r) return;
+  const col=scrGradeColor(r.grade);
+  $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal" style="max-height:92dvh">
+    <div class="grab"></div>
+    <div class="scr-badge lg" style="--gc:${col}"><b>${esc(r.grade)}</b><em>${r.total}점</em></div>
+    <h3 style="font-size:18px;margin:8px 0 2px;text-align:center">${S.season}시즌 ${r.role==='coach'?'감독':'구단주'} 평가 성적표</h3>
+    <div class="tiny" style="text-align:center;margin-bottom:10px">${r.total}점 · ${esc(r.grade)} 등급</div>
+    <div class="scr-bars">${seasonReportBars(r)}</div>
+    <div class="tiny" style="margin-top:8px;line-height:1.5">성적표는 커리어 기록에 저장됩니다. 다음 시즌 목표는 이 평가를 기준으로 제시됩니다.</div>
+    <button class="btn primary block" id="scrClose" style="margin-top:10px">닫기</button>
+  </div></div>`;
+  $('modal').classList.remove('hidden');
+  const cb=$('scrClose'); if(cb) cb.onclick=closeModal;
+}
+/* 시즌 결산 시 1회 저장 — 커리어 기록 */
+function seasonReportSave(){
+  if(!S) return null;
+  try{
+    S.seasonReports=Array.isArray(S.seasonReports)?S.seasonReports:[];
+    const r=seasonReportCompute();
+    if(!r) return null;
+    const last=S.seasonReports[S.seasonReports.length-1];
+    if(last&&last.season===r.season){ S.seasonReports[S.seasonReports.length-1]=r; }
+    else S.seasonReports.push(r);
+    try{ newsAdd('구단','📋 '+r.season+'시즌 결산 성적표 — '+r.grade+' ('+r.total+'점)'); }catch(e){}
+    return r;
+  }catch(e){ return null; }
+}
+
+/* ============ 🎙️ 롤 BJ · 스트리머 영입 ============
+   현역 BJ/스트리머를 선수로 영입한다.
+     · 전 프로 출신 (칸 · 앰비션 · 스맵 · 프레이 · 울프) : OVR 73~79, 베테랑 특성 + 2군 멘토링 보너스
+     · 순수 스트리머 (김민교 · 이상호 · 데스티니 · 에디) : OVR 65~72, 팬·마케팅 수익 폭발
+   이들은 방송 수입이 있어서 낮은 연봉 제안은 거절한다. (스타터 보장을 주면 수락 확률↑)
+*/
+const BJ_DEFS=[
+  {n:'칸',      role:'TOP', ex:true,  ovr:78, fan:7,  pop:61, tag:'2019 월즈 우승 탑솔러 · 챔피언 폭 최상'},
+  {n:'앰비션',  role:'JGL', ex:true,  ovr:77, fan:6,  pop:58, tag:'월즈 우승 정글러 · 노련한 동선 설계'},
+  {n:'스맵',    role:'TOP', ex:true,  ovr:75, fan:6,  pop:54, tag:'2015 월즈 MVP 출신 · 라인전 강점'},
+  {n:'프레이',  role:'ADC', ex:true,  ovr:74, fan:6,  pop:55, tag:'롤드컵 준우승 원딜 · 안정적 딜링'},
+  {n:'울프',    role:'SUP', ex:true,  ovr:73, fan:5,  pop:52, tag:'서포터 명가 출신 · 한타 콜'},
+  {n:'김민교',  role:'MID', ex:false, ovr:70, fan:15, pop:88, tag:'롤판 예능 1티어 · 방송 시청자 수 최상위'},
+  {n:'이상호',  role:'ADC', ex:false, ovr:68, fan:13, pop:79, tag:'원딜 장인 스트리머 · 유튜브 클립 화력'},
+  {n:'데스티니',role:'SUP', ex:false, ovr:67, fan:11, pop:71, tag:'서폿 장인 · 롤토체스 겸업 인플루언서'},
+  {n:'에디',    role:'MID', ex:false, ovr:65, fan:10, pop:66, tag:'꿀잼 미드 · 밈 생산기'},
+];
+const BJ_REACTIONS={
+  sign:[
+    'FMKorea 실북 — "{p} 우리 팀 간다는데??"',
+    'FMKorea 실북 — "{p} 유니폼 입은 합성 좀 봐라 ㅋㅋㅋ"',
+    'FMKorea 실북 — "프런트 일했다 인정"',
+    '롤갤 — "{p} 영입은 마케팅인가 전력인가"',
+    'FMKorea 실북 — "{p} 방송에서 우리 팀 얘기하더니 진짜 갔다"',
+  ],
+  sub:[
+    'FMKorea 실북 — "와 {p} 진짜 출전하네"',
+    '롤갤 — "{p} 경기력 실화냐 ㅋㅋㅋ"',
+    'FMKorea 실북 — "{p} 나오니까 경기 보는 맛 있다"',
+  ],
+  fail:[
+    'FMKorea — "{p} 우리 팀 온다던 소문 어디 갔냐"',
+    '롤갤 — "{p} 협상 결렬이래 ㅋㅋ"',
+  ],
+};
+function bjDefOf(name){ return BJ_DEFS.find(d=>d.n===name)||null; }
+function bjSignSalary(def){
+  /* 방송 수입이 있는 사람은 몸값이 비싸다 */
+  const base=(def.ovr-58)*0.42+0.8;
+  return Math.round(base*(def.ex?1.0:1.28)*10)/10;
+}
+function bjFanValue(def){
+  return Math.round(def.fan*(def.ex?0.6:1.1)*10)/10;
+}
+function bjSigned(name){
+  try{ return !!(S&&S.players&&S.players[name]&&S.players[name].team); }catch(e){ return false; }
+}
+function bjAvailable(){
+  return BJ_DEFS.filter(d=>!bjSigned(d.n));
+}
+/* ---------- 영입 제안 ---------- */
+function bjSign(name, salary, years, opts){
+  opts=opts||{};
+  if(!S||!S.players) return {ok:false,msg:'시즌이 시작되지 않았습니다'};
+  const def=bjDefOf(name);
+  if(!def) return {ok:false,msg:'해당 BJ를 찾을 수 없습니다'};
+  if(bjSigned(name)) return {ok:false,msg:'이미 다른 구단과 계약한 BJ입니다'};
+  const t=myTeam();
+  const demand=bjSignSalary(def);
+  const pay=Math.max(0.5,Number(salary)||demand);
+  const yrs=Math.max(1,Math.min(3,Math.round(Number(years)||1)));
+  if((t.roster||[]).length>=9) return {ok:false,msg:'로스터가 가득 찼습니다 (9명) — 방출 후 제안하세요'};
+  if((t.budget||0)<pay) return {ok:false,msg:'예산이 부족합니다 ('+pay.toFixed(1)+'억 필요 · 보유 '+(t.budget||0).toFixed(1)+'억)'};
+  /* 수락 확률 — 낮은 연봉 + 스타터 보장 없음이면 거절 */
+  let p=0.5+(pay/demand-1)*1.4;
+  if(opts.starter) p+=0.22;
+  if(!def.ex) p-=0.14;              /* 순수 스트리머는 방송이 더 급하다 */
+  if(pay>=demand*1.25) p=Math.max(p,0.92);
+  p=Math.max(0.05,Math.min(0.97,p));
+  if(Math.random()>p){
+    try{ stoveLog('bj','❌ '+name+' 영입 제안 거절 — 요구 '+demand.toFixed(1)+'억 / 제시 '+pay.toFixed(1)+'억'); }catch(e){}
+    try{ newsAdd('여론','📺 '+BJ_REACTIONS.fail[Math.floor(Math.random()*BJ_REACTIONS.fail.length)].split('{p}').join(name)); }catch(e){}
+    return {ok:false,msg:'😤 '+name+'이(가) 제안을 거절했습니다 — 방송 수입('+demand.toFixed(1)+'억 제시 필요)'+(opts.starter?'':' · 스타터 보장도 없음')};
+  }
+  /* 계약 성사 */
+  let p2=null;
+  try{
+    p2=mkPlayer(name,def.role,def.ex?27:29,def.ovr,'stable',[],t.id);
+    if(typeof ctForceOverall==='function') ctForceOverall(p2,def.ovr);
+    p2.team=t.id; p2.starter=!!opts.starter; p2.salary=pay; p2.contract=yrs;
+    p2.bj=true; p2.bjEx=!!def.ex; p2.pop=def.pop;
+    p2.persons=[def.ex?'orderleader':'showman']; p2.pers=def.ex?'orderleader':'showman';
+    S.players[p2.name]=p2;
+    t.roster.push(p2.name);
+    t.budget=Math.round(((t.budget||0)-pay*0.4)*10)/10;
+    if(opts.starter) t.lineup[def.role]=p2.name;
+    /* 팬·마케팅 효과 */
+    const c=(typeof clubC==='function')?clubC():null;
+    if(c){
+      c.fanbase=Math.max(1,Math.min(100,(c.fanbase||50)+bjFanValue(def)));
+      c.trust=Math.max(1,Math.min(100,(c.trust||55)+(def.ex?0.6:1.4)));
+      c.community=null;
+      c.bjRevenue=Math.round(((c.bjRevenue||0)+bjFanValue(def)*0.22)*10)/10;
+    }
+    if(def.ex){
+      /* 전 프로 → 2군 멘토링 보너스 */
+      try{ if(S.club&&Array.isArray(S.club.academy)) S.club.academy.forEach(a=>{ if(a&&!a.mentor&&a.role===def.role) a.mentor=name; }); }catch(e){}
+    }
+  }catch(e){ return {ok:false,msg:'계약 처리 오류: '+(e&&e.message||e)}; }
+  try{ stoveLog('bj','📺 '+name+' 영입 — '+pay.toFixed(1)+'억/'+yrs+'년'+(opts.starter?' · 스타터 보장':'')); }catch(e){}
+  try{
+    const line=BJ_REACTIONS.sign[Math.floor(Math.random()*BJ_REACTIONS.sign.length)].split('{p}').join(name);
+    newsAdd('호평', line);
+    if(opts.starter){
+      const l2=BJ_REACTIONS.sub[Math.floor(Math.random()*BJ_REACTIONS.sub.length)].split('{p}').join(name);
+      newsAdd('호평', l2);
+    }
+  }catch(e){}
+  return {ok:true,msg:'📺 '+name+' 영입 완료 — '+pay.toFixed(1)+'억/'+yrs+'년'+(opts.starter?' (스타터 보장)':'')+' · 팬심 +'+bjFanValue(def)};
+}
+/* ---------- UI ---------- */
+function stoveBjHTML(){
+  const t=myTeam();
+  const list=bjAvailable();
+  const mine=Object.values(S.players||{}).filter(p=>p&&p.bj&&p.team===t.id);
+  return `
+    <div class="card">
+      <div class="ch"><span>🎙️ 롤 BJ · 스트리머 영입</span><b class="ch-n">${list.length}명 대기</b></div>
+      <div class="tiny" style="margin-bottom:8px;line-height:1.5">
+        방송으로 버는 사람들이라 <b>낮은 연봉은 거절</b>합니다. <b>스타터 보장</b>을 얹으면 수락 확률이 올라갑니다.
+        전 프로 출신은 2군 멘토를 자동으로 맡고, 순수 스트리머는 <b>팬심·마케팅 수익</b>을 크게 올립니다.
+      </div>
+      <div class="flist">
+        ${list.map(d=>{
+          const demand=bjSignSalary(d);
+          return `<div class="frow bj-row">
+            <div class="f-av bj-av">${d.ex?'🎙':'📺'}</div>
+            <div class="f-m">
+              <div class="f-n">${esc(d.n)} <span class="role-tag">${ROLE_KR[d.role]}</span>
+                <span class="grade ${d.ex?'A':'B'}">${d.ex?'전 프로':'BJ'}</span>
+                ${d.ex?'<span class="chip sm">멘토</span>':'<span class="chip sm gold">마케팅</span>'}
+              </div>
+              <div class="f-s">OVR ${d.ovr} · 요구 ${demand.toFixed(1)}억 · 팬심 +${bjFanValue(d)} · 영향력 ${d.pop}</div>
+              <div class="f-s">${esc(d.tag)}</div>
+            </div>
+            <div class="f-b">
+              <input class="inp sm" type="number" step="0.5" min="0.5" data-bjsal="${esc(d.n)}" value="${demand}">
+              <select class="mini-select" data-bjyears="${esc(d.n)}"><option value="1">1년</option><option value="2" selected>2년</option><option value="3">3년</option></select>
+              <label class="bj-start"><input type="checkbox" data-bjstart="${esc(d.n)}">스타터 보장</label>
+              <button class="btn sm gold" data-a="bjsign" data-v="${esc(d.n)}">영입 제안</button>
+            </div>
+          </div>`;
+        }).join('')||'<div class="empty-note">지금은 제안할 수 있는 BJ가 없습니다 — 이미 다른 구단과 계약했거나 모두 영입했습니다</div>'}
+      </div>
+    </div>
+    ${mine.length?`<div class="card">
+      <div class="ch"><span>우리 팀 BJ</span><b class="ch-n">${mine.length}명</b></div>
+      ${mine.map(p=>`<div class="kv"><span>${p.bjEx?'🎙':'📺'} <b>${esc(p.name)}</b> <i class="tiny">${ROLE_KR[p.role]}</i></span>
+        <b style="font-size:11px">${p.salary}억 · ${Object.values(myTeam().lineup).includes(p.name)?'출전':'벤치'}</b></div>`).join('')}
+    </div>`:''}`;
 }
 
 
