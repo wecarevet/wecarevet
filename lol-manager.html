@@ -2561,8 +2561,8 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 /* 승부 화면 바 — 좁은 화면에서는 라벨 위 · 버튼 아래 전폭 */
 @media(max-width:560px){
   .bx-dock .dock-in{flex-direction:column;align-items:stretch;gap:6px}
-  .bx-dock .bxd-t{text-align:center}
-  .bx-dock .bxd-b{max-width:none}
+  .bx-dock .dock-in>.bxd-t{flex:0 0 auto;text-align:center}
+  .bx-dock .dock-in>.bxd-b{flex:1 1 auto;width:100%;max-width:none}
 }
 
 /* ================= 챔프폭 · 저격 밴 심리전 ================= */
