@@ -6741,7 +6741,7 @@ function v5TowerFall(side,m,forceLane){
   const pw={TOP:v5LanePrio('TOP'),MID:v5LanePrio('MID'),BOT:v5LanePrio('ADC')};
   const lanes=['TOP','MID','BOT'];
   const prio=(typeof macroTowerLanePriority==='function')?macroTowerLanePriority(side):{MID:1.2,BOT:1.08,TOP:1.0};
-  const w=lanes.map(l=>Math.max(0.06,(prio[l]||1)*(0.72+pw[l]*0.55+(pw[l]>0.25?0.30:0))+Math.random()*0.34));
+  const w=lanes.map(l=>Math.max(0.06,(prio[l]||1)*(0.72+pw[l]*0.55+(pw[l]>0.25?0.30:0))+Math.random()*0.24));
   const canFall=function(l){
     const arr=(M.tw[def]&&M.tw[def][l])||[1,1,1];
     if(arr.indexOf(1)>=0) return true;
@@ -27749,7 +27749,7 @@ function macroAvoidFight(m){
 function macroTowerLanePriority(side){
   const def=(side==='me')?'opp':'me';
   const tw=(M&&M.tw&&M.tw[def])||{};
-  const w={MID:1.55,BOT:1.20,TOP:0.92};
+  const w={MID:1.62,BOT:1.16,TOP:0.92};
   ['TOP','MID','BOT'].forEach(function(l){
     const arr=(tw[l]||[1,1,1]);
     if(!arr[0]) w[l]*=(arr[1]?0.92:0.72);          /* 1차가 이미 없으면 다음 차 순위 */
