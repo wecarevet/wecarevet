@@ -7816,12 +7816,20 @@ function gallComments(seed,kind,n){
     patch:['정글 애쉬 ㅋㅋㅋ 그거 진짜 됨','설명 잘 봤다','이건 너프 안 되면 막을 수 없다','내 픽 나왔다','실시간으로 안 바뀌나'],
     calm:['ㅇㅈ','그냥 별로','아그래','너무 그러네','개념글 간다 ㅋㅋ','멘탈 잡자','밥은 먹고 다니니']
   };
-  const pool=pools[kind]||pools.calm;
-  const out=[];
+  const pool=(pools[kind]||pools.calm).slice();
+  const extra=['ㄹㅇ','이건 좀','ㅋㅋㅋㅋ','그건 아니지','오늘만 봐도 답 나옴','고생한다 진짜','형님 진정하세요','밴픽부터 다시 보자'];
+  const out=[]; const used={};
   for(let i=0;i<n;i++){
     const h=hashN(seed+'|'+i+'|'+'c');
-    out.push({nick:gallNick(seed+'c'+i), t:pool[h%pool.length],
-      up:(h%180)+2, best:(h%9===0)});
+    let t=pool[h%pool.length];
+    /* 같은 댓글 반복 금지 */
+    if(used[t]){
+      const alt=pool.filter(function(x){ return !used[x]; });
+      t=alt.length?alt[h%alt.length]:extra[h%extra.length];
+      if(used[t]) t=extra[h%extra.length];
+    }
+    used[t]=1;
+    out.push({nick:gallNick(seed+'c'+i), t:t, up:(h%180)+2, best:(h%11===0)});
   }
   return out;
 }
