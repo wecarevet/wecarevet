@@ -1346,8 +1346,12 @@ function buildRowsKeepValues(){
 function applyTemplate(){
   S.stage = '';
   buildRowsKeepValues();
-  if(S.autoCare){ S.months = tplMeta().months; S.recheck = ''; S.care = careDefault(); }
-  if(S.autoAssess) S.assess = draft();
+  S.months = tplMeta().months;
+  S.recheck = '';
+  S.autoCare = true;
+  S.care = careDefault();
+  S.autoAssess = true;
+  S.assess = draft();
   paintTabs();
   syncFields();
   renderRows();
