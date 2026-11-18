@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080a0e">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="위케어">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>위케어 런처</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="favicon.png">
+<style>
+:root{
+  --bg:#08090c; --bg2:#0b0e13; --card:#101419; --card2:#151b23;
+  --line:#1e242e; --line2:#2b3441;
+  --txt:#f0f2f6; --txt2:#b9c2cf; --mut:#7d879a; --mut2:#596272;
+  --gold:#e8c07a; --gold2:#c2933f; --gold-soft:rgba(232,192,122,.13);
+  --up:#37e0b2; --dn:#ff6470;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  min-height:100dvh;
+  background:
+    radial-gradient(900px 520px at 85% -6%, rgba(232,192,122,.13), transparent 60%),
+    radial-gradient(760px 460px at -6% 8%, rgba(90,140,200,.10), transparent 58%),
+    linear-gradient(180deg,#08090c,#07080b 60%,#08090c);
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  font-size:15px; line-height:1.5; letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;
+  padding:calc(18px + env(safe-area-inset-top)) 14px calc(26px + env(safe-area-inset-bottom));
+}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.wrap{max-width:680px;margin:0 auto}
+@media(min-width:900px){ .wrap{max-width:920px} }
+
+/* ── top ── */
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+.hello{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.hi{margin:4px 0 0;font-size:24px;font-weight:800;letter-spacing:-.04em;line-height:1.2}
+@media(min-width:760px){ .hi{font-size:29px} }
+.hi .grad{background:linear-gradient(100deg,var(--gold),#fff3dc 48%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.clock{text-align:right;flex:0 0 auto}
+.clock b{display:block;font-size:22px;font-weight:800;letter-spacing:-.03em}
+.clock span{display:block;font-size:11px;color:var(--mut)}
+
+/* ── status bar ── */
+.status{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.sp{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.025);font-size:11.5px;color:var(--txt2);white-space:nowrap}
+.sp b{color:var(--txt);font-weight:700}
+.sp.on{border-color:rgba(55,224,178,.34);background:rgba(55,224,178,.10);color:#c5fff1}
+.sp.off{border-color:rgba(255,100,112,.3);background:rgba(255,100,112,.09);color:#ffd3d7}
+.sp.gold{border-color:rgba(232,192,122,.34);background:var(--gold-soft);color:#ffeccd}
+.sp i{font-style:normal;font-size:10px;opacity:.75}
+
+/* ── ticker strip ── */
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:14px;overflow:hidden;margin-bottom:18px}
+.strip .c{background:var(--card);padding:9px 11px}
+.strip .k{font-size:10px;color:var(--mut);font-weight:700;letter-spacing:.02em}
+.strip .v{font-size:14.5px;font-weight:800;margin-top:2px;letter-spacing:-.02em}
+.strip .d{font-size:10.5px;font-weight:700;margin-top:1px}
+.strip.hide{display:none}
+
+/* ── sections ── */
+.sec{margin-bottom:20px}
+.sec-h{display:flex;align-items:center;gap:8px;margin:0 0 9px 2px}
+.sec-h h2{margin:0;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.sec-h .ln{flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+
+/* ── hero cards ── */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(min-width:640px){ .grid{grid-template-columns:repeat(3,1fr)} }
+@media(min-width:900px){ .grid{grid-template-columns:repeat(3,1fr);gap:12px} }
+a.card{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:14px;
+  min-height:118px;padding:14px 14px 13px;border-radius:18px;text-decoration:none;color:inherit;
+  background:linear-gradient(160deg,var(--card2),var(--card) 70%);
+  border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.34);
+  transition:transform .16s cubic-bezier(.3,.7,0,1),border-color .16s,box-shadow .16s;overflow:hidden}
+a.card::after{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;
+  background:radial-gradient(340px 120px at 108% -20%,rgba(232,192,122,.16),transparent 70%);opacity:.65}
+a.card:hover{border-color:rgba(232,192,122,.4);box-shadow:0 12px 30px rgba(0,0,0,.45)}
+a.card:active{transform:scale(.985)}
+a.card .ic{font-size:26px;line-height:1}
+a.card .tt{display:block;font-size:15px;font-weight:800;letter-spacing:-.03em;margin-top:1px}
+a.card .ds{display:block;font-size:11px;color:var(--mut);margin-top:3px;line-height:1.45}
+a.card .tag{position:absolute;top:12px;right:12px;font-size:9.5px;font-weight:800;letter-spacing:.06em;
+  padding:3px 7px;border-radius:7px;color:#1b1509;background:linear-gradient(180deg,#f3d59c,var(--gold))}
+a.card .tag.ghost{background:transparent;color:var(--mut);border:1px solid var(--line2);font-weight:700}
+a.card.big{grid-column:1/-1;min-height:96px;flex-direction:row;align-items:center;gap:14px}
+a.card.big .ic{font-size:32px}
+a.card.big .body{flex:1;min-width:0}
+a.card.big .metric{font-size:11.5px;color:var(--txt2);margin-top:4px;font-weight:700}
+a.card.big .metric b{color:var(--txt)}
+
+/* ── mini chips ── */
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+@media(min-width:640px){ .mini{grid-template-columns:repeat(4,1fr)} }
+a.mini-c{display:flex;align-items:center;gap:8px;padding:10px 10px;border-radius:12px;text-decoration:none;color:var(--txt2);
+  background:rgba(255,255,255,.022);border:1px solid var(--line);font-size:12px;font-weight:700;letter-spacing:-.01em;
+  transition:border-color .15s,background .15s}
+a.mini-c:hover{border-color:var(--line2);background:rgba(255,255,255,.04)}
+a.mini-c span.e{font-size:14px}
+a.mini-c span.t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ── footer ── */
+.foot{margin-top:22px;text-align:center;font-size:10.5px;color:var(--mut2);line-height:1.7}
+.foot b{color:var(--mut);font-weight:700}
+.hint{margin-top:14px;padding:11px 13px;border-radius:12px;border:1px dashed var(--line2);
+  font-size:11.5px;color:var(--mut);line-height:1.6}
+.hint b{color:var(--gold);font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <div class="hello">WECAREVET · LAUNCHER</div>
+      <h1 class="hi">성수 원장님, <span class="grad">여기서 시작</span></h1>
+    </div>
+    <div class="clock"><b class="num" id="clock">--:--</b><span id="today">—</span></div>
+  </div>
+
+  <div class="status" id="status"></div>
+  <div class="strip hide" id="strip"></div>
+
+  <section class="sec">
+    <div class="sec-h"><h2>개인</h2><span class="ln"></span></div>
+    <div class="grid">
+      <a class="card" href="stocks.html">
+        <div><span class="ic">💹</span><span class="tt">주식 보드</span></div>
+        <div><span class="ds">관심 ETF·미국주식<br>장 마감 시세·손익</span></div>
+      </a>
+      <a class="card" href="etf-sim.html">
+        <div><span class="ic">📈</span><span class="tt">ETF 시뮬</span></div>
+        <div><span class="ds">60종 비교·백테스트<br>배당 캘린더</span></div>
+      </a>
+      <a class="card" href="lol-manager.html">
+        <div><span class="ic">🎮</span><span class="tt">LoL 매니저</span></div>
+        <div><span class="ds">구단 운영·밴픽<br>협곡 시뮬</span></div>
+      </a>
+      <a class="card" href="md-meta.html">
+        <div><span class="ic">🃏</span><span class="tt">마듀 메타</span></div>
+        <div><span class="ds">한국어 티어표<br>탑덱·금제</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>병원</h2><span class="ln"></span></div>
+    <div class="grid">
+      <a class="card big" href="staff.html">
+        <span class="ic">🏥</span>
+        <div class="body">
+          <span class="tt">원내 스태프 포털</span>
+          <span class="ds">SOAP · 소견서 · 퇴원안내 · CRI · 약물계산 · 리마인드 · 동의서</span>
+          <span class="metric">원내 도구 12종 · 논문 스터디 포함</span>
+        </div>
+        <span class="tag">STAFF</span>
+      </a>
+      <a class="card big" href="index.html">
+        <span class="ic">🐾</span>
+        <div class="body">
+          <span class="tt">보호자 홈페이지</span>
+          <span class="ds">진료시간 · 질환 안내 · 보호자 도구 · 예약 전 사전 문진</span>
+        </div>
+        <span class="tag ghost">PUBLIC</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-h"><h2>원내 도구 바로가기</h2><span class="ln"></span></div>
+    <div class="mini">
+      <a class="mini-c" href="report.html"><span class="e">📄</span><span class="t">소견서</span></a>
+      <a class="mini-c" href="soap.html"><span class="e">🗒️</span><span class="t">SOAP 차트</span></a>
+      <a class="mini-c" href="dose.html"><span class="e">💊</span><span class="t">약물·분할</span></a>
+      <a class="mini-c" href="discharge.html"><span class="e">🏠</span><span class="t">퇴원안내</span></a>
+      <a class="mini-c" href="remind.html"><span class="e">🔔</span><span class="t">리마인드</span></a>
+      <a class="mini-c" href="consent.html"><span class="e">✍️</span><span class="t">동의서</span></a>
+      <a class="mini-c" href="checklist.html"><span class="e">✅</span><span class="t">오픈·마감</span></a>
+      <a class="mini-c" href="cri_calculator.html"><span class="e">💧</span><span class="t">CRI 계산</span></a>
+      <a class="mini-c" href="research.html"><span class="e">📚</span><span class="t">논문 스터디</span></a>
+      <a class="mini-c" href="homecare.html"><span class="e">🩺</span><span class="t">홈케어</span></a>
+      <a class="mini-c" href="bcs.html"><span class="e">⚖️</span><span class="t">비만도 BCS</span></a>
+      <a class="mini-c" href="water-food.html"><span class="e">🥣</span><span class="t">음수량·사료</span></a>
+    </div>
+  </section>
+
+  <p class="foot">
+    <b>위케어동물의료센터</b> · 원장님 개인용 페이지<br>
+    검색 비노출 · 주소를 아는 기기에서만 열립니다
+  </p>
+
+  <div class="hint" id="hint">
+    <b>폰 홈 화면에 앱처럼</b> — 브라우저 메뉴에서 <b>홈 화면에 추가</b>를 누르면 이 런처가 아이콘으로 생깁니다.
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var WD = ["일","월","화","수","목","금","토"];
+  function kst(){ return new Date(Date.now() + 9*3600*1000); }   // KST 벽시계 = UTC + 9h
+  function pad(n){ return (n<10?"0":"")+n; }
+
+  function tick(){
+    var d = kst();
+    document.getElementById("clock").textContent = pad(d.getUTCHours()) + ":" + pad(d.getUTCMinutes());
+    document.getElementById("today").textContent = (d.getUTCMonth()+1) + "월 " + d.getUTCDate() + "일 (" + WD[d.getUTCDay()] + ")";
+  }
+  tick(); setInterval(tick, 20000);
+
+  // 진료 상태 (월·화·목·토·일 10–20, 금 10–16, 수 휴무)
+  (function clinic(){
+    var d = kst();
+    var wd = d.getUTCDay(), h = d.getUTCHours() + d.getUTCMinutes()/60;
+    var close = wd === 5 ? 16 : 20;
+    var box = document.getElementById("status");
+    var out = [];
+    if (wd === 3) {
+      out.push('<span class="sp off">🚫 오늘 휴진 <i>수요일 정기휴무</i></span>');
+      out.push('<span class="sp">내일 <b>10:00</b> 진료 시작</span>');
+    } else if (h < 10) {
+      out.push('<span class="sp on">🌤 진료 전 <i>' + pad(10) + ':00 오픈</i></span>');
+      out.push('<span class="sp">오늘 <b>10:00–' + close + ':00</b></span>');
+    } else if (h < close) {
+      out.push('<span class="sp on">🟢 진료 중 <i>' + close + ':00까지</i></span>');
+      out.push('<span class="sp">오늘 <b>10:00–' + close + ':00</b></span>');
+    } else {
+      out.push('<span class="sp off">🌙 오늘 진료 종료 <i>' + close + ':00</i></span>');
+      var nwd = (wd + 1) % 7, nclose = nwd === 5 ? 16 : 20;
+      out.push('<span class="sp">' + (nwd === 3 ? '모레' : '내일') + ' <b>10:00–' + nclose + ':00</b></span>');
+    }
+    out.push('<span class="sp gold">031-994-6346</span>');
+    box.innerHTML = out.join("");
+  })();
+
+  // 장 마감 시세 (stocks.json · 없으면 숨김)
+  fetch("stocks.json", {cache:"no-store"}).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+    if (!d || !Array.isArray(d.items)) return;
+    var want = [["SPY","S&P500"],["QQQ","나스닥100"],["KRW=X","USD/KRW"]];
+    var cells = [];
+    want.forEach(function(pair){
+      var it = d.items.filter(function(x){ return x.sym === pair[0]; })[0];
+      if (!it || it.px == null) return;
+      var v, pctv = it.d1;
+      v = Number(it.px).toLocaleString("ko-KR",{minimumFractionDigits:2,maximumFractionDigits:2});
+      var cls = pctv == null ? "" : (pctv > 0 ? "up" : (pctv < 0 ? "dn" : ""));
+      var ar = pctv == null ? "" : (pctv > 0 ? "▲" : (pctv < 0 ? "▼" : "–")) + " " + Math.abs(pctv).toFixed(2) + "%";
+      cells.push('<div class="c"><div class="k">' + pair[1] + '</div><div class="v num">' + v + '</div><div class="d num ' + cls + '">' + ar + '</div></div>');
+    });
+    if (!cells.length) return;
+    var strip = document.getElementById("strip");
+    strip.innerHTML = cells.join("");
+    strip.classList.remove("hide");
+  }).catch(function(){});
+
+})();
+</script>
+</body>
+</html>

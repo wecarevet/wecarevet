@@ -38,5 +38,9 @@ Disallow: /remind.html
 Disallow: /consent.html
 Disallow: /checklist.html
 Disallow: /papers.json
+Disallow: /report.html
+Disallow: /stocks.html
+Disallow: /my.html
+Disallow: /stocks.json
 
 Sitemap: https://wecarevet.github.io/wecarevet/sitemap.xml
