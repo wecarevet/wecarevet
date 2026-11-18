@@ -26344,8 +26344,8 @@ function v6ArriveCheck(){
 function v6XpCheck(){
   if(!M||!MM||!MM.units) return;
   const m=M.minute||0;
-  /* 첫 웨이브는 01:30 도착 — 1분 판정은 아직 라인에 도착하기 전이라 하지 않는다 */
-  if(m<2||m>14) return;
+  /* 라인전은 02:30부터 — 그 전(커버·인베이드 구간)에는 라인 도착 판정을 하지 않는다 */
+  if(m<3||m>14) return;
   if(V6XP.last===m) return;
   V6XP.last=m;
   const sec=m*60;
