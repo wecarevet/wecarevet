@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마취·입원·수술 동의서 &amp; 예상 비용표 · 위케어동물의료센터</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="위케어동물의료센터 원내 전용 마취·입원·수술 동의서와 예상 진료비 범위표 생성기.">
+<meta name="theme-color" content="#10335E">
+<meta name="application-name" content="동의서 생성기">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --red:#b3261e;--red-bg:#fdf1f0;--green:#166534;--green-bg:#eefaf3;--green-border:#bfe3ce;
+  --amber:#8a5300;--amber-bg:#fff8ea;--amber-border:#f0dcae;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit}
+::selection{background:var(--accent-light);color:var(--navy)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.topbar{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar-inner{max-width:1240px;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:58px;gap:.8rem}
+.logo-group{display:flex;align-items:center;gap:.5rem;min-width:0;text-decoration:none}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#fff;object-fit:contain;flex-shrink:0;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3;white-space:nowrap}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.65;letter-spacing:.08em;margin-top:1px}
+@media(max-width:430px){.logo-text{display:none}}
+.topbar-btns{display:flex;gap:.4rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:background .15s;white-space:nowrap;border:none;font-family:inherit}
+.tbtn.call{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.tbtn.call:hover{background:rgba(255,255,255,.2)}
+.tbtn.ghost{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.14);font-size:11px}
+.tbtn.ghost:hover{background:rgba(255,255,255,.14)}
+.staffnav{background:#fff;border-bottom:1px solid var(--border)}
+.staffnav-inner{max-width:1240px;margin:0 auto;padding:.5rem 1.25rem;display:flex;align-items:center;gap:.4rem;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+.staffnav-lbl{font-size:9.5px;font-weight:700;letter-spacing:.13em;color:var(--text-muted);text-transform:uppercase;flex-shrink:0}
+.snbtn{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:500;color:var(--text-mid);text-decoration:none;background:var(--navy-xlight);border:1px solid var(--border);padding:5px 10px;border-radius:999px;line-height:1.45;flex-shrink:0;transition:background .15s,color .15s}
+.snbtn:hover{border-color:#b7d0ee;color:var(--navy);background:#fff}
+.snbtn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.hero{background:var(--navy);padding:1.4rem 1.25rem 1.7rem;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-90px;top:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(126,184,247,.16),rgba(126,184,247,0) 68%)}
+.hero-inner{max-width:1240px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.16em;color:#9cc4f0;text-transform:uppercase;margin-bottom:.45rem}
+.hero h1{font-size:21px;font-weight:700;color:#fff;line-height:1.45;letter-spacing:-.02em}
+.hero h1 span{color:#7eb8f7}
+.hero p{margin-top:.45rem;font-size:12px;color:rgba(255,255,255,.62);line-height:1.8}
+.layout{max-width:1240px;margin:0 auto;padding:1.1rem 1.25rem 120px;display:grid;grid-template-columns:minmax(0,440px) minmax(0,1fr);gap:1.4rem;align-items:start}
+@media(max-width:1040px){.layout{grid-template-columns:1fr;padding-bottom:90px}}
+.panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:.85rem}
+.panel-head{padding:.75rem 1rem;border-bottom:1px solid var(--navy-xlight);display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+.panel-title{font-size:13px;font-weight:700;color:var(--navy)}
+.panel-head .mini{margin-left:auto}
+.panel-head .mini + .mini{margin-left:.3rem}
+.panel-body{padding:.9rem 1rem 1rem}
+.mini{font-family:inherit;font-size:11px;font-weight:600;color:var(--text-muted);background:var(--white);border:1px solid var(--border);border-radius:7px;padding:4px 9px;cursor:pointer;line-height:1.5;transition:all .15s}
+.mini:hover{color:var(--navy);border-color:#b7d0ee;background:var(--navy-xlight)}
+.field{margin-bottom:.7rem}
+.field:last-child{margin-bottom:0}
+.field > label{display:block;font-size:11px;font-weight:600;color:var(--text-mid);margin-bottom:4px}
+input[type=text],input[type=date],input[type=number],select,textarea{width:100%;font-family:inherit;font-size:13.5px;color:var(--text);background:var(--navy-xlight);border:1.5px solid var(--border);border-radius:8px;padding:7px 9px;outline:none;transition:border-color .15s,background .15s;line-height:1.5}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);background:#fff}
+input::placeholder,textarea::placeholder{color:#a9b7c5;font-size:12px}
+textarea{resize:vertical;min-height:56px;line-height:1.65}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.row.three{grid-template-columns:1fr 1fr 1fr}
+.hint{font-size:10.5px;color:var(--text-muted);margin-top:4px;line-height:1.55}
+.seg{display:flex;gap:.3rem;background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.28rem;flex-wrap:wrap}
+.seg button{font-family:inherit;flex:1;min-width:92px;font-size:11.5px;font-weight:600;color:var(--text-mid);background:none;border:none;border-radius:8px;padding:6px 6px;cursor:pointer;transition:all .15s;line-height:1.4}
+.seg button.on{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(16,51,94,.18)}
+.chks{display:grid;grid-template-columns:1fr 1fr;gap:.3rem .6rem;margin-top:.2rem}
+.chk{display:flex;align-items:center;gap:.4rem;font-size:11.5px;color:var(--text-mid);cursor:pointer;line-height:1.5}
+.chk input{width:15px;height:15px;accent-color:var(--navy);flex-shrink:0}
+.cost-tbl{width:100%;border-collapse:collapse;font-size:11px}
+.cost-tbl th{background:var(--navy-xlight);color:var(--text-mid);font-weight:700;font-size:9.8px;padding:5px 4px;border:1px solid var(--border);text-align:center}
+.cost-tbl td{border:1px solid var(--border);padding:3px 4px;text-align:center;vertical-align:middle}
+.cost-tbl td.nm{text-align:left;font-size:11px;padding-left:6px;line-height:1.4}
+.cost-tbl td.nm small{display:block;font-size:9px;color:var(--text-muted);line-height:1.3}
+.cost-tbl td.tk{width:26px}
+.cost-tbl input[type=text]{font-size:11px;padding:3px 4px;background:#fff;border-radius:5px}
+.cost-tbl input[type=number]{font-size:11px;padding:3px 4px;background:#fff;border-radius:5px;text-align:right}
+.cost-tbl input[type=checkbox]{width:14px;height:14px;accent-color:var(--navy)}
+.cost-tbl tr.off td.nm{opacity:.42}
+.cost-tbl tr.off input:not([type=checkbox]){opacity:.45}
+.sumline{display:flex;align-items:center;justify-content:space-between;gap:.6rem;background:var(--navy);color:#fff;border-radius:9px;padding:.55rem .8rem;margin-top:.55rem;font-size:12px;font-weight:600}
+.sumline b{font-size:15px;font-variant-numeric:tabular-nums}
+.adder{display:flex;gap:.35rem;margin-top:.5rem}
+.sheet-col{position:sticky;top:74px}
+@media(max-width:1040px){.sheet-col{position:static}}
+.sheet-bar{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin-bottom:.55rem}
+.sheet-bar .lbl{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;margin-right:auto}
+.btn{font-family:inherit;font-size:12px;font-weight:600;border-radius:9px;padding:7px 13px;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--navy);transition:all .15s;line-height:1.4}
+.btn:hover{border-color:#b7d0ee;background:var(--navy-xlight)}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.primary:hover{background:var(--navy-dark)}
+.btn.sm{font-size:11px;padding:5px 10px}
+.sheet-scroll{background:#e7edf6;border:1px solid #d8e2ee;border-radius:12px;padding:10px;max-height:calc(100vh - 150px);overflow:auto}
+@media(max-width:1040px){.sheet-scroll{max-height:none}}
+.doc{background:#fff;width:100%;max-width:760px;margin:0 auto;padding:20px 22px 18px;box-shadow:0 8px 26px -18px rgba(16,51,94,.5);border-radius:3px;font-size:10px;line-height:1.5;color:#16283c}
+.doc-head{display:flex;align-items:center;gap:9px;border-bottom:1.4px solid var(--navy);padding-bottom:6px}
+.doc-logo{width:36px;height:36px;object-fit:contain;flex-shrink:0}
+.doc-cn{font-size:13px;font-weight:700;color:var(--navy);line-height:1.3;letter-spacing:-.01em}
+.doc-cs{font-size:7.4px;color:#6d7f93;line-height:1.5;margin-top:1px}
+.doc-no{margin-left:auto;text-align:right;font-size:7.4px;color:#6d7f93;line-height:1.5;white-space:nowrap}
+.doc-title{text-align:center;margin:11px 0 3px;font-size:15px;font-weight:700;color:var(--navy);letter-spacing:.16em}
+.doc-title-sub{text-align:center;font-size:7.6px;color:#8494a6;letter-spacing:.05em;margin-bottom:9px}
+table.dt{width:100%;border-collapse:collapse;font-size:9.4px;margin-bottom:8px}
+table.dt th{background:#eef3f9;color:#42566d;font-weight:600;font-size:8.4px;padding:3px 5px;border:.8px solid #cfdbe8;text-align:center;white-space:nowrap;width:15%}
+table.dt td{border:.8px solid #cfdbe8;padding:3px 5px;text-align:left;height:18px}
+.doc-sec{margin-top:9px}
+.doc-h2{font-size:9.6px;font-weight:700;color:var(--navy);margin-bottom:3px;display:flex;align-items:center;gap:5px}
+.doc-h2::after{content:"";flex:1;height:.8px;background:#dbe5f0}
+.doc-body{font-size:9.2px;line-height:1.62;color:#22354a}
+.doc-body p{margin-bottom:2px}
+.doc-list{margin:0;padding-left:13px}
+.doc-list li{margin-bottom:2px}
+.doc-note{font-size:8.4px;color:#6d7f93;line-height:1.5;margin-top:3px}
+.doc-risk{background:#fdf6f5;border:.8px solid #ecc9c4;border-radius:4px;padding:5px 8px;margin-top:5px;font-size:8.8px;line-height:1.55;color:#7e2b23}
+.doc-risk b{color:#6d1611}
+table.ct{width:100%;border-collapse:collapse;font-size:9.2px;margin-top:3px}
+table.ct th{background:#eef3f9;color:#42566d;font-weight:600;font-size:8.4px;padding:2.5px 5px;border:.8px solid #cfdbe8;text-align:center}
+table.ct td{border:.8px solid #cfdbe8;padding:2.5px 5px;font-variant-numeric:tabular-nums}
+table.ct td.nm{text-align:left}
+table.ct td.num{text-align:right}
+table.ct tr.total td{background:#f2f6fb;font-weight:700}
+.doc-sign{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:12px;font-size:9.2px;color:#16283c}
+.doc-sign .line{display:inline-block;border-bottom:.8px solid #90a4b8;min-width:82px;text-align:center;padding-bottom:1px;margin-left:4px}
+.doc-sign .sd{font-size:8.2px;color:#6d7f93;margin-top:3px}
+.doc-foot{margin-top:10px;padding-top:5px;border-top:.8px dashed #dbe5f0;font-size:7.2px;color:#8494a6;line-height:1.55}
+.doc-foot b{color:#5a6b7d;font-weight:600}
+@media print{
+  @page{size:A4 portrait;margin:9mm 10mm}
+  html,body{background:#fff !important}
+  .topbar,.staffnav,.hero,.editor,.foot,.sheet-bar,.toast{display:none !important}
+  .layout{display:block !important;max-width:none;padding:0 !important;margin:0 !important}
+  .sheet-col{position:static !important}
+  .sheet-scroll{background:none !important;border:none !important;padding:0 !important;max-height:none !important;overflow:visible !important}
+  .doc{max-width:none !important;width:auto !important;box-shadow:none !important;border-radius:0 !important;padding:0 !important;font-size:9.2pt;line-height:1.45}
+  .doc-head{padding-bottom:4px;border-bottom-width:1.4pt}
+  .doc-logo{width:12mm;height:12mm}
+  .doc-cn{font-size:11pt}
+  .doc-title{font-size:13pt;margin:7px 0 2px}
+  .doc-title-sub{margin-bottom:6px}
+  table.dt{font-size:8.4pt;margin-bottom:5px}
+  table.dt th{font-size:7.6pt;padding:1.6px 4px}
+  table.dt td{padding:1.6px 4px;height:4.6mm}
+  .doc-sec{margin-top:6px}
+  .doc-body{font-size:8.5pt;line-height:1.5}
+  .doc-h2{font-size:8.8pt}
+  .doc-note{font-size:7.4pt}
+  .doc-risk{font-size:8pt;padding:4px 7px}
+  table.ct{font-size:8.4pt}
+  table.ct th{font-size:7.6pt}
+  .doc-sign{margin-top:9px}
+  .doc-foot{margin-top:6px;font-size:6.8pt}
+  .doc-head,table.dt th,table.ct th,table.ct tr.total td,.doc-risk{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  tr,td,th,.doc-sec,.doc-sign,.doc-foot{break-inside:avoid}
+  a[href]:after{content:"" !important}
+}
+.foot{background:var(--navy);padding:1.4rem 1.25rem}
+.foot-inner{max-width:1240px;margin:0 auto}
+.foot-name{color:#fff;font-size:13px;font-weight:500}
+.foot-sub{color:rgba(255,255,255,.45);font-size:10.5px;letter-spacing:.06em;margin-top:2px}
+.foot-disc{margin-top:.8rem;font-size:11px;color:rgba(255,255,255,.42);line-height:1.8}
+.foot-disc strong{color:rgba(255,255,255,.72);font-weight:500}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:500;background:var(--navy-dark);color:#fff;font-size:12.5px;font-weight:500;padding:10px 18px;border-radius:999px;box-shadow:0 10px 30px rgba(10,34,64,.35);opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;max-width:88vw;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo-group" href="index.html" aria-label="위케어동물의료센터 홈"><img class="logo-mark" src="logo-mark.png" width="28" height="28" alt=""><div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div></a>
+    <div class="topbar-btns">
+      <a class="tbtn ghost" href="staff.html">원내 도구</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+    </div>
+  </div>
+</div>
+
+<nav class="staffnav" aria-label="원내 도구 바로가기">
+  <div class="staffnav-inner">
+    <span class="staffnav-lbl">원내 도구</span>
+    <a class="snbtn" href="staff.html">🏠 원내 홈</a>
+    <a class="snbtn" href="dose.html">💊 용량·분할</a>
+    <a class="snbtn" href="remind.html">🔔 리마인드 카톡</a>
+    <a class="snbtn active" href="consent.html" aria-current="page">📝 동의서·비용표</a>
+    <a class="snbtn" href="checklist.html">✅ 오픈·마감</a>
+    <a class="snbtn" href="report.html">📄 소견서</a>
+    <a class="snbtn" href="discharge.html">📋 퇴원 안내문</a>
+    <a class="snbtn" href="cri_calculator.html">🧮 임상 계산기</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · STAFF TOOL</div>
+    <h1>마취·입원·수술 <span>동의서 &amp; 예상 비용표</span></h1>
+    <p>보호자 설명 전에 한 장으로 정리합니다. 항목을 체크하면 예상 비용 범위가 자동 합산되고, A4 한 장으로 인쇄·PDF 저장할 수 있습니다. 진료시간은 진료일 기준으로 표기됩니다.</p>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- 편집 -->
+  <div class="editor">
+
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">1. 문서 종류</div>
+        <button type="button" class="mini" id="resetBtn">처음부터</button>
+      </div>
+      <div class="panel-body">
+        <div class="seg" id="typeSeg" role="group" aria-label="문서 종류">
+          <button type="button" class="on" data-type="anes">마취·수술 동의서</button>
+          <button type="button" data-type="admit">입원 동의서</button>
+          <button type="button" data-type="both">마취·수술 + 입원</button>
+        </div>
+        <p class="hint">마취·수술 동의서에는 마취 위험·금식·응급처치 조항이, 입원 동의서에는 입원 처치·연락·기간 조항이 들어갑니다.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">2. 보호자 · 환자</div></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="field">
+            <label for="gName">보호자 성함</label>
+            <input type="text" id="gName" placeholder="예: 김서연">
+          </div>
+          <div class="field">
+            <label for="gPhone">연락처</label>
+            <input type="text" id="gPhone" placeholder="010-0000-0000">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="pName">환자 이름</label>
+            <input type="text" id="pName" placeholder="예: 콩이">
+          </div>
+          <div class="field">
+            <label for="pBreed">종 / 품종</label>
+            <input type="text" id="pBreed" placeholder="예: 개 / 말티즈">
+          </div>
+        </div>
+        <div class="row three">
+          <div class="field">
+            <label for="pAge">나이</label>
+            <input type="text" id="pAge" placeholder="예: 11세">
+          </div>
+          <div class="field">
+            <label for="pSex">성별</label>
+            <input type="text" id="pSex" placeholder="예: 암(중성화)">
+          </div>
+          <div class="field">
+            <label for="pWeight">체중(kg)</label>
+            <input type="text" id="pWeight" placeholder="예: 5.2" inputmode="decimal">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="pChart">등록번호</label>
+            <input type="text" id="pChart" placeholder="차트 번호">
+          </div>
+          <div class="field">
+            <label for="vDate">진료일</label>
+            <input type="date" id="vDate">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">3. 시술 · 입원 내용</div></div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="procName">시술명 (예: 스케일링 및 발치 2본, 중성화, 종양 절제)</label>
+          <input type="text" id="procName" placeholder="예: 스케일링 · 치과방사선 · 발치 2본">
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="anesType">마취 방법</label>
+            <select id="anesType">
+              <option value="호흡마취(전신)">호흡마취 (전신)</option>
+              <option value="주사마취(전신)">주사마취 (전신)</option>
+              <option value="진정 + 국소마취">진정 + 국소마취</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="anesTime">예상 소요 시간</label>
+            <input type="text" id="anesTime" placeholder="예: 40~60분">
+          </div>
+        </div>
+        <div class="field">
+          <label for="admitDays">입원 예정 (해당 시)</label>
+          <input type="text" id="admitDays" placeholder="예: 2박 3일">
+        </div>
+
+        <label class="hint" style="display:block;margin:.4rem 0 .3rem;font-weight:600;color:var(--text-mid)">고위험군 해당 항목 (체크 시 문서에 위험 안내 문단 추가)</label>
+        <div class="chks" id="riskChks">
+          <label class="chk"><input type="checkbox" value="노령(8세 이상)"> 노령 (8세 이상)</label>
+          <label class="chk"><input type="checkbox" value="심장병(심잡음·MMVD 등)"> 심장병 · 심잡음</label>
+          <label class="chk"><input type="checkbox" value="신장 질환"> 신장 질환</label>
+          <label class="chk"><input type="checkbox" value="간 질환"> 간 질환</label>
+          <label class="chk"><input type="checkbox" value="내분비 질환(당뇨·쿠싱 등)"> 내분비 질환</label>
+          <label class="chk"><input type="checkbox" value="체중 7kg 초과"> 체중 7 kg 초과</label>
+        </div>
+
+        <label class="hint" style="display:block;margin:.7rem 0 .3rem;font-weight:600;color:var(--text-mid)">마취 전 검사 시행</label>
+        <div class="chks" id="examChks">
+          <label class="chk"><input type="checkbox" value="혈액검사(CBC·화학)"> 혈액검사</label>
+          <label class="chk"><input type="checkbox" value="흉부 방사선"> 흉부 방사선</label>
+          <label class="chk"><input type="checkbox" value="심장초음파"> 심장초음파</label>
+          <label class="chk"><input type="checkbox" value="혈압 측정"> 혈압 측정</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">4. 예상 진료비 항목</div>
+        <button type="button" class="mini" id="varBtn">변동폭 ±15%</button>
+      </div>
+      <div class="panel-body">
+        <table class="cost-tbl">
+          <thead><tr><th style="width:26px">✓</th><th>항목</th><th style="width:74px">최소(원)</th><th style="width:74px">최대(원)</th></tr></thead>
+          <tbody id="costBody"></tbody>
+        </table>
+        <div class="adder">
+          <input type="text" id="newItem" placeholder="항목 직접 추가 (예: 발치 1본)" style="flex:1">
+          <button type="button" class="btn sm" id="addItemBtn">추가</button>
+        </div>
+        <div class="sumline"><span>예상 합계 (체크 항목)</span><b id="sumTxt">0원</b></div>
+        <label class="chk" style="margin-top:.55rem"><input type="checkbox" id="overW" checked> 7 kg 초과 할증 반영 (kg당 10,000원 · 중성화·스케일링·검진)</label>
+        <p class="hint">금액은 홈페이지 진료비 게시 기준입니다. 체중·상태·진행 항목에 따라 달라지므로 최소~최대 범위로 안내하고, 추가 항목이 생기면 시술 전에 다시 설명합니다.</p>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">5. 특이사항 · 설명 메모</div></div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="memo">보호자에게 설명한 내용 (문서에 함께 인쇄)</label>
+          <textarea id="memo" placeholder="예: 심잡음 3/6 확인, 마취 전 심초음파 권유. 보호자 희망으로 당일 마취 진행, 위험 충분히 설명함."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 문서 -->
+  <div class="sheet-col">
+    <div class="sheet-bar">
+      <span class="lbl">A4 1장 · 동의서 미리보기</span>
+      <button type="button" class="btn" id="printBtn2">🖨 PDF 저장</button>
+      <button type="button" class="btn primary" id="printBtn">🖨 인쇄</button>
+    </div>
+    <div class="sheet-scroll">
+      <div class="doc" id="doc"></div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <p class="foot-name">위케어동물의료센터</p>
+    <p class="foot-sub">WECARE Animal Medical Center · 원내 전용</p>
+    <p class="foot-disc"><strong>이 페이지는 원내 전용입니다.</strong> 생성한 문서는 원내에서 보호자 설명·서명용으로만 사용하며, 검색엔진에 노출되지 않습니다.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+  function $(id){ return document.getElementById(id); }
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function todayIso(){
+    var t = new Date();
+    return t.getFullYear() + '-' + pad(t.getMonth()+1) + '-' + pad(t.getDate());
+  }
+  function kdate(iso){
+    if(!iso) return '____년 __월 __일';
+    var p = iso.split('-');
+    if(p.length !== 3) return iso;
+    return p[0] + '년 ' + parseInt(p[1],10) + '월 ' + parseInt(p[2],10) + '일';
+  }
+  function won(n){ return n ? String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원' : '—'; }
+  function wonRange(a, b){
+    if(!a && !b) return '—';
+    if(a === b || !b) return won(a);
+    return won(a) + ' ~ ' + won(b);
+  }
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; });
+  }
+
+  var ITEMS = [
+    {id:'exam1', name:'초진 진찰료', sub:'', base:11000, on:true},
+    {id:'exam2', name:'재진 진찰료', sub:'', base:8800, on:false},
+    {id:'blood10', name:'혈액검사 10종', sub:'CBC·화학', base:75000, on:true},
+    {id:'blood17', name:'혈액검사 17종', sub:'', base:143000, on:false},
+    {id:'elec', name:'전해질 검사', sub:'Na·K·Cl', base:36300, on:false},
+    {id:'xray', name:'흉부 방사선', sub:'1 cut 기준', base:27500, on:true},
+    {id:'echo', name:'심장초음파', sub:'초진 기준', base:195000, on:false},
+    {id:'scale', name:'스케일링', sub:'치과방사선 포함 · 7kg 이하', base:340000, on:false, weight:true},
+    {id:'extract', name:'발치', sub:'본당 (직접 입력)', base:0, on:false},
+    {id:'neuterF', name:'중성화 (암컷)', sub:'혈액검사·수액·마취 포함', base:399000, on:false, weight:true},
+    {id:'neuterM', name:'중성화 (수컷)', sub:'혈액검사·수액·마취 포함', base:240000, on:false, weight:true},
+    {id:'mass', name:'종양 절제 · 피부 수술', sub:'범위·마취 포함 (직접 입력)', base:0, on:false},
+    {id:'anes', name:'마취비 (호흡마취)', sub:'시간·체중에 따라 (직접 입력)', base:0, on:false},
+    {id:'icu', name:'입원비 ICU 주간', sub:'1일 · 7kg 이하', base:55000, on:false},
+    {id:'fluid', name:'수액 · 처치', sub:'1일 (직접 입력)', base:0, on:false},
+    {id:'drug', name:'처방약', sub:'(직접 입력)', base:0, on:false}
+  ];
+
+  var state = { type:'anes', varPct:15, items:[], risks:[], exams:[], memoNote:'' };
+
+  /* 항목 초기화 */
+  function initItems(){
+    state.items = ITEMS.map(function(it){
+      return {id:it.id, name:it.name, sub:it.sub, base:it.base, on:it.on, weight:!!it.weight,
+              min:it.base, max:it.base, manual:false};
+    });
+    applyVariance();
+  }
+
+  function applyVariance(){
+    for(var i=0;i<state.items.length;i++){
+      var it = state.items[i];
+      if(it.manual) continue;
+      if(!it.base){ it.min = 0; it.max = 0; continue; }
+      it.min = Math.round(it.base / 1000) * 1000;
+      it.max = Math.round(it.base * (1 + state.varPct / 100) / 1000) * 1000;
+    }
+  }
+
+  function renderCost(){
+    var tb = $('costBody'), html = '', i, it;
+    for(i=0;i<state.items.length;i++){
+      it = state.items[i];
+      html += '<tr data-i="' + i + '" class="' + (it.on ? '' : 'off') + '">' +
+        '<td class="tk"><input type="checkbox" data-k="on" data-i="' + i + '"' + (it.on ? ' checked' : '') + '></td>' +
+        '<td class="nm">' + esc(it.name) + (it.sub ? '<small>' + esc(it.sub) + '</small>' : '') + '</td>' +
+        '<td><input type="number" data-k="min" data-i="' + i + '" value="' + (it.min || '') + '" placeholder="—" inputmode="numeric"></td>' +
+        '<td><input type="number" data-k="max" data-i="' + i + '" value="' + (it.max || '') + '" placeholder="—" inputmode="numeric"></td>' +
+      '</tr>';
+    }
+    tb.innerHTML = html;
+    updateSum();
+  }
+
+  function overWeightExtra(){
+    if(!$('overW').checked) return 0;
+    var w = parseFloat($('pWeight').value);
+    if(!isFinite(w) || w <= 7) return 0;
+    var over = Math.ceil(w - 7);
+    var hasWeightItem = false;
+    for(var i=0;i<state.items.length;i++){
+      if(state.items[i].on && state.items[i].weight){ hasWeightItem = true; break; }
+    }
+    return hasWeightItem ? over * 10000 : 0;
+  }
+
+  function totals(){
+    var lo = 0, hi = 0, i, it;
+    for(i=0;i<state.items.length;i++){
+      it = state.items[i];
+      if(!it.on) continue;
+      lo += (+it.min || 0);
+      hi += (+it.max || (it.min || 0));
+    }
+    var extra = overWeightExtra();
+    return {lo:lo + extra, hi:hi + extra, extra:extra};
+  }
+
+  function updateSum(){
+    var t = totals();
+    var extra = t.extra;
+    $('sumTxt').textContent = (t.lo === t.hi ? won(t.lo) : won(t.lo) + ' ~ ' + won(t.hi)) + (extra ? ' (할증 포함)' : '');
+  }
+
+  /* ───── 문서 렌더 ───── */
+  function riskText(){
+    if(!state.risks.length) return '';
+    return '<div class="doc-risk"><b>고위험군 안내 — ' + esc(state.risks.join(', ')) + '</b><br>' +
+      '해당 환자는 위 항목으로 인해 마취 중 저혈압·호흡 억제·회복 지연·심부정맥 등 합병증 위험이 일반 환자보다 높습니다. ' +
+      '마취 전 검사 결과와 상태에 따라 마취 방법을 조정하거나, 담당 수의사의 판단으로 시술을 연기·전원할 수 있음을 설명하였습니다.</div>';
+  }
+
+  function clauses(){
+    var c = [];
+    if(state.type === 'anes' || state.type === 'both'){
+      c.push('마취는 환자의 상태에 따라 저혈압, 호흡 억제, 회복 지연, 드물게 심정지 등의 위험이 있으며, 특히 노령·심장병·신장·간·내분비 질환이 있는 환자는 위험이 높습니다.');
+      c.push('마취 전 검사(혈액검사·흉부 방사선·심장초음파 등) 결과에 따라 마취 방법을 변경하거나 시술을 연기할 수 있습니다.');
+      c.push('마취 전 금식은 사료 기준 6~8시간이며, 물은 당일에도 드실 수 있습니다. 금식이 지켜지지 않은 경우 마취를 연기할 수 있습니다.');
+      c.push('마취 중 이상 상황이 발생하면 수액·약물 투여, 산소 공급, 심폐소생술 등 필요한 응급처치를 시행하며, 보호자에게 즉시 연락합니다.');
+      if(state.type === 'anes'){
+        c.push('수술 후 출혈·부종·감염·유착 등의 합병증이 발생할 수 있고, 절제 조직의 검사 결과에 따라 추가 치료가 필요할 수 있습니다.');
+      }
+    }
+    if(state.type === 'admit' || state.type === 'both'){
+      c.push('입원 중에는 수액·약물 투여, 채혈·영상검사 등 상태에 필요한 처치가 수의사 판단으로 시행될 수 있습니다.');
+      c.push('상태 변화가 있으면 보호자에게 연락하며, 연락이 닿지 않는 응급 상황에서는 환자 보호를 위해 필요한 처치를 먼저 시행할 수 있습니다.');
+      c.push('회복 속도에 따라 입원 기간이 예정보다 길어질 수 있으며, 추가 비용은 시행 전에 안내합니다.');
+      c.push('퇴원 시 투약·식이·활동 제한·재진 일정을 안내받고, 안내를 지키지 않아 발생한 문제에 대해서는 병원이 책임지지 않음을 확인합니다.');
+    }
+    c.push('위 내용과 예상 진료비 범위(최소~최대)를 설명 들었으며, 시술·입원에 동의합니다. 예상 범위를 넘는 추가 항목이 발생하면 시행 전에 다시 설명받는 것에 동의합니다.');
+    return c;
+  }
+
+  function costRows(){
+    var rows = '', i, it, t = totals();
+    for(i=0;i<state.items.length;i++){
+      it = state.items[i];
+      if(!it.on) continue;
+      var lo = +it.min || 0, hi = +it.max || lo;
+      if(!lo && !hi) continue;
+      rows += '<tr><td class="nm">' + esc(it.name) + (it.sub ? ' <span style="color:#8494a6;font-size:7pt">(' + esc(it.sub) + ')</span>' : '') +
+        '</td><td class="num">' + (lo === hi ? won(lo) : won(lo) + ' ~ ' + won(hi)) + '</td></tr>';
+    }
+    if(t.extra){
+      rows += '<tr><td class="nm">체중 할증 (7 kg 초과 ' + Math.ceil((parseFloat($('pWeight').value) || 0) - 7) + ' kg × 10,000원)</td><td class="num">' + won(t.extra) + '</td></tr>';
+    }
+    if(!rows) rows = '<tr><td class="nm" colspan="2" style="text-align:center;color:#8494a6">비용 항목을 체크하면 여기에 표시됩니다</td></tr>';
+    rows += '<tr class="total"><td class="nm">예상 합계</td><td class="num">' + (t.lo === t.hi ? won(t.lo) : won(t.lo) + ' ~ ' + won(t.hi)) + '</td></tr>';
+    return rows;
+  }
+
+  function renderDoc(){
+    var type = state.type;
+    var title = type === 'anes' ? '마취 · 수술 동의서' : type === 'admit' ? '입원 동의서' : '마취 · 수술 및 입원 동의서';
+    var sub = type === 'anes' ? 'Anesthesia & Surgical Consent' : type === 'admit' ? 'Hospitalization Consent' : 'Anesthesia · Surgery & Hospitalization Consent';
+    var d = $('vDate').value || todayIso();
+    var no = d.replace(/-/g, '') + '-' + (($('pChart').value || '00').replace(/[^0-9A-Za-z]/g, '').slice(-4) || '00');
+    var cl = clauses(), li = '', i;
+    for(i=0;i<cl.length;i++) li += '<li>' + cl[i] + '</li>';
+
+    var proc = $('procName').value.trim();
+    var anesType = $('anesType').value;
+    var anesTime = $('anesTime').value.trim();
+    var admitDays = $('admitDays').value.trim();
+    var memo = $('memo').value.trim();
+
+    var html = '';
+
+    html += '<div class="doc-head">' +
+      '<img class="doc-logo" src="logo-mark.png" alt="">' +
+      '<div>' +
+        '<div class="doc-cn">위케어동물의료센터</div>' +
+        '<div class="doc-cs">WECARE Animal Medical Center · 경기도 고양시 일산동구 위시티4로 46 (식사동) · 031-994-6346<br>' +
+        '진료시간 월·화·목·토·일 10:00–20:00 / 금 10:00–16:00 · 수요일 정기휴무</div>' +
+      '</div>' +
+      '<div class="doc-no">문서번호<br><b>' + esc(no) + '</b></div>' +
+    '</div>';
+
+    html += '<div class="doc-title">' + title + '</div>';
+    html += '<div class="doc-title-sub">' + sub + '</div>';
+
+    html += '<table class="dt">' +
+      '<tr><th>보호자</th><td>' + esc($('gName').value) + '</td><th>연락처</th><td>' + esc($('gPhone').value) + '</td></tr>' +
+      '<tr><th>환자명</th><td>' + esc($('pName').value) + '</td><th>종 / 품종</th><td>' + esc($('pBreed').value) + '</td></tr>' +
+      '<tr><th>나이 / 성별</th><td>' + esc($('pAge').value) + ' / ' + esc($('pSex').value) + '</td><th>체중</th><td>' + esc($('pWeight').value) + ' kg</td></tr>' +
+      '<tr><th>등록번호</th><td>' + esc($('pChart').value) + '</td><th>진료일</th><td>' + kdate(d) + '</td></tr>' +
+    '</table>';
+
+    /* 시술 내용 */
+    html += '<div class="doc-sec"><div class="doc-h2">시술 · 입원 내용</div><div class="doc-body">';
+    html += '<p><b>시술명</b> : ' + (proc ? esc(proc) : '<span style="color:#a9b7c5">—</span>') + '</p>';
+    if(type === 'anes' || type === 'both'){
+      html += '<p><b>마취</b> : ' + esc(anesType) + (anesTime ? ' · 예상 ' + esc(anesTime) : '') +
+        (state.exams.length ? ' · 마취 전 검사: ' + esc(state.exams.join(', ')) : '') + '</p>';
+    }
+    if(type === 'admit' || type === 'both'){
+      html += '<p><b>입원</b> : ' + (admitDays ? esc(admitDays) + ' 예정' : '<span style="color:#a9b7c5">해당 시 기재</span>') + '</p>';
+    }
+    html += '</div>' + riskText() + '</div>';
+
+    /* 예상 비용 */
+    html += '<div class="doc-sec"><div class="doc-h2">예상 진료비 (범위)</div>' +
+      '<table class="ct"><thead><tr><th style="width:62%">항목</th><th>예상 비용</th></tr></thead><tbody>' + costRows() + '</tbody></table>' +
+      '<p class="doc-note">· 부가세 포함 금액이며 체중·상태·진행 항목에 따라 실제 비용은 달라질 수 있습니다. 7 kg 초과 시 중성화·스케일링·건강검진은 kg당 10,000원이 추가됩니다.<br>' +
+      '· 위 범위를 넘는 추가 검사·처치가 필요하면 시행 전에 다시 설명드리고 동의를 받습니다.</p></div>';
+
+    /* 동의 조항 */
+    html += '<div class="doc-sec"><div class="doc-h2">안내 및 동의 사항</div>' +
+      '<div class="doc-body"><ol class="doc-list">' + li + '</ol></div></div>';
+
+    if(memo){
+      html += '<div class="doc-sec"><div class="doc-h2">설명 메모</div><div class="doc-body" style="white-space:pre-wrap">' + esc(memo) + '</div></div>';
+    }
+
+    /* 서명 */
+    html += '<div class="doc-sign">' +
+      '<div>보호자 성명 <span class="line">' + esc($('gName').value) + '</span><div class="sd">서명 <span class="line" style="min-width:96px">&nbsp;</span></div></div>' +
+      '<div style="text-align:right">' + kdate(d) + '<div class="sd">위케어동물의료센터 담당 수의사 <span class="line" style="min-width:70px">&nbsp;</span></div></div>' +
+    '</div>';
+
+    html += '<div class="doc-foot"><b>본 동의서는 2부를 작성하여 1부는 보호자, 1부는 병원이 보관합니다.</b> ' +
+      '설명은 진료실에서 구두로 진행되었으며, 보호자가 이해하지 못한 부분은 다시 설명하였습니다. ' +
+      '문의 031-994-6346 · 카카오채널 pf.kakao.com/_lxhxmxnG</div>';
+
+    $('doc').innerHTML = html;
+  }
+
+  /* ───── 이벤트 ───── */
+  var toastEl = $('toast'), timer = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.className = 'toast show';
+    clearTimeout(timer);
+    timer = setTimeout(function(){ toastEl.className = 'toast'; }, 1700);
+  }
+
+  function bind(){
+    $('typeSeg').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-type]');
+      if(!b) return;
+      var bs = this.querySelectorAll('button');
+      for(var i=0;i<bs.length;i++) bs[i].classList.remove('on');
+      b.classList.add('on');
+      state.type = b.getAttribute('data-type');
+      renderDoc();
+    });
+
+    $('costBody').addEventListener('input', function(e){
+      var el = e.target;
+      var i = parseInt(el.getAttribute('data-i'), 10);
+      if(isNaN(i)) return;
+      var k = el.getAttribute('data-k');
+      var it = state.items[i];
+      if(k === 'on'){ it.on = el.checked; el.closest('tr').classList.toggle('off', !it.on); }
+      else if(k === 'min'){ it.min = parseFloat(el.value) || 0; it.manual = true; }
+      else if(k === 'max'){ it.max = parseFloat(el.value) || 0; it.manual = true; }
+      updateSum(); renderDoc();
+    });
+    $('costBody').addEventListener('change', function(e){
+      if(e.target.getAttribute('data-k') === 'on'){
+        var tr = e.target.closest('tr');
+        if(tr) tr.classList.toggle('off', !e.target.checked);
+      }
+    });
+
+    $('varBtn').addEventListener('click', function(){
+      var opts = [0, 10, 15, 20], idx = opts.indexOf(state.varPct);
+      state.varPct = opts[(idx + 1) % opts.length];
+      this.textContent = state.varPct ? '변동폭 ±' + state.varPct + '%' : '변동폭 없음';
+      applyVariance();
+      renderCost(); renderDoc();
+    });
+
+    $('addItemBtn').addEventListener('click', function(){
+      var name = $('newItem').value.trim();
+      if(!name){ toast('항목 이름을 입력하세요'); return; }
+      state.items.push({id:'x' + Date.now(), name:name, sub:'', base:0, on:true, weight:false, min:0, max:0, manual:true});
+      $('newItem').value = '';
+      renderCost(); renderDoc();
+      toast('항목을 추가했습니다 — 금액을 입력하세요');
+    });
+
+    $('overW').addEventListener('change', function(){ updateSum(); renderDoc(); });
+
+    document.querySelectorAll('#riskChks input, #examChks input').forEach(function(el){
+      el.addEventListener('change', function(){
+        var arr = [];
+        document.querySelectorAll('#riskChks input:checked').forEach(function(x){ arr.push(x.value); });
+        state.risks = arr;
+        var ex = [];
+        document.querySelectorAll('#examChks input:checked').forEach(function(x){ ex.push(x.value); });
+        state.exams = ex;
+        renderDoc();
+      });
+    });
+
+    ['gName','gPhone','pName','pBreed','pAge','pSex','pWeight','pChart','vDate','procName','anesType','anesTime','admitDays','memo'].forEach(function(id){
+      var el = $(id);
+      el.addEventListener('input', function(){ updateSum(); renderDoc(); });
+      el.addEventListener('change', function(){ updateSum(); renderDoc(); });
+    });
+
+    $('printBtn').addEventListener('click', function(){ window.print(); });
+    $('printBtn2').addEventListener('click', function(){ window.print(); });
+
+    $('resetBtn').addEventListener('click', function(){
+      ['gName','gPhone','pName','pBreed','pAge','pSex','pWeight','pChart','procName','anesTime','admitDays','memo'].forEach(function(id){ $(id).value = ''; });
+      $('vDate').value = todayIso();
+      document.querySelectorAll('#riskChks input, #examChks input').forEach(function(x){ x.checked = false; });
+      state.risks = []; state.exams = [];
+      state.type = 'anes'; state.varPct = 15;
+      var bs = $('typeSeg').querySelectorAll('button');
+      for(var i=0;i<bs.length;i++) bs[i].classList.toggle('on', i === 0);
+      $('varBtn').textContent = '변동폭 ±15%';
+      initItems(); renderCost(); renderDoc();
+      toast('처음 상태로 되돌렸습니다');
+    });
+  }
+
+  /* 시작 */
+  $('vDate').value = todayIso();
+  initItems();
+  renderCost();
+  bind();
+  renderDoc();
+})();
+</script>
+</body>
+</html>

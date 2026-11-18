@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>약물 용량 · 알약 분할 계산기 · 위케어동물의료센터</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="위케어동물의료센터 원내 전용 약물 용량·알약 분할 계산기와 입원 처치 시트.">
+<meta name="theme-color" content="#10335E">
+<meta name="application-name" content="용량 계산기">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --red:#b3261e;--red-bg:#fdf1f0;--green:#166534;--green-bg:#eefaf3;--green-border:#bfe3ce;
+  --amber:#8a5300;--amber-bg:#fff8ea;--amber-border:#f0dcae;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit}
+::selection{background:var(--accent-light);color:var(--navy)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* topbar */
+.topbar{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar-inner{max-width:1240px;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:58px;gap:.8rem}
+.logo-group{display:flex;align-items:center;gap:.5rem;min-width:0;text-decoration:none}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#fff;object-fit:contain;flex-shrink:0;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3;white-space:nowrap}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.65;letter-spacing:.08em;margin-top:1px}
+@media(max-width:430px){.logo-text{display:none}}
+.topbar-btns{display:flex;gap:.4rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:background .15s;white-space:nowrap;border:none;font-family:inherit}
+.tbtn.call{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.tbtn.call:hover{background:rgba(255,255,255,.2)}
+.tbtn.ghost{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.14);font-size:11px}
+.tbtn.ghost:hover{background:rgba(255,255,255,.14)}
+
+/* staff nav */
+.staffnav{background:#fff;border-bottom:1px solid var(--border)}
+.staffnav-inner{max-width:1240px;margin:0 auto;padding:.5rem 1.25rem;display:flex;align-items:center;gap:.4rem;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+.staffnav-lbl{font-size:9.5px;font-weight:700;letter-spacing:.13em;color:var(--text-muted);text-transform:uppercase;flex-shrink:0}
+.snbtn{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:500;color:var(--text-mid);text-decoration:none;background:var(--navy-xlight);border:1px solid var(--border);padding:5px 10px;border-radius:999px;line-height:1.45;flex-shrink:0;transition:background .15s,color .15s}
+.snbtn:hover{border-color:#b7d0ee;color:var(--navy);background:#fff}
+.snbtn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+
+/* hero */
+.hero{background:var(--navy);padding:1.4rem 1.25rem 1.7rem;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-90px;top:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(126,184,247,.16),rgba(126,184,247,0) 68%)}
+.hero-inner{max-width:1240px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.16em;color:#9cc4f0;text-transform:uppercase;margin-bottom:.45rem}
+.hero h1{font-size:21px;font-weight:700;color:#fff;line-height:1.45;letter-spacing:-.02em}
+.hero h1 span{color:#7eb8f7}
+.hero p{margin-top:.45rem;font-size:12px;color:rgba(255,255,255,.62);line-height:1.8}
+
+/* layout */
+.layout{max-width:1240px;margin:0 auto;padding:1.1rem 1.25rem 120px;display:grid;grid-template-columns:minmax(0,470px) minmax(0,1fr);gap:1.4rem;align-items:start}
+@media(max-width:1040px){.layout{grid-template-columns:1fr;padding-bottom:90px}}
+
+/* panels */
+.panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:.85rem}
+.panel-head{padding:.75rem 1rem;border-bottom:1px solid var(--navy-xlight);display:flex;align-items:center;gap:.45rem;flex-wrap:wrap}
+.panel-title{font-size:13px;font-weight:700;color:var(--navy)}
+.panel-head .mini{margin-left:auto}
+.panel-head .mini + .mini{margin-left:.35rem}
+.panel-body{padding:.9rem 1rem 1rem}
+.mini{font-family:inherit;font-size:11px;font-weight:600;color:var(--text-muted);background:var(--white);border:1px solid var(--border);border-radius:7px;padding:4px 9px;cursor:pointer;line-height:1.5;transition:all .15s}
+.mini:hover{color:var(--navy);border-color:#b7d0ee;background:var(--navy-xlight)}
+
+/* fields */
+.field{margin-bottom:.7rem}
+.field:last-child{margin-bottom:0}
+.field > label{display:block;font-size:11px;font-weight:600;color:var(--text-mid);margin-bottom:4px}
+input[type=text],input[type=date],input[type=number],select,textarea{width:100%;font-family:inherit;font-size:13.5px;color:var(--text);background:var(--navy-xlight);border:1.5px solid var(--border);border-radius:8px;padding:7px 9px;outline:none;transition:border-color .15s,background .15s;line-height:1.5}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);background:#fff}
+input::placeholder,textarea::placeholder{color:#a9b7c5;font-size:12px}
+textarea{resize:vertical;min-height:54px;line-height:1.65}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.row.three{grid-template-columns:1fr 1fr 1fr}
+.hint{font-size:10.5px;color:var(--text-muted);margin-top:4px;line-height:1.55}
+
+/* segmented */
+.seg{display:flex;gap:.35rem;background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.28rem}
+.seg button{font-family:inherit;flex:1;font-size:12px;font-weight:600;color:var(--text-mid);background:none;border:none;border-radius:8px;padding:6px 4px;cursor:pointer;transition:all .15s;line-height:1.4}
+.seg button.on{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(16,51,94,.18)}
+
+/* result */
+.res{background:linear-gradient(180deg,#fff,#f7fafd);border:1.5px solid #cfe0f3;border-radius:12px;padding:.95rem 1rem;margin-bottom:.7rem}
+.res-top{display:flex;align-items:baseline;gap:.4rem;flex-wrap:wrap}
+.res-name{font-size:14px;font-weight:700;color:var(--navy)}
+.res-sub{font-size:10.5px;color:var(--text-muted)}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.7rem}
+@media(max-width:420px){.res-grid{grid-template-columns:1fr}}
+.rcell{background:#fff;border:1px solid var(--border);border-radius:10px;padding:.6rem .7rem}
+.rcell-l{display:block;font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--text-muted);text-transform:uppercase}
+.rcell-v{display:block;font-size:22px;font-weight:700;color:var(--navy);line-height:1.25;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.rcell-v small{font-size:12px;font-weight:600;color:var(--text-mid);margin-left:2px}
+.rcell-n{display:block;font-size:10.5px;color:var(--text-muted);line-height:1.5;margin-top:2px}
+.rcell.hero-cell{background:var(--navy);border-color:var(--navy)}
+.rcell.hero-cell .rcell-l{color:#9cc4f0}
+.rcell.hero-cell .rcell-v{color:#fff}
+.rcell.hero-cell .rcell-n{color:rgba(255,255,255,.62)}
+.split-tbl{width:100%;border-collapse:collapse;margin-top:.55rem;font-size:11.5px}
+.split-tbl th,.split-tbl td{border:1px solid var(--border);padding:4px 7px;text-align:center}
+.split-tbl th{background:var(--navy-xlight);font-weight:600;color:var(--text-mid);font-size:10.5px}
+.split-tbl td.on{background:#eaf3ff;font-weight:700;color:var(--navy)}
+.note{font-size:10.5px;line-height:1.6;border-radius:8px;padding:.45rem .6rem;margin-top:.55rem}
+.note.warn{background:var(--red-bg);border:1px solid #f2ccc8;color:#8c1d18}
+.note.ok{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+.note.info{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber)}
+.actions{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.6rem}
+.btn{font-family:inherit;font-size:12px;font-weight:600;border-radius:9px;padding:8px 13px;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--navy);transition:all .15s;line-height:1.4}
+.btn:hover{border-color:#b7d0ee;background:var(--navy-xlight)}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.primary:hover{background:var(--navy-dark)}
+.btn.ghost{color:var(--text-mid)}
+.btn:active{transform:translateY(1px)}
+
+/* drug table */
+.disclaim{background:var(--red-bg);border:1px solid #f2ccc8;border-radius:10px;padding:.6rem .75rem;font-size:11.5px;color:#8c1d18;line-height:1.65;margin-bottom:.85rem}
+.disclaim b{color:#6d1611}
+.dtbl-wrap{overflow:auto;max-height:420px;border:1px solid var(--border);border-radius:10px}
+table.dtbl{width:100%;border-collapse:collapse;font-size:11px;min-width:520px}
+table.dtbl th{position:sticky;top:0;background:var(--navy-xlight);color:var(--text-mid);font-weight:700;font-size:10px;padding:6px 7px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;z-index:1}
+table.dtbl td{padding:5px 7px;border-bottom:1px solid #eef3f9;vertical-align:top;line-height:1.5}
+table.dtbl tr:hover td{background:#fbfdff}
+table.dtbl td.c{text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cat-chip{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:5px;background:var(--navy-xlight);border:1px solid var(--border);color:var(--text-mid)}
+
+/* sheet */
+.sheet-col{position:sticky;top:74px}
+@media(max-width:1040px){.sheet-col{position:static}}
+.sheet-bar{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin-bottom:.55rem}
+.sheet-bar .lbl{font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:.05em;text-transform:uppercase;margin-right:auto}
+.sheet-scroll{background:#e7edf6;border:1px solid #d8e2ee;border-radius:12px;padding:10px;max-height:calc(100vh - 150px);overflow:auto}
+@media(max-width:1040px){.sheet-scroll{max-height:none}}
+.sheet{background:#fff;width:100%;max-width:760px;margin:0 auto;padding:18px 20px 16px;box-shadow:0 8px 26px -18px rgba(16,51,94,.5);border-radius:3px;font-size:10.5px;line-height:1.45;color:#16283c}
+.sh-head{display:flex;align-items:center;gap:9px;border-bottom:1.4px solid var(--navy);padding-bottom:6px}
+.sh-logo{width:34px;height:34px;object-fit:contain;flex-shrink:0}
+.sh-clinic{min-width:0}
+.sh-cn{font-size:12.5px;font-weight:700;color:var(--navy);line-height:1.3;letter-spacing:-.01em}
+.sh-cs{font-size:8px;color:#6d7f93;letter-spacing:.04em;line-height:1.4}
+.sh-title{margin-left:auto;text-align:right;font-size:12px;font-weight:700;color:var(--navy);letter-spacing:.14em;white-space:nowrap}
+.sh-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:2px 8px;margin:7px 0 6px;font-size:9.5px}
+.sh-meta .k{color:#6d7f93;font-size:8.5px;display:block;line-height:1.3}
+.sh-meta .v{font-weight:600;color:#16283c;border-bottom:.7px solid #dbe5f0;display:block;min-height:15px;padding-bottom:1px;font-size:9.5px}
+.sh-sec{font-size:9.5px;font-weight:700;color:var(--navy);margin:8px 0 3px;display:flex;align-items:center;gap:5px}
+.sh-sec::after{content:"";flex:1;height:1px;background:#dbe5f0}
+table.sh-tbl{width:100%;border-collapse:collapse;font-size:9px}
+table.sh-tbl th{background:#eef3f9;color:#42566d;font-weight:600;font-size:8.2px;padding:3px 3px;border:.8px solid #cfdbe8;text-align:center;line-height:1.3}
+table.sh-tbl td{border:.8px solid #cfdbe8;padding:2.5px 3px;text-align:center;height:19px;line-height:1.3;font-variant-numeric:tabular-nums}
+table.sh-tbl td.nm{text-align:left;font-weight:600;padding-left:4px}
+table.sh-tbl td.chk{width:11px}
+table.sh-tbl tr.blank td{height:19px}
+.sh-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:9px;font-size:8.6px;color:#6d7f93}
+.sh-sign{display:flex;gap:14px;align-items:center;font-size:9px;color:#16283c}
+.sh-sign span{display:inline-block;border-bottom:.8px solid #90a4b8;min-width:74px;text-align:center;padding-bottom:1px}
+.sh-tip{margin-top:5px;font-size:7.6px;color:#8494a6;line-height:1.5;border-top:.7px dashed #dbe5f0;padding-top:4px}
+
+/* print */
+@page{size:A4 portrait;margin:9mm 10mm}
+@media print{
+  html,body{background:#fff !important}
+  .topbar,.staffnav,.hero,.editor,.foot,.sheet-bar,.toast{display:none !important}
+  .layout{display:block !important;max-width:none;padding:0 !important;margin:0 !important}
+  .sheet-col{position:static !important}
+  .sheet-scroll{background:none !important;border:none !important;padding:0 !important;max-height:none !important;overflow:visible !important}
+  .sheet{max-width:none !important;width:auto !important;box-shadow:none !important;border-radius:0 !important;padding:0 !important;font-size:9.4pt;line-height:1.4}
+  .sh-head,table.sh-tbl th{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .sh-head{padding-bottom:4px;border-bottom-width:1.4pt}
+  .sh-logo{width:11mm;height:11mm}
+  .sh-cn{font-size:11pt}
+  .sh-title{font-size:11pt}
+  .sh-meta{font-size:8.6pt;margin:5px 0 4px}
+  .sh-meta .k{font-size:7.2pt}
+  .sh-meta .v{min-height:4.4mm;font-size:8.6pt}
+  .sh-sec{margin:6px 0 2px;font-size:8.8pt}
+  table.sh-tbl th{font-size:7.4pt;padding:1.4px 2px}
+  table.sh-tbl td{height:5.4mm;font-size:8.2pt;padding:1px 2px}
+  table.sh-tbl tr.blank td{height:5.4mm}
+  .sh-foot{margin-top:6px;font-size:7.4pt;break-inside:avoid}
+  .sh-tip{font-size:6.6pt}
+  tr,td,th{break-inside:avoid}
+}
+
+/* footer */
+.foot{background:var(--navy);padding:1.4rem 1.25rem}
+.foot-inner{max-width:1240px;margin:0 auto}
+.foot-name{color:#fff;font-size:13px;font-weight:500}
+.foot-sub{color:rgba(255,255,255,.45);font-size:10.5px;letter-spacing:.06em;margin-top:2px}
+.foot-disc{margin-top:.8rem;font-size:11px;color:rgba(255,255,255,.42);line-height:1.8}
+.foot-disc strong{color:rgba(255,255,255,.72);font-weight:500}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:500;background:var(--navy-dark);color:#fff;font-size:12.5px;font-weight:500;padding:10px 18px;border-radius:999px;box-shadow:0 10px 30px rgba(10,34,64,.35);opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;max-width:88vw;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.warn{background:#b3261e}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo-group" href="index.html" aria-label="위케어동물의료센터 홈"><img class="logo-mark" src="logo-mark.png" width="28" height="28" alt=""><div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div></a>
+    <div class="topbar-btns">
+      <a class="tbtn ghost" href="staff.html">원내 도구</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+    </div>
+  </div>
+</div>
+
+<nav class="staffnav" aria-label="원내 도구 바로가기">
+  <div class="staffnav-inner">
+    <span class="staffnav-lbl">원내 도구</span>
+    <a class="snbtn" href="staff.html">🏠 원내 홈</a>
+    <a class="snbtn active" href="dose.html" aria-current="page">💊 용량·분할</a>
+    <a class="snbtn" href="remind.html">🔔 리마인드 카톡</a>
+    <a class="snbtn" href="consent.html">📝 동의서·비용표</a>
+    <a class="snbtn" href="checklist.html">✅ 오픈·마감</a>
+    <a class="snbtn" href="report.html">📄 소견서</a>
+    <a class="snbtn" href="discharge.html">📋 퇴원 안내문</a>
+    <a class="snbtn" href="soap.html">🩺 SOAP</a>
+    <a class="snbtn" href="cri_calculator.html">🧮 임상 계산기</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · STAFF TOOL</div>
+    <h1>원내 약물 용량 · <span>알약 분할 계산기</span></h1>
+    <p>체중과 mg/kg을 넣으면 1회 용량(mg) · 주사량(mL) · 정 분할(½·¼·⅛정)이 바로 나옵니다. 처방을 시트에 담아 A4 입원 처치 시트로 인쇄하세요.</p>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ══════════ 입력 ══════════ -->
+  <div class="editor">
+
+    <div class="disclaim">
+      <b>원내 참고용 계산기입니다.</b> 표시된 용량은 문헌 참고 범위로, 환자 상태·신장·간 기능·병용약에 따라 달라집니다. <b>최종 처방과 용량은 수의사 확인 필수</b>이며, 개·고양이 용량이 다르므로 종을 먼저 확인하세요.
+    </div>
+
+    <!-- 1. 환자 -->
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">1. 환자 정보</div></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="field">
+            <label for="pName">환자 이름</label>
+            <input type="text" id="pName" placeholder="예: 콩이">
+          </div>
+          <div class="field">
+            <label for="pWeight">체중 (kg)</label>
+            <input type="number" id="pWeight" value="5" min="0.3" max="90" step="0.1" inputmode="decimal">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="pSpecies">종</label>
+            <div class="seg" id="pSpeciesSeg" role="group" aria-label="종 선택">
+              <button type="button" class="on" data-sp="dog">🐶 강아지</button>
+              <button type="button" data-sp="cat">🐱 고양이</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="admDate">입원일</label>
+            <input type="date" id="admDate">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="pId">등록번호</label>
+            <input type="text" id="pId" placeholder="차트 번호">
+          </div>
+          <div class="field">
+            <label for="pDx">진단 / 주증상</label>
+            <input type="text" id="pDx" placeholder="예: MMVD B2, 폐부종">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 약물 -->
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">2. 약물 · 용량</div>
+        <button type="button" class="mini" id="customBtn">직접 입력</button>
+      </div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="drugSel">약물 선택 (원내 다빈도)</label>
+          <select id="drugSel"></select>
+          <div class="hint" id="drugInfo">약물을 선택하면 참고 용량이 채워집니다.</div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="doseLow">mg/kg 최소</label>
+            <input type="number" id="doseLow" value="0.25" step="0.01" min="0" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label for="doseHigh">mg/kg 최대</label>
+            <input type="number" id="doseHigh" value="0.3" step="0.01" min="0" inputmode="decimal">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="doseUse">적용 용량 (mg/kg)</label>
+            <input type="number" id="doseUse" value="0.25" step="0.01" min="0.001" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label for="freqSel">투여 간격</label>
+            <select id="freqSel">
+              <option value="24">1일 1회 (q24h)</option>
+              <option value="12" selected>1일 2회 (q12h)</option>
+              <option value="8">1일 3회 (q8h)</option>
+              <option value="6">1일 4회 (q6h)</option>
+              <option value="4">1일 6회 (q4h)</option>
+              <option value="0">필요시 (PRN)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="concVal">제형 농도</label>
+            <input type="number" id="concVal" value="2.5" step="0.001" min="0.001" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label for="concUnit">단위</label>
+            <select id="concUnit">
+              <option value="mg/정" selected>mg / 정(알약)</option>
+              <option value="mg/캡슐">mg / 캡슐</option>
+              <option value="mg/mL">mg / mL (주사·시럽)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" id="concPresetWrap">
+          <label for="concPreset">제품 농도 빠른 선택</label>
+          <select id="concPreset"></select>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. 결과 -->
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">3. 계산 결과</div>
+        <button type="button" class="mini" id="copyBtn">계산문 복사</button>
+      </div>
+      <div class="panel-body">
+        <div class="res">
+          <div class="res-top">
+            <span class="res-name" id="resName">—</span>
+            <span class="res-sub" id="resSub"></span>
+          </div>
+          <div class="res-grid">
+            <div class="rcell hero-cell">
+              <span class="rcell-l">1회 용량</span>
+              <span class="rcell-v" id="rMg">— <small>mg</small></span>
+              <span class="rcell-n" id="rMgNote"></span>
+            </div>
+            <div class="rcell">
+              <span class="rcell-l" id="rVolLbl">투여량</span>
+              <span class="rcell-v" id="rVol">—</span>
+              <span class="rcell-n" id="rVolNote"></span>
+            </div>
+            <div class="rcell">
+              <span class="rcell-l">1일 총량</span>
+              <span class="rcell-v" id="rDay">—</span>
+              <span class="rcell-n" id="rDayNote"></span>
+            </div>
+            <div class="rcell">
+              <span class="rcell-l">참고 범위</span>
+              <span class="rcell-v" id="rRange" style="font-size:15px">—</span>
+              <span class="rcell-n" id="rRangeNote"></span>
+            </div>
+          </div>
+          <div id="splitBox"></div>
+          <div id="notes"></div>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn primary" id="addRxBtn">＋ 처치 시트에 추가</button>
+          <button type="button" class="btn ghost" id="printBtn">🖨 시트 인쇄 / PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 참고표 -->
+    <div class="panel">
+      <div class="panel-head"><div class="panel-title">4. 원내 다빈도 약물 참고표</div>
+        <button type="button" class="mini" id="tblToggle">접기</button>
+      </div>
+      <div class="panel-body" id="tblBody">
+        <div class="dtbl-wrap">
+          <table class="dtbl">
+            <thead><tr><th>약물</th><th>분류</th><th>개 mg/kg</th><th>고양이 mg/kg</th><th>간격·경로</th></tr></thead>
+            <tbody id="tblBd"></tbody>
+          </table>
+        </div>
+        <p class="hint">표의 용량은 문헌 참고 범위입니다. 제품 농도·함량은 원내 재고 기준으로 선택하세요. 고양이에 개 용량을 쓰면 위험할 수 있습니다.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════ 시트 ══════════ -->
+  <div class="sheet-col">
+    <div class="sheet-bar">
+      <span class="lbl">A4 · 입원 1일 투약·바이탈 처치 시트</span>
+      <button type="button" class="btn ghost" id="clearRxBtn">시트 비우기</button>
+      <button type="button" class="btn primary" id="printBtn2">🖨 인쇄 / PDF</button>
+    </div>
+    <div class="sheet-scroll">
+      <div class="sheet" id="sheet">
+        <div class="sh-head">
+          <img class="sh-logo" src="logo-mark.png" alt="">
+          <div class="sh-clinic">
+            <div class="sh-cn">위케어동물의료센터</div>
+            <div class="sh-cs">WECARE Animal Medical Center · 경기도 고양시 일산동구 위시티4로 46 · 031-994-6346</div>
+          </div>
+          <div class="sh-title">입원 처치 기록</div>
+        </div>
+
+        <div class="sh-meta">
+          <div><span class="k">환자명</span><span class="v" id="shName"></span></div>
+          <div><span class="k">종 / 품종</span><span class="v" id="shKind"></span></div>
+          <div><span class="k">체중(kg)</span><span class="v" id="shWeight"></span></div>
+          <div><span class="k">등록번호</span><span class="v" id="shId"></span></div>
+          <div><span class="k">입원일</span><span class="v" id="shDate"></span></div>
+          <div><span class="k">담당 수의사</span><span class="v"></span></div>
+          <div><span class="k">진단 / 주증상</span><span class="v" id="shDx" style="grid-column:span 2"></span></div>
+          <div><span class="k">알레르기</span><span class="v"></span></div>
+        </div>
+
+        <div class="sh-sec">1일 투약 (처방)</div>
+        <table class="sh-tbl">
+          <thead>
+            <tr><th style="width:24%">약물 · 성분</th><th style="width:13%">1회 용량</th><th style="width:15%">투여량</th><th style="width:10%">경로</th><th style="width:9%">간격</th><th>06</th><th>10</th><th>14</th><th>18</th><th>22</th><th>02</th></tr>
+          </thead>
+          <tbody id="rxBody"></tbody>
+        </table>
+
+        <div class="sh-sec">바이탈 · 처치 (6회 측정)</div>
+        <table class="sh-tbl">
+          <thead>
+            <tr><th style="width:13%">시간</th><th>체온 ℃</th><th>심박</th><th>호흡</th><th>혈압</th><th>SpO₂/CRT</th><th>통증</th><th>수액 mL/h</th><th style="width:16%">배뇨 · 배변</th><th style="width:18%">특이사항</th></tr>
+          </thead>
+          <tbody id="vtBody"></tbody>
+        </table>
+
+        <div class="sh-foot">
+          <div class="sh-sign">
+            <div>담당 테크니션 <span></span></div>
+            <div>확인(수의사) <span></span></div>
+          </div>
+          <div style="text-align:right">처치자 인계: <span style="display:inline-block;border-bottom:.8px solid #90a4b8;min-width:90px"></span></div>
+        </div>
+        <div class="sh-tip">
+          금식은 사료 6~8시간(물은 당일 허용) · 투여 후 이상 반응(구토·호흡수 변화·발작)은 즉시 수의사 보고 · 약물명·용량은 처방 오더와 대조 후 기재 · 본 시트는 원내 기록용이며 보호자 배포용이 아닙니다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <p class="foot-name">위케어동물의료센터</p>
+    <p class="foot-sub">WECARE Animal Medical Center · 원내 전용</p>
+    <p class="foot-disc"><strong>이 페이지는 원내 전용입니다.</strong> 보호자 안내 페이지에서 링크되지 않으며 검색엔진에 노출되지 않습니다. 계산 결과는 원내 참고용으로, 최종 처방은 수의사가 확인합니다.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+  function $(id){ return document.getElementById(id); }
+
+  /* ───── 약물 데이터 (문헌 참고 범위) ───── */
+  var DRUGS = [
+    {id:'furosemide', cat:'심장', kr:'푸로세미드', en:'Furosemide', dog:[1,4], cat:[1,2], route:'PO / IV / IM', freq:'q8–12h',
+     note:'폐부종·울혈성 심부전. 신장·전해질(K) 추적', concs:[['라식스 주 20mg/2mL (10 mg/mL)',10,'mg/mL'],['정 40 mg',40,'mg/정']]},
+    {id:'pimobendan', cat:'심장', kr:'피모벤단', en:'Pimobendan', dog:[0.25,0.3], cat:[0.25,0.3], route:'PO', freq:'q12h',
+     note:'식전 1시간 투여 권장. 고양이는 근거 제한', concs:[['츄정 1.25 mg',1.25,'mg/정'],['츄정 2.5 mg',2.5,'mg/정'],['츄정 5 mg',5,'mg/정']]},
+    {id:'enalapril', cat:'심장', kr:'에날라프릴', en:'Enalapril', dog:[0.25,0.5], cat:[0.25,0.5], route:'PO', freq:'q12–24h',
+     note:'ACE 억제제. 신장 수치·저혈압 확인', concs:[['정 5 mg',5,'mg/정'],['정 10 mg',10,'mg/정']]},
+    {id:'benazepril', cat:'심장', kr:'베나제프릴', en:'Benazepril', dog:[0.25,0.5], cat:[0.25,0.5], route:'PO', freq:'q12–24h',
+     note:'ACE 억제제. 첫 투여 후 신장·혈압 확인', concs:[['정 5 mg',5,'mg/정'],['정 10 mg',10,'mg/정'],['정 20 mg',20,'mg/정']]},
+    {id:'telmisartan', cat:'심장', kr:'텔미사르탄', en:'Telmisartan', dog:[0.5,1], cat:[0.5,1], route:'PO', freq:'q24h',
+     note:'단백뇨·전신고혈압. ARB', concs:[['정 10 mg',10,'mg/정'],['정 20 mg',20,'mg/정'],['정 40 mg',40,'mg/정'],['정 80 mg',80,'mg/정']]},
+    {id:'spironolactone', cat:'심장', kr:'스피로노락톤', en:'Spironolactone', dog:[1,2], cat:[1,2], route:'PO', freq:'q12h',
+     note:'이뇨제 병용. 고칼륨 주의', concs:[['정 12.5 mg',12.5,'mg/정'],['정 25 mg',25,'mg/정']]},
+    {id:'torasemide', cat:'심장', kr:'토라세미드', en:'Torasemide', dog:[0.1,0.2], cat:[0.1,0.2], route:'PO / IV', freq:'q12–24h',
+     note:'루프 이뇨제. 푸로세미드에서 교체 시 감량', concs:[['정 5 mg',5,'mg/정'],['정 10 mg',10,'mg/정'],['주 10 mg/mL',10,'mg/mL']]},
+    {id:'sildenafil', cat:'심장', kr:'실데나필', en:'Sildenafil', dog:[1,2], cat:[1,2], route:'PO', freq:'q8–12h',
+     note:'폐고혈압. 저혈압·실신 주의', concs:[['정 20 mg',20,'mg/정'],['정 50 mg',50,'mg/정']]},
+    {id:'maropitant', cat:'소화기', kr:'마로피탄트', en:'Maropitant', dog:[1,2], cat:[1,1], route:'SC / PO', freq:'q24h',
+     note:'구토·멀미. 개 PO는 2 mg/kg, SC는 1 mg/kg', concs:[['주 10 mg/mL',10,'mg/mL'],['정 16 mg',16,'mg/정'],['정 24 mg',24,'mg/정'],['정 60 mg',60,'mg/정'],['정 160 mg',160,'mg/정']]},
+    {id:'metoclopramide', cat:'소화기', kr:'메토클로프라미드', en:'Metoclopramide', dog:[0.2,0.5], cat:[0.2,0.5], route:'IV / IM / PO', freq:'q6–8h',
+     note:'위장 운동 촉진·구토. 폐색 의심 시 금기', concs:[['주 5 mg/mL',5,'mg/mL'],['정 5 mg',5,'mg/정'],['정 10 mg',10,'mg/정']]},
+    {id:'famotidine', cat:'소화기', kr:'파모티딘', en:'Famotidine', dog:[0.5,1], cat:[0.5,1], route:'IV / PO', freq:'q12–24h',
+     note:'H2 차단제. 위산 억제', concs:[['주 10 mg/mL',10,'mg/mL'],['정 10 mg',10,'mg/정'],['정 20 mg',20,'mg/정']]},
+    {id:'omeprazole', cat:'소화기', kr:'오메프라졸', en:'Omeprazole', dog:[1,1], cat:[1,1], route:'PO', freq:'q24h',
+     note:'PPI. 식전 투여', concs:[['캡슐 10 mg',10,'mg/캡슐'],['캡슐 20 mg',20,'mg/캡슐']]},
+    {id:'ondansetron', cat:'소화기', kr:'온단세트론', en:'Ondansetron', dog:[0.1,0.2], cat:[0.1,0.2], route:'IV / PO', freq:'q6–12h',
+     note:'5-HT3 차단제. 항암·중증 구토', concs:[['주 2 mg/mL',2,'mg/mL'],['정 4 mg',4,'mg/정'],['정 8 mg',8,'mg/정']]},
+    {id:'amoxi-clav', cat:'항생제', kr:'아목시실린·클라불란산', en:'Amoxicillin-Clavulanate', dog:[12.5,25], cat:[12.5,25], route:'PO', freq:'q12h',
+     note:'1차 선택 항생제. 식후 투여', concs:[['정 250 mg',250,'mg/정'],['정 500 mg',500,'mg/정'],['시럽 62.5 mg/mL',62.5,'mg/mL']]},
+    {id:'metronidazole', cat:'항생제', kr:'메트로니다졸', en:'Metronidazole', dog:[15,25], cat:[10,15], route:'PO / IV', freq:'q12h',
+     note:'혐기성·설사. 고양이는 10~15 mg/kg', concs:[['정 250 mg',250,'mg/정'],['주 5 mg/mL',5,'mg/mL']]},
+    {id:'doxycycline', cat:'항생제', kr:'독시사이클린', en:'Doxycycline', dog:[5,10], cat:[5,10], route:'PO', freq:'q12–24h',
+     note:'리케치아·마이코플라스마. 물과 함께 투여', concs:[['정 50 mg',50,'mg/정'],['정 100 mg',100,'mg/정']]},
+    {id:'cephalexin', cat:'항생제', kr:'세파렉신', en:'Cephalexin', dog:[15,30], cat:[15,30], route:'PO', freq:'q12h',
+     note:'피부·요로 감염 1세대 세팔로스포린', concs:[['캡슐 250 mg',250,'mg/캡슐'],['캡슐 500 mg',500,'mg/캡슐']]},
+    {id:'enrofloxacin', cat:'항생제', kr:'엔로플록사신', en:'Enrofloxacin', dog:[5,10], cat:[5,5], route:'PO / SC', freq:'q24h',
+     note:'고양이는 5 mg/kg 초과 금기(망막 독성)', concs:[['주 50 mg/mL (5%)',50,'mg/mL'],['정 50 mg',50,'mg/정'],['정 150 mg',150,'mg/정']]},
+    {id:'clindamycin', cat:'항생제', kr:'클린다마이신', en:'Clindamycin', dog:[5.5,11], cat:[5.5,11], route:'PO / IV', freq:'q12h',
+     note:'치과·골·피부 감염. 식후 투여', concs:[['캡슐 150 mg',150,'mg/캡슐'],['캡슐 300 mg',300,'mg/캡슐']]},
+    {id:'gabapentin', cat:'진통·신경', kr:'가바펜틴', en:'Gabapentin', dog:[10,20], cat:[10,20], route:'PO', freq:'q8–12h',
+     note:'신경병증 통증·불안. 신장 기능 저하 시 감량', concs:[['캡슐 100 mg',100,'mg/캡슐'],['캡슐 300 mg',300,'mg/캡슐'],['시럽 50 mg/mL',50,'mg/mL']]},
+    {id:'tramadol', cat:'진통·신경', kr:'트라마돌', en:'Tramadol', dog:[2,4], cat:[1,2], route:'PO / IV', freq:'q8–12h',
+     note:'중등도 통증. 고양이는 1~2 mg/kg', concs:[['정 50 mg',50,'mg/정'],['주 50 mg/mL',50,'mg/mL']]},
+    {id:'carprofen', cat:'진통·신경', kr:'카프로펜', en:'Carprofen', dog:[2.2,4.4], cat:null, route:'PO / SC', freq:'q12–24h',
+     note:'고양이 사용 금기. NSAID — 신장·위장 확인', concs:[['정 25 mg',25,'mg/정'],['정 75 mg',75,'mg/정'],['주 50 mg/mL',50,'mg/mL']]},
+    {id:'meloxicam', cat:'진통·신경', kr:'멜록시캄', en:'Meloxicam', dog:[0.1,0.2], cat:[0.05,0.1], route:'PO / SC', freq:'q24h',
+     note:'첫날 부하 후 유지 용량. 고양이는 0.05 mg/kg', concs:[['주 5 mg/mL',5,'mg/mL'],['정 1 mg',1,'mg/정'],['정 2.5 mg',2.5,'mg/정']]},
+    {id:'butorphanol', cat:'진통·신경', kr:'부토판올', en:'Butorphanol', dog:[0.2,0.4], cat:[0.2,0.4], route:'IV / IM / SC', freq:'q2–4h',
+     note:'진통 2~4시간. 진정·진해 작용', concs:[['주 2 mg/mL',2,'mg/mL'],['주 10 mg/mL',10,'mg/mL']]},
+    {id:'prednisolone', cat:'기타', kr:'프레드니솔론', en:'Prednisolone', dog:[0.5,1], cat:[0.5,1], route:'PO', freq:'q24h',
+     note:'항염증 용량. 감량 계획 필요', concs:[['정 5 mg',5,'mg/정'],['시럽 15 mg/5mL',3,'mg/mL']]},
+    {id:'dexamethasone', cat:'기타', kr:'덱사메타손', en:'Dexamethasone', dog:[0.05,0.1], cat:[0.05,0.1], route:'IV / IM', freq:'q24h',
+     note:'항염증 용량. 장기 투여 시 부작용', concs:[['주 5 mg/mL',5,'mg/mL'],['정 0.5 mg',0.5,'mg/정']]},
+    {id:'ursodiol', cat:'기타', kr:'우르소데옥시콜산', en:'Ursodiol', dog:[10,15], cat:[10,15], route:'PO', freq:'q24h',
+     note:'담즙淤滞·간 지원', concs:[['캡슐 100 mg',100,'mg/캡슐'],['캡슐 250 mg',250,'mg/캡슐']]}
+  ];
+
+  /* ───── 상태 ───── */
+  var state = { species:'dog', drug:DRUGS[0], rx:[] };
+  var TABLET_UNITS = { 'mg/정':1, 'mg/캡슐':1 };
+
+  function num(el, dflt){ var v = parseFloat(el.value); return isFinite(v) ? v : dflt; }
+  function fmt(v, d){
+    if(!isFinite(v)) return '—';
+    var s = v.toFixed(d === undefined ? 2 : d);
+    if(s.indexOf('.') >= 0){ s = s.replace(/0+$/,'').replace(/\.$/,''); }
+    return s;
+  }
+  function commas(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
+  /* 분할: 1/8정 단위 */
+  var FR = {1:'⅛', 2:'¼', 3:'⅜', 4:'½', 5:'⅝', 6:'¾', 7:'⅞'};
+  function fracText(t){
+    if(!isFinite(t) || t <= 0) return '—';
+    var e = Math.round(t * 8);
+    if(e < 1) return '1/8정 미만';
+    var w = Math.floor(e / 8), r = e % 8;
+    var s = '';
+    if(w > 0) s += w;
+    if(r > 0) s += FR[r];
+    if(w > 0 && r > 0) s += '정';
+    else if(w === 0) s += '정';
+    else s += '정';
+    return s;
+  }
+
+  /* ───── 약물 선택 ───── */
+  function buildDrugSelect(){
+    var sel = $('drugSel'), cats = {}, i, d;
+    for(i=0;i<DRUGS.length;i++){
+      d = DRUGS[i];
+      if(!cats[d.cat]) cats[d.cat] = [];
+      cats[d.cat].push(d);
+    }
+    var html = '';
+    for(var c in cats){
+      if(!cats.hasOwnProperty(c)) continue;
+      html += '<optgroup label="' + c + '">';
+      for(i=0;i<cats[c].length;i++){
+        d = cats[c][i];
+        html += '<option value="' + d.id + '">' + d.kr + ' (' + d.en + ')</option>';
+      }
+      html += '</optgroup>';
+    }
+    sel.innerHTML = html;
+  }
+
+  function applyDrug(id, keepDose){
+    var d = null, i;
+    for(i=0;i<DRUGS.length;i++){ if(DRUGS[i].id === id){ d = DRUGS[i]; break; } }
+    if(!d) return;
+    state.drug = d;
+    var r = d[state.species];
+    if(r){
+      $('doseLow').value = r[0];
+      $('doseHigh').value = r[1];
+      if(!keepDose) $('doseUse').value = r[0];
+    } else {
+      $('doseLow').value = '';
+      $('doseHigh').value = '';
+      $('doseUse').value = '';
+    }
+    // 농도 프리셋
+    var ps = $('concPreset'), opts = '<option value="">— 제품 농도 선택 —</option>';
+    for(i=0;i<d.concs.length;i++){
+      opts += '<option value="' + d.concs[i][1] + '|' + d.concs[i][2] + '">' + d.concs[i][0] + '</option>';
+    }
+    ps.innerHTML = opts;
+    if(d.concs.length){ ps.value = d.concs[0][1] + '|' + d.concs[0][2]; setConc(d.concs[0][1], d.concs[0][2]); }
+    // 간격 기본
+    var f = d.freq;
+    if(f.indexOf('q12–24') >= 0) $('freqSel').value = '24';
+    else if(f.indexOf('q8–12') >= 0) $('freqSel').value = '12';
+    else if(f.indexOf('q12') >= 0) $('freqSel').value = '12';
+    else if(f.indexOf('q8') >= 0) $('freqSel').value = '8';
+    else if(f.indexOf('q6') >= 0) $('freqSel').value = '8';
+    else if(f.indexOf('q24') >= 0) $('freqSel').value = '24';
+    else if(f.indexOf('q2–4') >= 0) $('freqSel').value = '6';
+
+    $('drugInfo').innerHTML = '<b>' + d.kr + '</b> · ' + d.en + ' · 경로 ' + d.route + ' · 참고 간격 ' + d.freq
+      + (d.note ? '<br>' + d.note : '')
+      + (state.species === 'cat' && !d.cat ? '<br><b style="color:#b3261e">고양이 용량 자료 없음 — 사용 전 수의사 확인</b>' : '');
+    recompute();
+  }
+
+  function setConc(v, u){
+    $('concVal').value = v;
+    $('concUnit').value = u;
+  }
+
+  /* ───── 계산 ───── */
+  function recompute(){
+    var w = num($('pWeight'), 0);
+    var use = num($('doseUse'), NaN);
+    var low = num($('doseLow'), NaN);
+    var high = num($('doseHigh'), NaN);
+    var conc = num($('concVal'), 0);
+    var unit = $('concUnit').value;
+    var perDay = parseFloat($('freqSel').value) || 0;
+    var d = state.drug;
+
+    var mg = (isFinite(use) && w > 0) ? use * w : NaN;
+    var isLiquid = (unit === 'mg/mL');
+
+    $('resName').textContent = d ? d.kr + (d.en ? ' · ' + d.en : '') : '—';
+    $('resSub').textContent = (w > 0 ? fmt(w,2) + ' kg · ' + (state.species === 'dog' ? '강아지' : '고양이') : '체중을 입력하세요')
+      + (isFinite(use) ? ' · ' + fmt(use,3) + ' mg/kg' : '');
+
+    // 1회 용량 mg
+    if(isFinite(mg) && mg > 0){
+      $('rMg').innerHTML = fmt(mg, mg < 10 ? 2 : 1) + ' <small>mg</small>';
+      $('rMgNote').textContent = fmt(use,3) + ' mg/kg × ' + fmt(w,2) + ' kg';
+    } else {
+      $('rMg').innerHTML = '— <small>mg</small>';
+      $('rMgNote').textContent = '체중·적용 용량을 확인하세요';
+    }
+
+    // 투여량
+    var splitBox = $('splitBox'), notes = $('notes');
+    splitBox.innerHTML = ''; notes.innerHTML = '';
+
+    if(isLiquid){
+      $('rVolLbl').textContent = '주사·시럽량 (mL)';
+      if(isFinite(mg) && conc > 0){
+        var ml = mg / conc;
+        $('rVol').innerHTML = fmt(ml, ml < 1 ? 3 : 2) + ' <small>mL</small>';
+        $('rVolNote').textContent = conc + ' mg/mL 기준';
+        if(ml < 0.1){
+          notes.innerHTML += '<div class="note warn">투여량이 <b>0.1 mL 미만</b>입니다. 인슐린 주사기(1 mL) 또는 희석 후 투여를 권장합니다. 희석 계산은 수의사 확인.</div>';
+        } else if(ml < 0.3){
+          notes.innerHTML += '<div class="note info">소량입니다. 1 mL 인슐린 주사기로 정확히 계량하세요.</div>';
+        }
+      } else {
+        $('rVol').textContent = '—'; $('rVolNote').textContent = '농도를 확인하세요';
+      }
+      splitBox.innerHTML = '<p class="hint" style="margin-top:.55rem">정(알약) 분할은 단위를 <b>mg/정</b> 또는 <b>mg/캡슐</b>으로 바꾸면 계산됩니다.</p>';
+    } else {
+      $('rVolLbl').textContent = '정 분할 (알약)';
+      if(isFinite(mg) && conc > 0){
+        var tabs = mg / conc;
+        var eighths = Math.round(tabs * 8);
+        var actual = (eighths / 8) * conc;
+        var err = mg > 0 ? ((actual - mg) / mg) * 100 : 0;
+        var label = fracText(tabs);
+        $('rVol').innerHTML = (eighths >= 1 ? label : '—') + ' <small>' + (eighths >= 1 ? '(' + fmt(actual,3) + ' mg)' : '') + '</small>';
+        $('rVolNote').textContent = '정확히 ' + fmt(tabs,3) + '정 · ' + conc + ' mg 기준';
+        if(eighths < 1){
+          notes.innerHTML += '<div class="note warn"><b>1/8정보다 작아 분할할 수 없습니다.</b> 시럽·현탁액 제형이나 소분(조제)을 수의사와 상의하세요.</div>';
+        } else if(Math.abs(err) >= 10){
+          notes.innerHTML += '<div class="note warn">1/8정 단위로 맞추면 처방량 대비 <b>' + (err > 0 ? '+' : '') + fmt(err,1) + '%</b> 차이가 납니다. 분할 기준을 다시 확인하세요.</div>';
+        } else if(Math.abs(err) >= 5){
+          notes.innerHTML += '<div class="note info">1/8정 단위 오차 <b>' + (err > 0 ? '+' : '') + fmt(err,1) + '%</b>. 임상적으로 허용되는 범위인지 확인하세요.</div>';
+        }
+        // 분할 표
+        var rows = '<table class="split-tbl"><thead><tr><th>분할</th><th>1/8</th><th>1/4</th><th>1/3</th><th>1/2</th><th>1정</th><th>1½정</th><th>2정</th></tr></thead><tbody><tr><th>mg</th>';
+        var cand = [['⅛',1/8],['¼',1/4],['⅓',1/3],['½',1/2],['1',1],['1½',1.5],['2',2]];
+        for(var i=0;i<cand.length;i++){
+          var v = cand[i][1] * conc;
+          var on = (Math.abs(v - mg) / mg) < 0.02 ? ' class="on"' : '';
+          rows += '<td' + on + '>' + fmt(v, v < 1 ? 3 : 2) + '</td>';
+        }
+        rows += '</tr></tbody></table>';
+        splitBox.innerHTML = rows;
+      } else {
+        $('rVol').textContent = '—'; $('rVolNote').textContent = '농도를 확인하세요';
+      }
+    }
+
+    // 1일 총량
+    if(isFinite(mg) && perDay > 0){
+      var day = mg * perDay;
+      $('rDay').innerHTML = fmt(day, day < 10 ? 2 : 1) + ' <small>mg</small>';
+      $('rDayNote').textContent = perDay + '회/일' + (isLiquid && conc > 0 ? ' · ' + fmt(day / conc, 2) + ' mL/일' : '');
+    } else if(perDay === 0){
+      $('rDay').innerHTML = 'PRN <small>필요시</small>';
+      $('rDayNote').textContent = '1일 고정 투여 없음';
+    } else {
+      $('rDay').textContent = '—'; $('rDayNote').textContent = '';
+    }
+
+    // 참고 범위
+    if(isFinite(low) && isFinite(high) && w > 0){
+      $('rRange').textContent = fmt(low * w, 2) + ' – ' + fmt(high * w, 2) + ' mg';
+      $('rRangeNote').textContent = low + ' – ' + high + ' mg/kg';
+      if(isFinite(use) && use < low * 0.999){
+        notes.innerHTML += '<div class="note info">적용 용량이 참고 범위 <b>최소보다 낮습니다</b>. 감량 목적이 아니라면 확인하세요.</div>';
+      } else if(isFinite(use) && use > high * 1.001){
+        notes.innerHTML += '<div class="note warn">적용 용량이 참고 범위 <b>최대를 넘습니다</b>. 고용량 프로토콜인지 확인하세요.</div>';
+      }
+    } else {
+      $('rRange').textContent = '—';
+      $('rRangeNote').textContent = state.species === 'cat' ? '고양이 참고 용량 없음' : '';
+    }
+
+    if(!isFinite(use) || use <= 0){
+      notes.innerHTML = '<div class="note warn">적용 용량(mg/kg)을 입력하세요.</div>' + notes.innerHTML;
+    }
+    if(d && state.species === 'cat' && !d.cat){
+      notes.innerHTML = '<div class="note warn"><b>고양이 사용 금기 또는 자료 없음.</b> 처방 전 수의사 확인이 필요합니다.</div>' + notes.innerHTML;
+    }
+  }
+
+  /* ───── 처치 시트 ───── */
+  function rxText(){
+    var w = num($('pWeight'), 0);
+    var use = num($('doseUse'), NaN);
+    var conc = num($('concVal'), 0);
+    var unit = $('concUnit').value;
+    var perDay = parseFloat($('freqSel').value) || 0;
+    var d = state.drug;
+    if(!d || !isFinite(use) || w <= 0) return '';
+    var mg = use * w;
+    var doseTxt;
+    if(unit === 'mg/mL'){
+      doseTxt = fmt(mg, mg < 10 ? 2 : 1) + ' mg (' + fmt(mg / conc, mg / conc < 1 ? 3 : 2) + ' mL, ' + conc + ' mg/mL)';
+    } else {
+      doseTxt = fmt(mg, mg < 10 ? 2 : 1) + ' mg (' + fracText(mg / conc) + ', ' + conc + ' mg 기준)';
+    }
+    return d.kr + ' ' + fmt(use,3) + ' mg/kg' + (perDay ? ' ' + perDay + '회/일' : ' PRN') + ' → ' + doseTxt;
+  }
+
+  function addRx(){
+    var t = rxText();
+    if(!t){ toast('체중과 적용 용량을 먼저 입력하세요', true); return; }
+    if(state.rx.length >= 10){ toast('시트에는 10개까지 담을 수 있습니다', true); return; }
+    var d = state.drug;
+    var w = num($('pWeight'), 0);
+    var use = num($('doseUse'), NaN);
+    var conc = num($('concVal'), 0);
+    var unit = $('concUnit').value;
+    var mg = use * w;
+    var perDay = parseFloat($('freqSel').value) || 0;
+    state.rx.push({
+      name: d.kr + (d.en ? ' (' + d.en + ')' : ''),
+      dose: fmt(mg, mg < 10 ? 2 : 1) + ' mg',
+      amount: unit === 'mg/mL' ? fmt(mg / conc, mg / conc < 1 ? 3 : 2) + ' mL' : fracText(mg / conc) + ' · ' + conc + 'mg',
+      route: d.route.split(' / ')[0],
+      freq: freqLabel(perDay)
+    });
+    renderRx();
+    toast('처치 시트에 추가했습니다');
+  }
+
+  function freqLabel(perDay){
+    if(!perDay) return 'PRN';
+    if(perDay === 1) return 'q24h';
+    if(perDay === 2) return 'q12h';
+    if(perDay === 3) return 'q8h';
+    if(perDay === 4) return 'q6h';
+    if(perDay === 6) return 'q4h';
+    return perDay + '/일';
+  }
+
+  function renderRx(){
+    var tb = $('rxBody'), html = '', i, r;
+    for(i=0;i<state.rx.length;i++){
+      r = state.rx[i];
+      html += '<tr><td class="nm">' + esc(r.name) + '</td><td>' + esc(r.dose) + '</td><td>' + esc(r.amount) + '</td><td>' +
+        esc(r.route) + '</td><td>' + esc(r.freq) + '</td><td class="chk"></td><td class="chk"></td><td class="chk"></td><td class="chk"></td><td class="chk"></td><td class="chk"></td></tr>';
+    }
+    for(var b = state.rx.length; b < 8; b++){
+      html += '<tr class="blank"><td class="nm"></td><td></td><td></td><td></td><td></td><td class="chk"></td><td class="chk"></td><td class="chk"></td><td class="chk"></td><td class="chk"></td><td class="chk"></td></tr>';
+    }
+    tb.innerHTML = html;
+  }
+
+  function renderVitals(){
+    var times = ['06','10','14','18','22','02'], html = '', i;
+    for(i=0;i<times.length;i++){
+      html += '<tr><td class="nm">' + times[i] + ':00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+    }
+    $('vtBody').innerHTML = html;
+  }
+
+  function syncSheet(){
+    $('shName').textContent = $('pName').value || '';
+    $('shKind').textContent = (state.species === 'dog' ? 'Canine' : 'Feline');
+    $('shWeight').textContent = $('pWeight').value ? $('pWeight').value + ' kg' : '';
+    $('shId').textContent = $('pId').value || '';
+    $('shDx').textContent = $('pDx').value || '';
+    var t = new Date();
+    var dflt = t.getFullYear() + '-' + pad(t.getMonth()+1) + '-' + pad(t.getDate());
+    $('shDate').textContent = ($('admDate') && $('admDate').value) ? $('admDate').value.replace(/-/g, '.') : dflt.replace(/-/g, '.');
+  }
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  var toastEl = $('toast'), toastTimer = null;
+  function toast(msg, warn){
+    toastEl.textContent = msg;
+    toastEl.className = 'toast' + (warn ? ' warn' : '');
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 1900);
+  }
+
+  function copyText(text){
+    return new Promise(function(resolve){
+      if(navigator.clipboard && window.isSecureContext){
+        navigator.clipboard.writeText(text).then(function(){ resolve(true); }).catch(function(){ resolve(fb(text)); });
+      } else { resolve(fb(text)); }
+    });
+  }
+  function fb(text){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly','');
+      ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '-9999px'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, ta.value.length);
+      var ok = document.execCommand('copy'); document.body.removeChild(ta); return ok;
+    }catch(e){ return false; }
+  }
+
+  /* ───── 참고표 ───── */
+  function renderTable(){
+    var html = '', i, d;
+    for(i=0;i<DRUGS.length;i++){
+      d = DRUGS[i];
+      html += '<tr><td><b>' + d.kr + '</b><br><span style="color:#8a9aaa;font-size:9.6px">' + d.en + '</span></td>' +
+        '<td><span class="cat-chip">' + d.cat + '</span></td>' +
+        '<td class="c">' + d.dog[0] + '–' + d.dog[1] + '</td>' +
+        '<td class="c">' + (d.cat ? d.cat[0] + '–' + d.cat[1] : '<span style="color:#b3261e">금기·자료없음</span>') + '</td>' +
+        '<td style="font-size:10px">' + d.freq + '<br><span style="color:#8a9aaa">' + d.route + '</span></td></tr>';
+    }
+    $('tblBd').innerHTML = html;
+  }
+
+  /* ───── 이벤트 ───── */
+  function bind(){
+    $('pSpeciesSeg').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-sp]');
+      if(!b) return;
+      var btns = this.querySelectorAll('button');
+      for(var i=0;i<btns.length;i++) btns[i].classList.remove('on');
+      b.classList.add('on');
+      state.species = b.getAttribute('data-sp');
+      applyDrug(state.drug.id, false);
+      syncSheet();
+    });
+
+    $('drugSel').addEventListener('change', function(){ applyDrug(this.value, false); });
+    $('concPreset').addEventListener('change', function(){
+      if(!this.value) return;
+      var p = this.value.split('|');
+      setConc(parseFloat(p[0]), p[1]);
+      recompute();
+    });
+    $('customBtn').addEventListener('click', function(){
+      var kr = prompt('약물 이름(성분명)을 입력하세요', '직접 입력');
+      if(!kr) return;
+      DRUGS.push({id:'custom' + DRUGS.length, cat:'직접', kr:kr, en:'', dog:[0,0], cat:[0,0], route:'PO', freq:'q12h', note:'직접 입력 약물', concs:[]});
+      buildDrugSelect();
+      $('drugSel').value = 'custom' + (DRUGS.length - 1);
+      state.drug = DRUGS[DRUGS.length - 1];
+      $('drugInfo').innerHTML = '<b>' + esc(kr) + '</b> · 참고 용량 없음 — mg/kg을 직접 입력하세요';
+      $('concPreset').innerHTML = '<option value="">직접 입력</option>';
+      recompute();
+    });
+
+    ['pWeight','doseLow','doseHigh','doseUse','concVal'].forEach(function(id){
+      $(id).addEventListener('input', function(){ recompute(); syncSheet(); });
+    });
+    $('concUnit').addEventListener('change', recompute);
+    $('freqSel').addEventListener('change', recompute);
+    $('pName').addEventListener('input', syncSheet);
+    $('pId').addEventListener('input', syncSheet);
+    $('pDx').addEventListener('input', syncSheet);
+    $('admDate').addEventListener('change', syncSheet);
+
+    $('addRxBtn').addEventListener('click', addRx);
+    $('clearRxBtn').addEventListener('click', function(){
+      state.rx = []; renderRx(); toast('시트 처방을 비웠습니다');
+    });
+    $('printBtn').addEventListener('click', function(){ window.print(); });
+    $('printBtn2').addEventListener('click', function(){ window.print(); });
+    $('copyBtn').addEventListener('click', function(){
+      var t = rxText();
+      if(!t){ toast('계산 결과가 없습니다', true); return; }
+      copyText(t).then(function(ok){
+        if(ok) toast('계산문을 복사했습니다');
+        else toast('복사가 막혔습니다. 직접 선택해 복사하세요', true);
+      });
+    });
+    $('tblToggle').addEventListener('click', function(){
+      var b = $('tblBody');
+      var hide = b.style.display !== 'none';
+      b.style.display = hide ? 'none' : '';
+      this.textContent = hide ? '펼치기' : '접기';
+    });
+  }
+
+  /* ───── 시작 ───── */
+  (function(){
+    var t = new Date();
+    $('admDate').value = t.getFullYear() + '-' + pad(t.getMonth()+1) + '-' + pad(t.getDate());
+  })();
+  buildDrugSelect();
+  renderTable();
+  renderRx();
+  renderVitals();
+  bind();
+  applyDrug(DRUGS[0].id, false);
+  syncSheet();
+})();
+</script>
+</body>
+</html>

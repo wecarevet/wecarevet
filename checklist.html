@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오픈 · 마감 · 신입 온보딩 체크리스트 · 위케어동물의료센터</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="위케어동물의료센터 원내 전용 데스크·처치실·수술실 오픈·마감 및 신입 테크니션 온보딩 체크리스트.">
+<meta name="theme-color" content="#10335E">
+<meta name="application-name" content="원내 체크리스트">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#10335E;--navy-dark:#0a2240;--navy-light:#e8eef6;--navy-xlight:#f2f6fb;
+  --accent:#2d6cc0;--accent-light:#dde9f8;
+  --text:#1a2a3a;--text-mid:#4a5a6a;--text-muted:#8a9aaa;
+  --border:#d0dae6;--bg:#f5f8fc;--white:#ffffff;
+  --red:#b3261e;--red-bg:#fdf1f0;--green:#166534;--green-bg:#eefaf3;--green-border:#bfe3ce;
+  --amber:#8a5300;--amber-bg:#fff8ea;--amber-border:#f0dcae;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{color:inherit}
+::selection{background:var(--accent-light);color:var(--navy)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.topbar{background:var(--navy);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar-inner{max-width:1080px;margin:0 auto;padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:58px;gap:.8rem}
+.logo-group{display:flex;align-items:center;gap:.5rem;min-width:0;text-decoration:none}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:#fff;object-fit:contain;flex-shrink:0;padding:2px;box-shadow:0 1px 3px rgba(0,0,0,.28)}
+.logo-text{color:#fff;font-size:13px;font-weight:500;line-height:1.3;white-space:nowrap}
+.logo-text small{display:block;font-size:10px;font-weight:300;opacity:.65;letter-spacing:.08em;margin-top:1px}
+@media(max-width:430px){.logo-text{display:none}}
+.topbar-btns{display:flex;gap:.4rem;flex-shrink:0}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:500;text-decoration:none;cursor:pointer;transition:background .15s;white-space:nowrap;border:none;font-family:inherit}
+.tbtn.call{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)}
+.tbtn.call:hover{background:rgba(255,255,255,.2)}
+.tbtn.ghost{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.14);font-size:11px}
+.tbtn.ghost:hover{background:rgba(255,255,255,.14)}
+.staffnav{background:#fff;border-bottom:1px solid var(--border)}
+.staffnav-inner{max-width:1080px;margin:0 auto;padding:.5rem 1.25rem;display:flex;align-items:center;gap:.4rem;overflow-x:auto;white-space:nowrap;scrollbar-width:thin}
+.staffnav-lbl{font-size:9.5px;font-weight:700;letter-spacing:.13em;color:var(--text-muted);text-transform:uppercase;flex-shrink:0}
+.snbtn{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:500;color:var(--text-mid);text-decoration:none;background:var(--navy-xlight);border:1px solid var(--border);padding:5px 10px;border-radius:999px;line-height:1.45;flex-shrink:0;transition:background .15s,color .15s}
+.snbtn:hover{border-color:#b7d0ee;color:var(--navy);background:#fff}
+.snbtn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.hero{background:var(--navy);padding:1.4rem 1.25rem 1.7rem;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-90px;top:-80px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(126,184,247,.16),rgba(126,184,247,0) 68%)}
+.hero-inner{max-width:1080px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.16em;color:#9cc4f0;text-transform:uppercase;margin-bottom:.45rem}
+.hero h1{font-size:21px;font-weight:700;color:#fff;line-height:1.45;letter-spacing:-.02em}
+.hero h1 span{color:#7eb8f7}
+.hero p{margin-top:.45rem;font-size:12px;color:rgba(255,255,255,.62);line-height:1.8}
+.wrap{max-width:1080px;margin:0 auto;padding:1.1rem 1.25rem 90px}
+.topbar-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;margin-bottom:.9rem;display:grid;grid-template-columns:1fr 1fr auto;gap:.7rem;align-items:end}
+@media(max-width:640px){.topbar-card{grid-template-columns:1fr 1fr}}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--text-mid);margin-bottom:4px}
+input[type=text],input[type=date],textarea{width:100%;font-family:inherit;font-size:13.5px;color:var(--text);background:var(--navy-xlight);border:1.5px solid var(--border);border-radius:8px;padding:7px 9px;outline:none;transition:border-color .15s,background .15s;line-height:1.5}
+input:focus,textarea:focus{border-color:var(--accent);background:#fff}
+input::placeholder,textarea::placeholder{color:#a9b7c5;font-size:12px}
+textarea{resize:vertical;min-height:52px;line-height:1.65}
+.saved{font-size:10.5px;color:var(--green);white-space:nowrap;text-align:right;line-height:1.4}
+.saved b{display:block;font-size:12px}
+.tabs{display:flex;gap:.4rem;margin-bottom:.8rem;overflow-x:auto;padding-bottom:2px}
+.tab{font-family:inherit;display:inline-flex;align-items:center;gap:.45rem;font-size:12.5px;font-weight:600;color:var(--text-mid);background:#fff;border:1px solid var(--border);border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap;transition:all .15s}
+.tab:hover{border-color:#b7d0ee;color:var(--navy)}
+.tab.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.tab .n{font-size:10px;font-weight:700;padding:1px 6px;border-radius:999px;background:var(--navy-xlight);color:var(--text-mid);font-variant-numeric:tabular-nums}
+.tab.on .n{background:rgba(255,255,255,.18);color:#fff}
+.tab .n.full{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+.tab.on .n.full{background:#fff;color:var(--green)}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:.85rem;box-shadow:0 12px 30px -28px rgba(16,51,94,.9)}
+.card-head{padding:.8rem 1rem;border-bottom:1px solid var(--navy-xlight);display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.card-title{font-size:14px;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+.card-when{font-size:10.5px;color:var(--text-muted);font-weight:400;display:block;margin-top:1px}
+.card-head .sp{margin-left:auto}
+.btn{font-family:inherit;font-size:12px;font-weight:600;border-radius:9px;padding:7px 13px;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--navy);transition:all .15s;line-height:1.4}
+.btn:hover{border-color:#b7d0ee;background:var(--navy-xlight)}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.primary:hover{background:var(--navy-dark)}
+.btn.sm{font-size:11px;padding:5px 10px}
+.progress{padding:.7rem 1rem;background:#fbfdff;border-bottom:1px solid var(--navy-xlight);display:flex;align-items:center;gap:.7rem}
+.pbar{flex:1;height:8px;border-radius:999px;background:#e6edf5;overflow:hidden}
+.pbar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#2d6cc0,#4f95e0);transition:width .25s}
+.pbar.done i{background:linear-gradient(90deg,#1f7a4d,#2aa36a)}
+.pnum{font-size:12px;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pnum small{font-weight:500;color:var(--text-muted);font-size:10.5px}
+.items{padding:.35rem 0}
+.item{display:flex;align-items:flex-start;gap:.7rem;padding:.55rem 1rem;border-bottom:1px solid #f0f5fa;cursor:pointer;transition:background .12s}
+.item:last-child{border-bottom:none}
+.item:hover{background:#fbfdff}
+.item input{width:19px;height:19px;accent-color:var(--navy);flex-shrink:0;margin-top:2px;cursor:pointer}
+.item-txt{min-width:0;flex:1}
+.item-lbl{font-size:13px;color:var(--text);line-height:1.6;display:block}
+.item-tip{display:block;font-size:10.5px;color:var(--text-muted);line-height:1.55;margin-top:1px}
+.item.done .item-lbl{color:var(--text-muted);text-decoration:line-through}
+.item.done .item-tip{opacity:.6}
+.item.crit .item-lbl::after{content:"필수";font-size:9px;font-weight:700;color:#b3261e;background:var(--red-bg);border:1px solid #f2ccc8;border-radius:4px;padding:0 4px;margin-left:5px;vertical-align:middle}
+.card-foot{padding:.75rem 1rem .9rem;border-top:1px solid var(--navy-xlight);background:#fbfdff}
+.card-foot label{display:block;font-size:11px;font-weight:600;color:var(--text-mid);margin-bottom:4px}
+.note{font-size:11px;line-height:1.65;border-radius:8px;padding:.5rem .65rem;margin-top:.55rem;background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber)}
+.note b{color:#6f4300}
+.sop-note{font-size:11.5px;color:var(--text-mid);line-height:1.75;background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.7rem .85rem;margin-bottom:.8rem}
+.sop-note b{color:var(--navy)}
+.foot{background:var(--navy);padding:1.4rem 1.25rem}
+.foot-inner{max-width:1080px;margin:0 auto}
+.foot-name{color:#fff;font-size:13px;font-weight:500}
+.foot-sub{color:rgba(255,255,255,.45);font-size:10.5px;letter-spacing:.06em;margin-top:2px}
+.foot-disc{margin-top:.8rem;font-size:11px;color:rgba(255,255,255,.42);line-height:1.8}
+.foot-disc strong{color:rgba(255,255,255,.72);font-weight:500}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:500;background:var(--navy-dark);color:#fff;font-size:12.5px;font-weight:500;padding:10px 18px;border-radius:999px;box-shadow:0 10px 30px rgba(10,34,64,.35);opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;max-width:88vw;text-align:center;line-height:1.5}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.print-only{display:none}
+@media print{
+  @page{size:A4 portrait;margin:12mm}
+  html,body{background:#fff !important}
+  .topbar,.staffnav,.hero,.tabs,.btn,.saved,.toast,.foot,.topbar-card{display:none !important}
+  body.printing #setArea{display:none !important}
+  body.printing .note{display:none !important}
+  .wrap{padding:0 !important;max-width:none}
+  .print-only{display:block !important;margin-bottom:6mm}
+  .print-only h1{font-size:15pt;color:#10335E;letter-spacing:.1em;text-align:center}
+  .print-only .pin{font-size:8pt;color:#6d7f93;text-align:center;margin-top:2mm;line-height:1.6}
+  .card{break-inside:avoid;box-shadow:none;margin-bottom:4mm;border-width:.7pt}
+  .card-head{padding:1.5mm 3mm}
+  .progress{padding:1.5mm 3mm}
+  .pbar{display:none}
+  .item{padding:1.2mm 3mm}
+  .item input{width:12px;height:12px}
+  .item-lbl{font-size:9pt}
+  .item-tip{font-size:7.4pt}
+  .item.done .item-lbl{text-decoration:none}
+  .card-foot{padding:1.5mm 3mm 2mm}
+  .card-foot label{font-size:7.6pt}
+  .card-foot textarea{border:none;background:#fff;min-height:9mm;font-size:8.4pt;padding:0}
+  .card-head,.progress,.card-foot{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="logo-group" href="index.html" aria-label="위케어동물의료센터 홈"><img class="logo-mark" src="logo-mark.png" width="28" height="28" alt=""><div class="logo-text">위케어 동물의료센터<small>WECARE Animal Medical Center</small></div></a>
+    <div class="topbar-btns">
+      <a class="tbtn ghost" href="staff.html">원내 도구</a>
+      <a class="tbtn call" href="tel:031-994-6346">📞 <span>031-994-6346</span></a>
+    </div>
+  </div>
+</div>
+
+<nav class="staffnav" aria-label="원내 도구 바로가기">
+  <div class="staffnav-inner">
+    <span class="staffnav-lbl">원내 도구</span>
+    <a class="snbtn" href="staff.html">🏠 원내 홈</a>
+    <a class="snbtn" href="dose.html">💊 용량·분할</a>
+    <a class="snbtn" href="remind.html">🔔 리마인드 카톡</a>
+    <a class="snbtn" href="consent.html">📝 동의서·비용표</a>
+    <a class="snbtn active" href="checklist.html" aria-current="page">✅ 오픈·마감</a>
+    <a class="snbtn" href="discharge.html">📋 퇴원 안내문</a>
+    <a class="snbtn" href="cri_calculator.html">🧮 임상 계산기</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">WECARE · STAFF TOOL</div>
+    <h1>오픈 · 마감 &amp; <span>신입 온보딩 체크리스트</span></h1>
+    <p>데스크·처치실·수술실 루틴을 태블릿에서 체크하세요. 날짜별로 이 브라우저에 자동 저장되고, 다음 날은 새로 시작합니다. 인쇄해서 손으로 체크해도 됩니다.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="topbar-card">
+    <div class="field">
+      <label for="cdate">날짜</label>
+      <input type="date" id="cdate">
+    </div>
+    <div class="field">
+      <label for="who">담당자</label>
+      <input type="text" id="who" placeholder="이름 (선택)">
+    </div>
+    <div class="saved" id="savedTxt"><b>자동 저장</b><span id="savedWhen">—</span></div>
+  </div>
+
+  <div class="tabs" id="tabs" role="tablist" aria-label="체크리스트 종류"></div>
+
+  <div id="setArea"></div>
+
+  <div class="note" style="margin-top:.9rem">
+    <b>수요일은 정기휴무입니다.</b> 화요일 마감은 '수요일 휴무 전 점검' 항목까지 확인해 주세요. 데이터는 이 기기 브라우저에만 저장되며(서버 전송 없음), 다른 기기·다른 브라우저와 공유되지 않습니다.
+  </div>
+
+  <div style="display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.9rem">
+    <button type="button" class="btn" id="printBtn">🖨 체크리스트 인쇄</button>
+    <button type="button" class="btn" id="resetAllBtn">전체 초기화</button>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <p class="foot-name">위케어동물의료센터</p>
+    <p class="foot-sub">WECARE Animal Medical Center · 원내 전용</p>
+    <p class="foot-disc"><strong>이 페이지는 원내 전용입니다.</strong> 보호자 안내 페이지에서 링크되지 않으며 검색엔진에 노출되지 않습니다. 체크 내용은 이 브라우저에만 저장됩니다.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+  function $(id){ return document.getElementById(id); }
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function todayIso(){
+    var t = new Date();
+    return t.getFullYear() + '-' + pad(t.getMonth()+1) + '-' + pad(t.getDate());
+  }
+  function kdate(iso){
+    if(!iso) return '';
+    var p = iso.split('-');
+    if(p.length !== 3) return iso;
+    var dt = new Date(parseInt(p[0],10), parseInt(p[1],10)-1, parseInt(p[2],10));
+    var wd = isNaN(dt.getTime()) ? '' : ['일','월','화','수','목','금','토'][dt.getDay()] + '요일';
+    return p[0] + '년 ' + parseInt(p[1],10) + '월 ' + parseInt(p[2],10) + '일 (' + wd + ')';
+  }
+
+  var SETS = [
+    {
+      id:'open', title:'오픈 점검', icon:'🌅', when:'진료 시작 30분 전 · 데스크 · 처치실 · 수술실',
+      intro:'진료 전에 마취기·산소·모니터링·시약을 순서대로 확인합니다. 하나라도 이상이 있으면 수의사에게 바로 보고하세요.',
+      items:[
+        {id:'o1', t:'마취기 리크 테스트 · 소다라임 상태 확인', tip:'회로 연결 후 누출 여부 확인, 소다라임 변색(보라→흰색) 시 교체', crit:true},
+        {id:'o2', t:'산소통 잔량 · 레귤레이터 · 유량계 확인', tip:'잔량 부족 시 예비 산소통 위치 확인, 발주는 마감 때', crit:true},
+        {id:'o3', t:'석션(흡입기) 작동 · 카뉼라 · 기도튜브 사이즈 준비', tip:'마취 환자 체중별 기도튜브 1~2개씩 준비'},
+        {id:'o4', t:'모니터링 장비 전원 · 센서 · 커프 확인', tip:'ECG 전극, SpO₂ 프로브, NIBP 커프(부위별 사이즈), 체온 프로브', crit:true},
+        {id:'o5', t:'마취 유도약 · 응급약 유효기간 · 수량 확인', tip:'응급약 카트(아트로핀·에피네프린 등) 위치와 잔량'},
+        {id:'o6', t:'수액 · 수액세트 · 주사기 · 니들 재고', tip:'응급카트 포함, 자주 쓰는 사이즈 우선'},
+        {id:'o7', t:'혈액검사 장비 시약 · QC · 프린터 상태', tip:'시약 유효기간·개봉일, 검체 카트리지 잔량'},
+        {id:'o8', t:'냉장고 온도 기록 (백신 · 인슐린 · 검체)', tip:'2~8℃ 범위 확인, 일지에 기록', crit:true},
+        {id:'o9', t:'X-ray · 초음파 장비 부팅 · 디텍터 · 프로브', tip:'영상 저장 경로와 프린터도 함께 확인'},
+        {id:'o10', t:'처치실 · 수술실 표면 소독, 멸균 기구 포장 상태', tip:'포장 유효기간 지난 기구는 사용하지 않음'},
+        {id:'o11', t:'격리실 · ICU 상태 확인 (환자 배치 · 감염관리)', tip:'전날 입원 환자 수와 격리 여부 인계'},
+        {id:'o12', t:'당일 예약 · 수술 · 검진 스케줄 확인', tip:'마취 환자 금식 여부를 보호자에게 미리 확인', crit:true},
+        {id:'o13', t:'대기실 · 데스크 정리, 안내물 · 문진표 QR · 결제 단말', tip:'카드 단말·현금 잔돈·영수증 용지'},
+        {id:'o14', t:'조명 · 냉난방 · 출입문 · 비상구 확인', tip:'비상구 통로에 적재물 없는지'}
+      ]
+    },
+    {
+      id:'close', title:'마감 점검', icon:'🌙', when:'진료 종료 후 · 수술실 · 입원실 · 데스크',
+      intro:'입원 환자 인계와 장비 정리, 다음 날 준비까지 확인합니다. 화요일에는 수요일 휴무 전 점검을 함께 합니다.',
+      items:[
+        {id:'c1', t:'입원 · ICU 환자 상태 인계, 투약 · 수액 잔량 확인', tip:'야간 상태 변화 대비, 다음 투약 시간 메모', crit:true},
+        {id:'c2', t:'수액펌프 정리 · 충전, 잔여 수액 폐기 · 다음날 준비', tip:'알람 설정과 배터리 충전 상태'},
+        {id:'c3', t:'마취기 가스 차단 · 잔압 확인, 회로 세척 · 건조', tip:'소다라임·회로·마스크 세척 후 건조대에 정리', crit:true},
+        {id:'c4', t:'산소통 잔량 확인 — 기준 이하이면 발주', tip:'주문 기준선을 정해 두고 그 이하일 때 발주', crit:true},
+        {id:'c5', t:'기구 세척 · 소독 · 건조 · 포장, 소독액 보충', tip:'초음파젤·소독액·알코올 잔량 확인'},
+        {id:'c6', t:'냉장보관 약품 · 백신 온도 마지막 확인 및 기록', tip:'일지 마지막 줄 기록, 온도 이탈 시 수의사 보고', crit:true},
+        {id:'c7', t:'검체 보관 · 외부 검사 발송 준비', tip:'냉장/냉동 구분, 발송 목록과 대조'},
+        {id:'c8', t:'의료폐기물 · 바늘통 · 감염성 폐기물 처리', tip:'바늘통 3/4 이상이면 교체'},
+        {id:'c9', t:'처방약 · 퇴원약 준비, 다음날 수술 환자 금식 안내 확인', tip:'금식 안내는 사료 6~8시간·물은 당일 허용', crit:true},
+        {id:'c10', t:'예약 · 재진 연락 목록 정리, 미답변 문의 확인', tip:'카톡·전화 문의 중 미회신 건 다음날 오전 처리'},
+        {id:'c11', t:'데스크 정리 · 카드 전표 · 현금 시재 확인', tip:'시재 금액과 전표 합계 대조'},
+        {id:'c12', t:'전원 · 조명 · 에어컨 · 출입문 잠금', tip:'수술실·처치실 장비 전원 off 확인'},
+        {id:'c13', t:'수요일 휴무 전 점검 — 냉장 · 냉동고, 재고, 응급 연락 체계', tip:'화요일 마감 시: 수액·시약·사료·처방약 재고, 냉장고 온도, 쓰레기 배출, 휴무 중 연락 순서 확인', crit:true},
+        {id:'c14', t:'다음 진료일 예약 · 수술 · 검진 일정 확인', tip:'다음 날 첫 환자와 마취 환자 순서 확인'}
+      ]
+    },
+    {
+      id:'sop', title:'신입 테크니션 SOP', icon:'👩‍⚕️', when:'입사 1~2주 온보딩 · 선임과 함께 확인',
+      intro:'신입 테크니션이 첫 주에 익혀야 할 순서입니다. 항목마다 선임이 함께 해보고 체크해 주세요. 모르는 것은 혼자 판단하지 않고 바로 물어보는 것이 원칙입니다.',
+      items:[
+        {id:'s1', t:'인사 · 복장 · 손위생, 원내 구역과 동선 안내', tip:'진료실·처치실·수술실·입원실·격리실 구분과 출입 규칙'},
+        {id:'s2', t:'접수 · 보호자 응대 · 예약 · 수납 흐름', tip:'카카오채널·전화 응대, 예약 잡는 법, 결제·영수증'},
+        {id:'s3', t:'환자 보정 방법 (개 · 고양이)', tip:'고양이는 타월 보정, 목줄·이동장 안전, 무리한 힘 금지'},
+        {id:'s4', t:'체중 · 체온 · 심박 · 호흡 측정과 기록', tip:'측정값은 차트에 즉시 기록, 이상 수치는 바로 보고'},
+        {id:'s5', t:'혈액 채혈 부위 · 용기 · 검체 처리', tip:'EDTA·헤파린·세럼 튜브 구분, 채혈 후 혼합 방법'},
+        {id:'s6', t:'수액 준비 · 수액세트 · 속도 계산 · 펌프 사용', tip:'mL/hr 계산과 펌프 알람 대응, 공기 제거'},
+        {id:'s7', t:'마취 준비 — 금식 확인 · 마취 전 검사 · 장비 세팅', tip:'사료 6~8시간 금식, 물은 당일 허용, 마취기 리크 테스트'},
+        {id:'s8', t:'마취 중 모니터링 기록 항목과 보고 기준', tip:'심박·호흡·SpO₂·혈압·체온, 5분 간격 기록, 이탈 시 즉시 보고', crit:true},
+        {id:'s9', t:'투약 5원칙 (환자 · 약 · 용량 · 경로 · 시간)과 기록', tip:'투약 전 처방 오더와 라벨 대조, 의문 시 투약하지 않고 확인', crit:true},
+        {id:'s10', t:'입원 처치 · 바이탈 기록 · 이상 시 보고 체계', tip:'인계 노트 쓰는 법, 야간·휴무일 연락 순서'},
+        {id:'s11', t:'퇴원 · 약 전달 · 보호자 안내 (복약 설명)', tip:'복약 안내문·카톡 문구 활용, 먹이는 법과 보관법'},
+        {id:'s12', t:'감염관리 · 격리실 규칙 · 청소 · 소독 루틴', tip:'격리실 출입 순서, 장갑·가운·발판 소독'},
+        {id:'s13', t:'응급 상황 시 연락 순서와 역할 분담', tip:'CPR 보드 위치, 응급약 카트, 전화 연락 순서'},
+        {id:'s14', t:'첫 주 자가 점검 — 혼자 할 수 있는 것 / 물어볼 것', tip:'선임과 15분 면담으로 부족한 부분 정리'}
+      ]
+    }
+  ];
+
+  var KEY_PREFIX = 'wc_chk_v1_';
+  var active = 'open';
+  var store = null;
+
+  function keyFor(date){ return KEY_PREFIX + date; }
+
+  function blank(){
+    var o = {};
+    for(var i=0;i<SETS.length;i++){
+      o[SETS[i].id] = {done:{}, memo:''};
+    }
+    return {who:'', sets:o, saved:''};
+  }
+
+  function load(date){
+    var s = null;
+    try{
+      var raw = localStorage.getItem(keyFor(date));
+      if(raw) s = JSON.parse(raw);
+    }catch(e){ s = null; }
+    if(!s || !s.sets) s = blank();
+    for(var i=0;i<SETS.length;i++){
+      if(!s.sets[SETS[i].id]) s.sets[SETS[i].id] = {done:{}, memo:''};
+    }
+    store = s;
+    $('who').value = s.who || '';
+    renderSaved(s.saved);
+  }
+
+  function save(){
+    store.who = $('who').value;
+    var t = new Date();
+    store.saved = pad(t.getHours()) + ':' + pad(t.getMinutes());
+    try{ localStorage.setItem(keyFor($('cdate').value), JSON.stringify(store)); }
+    catch(e){ toast('저장 공간을 쓸 수 없습니다 (시크릿 모드?)'); }
+    renderSaved(store.saved);
+  }
+
+  function renderSaved(hhmm){
+    $('savedWhen').textContent = hhmm ? hhmm + ' 저장됨' : '변경 시 자동 저장';
+  }
+
+  var toastEl = $('toast'), timer = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.className = 'toast show';
+    clearTimeout(timer);
+    timer = setTimeout(function(){ toastEl.className = 'toast'; }, 1800);
+  }
+
+  function counts(setId){
+    var set = findSet(setId), st = store.sets[setId], n = 0, i;
+    for(i=0;i<set.items.length;i++){ if(st.done[set.items[i].id]) n++; }
+    return {done:n, total:set.items.length};
+  }
+
+  function findSet(id){
+    for(var i=0;i<SETS.length;i++){ if(SETS[i].id === id) return SETS[i]; }
+    return SETS[0];
+  }
+
+  function renderTabs(){
+    var html = '', i, c;
+    for(i=0;i<SETS.length;i++){
+      c = counts(SETS[i].id);
+      html += '<button type="button" class="tab' + (SETS[i].id === active ? ' on' : '') + '" data-set="' + SETS[i].id + '" role="tab" aria-selected="' + (SETS[i].id === active) + '">' +
+        SETS[i].icon + ' ' + SETS[i].title +
+        '<span class="n' + (c.done === c.total ? ' full' : '') + '">' + c.done + '/' + c.total + '</span></button>';
+    }
+    $('tabs').innerHTML = html;
+  }
+
+  function renderSet(){
+    var set = findSet(active), st = store.sets[active];
+    var html = '', i, it, c = counts(active);
+    html += '<div class="card" data-set="' + set.id + '">' +
+      '<div class="card-head">' +
+        '<div><span class="card-title">' + set.icon + ' ' + set.title + '</span>' +
+        '<span class="card-when">' + set.when + '</span></div>' +
+        '<div class="sp"></div>' +
+        '<button type="button" class="btn sm" data-reset="' + set.id + '">이 목록 초기화</button>' +
+      '</div>' +
+      '<div class="progress">' +
+        '<div class="pbar' + (c.done === c.total ? ' done' : '') + '"><i style="width:' + Math.round(c.done / c.total * 100) + '%"></i></div>' +
+        '<span class="pnum">' + c.done + ' / ' + c.total + ' <small>' + (c.done === c.total ? '완료' : '남음') + '</small></span>' +
+      '</div>' +
+      '<div class="items">';
+
+    for(i=0;i<set.items.length;i++){
+      it = set.items[i];
+      var on = !!st.done[it.id];
+      html += '<label class="item' + (on ? ' done' : '') + (it.crit ? ' crit' : '') + '">' +
+        '<input type="checkbox" data-item="' + it.id + '"' + (on ? ' checked' : '') + '>' +
+        '<span class="item-txt"><span class="item-lbl">' + it.t + '</span>' +
+        (it.tip ? '<span class="item-tip">' + it.tip + '</span>' : '') + '</span>' +
+      '</label>';
+    }
+
+    html += '</div>' +
+      '<div class="card-foot">' +
+        '<label for="memo-' + set.id + '">특이사항 · 인계 메모</label>' +
+        '<textarea id="memo-' + set.id + '" data-memo="' + set.id + '" placeholder="예: 산소통 1개 남음 — 발주 필요 / 3번 박스 환자 야간 수액 20mL/hr">' + esc(st.memo || '') + '</textarea>' +
+        '<p class="hint" style="font-size:10.5px;color:#8a9aaa;margin-top:4px">' + set.intro + '</p>' +
+      '</div>' +
+    '</div>';
+    $('setArea').innerHTML = html;
+  }
+
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function renderAll(){ renderTabs(); renderSet(); }
+
+  /* 인쇄용: 세 세트 전체 */
+  function buildPrint(){
+    var holder = document.createElement('div');
+    holder.className = 'print-only';
+    var h = '<h1>위케어동물의료센터 · 원내 체크리스트</h1>' +
+      '<div class="pin">' + kdate($('cdate').value) + ' · 담당자 ' + esc($('who').value || '__________') +
+      ' · 출력 ' + new Date().toLocaleString('ko-KR') + '</div>';
+    holder.innerHTML = h;
+    for(var s=0;s<SETS.length;s++){
+      var set = SETS[s], st = store.sets[set.id], c = counts(set.id);
+      var el = document.createElement('div');
+      el.className = 'card';
+      var inner = '<div class="card-head"><div><span class="card-title">' + set.icon + ' ' + set.title + '</span>' +
+        '<span class="card-when">' + set.when + '</span></div><div class="sp"></div>' +
+        '<span class="pnum">' + c.done + '/' + c.total + '</span></div><div class="items">';
+      for(var i=0;i<set.items.length;i++){
+        var it = set.items[i], on = !!st.done[it.id];
+        inner += '<label class="item' + (on ? ' done' : '') + (it.crit ? ' crit' : '') + '">' +
+          '<input type="checkbox" disabled' + (on ? ' checked' : '') + '><span class="item-txt">' +
+          '<span class="item-lbl">' + it.t + '</span></span></label>';
+      }
+      inner += '</div>';
+      if(st.memo){
+        inner += '<div class="card-foot"><label>메모</label><div style="font-size:8.4pt;white-space:pre-wrap">' + esc(st.memo) + '</div></div>';
+      }
+      el.innerHTML = inner;
+      holder.appendChild(el);
+    }
+    document.body.appendChild(holder);
+    return holder;
+  }
+
+  function bind(){
+    $('cdate').addEventListener('change', function(){
+      load(this.value);
+      renderAll();
+    });
+    $('who').addEventListener('input', function(){
+      store.who = this.value;
+      save();
+    });
+
+    $('tabs').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-set]');
+      if(!b) return;
+      active = b.getAttribute('data-set');
+      renderAll();
+    });
+
+    $('setArea').addEventListener('change', function(e){
+      var cb = e.target.closest('input[data-item]');
+      if(cb){
+        var id = cb.getAttribute('data-item');
+        if(cb.checked) store.sets[active].done[id] = true;
+        else delete store.sets[active].done[id];
+        var row = cb.closest('.item');
+        if(row) row.classList.toggle('done', cb.checked);
+        save();
+        renderTabs();
+        var c = counts(active);
+        var pb = $('setArea').querySelector('.pbar');
+        var pn = $('setArea').querySelector('.pnum');
+        if(pb){ var bar = pb.firstElementChild; if(bar) bar.style.width = Math.round(c.done / c.total * 100) + '%'; pb.classList.toggle('done', c.done === c.total); }
+        if(pn){ pn.innerHTML = c.done + ' / ' + c.total + ' <small>' + (c.done === c.total ? '완료' : '남음') + '</small>'; }
+        if(c.done === c.total) toast('✅ ' + findSet(active).title + ' 완료!');
+      }
+      var ta = e.target.closest('textarea[data-memo]');
+      if(ta){
+        store.sets[ta.getAttribute('data-memo')].memo = ta.value;
+        save();
+      }
+    });
+
+    $('setArea').addEventListener('input', function(e){
+      var ta = e.target.closest('textarea[data-memo]');
+      if(ta){
+        store.sets[ta.getAttribute('data-memo')].memo = ta.value;
+        save();
+      }
+    });
+
+    $('setArea').addEventListener('click', function(e){
+      var b = e.target.closest('button[data-reset]');
+      if(!b) return;
+      var id = b.getAttribute('data-reset');
+      store.sets[id] = {done:{}, memo:''};
+      save();
+      renderAll();
+      toast(findSet(id).title + ' 목록을 비웠습니다');
+    });
+
+    $('resetAllBtn').addEventListener('click', function(){
+      if(!confirm('오늘(' + kdate($('cdate').value) + ') 체크 내용을 모두 지울까요?')) return;
+      var date = $('cdate').value, who = store.who;
+      store = blank(); store.who = who;
+      save(); renderAll();
+      toast('오늘 체크를 모두 지웠습니다');
+    });
+
+    $('printBtn').addEventListener('click', function(){
+      document.body.classList.add('printing');
+      var holder = buildPrint();
+      window.print();
+      setTimeout(function(){
+        document.body.classList.remove('printing');
+        if(holder && holder.parentNode) holder.parentNode.removeChild(holder);
+      }, 600);
+    });
+  }
+
+  /* 시작 */
+  $('cdate').value = todayIso();
+  load($('cdate').value);
+  bind();
+  renderAll();
+})();
+</script>
+</body>
+</html>
