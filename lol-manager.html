@@ -674,6 +674,14 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .pg-h h2{font-size:19px;font-weight:900;letter-spacing:-.03em}
 .pg-s{font-size:11px;color:var(--dim2);font-weight:700}
 .pg-r{margin-left:auto;display:flex;gap:6px;align-items:center}
+/* 좁은 화면(모바일·폴드)에서 제목이 찌그러지지 않게 — 부제는 아래 줄로 내린다 */
+@media(max-width:600px){
+  .pg-h{flex-wrap:wrap;gap:3px 8px;align-items:center}
+  .pg-h h2{flex:0 0 auto;white-space:nowrap}
+  .pg-r{flex:0 0 auto;margin-left:auto}
+  .pg-r .pill,.pg-r .chip{white-space:nowrap}
+  .pg-s{order:4;flex:1 1 100%;font-size:10px;line-height:1.4}
+}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 13px;overflow:hidden}
 .card.tight{padding:10px}
 .ch{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:13px;font-weight:900;color:#dfe3ea}
@@ -2230,6 +2238,13 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .ac-ment b{color:#ffd98f}
 .ac-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden;width:64px;margin-top:4px}
 .ac-bar i{display:block;height:100%;background:linear-gradient(90deg,#6ecf9e,#bfe4c9)}
+.acad-auto{margin-top:8px;padding:8px 10px;border-radius:9px;border:1px dashed #2b303b;background:#12151d;
+  display:flex;flex-direction:column;gap:3px;font-size:9.5px;color:#8f97a6;font-weight:700;line-height:1.45}
+.acad-auto b{color:#9aa2b2;font-size:10.5px;font-weight:900;letter-spacing:.2px}
+.acad-auto span{color:#8f97a6}
+.acad-auto i{font-style:normal;font-size:9px;color:#7e8899;margin-top:2px}
+.acad-auto.on{border-color:rgba(110,207,158,.45);background:rgba(110,207,158,.07)}
+.acad-auto.on b{color:#bfe4c9}
 /* ---- 명예의 전당 ---- */
 .hof-hero{position:relative;padding:20px 16px;border-radius:14px;overflow:hidden;
   background:radial-gradient(120% 90% at 20% 0%,rgba(230,196,129,.22),rgba(10,12,18,.9) 60%),linear-gradient(180deg,#14161c,#0b0d12);
@@ -6100,6 +6115,45 @@ function tick(silent){
     try{ if(S.currentSeries&&!S.currentSeries.done){ if(S.currentSeries.score.me+S.currentSeries.score.opp===0){ S.currentSeries.score.me+=M.meWin===false?0:1; } renderSeriesResult(); } else renderAll(); }catch(_){}
   }
 }
+/* ---------- 오브젝트 앞 실제 교전 ----------
+   고가치 오브젝트(3용·영혼·전령·바론·장로)는 그냥 주지 않는다.
+   양 팀이 응전하면 핏 앞에서 3v3·4v4·5v5 한타가 열리고, 그 결과가 캡처 확률로 이어진다. */
+function objStake(kind,m){
+  if(kind==='baron'||kind==='elder') return 2;
+  if(kind==='herald') return 2;
+  if(kind==='dragon'){
+    const n=Math.max((M&&M.dragons)?M.dragons[0]:0,(M&&M.dragons)?M.dragons[1]:0)+1;
+    if(n>=4||((M&&M.soulType)&&((M.soulType.me)||(M.soulType.opp)))&&n>=3) return 2;   /* 영혼 포인트 */
+    if(n===3) return 2;
+    return 1;
+  }
+  return 0;
+}
+function maybeObjFight(kind,m,baseFavor){
+  if(!M||!M.kills) return null;
+  const macro=M.objMacro||{};
+  const bothContest=(macro.me!=='trade'&&macro.opp!=='trade');
+  const stake=objStake(kind,m);
+  let rate=stake>=2?0.82:(kind==='grub'?0.34:0.48);
+  if(!bothContest) rate=stake>=2?0.35:0.2;
+  if(Math.random()>rate) return null;
+  const size=stake>=2?(kind==='baron'||kind==='elder'?5:5):(m>=11?4:3);
+  const pt=(kind==='dragon'||kind==='elder')?PIT.dragon:(kind==='grub'?PIT.grub:PIT.baron);
+  const favor=clamp(0.5+((baseFavor-0.5)*0.9),0.06,0.94);
+  const meWins=Math.random()<favor;
+  const team=meWins?'me':'opp';
+  const n=(stake>=2?ri(2,4):ri(1,3));
+  const kg=commitKill(team,{role:pickOf(ROLES),kind:'fight',lane:'MID',teamfight:true,n:n,gold:n*300+140,pt:pt});
+  M.fights[sideIdx(team)]=(M.fights[sideIdx(team)]||0)+1;
+  M.fightAt={min:m,sec:M.sec};
+  if(n>=3) M.lastAce={team:team,min:m,n:n};
+  const tag=(team==='me')?M.myName:M.oppName;
+  const label=kind==='dragon'?'드래곤':kind==='baron'?'바론':kind==='elder'?'장로 드래곤':kind==='herald'?'전령':'유충';
+  kgLog(kg,team==='me'?'blue':'red', m+'분 · <b>'+label+' 앞 '+size+'대'+size+' 한타</b> — '+tag+'이(가) '+
+    n+'킬을 쓸어담고 주도권을 잡습니다'+(n>=3?' (에이스급 교전)':'')+'.');
+  if(n>=3) kgLog(kg,'sys','🎙 전용준: '+label+' 앞에서 완벽한 한타! '+tag+'이(가) '+n+'킬을 정리합니다!');
+  return team;
+}
 function simStep(silent){
   if(!M||M.over) return;
   if(!M.lane) M.lane={TOP:{my:60,opp:60},MID:{my:60,opp:60},ADC:{my:60,opp:60},JGL:{my:60,opp:60},SUP:{my:60,opp:60}};
@@ -6267,7 +6321,7 @@ function simStep(silent){
   }
   // 공허 유충
   if(m===6||m===10){
-    const macro=(typeof v5MacroPlan==='function')?v5MacroPlan('grub',m):{me:'contest',opp:'contest'};
+    const macro=(typeof macroDecision==='function')?macroDecision('grub',m):{me:'contest',opp:'contest'};
     M.objMacro={kind:'grub',at:m,me:macro.me,opp:macro.opp};
     if(macro.me==='trade') try{ v5MacroTrade('me','grub',m); }catch(e){}
     if(macro.opp==='trade') try{ v5MacroTrade('opp','grub',m); }catch(e){}
@@ -6278,6 +6332,7 @@ function simStep(silent){
     try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('grub',m); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.08;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.92;
+    const fgF=maybeObjFight('grub',m,favor); if(fgF) favor+=(fgF==='me'?0.12:-0.12);
     const meWins=Math.random()<clamp(favor,0.08,0.92);
     let team=meWins?'me':'opp';
     try{ if(typeof macroSteal==='function') team=macroSteal('grub',team,m); }catch(e){}
@@ -6298,7 +6353,7 @@ function simStep(silent){
   const soulEdgeDiff=((M.soulGranted.me?0.03:0)-(M.soulGranted.opp?0.03:0));
   const elderEdgeDiff=((M.elder.me&&m<=(M.elderUntil.me||0))?0.08:0)-((M.elder.opp&&m<=(M.elderUntil.opp||0))?0.08:0);
   if(!soulClaimed && dTimes.includes(m)){
-    const macro=(typeof v5MacroPlan==='function')?v5MacroPlan('dragon',m):{me:'contest',opp:'contest'};
+    const macro=(typeof macroDecision==='function')?macroDecision('dragon',m):{me:'contest',opp:'contest'};
     M.objMacro={kind:'dragon',at:m,me:macro.me,opp:macro.opp};
     if(macro.me==='trade') try{ v5MacroTrade('me','dragon',m); }catch(e){}
     if(macro.opp==='trade') try{ v5MacroTrade('opp','dragon',m); }catch(e){}
@@ -6311,6 +6366,7 @@ function simStep(silent){
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.06;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.94;
     else if(macro.me==='trade'&&macro.opp==='trade') favor=0.5;
+    const dgF=maybeObjFight('dragon',m,favor); if(dgF) favor+=(dgF==='me'?0.13:-0.13);
     const meWins=Math.random()<clamp(favor,0.04,0.96);
     let team=meWins?'me':'opp';
     try{ if(typeof macroSteal==='function') team=macroSteal('dragon',team,m); }catch(e){}
@@ -6343,7 +6399,9 @@ function simStep(silent){
   // 장로 드래곤 (영혼 획득 6분 후)
   if(M.elderAt && m>=M.elderAt && (m-M.elderAt)%6===0){
     const objEdge=(M.trait.me.obj-M.trait.opp.obj)*0.012+soulEdgeDiff;
-    const meWins=Math.random()<clamp(killFavor+0.02+objEdge+((typeof macroVisionEdge==='function')?macroVisionEdge('elder',m):0),0.08,0.92);
+    let elFavor=clamp(killFavor+0.02+objEdge+((typeof macroVisionEdge==='function')?macroVisionEdge('elder',m):0),0.08,0.92);
+    const elF=maybeObjFight('elder',m,elFavor); if(elF) elFavor+=(elF==='me'?0.14:-0.14);
+    const meWins=Math.random()<clamp(elFavor,0.06,0.94);
     let team=meWins?'me':'opp';
     try{ if(typeof macroSteal==='function') team=macroSteal('elder',team,m); }catch(e){}
     M.elder[team]=true; M.elderUntil[team]=m+3; M.elderCount[sideIdx(team)]++;
@@ -6355,7 +6413,7 @@ function simStep(silent){
   }
   // 협곡의 전령
   if(m===14){
-    const macro=(typeof v5MacroPlan==='function')?v5MacroPlan('herald',m):{me:'contest',opp:'contest'};
+    const macro=(typeof macroDecision==='function')?macroDecision('herald',m):{me:'contest',opp:'contest'};
     M.objMacro={kind:'herald',at:m,me:macro.me,opp:macro.opp};
     if(macro.me==='trade') try{ v5MacroTrade('me','herald',m); }catch(e){}
     if(macro.opp==='trade') try{ v5MacroTrade('opp','herald',m); }catch(e){}
@@ -6364,6 +6422,7 @@ function simStep(silent){
     try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('herald',m); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.06;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.94;
+    const hdF=maybeObjFight('herald',m,favor); if(hdF) favor+=(hdF==='me'?0.13:-0.13);
     const meWins=Math.random()<clamp(favor,0.06,0.94);
     let team=meWins?'me':'opp';
     try{ if(typeof macroSteal==='function') team=macroSteal('herald',team,m); }catch(e){}
@@ -6383,7 +6442,7 @@ function simStep(silent){
     if(typeof v5TowerFall==='function') v5TowerFall(team,m); else M.towers[sideIdx(team)]++;
   }
   // 한타 (불리하면 5:5를 열지 않고 시야 트랩·역바론으로 전환)
-  if(m>=13 && Math.random()<0.07*(1+((fo&&fo.fight)||0))*(1+(M.stance==='aggro'?0.5:M.stance==='defensive'?-0.35:0))
+  if(m>=12 && Math.random()<0.11*(1+((fo&&fo.fight)||0))*(1+(M.stance==='aggro'?0.5:M.stance==='defensive'?-0.35:0))
      && !(typeof macroAvoidFight==='function'&&macroAvoidFight(m))){
     let fightEdge=(M.myComp.tags.fight-M.oppComp.tags.fight)*0.015+(M.myComp.front-M.oppComp.front)*0.01+(M.myComp.cc-M.oppComp.cc)*0.006+(M.trait.me.fight-M.trait.opp.fight)*0.012;
     if(M.soulGranted.me) fightEdge+=0.035; if(M.soulGranted.opp) fightEdge-=0.035;
@@ -6406,7 +6465,7 @@ function simStep(silent){
   }
   // 바론
   if([20,26,32].includes(m)){
-    const macro=(typeof v5MacroPlan==='function')?v5MacroPlan('baron',m):{me:'contest',opp:'contest'};
+    const macro=(typeof macroDecision==='function')?macroDecision('baron',m):{me:'contest',opp:'contest'};
     M.objMacro={kind:'baron',at:m,me:macro.me,opp:macro.opp};
     if(macro.me==='trade') try{ v5MacroTrade('me','baron',m); }catch(e){}
     if(macro.opp==='trade') try{ v5MacroTrade('opp','baron',m); }catch(e){}
@@ -6417,6 +6476,7 @@ function simStep(silent){
     try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('baron',m); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.04;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.96;
+    const brF=maybeObjFight('baron',m,favor); if(brF) favor+=(brF==='me'?0.14:-0.14);
     const meWins=Math.random()<clamp(favor,0.04,0.96);
     let team=meWins?'me':'opp';
     try{ if(typeof macroSteal==='function') team=macroSteal('baron',team,m); }catch(e){}
@@ -6717,6 +6777,39 @@ function kgPush(team,opts,chk){
 function kgLog(kg,kind,text){
   if(kg&&kg.deferred&&kg.q){ kg.q.lines.push({kind:kind,text:String(text)}); return; }
   try{ logEvent(kind,text); }catch(e){}
+}
+/* 보류된 킬의 두 유닛을 교전 지점으로 묶어 둔다 — 다른 목표 계산이 덮어써도
+   킬이 성사되거나 시간이 지날 때까지는 이 목표가 유지된다 (파이프라인 마지막 단계) */
+function kgFightLock(sec){
+  if(!M||!M.killQ||!M.killQ.length) return;
+  if(typeof MM==='undefined'||!MM||!MM.tgt||!MM.units) return;
+  const now=(sec==null)?kgSec():sec;
+  const pin=function(side,role,pt,off){
+    if(!role) return;
+    const k=side+'-'+role;
+    const u=MM.units[k];
+    if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+    MM.tgt[k]={x:Math.max(0.05,Math.min(0.95,pt[0]+(off||0))),y:Math.max(0.05,Math.min(0.95,pt[1]+(off||0)))};
+    u.mode='fight';
+    u.rush=now+3;
+  };
+  for(let i=0;i<M.killQ.length;i++){
+    const e=M.killQ[i];
+    if(!e||!e.pt) continue;
+    const enemy=(e.team==='me')?'opp':'me';
+    pin(e.team,e.role,e.pt,0);
+    pin(enemy,e.victimRole,e.pt,0.004);
+    /* 한타는 주변 인원도 교전 지점으로 빨려든다 */
+    if(e.teamfight){
+      ROLES.forEach(function(r){
+        [e.team,enemy].forEach(function(side){
+          const k=side+'-'+r, u=MM.units[k];
+          if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+          if(Math.hypot(u.x-e.pt[0],u.y-e.pt[1])<0.22) pin(side,r,e.pt,(side===e.team)?0.008:0.012);
+        });
+      });
+    }
+  }
 }
 /* 매 게임초 — 보류된 킬이 실제로 만났는지 확인 */
 function kgTick(){
@@ -7162,41 +7255,83 @@ function v5Tick(m){
 
 /* ---------- 4) 매크로 판단: 포기하고 교차 이득 ---------- */
 function v5ObjNameKR(kind){ return ({dragon:'드래곤',baron:'바론',grub:'공허 유충',herald:'전령'})[kind]||'오브젝트'; }
+/* ---------- 운영 지능 — OVR·코치 운영·시야 성향 ----------
+   높은 팀은 '싸울지/바꿀지'를 정확히 고르고, 낮은 팀은 이기는 싸움을 놓치거나
+   지는 4대5를 강행한다. 판단력이 미니맵 그림으로 드러난다. */
+function macroIntelOf(side){
+  if(!M) return 0.55;
+  let ovr=76, ovrOp=76;
+  try{ ovr=teamPowerRaw(side==='me'?myTeam():T(M.oppId)); }catch(e){}
+  try{ ovrOp=teamPowerRaw(side==='me'?T(M.oppId):myTeam()); }catch(e){}
+  const coach=(side==='me')?((M.coach&&M.coach.me)||{}):((M.coach&&M.coach.opp)||{});
+  const tr=(M.trait&&M.trait[side])||{};
+  const trOp=(M.trait&&M.trait[side==='me'?'opp':'me'])||{};
+  const v=(ovr-ovrOp)/22+((coach.obj||0)*0.9)+(((tr.macro||0)-(trOp.macro||0))*0.01);
+  return clamp(0.18,0.95,0.55+v);
+}
+function macroWinChance(side){
+  if(!M) return 0.5;
+  const other=(side==='me')?'opp':'me';
+  let ovr=76, ovrO=76;
+  try{ ovr=teamPowerRaw(side==='me'?myTeam():T(M.oppId)); }catch(e){}
+  try{ ovrO=teamPowerRaw(other==='me'?myTeam():T(M.oppId)); }catch(e){}
+  const i=side==='me'?0:1, j=side==='me'?1:0;
+  const gd=(M.gold[i]||0)-(M.gold[j]||0);
+  let v=0.5+(ovr-ovrO)/26+gd/14000;
+  return clamp(0.06,0.94,v);
+}
 function v5MacroPlan(kind,m){
   if(!M) return {me:'contest',opp:'contest'};
-  const gd=(M.gold[0]||0)-(M.gold[1]||0);
-  const prio=v5LanePrio('TOP')+v5LanePrio('MID')+v5LanePrio('ADC');
-  const mySplit=!!(M.myComp&&M.myComp.tags&&(M.myComp.tags.split||0)>=3)||M.focusKey==='split131'||M.focusKey==='split14';
-  const opSplit=!!(M.oppComp&&M.oppComp.tags&&(M.oppComp.tags.split||0)>=3);
-  const myScore=prio*0.5+gd/2600+(mySplit?0.8:0)+(((M.coach.me||{}).obj||0)*1.2);
-  const opScore=-prio*0.5-gd/2600+(opSplit?0.8:0)+(((M.coach.opp||{}).obj||0)*1.2);
-  const plan={me:'contest',opp:'contest'};
-  if(myScore<-0.5&&Math.random()<0.62) plan.me='trade';
-  if(opScore<-0.5&&Math.random()<0.62) plan.opp='trade';
-  if(mySplit&&Math.random()<0.55) plan.me='trade';
-  if(opSplit&&Math.random()<0.55) plan.opp='trade';
-  /* 앞 라인 억제기를 이미 밀고 있으면 바로 사이드로 갈라지는 게 정답 */
-  if(kind==='baron'&&M.inhib&&M.inhib.opp&&M.inhib.opp.MID&&!M.inhib.opp.MID.alive) plan.me='trade';
-  if(kind==='dragon'&&M.inhib&&M.inhib.me&&M.inhib.me.BOT&&!M.inhib.me.BOT.alive) plan.me='trade';
-  /* 준비 단계(macroObjPrep)의 교차 이득 판단과 실제 결전 판단을 맞춘다 */
-  try{
-    const rec=(M.macro&&M.macro.prep)?M.macro.prep[kind+':'+m]:null;
-    if(rec){ if(rec.me&&rec.me.trade) plan.me='trade'; if(rec.opp&&rec.opp.trade) plan.opp='trade'; }
-  }catch(e){}
+  const stake=(typeof objStake==='function')?objStake(kind,m):1;
+  const decide=function(side){
+    const intel=macroIntelOf(side);
+    const p=macroWinChance(side);
+    /* 이길 만한 싸움은 무조건 한다 */
+    if(p>=0.5) return {k:'contest',why:'우위'+(stake>=2?' · 필수 응전':'')};
+    /* 3용·영혼·전령·바론·장로는 그냥 주지 않는다 — 5대5 강행 */
+    if(stake>=2) return {k:'contest',why:'필수 응전'};
+    /* 열세 + 1·2용: 판단력이 높으면 크로스맵 */
+    if(intel>=0.62) return {k:'trade',why:'스마트 교환'};
+    const r=Math.random();
+    if(r<0.45) return {k:'contest',why:'무리한 응전'};
+    if(r<0.8) return {k:'trade',why:'늦은 교환'};
+    return {k:'trade',why:'교환 타이밍 놓침',miss:true};
+  };
+  const a=decide('me'), b=decide('opp');
+  const plan={me:a.k,opp:b.k,why:{me:a.why,opp:b.why}};
+  /* 둘 다 비우면 오브젝트가 공짜 — 더 강한 팀이 응전한다 */
+  if(plan.me==='trade'&&plan.opp==='trade'){
+    if(macroWinChance('me')>=macroWinChance('opp')) plan.me='contest';
+    else plan.opp='contest';
+  }
   return plan;
 }
 function v5MacroTradeLane(kind){ return (kind==='dragon')?'TOP':(kind==='baron')?'BOT':(kind==='grub'?'BOT':'BOT'); }
 function v5MacroTrade(side,kind,m){
   if(!M) return null;
   const lane=v5MacroTradeLane(kind);
-  const res=(Math.random()<0.55)?v5TowerFall(side,m):null;
-  addGold(side,res?300:180);
+  const intel=macroIntelOf(side);
+  const miss=Math.random()>(0.35+intel*0.7);          /* 판단력 낮으면 교환 타이밍을 놓친다 */
+  const tag=(side==='me')?M.myName:M.oppName;
+  const kl=(side==='me')?'blue':'red';
+  if(miss){
+    addGold(side,40);
+    logEvent(kl, m+'분 · <b>교환 타이밍 놓침</b> — '+tag+'이(가) '+v5ObjNameKR(kind)+'을 비우고도 '+v5LaneKR(lane)+
+      ' 사이드를 제대로 밀지 못했습니다 (웨이브만 정리).');
+    return {lane:lane,res:null,miss:true};
+  }
+  const res=(Math.random()<0.45+intel*0.4)?v5TowerFall(side,m,lane):null;
+  const plate=Math.round((60+Math.random()*110)*(0.8+intel*0.4));
+  addGold(side,res?320:(180+plate));
   ROLES.forEach(r=>lvAddXp(side,r,7));
   if(M.vision) M.vision[side==='me'?0:1]+=3;
-  logEvent(side==='me'?'blue':'red', m+'분 · <b>교차 이득</b> — '+(side==='me'?M.myName:M.oppName)+
-    '이(가) '+v5ObjNameKR(kind)+' 교전을 포기하고 '+v5LaneKR(lane)+' 사이드 타워·플레이트를 밀어 교환합니다'+
-    (res?' ('+v5LaneKR(res.lane)+' T'+((res.tier||0)+1)+' 철거)':'')+'.');
-  return {lane:lane,res:res};
+  /* 적 반대편 정글 약탈 — 골드와 시야를 실제로 가져온다 */
+  const camp=Math.round((40+Math.random()*80)*(0.85+intel*0.3));
+  addGold(side,camp);
+  logEvent(kl, m+'분 · <b>교차 이득</b> — '+tag+'이(가) '+v5ObjNameKR(kind)+' 교전을 포기하고 '+v5LaneKR(lane)+
+    ' 사이드 타워·플레이트를 밀어 교환합니다'+(res?' ('+v5LaneKR(res.lane)+' T'+((res.tier||0)+1)+' 철거)':'')+
+    ' · 반대편 정글 캠프 약탈 +'+camp+'G.');
+  return {lane:lane,res:res,plate:plate,camp:camp};
 }
 
 /* ============ SEASON / FLOW ============ */
@@ -8722,6 +8857,7 @@ function clubInit(){
   if(!c.plan) c.plan={};
   if(!Array.isArray(c.academy)||!c.academy.length) c.academy=academyGen();
   if(!c.acadInvest) c.acadInvest='std';
+  if(typeof c.acadAuto!=='boolean') c.acadAuto=false;
   if(!Array.isArray(c.goods)) c.goods=[];
   if(!Array.isArray(c.meetings)) c.meetings=[];
   if(!Array.isArray(c.campaigns)) c.campaigns=[];
@@ -10785,7 +10921,7 @@ function tradeShortWhy(odds,tp,mp){
 }
 function stoveTradeGM(odds,tp,mp){
   if(!tp||!mp) return {t:(tp?'내보낼 선수를 고르면':'영입 대상과 내보낼 선수를 고르면')+' 상대 단장의 반응이 나옵니다',k:'idle'};
-  if(odds.locked) return {t:odds.lockWhy,k:'bad'};
+  if(odds.locked) return {t:'상대 구단이 판매를 거부했습니다 — 아래 조건을 확인하세요',k:'bad'};
   const p=odds.p;
   if(p>=0.85) return {t:'상대 단장이 흔쾌히 수락할 각입니다. 지금 제안하면 성사됩니다',k:'good'};
   if(p>=0.62) return {t:'협상 테이블에는 앉을 만한 제안입니다. 조금만 더 얹으면 확실합니다',k:'ok'};
@@ -10889,7 +11025,7 @@ function stoveTradeHTML(){
               <div class="trd-sd-cash">${tp?'연봉 '+tp.salary+'억':'—'}</div>
             </div>
           </div>
-          <div class="trd-gauge"><i style="width:${odds?Math.max(3,gauge):0}%;background:${gcol}"></i></div>
+          <div class="trd-gauge"><i style="width:${odds&&!odds.locked?Math.max(3,gauge):0}%;background:${gcol}"></i></div>
           <div class="trd-gm ${gm.k}">${esc(gm.t)}</div>
           ${reasons.length?`<div class="trd-reasons">${reasons.map(r=>`<div class="trd-reason ${r[0]}">${r[0]==='ok'?'✅':r[0]==='bad'?'⛔':'⚠️'} ${esc(r[1])}</div>`).join('')}</div>`:''}
           <div class="trd-sums">
@@ -15726,6 +15862,14 @@ function hubAction(a,v,el){
   if(a==='acadsend'){ const r=v6AcadSendDown(v); if(r&&r.msg) toast(r.msg); renderHub(); return; }
   if(a==='hire'){ const sel=$('view-hub').querySelector('[data-styears="'+v+'"]'); const n=sel?Number(sel.value):2; const r=hireStaff(v,n); if(!r.ok) toast(r.msg); else { toast('코치를 영입했습니다'); renderHub(); } return; }
   if(a==='firestaff'){ openStaffFireModal(v); return; }
+  if(a==='acadauto'){
+    const c=(typeof v6AcadEnsure==='function')?v6AcadEnsure():clubC();
+    if(!c){ toast('구단 데이터가 없습니다'); return; }
+    c.acadAuto=!c.acadAuto;
+    saveGame();
+    toast(c.acadAuto?'🤖 2군 자동 훈련 ON — 매주 최적 훈련을 자동 배정합니다':'2군 자동 훈련 OFF — 포커스를 직접 고릅니다');
+    renderHub(); return;
+  }
   if(a==='sppick'){
     const s=sponsorPool().find(x=>x.id===v)||SPONSOR_MAP[v];
     if(!s){ toast('이 제안은 이미 종료되었습니다'); renderHub(); return; }
@@ -18022,7 +18166,12 @@ function mmJumpTargets(){
 function mmObjectiveWindow(m){
   const gp=(M&&M.gp)||{};
   const first=gp.firstObj||'grub';
-  const hit=(kind)=>OBJ_TIMES[kind]&&OBJ_TIMES[kind].some(t=>m>=t-1&&m<=t+1);
+  const hit=(kind)=>OBJ_TIMES[kind]&&OBJ_TIMES[kind].some(t=>{
+    if(!(m>=t-1&&m<=t+1)) return false;
+    /* 이미 잡힌 오브젝트는 창을 닫는다 — 다 먹은 핏에 계속 서 있지 않게 */
+    try{ if(typeof mxPitCleared==='function'&&mxPitCleared(kind,t*60)) return false; }catch(e){}
+    return true;
+  });
   if(hit(first)) return first;
   for(const kind in OBJ_TIMES){ if(hit(kind)) return kind; }
   return null;
@@ -18460,6 +18609,10 @@ function mmComputeTargets(){
   if(typeof laneStandoffGuard==='function'){ try{ laneStandoffGuard(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='stand:'+String(e); } }
   /* 오브젝트 핏 스탠드오프 — 핏 안에서 적과 나란히 서지 않는다 */
   if(typeof pitStandoffGuard==='function'){ try{ pitStandoffGuard(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='pit:'+String(e); } }
+  /* 오브젝트 캡처 직후 — 이긴 팀도 진 팀도 핏에서 즉시 빠져나간다 (파이프라인 마지막 단계) */
+  if(typeof macroObjExitGuard==='function'){ try{ macroObjExitGuard(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='exit:'+String(e); } }
+  /* 보류된 킬의 두 유닛은 교전 지점으로 묶어 둔다 (킬 성사까지 목표 유지) */
+  if(typeof kgFightLock==='function'){ try{ kgFightLock(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='kgl:'+String(e); } }
 }
 
 /* ---------- 텔레포트 ---------- */
@@ -19945,6 +20098,11 @@ function mmdLaneSlot(lane,side,role,sec){
 function mmdRoleLane(role,sec){
   try{ return mmRoleLane(role,sec); }catch(e){ return role==='TOP'?'TOP':role==='MID'?'MID':'BOT'; }
 }
+/* 오브젝트를 준 팀이 교환하러 가는 라인 (드래곤·유충을 주면 탑, 바론을 주면 바텀) */
+function mmdTradeLane(kind){
+  if(kind==='baron'||kind==='grub'||kind==='herald') return 'BOT';
+  return 'TOP';
+}
 /* 14분 이후 운영: ADC·서폿 미드 / 탑·미드 사이드 */
 function mmdMidLane(role){
   if(role==='ADC'||role==='SUP') return 'MID';
@@ -20005,6 +20163,24 @@ function mmdPostTargets(){
         const lane=sec>=840?mmdMidLane(role):mmdRoleLane(role,sec);
         const p=mmdLaneSlot(lane,side,role,sec);
         tgt={x:p[0],y:p[1],mode:sec>=840?'rotate':'lane'};
+      }
+      /* 3-1) 오브젝트를 포기한 팀 — 반대 사이드로 실제로 걸어가 이득을 낸다
+         (가만히 서 있는 그림 금지: 타워·포탑 방어판·적 정글 캠프) */
+      {
+        const om=(M.objMacro&&Math.abs((M.objMacro.at||0)-(M.minute||0))<=1)?M.objMacro:null;
+        if(om&&om[side]==='trade'&&!(beat&&beat.kind==='fight')){
+          const tl=mmdTradeLane(om.kind);
+          if(role==='JGL'){
+            const c=mmNearestCamp(side==='me'?'opp':'me',k,u.x,u.y,sec);
+            if(c){ tgt={x:c.x,y:c.y,mode:'jungle'}; u.mode='jungle'; u.camp=c.k; }
+          }else{
+            const tws=(MAP_TOWERS[side==='me'?'opp':'me'][tl]||[]);
+            const tp2=tws[0]||[0.5,0.5];
+            const fan={TOP:-0.018,MID:0.004,ADC:0.020,SUP:0.030}[role]||0;
+            tgt={x:clamp(tp2[0]+(side==='me'?-fan:fan),0.05,0.95),y:clamp(tp2[1]+Math.abs(fan)*0.5,0.05,0.95),mode:'trade'};
+            u.mode='trade';
+          }
+        }
       }
       /* 4) 이벤트 비트: 그 지점으로 모여든다 (도착 후 교전) */
       let bt=beat;
@@ -24033,7 +24209,50 @@ function v6AcadTick(){
     a.age+= (a.weeks%40===0?1:0);
     a.growth=(a.growth||0)+grew;
   });
+  /* 🤖 2군 자동 훈련 — 켜 두면 매주 유망주별 최적 훈련을 자동 배정한다 */
+  if(c.acadAuto) v6AcadAutoWeek(c);
   saveGame();
+}
+/* 자동 훈련: 나쁜 특성 교정 → 포지션 핵심 스탯 중 가장 낮은 곳 → 성장 */
+function v6AcadAutoWeek(c){
+  if(!c||!Array.isArray(c.academy)||!c.academy.length) return null;
+  const log=[];
+  c.academy.forEach(function(a){
+    if(!a) return;
+    /* 1) 나쁜 특성 교정 우선 */
+    const negIds=(a.traits||[]).filter(function(id){ const tr=(typeof TRAIT_MAP!=='undefined')?TRAIT_MAP[id]:null; return tr&&tr.g<0; });
+    if(negIds.length&&Math.random()<0.55){
+      const id=negIds[0];
+      a.traits=(a.traits||[]).filter(function(x){ return x!==id; });
+      const nm=((typeof TRAIT_MAP!=='undefined'&&TRAIT_MAP[id])?TRAIT_MAP[id].n:id);
+      a.note='🤖 자동 훈련 — '+nm+' 특성 교정';
+      log.push(a.name+' '+nm+' 교정');
+      return;
+    }
+    /* 2) 포지션 핵심 스탯 중 가장 낮은 곳 집중 */
+    const core=(a.role==='JGL')?['macro','lane','mental','pool']:(a.role==='SUP')?['mental','macro','lane','pool']:['lane','fight','pool','mental'];
+    const st=a.stats||(a.stats={});
+    let low=core[0], lv=999;
+    core.forEach(function(k){ const v=(st[k]!=null)?st[k]:(a.rating||60); if(v<lv){ lv=v; low=k; } });
+    const foc=V6_ACAD_FOCUS.filter(function(f){ return f.stat===low; })[0]||V6_ACAD_FOCUS[0];
+    a.focus=foc.k;
+    st[low]=v6Clamp((st[low]!=null?st[low]:(a.rating||60))+1,40,99);
+    /* 3) 잠재력 여유가 있으면 레이팅 성장 */
+    if((a.rating||0)<(a.potential||99)&&Math.random()<0.38){
+      a.rating=v6Clamp((a.rating||0)+1,40,a.potential||99);
+      a.growth=(a.growth||0)+1;
+      a.note='🤖 자동 훈련 — '+foc.n+' 집중 (+1 OVR)';
+      log.push(a.name+' OVR +1');
+    }else{
+      a.note='🤖 자동 훈련 — '+foc.n+' 집중';
+      log.push(a.name+' '+foc.n+' +1');
+    }
+  });
+  c.acadAutoLog={at:((typeof S!=='undefined'&&S)?(S.season+'-'+S.week):''), lines:log.slice(0,6)};
+  if(log.length){
+    try{ newsAdd('club','🤖 2군 자동 훈련 — '+log.join(' · ')); }catch(e){}
+  }
+  return log;
 }
 function v6DefaultSigs(role){
   try{
@@ -24088,13 +24307,18 @@ function academyV3(){
   return `
   <div class="pg">
     <div class="pg-h"><h2>아카데미 (CL 2군)</h2><span class="pg-s">주간 훈련 포커스 · 1군 베테랑 멘토링 · 콜업/샌드다운</span>
-      <div class="pg-r"><button class="btn sm" data-a="acadsign">유망주 스카우트</button></div></div>
+      <div class="pg-r"><button class="btn sm ${c.acadAuto?'primary':''}" data-a="acadauto">🤖 2군 자동 훈련 ${c.acadAuto?'ON':'OFF'}</button><button class="btn sm" data-a="acadsign">유망주 스카우트</button></div></div>
     <div class="card">
       <div class="ch"><span>CL(2군) 육성 투자</span><b class="ch-n">${inv.cost}억 / 시즌</b></div>
       <div class="seg">
         ${ACAD_INVEST.map(a=>`<button class="seg-b ${c.acadInvest===a.k?'on':''}" data-a="invest" data-v="${a.k}">${a.n} <em>-${a.cost}억</em></button>`).join('')}
       </div>
       <div class="tiny" style="margin-top:6px">투자가 클수록 주간 성장 확률이 올라갑니다. 멘토를 붙이면 성장 +26%, 매주 16% 확률로 <b>베테랑의 좋은 특성</b>을 물려받습니다.</div>
+      <div class="acad-auto ${c.acadAuto?'on':''}">
+        <b>🤖 2군 자동 훈련 ${c.acadAuto?'켜짐':'꺼짐'}</b>
+        <span>${c.acadAuto?'매주 유망주별로 나쁜 특성 교정 → 포지션 핵심 스탯 중 가장 낮은 곳 → 잠재력 범위 안 성장 순서로 자동 배정합니다. 결과는 주간 소식에 요약됩니다.':'켜면 매주 유망주 전원의 훈련 포커스를 최적으로 자동 배정합니다. (직접 고른 포커스는 자동 배정으로 바뀝니다)'}</span>
+        ${(c.acadAuto&&c.acadAutoLog&&(c.acadAutoLog.lines||[]).length)?`<i>최근 (${esc(c.acadAutoLog.at||'-')}) — ${esc(c.acadAutoLog.lines.join(' · '))}</i>`:''}
+      </div>
     </div>
     <div class="card ac-card">
       <div class="ch"><span>유망주</span><b class="ch-n">${c.academy.length}명</b></div>
@@ -26917,21 +27141,23 @@ function v6ObjectiveTeamwork(){
     if(kind==='grub'||kind==='herald') return ['JGL','TOP','MID'];
     return ['JGL','TOP','MID','ADC','SUP'];   /* baron */
   };
-  /* 지금 걸려 있는 오브젝트 판정 */
+  /* 지금 걸려 있는 오브젝트 판정 — 정수 분이 아니라 초 단위로 본다 */
   let kind=null, immin=99;
   try{
-    const firstArm=(M.gp&&M.gp.firstObj)||'grub';
+    const at=sec/60;
     const times=(typeof OBJ_TIMES!=='undefined')?OBJ_TIMES:null;
     const order=times?Object.keys(times):['dragon','grub','herald','baron'];
     order.forEach(function(k){
       (times?(times[k]||[]):[]).forEach(function(t){
-        if(t>=m-0.5&&t<=m+0.6&&!((typeof v6ObjTakenAt==='function')&&v6ObjTakenAt(k,t*60))){
-          const d=Math.abs(t-m);
+        if(t>=at-0.5&&t<=at+0.6&&!((typeof v6ObjTakenAt==='function')&&v6ObjTakenAt(k,t*60))){
+          const d=Math.abs(t-at);
           if(d<immin){ immin=d; kind=k; }
         }
       });
     });
-    if(!kind&&M.objMacro&&M.objMacro.kind) kind=M.objMacro.kind;
+    /* 이미 먹힌 오브젝트는 objMacro가 남아 있어도 합류하지 않는다 */
+    const macroKind=(M.objMacro&&M.objMacro.kind)?M.objMacro.kind:null;
+    if(!kind&&macroKind&&!((typeof mxPitCleared==='function')&&mxPitCleared(macroKind,sec))) kind=macroKind;
   }catch(e){}
   if(!kind) return;
   const pit=pitOf(kind);
@@ -27658,21 +27884,25 @@ function mxHash(str){
   for(let i=0;i<str.length;i++){ h=(h*31+str.charCodeAt(i))%1000003; }
   return h/1000003;
 }
+function macroDecision(kind,at){
+  const mx=(M&&M.macro)?M.macro:null;
+  if(!mx) return {me:'contest',opp:'contest'};
+  mx.decide=mx.decide||{};
+  const key=kind+':'+at;
+  if(mx.decide[key]) return mx.decide[key];
+  let plan=null;
+  try{ plan=(typeof v5MacroPlan==='function')?v5MacroPlan(kind,at):null; }catch(e){ plan=null; }
+  if(!plan) plan={me:'contest',opp:'contest'};
+  mx.decide[key]=plan;
+  return plan;
+}
 function macroTradeIntent(kind,at,side){
   if(!M) return false;
   const mx=(M&&M.macro)?M.macro:null;
   if(mx&&mx.forceTrade===false) return false;
   if(mx&&mx.forceTrade===true) return true;
-  const gd=(side==='me')?(M.gold[0]-M.gold[1]):(M.gold[1]-M.gold[0]);
-  const comp=(side==='me')?M.myComp:M.oppComp;
-  const split=!!(comp&&comp.tags&&(comp.tags.split||0)>=3);
-  const roll=mxHash('trade|'+((mx&&mx.seed)||'')+'|'+kind+'|'+at+'|'+side);
-  let ch=0.10;
-  if(gd<-2000) ch+=0.40; else if(gd<-1000) ch+=0.18;
-  if(split) ch+=0.16;
-  if(side==='me'&&M.gp&&M.gp.macro==='late'&&at<20) ch+=0.25;
-  if(side==='me'&&M.gp&&M.gp.macro==='cross') ch+=0.35;
-  return roll<ch;
+  const plan=macroDecision(kind,at);
+  return (plan&&plan[side])==='trade';
 }
 
 /* 오브젝트 1분 전 — 참가 라인이 셔브를 했는지 판정하고 손익을 확정한다 */
@@ -28404,12 +28634,20 @@ function mxConcedeCross(side,kind,at,s){
   mx.cross=mx.cross||{};
   mx.cross[side]={kind:kind, at:at, until:at*60+18, x:target.x, y:target.y};
   ['JGL','TOP','MID','ADC','SUP'].forEach(function(role){
-    const pass=(role==='JGL')||(botPit?(role==='TOP'):(role==='ADC'||role==='SUP'));
-    if(!pass) return;
     const k=side+'-'+role, u=MM.units[k];
     if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
-    MM.tgt[k]={x:target.x,y:target.y};
-    u.mode='invade';
+    if(role==='JGL'){
+      MM.tgt[k]={x:target.x,y:target.y};
+      u.mode='invade';
+    }else{
+      /* 라이너는 반대 사이드 타워로 실제로 걸어가 압박한다 */
+      const tl=(typeof mmdTradeLane==='function')?mmdTradeLane(kind):(kind==='dragon'?'TOP':'BOT');
+      const tws=(MAP_TOWERS[enemy][tl]||[]);
+      const tp2=tws[0]||[target.x,target.y];
+      const fan={TOP:-0.020,MID:0.002,ADC:0.022,SUP:0.032}[role]||0;
+      MM.tgt[k]={x:mxClamp(tp2[0]+(side==='me'?-fan:fan),0.05,0.95),y:mxClamp(tp2[1]+Math.abs(fan)*0.5,0.05,0.95)};
+      u.mode='trade';
+    }
     u.rush=s+4;
   });
 }
@@ -28431,14 +28669,64 @@ function macroObjPresenceFix(kind,team,at){
   return out;
 }
 /* 캡처 후 분리 — 진 팀은 자기 진영으로 빠진다 */
+/* 이번 차례 오브젝트가 이미 잡혔는가 — 잡힌 뒤에는 핏에 남지 않는다 */
+function mxPitCleared(kind,sec){
+  try{
+    const s=(sec==null)?mxSec():sec;
+    const at=s/60;
+    const tbl=(typeof MX_SPAWN!=='undefined')?MX_SPAWN:(typeof V6_OBJ_SPAWN!=='undefined'?V6_OBJ_SPAWN:null);
+    if(!tbl) return false;
+    const list=(tbl[kind]||[]);
+    const t=list.filter(function(x){ return x<=at+0.02; }).pop();
+    if(t==null) return false;
+    return (typeof v6ObjTakenAt==='function')?!!v6ObjTakenAt(kind,t*60):false;
+  }catch(e){ return false; }
+}
 function macroPostObjSeparation(kind,winner,at){
   const mx=(M&&M.macro)?M.macro:null;
   if(!mx||typeof MM==='undefined'||!MM||!MM.units) return;
   const loser=(winner==='me')?'opp':'me';
-  const s=(at||0)*60;
+  const s=(M&&typeof M.sec==='number')?M.sec:((at||0)*60);
   mx.separate=mx.separate||{};
   mx.separate[loser]={kind:kind, until:s+16};
-  mx.separate[winner]={kind:kind, until:s+16, side2:true};
+  mx.separate[winner]={kind:kind, until:s+10, win:true};
+  /* 캡처 직후 8초 — 이긴 팀도 진 팀도 핏에 서 있지 않고 라인·정글·본진으로 빠진다 */
+  try{
+    const pit=(typeof mxPit==='function')?mxPit(kind):null;
+    M.objExit={kind:kind, team:winner||null, at:s, until:s+8, pit:pit||[0.5,0.5]};
+    M.objDone={kind:kind, team:winner||null, at:s};
+  }catch(e){}
+}
+/* 마지막 단계 가드 — 다른 시스템이 목표를 덮어써도 캡처 직후엔 핏에서 빠져나간다 */
+function macroObjExitGuard(sec){
+  const ex=(M&&M.objExit)?M.objExit:null;
+  if(!ex||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return;
+  const s=(sec==null)?mxSec():sec;
+  if(s>ex.until){ M.objExit=null; return; }
+  if(s<ex.at-0.5) return;
+  ['me','opp'].forEach(function(side){
+    ROLES.forEach(function(role){
+      const k=side+'-'+role, u=MM.units[k];
+      if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+      if(Math.hypot(u.x-ex.pit[0],u.y-ex.pit[1])>0.30) return;   /* 핏 근처 유닛만 */
+      const hp=(u.hp||100)/(u.hpMax||100);
+      let p=null, mode='walk';
+      if(hp<0.45){ p=MM_NEXUS[side]; mode='recall'; }              /* 실피·골드 보유 → 본진 귀환 */
+      else{
+        const lane=mxLaneOf(role,s);
+        p=macroLaneSlot(lane,side,role); mode='lane';
+        if(role==='JGL'){
+          const c=(typeof mmNearestCamp==='function')?mmNearestCamp(side,k,u.x,u.y,s):null;
+          if(c){ p=[c.x,c.y]; mode='jungle'; }
+        }
+      }
+      if(!p) return;
+      MM.tgt[k]={x:mxClamp(p[0],0.05,0.95), y:mxClamp(p[1],0.05,0.95)};
+      u.mode=mode;
+      u.tgtHold=null;
+      u.rush=s+2;
+    });
+  });
 }
 function macroSeparateTick(s){
   const mx=(M&&M.macro)?M.macro:null;
