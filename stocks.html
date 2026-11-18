@@ -1338,7 +1338,7 @@ body.pkopen{overflow:hidden}
 
   /* ── 상세 시트 ── */
   const mask = document.getElementById("mask"), sheet = document.getElementById("sheet");
-  function closeSheet(){ sheet.classList.remove("on"); mask.classList.remove("on"); }
+  function closeSheet(){ sheet.classList.remove("on"); mask.classList.remove("on"); sheet.setAttribute("aria-hidden","true"); if ("inert" in sheet) sheet.inert = true; }
   mask.addEventListener("click", closeSheet);
 
   function openSheet(sym){
@@ -1349,7 +1349,8 @@ body.pkopen{overflow:hidden}
         + '<p class="note">이 종목은 아직 시세 데이터가 없습니다. 피클에게 코드를 알려 주면 다음 갱신부터 값이 채워집니다.</p>'
         + '<div class="divider"></div><button class="btn ghost wide" id="shClose">닫기</button>';
       document.getElementById("shClose").onclick = closeSheet;
-      sheet.classList.add("on"); mask.classList.add("on");
+      sheet.removeAttribute("aria-hidden"); if ("inert" in sheet) sheet.inert = false;
+    sheet.classList.add("on"); mask.classList.add("on");
       return;
     }
     const held = S.holdings[sym] || {};
@@ -1408,6 +1409,7 @@ body.pkopen{overflow:hidden}
       if (i>=0) S.fav.splice(i,1); else S.fav.push(sym);
       save(); openSheet(sym); renderBoard();
     };
+    sheet.removeAttribute("aria-hidden"); if ("inert" in sheet) sheet.inert = false;
     sheet.classList.add("on"); mask.classList.add("on");
     sheet.scrollTop = 0;
   }
