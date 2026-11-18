@@ -707,7 +707,7 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 /* ---------- HOME ---------- */
 /* ---------- HOME 허브 그리드 ----------
    태블릿/폴드/데스크톱: 2열(50:50). 전폭 카드만 1/-1. 모바일: 1열. */
-.hm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px 16px 28px;max-width:none;width:100%;margin:0;align-items:start}
+.hm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px 16px 28px;max-width:none;width:100%;margin:0;align-items:stretch}
 .hm>*{min-width:0}
 .sp2,.sp4{grid-column:span 1}
 .sp6{grid-column:1/-1}
@@ -4980,11 +4980,11 @@ function laneLossApply(killerSide, role, m, tag){
   }
   const cs=Math.round(6+Math.random()*9);
   /* 듀오 라인(원딜·서폿)은 경험치를 나눠 먹으므로 라인 손해 XP 보정은 솔로 라인·정글만 */
-  const xp=(laneRole==='ADC'||laneRole==='SUP')?Math.round(4+Math.random()*8):Math.round(10+Math.random()*18);
+  const xp=(laneRole==='ADC'||laneRole==='SUP')?0:Math.round(10+Math.random()*18);
   M.csLost=M.csLost||{me:0,opp:0};
   M.csLost[victimSide]=(M.csLost[victimSide]||0)+cs;
   addGold(killerSide, 80+cs*16);
-  try{ lvAddXp(killerSide, laneRole, xp); }catch(e){}
+  try{ if(xp>0) lvAddXp(killerSide, laneRole, xp); }catch(e){}
   /* 14분 전이면 포탑 방패(판) 골드까지 */
   let plate=0;
   if((m||M.minute||0)<14){ plate=125; addGold(killerSide, plate); }
@@ -9690,7 +9690,25 @@ function autoDraftQuality(){
 }
 function autoDraftChoose(kind){
   const q=autoDraftQuality();
-  const pool=dAvailable();
+  let pool=dAvailable();
+  /* 픽 차례에는 '포지션 로테이션'으로 뽑는다 — 탑→정글→미드→원딜→서폿 순서로 빈 라인을 채워
+     라칸 원딜 같은 오프롤 배정이 아예 생기지 않게 한다. */
+  if(kind==='pick'){
+    try{
+      const picked=(typeof dMyPicks==='function')?dMyPicks():[];
+      const coveredR={};
+      picked.forEach(function(n){ var c2=CHAMP_MAP[n]; if(c2) champRolesOf(c2).forEach(function(r){ coveredR[r]=1; }); });
+      const open=ROLES.filter(function(r){ return !coveredR[r]; });
+      if(open.length){
+        const fill=open.filter(function(r){ return pool.some(function(c){ return champRolesOf(c).indexOf(r)>=0; }); });
+        const target=fill.length?fill[0]:null;
+        if(target){
+          const filt=pool.filter(function(c){ return champRolesOf(c).indexOf(target)>=0; });
+          if(filt.length) pool=filt;
+        }
+      }
+    }catch(e){}
+  }
   if(!pool.length) return null;
   if(kind==='ban'){
     const opp=T(D.oppId);
@@ -9714,6 +9732,16 @@ function autoDraftChoose(kind){
     try{
       const roles=champRolesOf(ch);
       if(openFree.length) best+= roles.some(r=>openFree.indexOf(r)>=0)?18:-40;
+      /* 주 포지션이 이미 채워졌는데 비어 있는 라인이 남아 있으면 감점 (서폿 3픽 같은 중복 방지) */
+      const prim={};
+      myPicked.forEach(function(n2){ var cc2=CHAMP_MAP[n2]; if(cc2) prim[cc2.r[0]]=(prim[cc2.r[0]]||0)+1; });
+      const emptyRoles=ROLES.filter(function(r){ return !prim[r]; });
+      const primRole=ch.r[0];
+      if(emptyRoles.length){
+        if(emptyRoles.indexOf(primRole)>=0) best+=12;
+        else if((prim[primRole]||0)>=1) best-=20;
+        else best-=4;
+      }
     }catch(e){}
     ROLES.forEach(r=>{
       const p=S.players[myTeam().lineup[r]]; if(!p) return;
@@ -16826,21 +16854,7 @@ function mmdDrawObjects(ctx,w,h){
       });
     });
   }
-  /* --- 현재 국면 라벨 --- */
-  const ph=mmdPhase(sec);
-  const LABEL={spawn:'소환 대기',runout:'본진 탈출',cover:'5점 거점 · 시야',setup:'캠프·라인 세팅',lane:'라인전 · 웨이브 파밍',mid:'미드게임 · 사이드 운영'};
-  const txt=LABEL[ph]||'';
-  if(txt){
-    const nm=Math.floor(sec/60), ns=Math.floor(sec%60);
-    const full=txt+' · '+String(nm).padStart(2,'0')+':'+String(ns).padStart(2,'0');
-    ctx.font=`900 ${Math.max(8,Math.round(w*0.021))}px Pretendard,sans-serif`;
-    const tw=ctx.measureText(full).width;
-    mmRoundRect(ctx,6,6,tw+14,16,5);
-    ctx.fillStyle='rgba(4,10,18,.78)'; ctx.fill();
-    ctx.strokeStyle='rgba(120,200,255,.5)'; ctx.lineWidth=1; ctx.stroke();
-    ctx.fillStyle='#bfe9ff'; ctx.textAlign='left'; ctx.textBaseline='middle';
-    ctx.fillText(full,13,14);
-  }
+  /* 현재 국면 라벨은 미니맵 위 상태바(ui-broadcast)로 이동 — 캔버스 안에는 그리지 않는다 */
   /* --- 교전 표시 --- */
   if(MMD.clash>0){
     const cp=MMD.clashPt||[0.5,0.5];
