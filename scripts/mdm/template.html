@@ -1107,7 +1107,8 @@ $('#comboPresets').addEventListener('click', e => {
 });
 
 /* --- 테스트 드로우 --- */
-let drawStats = {n: 0, hit: 0, last: null};
+let drawStats = {n: 0, hit: 0, sig: ''};
+function drawSig(){ return [calcEffN().N, calcHandN(), calc.groups.map((g, i) => groupN(i)).join('/'), calc.mins.join('/')].join('|'); }
 function useDeckForDraw(){ return curDeck.main.length > 0 && deckTotal('main') === calcEffN().N; }
 function updateDrawSrc(){
   const src = useDeckForDraw() ? '내 덱 레시피' : '카드군 설정';
@@ -1130,7 +1131,8 @@ function buildPool(N){
   return pool.slice(0, N);
 }
 function drawHand(){
-  const N = calcEffN().N, n = Math.min(calcHandN(), N);
+  const N = calcEffN().N, n = Math.min(calcHandN(), N), sig = drawSig();
+  if (sig !== drawStats.sig) drawStats = {n: 0, hit: 0, sig: sig};   /* 설정이 바뀌면 누적 초기화 */
   const pool = buildPool(N);
   for (let i = 0; i < n; i++){
     const j = i + Math.floor(Math.random() * (pool.length - i));
