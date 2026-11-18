@@ -3047,8 +3047,12 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .sc-badge.l{color:#ff9fb0}
 .sc-sc{display:block;font-style:normal;font-size:8px;color:var(--dim2);margin-top:1px}
 
-/* 경기 HUD 코어템 배지 */
-.b4items{display:flex;gap:2px;flex-wrap:wrap;margin:2px 0 3px}
+/* 경기 HUD 코어템 배지 — 실제 아이템 아이콘(데이터드래곤) */
+.b4items{display:flex;gap:2px;flex-wrap:wrap;margin:2px 0 3px;align-items:center}
+.b4items .b4img{width:16px;height:16px;border-radius:3px;display:block;
+  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.16);object-fit:cover}
+.b4items .b4img.boot{border-color:rgba(124,196,255,.55)}
+.b4items .b4img.prem{border-color:rgba(255,201,74,.75);box-shadow:0 0 4px rgba(255,201,74,.35)}
 .b4items .b4i{font-style:normal;font-size:8.5px;font-weight:800;line-height:1;padding:2px 3px;border-radius:4px;background:rgba(255,201,74,.16);color:#ffe2a2;letter-spacing:-.02em}
 .b4items .b4i.boot{background:rgba(124,196,255,.18);color:#bfe6ff}
 .b4panel{border-radius:10px;padding:8px 9px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)}
@@ -4771,6 +4775,30 @@ const B4_DEFAULT_CORE={
   TOP:[3078,3071,6333], JGL:[6692,3071,6333], MID:[6655,4645,3157],
   ADC:[3031,3046,3033], SUP:[3190,3109,3050],
 };
+/* 시작 아이템 — 모든 챔피언이 도란 계열로 라인에 나선다 */
+const B4_STARTER={
+  TOP:{id:1056,price:450}, JGL:{id:1101,price:450}, MID:{id:1054,price:400},
+  ADC:{id:1055,price:450}, SUP:{id:3853,price:400},
+};
+const B4_ICON_CDN='https://ddragon.leagueoflegends.com/cdn/15.22.1/img/item/';
+function b4ItemIcon(id,cls){
+  const n=Number(id)||0; if(!n) return '';
+  return `<img class="b4img ${cls||''}" src="${B4_ICON_CDN}${n}.png" alt="" loading="lazy"
+    onerror="this.style.display='none';if(this.nextElementSibling)this.nextElementSibling.style.display='inline-block'">`;
+}
+function b4StarterOf(role){
+  return B4_STARTER[role]||B4_STARTER.MID;
+}
+/* 게임 시작 정비 — 시작 아이템을 무료로 들고 나선다 */
+function b4ItemStarter(side,role){
+  const st=b4ItemOf(side,role); if(!st) return null;
+  if(st.starter) return st.starter;
+  const s=b4StarterOf(role);
+  st.starter={id:s.id,kind:'starter',price:s.price,name:b4ItemName(s.id),tier:'시작 아이템'+(s.price?(' '+s.price.toLocaleString()+'G'):'')};
+  st.pow=b4PowFrom(st);
+  try{ const u=(MM&&MM.units)?MM.units[side+'-'+role]:null; if(u) u.itemPow=st.pow; }catch(e){}
+  return st.starter;
+}
 function b4ItemName(id){ return (typeof lolpsItemName==='function'&&lolpsItemName(id))||('아이템 '+id); }
 /* 실제 가격대 — 등급표에 없으면 포지션/가격대 규칙으로 결정 (지어낸 0원 없음) */
 function b4ItemPrice(id, role){
@@ -4791,15 +4819,19 @@ function b4ItemTierLabel(id,role){
   if(p<=3100) return '일반 코어 '+p.toLocaleString()+'G';
   return '프리미엄 코어 '+p.toLocaleString()+'G';
 }
+const B4_DEF_BOOTS={TOP:3047,JGL:3047,MID:3020,ADC:3006,SUP:3158};
+const B4_SHOES_FIX={3008:3009};   /* 데이터 오타 보정 (3008 = 신속의 장화 3009) */
 /* 구매 순서: 신발 → 코어 1 → 코어 2 → 코어 3 */
 function b4ItemPlan(side,role){
-  let boots=3047, cores=[];
+  let boots=B4_DEF_BOOTS[role]||3047, cores=[];
   try{
     const l=(typeof lineupAt==='function')?lineupAt(side,role):null;
     const ch=l&&l.champ;
     const L=(ch&&typeof lolpsOf==='function')?lolpsOf(ch):null;
     if(L&&L.build){
-      if(L.build.shoes) boots=L.build.shoes;
+      let sh=Number(L.build.shoes)||0;
+      if(B4_SHOES_FIX[sh]) sh=B4_SHOES_FIX[sh];
+      if(B4_BOOTS[sh]) boots=sh;              /* 실제 신발 ID만 인정 — 아니면 포지션 기본 신발 */
       cores=(L.build.items||[]).filter(Boolean).slice(0,3);
     }
   }catch(e){}
@@ -4831,6 +4863,40 @@ function b4ItemOf(side,role){
   const st=b4ItemState(); if(!st) return null;
   if(!st[side][role]) st[side][role]={bought:[],spent:0,pow:1,at:null};
   return st[side][role];
+}
+/* 아직 안 산 다음 코어템 — 살 수 있는지·언제쯤인지 함께 돌려준다 */
+function b4ItemNext(side,role){
+  const st=b4ItemOf(side,role); if(!st) return null;
+  const plan=b4ItemPlan(side,role);
+  if(st.bought.length>=plan.length) return null;
+  const next=plan[st.bought.length];
+  const gold=b4Gold(side,role)-(st.spent||0);
+  return {item:next,gold:gold,afford:gold>=next.price,left:Math.max(0,next.price-gold)};
+}
+/* 골드 스파이크 귀환 판단 — 피가 멀쩡해도 템 살 돈이 모이면 본진에 다녀온다
+   · 신발 04:00~ / 코어1 09:00~ / 코어2 14:00~ / 코어3 19:00~ 이후 구매 가능 */
+const B4_SPIKE_MIN_CS={boots:0,core1:0,core2:0,core3:0};
+function b4ItemSpikeMin(role,kind){
+  const boots=4, c1=9, c2=14, c3=19;
+  if(kind==='boots') return boots*60;
+  if(kind==='core1') return c1*60;
+  if(kind==='core2') return c2*60;
+  return c3*60;
+}
+function b4ItemRecallWant(side,role,sec){
+  if(!M) return null;
+  const nx=b4ItemNext(side,role);
+  if(!nx||!nx.afford) return null;
+  const s=(sec==null)?((typeof mmGameSec==='function')?mmGameSec():((M.sec)||0)):Number(sec)||0;
+  /* 시작 아이템은 아직 안 줬으면 여기서 준다 — 골드 스파이크 귀환은 그대로 */
+  if(s<b4ItemSpikeMin(role,nx.item.kind)) return null;
+  return nx;
+}
+function b4ItemBuyAll(side,role,max){
+  let n=0, last=null;
+  const cap=Math.max(1,Math.round(max||6));
+  while(n<cap){ const r=b4ItemBuy(side,role); if(!r) break; last=r; n++; }
+  return {n:n,last:last};
 }
 /* 산 아이템 1개당 화력 — 신발 3%, 일반 코어 11%, 프리미엄 코어 15% */
 function b4PowFrom(st){
@@ -4874,7 +4940,7 @@ function b4PowMul(side){
     return n?sum/n:1;
   }catch(e){ return 1; }
 }
-/* 매 초: 본진에 돌아와 있으면 정비 구매 (귀환 직후가 아니어도 산다) */
+/* 매 초: 본진에 돌아와 있으면 정비 구매 — 살 수 있는 템은 한 번에 다 산다 */
 function b4ItemTick(){
   if(!M||typeof MM==='undefined'||!MM||!MM.units) return 0;
   const nexus=(typeof MM_NEXUS!=='undefined')?MM_NEXUS:null;
@@ -4884,10 +4950,11 @@ function b4ItemTick(){
     ROLES.forEach(role=>{
       const u=MM.units[side+'-'+role];
       if(!u||!u.alive||u.tp) return;
+      if(!(M.items&&M.items[side]&&M.items[side][role]&&M.items[side][role].starter)) b4ItemStarter(side,role);
       const f=nexus[side];
       if(!f) return;
       if(Math.hypot(u.x-f[0],u.y-f[1])>0.075) return;
-      if(b4ItemBuy(side,role)) n++;
+      n+=b4ItemBuyAll(side,role).n;
     });
   });
   return n;
@@ -4895,17 +4962,22 @@ function b4ItemTick(){
 /* 플레이어 카드용 — 산 코어템 요약 (카드 안에 들어가는 내부 HTML) */
 function b4ItemInnerHTML(side,role){
   const st=(M&&M.items&&M.items[side])?M.items[side][role]:null;
-  if(!st||!st.bought||!st.bought.length) return '';
-  const boots=st.bought.filter(x=>x.kind==='boots')[0]||null;
-  const cores=st.bought.filter(x=>x.kind!=='boots');
+  if(!st) return '';
   const parts=[];
-  if(boots) parts.push(`<i class="b4i boot" title="${esc(boots.name)} · ${esc(boots.tier)}">👟</i>`);
-  cores.forEach(x=>parts.push(`<i class="b4i" title="${esc(x.name)} · ${esc(x.tier)}">${esc(String(x.name).slice(0,2))}</i>`));
+  if(st.starter){
+    parts.push(b4ItemIcon(st.starter.id,'boot')+
+      `<i class="b4i boot" title="${esc(st.starter.name)} · ${esc(st.starter.tier||'시작 아이템')}" style="display:none">${esc(String(st.starter.name).slice(0,2))}</i>`);
+  }
+  ((st.bought)||[]).forEach(function(x){
+    const cls=(x.kind==='boots')?'boot':(x.price>=3200?'prem':'');
+    parts.push(b4ItemIcon(x.id,cls)+
+      `<i class="b4i ${cls}" title="${esc(x.name)} · ${esc(x.tier)}" style="display:none">${esc(String(x.name).slice(0,2))}</i>`);
+  });
   return parts.join('');
 }
 function b4ItemCardHTML(side,role){
   const st=(M&&M.items&&M.items[side])?M.items[side][role]:null;
-  if(!st||!st.bought||!st.bought.length) return '';
+  if(!st||!(st.bought&&st.bought.length)) return '';
   return `<span class="b4items" title="산 코어템 ${st.bought.length}개 · 화력 ×${(st.pow||1).toFixed(2)}">${b4ItemInnerHTML(side,role)}</span>`;
 }
 /* 매치 HUD 카드의 아이템 배지 실시간 갱신 — 귀환 구매가 바로 보인다 */
@@ -20142,7 +20214,7 @@ function mmFallbackDeath(u,victimSide){
 function mmReset(){
   MM.units={}; MM.tgt={}; MM.minions=[]; MM.proj=[]; MM.fx=[]; MM.marks=[];
   MM.focus=null; MM.focusUntil=0; MM.dead={}; MM.towerIdx={me:0,opp:0};
-  MM.waveAt=0; MM.nextWaveSec=65; MM.waveNo=0; MM.combatAt=0; MM.t=0; MM.phase='lane'; MM.phaseLabel='라인전';
+  MM.waveAt=0; MM.nextWaveSec=65; MM.waveNo=0; MM.combatAt=0; MM.combatSec=0; MM.t=0; MM.phase='lane'; MM.phaseLabel='라인전';
   MM.simMark=0; MM.hover=null; MM.tpCount=0;
   MM.last={kills:[0,0],towers:[0,0],dragons:[0,0],barons:[0,0],grubs:[0,0],fights:[0,0],scuttle:[0,0]};
   MM.vseq=0; MM.lastWard={me:0,opp:0}; MM.twAlive={me:{},opp:{}};
@@ -20265,6 +20337,42 @@ function mmLaneFrontT(lane){
 function mmFrontFromParam(lane,param){
   const mt=LANE_MIDT[lane]||0.5;
   return param<=mt ? (param/mt)*0.5 : 0.5+((param-mt)/(1-mt))*0.5;
+}
+/* 미니언 전진 한계 — 양 팀 대칭 (상대 첫 생존 포탑 앞 0.012까지) */
+function mmMinionPushLimit(side,lane){
+  const me=(side==='me');
+  if(!M||!M.tw) return me?0.985:0.015;
+  const enemy=me?'opp':'me';
+  const arr=(M.tw[enemy]&&M.tw[enemy][lane])||[1,1,1];
+  for(let i=0;i<3;i++){
+    if(!arr[i]) continue;
+    const p=mmTowerParam(enemy,lane,i+1);
+    return me?clamp(p-0.012,0.5,0.985):clamp(p+0.012,0.015,0.5);
+  }
+  const inh=(M.inhib&&M.inhib[enemy])?M.inhib[enemy][lane]:null;
+  if(inh&&inh.alive) return me?0.945:0.055;
+  /* 억제기까지 뚫렸으면 넥서스 포탑 앞에서 멈춘다 — 맵 귀통이까지 밀려 210기 쓰레기가 생기지 않게 */
+  const nexPts=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[enemy]&&MAP_TOWERS[enemy].NEXUS)||[];
+  if(nexPts.length){
+    const npt=nexPts[0];
+    const pf=mmPointFront(lane,npt[0],npt[1]);
+    if(pf&&pf.dist<0.14){
+      const p=clamp(pf.param-(me?0.020:-0.020),0.02,0.98);
+      return me?Math.max(0.5,p):Math.min(0.5,p);
+    }
+  }
+  return me?0.985:0.015;
+}
+/* 같은 편 대열 간격 — 한 점에 겹쳐 쌓이지 않게 줄을 세운다 */
+function mmMinionAllyAhead(mn,gap){
+  const dir=(mn.side==='me')?1:-1;
+  for(let i=0;i<MM.minions.length;i++){
+    const o=MM.minions[i];
+    if(!o.alive||o.side!==mn.side||o.lane!==mn.lane) continue;
+    const ahead=(o.t-mn.t)*dir;
+    if(ahead>0&&ahead<gap) return true;
+  }
+  return false;
 }
 function mmFrontLimit(side,lane){
   const enemy=side==='me'?'opp':'me';
@@ -20629,6 +20737,26 @@ function mmComputeTargets(){
   if(typeof macroDeepPushGuard==='function'){ try{ macroDeepPushGuard(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='deep:'+String(e); } }
   /* 후반 마이크로 모션 — 이벤트 사이에도 유닛이 자리를 잡고 움직인다 */
   if(typeof macroMicroMotion==='function'){ try{ macroMicroMotion(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='micro:'+String(e); } }
+  /* 후반 마무리 — 이긴 팀은 모여서 넥서스까지 끝낸다 (지는 팀은 본진 수비). 마지막 단계에서 덮어쓴다 */
+  if(typeof macroEndgameTick==='function'){ try{ macroEndgameTick(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='eg:'+String(e); } }
+  /* 귀환 고정 — B를 차는 중이거나 귀환 지점으로 걷는 중이면 다른 동선이 목표를 빼앗지 않는다 */
+  try{ mmRecallPin(); }catch(e){}
+}
+/* 귀환 의도가 있으면 마지막에 목표를 되돌린다 */
+function mmRecallPin(){
+  if(!M||!MM||!MM.units||!MM.tgt) return 0;
+  let n=0;
+  Object.keys(MM.units).forEach(k=>{
+    const u=MM.units[k];
+    if(!u||!u.alive||!u.recallSpot) return;
+    if(!u.recallT&&!u.recallWalk) { u.recallSpot=null; return; }
+    const t=MM.tgt[k];
+    const sp=u.recallSpot;
+    if(!t||Math.hypot(t.x-sp[0],t.y-sp[1])>0.004){
+      MM.tgt[k]={x:sp[0],y:sp[1]}; n++;
+    }
+  });
+  return n;
 }
 
 /* ---------- 텔레포트 ---------- */
@@ -20846,6 +20974,7 @@ function mmSpawnWave(sec){
   });
   MM.waveAt=(typeof performance!=='undefined'&&performance.now)?performance.now():0;
   /* 오래된/죽은 미니언 정리 — 살아있는 미니언은 최대 210기까지 */
+  MM.minions=MM.minions.filter(mn=>mn.alive&&!mn.dropped);
   MM.minions=MM.minions.filter(mn=>mn.alive);
   if(MM.minions.length>210) MM.minions=MM.minions.slice(MM.minions.length-210);
   return MM.minions.length;
@@ -20858,73 +20987,155 @@ function mmWaveTick(sec){
     let wg=0;
     while(sec>=MM.nextWaveSec&&wg++<24){ mmSpawnWave(sec); MM.nextWaveSec+=30; spawned++; }
   }
+  /* 라인·진영별 대기 한도 — 실제 플레이에서만 적용 (잘못된 상태에서도 210기 뭉치가 생기지 않게)
+     넘치면 가장 나중에 나온 미니언을 본진에 남긴다 = 라인 뒤에 줄서지 않는다 */
+  if(spawned===1){
+    ['TOP','MID','BOT'].forEach(lane=>{
+      ['me','opp'].forEach(side=>{
+        const list=MM.minions.filter(m=>m.alive&&m.lane===lane&&m.side===side);
+        if(list.length<=18) return;
+        list.slice(18).forEach(m=>{ m.alive=false; });
+      });
+    });
+    MM.minions=MM.minions.filter(m=>m.alive);
+  }
   return spawned;
 }
-/* 같은 라인에서 앞을 막고 있는 적 미니언이 있는가 (교전 사거리) */
+/* 같은 라인에서 앞을 막고 있는 적 미니언이 있는가 */
+/* 교전 사거리(reach) 안쪽에서 멈춘다 — 멈춘 미니언은 반드시 때릴 수 있어야 한다 */
+function mmMinionReach(mn){ return mn&&mn.ranged?0.044:0.028; }
+function mmMinionStopGap(mn){ return mn&&mn.ranged?0.030:0.016; }
 function mmMinionBlocked(mn){
   if(!mn||!mn.alive) return false;
   const dir=(mn.side==='me')?1:-1;
-  const range=mn.ranged?0.034:0.024;
+  const stop=mmMinionStopGap(mn);
   for(let i=0;i<MM.minions.length;i++){
     const o=MM.minions[i];
     if(!o.alive||o.side===mn.side||o.lane!==mn.lane) continue;
     const ahead=(o.t-mn.t)*dir;
-    if(ahead>=0&&ahead<=range) return true;
-    if(mn.ranged&&ahead<0&&ahead>-0.006) return true;   /* 원거리는 붙은 상대도 친다 */
+    if(ahead>=0&&ahead<=stop) return true;
+    if(mn.ranged&&ahead<0&&ahead>-0.008) return true;   /* 원거리는 붙은 상대도 친다 */
   }
   return false;
 }
 /* ---------- 미니언 · 챔피언 교전 ----------
    · 미니언끼리 서로 때려 웨이브가 실제로 정리된다 (수적 우위가 이김)
    · 챔피언은 사거리 안의 적 미니언을 때려 라인을 밀어준다 (스파크·체력 감소·사망) */
-const MM_MINION_DMG={melee:9,ranged:7,cannon:15,baron:12,super:20};
+/* 미니언 초당 피해 — 실제 롤처럼 같은 웨이브가 20게임초 안에 서로 정리된다
+   (마법사 3 + 원거리 3 = 15.6HP/게임초 → 156HP 웨이브가 약 19게임초) */
+const MM_MINION_DPS={melee:1.6,ranged:1.15,cannon:2.6,baron:2.1,super:3.2};
+const MM_CHAMP_DPS={melee:30,ranged:32};          /* 챔피언 1명 = 미니언 1기당 약 1게임초 */
+const MM_TURRET_DPS=20;                            /* 포탑 = 미니언 1기당 약 1.5게임초 */
+/* dsec: 직전 처리 이후 흐른 게임초 — 배속(1x·2x·4x·8x)과 무관하게 같은 게임속도 */
 function mmMinionCombat(sec,gameDt){
   if(!MM.minions.length) return;
-  const dt=Math.max(0.2,Math.min(1.2,Number(gameDt)||0.55));
-  /* 1) 적 미니언끼리 */
+  const span=Math.max(0.02,Math.min(8,Number(gameDt)||0.55));
+  /* 배속이 높으면 그 사이 흐른 게임초를 한 번에 때리지 않는다 — 1게임초 단위로 나눠 처리 */
+  const steps=Math.max(1,Math.min(8,Math.ceil(span/1.0)));
+  const dsec=span/steps;
+  for(let stp=0;stp<steps;stp++) mmMinionCombatStep(sec,dsec);
+  /* 죽은 미니언은 목록에서 빼서 다음 웨이브 판정이 가벼워지게 */
+  if(MM.minions.length>260) MM.minions=MM.minions.filter(m=>m.alive);
+}
+function mmMinionCombatStep(sec,dsec){
+  if(!MM.minions.length) return;
+  const pathPt=(m)=>mmPathPoint(LANE_PATH[m.lane],m.t);
+  const kill=(m)=>{ m.hp=0; m.alive=false;
+    const p=pathPt(m); mmAddFx({type:'spark',x:p[0]+m.off,y:p[1]+m.off,life:320}); };
+  /* 1) 적 미니언끼리 — 사거리 안 가장 앞선 적을 때린다 */
   for(let i=0;i<MM.minions.length;i++){
     const a=MM.minions[i]; if(!a.alive) continue;
+    const dir=(a.side==='me')?1:-1;
+    const reach=mmMinionReach(a);
     let best=null,bd=9;
     for(let j=0;j<MM.minions.length;j++){
       const b=MM.minions[j];
       if(!b.alive||b.side===a.side||b.lane!==a.lane) continue;
-      const d=Math.abs(b.t-a.t);
+      const ahead=(b.t-a.t)*dir;
+      if(ahead<-0.008||ahead>reach) continue;
+      const d=Math.abs(ahead);
       if(d<bd){ bd=d; best=b; }
     }
-    if(!best||bd>(a.ranged?0.032:0.022)) continue;
-    best.hp-=MM_MINION_DMG[a.kind||'melee']*dt;
-    if(a.ranged&&Math.random()<0.5){
-      const p=mmPathPoint(LANE_PATH[a.lane],a.t);
+    if(!best) continue;
+    best.hp-=MM_MINION_DPS[a.kind||'melee']*dsec;
+    if(a.ranged&&Math.random()<0.35){
+      const p=pathPt(a);
       mmAddFx({type:'hit',x:p[0],y:p[1],col:a.side==='me'?'#5fc9ff':'#ff7288',life:260});
     }
-    if(best.hp<=0){ best.hp=0; best.alive=false; }
+    if(best.hp<=0) kill(best);
   }
-  /* 2) 챔피언 → 적 미니언 (미니언 없는 상태에서 포탑을 치는 일은 없다: 타워 가드가 따로 막는다) */
+  /* 2) 챔피언 → 적 미니언 — 라인에 서 있는 챔피언은 사거리(0.085) 안 비웃을 반드시 때린다.
+        6기 웨이브(156HP)를 5~8게임초에 정리하는 화력 */
   ['me','opp'].forEach(side=>{
     ROLES.forEach(role=>{
       const u=(MM.units)?MM.units[side+'-'+role]:null;
-      if(!u||!u.alive||u.tp||u.recallT) return;
+      if(!u||!u.alive||u.tp||u.recallT||u.recall||u.recallWalk) return;
       let best=null,bd=9;
       for(let j=0;j<MM.minions.length;j++){
         const b=MM.minions[j];
         if(!b.alive||b.side===side) continue;
-        const p=mmPathPoint(LANE_PATH[b.lane],b.t);
+        const p=pathPt(b);
         const d=Math.hypot(p[0]+b.off-u.x,p[1]+b.off-u.y);
         if(d<bd){ bd=d; best=b; }
       }
-      if(!best||bd>0.052) return;
+      if(!best||bd>0.085) return;
       const pow=(typeof b4PowMul==='function')?b4PowMul(side):1;
-      const dmg=(u.ranged===false?13:15)*Math.max(0.8,pow)*dt*1.25;
-      best.hp-=dmg;
-      const p=mmPathPoint(LANE_PATH[best.lane],best.t);
-      mmAddFx({type:'hit',x:p[0]+best.off,y:p[1]+best.off,col:side==='me'?'#7cf7ff':'#ff9aa9',life:240});
-      if(best.hp<=0){ best.hp=0; best.alive=false;
-        mmAddFx({type:'spark',x:p[0]+best.off,y:p[1]+best.off,life:320});
+      const dps=(u.ranged===false?MM_CHAMP_DPS.melee:MM_CHAMP_DPS.ranged)*Math.max(0.8,pow);
+      best.hp-=dps*dsec;
+      const p=pathPt(best);
+      if(Math.random()<0.7) mmAddFx({type:'hit',x:p[0]+best.off,y:p[1]+best.off,col:side==='me'?'#7cf7ff':'#ff9aa9',life:240});
+      if(best.hp<=0) kill(best);
+    });
+  });
+  /* 3) 포탑 → 미니언 — 살아있는 적 포탑이 사거리 안 미니언을 빠르게 정리한다 */
+  ['me','opp'].forEach(towerSide=>{
+    const tw=(M&&M.tw&&M.tw[towerSide])||null;
+    if(!tw) return;
+    const preySide=(towerSide==='me')?'opp':'me';
+    ['TOP','MID','BOT'].forEach(lane=>{
+      const arr=tw[lane]||[];
+      for(let tier=1;tier<=3;tier++){
+        if(!arr[tier-1]) continue;
+        const tp=mmTowerParam(towerSide,lane,tier);
+        let best=null,bd=9;
+        for(let j=0;j<MM.minions.length;j++){
+          const b=MM.minions[j];
+          if(!b.alive||b.side!==preySide||b.lane!==lane) continue;
+          const d=Math.abs(b.t-tp);
+          if(d<=0.034&&d<bd){ bd=d; best=b; }
+        }
+        if(!best) continue;
+        best.hp-=MM_TURRET_DPS*dsec;
+        if(Math.random()<0.3){
+          const p=pathPt(best);
+          mmAddFx({type:'hit',x:p[0]+best.off,y:p[1]+best.off,col:towerSide==='me'?'#8fd3ff':'#ffb3c0',life:260});
+        }
+        if(best.hp<=0) kill(best);
       }
     });
   });
-  /* 죽은 미니언은 즉시 목록에서 빼되, 프레임 간 시각 튐을 막기 위해 alive 만 유지 */
-  if(MM.minions.length>260) MM.minions=MM.minions.filter(m=>m.alive);
+  /* 3-b) 넥서스 포탑 → 미니언 — 차수가 다 뚫려 본진으로 들어온 미니언도 정리된다 */
+  ['me','opp'].forEach(towerSide=>{
+    const nexKey=(towerSide==='me')?'meNex':'oppNex';
+    const arr=(M&&M.tw&&M.tw[nexKey])||null;
+    if(!arr) return;
+    const pts=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[towerSide]&&MAP_TOWERS[towerSide].NEXUS)||[];
+    const preySide=(towerSide==='me')?'opp':'me';
+    for(let i=0;i<pts.length;i++){
+      if(!arr[i]||!pts[i]) continue;
+      let best=null,bd=9;
+      for(let j=0;j<MM.minions.length;j++){
+        const b=MM.minions[j];
+        if(!b.alive||b.side!==preySide) continue;
+        const p=pathPt(b);
+        const d=Math.hypot(p[0]+b.off-pts[i][0],p[1]+b.off-pts[i][1]);
+        if(d<=0.060&&d<bd){ bd=d; best=b; }
+      }
+      if(!best) continue;
+      best.hp-=MM_TURRET_DPS*dsec*1.1;
+      if(best.hp<=0) kill(best);
+    }
+  });
 }
 /* ---------- 근접 조우 반응 (스쳐 지나가기 금지) ----------
    적 챔피언이 0.085 이내로 붙으면 (예정된 킬이 아니어도)
@@ -21076,18 +21287,23 @@ function mmUpdate(dt){
     /* 전진 판단 — 앞에 적 미니언이 있으면 멈춰 싸우고, 없으면 상대 첫 타워 앞까지 민다 */
     let blocked=false;
     try{ blocked=mmMinionBlocked(mn); }catch(e){}
+    if(!blocked&&mmMinionAllyAhead(mn,0.0068)) blocked=true;   /* 아군 대열 뒤에 줄을 선다 */
     if(!blocked){
-      const lim=mmFrontLimit(mn.side,mn.lane);
-      const myFront=mmFrontFromParam(mn.lane,mn.t);
-      const canGo=(mn.side==='me')?(myFront<lim):(myFront>1-lim);
+      const lim=mmMinionPushLimit(mn.side,mn.lane);
+      const canGo=(mn.side==='me')?(mn.t<lim):(mn.t>lim);
       if(canGo) mn.t=Math.max(0,Math.min(1,mn.t+dir*mn.spd*gameDt));
       else if(Math.random()<0.02){ const p=mmPathPoint(LANE_PATH[mn.lane],mn.t); mmAddFx({type:'spark',x:p[0]+mn.off,y:p[1],life:260}); }
     }else if(Math.random()<0.012){ const p=mmPathPoint(LANE_PATH[mn.lane],mn.t); mmAddFx({type:'spark',x:p[0]+mn.off,y:p[1],life:240}); }
   });
-  /* 미니언·챔피언 교전 (실시간 0.34초 = 약 0.55게임초 간격) */
+  /* 미니언·챔피언 교전 — 실시간 0.34초마다 처리하되, 피해는 그 사이 흐른 '게임초'로 준다
+     (배속을 올려도 같은 게임초에 같은 피해 → 미니언이 쌓이지 않는다) */
   if(sec>=65&&(!MM.combatAt||now-MM.combatAt>340)){
     MM.combatAt=now;
-    try{ mmMinionCombat(sec,gameDt); }catch(e){}
+    let dsec=(MM.combatSec==null)?gameDt:(sec-MM.combatSec);
+    if(!(dsec>0)||!isFinite(dsec)||dsec>12) dsec=Math.max(0.05,Math.min(8,gameDt*6));
+    dsec=Math.max(0.05,Math.min(9,dsec));
+    MM.combatSec=sec;
+    try{ mmMinionCombat(sec,dsec); }catch(e){}
     /* 적 챔피언과 스쳐 지나가는 장면 — 견제·스파크·후퇴 (무음 통과 금지) */
     try{ mmProximityCombat(sec,gameDt); }catch(e){}
   }
@@ -28941,8 +29157,13 @@ function v6RecallLogic(now){
         if(t>=u.recallT.end){
           const f=MM_NEXUS[side];
           u.x=f[0]; u.y=f[1]; u.hp=max; u.recallT=null; u.recallSpot=null; u.recallWalk=false; u.regenAt=t;
-          /* BATCH4 — 귀환 정비: 모은 골드로 신발 → 코어템 자동 구매 */
-          try{ if(typeof b4ItemBuy==='function') b4ItemBuy(side,role); }catch(e){}
+          /* BATCH4 — 귀환 정비: 모은 골드로 신발 → 코어템 자동 구매 (살 수 있는 만큼 한 번에) */
+          try{
+            if(typeof b4ItemStarter==='function') b4ItemStarter(side,role);
+            if(typeof b4ItemBuyAll==='function') b4ItemBuyAll(side,role);
+            else if(typeof b4ItemBuy==='function') b4ItemBuy(side,role);
+          }catch(e){}
+          u.itemSpike=null;
           if(typeof mmAddFx==='function'){
             mmAddFx({type:'ring',x:f[0],y:f[1],col:'#7cf7ff',life:800,r:0.035});
             mmAddFx({type:'burst',x:f[0],y:f[1],col:'#7cf7ff',life:900,label:'RECALL'});
@@ -28950,7 +29171,53 @@ function v6RecallLogic(now){
         }
         return;
       }
-      if(pct>0.30||m<2){ u.recallWalk=false; u.recallSpot=null; return; }
+      if(pct>0.30||m<2){
+        /* 체력이 멀쩡해도 '살 템 돈'이 모이면 귀환한다 (실제 롤의 골드 스파이크 귀환)
+           · 지금 한타/오브젝트 임박(25초 이내)이면 버틴다
+           · 오브젝트 50초 전 정비 창이면 골드가 모자라도 일반 귀환 로직이 처리한다 */
+        const gsec=(typeof mmGameSec==='function')?mmGameSec():((M&&M.sec)||0);
+        const spike=(pct>0.30&&m>=2&&typeof b4ItemRecallWant==='function')?b4ItemRecallWant(side,role,gsec):null;
+        if(!spike){ u.recallWalk=false; u.recallSpot=null; return; }
+        /* 라인을 잡고 있는 라이너만 골드 스파이크 귀환 (스플릿·오브젝트 대기는 그대로 둔다) */
+        if(u.mode!=='lane'&&u.mode!=='defend'&&u.mode!=='recallWalk'){ return; }
+        /* 웨이브를 밀어넣었거나, 라인에 웨이브가 있고 우리 타워로 몰리지 않을 때 귀환 */
+        let waveOk=c.wavePushed;
+        if(!waveOk&&!c.waveAtMyTower){
+          try{
+            const ln=(typeof mmRoleLane==='function')?mmRoleLane(role,gsec):'MID';
+            let lm=0;
+            for(let i=0;i<(MM.minions||[]).length;i++){ const m2=MM.minions[i]; if(m2.alive&&m2.side===side&&m2.lane===ln) lm++; }
+            waveOk=(lm>=2);
+          }catch(e){ waveOk=false; }
+        }
+        if(!waveOk&&!(c.objIn>0&&c.objIn<=35)){ u.recallWalk=false; u.recallSpot=null; return; }
+        if((u.recallCd||0)>t) return;
+        if(c.objFightNow||(c.objIn>0&&c.objIn<=25)){ u.recallCd=t+4000; return; }
+        /* 이미 아군 진영 + 주변에 적이 없으면 그 자리에서 바로 B (라인에 서서 정비) */
+        const ownHalf=(typeof v6OwnSafeHalf==='function')?v6OwnSafeHalf(side,u.x,u.y):true;
+        if(ownHalf&&c.enemyDist>=0.22){
+          u.itemSpike=spike.item.kind;
+          u.recallT={end:t+3600,total:3600};
+          u.recallSpot=[u.x,u.y]; u.recallWalk=false; u.mode='recall';
+          MM.tgt[k]={x:u.x,y:u.y};
+          return;
+        }
+        const ispot=v6SafeRecallPoint(side,role);
+        const isafe=!v6EnemyNearPoint(side,ispot[0],ispot[1],0.22)&&v6OwnSafeHalf(side,ispot[0],ispot[1]);
+        if(Math.hypot(u.x-ispot[0],u.y-ispot[1])>0.035||!isafe){
+          const dest=isafe?ispot:MM_NEXUS[side];
+          u.recallSpot=dest; u.recallWalk=true; u.mode='recallWalk';
+          MM.tgt[k]={x:dest[0],y:dest[1]};
+          return;
+        }
+        if(c.enemyDist<0.22){ u.recallCd=t+1500; return; }
+        u.itemSpike=spike.item.kind;
+        u.recallT={end:t+3600,total:3600};
+        u.recallSpot=ispot; u.recallWalk=false;
+        u.mode='recall';
+        MM.tgt[k]={x:u.x,y:u.y};
+        return;
+      }
       if((u.recallCd||0)>t) return;
       /* --- 상황 판단 --- */
       const needReady=(c.objIn<=50);                       /* 오브젝트 50초 전 → 정비하고 와야 한다 */
@@ -30784,6 +31051,158 @@ function macroSteal(kind,team,m){
 /* ============================================================================
    4. 포메이션 — 1-3-1 · 4-1 · 바론 낚시
    ========================================================================== */
+/* ============================================================================
+   후반 마무리 — "모여서 끝내기" (24:00 이후 · 억제기 붕괴 · 바론 버프 · 2명 이상 사망)
+   ----------------------------------------------------------------------------
+   이기고 있는 팀은 바론/용이 쿨인 시간에도 사이드에서 맴돌지 않는다:
+     4~5인이 가장 많이 뚫린 라인(억제기 파괴 → 슈퍼 미니언 라인 우선)에 모여
+     남은 T3 → 억제기 → 넥서스 포탑 → 넥서스 순서로 그대로 밀고 들어간다.
+   뒤지는 팀은 같은 라인의 자기 T3/억제기/넥서스 앞에 모여 수비한다.
+   · 실제 교전(보류 킬) · 오브젝트 경합 창에서는 개입하지 않는다
+   · 점수차가 팽팽하면 기존 운영(스플릿·오브젝트)을 그대로 둔다
+   ========================================================================== */
+function mxEndgameDead(side){
+  let n=0;
+  ROLES.forEach(function(r){ const u=MM.units[side+'-'+r]; if(!u||!u.alive) n++; });
+  return n;
+}
+function mxEndgameInhDead(side){
+  let n=0;
+  ['TOP','MID','BOT'].forEach(function(l){ const rec=M.inhib&&M.inhib[side]&&M.inhib[side][l]; if(rec&&!rec.alive) n++; });
+  return n;
+}
+/* 밀 라인 — 슈퍼 미니언/억제기 뚫린 라인 > 남은 타워 적은 라인 > 라인 우선순위 */
+function mxEndgameLane(atk){
+  const enemy=(atk==='me')?'opp':'me';
+  const lanes=['MID','TOP','BOT'];
+  let best='MID', bs=-1e9;
+  lanes.forEach(function(l){
+    const arr=(M.tw&&M.tw[enemy]&&M.tw[enemy][l])||[1,1,1];
+    const alive=arr.reduce(function(a,b){ return a+(b?1:0); },0);
+    const inhOpen=(M.inhib&&M.inhib[enemy]&&M.inhib[enemy][l]&&!M.inhib[enemy][l].alive)?1:0;
+    let sup=0;
+    try{ sup=((typeof v5SuperLanes==='function')&&((v5SuperLanes()[atk]||[]).indexOf(l)>=0))?1:0; }catch(e){ sup=0; }
+    const prio=(typeof macroLanePrio==='function')?macroLanePrio(l):0;
+    const sc=sup*420+inhOpen*320-alive*110+prio*30;
+    if(sc>bs){ bs=sc; best=l; }
+  });
+  return best;
+}
+/* 공격팀이 다음에 부술 구조물 (가장 바깥에 남은 것) */
+function mxEndgameTargetPoint(atk,lane){
+  const enemy=(atk==='me')?'opp':'me';
+  const arr=(M.tw&&M.tw[enemy]&&M.tw[enemy][lane])||[1,1,1];
+  const pts=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[enemy]&&MAP_TOWERS[enemy][lane])||[];
+  for(let i=0;i<3;i++){ if(arr[i]&&pts[i]) return {pt:pts[i],kind:'tower',tier:i}; }
+  const inh=(M.inhib&&M.inhib[enemy]&&M.inhib[enemy][lane])||null;
+  if(inh&&inh.alive){
+    const ip=(typeof MAP_INHIBS!=='undefined'&&MAP_INHIBS[enemy])?MAP_INHIBS[enemy][lane]:null;
+    if(ip) return {pt:ip,kind:'inhib',tier:3};
+  }
+  const nexKey=(enemy==='me')?'meNex':'oppNex';
+  const nexArr=(M.tw&&M.tw[nexKey])||[1,1];
+  const nexPts=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[enemy]&&MAP_TOWERS[enemy].NEXUS)||[];
+  for(let i=0;i<nexPts.length;i++){ if(nexArr[i]&&nexPts[i]) return {pt:nexPts[i],kind:'nextower',tier:4+i}; }
+  const f=(typeof MM_NEXUS!=='undefined')?MM_NEXUS[enemy]:null;
+  if(f) return {pt:f,kind:'nexus',tier:9};
+  return null;
+}
+/* 수비팀이 지켜야 할 자기 구조물 앞 (가장 바깥에 남은 것) */
+function mxEndgameDefendPoint(def,lane){
+  const arr=(M.tw&&M.tw[def]&&M.tw[def][lane])||[1,1,1];
+  const pts=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[def]&&MAP_TOWERS[def][lane])||[];
+  for(let i=0;i<3;i++){ if(arr[i]&&pts[i]) return pts[i]; }
+  const inh=(M.inhib&&M.inhib[def]&&M.inhib[def][lane])||null;
+  if(inh&&inh.alive){
+    const ip=(typeof MAP_INHIBS!=='undefined'&&MAP_INHIBS[def])?MAP_INHIBS[def][lane]:null;
+    if(ip) return ip;
+  }
+  const nexKey=(def==='me')?'meNex':'oppNex';
+  const nexArr=(M.tw&&M.tw[nexKey])||[1,1];
+  const nexPts=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[def]&&MAP_TOWERS[def].NEXUS)||[];
+  for(let i=0;i<nexPts.length;i++){ if(nexArr[i]&&nexPts[i]) return nexPts[i]; }
+  return (typeof MM_NEXUS!=='undefined')?MM_NEXUS[def]:null;
+}
+const MX_EG_OFF={TOP:[-0.026,0.014],MID:[-0.008,-0.018],ADC:[0.018,0.024],SUP:[0.030,-0.006],JGL:[0.002,0.008]};
+function macroEndgameTick(sec){
+  if(!M||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return 0;
+  const s=Number(sec)||0;
+  if(s<19*60) return 0;                       /* 19분 이전에는 열지 않는다 */
+  if(!M.tw||!M.inhib) return 0;
+  if(M.killQ&&M.killQ.length) return 0;        /* 실제 교전 중 */
+  if(typeof mxLateObjWindow==='function'&&mxLateObjWindow(s)) return 0;
+  const m=Math.floor(s/60);
+  const deadMe=mxEndgameDead('me'), deadOpp=mxEndgameDead('opp');
+  const inhMe=mxEndgameInhDead('me'), inhOpp=mxEndgameInhDead('opp');
+  const bMe=!!(M.baronBuff&&M.baronBuff.me>=m);
+  const bOpp=!!(M.baronBuff&&M.baronBuff.opp>=m);
+  const late=s>=24*60;
+  const open=(inhMe+inhOpp)>0;
+  if(!(late||open||bMe||bOpp||deadMe>=2||deadOpp>=2)) return 0;
+  const twDiff=(M.towers&&M.towers[0]||0)-(M.towers&&M.towers[1]||0);
+  const gd=((M.gold&&M.gold[0])||0)-((M.gold&&M.gold[1])||0);
+  const score=function(side){
+    const inhGain=(side==='me')?inhOpp:inhMe;
+    const deadEnemy=(side==='me')?deadOpp:deadMe;
+    const b=(side==='me')?bMe:bOpp;
+    const tw=(side==='me')?twDiff:-twDiff;
+    const g=(side==='me')?gd:-gd;
+    return g*0.9+tw*1500+inhGain*1500+(b?1000:0)+deadEnemy*450;
+  };
+  const sMe=score('me'), sOpp=score('opp');
+  if(Math.abs(sMe-sOpp)<900) return 0;         /* 팽팽하면 기존 운영 유지 */
+  const atk=(sMe>sOpp)?'me':'opp';
+  const def=(atk==='me')?'opp':'me';
+  const lane=mxEndgameLane(atk);
+  const tgt=mxEndgameTargetPoint(atk,lane);
+  if(!tgt||!tgt.pt) return 0;
+  const defPt=mxEndgameDefendPoint(def,lane);
+  const atkSign=(atk==='me')?1:-1;
+  let touched=0;
+  /* 이기는 팀 — 4~5인이 한 라인에 모여 구조물을 순서대로 민다 */
+  ROLES.forEach(function(role){
+    const u=MM.units[atk+'-'+role];
+    if(!u||!u.alive||u.tp) return;
+    if(u.recallT||u.recallWalk) return;        /* 정비 중이면 귀환을 끝내고 합류 */
+    const off=MX_EG_OFF[role]||[0,0];
+    const px=mxClamp(tgt.pt[0]+off[0]*atkSign,0.035,0.965);
+    const py=mxClamp(tgt.pt[1]+off[1]*atkSign,0.035,0.965);
+    if(Math.hypot(u.x-px,u.y-py)<0.006) return;  /* 이미 자리 */
+    MM.tgt[atk+'-'+role]={x:px,y:py};
+    u.mode=(tgt.kind==='nexus'||tgt.kind==='nextower'||tgt.kind==='inhib')?'siege':'siege';
+    u._mxHold=null; u._tgtSrc='endgame';
+    touched++;
+  });
+  /* 지는 팀 — 같은 라인의 자기 T3/억제기/넥서스 앞에 모여 수비 */
+  if(defPt){
+    ROLES.forEach(function(role){
+      const u=MM.units[def+'-'+role];
+      if(!u||!u.alive||u.tp) return;
+      if(u.recallT||u.recallWalk) return;
+      const off=MX_EG_OFF[role]||[0,0];
+      const px=mxClamp(defPt[0]-off[0]*atkSign*0.9,0.035,0.965);
+      const py=mxClamp(defPt[1]-off[1]*atkSign*0.9,0.035,0.965);
+      if(Math.hypot(u.x-px,u.y-py)<0.006) return;
+      MM.tgt[def+'-'+role]={x:px,y:py};
+      u.mode='defend';
+      u._mxHold=null; u._tgtSrc='endgame:defend';
+      touched++;
+    });
+  }
+  /* 상태 기록 + 안내 한 줄 (상태가 바뀔 때만) */
+  const prev=M.endgame;
+  const changed=!prev||prev.atk!==atk||prev.lane!==lane||prev.kind!==tgt.kind||(s-(prev.since||0))>=150;
+  M.endgame={atk:atk,def:def,lane:lane,kind:tgt.kind,tier:tgt.tier,at:s,
+    since:(prev&&prev.atk===atk&&prev.lane===lane&&prev.kind===tgt.kind)?(prev.since||s):s};
+  if(changed){
+    const kindKr=(tgt.kind==='tower')?((tgt.tier||0)+1)+'차 타워':tgt.kind==='inhib'?'억제기':tgt.kind==='nextower'?'넥서스 포탑':'넥서스';
+    try{
+      mxLog(atk==='me'?'blue':'red', m+'분 · 🏁 <b>끝내기 전환</b> — '+mxTag(atk)+' 5인이 '+
+        MX_LANE_KR[lane]+'으로 모여 '+kindKr+'를 밀고 들어갑니다. '+mxTag(def)+'은(는) 같은 라인에 모여 수비합니다.');
+    }catch(e){}
+  }
+  return touched;
+}
 function macroPushers(kind,side){
   const mx=(M&&M.macro)?M.macro:null;
   if(kind==='1-3-1') return ['TOP','MID'];
