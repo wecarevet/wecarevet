@@ -15507,7 +15507,16 @@ function _shade(hex,amt){
 function teamLogoSVG(team,size){
   if(!team) return '';
   /* 실제 구단 로고 (LCK·LPL·LEC·LCS) — 로컬 에셋 base64 인라인. 커스텀 구단은 아래 엠블럼으로 */
-  const realLogo=(typeof TEAM_LOGO_B64!=='undefined'&&team.id)?TEAM_LOGO_B64[team.id]:null;
+  let realLogo=null;
+  if(typeof TEAM_LOGO_B64!=='undefined'){
+    realLogo=(team.id&&TEAM_LOGO_B64[team.id])||(team.tag&&TEAM_LOGO_B64[team.tag])||null;
+    if(!realLogo&&team.name&&typeof S!=='undefined'&&S&&S.teams){
+      for(const tid in S.teams){
+        const t2=S.teams[tid];
+        if(t2&&(t2.tag===team.tag||t2.name===team.name)){ realLogo=TEAM_LOGO_B64[tid]||null; break; }
+      }
+    }
+  }
   if(realLogo){
     const s=size||34;
     return `<img class="tlogo tlogo-real" src="${realLogo}" alt="${esc(team.tag||team.name||'')}" `+
