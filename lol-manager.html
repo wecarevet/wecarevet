@@ -3440,15 +3440,18 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
          시즌 명예 기록실 · 은퇴식 · 저격 밴 · 패치 스탯
    ========================================================================== */
 /* ---- 미니맵 상단 3단 시야 스위치 ---- */
-.v33fog{display:inline-flex;align-items:center;gap:2px;padding:1px 2px;border-radius:7px;
-  background:rgba(10,14,22,.72);border:1px solid rgba(120,150,200,.22)}
+.bmap-st>span.v33fog,.v33fog{display:inline-flex;align-items:center;gap:2px;padding:2px 3px;border-radius:7px;
+  font-size:9px!important;letter-spacing:0!important;
+  background:rgba(10,14,22,.86);border:1px solid rgba(120,150,200,.30);box-shadow:0 1px 0 rgba(0,0,0,.4)}
 .v33fog .fog-t{font-size:8.5px;font-weight:900;color:var(--dim2);letter-spacing:.04em;padding:0 3px}
 .v33fog .fog-b{font:800 8.5px/1 Pretendard,sans-serif;color:#9aa7bb;background:transparent;border:0;
   padding:3px 5px;border-radius:5px;white-space:nowrap;cursor:pointer;transition:background .12s,color .12s}
 .v33fog .fog-b:hover{background:rgba(120,160,255,.14);color:#d7e6ff}
 .v33fog .fog-b.on{background:rgba(79,168,255,.22);color:#cfe9ff;box-shadow:inset 0 0 0 1px rgba(79,168,255,.45)}
 .v33fog .fog-b[data-v="opp"].on{background:rgba(255,85,112,.20);color:#ffd2da;box-shadow:inset 0 0 0 1px rgba(255,85,112,.45)}
+.bhud .bmap-st>span.v33fog,.bhud .v33fog{font-size:8px!important;padding:1px 2px;gap:1px}
 .bhud .v33fog .fog-b{font-size:8px;padding:2px 4px}
+@media(max-width:430px){.v33fog .fog-t{display:none}.v33fog .fog-b{font-size:7.5px;padding:2px 3px}}
 .bmap-cv canvas{cursor:pointer}
 
 /* ---- 실시간 스펙창 ---- */
@@ -38236,15 +38239,17 @@ function v32KillTarget(m){
   if(mm<10) return 0.8+(mm-8)*1.3;      /* 10분 ≈ 3.4 */
   if(mm<18) return 3.4+(mm-10)*1.05;    /* 18분 ≈ 11.8 */
   /* V33 — 18분 이후 바론·용·타워 수성 한타 빈도를 올려 18~26킬 수준으로 */
-  if(mm<30) return 11.8+(mm-18)*1.10;   /* 30분 ≈ 25 */
-  return 25+(mm-30)*0.7;
+  if(mm<30) return 11.8+(mm-18)*0.85;   /* 30분 ≈ 22 */
+  return 22+(mm-30)*0.6;
 }
 function v32AllowFight(m){
   const mm=Number(m)||0;
   /* 1~8분은 CS·라인전 우선 — 대규모 한타는 열지 않는다 */
   if(mm<8) return false;
   const total=(M&&M.kills)?((M.kills[0]||0)+(M.kills[1]||0)):0;
-  return total<v32KillTarget(mm)+(mm>=18?6:4);
+  /* V33 — 후반 교전은 늘리되 이미 20킬을 넘긴 경기는 과열되지 않게 상한을 조인다 */
+  if(mm>=18&&total>=20) return total<v32KillTarget(mm)+2;
+  return total<v32KillTarget(mm)+(mm>=18?5:4);
 }
 function v32AliveCount(side){
   let alive=0;
@@ -38258,16 +38263,17 @@ function v32TempoTick(sec){
   const s=(sec==null)?v32Sec():Number(sec)||0;
   /* 게임 초 기준 스로틀 — 배속·프레임과 무관하게 1.4게임초에 한 번 */
   const behind=(M&&M.kills)?v32KillTarget(Math.floor(s/60))-((M.kills[0]||0)+(M.kills[1]||0)):0;
-  const gap=behind>2?0.55:(Math.floor(s/60)>=18?0.9:1.2);
+  const gap=behind>2?0.6:(Math.floor(s/60)>=18?1.05:1.2);
   if(V32.tempoSec!=null&&s-V32.tempoSec<gap) return 0;
   V32.tempoSec=s;
   const m=Math.floor(s/60);
   if(m<8){ V32.stats.tSK8=(V32.stats.tSK8||0)+1; return 0; }
   if(!M.running||M.over){ V32.stats.tSKRun=(V32.stats.tSKRun||0)+1; return 0; }
-  /* 넥서스가 열린 끝내기 국면에서는 인위적 킬 템포를 멈춘다 — 실제 교전·공성이 승부를 낸다 */
-  if(v32NexusOpen('me')||v32NexusOpen('opp')){ V32.stats.tSKOpen=(V32.stats.tSKOpen||0)+1; return 0; }
   const total=(M.kills[0]||0)+(M.kills[1]||0);
   const target=v32KillTarget(m);
+  /* 넥서스가 열린 끝내기 국면에서는 인위적 킬 템포를 멈춘다 — 실제 교전·공성이 승부를 낸다.
+     단, 킬이 목표에 크게 못 미치는 일방 경기는 교전이 아예 없어 재미가 없으므로 계속 연다. */
+  if((v32NexusOpen('me')||v32NexusOpen('opp'))&&total>=target-4){ V32.stats.tSKOpen=(V32.stats.tSKOpen||0)+1; return 0; }
   if(total>=target){ V32.stats.tSKTot=(V32.stats.tSKTot||0)+1; return 0; }
   if(v32AliveCount('me')<2||v32AliveCount('opp')<2) return 0;
   /* 붙어 있는 두 유닛 중 파워가 높은 쪽이 이긴다 */
@@ -38281,7 +38287,8 @@ function v32TempoTick(sec){
         const b=MM.units[enemy+'-'+r2];
         if(!b||!b.alive||b.tp) return;
         const d=Math.hypot(a.x-b.x,a.y-b.y);
-        if(d<0.22) pairs.push({side:side,role:role,victimRole:r2,d:d});
+        /* V33 — 18분 이후에는 붙는 거리를 넓혀 바론·용·타워 수성 한타를 더 자주 연다 */
+        if(d<(m>=18?0.24:0.22)) pairs.push({side:side,role:role,victimRole:r2,d:d});
       });
     });
   });
@@ -38299,7 +38306,7 @@ function v32TempoTick(sec){
         if(d<bd){ bd=d; best={a:a,b:b,side:side,role:a.role,victimRole:b.role,d:d}; }
       });
     });
-    if(best&&best.d<0.45){
+    if(best&&best.d<(m>=18?0.52:0.45)){
       const mid=[(best.a.x+best.b.x)/2,(best.a.y+best.b.y)/2];
       best.a.engageUntil=s+3; best.b.engageUntil=s+3;
       best.a.mode='fight'; best.b.mode='fight';
@@ -39370,28 +39377,37 @@ function v33PogMoments(mvp,ps){
   if(!M||!mvp) return [];
   const out=[];
   const nm=mvp.name||'';
-  const ch=mvp.champ||'';
+  const champ=mvp.champ||'';
   const evs=(M.events||[]).slice().reverse();
-  const pick=function(re){
+  const escRe=function(s){ return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); };
+  const find=function(re,skip){
     for(let i=0;i<evs.length;i++){
-      const e=evs[i]; const txt=String(e.text||'');
-      if(re.test(txt)) return {min:e.minute, txt:txt};
+      const e=evs[i]; const txt=String(e.text||'').replace(/<[^>]*>/g,'');
+      if(!re.test(txt)) continue;
+      if(skip&&skip.test(txt)) continue;
+      return {min:e.minute, txt:txt};
     }
     return null;
   };
-  const clean=function(x){ return x?{min:x.min, txt:String(x.txt).replace(/<[^>]*>/g,'')}:null; };
-  /* 1) POG 본인의 킬·활약 장면 */
-  const own=nm?pick(new RegExp(nm.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'))):null;
-  if(own) out.push({icon:'⚔️', k:'핵심 활약', v:clean(own)});
+  const seen={};
+  const add=function(icon,k,v){
+    if(!v||seen[v.txt]) return;
+    seen[v.txt]=1;
+    out.push({icon:icon,k:k,v:v});
+  };
+  const nameRe=nm?escRe(nm):null;
+  const champRe=champ?escRe(champ):null;
+  /* 1) 본인 킬·펜타·에이스 장면 */
+  if(nameRe) add('⚔️','핵심 활약',find(new RegExp('('+nameRe+')'),/궁극기 |Lv\.|아이템|구매|와드를|텔레포트/));
+  if(out.length===0) add('⚔️','핵심 활약',find(/펜타킬|쿼드라킬|트리플 킬|더블 킬|에이스/,/턴 정리/));
   /* 2) 오브젝트 장면 */
-  const obj=pick(/바론|드래곤|전령|유충|영혼|장로/);
-  if(obj) out.push({icon:'🐉', k:'오브젝트', v:clean(obj)});
-  /* 3) 한타·킬 장면 */
-  const fight=pick(/한타|교전|킬|스틸|에이스|펜타|쿼드라/);
-  if(fight&&(!own||fight.txt!==own.txt)) out.push({icon:'💥', k:'한타', v:clean(fight)});
+  add('🐉','오브젝트',find(/(바론|드래곤|전령|유충|영혼) (처치|처치!|확보|스택|사냥)/,/턴 정리/));
+  if(out.length<2) add('🐉','오브젝트',find(/(바론|드래곤|전령|유충)/,/턴 정리|웨이브/));
+  /* 3) 한타·교전 장면 */
+  add('💥','한타',find(/(한타|교전|킬)/,/턴 정리|귀환|웨이브|시야전|와드/));
   if(!out.length){
     const kd=(mvp.k!=null)?('KDA '+mvp.k+'/'+mvp.d+'/'+mvp.a):'경기 지배';
-    out.push({icon:'⭐', k:'경기 요약', v:{min:M.minute||0, txt:'팀을 승리로 끌고 간 '+(ch||'챔피언')+' — '+kd}});
+    out.push({icon:'⭐',k:'경기 요약',v:{min:M.minute||0, txt:'팀을 승리로 끌고 간 '+(champ||'챔피언')+' — '+kd}});
   }
   return out.slice(0,3);
 }
@@ -39485,6 +39501,8 @@ function v33RecordsApply(ps){
 function v33AfterGame(){
   const r=v33RecInit();
   if(!r||!M) return r;
+  try{ v33SpecClose(); }catch(e){}
+  V33.pings=[];
   /* 4) 최단 시간 승리 */
   if(M.meWin&&M.minute){
     const mins=Number(M.minute)||0;
