@@ -28327,6 +28327,8 @@ function v6BgmCreate(videoId){
           if(!ev) return;
           if(ev.data===1){ V6BGM.started=1; V6BGM.playing=true; V6BGM.blocked=false; V6BGM.playT=0; try{ v6SynthStop(); }catch(e){} v6BgmRefresh(); }
           else if(ev.data===0||ev.data===2||ev.data===5||ev.data===-1){ V6BGM.playing=false; v6BgmRefresh(); }
+          /* 타이틀 BGM 칩 상태 동기화 (재생 중 ↔ 탭해서 재생) */
+          try{ if(typeof v6TitleBgmChip==='function') v6TitleBgmChip(); }catch(e){}
         },
         onError:function(ev){ v6BgmTrackError(ev&&ev.data); }
       }
