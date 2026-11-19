@@ -27020,7 +27020,16 @@ function mmFastFinish(){
   if(!M||M.over) return;
   M.running=true; MMFAST=true;
   let guard=0;
-  try{ while(!M.over&&guard<2600){ guard++; tickBody(); } }catch(e){ window.__lastErr=String((e&&e.stack)||e); }
+  try{
+    /* V33 — 즉시 결과는 미니맵 교전을 건너뛰므로, 경기 시계에 맞춰 부족한 교전 킬을
+       같은 단일 창구(kgApply)로 채운다. 27분 경기가 0~7킬로 끝나던 문제 보완. */
+    try{ if(typeof v33FastCatchup==='function') v33FastCatchup(); }catch(e){}
+    while(!M.over&&guard<2600){
+      guard++;
+      try{ if(typeof v33FastCatchup==='function'&&(guard%60)===0) v33FastCatchup(); }catch(e){}
+      tickBody();
+    }
+  }catch(e){ window.__lastErr=String((e&&e.stack)||e); }
   MMFAST=false;
   if(!M.over){ finishGame(); return; }
   matchPatch();
@@ -39933,6 +39942,54 @@ function v33PatchStatRowsHTML(rec){
   add(rec.buffs,'buff'); add(rec.nerfs,'nerf');
   if(!rows.length) return '';
   return '<div class="v33pst"><div class="v33pst-h">실제 스탯 변화</div>'+rows.join('')+'</div>';
+}
+
+/* ============================================================================
+   즉시 결과(⏭) 보정 — 미니맵 교전 없이 끝난 경기의 킬 수를 시계에 맞춘다
+   ========================================================================== */
+function v33FastCatchup(){
+  if(!M||typeof kgApply!=='function'||typeof ROLES==='undefined') return 0;
+  const m=Number(M.minute)||0;
+  if(m<10) return 0;
+  const target=Math.round((typeof v32KillTarget==='function')?v32KillTarget(m):18);
+  let total=(M.kills[0]||0)+(M.kills[1]||0);
+  if(total>=target-2) return 0;
+  const alive=function(sd){
+    const out=[];
+    ROLES.forEach(function(r){ const u=MM.units[sd+'-'+r]; if(u&&u.alive) out.push(r); });
+    return out;
+  };
+  let n=0;
+  while(total<target-1&&n<3){
+    const side=Math.random()<0.5?'me':'opp';
+    const foe=side==='me'?'opp':'me';
+    let A=alive(side), B=alive(foe);
+    /* 즉시 결과는 월드클럭이 거의 흐르지 않아 부활이 없다 — 한쪽이 전멸했으면 부활시킨다 */
+    if(!A.length){
+      ROLES.forEach(function(r){ const u=MM.units[side+'-'+r]; if(u&&!u.alive){ u.alive=true; u.hp=100; u.deadUntil=0; if(u.deathPos) u.deathPos=null; } });
+      A=alive(side);
+    }
+    if(!B.length){
+      ROLES.forEach(function(r){ const u=MM.units[foe+'-'+r]; if(u&&!u.alive){ u.alive=true; u.hp=100; u.deadUntil=0; if(u.deathPos) u.deathPos=null; } });
+      B=alive(foe);
+    }
+    if(!A.length||!B.length) break;
+    const role=A[Math.floor(Math.random()*A.length)];
+    const vr=B[Math.floor(Math.random()*B.length)];
+    const u=MM.units[side+'-'+role], v=MM.units[foe+'-'+vr];
+    if(!u||!v) break;
+    let res=null;
+    try{
+      res=kgApply({team:side, role:role, victimRole:vr, kind:'fight',
+        lane:(typeof mmLaneOfRole==='function')?mmLaneOfRole(role):'MID',
+        gold:300, n:1, teamfight:true, pt:[(u.x+v.x)/2,(u.y+v.y)/2],
+        d:Math.hypot(u.x-v.x,u.y-v.y), lines:[]});
+    }catch(e){ break; }
+    const nt=(M.kills[0]||0)+(M.kills[1]||0);
+    if(!res||nt<=total) break;
+    total=nt; n++;
+  }
+  return n;
 }
 
 /* ============================================================================
