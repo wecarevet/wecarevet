@@ -1122,6 +1122,7 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .bc-who.alt{background:#3a2b1c;color:#e6c481}
 .bc-who.cs{background:#152b3a;color:#9fd0f0}
 .bc-tx{flex:1;min-width:0;word-break:keep-all}
+.bc-causal{display:none}
 .bc-causal .bc-tx{color:#cfe6f7;font-size:13px;line-height:1.5}
 @media(max-width:820px){.bc-line{font-size:15.5px;line-height:1.6}.bc-causal .bc-tx{font-size:14px}}
 @media(max-width:420px){.bc-line{font-size:15px;line-height:1.58}.bc-who{font-size:10px;padding:2px 5px}}
@@ -22117,11 +22118,12 @@ function mmDrawWards(ctx,w,h,sec,now){
       ctx.strokeStyle='rgba(255,232,250,.95)'; ctx.lineWidth=0.9; ctx.stroke();
       ctx.beginPath(); ctx.arc(x,y,r*0.34,0,7); ctx.fillStyle='rgba(30,6,26,.9)'; ctx.fill();
     }else{
-      ctx.beginPath();
-      ctx.moveTo(x,y-r); ctx.lineTo(x+r*0.82,y); ctx.lineTo(x,y+r); ctx.lineTo(x-r*0.82,y); ctx.closePath(); ctx.fill();
+      /* 투명 와드 — 동그란 렌즈 (타워 다이아몬드와 헷갈리지 않게) */
+      ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.fill();
       ctx.shadowBlur=0;
-      ctx.strokeStyle='rgba(60,40,0,.55)'; ctx.lineWidth=0.7; ctx.stroke();
-      ctx.beginPath(); ctx.arc(x,y,r*0.30,0,7); ctx.fillStyle='rgba(60,40,0,.75)'; ctx.fill();
+      ctx.strokeStyle='rgba(40,28,0,.75)'; ctx.lineWidth=0.9; ctx.stroke();
+      ctx.beginPath(); ctx.arc(x,y,r*0.42,0,7); ctx.fillStyle='rgba(60,42,0,.85)'; ctx.fill();
+      ctx.beginPath(); ctx.arc(x,y,r*0.42,0,7); ctx.strokeStyle='rgba(255,250,214,.75)'; ctx.lineWidth=0.7; ctx.stroke();
     }
     /* 남은 수명 호 */
     const left=mmWardLeftSec(wd,sec);
@@ -26248,11 +26250,14 @@ function matchPatch(){
     const c3=q('mmCast3');
     if(c3&&typeof causalTopChains==='function'){
       const ch=causalTopChains(1);
-      const line=(ch.length&&ch[0].links.length>=2)
-        ? (ch[0].links.slice(-2).map(function(l){ return CAUSAL_KR[l.kind]+'('+causalClock(l.at)+')'; }).join(' → ')
-           + (causalWhyLines(ch[0])[0]?(' — '+causalWhyLines(ch[0])[0]):''))
-        : '';
+      let line='';
+      if(ch.length&&ch[0].links.length>=2){
+        const L2=ch[0].links, a2=L2[L2.length-2], b2=L2[L2.length-1];
+        const why2=CAUSAL_WHY[a2.kind+'>'+b2.kind]||causalWhyLines(ch[0])[0]||'';
+        line=CAUSAL_KR[a2.kind]+'('+causalClock(a2.at)+') → '+CAUSAL_KR[b2.kind]+'('+causalClock(b2.at)+')'+(why2?(' — '+why2):'');
+      }
       if(c3.textContent!==line) c3.textContent=line;
+      try{ if(c3.parentElement&&c3.parentElement.style) c3.parentElement.style.display=line?'flex':'none'; }catch(e){}
     }
     const chost=q('causalHost');
     if(chost&&typeof causalLiveHTML==='function'){
