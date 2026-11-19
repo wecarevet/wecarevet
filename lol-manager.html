@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
 <meta name="theme-color" content="#0a0b0e">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<title>LoL 매니저 32 · LoL Esports Manager</title>
+<title>LoL 매니저 33 · LoL Esports Manager</title>
 <style>
 /* ===== LCK Manager — esports dark UI ===== */
 :root{
@@ -3435,6 +3435,151 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .tot-row .tot-go{margin-left:auto;color:var(--dim2);font-weight:900}
 .tot-row.ply:hover .tot-go{color:var(--cyan)}
 
+/* ============================================================================
+   V33 — 전장의 안개 · 미니맵 핑 · 실시간 스펙창 · POG 인터뷰 ·
+         시즌 명예 기록실 · 은퇴식 · 저격 밴 · 패치 스탯
+   ========================================================================== */
+/* ---- 미니맵 상단 3단 시야 스위치 ---- */
+.v33fog{display:inline-flex;align-items:center;gap:2px;padding:1px 2px;border-radius:7px;
+  background:rgba(10,14,22,.72);border:1px solid rgba(120,150,200,.22)}
+.v33fog .fog-t{font-size:8.5px;font-weight:900;color:var(--dim2);letter-spacing:.04em;padding:0 3px}
+.v33fog .fog-b{font:800 8.5px/1 Pretendard,sans-serif;color:#9aa7bb;background:transparent;border:0;
+  padding:3px 5px;border-radius:5px;white-space:nowrap;cursor:pointer;transition:background .12s,color .12s}
+.v33fog .fog-b:hover{background:rgba(120,160,255,.14);color:#d7e6ff}
+.v33fog .fog-b.on{background:rgba(79,168,255,.22);color:#cfe9ff;box-shadow:inset 0 0 0 1px rgba(79,168,255,.45)}
+.v33fog .fog-b[data-v="opp"].on{background:rgba(255,85,112,.20);color:#ffd2da;box-shadow:inset 0 0 0 1px rgba(255,85,112,.45)}
+.bhud .v33fog .fog-b{font-size:8px;padding:2px 4px}
+.bmap-cv canvas{cursor:pointer}
+
+/* ---- 실시간 스펙창 ---- */
+.v33spec{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+  z-index:70;width:min(340px,calc(100vw - 24px));padding:10px 11px 11px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(16,20,28,.98),rgba(9,12,18,.98));
+  border:1px solid rgba(120,160,255,.34);box-shadow:0 14px 40px rgba(0,0,0,.62);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.v33spec.hidden{display:none}
+.s33-head{display:flex;align-items:center;gap:8px;padding-bottom:7px;margin-bottom:6px;
+  border-bottom:1px solid rgba(255,255,255,.08)}
+.s33-head .s33-role{font-size:9.5px;font-weight:900;color:#0c1119;background:var(--cyan);border-radius:5px;padding:2px 5px}
+.s33-head.opp .s33-role{background:#ff5570;color:#1a0509}
+.s33-id{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.s33-id b{font-size:13px;font-weight:900;letter-spacing:-.02em;color:#eef4ff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s33-id span{font-size:9.5px;color:var(--dim2);font-weight:800}
+.s33-lv{font-size:10px;font-weight:900;color:#ffd98f;background:rgba(255,201,74,.12);
+  border:1px solid rgba(255,201,74,.35);border-radius:6px;padding:2px 6px}
+.s33-x{width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,.06);color:#aab6c8;
+  font-size:11px;font-weight:900;border:0;cursor:pointer}
+.s33-x:hover{background:rgba(255,85,112,.2);color:#ffd2da}
+.s33-dead{font-size:10px;font-weight:900;color:#ffb7c3;margin:2px 0 5px}
+.s33-hp{position:relative;height:15px;border-radius:5px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:7px}
+.s33-hp i{display:block;height:100%;background:linear-gradient(90deg,#2fbf87,#57e0a3);transition:width .25s}
+.s33-hp span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:900;color:#eafff5;text-shadow:0 1px 2px rgba(0,0,0,.7)}
+.s33-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.s33-grid>div{display:flex;flex-direction:column;gap:1px;padding:4px 5px;border-radius:7px;
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.05)}
+.s33-grid span{font-size:8.5px;font-weight:800;color:var(--dim2)}
+.s33-grid b{font-size:11px;font-weight:900;color:#e8f1ff}
+.s33-ult{display:flex;align-items:center;gap:6px;margin-top:7px;padding:5px 7px;border-radius:8px;
+  background:rgba(185,140,255,.08);border:1px solid rgba(185,140,255,.24)}
+.s33-ult.rdy{background:rgba(61,220,151,.10);border-color:rgba(61,220,151,.38)}
+.s33-rk{font-size:9px;font-weight:900;color:#0c1119;background:#c4b1ff;border-radius:4px;padding:1px 4px}
+.s33-ult.rdy .s33-rk{background:#3ddc97}
+.s33-ult b{font-size:10.5px;font-weight:900;color:#e9ddff;flex:1;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s33-ult em{font-style:normal;font-size:9.5px;font-weight:900;color:#b7a6e8}
+.s33-ult.rdy em{color:#7df0bb}
+.s33-items{margin-top:6px;display:flex;flex-direction:column;gap:3px}
+.s33-ih{font-size:8.5px;font-weight:900;color:var(--dim2);letter-spacing:.04em}
+.s33-item{display:flex;align-items:center;gap:6px;padding:3px 6px;border-radius:6px;background:rgba(255,255,255,.03)}
+.s33-item b{font-size:10px;font-weight:800;color:#dfe8f6}
+.s33-item span{font-size:9px;color:#93a1b6;font-weight:700}
+
+/* ---- POG 인터뷰 ---- */
+.v33pog{border-radius:14px;border:1px solid rgba(255,201,74,.34);
+  background:linear-gradient(180deg,rgba(26,22,12,.96),rgba(14,12,9,.98));padding:12px 13px}
+.v33pog-h{display:flex;align-items:baseline;gap:7px;margin-bottom:5px}
+.v33pog-h span{font-size:10px;font-weight:900;letter-spacing:.1em;color:#e6c481}
+.v33pog-h b{font-size:13px;font-weight:900;color:#fff6e0}
+.v33pog-q{font-size:12.5px;line-height:1.6;color:#f3e9d2;font-weight:700;padding:8px 10px;border-radius:9px;
+  background:rgba(255,201,74,.07);border-left:2px solid rgba(255,201,74,.6)}
+.v33pog-mh{display:flex;align-items:baseline;justify-content:space-between;margin:10px 0 5px}
+.v33pog-mh span{font-size:9.5px;font-weight:900;letter-spacing:.08em;color:#c9b489}
+.v33pog-mh em{font-style:normal;font-size:9px;font-weight:800;color:var(--dim2)}
+.v33pog-moments{display:flex;flex-direction:column;gap:4px}
+.v33pog-m{display:flex;gap:7px;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.05)}
+.v33pog-ic{font-size:14px;line-height:1.2}
+.v33pog-m>div{flex:1;min-width:0}
+.v33pog-m b{font-size:10px;font-weight:900;color:#ffd98f;margin-right:5px}
+.v33pog-min{font-size:9px;font-weight:900;color:var(--dim2)}
+.v33pog-m p{margin:1px 0 0;font-size:10.5px;line-height:1.45;color:#cfd8e6;font-weight:600}
+
+/* ---- 시즌 명예 기록실 ---- */
+.v33rec-card{margin:8px 0}
+.v33rt-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.v33rt{display:flex;flex-direction:column;gap:1px;padding:8px 9px;border-radius:10px;
+  background:linear-gradient(160deg,rgba(255,201,74,.10),rgba(255,255,255,.03));
+  border:1px solid rgba(255,201,74,.20)}
+.v33rt-ic{font-size:14px}
+.v33rt-k{font-size:9px;font-weight:900;color:#c9b489;letter-spacing:.02em}
+.v33rt-v{font-size:15px;font-weight:900;color:#fff3d6;letter-spacing:-.02em}
+.v33rt-s{font-size:8.5px;font-weight:700;color:var(--dim2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v33rec-hist{margin-top:8px;display:flex;flex-direction:column;gap:3px}
+.v33rec-h{font-size:10px;font-weight:700;color:#c8d2e0;line-height:1.4;padding:4px 7px;border-radius:6px;
+  background:rgba(120,160,255,.06);border-left:2px solid rgba(140,180,255,.4)}
+.v33rec-h span{font-size:8.5px;font-weight:900;color:var(--dim2);margin-right:5px}
+.v33rec-multi{margin-top:7px;display:flex;flex-wrap:wrap;gap:4px}
+.v33mk{font-size:9px;font-weight:900;padding:3px 6px;border-radius:6px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);color:#dbe4f2}
+.v33mk.penta{background:rgba(255,120,220,.14);border-color:rgba(255,120,220,.4);color:#ffd3f4}
+.v33mk i{font-style:normal;color:var(--dim2);font-weight:700}
+
+/* ---- 은퇴식 ---- */
+.v33modal{max-height:88dvh;overflow:auto}
+.v33ret-h{display:flex;align-items:baseline;justify-content:space-between;margin:2px 0 4px}
+.v33ret-h span{font-size:12px;font-weight:900;letter-spacing:.06em;color:#ffd98f}
+.v33ret-h b{font-size:11px;font-weight:900;color:var(--dim2)}
+.v33ret-grid{display:flex;flex-direction:column;gap:7px;margin:8px 0}
+.v33ret-card{padding:10px 11px;border-radius:11px;background:linear-gradient(160deg,rgba(185,140,255,.10),rgba(255,255,255,.03));
+  border:1px solid rgba(185,140,255,.26)}
+.v33ret-k{font-size:9px;font-weight:900;letter-spacing:.1em;color:#c9b6ff}
+.v33ret-n{font-size:16px;font-weight:900;color:#fff;letter-spacing:-.02em;margin-top:1px}
+.v33ret-m{font-size:9.5px;font-weight:800;color:#a9b5c8}
+.v33ret-q{margin:6px 0 4px;font-size:11.5px;line-height:1.55;color:#e6ecf8;font-weight:700}
+.v33ret-s{font-size:8.5px;font-weight:900;color:var(--dim2)}
+.v33ret-arch{margin:8px 0}
+.v33ret-list{display:flex;flex-direction:column;gap:4px}
+.v33ret-row{display:flex;flex-direction:column;gap:1px;padding:6px 8px;border-radius:8px;
+  background:rgba(255,255,255,.03);border-left:2px solid rgba(185,140,255,.45)}
+.v33ret-row b{font-size:11px;font-weight:900;color:#f2ecff}
+.v33ret-row span{font-size:9px;font-weight:800;color:var(--dim2)}
+.v33ret-row i{font-style:normal;font-size:10px;line-height:1.4;color:#c9d2e2;font-weight:600}
+
+/* ---- 저격 밴 배너 · 패치 스탯 ---- */
+.v33counter{margin:4px 0 2px;padding:5px 8px;border-radius:8px;font-size:10px;font-weight:900;
+  color:#ffd2da;background:rgba(255,85,112,.10);border:1px solid rgba(255,85,112,.32);
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.v33counter .tiny{color:#c9a6ae;font-weight:800;font-size:8.5px}
+.v33surprise{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:7px;padding:6px 8px;
+  border-radius:9px;font-size:10.5px;font-weight:800;color:#ffe9a8;
+  background:linear-gradient(90deg,rgba(255,201,74,.16),rgba(255,120,220,.10));
+  border:1px solid rgba(255,201,74,.45)}
+.v33surprise b{font-weight:900;color:#ffd76a}
+.v33surprise span{font-size:9px;font-weight:900;color:#fff;background:rgba(0,0,0,.28);padding:1px 5px;border-radius:4px}
+.v33surprise em{font-style:normal;font-size:9.5px;font-weight:800;color:#f0e3c4}
+.v33pst{margin-top:7px;padding:6px 8px;border-radius:9px;background:rgba(120,160,255,.06);
+  border:1px solid rgba(120,160,255,.20)}
+.v33pst-h{font-size:8.5px;font-weight:900;letter-spacing:.08em;color:#9db6d8;margin-bottom:3px}
+.v33pst-row{display:flex;align-items:center;gap:7px;font-size:9.5px;line-height:1.5;flex-wrap:wrap}
+.v33pst-row b{font-weight:900;min-width:64px}
+.v33pst-row b.up{color:#7df0bb}
+.v33pst-row b.dn{color:#ff9aa9}
+.v33pst-row span{font-weight:700;color:#c3d2e6}
+.pe-big{font-size:8.5px;font-weight:900;color:#2a1c00;background:linear-gradient(90deg,#ffd76a,#ff9ad6);
+  padding:1px 5px;border-radius:4px}
+.pe-st{font-size:9px;font-weight:800;color:#a9d8ff}
+
 </style>
 </head>
 <body>
@@ -3466,6 +3611,7 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   <nav id="tabbar" class="tabbar hidden"></nav>
 </div>
 <div id="toast" class="toast hidden"></div>
+<div id="v33spec" class="v33spec hidden"></div>
 <div id="modal" class="hidden"></div>
 <script>window.__errors=[];window.addEventListener('error',function(e){window.__errors.push((e.message||'')+' @'+(e.lineno||''));});</script>
 <script>
@@ -5958,6 +6104,8 @@ function applyPatch(idx, silent){
   }
   S.meta.obj=p.obj;
   S.patches.push({v:p.v,name:p.name,week:S.week});
+  /* V33 — 실제 챔피언 스탯(체력·공격력·방어력) 보정 */
+  try{ if(typeof v33StatPatch==='function') v33StatPatch({no:S.patchIdx,buffs:(p.buffs||[]).map(function(n){return {n:n};}),nerfs:(p.nerfs||[]).map(function(n){return {n:n};})}); }catch(e){}
   if(!silent) toast('🛠 패치 '+p.v+' 적용 — '+p.name);
   return p;
 }
@@ -6281,6 +6429,8 @@ const DRAFT_ORDER = [
 
 function startDraft(series){
   if(!series) return;
+  /* V33 — 새 밴픽: 이전 경기의 감독 대응 플랜을 초기화하고 패턴을 다시 읽는다 */
+  try{ if(typeof v33CounterReset==='function') v33CounterReset(); }catch(e){}
   if(!(series.meta&&series.meta.pressDone===true)&&typeof pressNeededFor==='function'&&pressNeededFor(series)){
     S.currentSeries=series; saveGame(); openPress(series); return;
   }
@@ -6451,6 +6601,8 @@ function aiPickChamp(){
 }
 function aiBanChamp(){
   const avail=dAvailable(); if(!avail.length) return null;
+  /* V33 — 라이벌 감독 저격 밴: 유저가 반복한 주력 픽을 먼저 지운다 */
+  try{ const sn=(typeof v33SnipeBan==='function')?v33SnipeBan():null; if(sn) return sn; }catch(e){}
   const me=myTeam();
   const oppPicks=(typeof dOppPicks==='function')?dOppPicks():[];
   const lateBan=(typeof dMyBans==='function'?dMyBans().length:0)>=2||oppPicks.length>0;
@@ -6811,6 +6963,7 @@ function applyRandomPatch(tag){
     note:theme.note, buffs:buffs, nerfs:nerfs, obj:S.meta.obj, week:S.week, season:S.season, top:top,
     offRole:offRole, listVersion:2};
   S.patchNotes=S.patchNotes||[];
+  try{ if(typeof v33StatPatch==='function') v33StatPatch(rec); }catch(e){}
   S.patchNotes.unshift(rec);
   S.patchIdx=(S.patchIdx||0);
   S.patches=S.patches||[]; S.patches.push({v:rec.label,name:rec.name,week:S.week});
@@ -6922,6 +7075,7 @@ function liveTacticEdge(){
     e+=(Math.random()-0.45)*0.05;
   }
   if(st) e+=(st.edge||0);
+  try{ if(typeof v33CounterEdge==='function') e+=v33CounterEdge(); }catch(e2){}
   if(fo){
     ROLES.forEach(r=>{
       const p=playerAt('me',r); if(!p) return;
@@ -8029,6 +8183,8 @@ function finishGame(forcedTeam){
     assign:{me:Object.assign({},D.assign.me),opp:Object.assign({},D.assign.opp)}});
   if(sr.fearless){ const _u=new Set(sr.fearlessUsed||[]); dMyPicks().concat(dOppPicks()).forEach(function(n){ _u.add(n); }); sr.fearlessUsed=Array.from(_u); }
   if(sr.bo>=3&&sr.score.me-sr.score.opp>=2) S.sweeps=(S.sweeps||0)+1;
+  /* V33 — 시즌 명예 기록실 · 반복 픽/전술 추적 */
+  try{ if(typeof v33AfterGame==='function') v33AfterGame(); }catch(e){}
   saveGame();
   try{ checkAchievements(); }catch(e){}
   try{ gameEndFlow(); }catch(e){ try{ renderSeriesResult(); }catch(e2){ try{ renderAll(); }catch(e3){} } }
@@ -9854,6 +10010,8 @@ function startOffseason(){
   try{ if(typeof aiRosterFillAll==='function') aiRosterFillAll(); }catch(e){}
   S.phase='offseason';
   S.offseason=st;
+  /* V33 — 스토브리그 진입: 대어급 FA 이적 루머·영입전 기사 */
+  try{ if(typeof v33FaRumorBurst==='function'){ v33FaRumorBurst('enter'); v33FaRumorBurst('burst'); } }catch(e){}
   saveGame();
   renderOffseason();
 }
@@ -11466,6 +11624,8 @@ function clubWeekAdvance(){
   try{ if(typeof talkAutoWeek==='function') talkAutoWeek(); }catch(e){}
   /* AI 구단도 부진하면 FA 시장에 뛰어든다 ([오피셜] 소식) */
   try{ if(typeof aiFaSigningTick==='function') aiFaSigningTick(); }catch(e){}
+  /* V33 — 스토브리그 FA 이적 루머 */
+  try{ if(typeof v33FaRumorTick==='function') v33FaRumorTick(); }catch(e){}
   /* 마케팅 팀장 자동 위임 (구단주 모드) */
   try{ if(typeof autoMarketingTick==='function') autoMarketingTick(); }catch(e){}
   // 목표 달성 시 이사회 신뢰
@@ -15998,6 +16158,7 @@ const TABS=[
   {k:'patch',icon:'📜',label:'패치'},
   {k:'codex',icon:'📖',label:'도감'},
   {k:'ach',icon:'🏆',label:'업적'},
+  {k:'honors',icon:'🏅',label:'기록'},
 ];
 function renderHub(){
   renderTopbar();
@@ -16012,9 +16173,11 @@ function renderHub(){
   else if(TAB==='patch') c.innerHTML=patchHTML();
   else if(TAB==='codex') c.innerHTML=codexHTML();
   else if(TAB==='ach') c.innerHTML=achHTML();
+  else if(TAB==='honors') c.innerHTML=(typeof honorsHTML==='function')?honorsHTML():'';
   else c.innerHTML=marketHTML();
   bindHub();
   show('hub');
+  try{ if(typeof v33MaybeRetireModal==='function') v33MaybeRetireModal(); }catch(e){}
 }
 function contractTxt(p){
   if(!p) return '-';
@@ -16262,6 +16425,7 @@ function leagueHTML(){
       </table>
       <div class="tiny" style="margin-top:8px">상위 6팀 플레이오프 진출 · 상위 4팀 롤드컵 진출</div>
     </div>
+    ${(typeof v33RecordsCardHTML==='function')?v33RecordsCardHTML():''}
     ${calendarHTML()}
     <div class="section-title"><h3>POG 포인트</h3><div class="line"></div></div>
     <div class="card tight">${pogHTML()}</div>
@@ -16760,6 +16924,8 @@ function patchEntryRowHTML(x,dir){
     <b class="${dir==='buff'?'up':'dn'}">${dir==='buff'?'▲':'▼'} ${esc(n)}</b>
     ${dT?`<span class="pe-t">티어 ${x.t0}→${x.t1}</span>`:''}
     ${dW?`<span class="pe-w">승률 ${x.wr0.toFixed(1)}%→${x.wr1.toFixed(1)}%</span>`:''}
+    ${x.big?'<span class="pe-big">🌟 파격 버프</span>':''}
+    ${x.st?`<span class="pe-st">${esc((typeof v33StatTxt==='function')?v33StatTxt(x.st):'')}</span>`:''}
     ${x.why?`<i>${esc(x.why)}</i>`:''}
   </div>`;
 }
@@ -16824,6 +16990,8 @@ function patchHTML(){
         <span class="chip gold">${esc(cur.label)}</span>
       </div>
       <div class="tiny" style="line-height:1.5;margin-top:6px">${esc(cur.note)}</div>
+      ${(typeof v33PatchSurpriseHTML==='function')?v33PatchSurpriseHTML(cur):''}
+      ${(typeof v33PatchStatRowsHTML==='function')?v33PatchStatRowsHTML(cur):''}
       <div class="divider"></div>
       ${cur.real?`${typeof lolpsTopBlockHTML==='function'?lolpsTopBlockHTML(10):''}`
       :patchDiffHTML(cur,8)}
@@ -20877,6 +21045,7 @@ function mmReset(){
   MM.zoom.s=1; MM.zoom.ts=1; MM.zoom.cx=0.5; MM.zoom.cy=0.5; MM.zoom.tx=0.5; MM.zoom.ty=0.5;
   if(typeof MMD!=='undefined'){ MMD.notes=[]; MMD.beats=[]; MMD.variety=null; MMD.clash=0; MMD.lastKill=[0,0]; }
   try{ if(typeof v32Reset==='function') v32Reset(); }catch(e){}
+  try{ if(typeof v33Reset==='function') v33Reset(); }catch(e){}
   mmCampInit();
   ROLES.forEach(role=>{
     ['me','opp'].forEach(side=>{
@@ -22397,6 +22566,7 @@ function mmUpdate(dt){
   });
   /* V32 — 실제 스탯·스펠·궁극기·서폿 케어·전령·유충·바론·파워스파이크·승부처 기록 */
   try{ if(typeof v32Tick==='function') v32Tick(sec,step); }catch(e){}
+  try{ if(typeof v33Tick==='function') v33Tick(sec,step); }catch(e){}
   if(typeof MMD!=='undefined'&&MMD.clash>0&&Math.random()<step*2.4) mmSpawnProjectile();
   for(let i=MM.proj.length-1;i>=0;i--){
     const p=MM.proj[i];
@@ -22465,6 +22635,8 @@ function mmDrawWards(ctx,w,h,sec,now){
   const small=w<300;
   list.forEach(function(o){
     const wd=o.wd, side=o.side;
+    /* V33 — 상대 시야로 볼 때 시야 밖 일반 와드는 보이지 않는다 (제어와드는 예외) */
+    try{ if(typeof v33HiddenWard==='function'&&v33HiddenWard(side,wd)) return; }catch(e){}
     const x=wd.x*w, y=wd.y*h;
     const pink=(wd.kind==='pink');
     const fade=mmWardFade(wd,sec);
@@ -22909,8 +23081,7 @@ function mmDraw(dt){
     ctx.stroke();
   });
   /* ---------- 시야·와드 (투명/제어 · 2:20 칼날부리 · 핏 시야) ---------- */
-  try{ mmDrawWards(ctx,w,h,sec,now); }catch(e){}
-  /* ---------- 협곡의 전령 (V32 실체 유닛) ---------- */
+  try{ mmDrawWards(ctx,w,h,sec,now); }catch(e){}  /* ---------- 협곡의 전령 (V32 실체 유닛) ---------- */
   try{
     const H=(typeof V32!=='undefined')?V32.herald:null;
     if(H){
@@ -22954,6 +23125,8 @@ function mmDraw(dt){
   ROLES.forEach(role=>{
     ['me','opp'].forEach(side=>{
       const k=mmTokenKey(side,role), u=MM.units[k]; if(!u) return;
+      /* V33 — 전장의 안개: 시야 밖 적 챔피언은 그리지 않는다 */
+      try{ if(typeof v33HiddenUnit==='function'&&v33HiddenUnit(side,u)) return; }catch(e){}
       const line=M.lineups?lineupAt(side,role):null;
       const champ=(line&&line.champ)||ROLE_KR[role];
       const x=u.x*w, y=u.y*h;
@@ -23175,7 +23348,11 @@ function mmDraw(dt){
     ctx.fillStyle='#ffe4ab'; ctx.textAlign='left'; ctx.textBaseline='middle';
     ctx.fillText(txt,13,h-15);
   }
+  /* V33 — 전장의 안개 레이어 (유닛 위에 덮어 시야 밖을 어둡게) */
+  try{ if(typeof v33DrawFog==='function') v33DrawFog(ctx,w,h); }catch(e){}
   ctx.restore();
+  /* V33 — 미니맵 핑 파동 (안개 위에서도 보이게 화면 좌표계에 그린다) */
+  try{ if(typeof v33DrawPings==='function') v33DrawPings(ctx,w,h); }catch(e){}
   /* ---------- PiP (줌 상태 미니맵) ---------- */
   if(z.s>1.06){
     const pw=Math.max(76,w*0.24), ph=pw;
@@ -26488,12 +26665,14 @@ function buildMatchDOM(v,key){
       <div class="bmap">
         <div class="bmap-st">
           <span class="bms-phase" id="mmPhase">${MM.phaseLabel||'라인전'}</span>
+          ${(typeof v33FogHTML==='function')?v33FogHTML():''}
           <span class="bms-vision" id="mmVision">👁 시야 0:0 · 와드 0:0</span>
           <span class="bms-extra" id="mmExtra"></span>
         </div>
         <div class="bmap-cv"><canvas id="riftCanvas"></canvas>
           <div class="kf-anchor"><div class="kf-stack" id="kfStack"></div></div>
         </div>
+        ${(typeof v33CounterBannerHTML==='function')?v33CounterBannerHTML():''}
         <div class="bcaster" id="mmCast">
           <div class="bc-line"><span class="bc-who">전용준</span><span class="bc-tx" id="mmCast1"></span></div>
           <div class="bc-line"><span class="bc-who alt">클템</span><span class="bc-tx" id="mmCast2"></span></div>
@@ -26556,6 +26735,8 @@ function buildMatchDOM(v,key){
   const c1=$('mmCast1'), c2=$('mmCast2');
   if(c1) c1.textContent=cast[0]; if(c2) c2.textContent=cast[1];
   bindBcast();
+  try{ if(typeof v33FogButtons==='function') v33FogButtons(); }catch(e){}
+  try{ if(typeof v33SpecClose==='function') v33SpecClose(); }catch(e){}
   try{ if(typeof v6MatchBgmMount==='function') v6MatchBgmMount(); }catch(e){}
 }
 function evNode(e){
@@ -26928,6 +27109,7 @@ function buildPstats(){
 function openPOG(){
   const ps=M.pstats||buildPstats();
   const mvp=ps.mvp; if(!mvp){ gameEndToSeries(); return; }
+  try{ if(typeof v33PogHook==='function') v33PogHook(ps); }catch(e){}
   const t=myTeam(), opp=T(M.oppId);
   const champ=mvp.champ;
   const c=CHAMP_MAP[champ];
@@ -26960,6 +27142,7 @@ function openPOG(){
       <div class="pog-comment"><span>해설 Comment</span><p>${esc(comment)}</p></div>
     </div>
   </div>
+  ${(typeof v33PogExtraHTML==='function')?v33PogExtraHTML(mvp,ps):''}
   <button class="pog-ok" id="pogOk">확인</button></div>`;
   $('modal').classList.remove('hidden');
   $('modal').classList.add('pog-gold');
@@ -27049,6 +27232,8 @@ function renderBox(){
     </div>
     ${(typeof turningCardHTML==='function')?turningCardHTML():''}
     ${(typeof v32TurningHTML==='function')?v32TurningHTML():''}
+    ${(typeof v33PogExtraHTML==='function'&&ps.mvp)?v33PogExtraHTML(ps.mvp,ps):''}
+    ${(typeof v33RecordsCardHTML==='function')?v33RecordsCardHTML():''}
     ${(typeof causalCardHTML==='function')?causalCardHTML():''}
     ${typeof hupuCardHTML==='function'?hupuCardHTML():''}
     <div class="bx-card">
@@ -28965,6 +29150,8 @@ function v6RetireCheck(){
   if(out.retired.length){
     try{ newsAdd('roster','🕯 은퇴 — '+out.retired.slice(0,4).join(', ')+(out.retired.length>4?' 외 '+(out.retired.length-4)+'명':'')); }catch(e){}
   }
+  /* V33 — 노장 은퇴식 카드 · 명예의 전당 연출 데이터 */
+  try{ if(typeof v33CaptureRetire==='function') v33CaptureRetire(out); }catch(e){}
   return out;
 }
 /* 은퇴로 빈 자리 채우기 — 백업 승격, 없으면 신인 생성 */
@@ -36847,6 +37034,31 @@ const BJ_DEFS=[
   {n:'이상호',  role:'ADC', ex:false, ovr:68, fan:13, pop:79, tag:'원딜 장인 스트리머 · 유튜브 클립 화력'},
   {n:'데스티니',role:'SUP', ex:false, ovr:67, fan:11, pop:71, tag:'서폿 장인 · 롤토체스 겸업 인플루언서'},
   {n:'에디',    role:'MID', ex:false, ovr:65, fan:10, pop:66, tag:'꿀잼 미드 · 밈 생산기'},
+  /* ---- V33: 은퇴한 전프로·롤 유명 BJ 대거 추가 (포지션별 균형) ---- */
+  {n:'마린',    role:'TOP', ex:true,  ovr:80, fan:7,  pop:62, tag:'2015 월즈 우승·MVP 탑솔러 · 스플릿 운영의 교과서'},
+  {n:'벵기',    role:'JGL', ex:true,  ovr:81, fan:7,  pop:63, tag:'월즈 2회 우승 정글러 · 시야 장악과 오브젝트 설계'},
+  {n:'피넛',    role:'JGL', ex:true,  ovr:82, fan:7,  pop:63, tag:'LCK·LPL·월즈 우승 경력 · 초반 동선 설계 최상'},
+  {n:'매드라이프',role:'SUP',ex:true, ovr:79, fan:7,  pop:62, tag:'서폿의 재정의 · 그랩 하나로 게임을 바꾼 선수'},
+  {n:'임프',    role:'ADC', ex:true,  ovr:78, fan:7,  pop:60, tag:'2014 월즈 우승 원딜 · 가장 공격적인 포지셔닝'},
+  {n:'폰',      role:'MID', ex:true,  ovr:77, fan:6,  pop:58, tag:'2017 월즈 우승 미드 · 라인전 압박과 로밍'},
+  {n:'루퍼',    role:'TOP', ex:true,  ovr:76, fan:6,  pop:57, tag:'월즈 우승 탑솔러 · 탱커·이니시 메타 최적'},
+  {n:'큐베',    role:'TOP', ex:true,  ovr:77, fan:6,  pop:57, tag:'LCK 최상위 탑솔러 출신 · 라인전 강점'},
+  {n:'크라운',  role:'MID', ex:true,  ovr:76, fan:6,  pop:56, tag:'2017 월즈 우승 미드 · 안정적 후반 딜링'},
+  {n:'고릴라',  role:'SUP', ex:true,  ovr:75, fan:5,  pop:55, tag:'LCK 우승 서폿 · 로밍과 시야 운영'},
+  {n:'코어장전',role:'SUP', ex:true,  ovr:76, fan:6,  pop:56, tag:'북미 우승 서폿 · 이니시와 한타 콜'},
+  {n:'스코어',  role:'JGL', ex:true,  ovr:77, fan:6,  pop:58, tag:'10년 1군 정글러 · 원조 정글 교과서'},
+  {n:'쿠로',    role:'MID', ex:true,  ovr:74, fan:5,  pop:54, tag:'LCK 준우승 미드 · 라인전 견제형'},
+  {n:'플라이',  role:'MID', ex:true,  ovr:72, fan:5,  pop:52, tag:'북미 무대 미드 · 유연한 챔프폭'},
+  {n:'피글렛',  role:'ADC', ex:true,  ovr:75, fan:6,  pop:56, tag:'2013 월즈 우승 원딜 · 라인전 킬각 창출'},
+  {n:'인섹',    role:'JGL', ex:true,  ovr:73, fan:5,  pop:53, tag:'한국 정글러 1세대 · 갱킹 각과 타이밍'},
+  {n:'플레임',  role:'TOP', ex:true,  ovr:74, fan:7,  pop:58, tag:'전프로 탑솔러 출신 BJ · 방송에서도 라인전 장인'},
+  {n:'저라뎃',  role:'TOP', ex:true,  ovr:72, fan:9,  pop:66, tag:'탑 장인 스트리머 · 랭크 상위권 유지'},
+  {n:'클템',    role:'SUP', ex:true,  ovr:71, fan:8,  pop:64, tag:'전프로 출신 해설·BJ · 한타 읽는 눈'},
+  {n:'꿀탱탱',  role:'SUP', ex:false, ovr:68, fan:12, pop:74, tag:'서폿 장인 스트리머 · 유미·룰루 장인'},
+  {n:'감스트',  role:'MID', ex:false, ovr:66, fan:15, pop:86, tag:'롤 예능 1세대 · 방송 화력 최상위'},
+  {n:'만기퇴소',role:'ADC', ex:false, ovr:65, fan:11, pop:70, tag:'원딜 장인 스트리머 · 클립 화력'},
+  {n:'캡틴잭',  role:'ADC', ex:false, ovr:70, fan:10, pop:69, tag:'원딜 장인 · 랭크 캐리형 방송'},
+  {n:'랄로',    role:'MID', ex:false, ovr:64, fan:14, pop:80, tag:'미드 스트리머 · 챔피언 폭 넓은 예능 플레이'},
 ];
 const BJ_REACTIONS={
   sign:[
@@ -37475,12 +37687,15 @@ function v32StatsFor(side,role){
   const b=v32Base(ch.key);
   const lv=v32Clamp((typeof lvOf==='function')?Number(lvOf(side,role))||1:1,1,18);
   const it=v32ItemSum(side,role);
-  const hp=b[0]+b[1]*(lv-1)+it.hp;
-  const ad=b[2]+b[3]*(lv-1)+it.ad;
-  const ar=b[4]+b[5]*(lv-1)+it.ar;
+  /* V33 — 패치가 실제 챔피언 기본 스탯을 바꾼다 (S.meta.statMod) */
+  const mod=(typeof S!=='undefined'&&S&&S.meta&&S.meta.statMod&&ch.key&&S.meta.statMod[ch.key])?S.meta.statMod[ch.key]:null;
+  const mHp=(mod&&Number(mod.hp))||0, mAd=(mod&&Number(mod.ad))||0, mAr=(mod&&Number(mod.ar))||0;
+  const hp=b[0]+b[1]*(lv-1)+it.hp+mHp;
+  const ad=b[2]+b[3]*(lv-1)+it.ad+mAd;
+  const ar=b[4]+b[5]*(lv-1)+it.ar+mAr;
   const mr=b[6]+b[7]*(lv-1)+it.mr;
   const ap=it.ap;
-  return {hp:hp, ad:ad, ar:ar, mr:mr, ap:ap, range:b[8], lv:lv, key:ch.key, name:ch.name, items:it};
+  return {hp:hp, ad:ad, ar:ar, mr:mr, ap:ap, range:b[8], lv:lv, key:ch.key, name:ch.name, items:it, mod:mod};
 }
 /* 미니맵 유닛에 실제 hpMax·공격력·방어력·사거리 반영 (체력 비율은 유지) */
 function v32SyncUnits(){
@@ -38019,15 +38234,17 @@ function v32KillTarget(m){
   const mm=Number(m)||0;
   if(mm<8) return 0.8;                  /* 1~8분: CS·라인전 우선 (무지성 초반 교전 억제) */
   if(mm<10) return 0.8+(mm-8)*1.3;      /* 10분 ≈ 3.4 */
-  if(mm<30) return 3.4+(mm-10)*1.05;    /* 30분 ≈ 24.4 */
-  return 24.4+(mm-30)*0.7;
+  if(mm<18) return 3.4+(mm-10)*1.05;    /* 18분 ≈ 11.8 */
+  /* V33 — 18분 이후 바론·용·타워 수성 한타 빈도를 올려 18~26킬 수준으로 */
+  if(mm<30) return 11.8+(mm-18)*1.10;   /* 30분 ≈ 25 */
+  return 25+(mm-30)*0.7;
 }
 function v32AllowFight(m){
   const mm=Number(m)||0;
   /* 1~8분은 CS·라인전 우선 — 대규모 한타는 열지 않는다 */
   if(mm<8) return false;
   const total=(M&&M.kills)?((M.kills[0]||0)+(M.kills[1]||0)):0;
-  return total<v32KillTarget(mm)+4;
+  return total<v32KillTarget(mm)+(mm>=18?6:4);
 }
 function v32AliveCount(side){
   let alive=0;
@@ -38041,7 +38258,7 @@ function v32TempoTick(sec){
   const s=(sec==null)?v32Sec():Number(sec)||0;
   /* 게임 초 기준 스로틀 — 배속·프레임과 무관하게 1.4게임초에 한 번 */
   const behind=(M&&M.kills)?v32KillTarget(Math.floor(s/60))-((M.kills[0]||0)+(M.kills[1]||0)):0;
-  const gap=behind>2?0.6:1.2;
+  const gap=behind>2?0.55:(Math.floor(s/60)>=18?0.9:1.2);
   if(V32.tempoSec!=null&&s-V32.tempoSec<gap) return 0;
   V32.tempoSec=s;
   const m=Math.floor(s/60);
@@ -38599,11 +38816,1161 @@ if(typeof document!=='undefined'&&document.addEventListener){
   },true);
 }
 
+/* ============================================================================
+   V33 — 전장의 안개 · 미니맵 핑 · 실시간 스펙창 · POG 인터뷰 · 시즌 명예 기록실 ·
+         전프로/BJ 확장 · 라이벌 감독 저격 밴 · 스토브리그 루머 · 은퇴식 ·
+         실제 스탯 패치 · 후반 킬 템포
+   ----------------------------------------------------------------------------
+   원칙
+     · 시뮬레이션(엔진)은 그대로 두고, 화면·기록·연출 레이어에서만 얹는다.
+     · 챔피언 실제 수치는 champstats.js + 아이템 + 패치 보정(S.meta.statMod) 합산.
+     · 기록은 S.v33rec 에 누적 저장(시즌이 바뀌어도 남는다).
+   ============================================================================ */
+const V33={
+  ver:33,
+  fog:'all',                    /* 'all' | 'me' | 'opp' */
+  fogAt:0, visAt:0, vis:{me:[],opp:[]},
+  spec:null, specAt:0,
+  pings:[], pingTickAt:0, lastKda:{}, lastKills:null, pingCool:{},
+  recTickAt:0, retireShown:0, counterNote:null,
+  fogCv:null, fogKey:'',
+  lastUseKey:'',
+};
+
+function v33Clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function v33Now(){ return (typeof performance!=='undefined'&&performance.now)?performance.now():Date.now(); }
+function v33Sec(){
+  try{ return (typeof mmGameSec==='function')?Number(mmGameSec())||0:((M&&M.sec)||0); }
+  catch(e){ return (M&&M.sec)||0; }
+}
+function v33Minute(){
+  if(M&&typeof M.minute==='number') return M.minute;
+  return Math.floor(v33Sec()/60);
+}
+function v33Tag(side){
+  try{ return side==='me'?myTeam().tag:T(M.oppId).tag; }catch(e){ return side==='me'?'우리':'상대'; }
+}
+function v33TeamName(side){
+  try{ return side==='me'?myTeam().name:T(M.oppId).name; }catch(e){ return side==='me'?'우리 팀':'상대 팀'; }
+}
+function v33Name(side,role){
+  try{ return (lineupAt(side,role)||{}).name||ROLE_KR[role]; }catch(e){ return ROLE_KR[role]||role; }
+}
+function v33Champ(side,role){
+  try{ return (lineupAt(side,role)||{}).champ||''; }catch(e){ return ''; }
+}
+function v33Save(){ try{ if(typeof saveGame==='function') saveGame(); }catch(e){} }
+function v33News(kind,text){ try{ if(typeof newsAdd==='function') newsAdd(kind,text); }catch(e){} }
+
+/* ============================================================================
+   1. 전장의 안개 (Fog of War) — 관전 화면 3단 시야
+   ========================================================================== */
+const V33_FOG_LABEL={all:'👁 전체 보기', me:'🔵 우리 시야', opp:'🔴 상대 시야'};
+function v33FogSet(v){
+  if(['all','me','opp'].indexOf(v)<0) return V33.fog;
+  V33.fog=v; V33.visAt=0;
+  try{ localStorage.setItem('lol33.fog',v); }catch(e){}
+  v33FogButtons();
+  return V33.fog;
+}
+function v33FogBoot(){
+  try{
+    const v=localStorage.getItem('lol33.fog');
+    if(v&&['all','me','opp'].indexOf(v)>=0) V33.fog=v;
+  }catch(e){}
+}
+function v33FogButtons(){
+  if(typeof document==='undefined'||!document.querySelectorAll) return;
+  let list=[];
+  try{ list=document.querySelectorAll('[data-a="fog"]'); }catch(e){ list=[]; }
+  for(let i=0;i<list.length;i++){
+    const el=list[i];
+    const on=el&&el.dataset&&el.dataset.v===V33.fog;
+    try{ if(el&&el.classList){ if(on) el.classList.add('on'); else el.classList.remove('on'); } }catch(e){}
+  }
+  const lbl=document.getElementById?document.getElementById('v33fogNow'):null;
+  if(lbl) lbl.textContent=V33_FOG_LABEL[V33.fog]||'';
+}
+function v33FogHTML(){
+  return '<span class="v33fog" id="mmFog"><b class="fog-t">시야</b>'+
+    ['all','me','opp'].map(function(k){
+      return '<button data-a="fog" data-v="'+k+'" class="fog-b'+(V33.fog===k?' on':'')+'">'+V33_FOG_LABEL[k]+'</button>';
+    }).join('')+'</span>';
+}
+/* 시야 원 — 챔피언·타워·억제기·넥서스·와드·미니언 */
+function v33Vision(observer,force){
+  if(!M||typeof MM==='undefined'||!MM) return [];
+  const now=v33Now();
+  const oKey=(observer==='opp')?'opp':'me';
+  if(!force&&V33.visAt&&now-V33.visAt<220&&V33.visKey===oKey) return V33.vis[oKey]||[];
+  V33.visAt=now; V33.visKey=oKey;
+  const side=oKey;
+  const sec=v33Sec();
+  const out=[];
+  const push=function(x,y,r,k){ if(x==null||y==null) return; out.push({x:x,y:y,r:r,k:k||'unit'}); };
+  ROLES.forEach(function(r){
+    const u=MM.units[side+'-'+r];
+    if(!u||!u.alive||u.tp) return;
+    push(u.x,u.y,0.098,'champ');
+  });
+  /* 타워·억제기 시야 */
+  try{
+    ['TOP','MID','BOT'].forEach(function(l){
+      const arr=(M.tw&&M.tw[side]&&M.tw[side][l])||null;
+      if(arr&&typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[side]) {
+        (MAP_TOWERS[side][l]||[]).forEach(function(p,i){ if(arr[i]) push(p[0],p[1],0.088,'tower'); });
+      }
+      const inh=(M.inhib&&M.inhib[side]&&M.inhib[side][l]);
+      const ip=(typeof MAP_INHIBS!=='undefined'&&MAP_INHIBS[side])?MAP_INHIBS[side][l]:null;
+      if(ip&&inh&&inh.alive) push(ip[0],ip[1],0.09,'inhib');
+    });
+    const nex=(M.tw&&(side==='me'?M.tw.meNex:M.tw.oppNex))||null;
+    const np=(typeof v32NexusPoint==='function')?v32NexusPoint(side):null;
+    if(np&&!(nex&&!nex[0]&&!nex[1])) push(np[0],np[1],0.115,'nexus');
+  }catch(e){}
+  /* 와드·미니언 */
+  try{
+    if(typeof mmWardList==='function'){
+      mmWardList(sec).forEach(function(o){
+        if(!o||o.side!==side) return;
+        push(o.wd.x,o.wd.y,0.072,'ward');
+      });
+    }
+    let n=0;
+    (MM.minions||[]).forEach(function(mn){
+      if(!mn||!mn.alive||mn.side!==side) return;
+      n++;
+      if((n%2)!==0) return;
+      const p=mmPathPoint(LANE_PATH[mn.lane],mn.t);
+      push(p[0]+mn.off,p[1]+mn.off,0.040,'minion');
+    });
+  }catch(e){}
+  V33.vis[oKey]=out;
+  return out;
+}
+function v33VisibleAt(observer,x,y){
+  if(!M) return true;
+  const list=v33Vision(observer,false)||[];
+  for(let i=0;i<list.length;i++){
+    const o=list[i];
+    const dx=o.x-x, dy=o.y-y;
+    if(dx*dx+dy*dy<=o.r*o.r) return true;
+  }
+  return false;
+}
+/* 시야 밖 적 챔피언은 그리지 않는다 */
+function v33HiddenUnit(side,u){
+  if(V33.fog==='all'||!M) return false;
+  if(side===V33.fog) return false;               /* 보는 진영 */
+  if(!u) return false;
+  const obs=V33.fog;
+  if(!u.alive) return v33VisibleAt(obs,u.x,u.y)===false;   /* 사망 위치도 시야 밖이면 숨김 */
+  return !v33VisibleAt(obs,u.x,u.y);
+}
+/* 적 와드 — 제어와드는 항상 보이고, 일반 와드는 시야 안에서만 */
+function v33HiddenWard(side,wd){
+  if(V33.fog==='all'||!M||!wd) return false;
+  if(side===V33.fog) return false;
+  if(wd.kind==='pink') return false;
+  return !v33VisibleAt(V33.fog,wd.x,wd.y);
+}
+function v33FogCv(w,h){
+  const key=Math.round(w)+'x'+Math.round(h);
+  if(V33.fogCv&&V33.fogKey===key) return V33.fogCv;
+  let cv=null;
+  try{
+    if(typeof document!=='undefined'&&document.createElement){
+      cv=document.createElement('canvas');
+      cv.width=Math.max(1,Math.round(w)); cv.height=Math.max(1,Math.round(h));
+    }
+  }catch(e){ cv=null; }
+  V33.fogCv=cv; V33.fogKey=key;
+  return cv;
+}
+function v33DrawFog(ctx,w,h){
+  if(!M||V33.fog==='all') return 0;
+  const obs=V33.fog;
+  const circles=v33Vision(obs,false)||[];
+  const cv=v33FogCv(w,h);
+  if(!cv) return 0;
+  const c=(cv.getContext&&cv.getContext('2d'))||null;
+  if(!c) return 0;
+  try{
+    c.setTransform(1,0,0,1,0,0);
+    c.clearRect(0,0,w,h);
+    c.globalCompositeOperation='source-over';
+    c.fillStyle='rgba(2,5,12,.74)'; c.fillRect(0,0,w,h);
+    /* 시야 원을 뚫는다 */
+    c.globalCompositeOperation='destination-out';
+    const pad=2;
+    circles.forEach(function(o){
+      const px=o.x*w, py=o.y*h, r=Math.max(2,o.r*w);
+      const g=c.createRadialGradient(px,py,Math.max(1,r*0.42),px,py,r);
+      g.addColorStop(0,'rgba(0,0,0,1)');
+      g.addColorStop(0.62,'rgba(0,0,0,.96)');
+      g.addColorStop(1,'rgba(0,0,0,0)');
+      c.fillStyle=g;
+      c.beginPath(); c.arc(px,py,r+pad,0,7); c.fill();
+    });
+    c.globalCompositeOperation='source-over';
+    /* 안개 경계에 옅은 청록 테두리 — 어느 진영 시야인지 */
+    ctx.save();
+    ctx.globalAlpha=0.30;
+    ctx.strokeStyle=obs==='me'?'rgba(79,168,255,.55)':'rgba(255,85,112,.55)';
+    ctx.lineWidth=Math.max(0.8,w*0.0022);
+    circles.forEach(function(o){
+      if(o.k!=='champ') return;
+      ctx.beginPath(); ctx.arc(o.x*w,o.y*h,Math.max(2,o.r*w),0,7); ctx.stroke();
+    });
+    ctx.restore();
+    ctx.drawImage(cv,0,0,w,h);
+  }catch(e){ return 0; }
+  return circles.length;
+}
+
+/* ============================================================================
+   1-b. 미니맵 핑 — ⚠️ 위험 / 🚩 지원 / 🗡 공격 (1.7초 파동)
+   ========================================================================== */
+const V33_PING={
+  danger:{ic:'⚠️', col:'#ff5b6e', label:'위험'},
+  help:  {ic:'🚩', col:'#ffc94a', label:'지원'},
+  attack:{ic:'🗡', col:'#ff8a5c', label:'공격'},
+};
+function v33Ping(kind,x,y,label,life){
+  if(!M||x==null||y==null) return null;
+  const k=V33_PING[kind]?kind:'attack';
+  const at=v33Now();
+  /* 같은 자리 같은 핑은 4초 안에 한 번만 */
+  const key=k+'|'+Math.round(x*20)+'|'+Math.round(y*20);
+  if(V33.pingCool[key]&&at-V33.pingCool[key]<4000) return null;
+  V33.pingCool[key]=at;
+  const p={kind:k,x:x,y:y,at:at,life:life||1700,label:label||''};
+  V33.pings.push(p);
+  if(V33.pings.length>14) V33.pings.splice(0,V33.pings.length-14);
+  return p;
+}
+function v33PingTick(sec){
+  if(!M||!M.running||M.over) return 0;
+  const now=v33Now();
+  if(V33.pingTickAt&&now-V33.pingTickAt<800) return 0;
+  V33.pingTickAt=now;
+  const m=v33Minute();
+  let made=0;
+  /* 1) 킬 발생 → 그 자리에 공격/위험 핑 */
+  try{
+    ROLES.forEach(function(r){
+      ['me','opp'].forEach(function(side){
+        const kd=MM.kda&&MM.kda[side+'-'+r];
+        if(!kd) return;
+        const key=side+'-'+r;
+        const prev=V33.lastKda[key];
+        if(prev!=null&&kd.k>prev){
+          const u=MM.units[key];
+          if(u) { if(v33Ping(side==='me'?'attack':'danger',u.x,u.y,side==='me'?'킬':v33Name(side,r)+' 사망')) made++; }
+        }
+        V33.lastKda[key]=kd.k;
+      });
+    });
+  }catch(e){}
+  /* 2) 갱킹 위험 — 상대 정글러가 우리 라이너에게 붙었을 때 */
+  if(m<15){
+    try{
+      const ej=MM.units['opp-JGL'];
+      if(ej&&ej.alive&&!ej.tp){
+        ROLES.forEach(function(r){
+          if(r==='JGL') return;
+          const u=MM.units['me-'+r];
+          if(!u||!u.alive||u.tp) return;
+          const d=Math.hypot(u.x-ej.x,u.y-ej.y);
+          if(d>0.062) return;
+          if((u.hp||100)>78) return;
+          if(v33Ping('danger',u.x,u.y,'갱킹 '+ROLE_KR[r])) made++;
+        });
+      }
+    }catch(e){}
+  }
+  /* 3) 오브젝트 콜 — 창이 열렸고 우리 정글러가 핏 근처 */
+  try{
+    const win=(typeof mmObjectiveWindow==='function')?mmObjectiveWindow(m):null;
+    if(win){
+      const pit=(win.kind==='baron')?PIT.baron:PIT.dragon;
+      const j=MM.units['me-JGL'];
+      if(j&&j.alive&&Math.hypot(j.x-pit[0],j.y-pit[1])<0.20){
+        if(v33Ping('help',pit[0],pit[1],(win.kind==='baron'?'바론':'용')+' 콜')) made++;
+      }
+    }
+  }catch(e){}
+  /* 4) 위험 — 시야 없는 아군이 적 2명에게 둘러싸임 */
+  try{
+    ROLES.forEach(function(r){
+      const u=MM.units['me-'+r];
+      if(!u||!u.alive||u.tp) return;
+      if((u.hp||100)>32) return;
+      let n=0;
+      ROLES.forEach(function(r2){
+        const e=MM.units['opp-'+r2];
+        if(!e||!e.alive) return;
+        if(Math.hypot(e.x-u.x,e.y-u.y)<0.075) n++;
+      });
+      if(n>=2&&v33Ping('danger',u.x,u.y,'위험 '+ROLE_KR[r])) made++;
+    });
+  }catch(e){}
+  /* 5) 지원 — 포탑이 밀리고 있다 */
+  try{
+    if(M.tw){
+      ['TOP','MID','BOT'].forEach(function(l){
+        ['me','opp'].forEach(function(sd){
+          const arr=M.tw[sd]&&M.tw[sd][l];
+          if(!arr) return;
+          (MAP_TOWERS[sd][l]||[]).forEach(function(p,i){
+            if(!arr[i]) return;
+            const hp=(typeof v6TwHpAt==='function')?v6TwHpAt(sd,l,i):null;
+            if(hp==null||hp>46||hp<=0) return;
+            let near=0;
+            ROLES.forEach(function(r2){
+              const e=MM.units[(sd==='me'?'opp':'me')+'-'+r2];
+              if(e&&e.alive&&Math.hypot(e.x-p[0],e.y-p[1])<0.085) near++;
+            });
+            if(near>=2&&v33Ping('help',p[0],p[1],'수성 '+ROLE_KR[l])) made++;
+          });
+        });
+      });
+    }
+  }catch(e){}
+  return made;
+}
+function v33DrawPings(ctx,w,h){
+  if(!M||!V33.pings.length) return;
+  const now=v33Now();
+  V33.pings=V33.pings.filter(function(p){ return now-p.at<(p.life||1700); });
+  V33.pings.forEach(function(p){
+    const age=(now-p.at)/(p.life||1700);
+    const a=Math.max(0,1-age);
+    const meta=V33_PING[p.kind]||V33_PING.attack;
+    const x=p.x*w, y=p.y*h;
+    ctx.save();
+    ctx.globalAlpha=a;
+    /* 퍼지는 파동 2겹 */
+    for(let i=0;i<2;i++){
+      const t=(age*1.35+i*0.32)%1;
+      const r=Math.max(4,w*0.026)*(0.5+t*2.9);
+      ctx.beginPath(); ctx.arc(x,y,r,0,7);
+      ctx.strokeStyle=meta.col; ctx.lineWidth=Math.max(1.1,w*0.0045)*(1-t*0.55); ctx.stroke();
+    }
+    /* 안쪽 점 */
+    ctx.beginPath(); ctx.arc(x,y,Math.max(2.2,w*0.009),0,7);
+    ctx.fillStyle=meta.col; ctx.fill();
+    /* 아이콘 */
+    ctx.font='900 '+Math.max(9,Math.round(w*0.034))+'px sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillText(meta.ic,x,y-Math.max(6,w*0.026));
+    /* 라벨 */
+    if(p.label&&w>250){
+      const txt=p.label;
+      ctx.font='900 '+Math.max(7,Math.round(w*0.019))+'px Pretendard,sans-serif';
+      const tw=ctx.measureText(txt).width;
+      const ly=y+Math.max(9,w*0.032);
+      if(typeof mmRoundRect==='function'){
+        mmRoundRect(ctx,x-tw/2-3,ly,tw+6,Math.max(11,Math.round(w*0.028)),3);
+        ctx.fillStyle='rgba(6,10,18,.86)'; ctx.fill();
+        ctx.strokeStyle=meta.col+'aa'; ctx.lineWidth=0.8; ctx.stroke();
+      }
+      ctx.fillStyle=meta.col; ctx.textBaseline='middle';
+      ctx.fillText(txt,x,ly+Math.max(11,Math.round(w*0.028))/2);
+    }
+    ctx.restore();
+  });
+}
+
+/* ============================================================================
+   2. 실시간 스펙창 — 미니맵 토큰 / 선수 카드 클릭
+   ========================================================================== */
+function v33ItemLines(side,role){
+  const out=[];
+  try{
+    const st=M.items&&M.items[side]?M.items[side][role]:null;
+    const bought=(st&&st.bought)||[];
+    bought.forEach(function(b){
+      if(!b||b.id==null) return;
+      const row=(typeof V32_ITEM_STATS!=='undefined')?V32_ITEM_STATS[String(b.id)]:null;
+      const bits=[];
+      if(row){
+        if(row[1]) bits.push('공격력 +'+row[1]);
+        if(row[2]) bits.push('주문력 +'+row[2]);
+        if(row[0]) bits.push('체력 +'+row[0]);
+        if(row[3]) bits.push('방어력 +'+row[3]);
+        if(row[4]) bits.push('마저 +'+row[4]);
+        if(row[5]) bits.push('공속 +'+Math.round(row[5]*100)+'%');
+        if(row[6]) bits.push('치명 +'+Math.round(row[6]*100)+'%');
+      }
+      out.push({name:(b.name||('아이템 '+b.id)), tier:b.tier||'', txt:bits.join(' · ')});
+    });
+  }catch(e){}
+  return out;
+}
+function v33UltState(side,role){
+  const row=v32UltOf(side,role);
+  const name=row[0]||'궁극기';
+  const lv=(typeof lvOf==='function')?Number(lvOf(side,role))||1:1;
+  const u=MM.units[side+'-'+role]||null;
+  if(lv<6) return {name:name, state:'6레벨 해금', ready:false, left:null, lv:lv};
+  const cd=v32UltCd(side,role);
+  const left=u&&u.ultCd?Math.max(0,Math.round(u.ultCd-v33Sec())):0;
+  if(left>0) return {name:name, state:left+'초 남음', ready:false, left:left, cd:cd, lv:lv};
+  return {name:name, state:'사용 가능', ready:true, left:0, cd:cd, lv:lv};
+}
+function v33SpecHTML(side,role){
+  if(!M||!MM||!MM.units) return '';
+  const u=MM.units[side+'-'+role]||{};
+  const st=v32StatsFor(side,role);
+  const lv=(typeof lvOf==='function')?Number(lvOf(side,role))||1:1;
+  const kd=(MM.kda&&MM.kda[side+'-'+role])||{k:0,d:0,a:0,dpm:0};
+  const cs=(typeof farmCs==='function')?farmCs(side,role):0;
+  const gold=Math.round(((M.cg&&M.cg[side]&&M.cg[side][role])||0));
+  const hpPct=v33Clamp(Number(u.hp)||0,0,100);
+  const hpMax=Math.round(st.hp);
+  const hpNow=Math.round(hpMax*hpPct/100);
+  const ult=v33UltState(side,role);
+  const items=v33ItemLines(side,role);
+  const dead=!u.alive;
+  const sideCol=side==='me'?'me':'opp';
+  const teamTag=v33Tag(side);
+  return '<div class="s33-head '+sideCol+'">'+
+      '<span class="s33-role">'+ROLE_KR[role]+'</span>'+
+      '<div class="s33-id"><b>'+esc(v33Name(side,role))+'</b>'+
+        '<span>'+esc(v33Champ(side,role)||ROLE_KR[role])+' · '+esc(teamTag)+'</span></div>'+
+      '<span class="s33-lv">Lv.'+lv+'</span>'+
+      '<button class="s33-x" data-a="specclose" aria-label="닫기">✕</button>'+
+    '</div>'+
+    (dead?'<div class="s33-dead">💀 사망 — 부활 대기 중'+(u.deadUntil?' ('+Math.max(0,Math.ceil((u.deadUntil-v33Now())/1000))+'초)':'')+'</div>':'')+
+    '<div class="s33-hp"><i style="width:'+hpPct.toFixed(1)+'%"></i>'+
+      '<span>'+hpNow.toLocaleString('en-US')+' / '+hpMax.toLocaleString('en-US')+'</span></div>'+
+    '<div class="s33-grid">'+
+      '<div><span>공격력</span><b>'+st.ad.toFixed(1)+'</b></div>'+
+      '<div><span>방어력</span><b>'+st.ar.toFixed(1)+'</b></div>'+
+      '<div><span>마저</span><b>'+st.mr.toFixed(1)+'</b></div>'+
+      '<div><span>사거리</span><b>'+Math.round(st.range)+'</b></div>'+
+      '<div><span>KDA</span><b>'+kd.k+' / '+kd.d+' / '+kd.a+'</b></div>'+
+      '<div><span>CS</span><b>'+cs+'</b></div>'+
+      '<div><span>골드</span><b>'+gold.toLocaleString('en-US')+'</b></div>'+
+      '<div><span>DPM</span><b>'+(kd.dpm||0)+'</b></div>'+
+    '</div>'+
+    '<div class="s33-ult '+(ult.ready?'rdy':'')+'">'+
+      '<span class="s33-rk">R</span><b>'+esc(ult.name)+'</b><em>'+ult.state+'</em></div>'+
+    '<div class="s33-items"><span class="s33-ih">장착 아이템 '+items.length+'</span>'+
+      (items.length?items.map(function(it){
+        return '<div class="s33-item"><b>'+esc(it.name)+'</b>'+(it.txt?'<span>'+esc(it.txt)+'</span>':'')+'</div>';
+      }).join(''):'<div class="s33-item"><b>아직 구매 없음</b></div>')+
+    '</div>';
+}
+function v33SpecOpen(side,role){
+  if(!M||['me','opp'].indexOf(side)<0) return false;
+  V33.spec={side:side,role:role};
+  V33.specAt=v33Now();
+  const box=(typeof document!=='undefined'&&document.getElementById)?document.getElementById('v33spec'):null;
+  if(!box) return false;
+  try{
+    box.innerHTML=v33SpecHTML(side,role);
+    if(box.classList) box.classList.remove('hidden');
+  }catch(e){}
+  return true;
+}
+function v33SpecClose(){
+  V33.spec=null;
+  const box=(typeof document!=='undefined'&&document.getElementById)?document.getElementById('v33spec'):null;
+  if(box){
+    try{ if(box.classList) box.classList.add('hidden'); box.innerHTML=''; }catch(e){}
+  }
+}
+function v33SpecTick(){
+  if(!V33.spec) return;
+  const now=v33Now();
+  if(V33.specAt&&now-V33.specAt<600) return;
+  V33.specAt=now;
+  const box=(typeof document!=='undefined'&&document.getElementById)?document.getElementById('v33spec'):null;
+  if(!box) return;
+  try{ box.innerHTML=v33SpecHTML(V33.spec.side,V33.spec.role); }catch(e){}
+}
+/* 화면 좌표 → 지도 좌표 → 가장 가까운 유닛 */
+function v33HitUnit(clientX,clientY,cv){
+  if(!M||!MM||!MM.units||!cv) return null;
+  let r=null;
+  try{ r=cv.getBoundingClientRect?cv.getBoundingClientRect():null; }catch(e){ r=null; }
+  if(!r||!r.width) return null;
+  const w=r.width,h=r.height;
+  const z=MM.zoom||{s:1,cx:0.5,cy:0.5};
+  const sx=clientX-r.left, sy=clientY-r.top;
+  const mx=((sx-w/2)/((z.s||1)*w))+(z.cx==null?0.5:z.cx);
+  const my=((sy-h/2)/((z.s||1)*h))+(z.cy==null?0.5:z.cy);
+  let best=null,bd=0.055;
+  Object.keys(MM.units).forEach(function(k){
+    const u=MM.units[k];
+    if(!u) return;
+    if(v33HiddenUnit(u.side,u)) return;
+    const d=Math.hypot((u.x||0)-mx,(u.y||0)-my);
+    if(d<bd){ bd=d; best=u; }
+  });
+  return best;
+}
+function v33BindClicks(){
+  if(typeof document==='undefined'||!document.addEventListener) return;
+  document.addEventListener('click',function(ev){
+    const t=ev&&ev.target;
+    if(!t) return;
+    /* 시야 3단 스위치 */
+    const fb=t.closest?t.closest('[data-a="fog"]'):null;
+    if(fb){ v33FogSet(fb.dataset.v); return; }
+    const xb=t.closest?t.closest('[data-a="specclose"]'):null;
+    if(xb){ v33SpecClose(); return; }
+    /* 선수 카드 클릭 → 스펙창 */
+    const card=t.closest?t.closest('.bpl[data-kda]'):null;
+    if(card){
+      const key=card.getAttribute('data-kda')||'';
+      const parts=key.split('-');
+      if(parts.length===2&&['me','opp'].indexOf(parts[0])>=0) v33SpecOpen(parts[0],parts[1]);
+      return;
+    }
+    /* 미니맵 챔피언 토큰 클릭 */
+    if(t.id==='riftCanvas'&&M&&t.closest&&t.closest('#view-match')){
+      const u=v33HitUnit(ev.clientX,ev.clientY,t);
+      if(u) v33SpecOpen(u.side,u.role);
+    }
+  },false);
+}
+
+/* ============================================================================
+   3. POG 인터뷰 & 시즌 명예 기록실
+   ========================================================================== */
+const V33_POG_QUOTE={
+  TOP:['"탑에서 혼자 버틴 시간이 오늘 경기의 절반이었습니다. 다음에도 그 자리를 지키겠습니다."',
+       '"사이드에서 계속 압박 넣으라는 콜, 그거 하나 믿고 끝까지 갔습니다."',
+       '"상대 탑이 계속 들어왔는데, 받아내는 게 제 일이었어요. 오늘은 잘 됐습니다."'],
+  JGL:['"오브젝트 타이밍은 연습에서 수백 번 맞춘 그림이었습니다. 오늘 그대로 됐어요."',
+       '"갱킹 각 한 번이 경기를 바꿨습니다. 시야 잡아준 라이너들 덕분입니다."',
+       '"정글은 결국 시야 싸움입니다. 와드 값은 팀이 다 같이 치렀습니다."'],
+  MID:['"미드 주도권을 놓치지 않으려고 라인전 시작을 매번 똑같이 준비했습니다."',
+       '"한타 각이 한 번 열렸는데, 그걸 놓치지 않은 게 컸습니다."',
+       '"상대 미드가 강했는데 오늘은 제가 더 오래 살아남았습니다."'],
+  ADC:['"후반까지 안 죽고 버티는 게 제 몫이었습니다. 팀이 판을 다 만들어줬어요."',
+       '"딜 넣을 각은 한 번뿐이었습니다. 그 한 번을 놓치지 않았습니다."',
+       '"포지셔닝은 연습량입니다. 오늘 그 연습이 증명됐습니다."'],
+  SUP:['"시야 잡고 로밍 다니는 건 눈에 안 보여서 그렇지 다 계산된 겁니다."',
+       '"원딜이 편하게 크도록 하는 게 제 일입니다. 오늘은 그게 됐어요."',
+       '"이니시 한 번이 경기였습니다. 그 각을 팀이 믿어줬습니다."'],
+};
+function v33PogQuote(mvp,win){
+  const pool=V33_POG_QUOTE[(mvp&&mvp.role)||'MID']||V33_POG_QUOTE.MID;
+  const key=(mvp&&mvp.name||'')+'|'+(S?S.season:0)+'|'+(M?M.gameIdx:0);
+  const i=Math.floor(v32Hash(key)*pool.length)%pool.length;
+  const q=pool[i];
+  if(!win) return '"오늘은 상대가 더 잘했습니다. 다음 경기에서 반드시 갚겠습니다."';
+  return q;
+}
+function v33PogMoments(mvp,ps){
+  if(!M||!mvp) return [];
+  const out=[];
+  const nm=mvp.name||'';
+  const ch=mvp.champ||'';
+  const evs=(M.events||[]).slice().reverse();
+  const pick=function(re){
+    for(let i=0;i<evs.length;i++){
+      const e=evs[i]; const txt=String(e.text||'');
+      if(re.test(txt)) return {min:e.minute, txt:txt};
+    }
+    return null;
+  };
+  const clean=function(x){ return x?{min:x.min, txt:String(x.txt).replace(/<[^>]*>/g,'')}:null; };
+  /* 1) POG 본인의 킬·활약 장면 */
+  const own=nm?pick(new RegExp(nm.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'))):null;
+  if(own) out.push({icon:'⚔️', k:'핵심 활약', v:clean(own)});
+  /* 2) 오브젝트 장면 */
+  const obj=pick(/바론|드래곤|전령|유충|영혼|장로/);
+  if(obj) out.push({icon:'🐉', k:'오브젝트', v:clean(obj)});
+  /* 3) 한타·킬 장면 */
+  const fight=pick(/한타|교전|킬|스틸|에이스|펜타|쿼드라/);
+  if(fight&&(!own||fight.txt!==own.txt)) out.push({icon:'💥', k:'한타', v:clean(fight)});
+  if(!out.length){
+    const kd=(mvp.k!=null)?('KDA '+mvp.k+'/'+mvp.d+'/'+mvp.a):'경기 지배';
+    out.push({icon:'⭐', k:'경기 요약', v:{min:M.minute||0, txt:'팀을 승리로 끌고 간 '+(ch||'챔피언')+' — '+kd}});
+  }
+  return out.slice(0,3);
+}
+function v33PogExtraHTML(mvp,ps){
+  if(!mvp) return '';
+  const win=ps?!!ps.win:!!(M&&M.meWin);
+  const winTag=ps&&ps.win?v33Tag('me'):'';
+  const moments=v33PogMoments(mvp,ps);
+  const quote=v33PogQuote(mvp,win);
+  return '<div class="v33pog">'+
+    '<div class="v33pog-h"><span>🎙️ 승리 인터뷰</span><b>'+esc(mvp.name||'')+'</b></div>'+
+    '<div class="v33pog-q">'+esc(quote)+'</div>'+
+    '<div class="v33pog-mh"><span>🔎 이 선수가 만든 장면</span><em>'+(winTag?esc(winTag)+' 승리':'경기 하이라이트')+'</em></div>'+
+    '<div class="v33pog-moments">'+
+      moments.map(function(m){
+        return '<div class="v33pog-m"><span class="v33pog-ic">'+m.icon+'</span>'+
+          '<div><b>'+esc(m.k)+'</b><span class="v33pog-min">'+(m.v?m.v.min+"'":'')+'</span>'+
+          '<p>'+esc(m.v?m.v.txt:'')+'</p></div></div>';
+      }).join('')+
+    '</div>'+
+  '</div>';
+}
+/* POG 확정 시 시즌 기록 갱신 */
+function v33PogHook(ps){
+  if(!ps) return;
+  try{ v33RecordsApply(ps); }catch(e){}
+}
+
+/* ---------- 시즌 명예 기록실 (누적 저장) ---------- */
+function v33RecInit(){
+  if(!S) return null;
+  if(!S.v33rec||typeof S.v33rec!=='object'||Array.isArray(S.v33rec)) S.v33rec={};
+  const r=S.v33rec;
+  if(!r.kills) r.kills={v:0,who:'',team:'',champ:'',season:0,week:0};
+  if(!r.fastest) r.fastest={v:0,who:'',team:'',season:0,week:0};
+  if(!r.pog) r.pog={v:0,who:'',season:0};
+  if(!r.pogMap||typeof r.pogMap!=='object') r.pogMap={};
+  if(!r.streak) r.streak={v:0,team:'',season:0};
+  if(!r.cur||typeof r.cur!=='object') r.cur={streak:0};
+  if(!r.multi||typeof r.multi!=='object') r.multi={penta:0,quadra:0,list:[]};
+  if(!Array.isArray(r.multi.list)) r.multi.list=[];
+  if(!Array.isArray(r.hist)) r.hist=[];
+  if(typeof r.games!=='number') r.games=0;
+  return r;
+}
+function v33RecLog(r,kind,text){
+  r.hist.unshift({k:kind,t:text,season:S.season,week:S.week,at:Date.now()});
+  if(r.hist.length>30) r.hist.pop();
+}
+function v33RecordsApply(ps){
+  const r=v33RecInit();
+  if(!r||!M||!ps) return r;
+  const key=(S.season|0)+':'+(S.week|0)+':'+(M.gameIdx|0)+':'+((M.kills||[0,0]).join('-'));
+  if(r._applyKey===key) return r;
+  r._applyKey=key;
+  const rows=[].concat(ps.me||[],ps.opp||[]);
+  /* 1) 한 경기 최다 킬 */
+  rows.forEach(function(x){
+    const k=Number(x.k)||0;
+    if(k>(r.kills.v||0)){
+      r.kills={v:k,who:x.name||'',team:x.won?v33Tag('me'):v33Tag('opp'),champ:x.champ||'',season:S.season,week:S.week};
+      v33RecLog(r,'kills','🔥 한 경기 최다 킬 '+k+' — '+(x.name||'')+' ('+(x.champ||'')+')');
+    }
+  });
+  /* 2) 멀티킬 — 4킬 이상 쿼드라, 6킬 이상은 펜타킬 */
+  rows.forEach(function(x){
+    const k=Number(x.k)||0;
+    if(k<4) return;
+    const h=v32Hash((x.name||'')+'|'+S.season+'|'+S.week+'|'+(M.gameIdx|0));
+    const penta=(k>=6&&h<0.55)||k>=8;
+    if(penta) r.multi.penta++; else r.multi.quadra++;
+    r.multi.list.unshift({n:x.name||'',champ:x.champ||'',k:k,kind:penta?'penta':'quadra',season:S.season,week:S.week});
+    if(r.multi.list.length>12) r.multi.list.pop();
+    v33RecLog(r,'multi',(penta?'🖐 펜타킬':'4️⃣ 쿼드라킬')+' — '+(x.name||'')+' ('+(x.champ||'')+')');
+  });
+  /* 3) 최다 POG */
+  if(ps.mvp){
+    const nm=ps.mvp.name||'';
+    if(nm){
+      r.pogMap[nm]=(r.pogMap[nm]||0)+1;
+      const n=r.pogMap[nm];
+      if(n>(r.pog.v||0)){
+        r.pog={v:n,who:nm,season:S.season};
+        v33RecLog(r,'pog','🏅 시즌 최다 POG '+n+'회 — '+nm);
+      }
+    }
+  }
+  v33Save();
+  return r;
+}
+function v33AfterGame(){
+  const r=v33RecInit();
+  if(!r||!M) return r;
+  /* 4) 최단 시간 승리 */
+  if(M.meWin&&M.minute){
+    const mins=Number(M.minute)||0;
+    if(mins>0&&(!r.fastest.v||mins<r.fastest.v)){
+      r.fastest={v:mins,who:v33Tag('me'),team:v33Tag('me'),season:S.season,week:S.week};
+      v33RecLog(r,'fastest','⚡ 최단 시간 승리 '+mins+'분 — '+v33Tag('me'));
+    }
+  }
+  /* 5) 최장 연승 */
+  if(M.meWin){
+    r.cur.streak=(r.cur.streak||0)+1;
+    if(r.cur.streak>(r.streak.v||0)){
+      r.streak={v:r.cur.streak,team:v33Tag('me'),season:S.season};
+      v33RecLog(r,'streak','🔗 최장 연승 '+r.cur.streak+'연승 — '+v33Tag('me'));
+    }
+  }else{
+    r.cur.streak=0;
+  }
+  r.games=(r.games||0)+1;
+  try{ v33UseTrack(); }catch(e){}
+  v33Save();
+  return r;
+}
+function v33RecordsCardHTML(){
+  const r=v33RecInit();
+  if(!r) return '';
+  const tile=function(ic,k,v,sub){
+    return '<div class="v33rt"><span class="v33rt-ic">'+ic+'</span>'+
+      '<span class="v33rt-k">'+esc(k)+'</span>'+
+      '<b class="v33rt-v">'+esc(v||'—')+'</b>'+
+      '<span class="v33rt-s">'+esc(sub||'')+'</span></div>';
+  };
+  const kills=r.kills&&r.kills.v?tile('🔥','최다 킬 (한 경기)',r.kills.v+'킬',(r.kills.who||'')+(r.kills.champ?' · '+r.kills.champ:'')+' · '+r.kills.season+'시즌'):
+    tile('🔥','최다 킬 (한 경기)','—','아직 기록 없음');
+  const fast=r.fastest&&r.fastest.v?tile('⚡','최단 시간 승리',r.fastest.v+'분',(r.fastest.team||'')+' · '+r.fastest.season+'시즌'):
+    tile('⚡','최단 시간 승리','—','아직 기록 없음');
+  const pog=r.pog&&r.pog.v?tile('🏅','최다 POG',r.pog.v+'회',(r.pog.who||'')+' · '+r.pog.season+'시즌'):
+    tile('🏅','최다 POG','—','아직 기록 없음');
+  const st=r.streak&&r.streak.v?tile('🔗','최장 연승',r.streak.v+'연승',(r.streak.team||'')+' · '+r.streak.season+'시즌'):
+    tile('🔗','최장 연승','—','아직 기록 없음');
+  const multi=tile('🖐','펜타킬 / 쿼드라',(r.multi.penta||0)+' / '+(r.multi.quadra||0),'누적 '+(r.multi.list.length?r.multi.list.length+'건 기록':'0건'));
+  return '<div class="card v33rec-card">'+
+    '<div class="ch"><span>🏅 시즌 명예 기록실</span><b class="ch-n">누적 '+(r.games||0)+'경기</b></div>'+
+    '<div class="v33rt-grid">'+kills+fast+pog+st+multi+'</div>'+
+    (r.hist&&r.hist.length?'<div class="v33rec-hist">'+r.hist.slice(0,5).map(function(h){
+      return '<div class="v33rec-h"><span>'+h.season+'시즌 '+h.week+'주</span>'+esc(h.t)+'</div>';
+    }).join('')+'</div>':'')+
+    (r.multi.list&&r.multi.list.length?'<div class="v33rec-multi">'+r.multi.list.slice(0,6).map(function(m){
+      return '<span class="v33mk '+(m.kind==='penta'?'penta':'quadra')+'">'+(m.kind==='penta'?'🖐 펜타':'4️⃣ 쿼드라')+' '+esc(m.n)+' <i>'+esc(m.champ)+'</i></span>';
+    }).join('')+'</div>':'')+
+  '</div>';
+}
+
+/* ============================================================================
+   4. 라이벌 감독 저격 밴 · 카운터 전략
+   ========================================================================== */
+function v33UseInit(){
+  if(!S) return null;
+  if(!S.v33use||typeof S.v33use!=='object'||Array.isArray(S.v33use)) S.v33use={games:[],champs:{},tactics:{}};
+  if(!Array.isArray(S.v33use.games)) S.v33use.games=[];
+  if(!S.v33use.champs||typeof S.v33use.champs!=='object') S.v33use.champs={};
+  if(!S.v33use.tactics||typeof S.v33use.tactics!=='object') S.v33use.tactics={};
+  return S.v33use;
+}
+function v33UseTrack(){
+  const u=v33UseInit();
+  if(!u||!M) return u;
+  const key=(S.season|0)+':'+(S.week|0)+':'+(M.gameIdx|0);
+  if(u._last===key) return u;
+  u._last=key;
+  const champs=[];
+  try{ (M.lineups.me||[]).forEach(function(x){ if(x&&x.champ) champs.push(x.champ); }); }catch(e){}
+  const tactic=M.focusKey||null;
+  u.games.push({key:key,season:S.season,week:S.week,champs:champs,tactic:tactic,stance:M.stance||'',win:!!M.meWin,at:Date.now()});
+  if(u.games.length>14) u.games.shift();
+  champs.forEach(function(c){ u.champs[c]=(u.champs[c]||0)+1; });
+  if(tactic) u.tactics[tactic]=(u.tactics[tactic]||0)+1;
+  return u;
+}
+function v33RecentGames(n){
+  const u=v33UseInit();
+  if(!u) return [];
+  return u.games.slice(-(n||3));
+}
+/* 최근 3경기 중 2경기 이상 같은 챔피언 → 저격 대상 */
+function v33RepeatedChamp(){
+  const g=v33RecentGames(3);
+  if(g.length<2) return null;
+  const cnt={};
+  g.forEach(function(x){ (x.champs||[]).forEach(function(c){ cnt[c]=(cnt[c]||0)+1; }); });
+  let best=null;
+  Object.keys(cnt).forEach(function(c){
+    const need=g.length>=3?2:2;
+    if(cnt[c]>=need&&(!best||cnt[c]>best.n)) best={champ:c,n:cnt[c],of:g.length};
+  });
+  return best;
+}
+function v33RepeatedTactic(){
+  const g=v33RecentGames(3);
+  if(g.length<3) return null;
+  const last=g[g.length-1].tactic;
+  if(!last) return null;
+  let n=0;
+  g.forEach(function(x){ if(x.tactic===last) n++; });
+  if(n>=2) return {tactic:last,n:n,of:g.length};
+  return null;
+}
+const V33_TACTIC_COUNTER={
+  split131:'split14', split14:'split131', grubs:'dragonTrade', baronBush:'baronBurst',
+  engage:'avoid', allSpell:'poke', invade:'counterGank', freeze:'plate',
+  siege2:'cross', backdoor:'push3', scale:'grubs', elderAll:'soulDeny', heraldMid:'cross',
+  topDive:'counterGank', botDive:'counterGank', midJungle:'freeze',
+};
+const V33_COACH_LINE=[
+  '상대 감독: "{c} 계속 나오던데, 이번엔 안 줍니다. 준비한 게 있습니다."',
+  '상대 코치: "{c} 대비 카운터를 이틀 내내 돌렸습니다. 밴픽에서 보실 겁니다."',
+  '상대 감독: "우리도 봤습니다. {c}는 오늘 못 씁니다."',
+  '해설: "상대 밴픽이 {c}를 정확히 겨냥했습니다. 리스펙트 밴입니다."',
+];
+/* 감독 AI — 밴픽 시작 시 계획을 세운다 */
+function v33SnipePlan(){
+  if(!S) return null;
+  const champ=v33RepeatedChamp();
+  const tac=v33RepeatedTactic();
+  if(!champ&&!tac) return null;
+  const gidx=(S.currentSeries&&S.currentSeries.score)?((S.currentSeries.score.me||0)+(S.currentSeries.score.opp||0)):0;
+  const key=(S.season|0)+':'+(S.week|0)+':'+gidx;
+  if(V33.counterNote&&V33.counterNote.key===key) return V33.counterNote;
+  const plan={key:key, champ:champ?champ.champ:null, champN:champ?champ.n:0, tactic:tac?tac.tactic:null, tacticN:tac?tac.n:0,
+    counter: tac?(V33_TACTIC_COUNTER[tac.tactic]||null):null, fired:false, at:Date.now()};
+  V33.counterNote=plan;
+  return plan;
+}
+/* aiBanChamp 훅 — 저격 밴이 있으면 첫 밴으로 바로 쓴다 */
+function v33SnipeBan(){
+  if(!D||!S) return null;
+  let plan=null;
+  try{ plan=v33SnipePlan(); }catch(e){ return null; }
+  if(!plan||!plan.champ) return null;
+  if(plan.banned) return null;
+  let avail=[];
+  try{ avail=dAvailable(); }catch(e){ return null; }
+  const hit=avail.filter(function(c){ return c&&c.n===plan.champ; })[0];
+  if(!hit) return null;
+  /* 3경기 연속이면 반드시, 2경기면 70% — 매번 똑같이는 아니다 */
+  const seed=v32Hash(plan.key+'|snipe');
+  if(plan.champN<3&&seed>0.70) return null;
+  plan.banned=true;
+  plan.fired=true;
+  const line=V33_COACH_LINE[Math.floor(seed*997)%V33_COACH_LINE.length].split('{c}').join(plan.champ);
+  v33CounterAnnounce(plan,line);
+  return hit;
+}
+function v33CounterAnnounce(plan,line){
+  if(!plan) return;
+  try{ if(typeof logEvent==='function') logEvent('sys','🎯 '+line); }catch(e){}
+  try{ if(typeof toast==='function') toast('🎯 상대 감독 저격 밴 — '+plan.champ,2600); }catch(e){}
+  v33News('이적','🎯 상대 감독 저격 밴 — '+(plan.champ||'')+' (최근 '+plan.champN+'경기 연속 사용)');
+}
+/* 카운터 전술 — 우리가 반복한 전술에 상대가 대응하면 실효 엣지가 줄어든다 */
+function v33CounterEdge(){
+  if(!M) return 0;
+  const plan=V33.counterNote;
+  if(!plan||!plan.counter) return 0;
+  if(plan.tactic&&M.focusKey!==plan.tactic) return 0;
+  return -0.030;
+}
+function v33CounterBannerHTML(){
+  if(!M) return '';
+  const plan=V33.counterNote;
+  if(!plan||(!plan.champ&&!plan.counter)) return '';
+  const cm=plan.counter&&typeof FOCUS_MAP!=='undefined'?FOCUS_MAP[plan.counter]:null;
+  const bits=[];
+  if(plan.champ) bits.push('저격 밴 '+esc(plan.champ));
+  if(cm) bits.push('카운터 '+cm.icon+' '+esc(cm.n));
+  return '<div class="v33counter" id="v33Counter">🎯 상대 감독 대응 — '+bits.join(' · ')+
+    '<span class="tiny">최근 '+(plan.champN||plan.tacticN||2)+'경기 패턴 분석</span></div>';
+}
+function v33CounterReset(){
+  V33.counterNote=null;
+}
+
+/* ============================================================================
+   5. 노장 은퇴식 & 명예의 전당 연출
+   ========================================================================== */
+const V33_RETIRE_QUOTE={
+  TOP:['"탑이라는 자리는 외롭지만, 그 외로움을 견딘 시간이 제 커리어였습니다."',
+       '"사이드에서 혼자 버티는 법을 배운 게 가장 큰 재산입니다. 이제 그걸 후배에게 넘깁니다."'],
+  JGL:['"정글은 늘 지도 위의 선택이었습니다. 그 선택들을 믿어준 팀들에 감사합니다."',
+       '"시야 하나가 경기를 바꾼다는 걸 10년 동안 배웠습니다. 이제 그 교과서를 남깁니다."'],
+  MID:['"미드는 라인전이 아니라 책임의 자리였습니다. 끝까지 그 자리를 지켰습니다."',
+       '"마지막까지 미드에서 버틴 게 제가 할 수 있는 최선이었습니다."'],
+  ADC:['"원딜은 결국 끝까지 살아남는 사람의 자리였습니다. 마지막 순간까지 살아 있었습니다."',
+       '"딜 한 번 넣을 각을 위해 10년을 기다렸습니다. 후회는 없습니다."'],
+  SUP:['"제 기록은 숫자로 안 남습니다. 대신 제가 키운 원딜들이 남습니다."',
+       '"시야와 이니시, 그리고 침묵. 그게 제 자리였습니다."'],
+};
+function v33RetInit(){
+  if(!S) return null;
+  if(!Array.isArray(S.v33retire)) S.v33retire=[];
+  return S.v33retire;
+}
+function v33CaptureRetire(out){
+  if(!S||!out||!out.retired||!out.retired.length) return;
+  const arr=v33RetInit();
+  const list=[];
+  (out.retired||[]).forEach(function(nm){
+    const p=S.players&&S.players[nm];
+    if(!p) return;
+    const age=Number(p.age)||0;
+    const ovr=Math.max(Number(p.peakOvr)||0, Number(p.overall)||0);
+    const teamId=p.lastTeam||p.team||null;
+    let teamTag='';
+    try{ teamTag=teamId&&S.teams[teamId]?S.teams[teamId].tag:(p.team?p.team:''); }catch(e){}
+    const isHof=(out.inducted||[]).indexOf(nm)>=0;
+    const quotePool=V33_RETIRE_QUOTE[p.role]||V33_RETIRE_QUOTE.MID;
+    const q=quotePool[Math.floor(v32Hash(nm+'|'+S.season)*quotePool.length)%quotePool.length];
+    const rec={name:nm, role:p.role||'MID', age:age, ovr:ovr, team:teamTag||'', season:S.season,
+      hof:isHof, quote:q, at:Date.now()};
+    /* 30세 이상 노장만 '은퇴식'으로 크게 띄운다 */
+    if(age>=30||isHof){
+      list.push(rec);
+      arr.unshift(rec);
+      v33News('roster','🕯 은퇴식 — '+nm+' ('+age+'세 · '+(p.role?ROLE_KR[p.role]:'')+') "'+q.replace(/"/g,'')+'"');
+    }
+  });
+  if(arr.length>40) arr.length=40;
+  if(list.length){
+    S.v33retirePending={season:S.season, list:list.slice(0,4)};
+    S.v33retireShown=0;
+    v33Save();
+  }
+}
+function v33RetireCardHTML(r){
+  return '<div class="v33ret-card">'+
+    '<div class="v33ret-k">'+(r.hof?'🏛 명예의 전당':'🕯 은퇴식')+'</div>'+
+    '<div class="v33ret-n">'+esc(r.name)+'</div>'+
+    '<div class="v33ret-m">'+esc(({TOP:'탑',JGL:'정글',MID:'미드',ADC:'원딜',SUP:'서폿'}[r.role]||r.role))+
+      ' · '+r.age+'세'+(r.team?' · '+esc(r.team):'')+(r.ovr?' · PEAK '+r.ovr:'')+'</div>'+
+    '<p class="v33ret-q">'+esc(r.quote)+'</p>'+
+    '<div class="v33ret-s">'+r.season+'시즌 은퇴</div>'+
+  '</div>';
+}
+function v33RetireModalHTML(pending){
+  const list=(pending&&pending.list)||[];
+  return '<div class="modal-wrap" id="modalWrap"><div class="modal v33modal">'+
+    '<div class="grab"></div>'+
+    '<div class="v33ret-h"><span>🕯 시즌 은퇴식</span><b>'+pending.season+'시즌</b></div>'+
+    '<div class="tiny" style="line-height:1.5;margin-bottom:8px">현역에서 물러나는 노장들의 마지막 인사입니다. 명예의 전당에 기록이 남습니다.</div>'+
+    '<div class="v33ret-grid">'+list.map(v33RetireCardHTML).join('')+'</div>'+
+    '<button class="btn gold block" id="v33RetOk">작별 인사</button>'+
+  '</div></div>';
+}
+function v33MaybeRetireModal(){
+  if(!S||!S.v33retirePending) return false;
+  const p=S.v33retirePending;
+  if(S.v33retireShown===p.season) return false;
+  const mod=document.getElementById?document.getElementById('modal'):null;
+  if(!mod) return false;
+  try{
+    mod.innerHTML=v33RetireModalHTML(p);
+    if(mod.classList) mod.classList.remove('hidden');
+    S.v33retireShown=p.season;
+    v33Save();
+    const ok=document.getElementById('v33RetOk');
+    if(ok) ok.onclick=function(){ try{ closeModal(); }catch(e){} };
+    const wrap=document.getElementById('modalWrap');
+    if(wrap) wrap.onclick=function(e){ if(e.target&&e.target.id==='modalWrap'){ try{ closeModal(); }catch(e2){} } };
+    return true;
+  }catch(e){ return false; }
+}
+function v33RetireListHTML(){
+  const arr=v33RetInit();
+  if(!arr||!arr.length) return '';
+  return '<div class="card v33ret-arch">'+
+    '<div class="ch"><span>🕯 은퇴식 아카이브</span><b class="ch-n">'+arr.length+'명</b></div>'+
+    '<div class="v33ret-list">'+arr.slice(0,8).map(function(r){
+      return '<div class="v33ret-row"><b>'+esc(r.name)+'</b><span>'+esc(({TOP:'탑',JGL:'정글',MID:'미드',ADC:'원딜',SUP:'서폿'}[r.role]||r.role))+
+        ' · '+r.age+'세 · '+r.season+'시즌'+(r.hof?' · 🏛':'')+'</span><i>'+esc(r.quote)+'</i></div>';
+    }).join('')+'</div></div>';
+}
+
+/* ============================================================================
+   6. 스토브리그 FA 루머 · 영입전 기사
+   ========================================================================== */
+const V33_RUMOR=[
+  '{p} 측이 새 팀과 접촉 중이라는 소식. 복수 구단이 영입전에 뛰어들었습니다.',
+  '{p}, 연봉 협상이 결렬되며 FA 시장에 나왔습니다. {t}가 가장 적극적입니다.',
+  '{t} 구단 관계자 "{p}는 우리 로스터에 없어서는 안 될 선수" — 영입전 과열.',
+  '{p} 영입전, {t}와 {t2}가 경쟁 중입니다. 몸값이 20% 이상 뛰었습니다.',
+  '업계 관계자 "{p}는 이미 {t}와 구두 합의설" — 구단은 부인.',
+  '{p}, 해외 리그 오퍼도 검토 중. 국내 잔류 여부가 관건입니다.',
+];
+function v33InterestedTeams(p,n){
+  const out=[];
+  try{
+    const teams=Object.values(S.teams||{}).filter(function(t){ return t&&t.id!==S.userTeam; });
+    const sorted=teams.slice().sort(function(a,b){ return (b.budget||0)-(a.budget||0); });
+    sorted.slice(0,6).forEach(function(t){
+      if(out.length<(n||2)) out.push(t);
+    });
+  }catch(e){}
+  return out;
+}
+function v33FaRumorBurst(reason){
+  if(!S||!S.players) return null;
+  const fas=Object.values(S.players).filter(function(p){ return p&&!p.retired&&(p.fa||(!p.team&&p.contract===0)); });
+  if(!fas.length) return null;
+  const pool=fas.slice().sort(function(a,b){ return rawOverall(b)-rawOverall(a); }).slice(0,8);
+  const p=pool[Math.floor(Math.random()*pool.length)];
+  if(!p) return null;
+  const teams=v33InterestedTeams(p,3);
+  const t1=teams[0]?teams[0].tag:'LCK 구단';
+  const t2=teams[1]?teams[1].tag:t1;
+  const line=V33_RUMOR[Math.floor(Math.random()*V33_RUMOR.length)].split('{p}').join(p.name).split('{t2}').join(t2).split('{t}').join(t1);
+  v33News('이적','💬 [루머] '+line+' (OVR '+rawOverall(p)+' · '+ROLE_KR[p.role]+')');
+  v33News('fmk','📱 [FM코리아] "'+p.name+' 어디 가냐" — '+t1+' 유니폼 합성까지 돌았다');
+  if(reason==='enter'||reason==='burst') v33News('이적','🔥 스토브리그 대어 '+p.name+' 영입전 — '+teams.map(function(t){ return t.tag; }).join(' · ')+' 3파전 구도');
+  return {name:p.name, teams:teams.map(function(t){ return t.tag; })};
+}
+function v33FaRumorTick(){
+  if(!S) return null;
+  const off=(S.phase==='offseason')||!!S.offseason;
+  if(!off) return null;
+  if(Math.random()>0.55) return null;
+  return v33FaRumorBurst('week');
+}
+
+/* ============================================================================
+   7. 패치 — 실제 스탯(공격력·체력·방어력) 변경 + 깜짝 비메타 파격 버프
+   ========================================================================== */
+function v33StatModInit(){
+  if(!S) return;
+  if(!S.meta) S.meta={tier:{},wr:{},obj:{dragon:1,grub:1,baron:1,tower:1}};
+  if(!S.meta.statMod||typeof S.meta.statMod!=='object') S.meta.statMod={};
+}
+function v33StatModFor(name,dir){
+  const h=v32Hash(name+'|'+(dir||'buff')+'|'+((S&&S.patchNo)||0));
+  if(dir==='nerf'){
+    return {hp:-Math.round(25+h*45), ad:-Math.round(2+h*4), ar:-Math.round(1+h*2.4)};
+  }
+  return {hp:Math.round(30+h*55), ad:Math.round(2+h*5), ar:Math.round(1+h*2.6)};
+}
+function v33StatTxt(st){
+  if(!st) return '';
+  const bits=[];
+  if(st.ad) bits.push('기본 공격력 '+(st.ad>0?'+':'')+st.ad);
+  if(st.hp) bits.push('기본 체력 '+(st.hp>0?'+':'')+st.hp);
+  if(st.ar) bits.push('기본 방어력 '+(st.ar>0?'+':'')+st.ar);
+  return bits.join(' · ');
+}
+/* 패치 레코드의 버프/너프에 실제 스탯 보정을 붙이고 S.meta.statMod 에 반영 */
+function v33StatPatch(rec){
+  if(!S||!rec) return rec;
+  v33StatModInit();
+  const apply=function(list,dir){
+    (list||[]).forEach(function(entry){
+      const nm=(typeof entry==='string')?entry:(entry&&(entry.n||entry.name));
+      const c=CHAMP_MAP[nm];
+      const key=c?c.k:nm;
+      if(!key||!CHAMP_MAP[nm]) return;
+      const st=v33StatModFor(nm,dir);
+      const cur=S.meta.statMod[key]||{hp:0,ad:0,ar:0};
+      S.meta.statMod[key]={hp:(cur.hp||0)+st.hp, ad:(cur.ad||0)+st.ad, ar:(cur.ar||0)+st.ar};
+      if(entry&&typeof entry==='object'){ entry.st=st; entry.stTxt=v33StatTxt(st); }
+    });
+  };
+  apply(rec.buffs,'buff');
+  apply(rec.nerfs,'nerf');
+  /* 25~35% 확률 깜짝 파격 버프 — 아무도 안 쓰던 하위 티어 챔피언 */
+  v33SurpriseBuff(rec);
+  return rec;
+}
+function v33SurpriseBuff(rec){
+  if(!S||!rec||rec.surprise) return null;
+  if(Math.random()>0.30) return null;
+  let cand=[];
+  try{
+    const used={};
+    (rec.buffs||[]).concat(rec.nerfs||[]).forEach(function(x){ used[typeof x==='string'?x:(x&&x.n)]=1; });
+    cand=CHAMPS.filter(function(c){
+      if(!c||!c.n||used[c.n]||!CHAMP_MAP[c.n]) return false;
+      const t=metaTierOf(c.n);
+      return t<=2;
+    });
+  }catch(e){ cand=[]; }
+  if(!cand.length) return null;
+  const pick=cand[Math.floor(Math.random()*cand.length)];
+  const c=CHAMP_MAP[pick.n];
+  if(!c) return null;
+  const st={hp:Math.round(80+Math.random()*50), ad:Math.round(7+Math.random()*5), ar:Math.round(5+Math.random()*4)};
+  const t0=metaTierOf(pick.n);
+  S.meta.tier[pick.n]=(S.meta.tier[pick.n]||0)+2;
+  const wr0=metaWrOf(pick.n);
+  S.meta.wr[pick.n]=Math.round(((S.meta.wr[pick.n]||0)+3.4)*10)/10;
+  const t1=metaTierOf(pick.n), wr1=metaWrOf(pick.n);
+  v33StatModInit();
+  const cur=S.meta.statMod[c.k]||{hp:0,ad:0,ar:0};
+  S.meta.statMod[c.k]={hp:(cur.hp||0)+st.hp, ad:(cur.ad||0)+st.ad, ar:(cur.ar||0)+st.ar};
+  const entry={n:pick.n, t0:t0, t1:t1, wr0:wr0, wr1:wr1, st:st, stTxt:v33StatTxt(st), big:true,
+    why:'픽률 최하위 · 파격 버프로 메타 진입 시도'};
+  rec.buffs=(rec.buffs||[]).concat([entry]);
+  rec.surprise={champ:pick.n, st:st, t0:t0, t1:t1};
+  v33News('patch','🌟 파격 버프 — '+pick.n+' 티어 '+t0+'→'+t1+' · '+v33StatTxt(st));
+  try{ if(typeof toast==='function') toast('🌟 파격 버프 — '+pick.n+' (티어 '+t0+'→'+t1+')',3400); }catch(e){}
+  return rec.surprise;
+}
+function v33PatchSurpriseHTML(rec){
+  if(!rec||!rec.surprise) return '';
+  const s=rec.surprise;
+  return '<div class="v33surprise">🌟 <b>파격 버프</b> '+esc(s.champ)+
+    ' <span>티어 '+s.t0+'→'+s.t1+'</span><em>'+esc(v33StatTxt(s.st))+'</em></div>';
+}
+function v33PatchStatRowsHTML(rec){
+  const rows=[];
+  const add=function(list,dir){
+    (list||[]).forEach(function(x){
+      if(!x||typeof x!=='object'||!x.st) return;
+      rows.push('<div class="v33pst-row"><b class="'+(dir==='buff'?'up':'dn')+'">'+(dir==='buff'?'▲':'▼')+' '+esc(x.n)+'</b>'+
+        '<span>'+esc(v33StatTxt(x.st))+'</span></div>');
+    });
+  };
+  add(rec.buffs,'buff'); add(rec.nerfs,'nerf');
+  if(!rows.length) return '';
+  return '<div class="v33pst"><div class="v33pst-h">실제 스탯 변화</div>'+rows.join('')+'</div>';
+}
+
+/* ============================================================================
+   명예 기록실 탭 (허브) — 시즌 기록 + 은퇴식 아카이브 + 명예의 전당
+   ========================================================================== */
+function honorsHTML(){
+  const r=v33RecInit();
+  const ret=v33RetInit()||[];
+  const hofDyn=(typeof v6HofAll==='function')?v6HofAll().filter(function(x){ return x&&x.dyn; }):[];
+  const hofFix=(typeof V6_HOF!=='undefined')?V6_HOF:[];
+  return `
+    <div class="row between" style="padding:2px 2px 0">
+      <div><div class="tiny" style="letter-spacing:.16em;font-weight:800">RECORDS &amp; HONORS</div>
+      <div style="font-weight:900;font-size:19px;letter-spacing:-.03em">시즌 명예 기록실</div></div>
+      <div style="text-align:right"><div class="tiny">누적 경기</div><div style="font-weight:900;color:var(--gold)">${(r&&r.games)||0}</div></div>
+    </div>
+    ${v33RecordsCardHTML()}
+    ${v33RetireListHTML()}
+    <div class="section-title"><h3>명예의 전당</h3><div class="line"></div><span class="tiny">헌액 ${hofDyn.length+hofFix.length}인</span></div>
+    ${hofDyn.length?`<div class="card"><div class="ch"><span>이 게임에서 헌액된 레전드</span><b class="ch-n">${hofDyn.length}인</b></div>
+      <div class="hof-grid">${hofDyn.map(function(h){ return (typeof hofCardHTML==='function')?hofCardHTML(h):''; }).join('')}</div></div>`:''}
+    <div class="card tight"><div class="tiny" style="line-height:1.55">
+      · 기록은 경기 종료 시 자동 누적됩니다 — 한 경기 최다 킬 · 최단 시간 승리 · 펜타킬/쿼드라킬 · 최다 POG · 최장 연승<br>
+      · 나이 30세 이상 노장이 은퇴하면 <b>은퇴식 카드</b>와 소감이 이 탭과 소식에 남습니다<br>
+      · PEAK OVR 85 이상 · 프랜차이즈 레전드는 은퇴와 동시에 <b>명예의 전당</b>에 헌액됩니다
+    </div></div>
+    <div style="height:8px"></div>`;
+}
+
+/* ============================================================================
+   메인 틱 · 부트
+   ========================================================================== */
+function v33Reset(){
+  V33.pings=[]; V33.lastKda={}; V33.lastKills=null; V33.pingCool={};
+  V33.vis={me:[],opp:[]}; V33.visAt=0;
+  try{ v33SpecClose(); }catch(e){}
+}
+function v33Tick(sec,step){
+  if(!M||typeof MM==='undefined'||!MM||!MM.units) return;
+  try{ v33PingTick(sec); }catch(e){}
+  try{ v33SpecTick(); }catch(e){}
+}
+function v33Boot(){
+  try{ v33FogBoot(); }catch(e){}
+  try{ v33RecInit(); }catch(e){}
+  try{ v33UseInit(); }catch(e){}
+  try{ v33StatModInit(); }catch(e){}
+  try{ v33BindClicks(); }catch(e){}
+  try{ v33MigrateOldPatchNotes(); }catch(e){}
+}
+/* 옛 세이브의 패치노트에는 스탯 정보가 없다 — 첫 노트는 그대로 두고 보정만 보존한다 */
+function v33MigrateOldPatchNotes(){ if(!S||!S.meta) return; v33StatModInit(); }
+
+
+
 
 /* boot */
 window.__game={get S(){return S},get M(){return M},get D(){return D}};
 window.__v6={get bgm(){return (typeof V6BGM!=='undefined')?V6BGM:null},get feed(){return (typeof V6FEED!=='undefined')?V6FEED:null},get plan(){return (typeof GP!=='undefined')?GP:null}};
 sndLoad();bgmLoad();try{v32CcBoot();}catch(e){}
+try{v33Boot();}catch(e){}
 try{cloudBoot();}catch(e){}
 renderTitle();
 
