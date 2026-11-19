@@ -19603,13 +19603,16 @@ let STAT_BOARD='kda';
 let STAT_LEAGUE='ALL';
 let STAT_ROLE='ALL';
 function recordsV3(){
+  /* V33 — 시즌 명예 기록실을 기록 탭 맨 위에 붙인다 (모든 서브탭 공통) */
+  const v33rec=(typeof v33RecordsCardHTML==='function')?v33RecordsCardHTML():'';
+  const v33ret=(typeof v33RetireListHTML==='function')?v33RetireListHTML():'';
   if(REC_TAB==='patch') return patchHTML();
-  if(REC_TAB==='champ'&&typeof champMetaHTML==='function') return champMetaHTML();
-  if(REC_TAB==='ach') return achHTML();
+  if(REC_TAB==='champ'&&typeof champMetaHTML==='function') return v33rec+champMetaHTML();
+  if(REC_TAB==='ach') return v33rec+achHTML();
   if(REC_TAB==='codex') return codexHTML();
-  if(REC_TAB==='trophy') return trophyRoomV3();
-  if(REC_TAB==='hof'&&typeof hofV3==='function') return hofV3();
-  return statsV3();          /* 기본 = 리그별 선수 지표 랭킹 */
+  if(REC_TAB==='trophy') return v33rec+trophyRoomV3();
+  if(REC_TAB==='hof'&&typeof hofV3==='function') return v33rec+v33ret+hofV3();
+  return v33rec+v33ret+statsV3();          /* 기본 = 리그별 선수 지표 랭킹 */
 }
 function teamTagOf(name){
   const p=S.players[name]; if(!p||!p.team) return 'FA';
