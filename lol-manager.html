@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
 <meta name="theme-color" content="#0a0b0e">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<title>LoL 매니저 28 · LoL Esports Manager</title>
+<title>LoL 매니저 29 · LoL Esports Manager</title>
 <style>
 /* ===== LCK Manager — esports dark UI ===== */
 :root{
@@ -1703,6 +1703,8 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .ts-cloud.on{border-color:rgba(120,200,160,.7);color:#a8f0c6}
 .cloud-modal .inp{width:100%;padding:10px 11px;font-size:13px;font-weight:700}
+.cloud-modal .row{display:flex;align-items:stretch}
+.cloud-modal .row .btn{flex:1 1 0;min-width:0;white-space:nowrap}
 .cloud-box{margin-top:8px;padding:10px 12px;border-radius:10px;border:1px solid rgba(120,170,230,.24);background:rgba(18,24,34,.62)}
 .cloud-who{display:flex;flex-direction:column;gap:2px;font-size:13px}
 .cloud-who b{font-weight:900;color:#dcebff}
@@ -15343,9 +15345,9 @@ function renderTitle(){
         <polygon points="50,4 89,26 89,74 50,96 11,74 11,26" fill="none" stroke="url(#hg)" stroke-width="2.5"/>
         <polygon points="50,14 80,31 80,69 50,86 20,69 20,31" fill="rgba(230,196,129,.06)" stroke="rgba(230,196,129,.35)" stroke-width="1"/>
         <defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9b0"/><stop offset=".5" stop-color="#c9a45c"/><stop offset="1" stop-color="#8a6b28"/></linearGradient></defs>
-      </svg><span>28</span></div>
+      </svg><span>29</span></div>
       <div class="ts-kicker">LEAGUE OF LEGENDS · ESPORTS MANAGER</div>
-      <h1 class="ts-h">LoL <em>MANAGER</em> <b>28</b></h1>
+      <h1 class="ts-h">LoL <em>MANAGER</em> <b>29</b></h1>
       <div class="ts-tag">구단주가 되어 세계를 지배하라 — LCK · LPL · LEC · LCS · 커스텀 구단 · 롤드컵</div>
     </div>
     <div class="ts-cta">
@@ -21386,7 +21388,7 @@ function mmMinionSiegeTowerStep(dsec){
 const MM_PX_RANGE=0.095;      /* 교전 거리 (라인 스탠드오프 0.10 안쪽까지 붙으면 교전) */
 const MM_PX_HOLD=2.4;         /* 붙어 있는 동안 교전 자세 유지(게임초) */
 const MM_PX_LOW=0.30;         /* 딸피: 이 아래면 물러나지 않고 끝까지 싸운다 */
-const MM_PX_KILL_CD=90;       /* 근접 조우 킬은 90게임초에 한 번까지만 (킬 인플레 방지) */
+const MM_PX_KILL_CD=110;      /* 근접 조우 킬은 110게임초에 한 번까지만 (30분 22~30킬 리듬) */
 function mmChampPower(side,role){
   let ovr=70,lv=1,ip=1;
   try{ const l=lineupAt(side,role); const p=(l&&S&&S.players)?S.players[l.name]:null; ovr=p?rawOverall(p):70; }catch(e){}
@@ -33767,7 +33769,7 @@ function jglTryInvade(side,sec){
   if(M.campSteal) M.campSteal[side]=(M.campSteal[side]||0)+1;
   const shake=(typeof dopaInvadeBonus==='function'&&dopaInvadeBonus(side)>0);
   jglLog(side,'🗡 <b>카정 성공</b> — '+(shake?'미드 쉐이크로 시선을 끈 사이 ':'')+MX_LANE_KR[lane]+
-    ' 주도권을 등에 업고 적 '+(c.n||'캠프')+'을(를) 빼앗습니다.');
+    ' 주도권을 등에 업고 적 정글 '+(c.n||'캠프')+' 캠프를 빼앗습니다.');
   return {ok:true,camp:c.base};
 }
 /* ---------- 초/분 단위 틱 ---------- */
