@@ -311,12 +311,27 @@ main{flex:1;display:flex;flex-direction:column;padding-bottom:calc(var(--tab-h) 
 .champ{
   position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--line);
   background:#101728;padding:0;aspect-ratio:1;transition:transform .1s,border-color .15s;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;
 }
 .champ img{width:100%;height:100%;object-fit:cover;display:block}
 .champ .cn{position:absolute;left:0;right:0;bottom:0;font-size:8px;font-weight:800;text-align:center;padding:2px 1px;background:linear-gradient(0deg,rgba(0,0,0,.9),transparent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .champ:active{transform:scale(.93)}
 .champ.offrole{opacity:.42}
 .champ.used{opacity:.22;pointer-events:none;filter:grayscale(1)}
+/* 피어리스 잠금 — 일반 사용(회색)과 확실히 구분되는 자물쇠 배지 */
+.champ.fb-locked{opacity:.55;filter:grayscale(.85) brightness(.72);border-color:rgba(255,107,213,.55);box-shadow:inset 0 0 0 1px rgba(255,107,213,.18);cursor:not-allowed}
+.champ.fb-locked::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,107,213,.10) 0 6px,transparent 6px 12px)}
+.champ.fb-lock{position:absolute;top:2px;right:3px;font-size:9px;line-height:1;padding:1px 3px;border-radius:5px;background:rgba(40,8,34,.86);border:1px solid rgba(255,107,213,.7);color:#ffb8f0;z-index:3}
+.champ.fb-locked .fb{color:#ffb8f0}
+/* 피어리스 안내줄 — 밴픽 화면에서 잠금 이유를 바로 보여준다 */
+.fb-lock-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 6px;padding:7px 9px;border-radius:9px;
+  background:rgba(255,107,213,.10);border:1px solid rgba(255,107,213,.42);color:#ffd9f6;font-size:11px;font-weight:800;line-height:1.35}
+.fb-lock-bar b{color:#ffb8f0;font-weight:900;letter-spacing:.01em}
+.fb-lock-bar span{color:#f3d6ee;font-weight:700}
+.fb-lock-bar em{font-style:normal;color:#cbb6c7;font-weight:700;font-size:10px;flex:1 0 100%;opacity:.9;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fb-lock-bar.soft{background:rgba(255,107,213,.06);border-color:rgba(255,107,213,.28);color:#f0d8ea}
+.fb-lock-bar.soft span{color:#dcc3d8;font-weight:700}
+.fb-on-chip{border-color:rgba(255,107,213,.6);background:rgba(255,107,213,.14);color:#ffd0f2}
 .champ.ban{filter:grayscale(1) sepia(.6) hue-rotate(-40deg) brightness(.6)}
 .champ.ban::after{content:"✕";position:absolute;inset:0;display:grid;place-items:center;font-size:18px;color:#ff7b8f;text-shadow:0 0 6px #000}
 .champ.sig{outline:2px solid var(--gold);outline-offset:-2px}
@@ -5902,7 +5917,8 @@ function startDraft(series){
     series, gameIdx, mySide, oppId, step:0,
     bans:{blue:[],red:[]}, picks:{blue:[],red:[]},
     phase:'ban', done:false, roleFilter:'ALL',
-    locked: series.fearless? series.fearlessUsed.slice():[],
+    /* 피어리스 — 이전 세트 양 팀 픽을 잠근다 (기록에서 다시 계산해 항상 일관) */
+    locked: series.fearless? ((typeof fbUsedFromSeries==='function')?fbUsedFromSeries(series):series.fearlessUsed.slice()):[],
     assign:{me:null,opp:null}, sel:null, result:null,
   };
   if(series.games.length>0){ const b=seriesStaffBonus(S.userTeam); if(b) series.nextEdge=(series.nextEdge||0)+b; }
@@ -5921,6 +5937,8 @@ function dCur(){ return DRAFT_ORDER[D.step]||null; }
 function dActor(){ const c=dCur(); if(!c) return null; return c.s===D.mySide?'me':'opp'; }
 function dPhaseNow(){ const c=dCur(); return c?c.t:'done'; }
 function dUsed(){ return dMyBans().concat(dOppBans(),dMyPicks(),dOppPicks(),D.locked); }
+/* 밴은 이전 세트 사용 챔피언도 가능하다 (피어리스는 '픽'만 잠근다) */
+function dBanUsed(){ return dMyBans().concat(dOppBans(),dMyPicks(),dOppPicks()); }
 function dAvailable(){ const used=new Set(dUsed()); return CHAMPS.filter(c=>!used.has(c.n)); }
 function dBanCount(){ return dMyBans().length; }
 function dPickCount(){ return dMyPicks().length; }
@@ -6138,7 +6156,7 @@ function draftMyBan(name){
   if(!D||D.done) return;
   const cur=dCur(); if(!cur||cur.t!=='ban'||dActor()!=='me') return;
   if(name===DRAFT_NOBAN) return;
-  const c=CHAMP_MAP[name]; if(!c||dUsed().includes(name)) return;
+  const c=CHAMP_MAP[name]; if(!c||dBanUsed().includes(name)) return;
   D.bans[D.mySide].push(name);
   D.anim={t:'ban', name:name, at:Date.now(), side:'me'};
   advanceDraft();
@@ -7614,7 +7632,7 @@ function finishGame(){
     myComp:M.myComp, oppComp:M.oppComp, lane:M.lane, edge:M.edge, tactics:M.tacticAt, history:M.history.slice(),
     myPct:M.draftPct, myPicks:dMyPicks().slice(), oppPicks:dOppPicks().slice(),
     assign:{me:Object.assign({},D.assign.me),opp:Object.assign({},D.assign.opp)}});
-  if(sr.fearless){ sr.fearlessUsed.push(...dMyPicks(), ...dOppPicks()); }
+  if(sr.fearless){ const _u=new Set(sr.fearlessUsed||[]); dMyPicks().concat(dOppPicks()).forEach(function(n){ _u.add(n); }); sr.fearlessUsed=Array.from(_u); }
   if(sr.bo>=3&&sr.score.me-sr.score.opp>=2) S.sweeps=(S.sweeps||0)+1;
   saveGame();
   try{ checkAchievements(); }catch(e){}
@@ -15110,27 +15128,40 @@ function b4BindLongPress(root,selector){
   els.forEach(function(el){
     if(el.__lpBound) return;
     el.__lpBound=true;
-    let timer=null;
+    let timer=null, sx=0, sy=0, moved=false;
     const open=function(){
       const name=el.dataset.champ||el.dataset.champinfo||el.dataset.v||'';
-      const role=el.dataset.role||null;
+      const role=el.dataset.champRole||el.dataset.role||null;
       if(!name) return;
       el.__lpFired=Date.now();
       try{ b4ChampCard(name,role); }catch(e){}
     };
+    const cancel=function(){ if(timer){ clearTimeout(timer); timer=null; } };
     const down=function(e){
       if(e&&e.pointerType==='mouse'&&e.button!==0) return;
-      clearTimeout(timer);
-      timer=setTimeout(open,450);
+      cancel(); moved=false;
+      if(e&&e.clientX!=null){ sx=e.clientX; sy=e.clientY; }
+      timer=setTimeout(function(){ timer=null; if(!moved) open(); },450);
     };
-    const up=function(){ clearTimeout(timer); };
+    /* 스크롤·드래그·살짝 미끄러진 터치는 롱프레스가 아니다 — 즉시 취소해
+       그 터치가 정상 클릭으로 처리되게 둔다 (모바일 픽/밴 오작동 방지) */
+    const move=function(e){
+      if(!timer) return;
+      if(e&&e.clientX!=null&&(sx||sy)){
+        if(Math.hypot(e.clientX-sx,e.clientY-sy)>10){ moved=true; cancel(); }
+      }else{ cancel(); }
+    };
+    const up=function(){ cancel(); };
     el.addEventListener('pointerdown',down);
+    el.addEventListener('pointermove',move);
     el.addEventListener('pointerup',up);
     el.addEventListener('pointerleave',up);
     el.addEventListener('pointercancel',up);
-    el.addEventListener('contextmenu',function(e){ e.preventDefault(); clearTimeout(timer); open(); });
+    el.addEventListener('touchmove',move,{passive:true});
+    el.addEventListener('scroll',up,true);
+    el.addEventListener('contextmenu',function(e){ e.preventDefault(); cancel(); open(); });
     el.addEventListener('click',function(e){
-      if(el.__lpFired&&Date.now()-el.__lpFired<900){ e.preventDefault(); e.stopPropagation(); el.__lpFired=0; }
+      if(el.__lpFired&&Date.now()-el.__lpFired<380){ e.preventDefault(); e.stopPropagation(); el.__lpFired=0; }
     },true);
   });
 }
@@ -19293,9 +19324,57 @@ function bindAutoDraft(){
   const b=v.querySelector('[data-auto="draft"]');
   if(b) b.onclick=()=>{ try{ autoDraftRun(); }catch(e){ toast('자동 밴픽 실패: '+e.message); } };
 }
+/* 피어리스 — 이전 세트에서 양 팀이 픽한 챔피언 (다음 세트 픽 불가) */
+function fbLockedList(){ return (D&&D.locked)?D.locked:[]; }
+/* 시리즈에 실제로 기록된 픽에서 잠금 목록을 다시 만든다 (설정 변경·재개에도 일관) */
+function fbUsedFromSeries(sr){
+  if(!sr) return [];
+  const out=[];
+  const add=function(n){ if(n&&out.indexOf(n)<0) out.push(n); };
+  (sr.games||[]).forEach(function(g){
+    (g&&g.myPicks||[]).forEach(add);
+    (g&&g.oppPicks||[]).forEach(add);
+  });
+  (sr.fearlessUsed||[]).forEach(add);
+  return out;
+}
+function fbFirstTurn(){ return !!(D&&D.gameIdx===0&&D.bans&&!D.bans.blue.length&&!D.bans.red.length&&!D.picks.blue.length&&!D.picks.red.length); }
+function fbToggleHTML(){
+  if(!D||!D.series||!fbFirstTurn()) return '';
+  const on=fbOn(), bo=D.series.bo||1;
+  return `<button class="chip sm fb-toggle-btn ${on?'fb-on-chip':''}" title="LCK 글로벌 피어리스 — 이전 세트에서 양 팀이 픽한 챔피언은 다음 세트에서 픽할 수 없습니다">${on?'🔒 피어리스 ON':'🔓 피어리스 OFF'}${bo>1?' · Bo'+bo:''}</button>`;
+}
+function fbToggle(){
+  if(!D||!D.series) return null;
+  if(!fbFirstTurn()){ try{ toast('피어리스는 첫 세트 밴픽 시작 전에만 바꿀 수 있습니다'); }catch(e){} return null; }
+  D.series.fearless=!D.series.fearless;
+  D.locked=D.series.fearless?fbUsedFromSeries(D.series):[];
+  const on=D.series.fearless, bo=D.series.bo||1;
+  const msg = on ? ('🔒 피어리스 드래프트 ON' + (bo>1 ? (' — Bo'+bo+' 이전 세트 픽 '+D.locked.length+'명 잠금') : '')) : '🔓 피어리스 OFF — 모든 세트에서 챔피언 자유 픽';
+  try{ toast(msg,3000); }catch(e){}
+  return on;
+}
+function fbLockedNames(){ return fbLockedList().filter(function(n){ return !!CHAMP_MAP[n]; }); }
+function fbOn(){ return !!(D&&D.series&&D.series.fearless); }
+function fbLockBannerHTML(){
+  if(!D||!fbOn()) return '';
+  const names=fbLockedNames();
+  if(!names.length){
+    return `<div class="fb-lock-bar soft" id="fbLockBar">
+      <b>🔒 피어리스 ON</b>
+      <span>${(D.series&&D.series.bo>1)?('Bo'+(D.series.bo||1)+' · 이 세트부터 적용 — 이전 세트에서 픽한 챔피언은 다음 세트 픽 불가'):'단판이지만 설정은 켜져 있습니다'}</span>
+    </div>`;
+  }
+  return `<div class="fb-lock-bar" id="fbLockBar">
+    <b>🔒 피어리스 적용 중</b>
+    <span>이전 세트 ${names.length}명 픽 불가 — 잠금 카드를 탭하면 이유가 표시됩니다</span>
+    <em title="${esc(names.join(' · '))}">${names.slice(0,10).map(function(n){ return esc(n); }).join(' · ')}</em>
+  </div>`;
+}
 function draftGridHTML(){
   return CHAMPS.slice().sort((a,b)=>champTier(b)-champTier(a)).map(c=>{
-    const used=dUsed().includes(c.n);
+    const isLocked=!!(D&&D.locked&&D.locked.indexOf(c.n)>=0);
+    const used=dUsed().includes(c.n)&&!isLocked;
     const banned=dMyBans().includes(c.n)||dOppBans().includes(c.n);
     const matches=D.roleFilter==='ALL'||c.r.includes(D.roleFilter);
     const q=(D.q||'').trim().toLowerCase();
@@ -19307,13 +19386,16 @@ function draftGridHTML(){
     const psTitle=st?(' · lol.ps '+META_UTEIS.tierName(st.t)+' 승률 '+lolpsPct(st.wr)+' · 픽률 '+lolpsPct(st.pr)+' · 밴률 '+lolpsPct(st.br)+' ('+st.n.toLocaleString()+'표본)'):'';
     const cls=['champ'];
     if(used) cls.push('used');
+    if(isLocked) cls.push('fb-locked');
     if(banned) cls.push('ban');
     if(sig) cls.push('sig');
-    return `<button class="${cls.join(' ')}" data-champ="${c.n}" data-sig="${esc(c.sig||'')}" title="${esc(c.n)} — ${esc(c.sig||'')} · ${esc(c.sd||'')}${esc(psTitle)}" ${(used||banned)?'disabled':''}>
+    const lockTitle=isLocked?(' 🔒 피어리스 — 이전 세트에서 사용한 챔피언이라 이번 세트에는 픽할 수 없습니다 (밴은 가능)'):'';
+    return `<button class="${cls.join(' ')}" data-champ="${c.n}" data-champ-locked="${isLocked?1:0}" data-sig="${esc(c.sig||'')}" title="${esc(c.n)} — ${esc(c.sig||'')} · ${esc(c.sd||'')}${esc(psTitle)}${esc(lockTitle)}" ${(!isLocked&&(used||banned))?'disabled':''}>
       <span class="fb">${esc(c.n.slice(0,1))}</span>
       <img src="${DD(c.k)}" alt="${esc(c.n)}" loading="lazy" onerror="this.style.opacity=0">
       <span class="cp">${champTier(c)}</span>
       ${st?`<span class="psb ${META_UTEIS.tierCls(st.t)}">${st.wr.toFixed(1)}</span>`:''}
+      ${isLocked?'<span class="fb-lock">🔒</span>':''}
       <span class="cn">${esc(c.n)}</span>
     </button>`;
   }).join('');
@@ -19331,10 +19413,15 @@ function bindChampGrid(){
   v.querySelectorAll('[data-champ]').forEach(b=>{
     const showInfo=()=>{ const el=$('champInfo'); if(el){ const c=CHAMP_MAP[b.dataset.champ]; if(c) el.innerHTML='<b>'+esc(c.n)+'</b> · '+esc(c.sig||'')+' — <span class="tiny">'+esc(c.sd||'')+'</span>'+(typeof lolpsChampInfoHTML==='function'?lolpsChampInfoHTML(c.n, D.roleFilter==='ALL'?null:D.roleFilter):''); } };
     b.onmouseenter=showInfo; b.onfocus=showInfo;
-    b.dataset.role=(D.roleFilter&&D.roleFilter!=='ALL')?D.roleFilter:'';
+    /* 라인 배정 슬롯(.asg[data-role])과 절대 겹치지 않도록 별도 속성명을 쓴다. */
+    b.dataset.champRole=(D.roleFilter&&D.roleFilter!=='ALL')?D.roleFilter:'';
     b.onclick=()=>{
       const n=b.dataset.champ;
       const ph=dPhaseNow();
+      /* 피어리스 잠금 — 픽 단계에서 무반응 대신 이유를 알려준다 (밴은 가능) */
+      if(D&&D.locked&&D.locked.indexOf(n)>=0&&ph==='pick'){
+        toast('🔒 피어리스 — '+n+'은(는) 이전 세트에서 사용한 챔피언이라 이번 세트에는 픽할 수 없습니다',3000); return;
+      }
       if(ph==='ban'){
         if(dActor()!=='me'){ toast('상대 밴을 기다리는 중입니다'); return; }
         draftMyBan(n);
@@ -19493,8 +19580,11 @@ function bindDraft(){
   }
   bindChampGrid();
   v.querySelectorAll('[data-sel]').forEach(b=>b.onclick=()=>{ D.sel=(D.sel===b.dataset.sel?null:b.dataset.sel); renderDraft(); });
-  v.querySelectorAll('[data-role]').forEach(b=>b.onclick=()=>{
-    if(D.phase!=='assign') return;
+  /* 라인 배정 슬롯만 잡는다 — 예전에는 [data-role] 전체를 잡아 챔피언 카드의
+     클릭 핸들러를 덮어써서 밴/픽이 전혀 등록되지 않았다 (v30 치명 버그). */
+  v.querySelectorAll('.asg[data-role]').forEach(b=>b.onclick=(ev)=>{
+    if(!D||D.phase!=='assign') return;
+    if(ev&&ev.stopPropagation) ev.stopPropagation();
     const role=b.dataset.role;
     if(D.sel){ setAssign(role,D.sel); D.sel=null; }
     else { const cur=D.assign.me[role]; if(cur) D.sel=cur; renderDraft(); }
@@ -26269,6 +26359,14 @@ function renderSeriesResult(){
         </div>
         ${s.coach&&s.coach.applied?`<div class="tiny" style="margin-top:6px;color:#8ff0c4">✅ 다음 세트 적용: ${esc(s.coach.effect||'')}</div>`:''}
       </div>
+      <div class="card tight">
+        <div class="card-h"><h4>피어리스 드래프트</h4><span class="k">Bo${s.bo} · 세트 간 설정</span></div>
+        <div class="row between" style="gap:8px;align-items:center">
+          <span class="tiny" style="line-height:1.4">${s.fearless?('🔒 <b style="color:#ffb8f0">ON</b> — 지난 세트 양 팀 픽 '+((typeof fbUsedFromSeries==='function')?fbUsedFromSeries(s).length:s.fearlessUsed.length)+'명은 다음 세트 픽 불가'):'🔓 <b style="color:#9fd0f0">OFF</b> — 세트마다 챔피언을 다시 고를 수 있습니다'}</span>
+          <button class="btn sm" id="fbSeriesToggle">${s.fearless?'끄기':'켜기'}</button>
+        </div>
+        ${s.fearless?`<div class="tiny" style="margin-top:5px;color:#c9b6c6">잠금: ${(((typeof fbUsedFromSeries==='function')?fbUsedFromSeries(s):s.fearlessUsed)||[]).slice(0,10).map(n=>esc(n)).join(' · ')||'아직 없음'}</div>`:''}
+      </div>
       <button class="btn gold block" id="nextSetBtn">다음 세트 준비 →</button>
     `}
     <div style="height:12px"></div>`;
@@ -26286,6 +26384,12 @@ function renderSeriesResult(){
   const fb=$('finishSeriesBtn'); if(fb) fb.onclick=()=>{ finishSeries(); };
   const ppb=$('postPressBtn'); if(ppb) ppb.onclick=()=>{ if(s.meta&&s.meta.postDone){ toast('이미 경기 후 인터뷰를 마쳤습니다'); return; } openPostPress(s); };
   const nb=$('nextSetBtn'); if(nb) nb.onclick=()=>nextSeriesGame();
+  const fbt=$('fbSeriesToggle'); if(fbt) fbt.onclick=()=>{
+    s.fearless=!s.fearless;
+    if(s.fearless&&typeof fbUsedFromSeries==='function') s.fearlessUsed=fbUsedFromSeries(s);
+    try{ toast(s.fearless?'🔒 피어리스 드래프트 ON — 이전 세트 픽은 다음 세트에서 잠깁니다':'🔓 피어리스 OFF — 세트마다 자유 픽',2600); }catch(e){}
+    renderSeriesResult();
+  };
   show('series');
   window.scrollTo(0,0);
 }
@@ -30228,6 +30332,8 @@ function renderDraft(){
       <aside class="d6-side me${actMe?' active':''}">${v6DraftSideHTML('me')}</aside>
       <section class="d6-mid">
         ${d6TurnBannerHTML()}
+        ${(phase!=='assign'&&phase!=='done'&&typeof fbLockBannerHTML==='function')?fbLockBannerHTML():''}
+        ${(phase!=='assign'&&phase!=='done'&&typeof fbToggleHTML==='function'&&fbToggleHTML())?`<div class="row" style="gap:6px;margin:0 0 6px;flex-wrap:wrap">${fbToggleHTML()}</div>`:''}
         ${DRAFT_ORDER&&phase!=='assign'&&phase!=='done'?`<div class="card tight" style="padding:8px 10px">${draftTimeline()}</div>`:''}
         ${phase==='done'?draftSummaryHTML(myComp,oppComp,me,opp):phase==='assign'?assignHTML(myComp,oppComp,me,opp):`
           <div class="role-tabs" id="draftFilters">
@@ -30265,6 +30371,8 @@ function renderDraft(){
     </div></div>`;
   bindDraft();
   bindAutoDraft();
+  /* 피어리스 ON/OFF — 첫 세트 밴픽 전에만 */
+  try{ if(typeof fbToggle==='function'){ $('view-draft').querySelectorAll('.fb-toggle-btn').forEach(function(b){ b.onclick=function(){ fbToggle(); renderDraft(); }; }); } }catch(e){}
   const dtb=$('dtToggle'); if(dtb) dtb.onclick=()=>dtToggleUnlimited();
   const dts=$('dtStep'); if(dts) dts.onclick=()=>v6DraftStepAuto();
   /* 하단 고정 바 버튼은 본문 버튼과 같은 동작을 호출 (id 중복 방지) */
