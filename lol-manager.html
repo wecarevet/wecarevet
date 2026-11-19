@@ -28508,10 +28508,13 @@ function v6TitleBgmArm(){
   if(V6BGM.titleArmed) return;
   V6BGM.titleArmed=true;
   if(typeof document==='undefined'||!document.addEventListener) return;
-  const kick=function(){
+  const kick=function(ev){
     try{
       if(V6BGM.ctx!=='title') return;
       if(V6BGM.playing) return;
+      /* 전용 칩 버튼은 자기 핸들러가 처리한다 (같은 탭에서 켜고 끄는 경합 방지) */
+      const t=ev&&ev.target;
+      if(t&&t.closest&&t.closest('#tsBgm')) return;
       v6TitleBgmKick(true);
     }catch(e){}
   };
@@ -28552,7 +28555,7 @@ function v6TitleBgmChip(){
     const b=(typeof document!=='undefined'&&document.getElementById)?document.getElementById('tsBgm'):null;
     if(!b) return;
     const on=V6BGM.on;
-    const st=!on?'꺼짐':V6BGM.playing?'재생 중':V6BGM.blocked?'탭해서 재생':'준비 중';
+    const st=!on?'꺼짐':V6BGM.playing?'재생 중':(V6BGM.blocked||!V6BGM.ready)?'탭해서 재생':'재생 준비';
     b.innerHTML='🎵 징크스 테마 <em>'+st+'</em>';
     b.className='ts-bgm'+(on&&V6BGM.playing?' on':'');
   }catch(e){}
