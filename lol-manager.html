@@ -35190,8 +35190,12 @@ function farmCreditRole(side,role,mn){
   if(px==null){
     try{ const p=mmPathPoint(LANE_PATH[mn.lane],mn.t); px=p[0]+(mn.off||0); py=p[1]+(mn.off||0); }catch(e){}
   }
-  const near=!!(adcAlive&&px!=null&&Math.hypot(adc.x-px,adc.y-py)<0.085);
-  if(role==='SUP') return near?'ADC':'SUP';          /* 원딜 곁이면 원딜 몫 */
+  const near=!!(adcAlive&&px!=null&&Math.hypot(adc.x-px,adc.y-py)<0.16);
+  if(role==='SUP'){
+    if(near) return 'ADC';                       /* 원딜 곁이면 원딜 몫 */
+    if(!adcAlive) return 'SUP';                  /* 원딜이 죽었으면 서폿이 라인을 받는다 */
+    return Math.random()<0.35?'SUP':null;        /* 원딜이 비켜 있을 때만 가끔 */
+  }
   if(role==='ADC'){
     /* 듀오 분배(서폿템) — 6번째 봇 미니언마다 서폿 몫. 매번 난수로 정하면 게임마다 출렁인다. */
     M.botCsN=(M.botCsN||0)+1;
@@ -35204,6 +35208,7 @@ function farmMinionKill(side,role,mn){
   farmEnsure();
   const kind=(mn&&mn.kind)||'melee';
   const owner=farmCreditRole(side,role,mn);
+  if(!owner) return null;                       /* 서폿이 흘린 미니언 — CS 로 세지 않는다 */
   const cs=FARM_CS_UNIT[kind]||1;
   const gold=FARM_GOLD[kind]||FARM_GOLD.melee;
   M.cs[side][owner]=(M.cs[side][owner]||0)+cs;
