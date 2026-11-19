@@ -21335,8 +21335,8 @@ function mmMinionSiegeTowerStep(dsec){
    · 이기지 못하는 쪽은 한 발 물러나 도주한다 */
 const MM_PX_RANGE=0.095;      /* 교전 거리 (라인 스탠드오프 0.10 안쪽까지 붙으면 교전) */
 const MM_PX_HOLD=2.4;         /* 붙어 있는 동안 교전 자세 유지(게임초) */
-const MM_PX_LOW=0.42;         /* 딸피: 이 아래면 물러나지 않고 끝까지 싸운다 */
-const MM_PX_KILL_CD=35;       /* 근접 조우 킬은 35게임초에 한 번까지만 */
+const MM_PX_LOW=0.30;         /* 딸피: 이 아래면 물러나지 않고 끝까지 싸운다 */
+const MM_PX_KILL_CD=90;       /* 근접 조우 킬은 90게임초에 한 번까지만 (킬 인플레 방지) */
 function mmChampPower(side,role){
   let ovr=70,lv=1,ip=1;
   try{ const l=lineupAt(side,role); const p=(l&&S&&S.players)?S.players[l.name]:null; ovr=p?rawOverall(p):70; }catch(e){}
@@ -21404,7 +21404,7 @@ function mmProximityCombat(sec,gameDt){
       /* 딸피끼리 만났거나 잡을 각이면 진짜 교전 — 풀피끼리는 견제만 주고받는다 */
       const committed=(aPct<MM_PX_LOW||bPct<MM_PX_LOW||!!a.rush||!!b.rush||a.mode==='recall'||b.mode==='recall'||a.mode==='recallWalk'||b.mode==='recallWalk');
       const swing=Math.max(-0.06,Math.min(0.06,edge/700));
-      const rate=committed?0.072:0.026;
+      const rate=committed?0.062:0.026;
       const dmgToB=(rate+swing)*dt, dmgToA=(rate-swing)*dt;
       const floorPct=committed?0:0.34;
       b.hp=Math.max(bMax*floorPct,(b.hp||0)-bMax*Math.max(0.006,dmgToB));
@@ -31512,14 +31512,17 @@ function macroEndgameTick(sec){
   const changed=!sameState;
   const since=sameState?(prev.since||s):s;
   const lastLog=prev?Number(prev.logAt)||0:0;
-  const doLog=(!sameState||s-lastLog>=45)&&(s-lastLog>=12);
+  let doLog=(!sameState||s-lastLog>=150)&&(s-lastLog>=20);
   M.endgame={atk:atk,def:def,lane:lane,kind:tgt.kind,tier:tgt.tier,at:s,sig:sig,since:since,logAt:(doLog?s:lastLog)};
   if(doLog){
     const kindKr=(tgt.kind==='tower')?((tgt.tier||0)+1)+'차 타워':tgt.kind==='inhib'?'억제기':tgt.kind==='nextower'?'넥서스 포탑':'넥서스';
-    try{
-      mxLog(atk==='me'?'blue':'red', m+'분 · 🏁 <b>끝내기 전환</b> — '+mxTag(atk)+' 5인이 '+
-        MX_LANE_KR[lane]+'으로 모여 '+kindKr+'를 밀고 들어갑니다. '+mxTag(def)+'은(는) 같은 라인에 모여 수비합니다.');
-    }catch(e){}
+    const msg='🏁 <b>끝내기 전환</b> — '+mxTag(atk)+' 5인이 '+MX_LANE_KR[lane]+'으로 모여 '+kindKr+'를 밀고 들어갑니다. '+mxTag(def)+'은(는) 같은 라인에 모여 수비합니다.';
+    /* 같은 문장을 다시 찍지 않는다 (국면은 바뀌었는데 문구가 같은 경우) */
+    if(M.endgameText===msg) doLog=false;
+    else M.endgameText=msg;
+    if(doLog){
+      try{ mxLog(atk==='me'?'blue':'red', m+'분 · '+msg); }catch(e){}
+    }
   }
   return touched;
 }
