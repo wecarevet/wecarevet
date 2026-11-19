@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
 <meta name="theme-color" content="#0a0b0e">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<title>LoL 매니저 29 · LoL Esports Manager</title>
+<title>LoL 매니저 30 · LoL Esports Manager</title>
 <style>
 /* ===== LCK Manager — esports dark UI ===== */
 :root{
@@ -1115,10 +1115,46 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .bmap-cv{position:relative;width:min(100%,calc(100dvh - 240px));max-width:760px;margin:0 auto;aspect-ratio:1;background:#05070b;border-radius:10px;overflow:hidden;border:1px solid #1a1d24}
 .bmap-cv canvas{display:block;width:100%;height:100%}
 .bmap-tag{position:absolute;left:8px;top:8px;padding:2px 7px;border-radius:5px;background:rgba(6,8,12,.72);font-size:9.5px;font-weight:900;color:#9fd0f0}
-.bcaster{display:flex;flex-direction:column;gap:3px;margin-top:6px;padding:6px 8px;border-radius:8px;background:rgba(4,6,10,.9);border:1px solid #1a1d24}
-.bc-line{display:flex;gap:7px;align-items:flex-start;font-size:11px;line-height:1.4;color:#dfe3ea}
-.bc-who{flex:0 0 auto;font-size:9px;font-weight:900;padding:1px 5px;border-radius:4px;background:#233041;color:#a9d3f0}
+.bcaster{display:flex;flex-direction:column;gap:5px;margin-top:8px;padding:9px 11px;border-radius:10px;background:rgba(4,6,10,.92);border:1px solid #1a1d24;box-shadow:0 2px 14px rgba(0,0,0,.35)}
+/* 해설창 글씨 확대 — 폰·폴드에서 시원하게 읽히도록 (레이아웃은 flex 라 안 깨진다) */
+.bc-line{display:flex;gap:8px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:#e6eaf1;font-weight:600;letter-spacing:-.005em}
+.bc-who{flex:0 0 auto;font-size:10.5px;font-weight:900;padding:2px 6px;border-radius:5px;background:#233041;color:#a9d3f0;letter-spacing:.02em;margin-top:1px}
 .bc-who.alt{background:#3a2b1c;color:#e6c481}
+.bc-who.cs{background:#152b3a;color:#9fd0f0}
+.bc-tx{flex:1;min-width:0;word-break:keep-all}
+.bc-causal .bc-tx{color:#cfe6f7;font-size:13px;line-height:1.5}
+@media(max-width:820px){.bc-line{font-size:15.5px;line-height:1.6}.bc-causal .bc-tx{font-size:14px}}
+@media(max-width:420px){.bc-line{font-size:15px;line-height:1.58}.bc-who{font-size:10px;padding:2px 5px}}
+
+/* ================= 인과관계 (CAUSAL) ================= */
+.cs-card{margin:6px 0 0;padding:7px 9px;border-radius:10px;background:rgba(9,14,22,.94);border:1px solid rgba(120,200,255,.30)}
+.cs-h{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:10.5px;font-weight:900;letter-spacing:.05em;color:#9fd0f0;margin-bottom:5px}
+.cs-h b{color:#7c96b2;font-weight:800;letter-spacing:0;font-size:9.5px}
+.cs-row{display:flex;gap:6px;align-items:flex-start;padding:4px 0;border-top:1px dashed rgba(255,255,255,.08)}
+.cs-row:first-of-type{border-top:0}
+.cs-team{font-size:10px;font-weight:900;padding:1px 5px;border-radius:4px;white-space:nowrap;flex:0 0 auto}
+.cs-row.me .cs-team{background:rgba(79,168,255,.18);color:#bfe2ff}
+.cs-row.opp .cs-team{background:rgba(255,85,112,.18);color:#ffc4ce}
+.cs-arrow{display:flex;flex-wrap:wrap;gap:2px 4px;align-items:baseline;font-size:11px;line-height:1.45;min-width:0}
+.cs-arrow i{font-style:normal;font-weight:800;color:#e3ecf8;white-space:nowrap}
+.cs-arrow em{font-style:normal;font-size:9px;color:#8ba0b8;margin-left:1px;font-variant-numeric:tabular-nums}
+.cs-arrow s{text-decoration:none;color:#5f7c9a;font-weight:900;margin:0 1px}
+.cs-bx .cs-chain{margin-top:7px;padding:7px 9px;border-radius:9px;background:rgba(255,255,255,.03);border:1px solid rgba(120,200,255,.18)}
+.cs-chain.me{border-left:3px solid rgba(79,168,255,.75)}
+.cs-chain.opp{border-left:3px solid rgba(255,85,112,.75)}
+.cs-chain-h{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#9fb2cc;font-weight:800;margin-bottom:5px}
+.cs-chain-h em{font-style:normal;background:#22303f;color:#bcd6ea;border-radius:5px;padding:0 5px;font-size:9.5px}
+.cs-chain-h b{color:#eaf6ff;font-size:11.5px}
+.cs-chain-h span{margin-left:auto;font-size:9.5px;color:#8291a6}
+.cs-steps{display:flex;flex-wrap:wrap;gap:4px 5px;align-items:center}
+.cs-step{display:inline-flex;align-items:baseline;gap:3px;padding:3px 7px;border-radius:7px;background:rgba(120,200,255,.09);border:1px solid rgba(120,200,255,.22);white-space:nowrap}
+.cs-step i{font-style:normal;font-size:11.5px;font-weight:900;color:#e6f3ff}
+.cs-step em{font-style:normal;font-size:9.5px;color:#8fb6d6;font-variant-numeric:tabular-nums}
+.cs-step u{text-decoration:none;font-size:9px;color:#a9c6e0;opacity:.85}
+.cs-ar{color:#5f7c9a;font-weight:900;font-size:11px}
+.cs-why{margin-top:6px;font-size:10.5px;line-height:1.45;color:#a9c6e0}
+.cs-foot{margin-top:7px;font-size:9.5px;color:#7c8ea3;line-height:1.4}
+.tp-cause{flex:0 0 100%;font-size:10px;color:#a9c6e0;line-height:1.4;font-weight:700}
 .bc-tx{flex:1;min-width:0}
 .bbar{position:sticky;bottom:0;z-index:26;display:flex;gap:5px;align-items:center;padding:7px 8px calc(7px + env(safe-area-inset-bottom));
   background:linear-gradient(0deg,#0a0b0e 60%,rgba(10,11,14,.86));border-top:1px solid #1e2129;margin-top:8px}
@@ -1813,8 +1849,8 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .pcc-m{min-width:0}
 .pcc-m b{display:block;font-size:10.5px;font-weight:900;color:#efe6d2}
 .pcc-m span{font-size:9px;color:#a99a78;font-weight:800}
-.bpl-s{display:flex;gap:6px;font-size:8px;font-weight:800;color:#727a8a;font-variant-numeric:tabular-nums}
-.bpl-s i{font-style:normal}
+.bpl-s{display:flex;flex-wrap:wrap;gap:2px 6px;font-size:8px;font-weight:800;color:#727a8a;font-variant-numeric:tabular-nums}
+.bpl-s i{font-style:normal;white-space:nowrap}
 
 /* ============ lol.ps 실측 메타 표시 ============ */
 .champ .psb{position:absolute;top:2px;right:3px;font-size:7.5px;font-weight:900;padding:0 3px;border-radius:5px;
@@ -2949,7 +2985,7 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 
 /* 승부처 요약 카드 */
 .tp-card .tp-list{display:flex;flex-direction:column;gap:5px;margin-top:6px}
-.tp-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;
+.tp-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;
   background:linear-gradient(90deg,rgba(255,201,74,.07),rgba(255,201,74,0));
   border:1px solid rgba(255,201,74,.18)}
 .tp-rank{font-size:11px;font-weight:900;color:#0c1016;background:#ffc94a;border-radius:50%;
@@ -3099,6 +3135,136 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .b4row b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .b4row em{font-style:normal;font-weight:900;color:var(--gold);font-size:10.5px}
 .b4row .b4s{flex:none;font-size:9.5px;color:var(--dim2)}
+
+/* ==========================================================================
+   TITLE v30 — e스포츠 무대 (헥스텍 네온 시안 + 챔피언십 골드)
+   ========================================================================== */
+.tstage{
+  gap:20px;padding:40px 18px 30px;
+  background:
+    radial-gradient(760px 420px at 50% -12%,rgba(120,235,255,.20),transparent 62%),
+    radial-gradient(640px 380px at 50% 4%,rgba(255,214,140,.16),transparent 60%),
+    radial-gradient(900px 520px at 8% 108%,rgba(120,80,220,.16),transparent 62%),
+    radial-gradient(700px 460px at 96% 96%,rgba(37,224,255,.10),transparent 60%),
+    linear-gradient(180deg,#080a10 0%,#070910 46%,#04060a 100%);
+}
+.tstage:before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent 0%,rgba(37,224,255,.05) 50%,transparent 100%)}
+.ts-glow{position:absolute;border-radius:50%;filter:blur(46px);pointer-events:none;opacity:.55}
+.ts-glow.a{width:min(70vw,520px);height:220px;top:-70px;left:50%;transform:translateX(-50%);
+  background:radial-gradient(closest-side,rgba(150,240,255,.5),transparent)}
+.ts-glow.b{width:min(50vw,380px);height:180px;bottom:6%;left:-60px;
+  background:radial-gradient(closest-side,rgba(230,196,129,.32),transparent)}
+.ts-glow.c{width:min(46vw,340px);height:170px;bottom:2%;right:-70px;
+  background:radial-gradient(closest-side,rgba(120,160,255,.30),transparent)}
+.ts-beams i{background:linear-gradient(180deg,rgba(190,245,255,.5),rgba(230,196,129,.18) 45%,transparent);opacity:.5;filter:blur(.6px)}
+.ts-beams i:nth-child(5),.ts-beams i:nth-child(6){background:linear-gradient(180deg,rgba(230,196,129,.42),transparent)}
+.ts-beams i:nth-child(6){left:50%;transform:rotate(-3deg);opacity:.25;animation-delay:1.8s}
+/* 경기장 그리드 + 스캔라인 */
+.ts-grid{position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(120,220,255,.075) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(120,220,255,.075) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 78% 62% at 50% 42%,#000 0%,rgba(0,0,0,.55) 55%,transparent 88%);
+  -webkit-mask-image:radial-gradient(ellipse 78% 62% at 50% 42%,#000 0%,rgba(0,0,0,.55) 55%,transparent 88%);
+  animation:gridDrift 22s linear infinite}
+@keyframes gridDrift{0%{background-position:0 0,0 0}100%{background-position:0 44px,44px 0}}
+.ts-scan{position:absolute;inset:0;pointer-events:none;opacity:.30;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.055) 0 1px,transparent 1px 4px)}
+.ts-vig{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 76% 66% at 50% 44%,transparent 40%,rgba(0,0,0,.55) 100%)}
+.ts-parts b{width:2px;height:2px;background:rgba(190,245,255,.9);box-shadow:0 0 7px rgba(150,235,255,.8)}
+.ts-parts b:nth-child(3n){background:rgba(255,226,160,.95);box-shadow:0 0 8px rgba(255,220,150,.85)}
+/* 상단 배지 */
+.ts-topbadge{position:relative;z-index:3;display:inline-flex;align-items:center;gap:9px;
+  padding:6px 13px;border-radius:999px;border:1px solid rgba(150,235,255,.30);
+  background:linear-gradient(120deg,rgba(12,22,30,.86),rgba(24,20,12,.72));
+  box-shadow:0 0 0 1px rgba(255,255,255,.04) inset,0 6px 22px rgba(0,0,0,.5);
+  font-size:9.5px;font-weight:900;letter-spacing:.16em;color:#a9e6f7;text-transform:uppercase}
+.ts-topbadge i{width:1px;height:11px;background:rgba(255,255,255,.22)}
+.ts-topbadge .tb-m{color:#f0d79b;letter-spacing:.12em}
+/* 엠블럼 */
+.ts-emblem{gap:10px}
+.ts-hex{width:132px;height:132px;filter:drop-shadow(0 14px 30px rgba(110,220,255,.25)) drop-shadow(0 6px 18px rgba(230,196,129,.28))}
+.ts-hex span{position:absolute;right:6px;bottom:10px;font-size:11px;font-weight:900;letter-spacing:.02em;
+  padding:1px 6px;border-radius:6px;background:rgba(6,12,18,.86);border:1px solid rgba(230,196,129,.55);
+  background-clip:border-box;-webkit-background-clip:border-box;color:#ffe9b0}
+@keyframes hexGlow{0%,100%{filter:drop-shadow(0 0 8px rgba(150,235,255,.30))}
+  50%{filter:drop-shadow(0 0 20px rgba(255,225,160,.55))}}
+.ts-kicker{color:#8fe3f7;letter-spacing:.40em;font-size:9.5px;text-shadow:0 0 14px rgba(120,225,255,.45)}
+.ts-h{font-size:clamp(36px,9.6vw,62px);
+  background:linear-gradient(178deg,#ffffff 0%,#dff8ff 22%,#ffe9b0 52%,#c9a45c 74%,#8a6b28 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.6)) drop-shadow(0 12px 30px rgba(120,225,255,.25));
+  letter-spacing:-.05em}
+.ts-h em{background:linear-gradient(180deg,#eafcff,#8fe3f7 52%,#2b93b8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ts-h b{background:linear-gradient(180deg,#fffdf3,#ffd98f 48%,#c9a45c);-webkit-background-clip:text;background-clip:text;
+  text-shadow:0 0 26px rgba(255,220,150,.28)}
+.ts-tag{color:#b9c6d6;font-size:12px;max-width:380px;text-shadow:0 1px 10px rgba(0,0,0,.7)}
+/* 버튼 4종 — 글래스모피즘 + 좌측 액센트 + 네온 아이콘 */
+.ts-cta{max-width:442px;gap:10px}
+.ts-card{position:relative;overflow:hidden;gap:12px;padding:14px 15px;border-radius:16px;
+  background:linear-gradient(140deg,rgba(22,30,42,.72),rgba(8,12,18,.86));
+  border:1px solid rgba(140,220,245,.20);
+  box-shadow:0 12px 34px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.035) inset;
+  backdrop-filter:blur(10px) saturate(120%);-webkit-backdrop-filter:blur(10px) saturate(120%);
+  transition:transform .14s ease,border-color .22s,box-shadow .22s,background .22s}
+.ts-card:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .22s;
+  background:radial-gradient(420px 120px at 12% 50%,rgba(150,235,255,.16),transparent 70%)}
+.ts-card:hover:before,.ts-card:active:before{opacity:1}
+.ts-card:active{transform:scale(.985)}
+.tc-bar{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px;
+  background:linear-gradient(180deg,#bff4ff,#25e0ff 50%,#0a7f9c);box-shadow:0 0 14px rgba(37,224,255,.55)}
+.ts-card.continue .tc-bar{background:linear-gradient(180deg,#fff3d0,#ffd98f 50%,#c9a45c);box-shadow:0 0 16px rgba(255,217,143,.6)}
+.ts-card.custom .tc-bar{background:linear-gradient(180deg,#e6dcff,#a78bfa 50%,#6d4fd0);box-shadow:0 0 14px rgba(167,139,250,.55)}
+.ts-card.worlds .tc-bar{background:linear-gradient(180deg,#dff0ff,#78a0ff 50%,#3c5fd0);box-shadow:0 0 14px rgba(120,160,255,.55)}
+.ts-card .tc-ic{width:40px;height:40px;border-radius:12px;font-size:19px;
+  background:linear-gradient(150deg,rgba(20,40,54,.92),rgba(10,16,24,.92));
+  border:1px solid rgba(150,235,255,.30);box-shadow:0 0 16px rgba(37,224,255,.14) inset}
+.ts-card.continue .tc-ic{border-color:rgba(255,217,143,.40);box-shadow:0 0 16px rgba(255,217,143,.16) inset}
+.ts-card.custom .tc-ic{border-color:rgba(167,139,250,.40);box-shadow:0 0 16px rgba(167,139,250,.16) inset}
+.ts-card.worlds .tc-ic{border-color:rgba(120,160,255,.40);box-shadow:0 0 16px rgba(120,160,255,.16) inset}
+.ts-card .tc-body b{font-size:15px;color:#f2f8ff;letter-spacing:-.02em}
+.ts-card .tc-body em{font-size:10.8px;color:#93a6bb}
+.ts-card .tc-go{color:#8fe3f7;opacity:.9;font-size:11px}
+.ts-card.continue .tc-go{color:#ffd98f}
+.ts-card.custom .tc-go{color:#c4b1ff}
+.ts-card.new{border-color:rgba(140,220,245,.34);background:linear-gradient(140deg,rgba(16,38,50,.82),rgba(8,12,18,.88))}
+.ts-card.continue{border-color:rgba(230,196,129,.52);background:linear-gradient(140deg,rgba(56,44,20,.80),rgba(12,12,10,.9))}
+.ts-card.custom{border-color:rgba(167,139,250,.42);background:linear-gradient(140deg,rgba(34,26,56,.80),rgba(10,12,20,.9))}
+.ts-card.worlds{border-color:rgba(120,160,255,.34);background:linear-gradient(140deg,rgba(20,28,52,.80),rgba(8,12,20,.9))}
+/* 하단 칩 */
+.ts-chips{position:relative;z-index:3;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px;max-width:442px}
+.ts-bgm,.ts-cloud{margin:0;padding:8px 14px;font-size:11.5px;border-radius:999px;
+  background:rgba(10,16,24,.66);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(150,235,255,.24);color:#cfe8f6;
+  box-shadow:0 6px 18px rgba(0,0,0,.42);transition:border-color .2s,box-shadow .2s,transform .12s}
+.ts-bgm:active,.ts-cloud:active{transform:scale(.97)}
+.ts-bgm.on{border-color:rgba(255,217,143,.78);color:#ffe9b0;box-shadow:0 0 0 1px rgba(255,217,143,.16) inset,0 6px 22px rgba(255,200,120,.18)}
+.ts-cloud.on{border-color:rgba(120,220,170,.72);color:#a8f0c6}
+.ts-foot{color:#6a7688;font-size:9.5px;letter-spacing:.01em}
+@media(max-width:760px){
+  .tstage{gap:16px;padding:26px 14px 22px}
+  .ts-topbadge{font-size:8.5px;padding:5px 11px;letter-spacing:.10em}
+  .ts-hex{width:118px;height:118px}
+  .ts-grid{background-size:34px 34px}
+  .ts-cta{gap:9px}
+  .ts-card{padding:13px 14px;border-radius:15px}
+}
+@media(max-width:420px){
+  .ts-h{font-size:clamp(31px,10.4vw,40px)}
+  .ts-tag{font-size:11px;max-width:320px}
+  .ts-card .tc-body b{font-size:14px}
+  .ts-card .tc-body em{font-size:10px}
+  .ts-card{padding:12px 13px;gap:10px}
+  .ts-card .tc-ic{width:36px;height:36px;font-size:17px}
+  .ts-chips{gap:6px}
+  .ts-bgm,.ts-cloud{font-size:10.5px;padding:7px 12px}
+}
+@media(min-width:900px){
+  .tstage{gap:24px;padding:54px 24px 40px}
+  .ts-cta{max-width:470px}
+}
 
 </style>
 </head>
@@ -7020,6 +7186,8 @@ function logEvent(kind,text,minute){
   try{ if(typeof v6GateEvent==='function') text=v6GateEvent(kind,text); }catch(e){}
   M.events.unshift({kind,text,minute:minute===undefined?M.minute:minute});
   if(M.events.length>90) M.events.pop();
+  /* CAUSAL — 확정된 사건 문장에서 인과 링크를 뽑는다 (문장 창작 없음) */
+  try{ if(typeof causalObserve==='function') causalObserve(kind,text); }catch(e){}
 }
 function curveAt(comp,min){
   const c=comp.curve;
@@ -7082,6 +7250,8 @@ function tickBody(silent){
   try{ if(typeof v5EarlyWardTick==='function') v5EarlyWardTick(M.sec); }catch(e){}
   /* PRO MACRO v7 — 오브젝트 35~45초 전 시야 장악 (초 단위) */
   try{ if(typeof macroTick==='function') macroTick(M.sec); }catch(e){}
+  /* CAUSAL — 원인→결과 체인 관찰·중계 (초 단위) */
+  try{ if(typeof causalTick==='function') causalTick(M.sec); }catch(e){}
   /* KILL GATE — 보류된 킬이 지도에서 만났는지 확인 (초 단위) */
   try{ if(typeof kgTick==='function') kgTick(); }catch(e){}
   if(!M.lv) lvInit();
@@ -8104,7 +8274,9 @@ function bountyHudHTML(){
 
 /* ============ V5: 03:30 바위게 · 시야/와드 전쟁 · 바론 공성·억제기 ============ */
 const V5_SCUTTLE_SEC=210;          /* 03:30 바위게 */
-const V5_WARD_LIFE=3;              /* 와드 유지(분) */
+const V5_WARD_LIFE=3;              /* 와드 유지(분) — 레거시 필드 */
+const V5_WARD_LIFE_SEC=150;        /* 투명(노랑) 와드 2분 30초 */
+const V5_WARD_PINK_LIFE_SEC=240;   /* 제어(핑크) 와드 4분 */
 const V5_OBJ_AT={dragon:[5,11,17,23,29],baron:[20,26,32],grub:[6,10]};
 const V5_OBJ_NAME={dragon:'드래곤',baron:'바론',grub:'공허 유충'};
 /* 와드 자리: [x, y, 종류] — 핏 주변 부시·강가·적 정글 입구 */
@@ -8166,7 +8338,7 @@ function v5EarlyWardTick(sec){
     if(sec!==at) return;
     ['me','opp'].forEach(side=>{
       const sp=V5_EARLY_WARD_SPOTS[side][idx]||V5_EARLY_WARD_SPOTS[side][0];
-      v5WardPut(side,sp[2],sp[0],sp[1],(sec||0)/60);
+      v5WardPut(side,sp[2],sp[0],sp[1],(sec||0)/60,{src:'early',tag:'초반 시야'});
       M.earlyWards[side]=(M.earlyWards[side]||0)+1;
     });
     /* 서폿·정글의 스윕 시도 — 상대 와드를 지우면 시야 교전 로그 */
@@ -8343,12 +8515,17 @@ function v5Scuttle(){
 }
 
 /* ---------- 2) 시야·와드 전쟁 ---------- */
-function v5WardPut(side,kind,x,y,m){
+function v5WardPut(side,kind,x,y,m,opts){
   if(!M) return null;
   if(!M.visionWar) v5InitMatch();
   const W=M.visionWar;
+  const o=opts||{};
+  const sec=(typeof mmGameSec==='function')?Number(mmGameSec())||0:Number(M.sec)||0;
+  const lifeSec=(o.lifeSec!=null)?Number(o.lifeSec):((kind==='pink')?V5_WARD_PINK_LIFE_SEC:V5_WARD_LIFE_SEC);
   const w={x:clamp(Number(x)||0.5,0.04,0.96),y:clamp(Number(y)||0.5,0.04,0.96),
-    kind:(kind==='pink'?'pink':'yellow'),at:m,until:(m||0)+V5_WARD_LIFE,seq:(++W.seq),side:side};
+    kind:(kind==='pink'?'pink':'yellow'),at:m,until:(m||0)+V5_WARD_LIFE,seq:(++W.seq),side:side,
+    atSec:sec, untilSec:sec+lifeSec, lifeSec:lifeSec,
+    src:o.src||'std', tag:o.tag||null};
   W.wards[side].push(w);
   if(W.wards[side].length>10) W.wards[side].shift();
   M.vision[side==='me'?0:1]+=(w.kind==='pink'?4:2);
@@ -8385,7 +8562,7 @@ function v5WardSetup(kind,m){
     const off=side==='me'?-0.011:0.011;
     for(let i=0;i<n;i++){
       const sp=spots[i];
-      v5WardPut(side,sp[2],sp[0]+off,sp[1]+off,m);
+      v5WardPut(side,sp[2],sp[0]+off,sp[1]+off,m,{src:'obj',tag:'핏 시야'});
     }
     /* 제어와드 · 상대 와드 스윕 */
     const chance=clamp(0.24+(mine-rival)*0.05+v5Rnd(-0.08,0.14),0.05,0.8);
@@ -15369,42 +15546,59 @@ function renderTitle(){
   const sum=has?saveSummaryHTML():'';
   $('view-title').innerHTML=`
   <div class="tstage">
-    <div class="ts-beams"><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="ts-parts">${Array.from({length:18}).map((_,i)=>`<b style="--i:${i}"></b>`).join('')}</div>
+    <div class="ts-glow a"></div><div class="ts-glow b"></div><div class="ts-glow c"></div>
+    <div class="ts-beams"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="ts-grid"></div>
+    <div class="ts-scan"></div>
+    <div class="ts-parts">${Array.from({length:22}).map((_,i)=>`<b style="--i:${i}"></b>`).join('')}</div>
+    <div class="ts-vig"></div>
+    <div class="ts-topbadge"><span class="tb-e">2026 ESPORTS</span><i></i><span class="tb-m">lol.ps 26.22 MASTER+</span></div>
     <div class="ts-emblem">
-      <div class="ts-hex"><svg viewBox="0 0 100 100" aria-hidden="true">
-        <polygon points="50,4 89,26 89,74 50,96 11,74 11,26" fill="none" stroke="url(#hg)" stroke-width="2.5"/>
-        <polygon points="50,14 80,31 80,69 50,86 20,69 20,31" fill="rgba(230,196,129,.06)" stroke="rgba(230,196,129,.35)" stroke-width="1"/>
-        <defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9b0"/><stop offset=".5" stop-color="#c9a45c"/><stop offset="1" stop-color="#8a6b28"/></linearGradient></defs>
-      </svg><span>29</span></div>
+      <div class="ts-hex"><svg viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bff4ff"/><stop offset=".45" stop-color="#ffe9b0"/><stop offset="1" stop-color="#8a6b28"/></linearGradient>
+          <linearGradient id="hg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff8e0"/><stop offset="1" stop-color="#c9a45c"/></linearGradient>
+        </defs>
+        <polygon points="60,4 108,31 108,89 60,116 12,89 12,31" fill="rgba(8,14,20,.72)" stroke="url(#hg)" stroke-width="2.4"/>
+        <polygon points="60,15 98,37 98,83 60,105 22,83 22,37" fill="none" stroke="rgba(160,240,255,.30)" stroke-width="1"/>
+        <path d="M46 44h28v7c0 8-5.6 14-10 15.5V74h7c2.6 0 4.6 2 4.6 4.6H44.4c0-2.6 2-4.6 4.6-4.6h7v-7.5c-4.4-1.5-10-7.5-10-15.5z" fill="url(#hg2)"/>
+        <path d="M46 47h-6c-2.6 0-4.6 2-4.6 4.6 0 5 4 9.2 9 9.6M74 47h6c2.6 0 4.6 2 4.6 4.6 0 5-4 9.2-9 9.6" fill="none" stroke="url(#hg2)" stroke-width="2"/>
+        <circle cx="60" cy="28" r="2" fill="#bff4ff" opacity=".9"/>
+      </svg><span>30</span></div>
       <div class="ts-kicker">LEAGUE OF LEGENDS · ESPORTS MANAGER</div>
-      <h1 class="ts-h">LoL <em>MANAGER</em> <b>29</b></h1>
+      <h1 class="ts-h">LoL <em>MANAGER</em> <b>30</b></h1>
       <div class="ts-tag">구단주가 되어 세계를 지배하라 — LCK · LPL · LEC · LCS · 커스텀 구단 · 롤드컵</div>
     </div>
     <div class="ts-cta">
       ${has?`<button class="ts-card continue" id="btnContinue">
+        <i class="tc-bar"></i>
         <span class="tc-ic">💾</span>
         <span class="tc-body"><b>이어하기</b><em>${sum||'저장된 시즌을 불러옵니다'}</em></span>
         <span class="tc-go">▶</span>
       </button>`:''}
       <button class="ts-card new" id="btnNew">
+        <i class="tc-bar"></i>
         <span class="tc-ic">🏛</span>
         <span class="tc-body"><b>새 구단주 시작</b><em>LCK · LPL · LEC · LCS 구단 선택 또는 나만의 구단 창단</em></span>
         <span class="tc-go">▶</span>
       </button>
       <button class="ts-card custom" id="btnCustom">
+        <i class="tc-bar"></i>
         <span class="tc-ic">✨</span>
         <span class="tc-body"><b>나만의 구단 창단</b><em>이름 · 엠블럼 · 컬러 · 선수단까지 직접 만드는 커스텀 구단</em></span>
         <span class="tc-go">▶</span>
       </button>
       <button class="ts-card worlds" id="btnWorlds">
+        <i class="tc-bar"></i>
         <span class="tc-ic">🌍</span>
         <span class="tc-body"><b>롤드컵 바로 시작</b><em>16팀 스위스 스테이지 · 월즈 모드</em></span>
         <span class="tc-go">▶</span>
       </button>
     </div>
-    <button class="ts-bgm" id="tsBgm" type="button">🎵 징크스 테마 <em>탭해서 재생</em></button>
-    <button class="ts-cloud" id="tsCloud" type="button">☁️ 클라우드 로그인</button>
+    <div class="ts-chips">
+      <button class="ts-bgm" id="tsBgm" type="button">🎵 징크스 테마 <em>탭해서 재생</em></button>
+      <button class="ts-cloud" id="tsCloud" type="button">☁️ 클라우드 로그인</button>
+    </div>
     <div class="ts-foot">팬 메이드 시뮬레이션 · 실제 선수/팀 명칭은 정보 제공 목적</div>
   </div>`;
   show('title');
@@ -21852,6 +22046,137 @@ function mmUpdate(dt){
 }
 
 /* ---------- 그리기 ---------- */
+/* ============================================================================
+   와드 마커 — 미니맵 위 시야 표시
+   · 투명 와드(노랑) = 마름모 렌즈, 제어 와드(핑크/보라) = 육각형 + 이중 링
+   · 박은 팀 구분: 아군은 청록 테두리, 적군은 붉은 테두리 (모양은 같다)
+   · 남은 시간 호 = 와드 수명(노랑 150초·핑크 240초)이 줄어드는 걸 직접 보여준다
+   · 2:20 칼날부리 와드 = 위쪽 날개 두 개 + "2:20" 라벨, 핏 시야 = 아래 핀,
+     바론 낚시 = 핀 + 물결, 안전 체크 = 점선 테두리
+   · 렌즈(스위퍼)로 지워지면 v5Sweep 이 목록에서 빼고, 그 자리에 훑는 연출이 뜬다
+   ========================================================================== */
+var MMWARD={on:true, labels:true, max:26};
+function mmWardAliveAt(wd,sec){
+  if(!wd) return false;
+  if(wd.untilSec==null||!isFinite(wd.untilSec)) return true;
+  return sec<wd.untilSec;
+}
+function mmWardLeftSec(wd,sec){
+  if(!wd||wd.untilSec==null||!isFinite(wd.untilSec)) return null;
+  return Math.max(0,wd.untilSec-sec);
+}
+function mmWardFade(wd,sec){
+  const left=mmWardLeftSec(wd,sec);
+  if(left==null) return 1;
+  if(left<=0) return 0;
+  if(left>=12) return 1;
+  return 0.18+0.82*(left/12);      /* 마지막 12초는 흐려진다 */
+}
+function mmWardList(sec){
+  const out=[];
+  const VW=(M&&M.visionWar&&M.visionWar.wards)||null;
+  if(!VW) return out;
+  ['me','opp'].forEach(function(side){
+    (VW[side]||[]).forEach(function(wd){
+      if(!mmWardAliveAt(wd,sec)) return;
+      out.push({wd:wd,side:side});
+    });
+  });
+  if(out.length>MMWARD.max) out.splice(0,out.length-MMWARD.max);
+  return out;
+}
+function mmDrawWards(ctx,w,h,sec,now){
+  if(!MMWARD.on) return;
+  const list=mmWardList(sec);
+  if(!list.length) return;
+  const small=w<300;
+  list.forEach(function(o){
+    const wd=o.wd, side=o.side;
+    const x=wd.x*w, y=wd.y*h;
+    const pink=(wd.kind==='pink');
+    const fade=mmWardFade(wd,sec);
+    if(fade<=0.02) return;
+    const r=Math.max(pink?3.3:2.7, w*(pink?0.0110:0.0092));
+    const ally=(side==='me');
+    const ringCol=ally?'rgba(95,201,255,.92)':'rgba(255,114,136,.92)';
+    const fill=pink?(ally?'#ff8ade':'#f45fbd'):(ally?'#ffe066':'#ffc24a');
+    const glow=pink?'#ff6bd5':(ally?'#ffd94a':'#ffae3a');
+    ctx.save();
+    ctx.globalAlpha=fade;
+    /* 바깥 테두리 — 어느 팀 와드인지 */
+    ctx.beginPath(); ctx.arc(x,y,r+2.1,0,7);
+    ctx.strokeStyle=ringCol; ctx.lineWidth=1; ctx.stroke();
+    /* 본체 */
+    ctx.shadowColor=glow; ctx.shadowBlur=pink?8:6;
+    ctx.fillStyle=fill;
+    if(pink){
+      ctx.beginPath();
+      for(let i=0;i<6;i++){ const a=-Math.PI/2+i*Math.PI/3; const px=x+Math.cos(a)*(r+0.5), py=y+Math.sin(a)*(r+0.5); i?ctx.lineTo(px,py):ctx.moveTo(px,py); }
+      ctx.closePath(); ctx.fill();
+      ctx.shadowBlur=0;
+      ctx.strokeStyle='rgba(255,232,250,.95)'; ctx.lineWidth=0.9; ctx.stroke();
+      ctx.beginPath(); ctx.arc(x,y,r*0.34,0,7); ctx.fillStyle='rgba(30,6,26,.9)'; ctx.fill();
+    }else{
+      ctx.beginPath();
+      ctx.moveTo(x,y-r); ctx.lineTo(x+r*0.82,y); ctx.lineTo(x,y+r); ctx.lineTo(x-r*0.82,y); ctx.closePath(); ctx.fill();
+      ctx.shadowBlur=0;
+      ctx.strokeStyle='rgba(60,40,0,.55)'; ctx.lineWidth=0.7; ctx.stroke();
+      ctx.beginPath(); ctx.arc(x,y,r*0.30,0,7); ctx.fillStyle='rgba(60,40,0,.75)'; ctx.fill();
+    }
+    /* 남은 수명 호 */
+    const left=mmWardLeftSec(wd,sec);
+    if(left!=null&&wd.lifeSec){
+      const f=Math.max(0,Math.min(1,left/wd.lifeSec));
+      ctx.beginPath(); ctx.arc(x,y,r+4.0,-Math.PI/2,-Math.PI/2+Math.PI*2*f);
+      ctx.strokeStyle=pink?'rgba(255,186,240,.85)':'rgba(255,238,160,.8)'; ctx.lineWidth=1.1; ctx.stroke();
+    }
+    /* 출처별 표식 */
+    const src=wd.src||'std';
+    if(src==='dopa'){
+      /* 칼날부리 와드 — 닭 벼슬 모양 날개 두 개 */
+      ctx.beginPath();
+      ctx.moveTo(x-r*0.9,y-r*1.05); ctx.lineTo(x-r*1.6,y-r*1.75); ctx.lineTo(x-r*0.25,y-r*1.35);
+      ctx.closePath(); ctx.fillStyle=fill; ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(x+r*0.9,y-r*1.05); ctx.lineTo(x+r*1.6,y-r*1.75); ctx.lineTo(x+r*0.25,y-r*1.35);
+      ctx.closePath(); ctx.fill();
+    }else if(src==='obj'||src==='bait'){
+      /* 핏 시야 와드 — 아래로 뾰족한 핀 (baron bait 는 물결 한 줄 더) */
+      ctx.beginPath(); ctx.moveTo(x-r*0.55,y+r*0.85); ctx.lineTo(x,y+r*2.0); ctx.lineTo(x+r*0.55,y+r*0.85);
+      ctx.closePath(); ctx.fillStyle=pink?'rgba(255,120,230,.95)':'rgba(255,214,90,.95)'; ctx.fill();
+      if(src==='bait'){
+        ctx.beginPath(); ctx.arc(x,y+r*2.7,r*0.55,0.15*Math.PI,0.85*Math.PI);
+        ctx.strokeStyle='rgba(160,220,255,.9)'; ctx.lineWidth=0.9; ctx.stroke();
+      }
+    }else if(src==='check'){
+      ctx.setLineDash([2,2]);
+      ctx.beginPath(); ctx.arc(x,y,r+5.4,0,7);
+      ctx.strokeStyle='rgba(190,230,255,.6)'; ctx.lineWidth=0.9; ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    /* 2:20 칼날부리 라벨 — 지도가 좁으면 생략해 지저분해지지 않게 */
+    if(src==='dopa'&&MMWARD.labels&&!small){
+      const tx='2:20';
+      ctx.font='900 '+Math.max(6,Math.round(w*0.017))+'px Pretendard,sans-serif';
+      const tw=ctx.measureText(tx).width;
+      mmRoundRect(ctx,x-tw/2-2.5,y-r*2.9,tw+5,Math.max(7,Math.round(w*0.021)),2.5);
+      ctx.fillStyle='rgba(10,8,16,.86)'; ctx.fill();
+      ctx.strokeStyle='rgba(255,224,102,.65)'; ctx.lineWidth=0.7; ctx.stroke();
+      ctx.fillStyle='#ffe9a3'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(tx,x,y-r*2.9+Math.max(7,Math.round(w*0.021))/2+0.5);
+    }
+    ctx.restore();
+  });
+}
+function mmWardCounts(sec){
+  const s=(sec==null)?((typeof mmGameSec==='function')?mmGameSec():0):sec;
+  const c={me:{yellow:0,pink:0},opp:{yellow:0,pink:0}};
+  mmWardList(s).forEach(function(o){
+    const k=(o.wd.kind==='pink')?'pink':'yellow';
+    c[o.side][k]=(c[o.side][k]||0)+1;
+  });
+  return c;
+}
 function mmRoundRect(ctx,x,y,w,h,r){
   if(ctx.roundRect){ try{ ctx.beginPath(); ctx.roundRect(x,y,w,h,r); return; }catch(e){} }
   ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
@@ -22156,27 +22481,8 @@ function mmDraw(dt){
     ctx.strokeStyle='rgba(6,10,16,.85)';
     ctx.stroke();
   });
-  /* ---------- 시야·와드 (노란 와드 · 핑크 제어와드) ---------- */
-  const VW=(M.visionWar&&M.visionWar.wards)||null;
-  if(VW){
-    ['me','opp'].forEach(side=>{
-      (VW[side]||[]).forEach(wd=>{
-        const x=wd.x*w, y=wd.y*h;
-        if(wd.kind==='pink'){
-          ctx.beginPath(); ctx.arc(x,y,Math.max(2.6,w*0.0105),0,7);
-          ctx.fillStyle=side==='me'?'#ff8ade':'#ff6bc8';
-          ctx.shadowColor='#ff6bd5'; ctx.shadowBlur=9; ctx.fill(); ctx.shadowBlur=0;
-          ctx.strokeStyle='rgba(255,220,245,.95)'; ctx.lineWidth=1; ctx.stroke();
-          ctx.beginPath(); ctx.arc(x,y,Math.max(5,w*0.019),0,7);
-          ctx.strokeStyle='rgba(255,107,213,.45)'; ctx.lineWidth=1; ctx.stroke();
-        }else{
-          ctx.beginPath(); ctx.arc(x,y,Math.max(2,w*0.0085),0,7);
-          ctx.fillStyle=side==='me'?'#ffe066':'#ffb04a';
-          ctx.shadowColor='#ffd94a'; ctx.shadowBlur=7; ctx.fill(); ctx.shadowBlur=0;
-        }
-      });
-    });
-  }
+  /* ---------- 시야·와드 (투명/제어 · 2:20 칼날부리 · 핏 시야) ---------- */
+  try{ mmDrawWards(ctx,w,h,sec,now); }catch(e){}
   /* 발사체 */
   MM.proj.forEach(p=>{
     const x=p.x*w,y=p.y*h;
@@ -22347,12 +22653,20 @@ function mmDraw(dt){
       ctx.strokeStyle=f.col||'#b98cff'; ctx.lineWidth=2.6;
       ctx.beginPath(); ctx.arc(x,y,Math.max(4,w*0.02)*(1+age*2.4),0,7); ctx.stroke();
     }else if(f.type==='sweep'){
-      ctx.strokeStyle=f.col||'#7cf7ff'; ctx.lineWidth=2; ctx.setLineDash([4,3]);
-      ctx.beginPath(); ctx.arc(x,y,Math.max(4,w*0.02)*(0.6+age*2.2),0,7); ctx.stroke();
-      ctx.setLineDash([]);
-      ctx.fillStyle=f.col||'#7cf7ff';
-      ctx.font=`900 ${Math.max(6,Math.round(w*0.018))}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='bottom';
-      ctx.fillText('SWEEP',x,y-8-age*6);
+      const rr=Math.max(4,w*0.02)*(0.5+age*2.4);
+      ctx.strokeStyle='rgba(124,247,255,.95)'; ctx.lineWidth=2; ctx.setLineDash([4,3]);
+      ctx.beginPath(); ctx.arc(x,y,rr,0,7); ctx.stroke(); ctx.setLineDash([]);
+      /* 렌즈로 지워진 자리 — 바깥으로 퍼지는 X 표시 */
+      ctx.strokeStyle='rgba(190,255,255,.9)'; ctx.lineWidth=1.6;
+      for(let i=0;i<4;i++){
+        const a=i*Math.PI/2+Math.PI/4, d=rr*0.72, s2=Math.max(2,w*0.008);
+        const bx=x+Math.cos(a)*d, by=y+Math.sin(a)*d;
+        ctx.beginPath(); ctx.moveTo(bx-s2,by-s2); ctx.lineTo(bx+s2,by+s2);
+        ctx.moveTo(bx+s2,by-s2); ctx.lineTo(bx-s2,by+s2); ctx.stroke();
+      }
+      ctx.fillStyle='rgba(124,247,255,.95)';
+      ctx.font=`900 ${Math.max(6,Math.round(w*0.017))}px Pretendard,sans-serif`; ctx.textAlign='center'; ctx.textBaseline='bottom';
+      ctx.fillText('LENS',x,y-8-age*6);
     }
     ctx.globalAlpha=1;
   });
@@ -25176,6 +25490,218 @@ const ANALYST_POOL={
   vision:['시야 점수 차이가 결국 오브젝트 차이로 이어집니다','제어와드 하나가 시야 두 개를 지웁니다','부시 와드가 잡히면 그 다음은 픽오프 각입니다'],
   trade:['우선권이 없으면 안 싸우는 게 정답이에요','드래곤 주고 탑 타워 먹는 거, 이게 이득입니다','5대5 도박보다 교환이 낫습니다','사이드 압박이 있으면 오브젝트는 버려도 됩니다'],
 };
+/* ============================================================================
+   해설 확장 — 상황별 개드립(프로씬 유머) + 새 장면 멘트
+   · 기존 풀은 그대로 두고 EXT 로 덧붙인다 (기존 문장 회전·중복 방지 로직 유지)
+   ========================================================================== */
+const CASTER_POOL_EXT={
+  solo:[
+    '솔로킬!! 이걸 혼자 잡는다고요? 상대 탑은 아직도 이해가 안 될 겁니다',
+    '와~ 점멸 없이 그냥 걸어서 죽였습니다, 이건 실력이 아니라 학대입니다 ㅋㅋ',
+    '1대1에서 이렇게 끝나면 라인은 그냥 폐쇄입니다, 복구 불가',
+    '상대 입장에서는 “각 아니었는데?” 하고 누워 있을 시간도 없었습니다',
+    '이 라인은 이제 탈출 불가 수용소입니다, 감독님 표정이 벌써 어둡습니다',
+    '라인전 끝났습니다! 이건 상성이 아니라 그냥 재능 차이입니다'
+  ],
+  dive:[
+    '다이브!! 포탑이 맞아주는데 왜 안 들어가겠습니까!',
+    '포탑 두 대 맞고도 남는 장사, 이게 계산된 다이브입니다',
+    '수비하는 선수는 답이 없습니다, 뒤로 가도 죽고 앞으로 가도 죽고',
+    '와, 미니언이 포탑을 맞는 동안 셋이 그냥 들어갑니다! 이게 프로입니다',
+    '탑은 이제 2차 시야도 못 잡습니다, 라인 자체가 사라졌어요'
+  ],
+  bigwaveDive:[
+    '빅웨이브를 쌓아뒀습니다! 이건 다이브 예고편이었어요',
+    '미니언이 포탑을 두드리는 동안 셋이 들어갑니다, 교과서적인 다이브!',
+    '웨이브를 아껴 쌓는 순간부터 답이 정해져 있었습니다, 이건 설계입니다',
+    '와, 이 웨이브는 그냥 방패입니다, 챔피언이 아니라 미니언이 탱킹합니다 ㅋㅋ',
+    '수비하는 쪽은 미니언을 치자니 챔피언이 들어오고, 챔피언을 치자니 포탑이 맞고 — 선택지가 없습니다'
+  ],
+  recallCut:[
+    '귀환 타이밍을 잘랐습니다! 집을 못 갔어요',
+    '아 이건 너무 잔인합니다, 집 가는 길에 끊겼습니다 ㅋㅋ',
+    '턴이 그대로 뒤집힙니다! 한 번 끊기면 다음 오브젝트까지 노템으로 싸워야 합니다',
+    '와, 저 타이밍에 귀환을 노린 게 아니라 기다린 겁니다, 준비된 플레이입니다',
+    '상대는 지금 아이템 창을 못 열었습니다, 정비 시간이 통째로 날아갔어요'
+  ],
+  baronBait:[
+    '바론을 치는 척합니다! 이건 낚시입니다, 상대가 걸려야 합니다',
+    '아직 안 칩니다... 아직 안 칩니다... 이게 제일 무서운 시간입니다',
+    '바론 앞에서 시간을 끄는 쪽이 이깁니다, 조급한 팀이 사고를 냅니다',
+    '와드만 지우고 다시 자리 잡습니다, 이건 협박입니다 ㅋㅋ',
+    '상대가 먼저 들어오는 순간 게임이 끝납니다, 숨죽이고 기다립니다'
+  ],
+  camp3:[
+    '3캠프만 먹고 곧바로 라인으로 갑니다! 이게 초반 설계입니다',
+    '정글러가 캠프를 아끼고 갱 타이밍을 당겼습니다, 칼날 같은 동선입니다',
+    '세 캠프 클리어 후 바로 봇입니다, 상대 라인은 아직 모르고 있습니다',
+    '이건 레벨 4 타이밍을 버리고 갱을 산 겁니다, 프로는 이걸 계산해요',
+    '와, 정글이 캠프를 반쯤 버리고 왔습니다! 이게 되면 초반 판이 뒤집힙니다'
+  ],
+  fullClear:[
+    '풀캠프 동선입니다, 캠프 여섯 개를 다 먹고 레벨 6을 먼저 봅니다',
+    '정글러가 코인을 세듯 캠프를 순서대로 지웁니다, 이게 성장형 정글입니다',
+    '초반 갱을 포기하고 레벨을 택했습니다, 6렙 이후를 보는 그림입니다',
+    '와, 이 정도로 조용한데 상대 라인들은 긴장해야 합니다 ㅋㅋ',
+    '풀캠프 완료 — 이제 정글러가 지도에서 사라졌습니다, 어디서 나올지가 공포입니다'
+  ],
+  midShake:[
+    '미드가 정글이 옆에 있는 척합니다! 이게 쉐이크입니다',
+    '와, 미드가 반 발짝 애매하게 서 있는데 상대 정글이 못 들어옵니다 ㅋㅋ',
+    '이건 블러핑입니다, 정글은 반대편에 있는데 미드가 그걸 숨기고 있어요',
+    '상대는 합류를 생각하다 시간을 버립니다, 그 사이 반대편 캠프가 사라집니다',
+    '미드가 한 명 있는데 두 명처럼 보입니다, 이게 시야 싸움의 정수입니다'
+  ],
+  wardRead:[
+    '칼날부리에 와드가 박혔습니다! 이제 상대 정글 동선이 다 읽힙니다',
+    '2분 20초, 미드가 먼저 밀고 와드를 박습니다 — 이게 프로의 시야 설계입니다',
+    '와드 하나로 정글의 첫 캠프 순서가 그대로 드러납니다, 이게 정보의 힘입니다',
+    '상대 정글은 이제 어디로 가도 보입니다, 지도에 이름표를 붙인 겁니다 ㅋㅋ',
+    '이 와드가 3분 뒤 바위게 싸움까지 이어집니다, 미리 값을 치른 겁니다'
+  ],
+  steal:[
+    '스틸!!! 이게 들어갑니까! 상대 정글은 강타를 아꼈습니다',
+    '와, 마지막 타이밍에 빼앗아갑니다! 이게 정글 차이입니다',
+    '스틸은 운이 아니라 위치입니다, 시야를 잡은 쪽이 가져갑니다',
+    '상대는 지금 바론을 한 시간 동안 친 기분일 겁니다 ㅋㅋ',
+    '이게 스틸입니다 여러분, 상대 정글러의 표정이 화면에 잡힙니다'
+  ],
+  kill:[
+    '터졌습니다!! 이 각을 봐요, 여러분',
+    '아니 이걸 잡는다고요?! 상대는 아직도 상황 파악 중입니다',
+    '한 명이 끊겼습니다, 숫자 싸움입니다! 이건 바로 오브젝트각입니다',
+    '와~ 이건 상대가 먼저 들어온 게 오히려 손해가 됐습니다',
+    '라인 하나가 통째로 무너집니다, 이건 킬보다 큰 손해입니다'
+  ]
+};
+const ANALYST_POOL_EXT={
+  solo:[
+    '저건 상대가 미니언을 못 본 겁니다, 라인 관리 실수예요 ㅋㅋ',
+    '솔로킬은 결국 스펠 교환 싸움입니다, 점멸 아낀 쪽이 지죠',
+    '이 라인은 이제 프리징도 못 합니다, 포탑까지 걸어가야 해요',
+    '저건 실력 차이로 보는 게 맞습니다, 상성으로 설명이 안 돼요'
+  ],
+  bigwaveDive:[
+    '빅웨이브는 다이브의 방패입니다, 미니언이 포탑 어그로를 다 받아줘요',
+    '웨이브를 아껴 쌓는 데 30초를 썼습니다, 그 30초가 이 다이브를 만든 겁니다',
+    '수비 입장에서는 미니언을 지울 수도, 챔피언을 칠 수도 없습니다 — 그래서 다이브죠',
+    '이건 사이드 웨이브 관리가 정글 갱을 부른 대표적인 장면입니다'
+  ],
+  recallCut:[
+    '귀환은 템포입니다, 그 템포를 끊으면 다음 오브젝트까지 노템으로 싸워야 해요',
+    '저건 상대가 웨이브를 밀어놓고 안전하게 집에 갈 타이밍을 놓친 겁니다',
+    '한 번 끊기면 라인 복귀도 늦고, 그 사이 타워 방패가 날아갑니다',
+    '이런 장면이 3분 뒤 오브젝트 숫자 싸움으로 이어집니다'
+  ],
+  baronBait:[
+    '바론은 치는 것보다 안 치는 척이 더 무섭습니다, 시야 싸움이 먼저예요',
+    '여기서 먼저 들어가면 지는 겁니다, 조급한 팀이 사고를 냅니다',
+    '핏 앞에 제어와드 하나가 경기를 가릅니다, 지금 그 싸움입니다',
+    '양 팀 다 바론을 안 치고 눈치만 봅니다, 이건 서로 실수 기다리는 시간이에요'
+  ],
+  camp3:[
+    '3캠프는 갱 타이밍을 30초 당기는 선택입니다, 대신 레벨이 반 발짝 늦어요',
+    '교전형 정글러가 왜 비싼지 보여주는 장면입니다, 캠프를 버리고 라인을 삽니다',
+    '이건 상대 정글 동선을 예측했다는 뜻입니다, 어디를 비울지 알고 움직여요',
+    '라인 주도권이 있어야 성립하는 동선입니다, 미드가 먼저 밀어줬죠'
+  ],
+  fullClear:[
+    '풀캠프는 안전한 대신 초반 3분을 포기하는 선택입니다, 6렙 타이밍을 봐요',
+    '성장형 정글은 이렇게 조용해야 합니다, 대신 라인들이 버텨줘야 해요',
+    '풀캠프 후 첫 갱은 각이 아니라 타이밍입니다, 그때가 제일 위험해요',
+    '캠프를 다 먹으면 골드가 균일합니다, 그래서 6렙 싸움에서 세요'
+  ],
+  midShake:[
+    '쉐이크는 정보 싸움입니다, 상대 정글이 합류를 고민하는 시간만큼 반대편이 비어요',
+    '미드가 애매한 거리를 유지하는 것만으로 상대 동선이 꼬입니다',
+    '이건 블러핑이고, 상대가 한 번이라도 반응하면 그때 시간이 사라집니다',
+    '정글 위치를 숨기는 가장 싼 방법이 미드의 위치입니다'
+  ],
+  wardRead:[
+    '칼날부리 와드는 상대 정글의 첫 캠프 순서를 그대로 노출합니다',
+    '2분 20초는 미드가 첫 웨이브를 정리하는 시점입니다, 그래서 와드를 박죠',
+    '이 정보 하나로 사이드 라이너들이 반 발짝씩 앞으로 나설 수 있습니다',
+    '시야는 골드가 아니라 정보이고, 정보는 곧 안전한 압박입니다'
+  ],
+  steal:[
+    '스틸은 위치와 타이밍입니다, 강타를 아낀 게 패인이에요',
+    '저건 시야를 잡은 팀이 마지막 3초를 통제한 겁니다',
+    '바론은 체력이 아니라 강타 싸움입니다, 정글 차이가 그대로 나요',
+    '상대는 바론을 다 쳤는데 오브젝트는 넘어갔습니다, 이게 롤입니다'
+  ]
+};
+Object.keys(CASTER_POOL_EXT).forEach(function(k){
+  CASTER_POOL[k]=(CASTER_POOL[k]||[]).concat(CASTER_POOL_EXT[k]);
+});
+Object.keys(ANALYST_POOL_EXT).forEach(function(k){
+  ANALYST_POOL[k]=(ANALYST_POOL[k]||[]).concat(ANALYST_POOL_EXT[k]);
+});
+/* ---------- 개드립 — 프로씬 유머/밈 (상황에 맞게 골라 쓴다) ---------- */
+const GAG_POOL={
+  general:[
+    '이 경기 끝나고 라커룸에서 무슨 말이 오갈지 궁금합니다 ㅋㅋ',
+    '감독님 표정이 점점 굳어갑니다, 카메라가 잡아줬으면 좋겠네요',
+    '해설석에서도 숨을 못 쉬고 있습니다, 이게 LCK입니다',
+    '관중석에서 “각 아니었는데” 소리가 들리는 것 같습니다 ㅋㅋ',
+    '오늘 경기 MVP보다 라커룸 회의가 더 궁금한 경기입니다',
+    '스크림에서는 이렇게 안 했을 텐데요, 아마도 ㅋㅋ',
+    '프로도 사람입니다, 방금 그 판단은 저도 못 합니다',
+    '이건 분석실에서 데이터를 다시 뽑아야 하는 경기입니다',
+    '치킨 광고보다 이 경기가 더 자극적입니다, 여러분',
+    '밴픽 때부터 느낌이 좋지 않았습니다, 코치진 표정이 그랬어요'
+  ],
+  lane:[
+    '미니언 한 마리 차이로 이렇게까지 기분이 나빠질 수 있습니다 ㅋㅋ',
+    '라인전은 결국 인내심 싸움입니다, 오늘은 둘 다 인내심이 없네요',
+    'CS 20개 차이는 골드 400입니다, 여러분의 월급 40분의 1입니다',
+    '탑 라인은 서로 악수도 안 하고 있습니다, 그냥 조용히 때립니다',
+    '이 라인은 이제 대화가 끊겼습니다, 서로 눈도 안 마주칩니다'
+  ],
+  obj:[
+    '핏 앞에 와드 하나가 없으면 그냥 도박입니다, 프로가 도박하면 안 되죠',
+    '드래곤은 시간이 지날수록 이자가 붙는 예금입니다',
+    '바론 앞에서 30초를 버는 팀이 이깁니다, 그게 제일 어려운 30초예요',
+    '오브젝트는 결국 미드 라인 주도권 싸움입니다, 다 돌고 돌아 미드입니다',
+    '유충은 타워로 바꿔야 의미가 있습니다, 모아두면 그냥 벌레입니다 ㅋㅋ'
+  ],
+  kill:[
+    '한 명 끊기면 그 뒤가 다 무너집니다, 프로는 이걸 제일 무서워합니다',
+    '킬 하나에 타워 두 개가 따라옵니다, 그래서 초반 킬이 비쌉니다',
+    '저건 상대가 미니언을 못 본 겁니다, 화면 밖은 늘 위험합니다 ㅋㅋ',
+    '킬은 운이지만 이후 운영은 실력입니다, 지금 그 다음을 봐야 합니다',
+    '점멸 아끼면 안 되는데 말이죠, 이번엔 아끼다가 잡혔습니다'
+  ],
+  late:[
+    '30분 넘으면 이제 멘탈 싸움입니다, 실력은 이미 다 보여줬어요',
+    '후반엔 템포가 아니라 시야가 곧 승리입니다',
+    '한 번의 실수로 30분이 사라집니다, 그게 이 게임입니다',
+    '지금부터는 과감함이 아니라 절제입니다, 욕심내면 지는 시간이에요',
+    '양 팀 다 숨이 차 있습니다, 관중도 숨이 찹니다 ㅋㅋ'
+  ],
+  macro:[
+    '사이드 하나가 게임 하나입니다, 그게 프로 운영입니다',
+    '5대5 도박보다 교환이 낫습니다, 이게 매크로의 정답이에요',
+    '우선권이 없으면 안 싸우는 게 정답입니다, 프로는 그걸 압니다',
+    '오브젝트 주고 타워 먹는 거, 이게 이득입니다, 손해가 아니에요',
+    '로테이션이 한 번 어긋나면 타워 두 개가 날아갑니다'
+  ]
+};
+function castGagPool(f){
+  const out=[];
+  ['general','lane','obj','kill','macro'].forEach(function(k){ out.push.apply(out,GAG_POOL[k]||[]); });
+  if((f&&f.m)>=26) out.push.apply(out,GAG_POOL.late||[]);
+  return out;
+}
+function castGag(f){ return castPick(castGagPool(f),'gag'); }
+/* 상황별 해설 — 이 장면에 맞는 캐스터/해설 멘트를 고른다 */
+function castSituationLines(key){
+  const leadPool=CASTER_POOL[key], anPool=ANALYST_POOL[key];
+  if(!leadPool||!leadPool.length) return null;
+  const lead=castPick(leadPool,'scn-'+key);
+  let analyst=anPool&&anPool.length?castPick(anPool,'scnA-'+key):'';
+  return [lead||'', analyst||''];
+}
+
 /* ---- 해설 반복 방지: 경기별 사용 이력 + 시나리오 쿨다운 ---- */
 const CASTMEM={hist:[],last:[null,null],scnAt:{},scnLast:null,at:{},n:0,banterLast:[null,null]};
 const CASTCACHE={key:null,lines:['',''],evN:-1,sec:-1};
@@ -25222,7 +25748,23 @@ function castScenarios(){
   if(/솔로킬/.test(evt)) keys.push('solo');
   if(/한타/.test(evt)) keys.push('clutch');
   if(/드래곤|유충|전령/.test(evt)) keys.push('obj');
+  if(/빅웨이브 다이브/.test(evt)) keys.push('bigwaveDive');
   if(/다이브/.test(evt)) keys.push(gd<0?'fail':'dive');
+  if(/귀환[^<]{0,4}(끊|차단)/.test(evt)) keys.push('recallCut');
+  if(/낚시/.test(evt)) keys.push('baronBait');
+  if(/3캠프|세 캠프/.test(evt)) keys.push('camp3');
+  if(/풀캠프/.test(evt)) keys.push('fullClear');
+  if(/쉐이크/.test(evt)) keys.push('midShake');
+  /* 정글 동선(3캠프/풀캠프)은 시작 로그가 sys 라 이벤트로 안 잡힌다 — 상태에서 직접 읽는다 */
+  try{
+    if(M.jgl&&M.minute<=5){
+      if(M.jgl.me&&M.jgl.me.mode==='3camp') keys.push('camp3');
+      if(M.jgl.opp&&M.jgl.opp.mode==='3camp') keys.push('camp3');
+      if(M.jgl.me&&M.jgl.me.mode==='full') keys.push('fullClear');
+      if(M.jgl.opp&&M.jgl.opp.mode==='full') keys.push('fullClear');
+    }
+  }catch(e){}
+  if(/칼날부리[^<]{0,14}와드|동선을?\s*읽/.test(evt)) keys.push('wardRead');
   if(/킬/.test(evt)) keys.push('kill');
   if(m<=2) keys.push('invade');
   if(M.campSteal&&((M.campSteal.me>0&&m-(M.campStealAtMe||-9)<=2)||(M.campSteal.opp>0&&m-(M.campStealAtOpp||-9)<=2))) keys.push('counterJgl');
@@ -25258,9 +25800,21 @@ function casterLines(){
   if(!key){ key=keys.find(k=>k!==CASTMEM.scnLast)||keys[0]||'lane'; }
   CASTMEM.scnAt[key]=m; CASTMEM.scnLast=key;
   const ev=freshEvent();
+  const fstate=castFacts();
+  const sit=castSituationLines(key);
   let lines;
-  if(ev&&key!=='intro') lines=castEventLine(ev,key);
-  else lines=castStateLines(key);
+  if(ev&&key!=='intro'){
+    lines=castEventLine(ev,key);
+    /* 사건 설명은 그대로, 해설 한 줄을 그 장면의 멘트/개드립으로 바꾼다 */
+    if(sit&&sit[1]&&Math.random()<0.72) lines=[lines[0],castClock()+', '+sit[1]];
+    else if(Math.random()<0.18) lines=[lines[0],castClock()+', '+castGag(fstate)];
+  }else if(sit&&sit[0]&&Math.random()<0.82){
+    const tail=sit[1]||(Math.random()<0.5?castGag(fstate):'');
+    lines=[castClock()+', '+sit[0], tail?(castClock()+', '+tail):castStateLines(key)[1]];
+  }else{
+    lines=castStateLines(key);
+    if(Math.random()<0.22) lines=[lines[0],castClock()+', '+castGag(fstate)];
+  }
   let lead=lines[0], analyst=lines[1];
   /* 같은 문장이 연속으로 나가지 않도록 회전 */
   if(CASTCACHE.lines&&lead===CASTCACHE.lines[0]&&!ev){
@@ -25456,7 +26010,9 @@ function buildMatchDOM(v,key){
         <div class="bcaster" id="mmCast">
           <div class="bc-line"><span class="bc-who">전용준</span><span class="bc-tx" id="mmCast1"></span></div>
           <div class="bc-line"><span class="bc-who alt">클템</span><span class="bc-tx" id="mmCast2"></span></div>
+          <div class="bc-line bc-causal"><span class="bc-who cs">인과</span><span class="bc-tx" id="mmCast3"></span></div>
         </div>
+        <div id="causalHost"></div>
       </div>
       <div class="bcol opp" id="colOpp">${sideColHTML('opp')}</div>
     </div>
@@ -25597,8 +26153,15 @@ function matchPatch(){
   const vq=q('mmVision');
   if(vq){
     const v=M.vision||[0,0];
-    const wm=(M.visionWar&&M.visionWar.wards)?M.visionWar.wards:{me:[],opp:[]};
-    const vt='👁 시야 '+Math.round(v[0])+':'+Math.round(v[1])+' · 와드 '+(wm.me||[]).length+':'+(wm.opp||[]).length;
+    let vt='👁 시야 '+Math.round(v[0])+':'+Math.round(v[1]);
+    try{
+      const c=(typeof mmWardCounts==='function')?mmWardCounts(M.sec||0):null;
+      if(c){
+        const me=c.me, op=c.opp;
+        vt+=' · 와드 '+(me.yellow+me.pink)+':'+(op.yellow+op.pink)
+          +' (🟡'+(me.yellow+op.yellow)+' 제어 '+(me.pink+op.pink)+')';
+      }
+    }catch(e){}
     if(vq.textContent!==vt) vq.textContent=vt;
   }
   const eq=q('mmExtra');
@@ -25680,6 +26243,23 @@ function matchPatch(){
   const c1=q('mmCast1'), c2=q('mmCast2');
   if(c1&&c1.textContent!==cast[0]) c1.textContent=cast[0];
   if(c2&&c2.textContent!==cast[1]) c2.textContent=cast[1];
+  /* 인과 해설 3번째 줄 — 가장 최근 체인의 마지막 연결고리를 말해준다 */
+  try{
+    const c3=q('mmCast3');
+    if(c3&&typeof causalTopChains==='function'){
+      const ch=causalTopChains(1);
+      const line=(ch.length&&ch[0].links.length>=2)
+        ? (ch[0].links.slice(-2).map(function(l){ return CAUSAL_KR[l.kind]+'('+causalClock(l.at)+')'; }).join(' → ')
+           + (causalWhyLines(ch[0])[0]?(' — '+causalWhyLines(ch[0])[0]):''))
+        : '';
+      if(c3.textContent!==line) c3.textContent=line;
+    }
+    const chost=q('causalHost');
+    if(chost&&typeof causalLiveHTML==='function'){
+      const h=causalLiveHTML();
+      if(chost.innerHTML!==h) chost.innerHTML=h;
+    }
+  }catch(e){}
   // 해설 한마디를 피드에 남기기 (최소 3분 간격 · 같은 문장 재사용 금지)
   if(!M.over&&M.minute-(MMDOM.banterAt==null?-9:MMDOM.banterAt)>=3&&M.minute>=2){
     MMDOM.banterAt=M.minute;
@@ -25971,6 +26551,7 @@ function renderBox(){
       <canvas id="boxGold" class="bx-graph"></canvas>
     </div>
     ${(typeof turningCardHTML==='function')?turningCardHTML():''}
+    ${(typeof causalCardHTML==='function')?causalCardHTML():''}
     ${typeof hupuCardHTML==='function'?hupuCardHTML():''}
     <div class="bx-card">
       <div class="bx-ch"><span>오브젝트 · 킬 타임라인</span><span class="tiny">● ${esc(t.tag)} ● ${esc(opp.tag)}</span></div>
@@ -26222,16 +26803,19 @@ function turningCardHTML(){
     <div class="tp-list">
       ${rows.map(function(r,i){
         const mine=r.team==='me';
+        const cAt={minute:Math.floor(r.at),sec:Math.round((r.at-Math.floor(r.at))*60)};
+        const cause=(typeof causalCauseFor==='function')?causalCauseFor(cAt):'';
         return `<div class="tp-row">
           <em class="tp-rank">${i+1}</em>
           <span class="tp-clock">${esc(r.clock)}</span>
           <b class="tp-tx">${esc(r.text)}</b>
           <span class="tp-team ${mine?'me':'opp'}">${esc(mine?meTag:opTag)}</span>
           <span class="tp-sw ${r.swing>=0?'up':'down'}">${tpSwingStr(r.swing)}</span>
+          ${cause?`<span class="tp-cause">↳ 원인: ${esc(cause)}</span>`:''}
         </div>`;
       }).join('')}
     </div>
-    <div class="tp-foot">이벤트 이후 2분 골드 스윙 기준 · 타임라인 자동 추출</div>
+    <div class="tp-foot">이벤트 이후 2분 골드 스윙 기준 · 타임라인 자동 추출 · ↳ 원인은 인과관계 체인에서</div>
   </div>`;
 }
 
@@ -28343,7 +28927,8 @@ const V6BGM={ytId:'V1gTYew5k4U', mode:'yt', on:true, vol:55, player:null, ready:
   apiState:'idle', started:0, playing:false, blocked:false, playT:0, failed:{}, nextTry:0,
   watchdog:null, host:null, title:'LCK Draft BGM',
   /* 타이틀(로그인) 화면 BGM — 징크스: 난폭한 말괄량이 | 로그인 화면 */
-  titleId:'BShu7Jp5X3k', titleName:'징크스: 난폭한 말괄량이 (로그인 화면)', ctx:'draft', titleArmed:false};
+  titleId:'BShu7Jp5X3k', titleName:'징크스: 난폭한 말괄량이 (로그인 화면)', ctx:'draft', titleArmed:false,
+  titleMuted:false, titleWaitTouch:false, titleGesture:false};
 function v6BgmLoad(){
   try{
     const raw=localStorage.getItem('lckManager.bgm6');
@@ -28537,6 +29122,12 @@ function v6BgmTryPlay(){
   if(!V6BGM.player) v6BgmCreate();
   const p=V6BGM.player;
   if(!p||!V6BGM.ready) return;
+  /* 타이틀: 이미 무음 재생으로 버퍼링 중이고 아직 터치가 없었다면 소리를 켜지 않는다
+     (모바일에서 unMute 시도가 재생 자체를 막아버리는 경우 방지) */
+  if(V6BGM.ctx==='title'&&V6BGM.titleMuted&&!V6BGM.titleGesture){
+    try{ p.setVolume(0); p.mute(); p.playVideo(); }catch(e){}
+    return;
+  }
   try{ p.setVolume(V6BGM.vol); p.unMute(); p.playVideo(); V6BGM.started=1; }catch(e){}
   /* 자동재생 차단 대비 — 3.5초 뒤에도 재생 전이면 ‘▶ 브금 켜기’로 안내
      (신스 폴백 없음 — 유튜브가 안 되면 그냥 조용히 둔다) */
@@ -28566,6 +29157,8 @@ function v6BgmArmGesture(){
   document.addEventListener('pointerdown',function(){
     if(!V6BGM.on||V6BGM.dead) return;
     if(V6BGM.mode!=='yt') return;
+    /* 타이틀 화면은 v6TitleBgmArm 이 무음재생→소리켜기까지 직접 처리한다 */
+    if(V6BGM.ctx==='title') return;
     if(!V6BGM.player||!V6BGM.ready||V6BGM.playing) return;
     try{
       V6BGM.player.setVolume(V6BGM.vol); V6BGM.player.unMute(); V6BGM.player.playVideo();
@@ -28607,8 +29200,66 @@ function v6TitleBgmEnter(){
   V6BGM.ctx='title';
   if(!V6BGM.on||V6BGM.dead) return false;
   V6BGM.blocked=false; V6BGM.playT=0;
+  V6BGM.titleMuted=false; V6BGM.titleWaitTouch=false; V6BGM.titleGesture=false;
   v6TitleBgmArm();
-  return v6BgmPlay('title');
+  /* 1차: 소리 포함 자동재생 시도 (데스크톱·자동재생 허용 브라우저는 여기서 바로 재생) */
+  const ok=v6BgmPlay('title');
+  /* 2차: 막혔으면 무음 재생으로 버퍼링을 걸어둔다 — 첫 터치에서 0초 지연으로 소리를 켠다 */
+  setTimeout(function(){
+    try{
+      if(V6BGM.ctx!=='title'||!V6BGM.on||V6BGM.dead) return;
+      if(V6BGM.playing) return;
+      V6BGM.blocked=true;
+      v6TitleBgmMutedStart();
+      try{ v6TitleBgmChip(); }catch(e){}
+    }catch(e){}
+  },1100);
+  return ok;
+}
+/* 무음 자동재생 — 브라우저 정책상 허용되는 재생. 스트림을 데워 두는 것 */
+function v6TitleBgmMutedStart(){
+  if(V6BGM.ctx!=='title'||!V6BGM.on||V6BGM.dead) return false;
+  if(!v6BgmApiReady()){ v6BgmEnsureApi(); V6BGM.titleWaitTouch=true; return false; }
+  if(!V6BGM.player){
+    V6BGM.pendingId=V6BGM.pendingId||V6BGM.titleId;
+    V6BGM.current=V6BGM.current||V6BGM.titleId;
+    v6BgmCreate(V6BGM.titleId);
+    V6BGM.titleWaitTouch=true;
+    return false;
+  }
+  if(!V6BGM.ready){ V6BGM.titleWaitTouch=true; return false; }
+  try{
+    const p=V6BGM.player;
+    p.loadVideoById(V6BGM.titleId);
+    p.setVolume(0);
+    p.mute();
+    p.playVideo();
+    V6BGM.titleMuted=true;
+    V6BGM.titleWaitTouch=true;
+    return true;
+  }catch(e){ V6BGM.titleWaitTouch=true; return false; }
+}
+/* 첫 터치 — 무음으로 돌고 있어도 이 순간 소리를 켠다 (볼륨은 사용자가 정한 값) */
+function v6TitleBgmUnmuteNow(){
+  if(V6BGM.ctx!=='title') return false;
+  V6BGM.on=true; V6BGM.blocked=false; V6BGM.playT=0;
+  try{
+    if(!v6BgmApiReady()){ v6BgmEnsureApi(); V6BGM.titleWaitTouch=true; return false; }
+    const p=V6BGM.player;
+    if(!p){ v6BgmCreate(V6BGM.titleId); V6BGM.titleWaitTouch=true; return false; }
+    if(!V6BGM.ready){ V6BGM.titleWaitTouch=true; V6BGM.current=V6BGM.titleId; V6BGM.pendingId=V6BGM.titleId; return false; }
+    if(V6BGM.current&&V6BGM.current!==V6BGM.titleId){ try{ p.loadVideoById(V6BGM.titleId); }catch(e){} }
+    V6BGM.current=V6BGM.titleId; V6BGM.pendingId=V6BGM.titleId;
+    const vol=(typeof V6BGM.vol==='number')?V6BGM.vol:55;
+    try{ p.setVolume(vol); }catch(e){}
+    try{ p.unMute(); }catch(e){}
+    try{ p.playVideo(); }catch(e){}
+    V6BGM.titleMuted=false;
+    V6BGM.titleWaitTouch=false;
+    V6BGM.titleGesture=true;
+    setTimeout(function(){ try{ if(V6BGM.ctx==='title'&&!V6BGM.playing) V6BGM.blocked=true; v6TitleBgmChip(); }catch(e){} },1500);
+    return true;
+  }catch(e){ return false; }
 }
 function v6TitleBgmArm(){
   if(V6BGM.titleArmed) return;
@@ -28617,14 +29268,20 @@ function v6TitleBgmArm(){
   const kick=function(ev){
     try{
       if(V6BGM.ctx!=='title') return;
-      if(V6BGM.playing) return;
       /* 전용 칩 버튼은 자기 핸들러가 처리한다 (같은 탭에서 켜고 끄는 경합 방지) */
       const t=ev&&ev.target;
       if(t&&t.closest&&t.closest('#tsBgm')) return;
-      v6TitleBgmKick(true);
+      if(V6BGM.playing&&!V6BGM.titleMuted) return;
+      /* 차단 상태든, 무음 재생 중이든 — 첫 터치에서 소리를 켠다 */
+      v6TitleBgmUnmuteNow();
+      try{ v6TitleBgmChip(); }catch(e){}
     }catch(e){}
   };
-  document.addEventListener('pointerdown',kick,{passive:true});
+  /* 안드로이드 크롬: touchstart 가 가장 먼저 오고, 그 안에서 unMute 하면 바로 허용된다 */
+  document.addEventListener('touchstart',kick,{passive:true,capture:true});
+  document.addEventListener('pointerdown',kick,{passive:true,capture:true});
+  document.addEventListener('mousedown',kick,{passive:true,capture:true});
+  document.addEventListener('click',kick,{passive:true,capture:true});
   document.addEventListener('keydown',kick,{passive:true});
 }
 function v6TitleBgmKick(silent){
@@ -28661,7 +29318,7 @@ function v6TitleBgmChip(){
     const b=(typeof document!=='undefined'&&document.getElementById)?document.getElementById('tsBgm'):null;
     if(!b) return;
     const on=V6BGM.on;
-    const st=!on?'꺼짐':V6BGM.playing?'재생 중':(V6BGM.blocked||!V6BGM.ready)?'탭해서 재생':'재생 준비';
+    const st=!on?'꺼짐':(V6BGM.playing?(V6BGM.titleMuted?'무음 · 탭해서 소리':'재생 중'):(V6BGM.blocked||!V6BGM.ready)?'탭해서 재생':'재생 준비');
     b.innerHTML='🎵 징크스 테마 <em>'+st+'</em>';
     b.className='ts-bgm'+(on&&V6BGM.playing?' on':'');
   }catch(e){}
@@ -31545,7 +32202,7 @@ function macroVisionSetup(kind,at,left){
       const sx=mxClamp(p[0]+pl.off,0.04,0.96), sy=mxClamp(p[1]+pl.off,0.04,0.96);
       try{
         if(typeof v5WardPut==='function'){
-          v5WardPut(side,(i===0?'pink':'yellow'),sx,sy,Math.max(0,at-1));
+          v5WardPut(side,(i===0?'pink':'yellow'),sx,sy,Math.max(0,at-1),{src:'obj',tag:'오브젝트 시야'});
           rec.wards[side]=(rec.wards[side]||0)+1;
         }
       }catch(e){}
@@ -31878,8 +32535,8 @@ function macroBaitSetup(m){
   const entry=MX_PIT_ENTRY.baron;
   try{
     if(typeof v5WardPut==='function'){
-      v5WardPut('me','pink',entry[1][0]-0.013,entry[1][1]-0.013,m);
-      v5WardPut('me','yellow',entry[0][0]-0.013,entry[0][1]-0.013,m);
+      v5WardPut('me','pink',entry[1][0]-0.013,entry[1][1]-0.013,m,{src:'bait',tag:'바론 낚시'});
+      v5WardPut('me','yellow',entry[0][0]-0.013,entry[0][1]-0.013,m,{src:'bait',tag:'바론 낚시'});
     }
   }catch(e){}
   mx.bait++; mx.baitUntil=m+4;
@@ -33863,7 +34520,7 @@ function jglTryInvade(side,sec){
   const enemy=(side==='me')?'opp':'me';
   if(pr<=0.12){
     /* 주도권 없음 — 적 정글 깊숙이 들어가지 않고 입구만 체크 */
-    try{ if(typeof v5WardPut==='function'){ const p=jglCampPos(side,0)||[0.3,0.5]; v5WardPut(side,'yellow',p[0],p[1],(M.minute||0)); } }catch(e){}
+    try{ if(typeof v5WardPut==='function'){ const p=jglCampPos(side,0)||[0.3,0.5]; v5WardPut(side,'yellow',p[0],p[1],(M.minute||0),{src:'check',tag:'안전 체크'}); } }catch(e){}
     jglLog(side,'🕯 <b>안전 체크</b> — '+MX_LANE_KR[lane]+' 주도권이 없어 카정 대신 우리 정글 입구만 와드로 확인합니다.');
     j.invaded=true;
     return {ok:false,safe:true};
@@ -34068,7 +34725,7 @@ function dopaWardTick(sec){
     if(!raptor) return;
     d.raptorWard[side]={at:s,x:raptor.x,y:raptor.y};
     /* 와드 — 시야 장악 (v5 와드 시스템) */
-    try{ if(typeof v5WardPut==='function') v5WardPut(side,'yellow',raptor.x,raptor.y,Math.floor(s/60)); }catch(e){}
+    try{ if(typeof v5WardPut==='function') v5WardPut(side,'yellow',raptor.x,raptor.y,Math.floor(s/60),{src:'dopa',tag:'2:20 칼날부리'}); }catch(e){}
     try{ if(M.vision) M.vision[side==='me'?0:1]+=4; }catch(e){}
     /* 정글 동선 역추적 — 상대 계획(3캠프/풀캠프)과 시작 방향 */
     let arch='', target='';
@@ -34263,6 +34920,373 @@ function dopaTick(sec){
   try{ dopaShakeTick(s); }catch(e){}
   try{ dopaPositionTick(s); }catch(e){}
   try{ dopaBaronTick(s); }catch(e){}
+}
+
+/* ============================================================================
+   CAUSAL v1 — 원인 → 결과 인과관계 해설
+
+   왜 필요한가: 기존 중계는 사건을 하나씩 설명했지만, "왜 그 장면이 나왔는지"는
+   연결해 주지 않았다. 원장님 요청 예시 —
+     2:14 미드 주도권 → 2:20 칼날부리 와드 → 정글 위치 발각 →
+     5:40 사이드 압박 → 7:02 탑 다이브 성공
+
+   동작 방식:
+     1) 엔진이 남기는 문장(logEvent)과 상태(M.dopa·M.campSteal·M.timeline)를
+        관찰해 '인과 링크'를 만든다. 문장을 새로 쓰지 않고 이미 확정된 사건만 쓴다.
+     2) 링크를 단계 순서(주도권→와드→발각→카정/디나이→사이드 압박→다이브/턴→오브젝트)
+        로 이어 체인을 만든다. 같은 팀, 단계는 뒤로 가지 않고, 간격 330초 이내.
+     3) 체인이 3개 이상 + 결과(다이브·턴·오브젝트)로 끝나면 경기 중 중계에 1회 출력.
+     4) 경기 후 박스스코어 카드 / 승부처 카드에 같은 체인을 원인→결과로 보여준다.
+   ========================================================================== */
+
+const CAUSAL_STAGE={
+  prio:1, ward:2, read:3, shake:3,
+  campSteal:4, deny:4, freeze:4,
+  sidePush:5, bigwave:5,
+  dive:6, turn:6, recallCut:6, kill:6,
+  obj:7, tower:7, baronBait:7,
+  steal:8
+};
+const CAUSAL_KR={
+  prio:'미드 주도권', ward:'칼날부리 와드', read:'정글 동선 발각', shake:'미드 쉐이크',
+  campSteal:'카운터 정글', deny:'디나이', freeze:'프리징',
+  sidePush:'사이드 압박', bigwave:'빅웨이브 축적',
+  dive:'다이브', turn:'턴 재정립', recallCut:'귀환 끊기', kill:'킬 교환',
+  obj:'오브젝트', tower:'타워 철거', baronBait:'바론 낚시', steal:'바론 스틸'
+};
+/* 연결 이유 — 카드의 "왜" 줄에 쓴다 */
+const CAUSAL_WHY={
+  'prio>ward':'미드가 먼저 웨이브를 밀어야 상대 정글 입구에 안전하게 와드를 박을 수 있습니다',
+  'prio>read':'미드 주도권이 있어야 정글 입구 시야를 오래 붙잡고 동선을 읽을 수 있습니다',
+  'ward>read':'칼날부리 와드 하나가 상대 정글의 첫 캠프 순서(3캠프/풀캠프)를 그대로 드러냅니다',
+  'ward>campSteal':'상대 캠프 시야가 잡혀 있어야 반대편 카정 타이밍이 안전해집니다',
+  'read>campSteal':'정글 동선이 읽혔으니 반대편 캠프는 비어 있다고 확신하고 들어갑니다',
+  'read>sidePush':'정글 위치가 드러나면 사이드 라이너가 반 발짝 앞으로 나설 수 있습니다',
+  'read>deny':'상대 정글이 어디 있는지 알면 라인에서 CS를 지나가게 두지 않아도 됩니다',
+  'sidePush>dive':'사이드에 압박이 걸려 상대 수비 인원이 묶여야 다이브 숫자가 맞습니다',
+  'sidePush>turn':'사이드가 먼저 밀려 있으면 본대는 정비하고 돌아와도 턴을 잃지 않습니다',
+  'sidePush>obj':'사이드 웨이브가 밀려야 오브젝트 앞에서 숫자 싸움을 걸 수 있습니다',
+  'bigwave>dive':'쌓아둔 빅웨이브가 포탑 어그로를 받아주는 동안 다이브가 성립합니다',
+  'deny>dive':'디나이로 상대가 뒤처지면 다이브에 필요한 체력·레벨 차가 생깁니다',
+  'campSteal>sidePush':'카정으로 번 시간만큼 사이드 압박을 오래 유지할 수 있습니다',
+  'turn>obj':'턴을 먼저 세워두면 오브젝트 30초 전에 코어템·체력이 채워집니다',
+  'recallCut>obj':'귀환을 끊어 상대 한 명을 먼저 지운 숫자로 오브젝트를 시작합니다',
+  'baronBait>steal':'바론을 치는 척 시야를 잡아두면 마지막 강타 싸움에서 이깁니다',
+  'dive>tower':'다이브로 한 명을 지운 뒤 포탑 방패까지 그대로 가져갑니다',
+  'dive>obj':'다이브로 사이드 인원을 지워 4:5 구도를 만든 뒤 오브젝트로 전환합니다',
+  'kill>obj':'한 명이 끊긴 숫자 우위를 오브젝트로 바꿉니다',
+  'shake>campSteal':'미드가 정글을 붙잡아 두는 사이 반대편 캠프를 통째로 가져갑니다'
+};
+/* 문장 → 링크 종류. 위에서부터 먼저 맞는 것을 쓴다 */
+const CAUSAL_RULES=[
+  {k:'dopaWard', re:/칼날부리[^<]{0,20}와드|2:20[^<]{0,12}와드/, kind:'ward'},
+  {k:'read',     re:/동선을?\s*(읽|역추적)|정글 동선[^<]{0,6}(발각|드러)/, kind:'read'},
+  {k:'prio',     re:/미드 주도권/, kind:'prio'},
+  {k:'shake',    re:/미드 쉐이크/, kind:'shake'},
+  {k:'bait',     re:/바론 낚시/, kind:'baronBait'},
+  {k:'steal',    re:/바론 스틸|스틸!!|강타 싸움에서 이겼/, kind:'steal'},
+  {k:'recallCut',re:/귀환 끊기|늦은 귀환[^<]{0,8}(끊|차단)/, kind:'recallCut'},
+  {k:'turn',     re:/턴 재정립|오브젝트 후 턴 정리/, kind:'turn'},
+  {k:'dive',     re:/빅웨이브 다이브|다이브[^<]{0,10}(성공|들어갑니다)/, kind:'dive'},
+  {k:'bigwave',  re:/슬로우푸시 빅웨이브|빅웨이브/, kind:'bigwave'},
+  {k:'deny',     re:/디나이/, kind:'deny'},
+  {k:'freeze',   re:/프리징/, kind:'freeze'},
+  {k:'campSteal',re:/카정|카운터 정글/, kind:'campSteal'},
+  {k:'sidePush', re:/(사이드|스플릿)[^<]{0,12}(압박|푸시)|전진 압박/, kind:'sidePush'}
+];
+
+function causalEnsure(){
+  if(!M) return null;
+  if(!M.causal){
+    M.causal={seq:0, links:[], emitted:[], seen:{}, n:0, stats:{links:0,emits:0},
+      lastEmitAt:-999, chains:[]};
+  }
+  return M.causal;
+}
+function causalSec(){
+  try{ if(typeof mmGameSec==='function') return Number(mmGameSec())||0; }catch(e){}
+  if(!M) return 0;
+  return (Number(M.minute)||0)*60+(Number(M.sec)||0)%60;
+}
+function causalClock(at){
+  const s=Math.max(0,Math.floor(Number(at)||0));
+  return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+}
+function causalTag(side){
+  try{ return side==='me'?myTeam().tag:T(M.oppId).tag; }catch(e){ return side==='me'?'우리':'상대'; }
+}
+function causalPlain(t){
+  return String(t==null?'':t).replace(/<[^>]+>/g,'').replace(/^[\d]+분\s*·\s*/,'').trim();
+}
+/* 문장에서 팀 판별 — 로그 kind(blue/red) 우선, sys 는 문장 안의 팀 태그/이름으로 */
+function causalSideOf(kind,text){
+  if(kind==='blue') return 'me';
+  if(kind==='red') return 'opp';
+  let meTag='',opTag='',meName='',opName='';
+  try{ meTag=myTeam().tag||''; }catch(e){}
+  try{ opTag=T(M.oppId).tag||''; }catch(e){}
+  try{ meName=(M&&M.myName)||''; }catch(e){}
+  try{ opName=(M&&M.oppName)||''; }catch(e){}
+  const has=function(n){ return !!n&&text.indexOf(n)>=0; };
+  const m=has(meTag)||has(meName), o=has(opTag)||has(opName);
+  if(m&&!o) return 'me';
+  if(o&&!m) return 'opp';
+  return null;
+}
+/* 링크 1건 등록 (중복 방지: 같은 팀·같은 종류·30초 창) */
+function causalPush(side,kind,at,extra){
+  const C=causalEnsure(); if(!C) return null;
+  if(!side||!kind||!CAUSAL_STAGE[kind]) return null;
+  const s=(at==null)?causalSec():Number(at)||0;
+  const dedupe=side+'|'+kind+'|'+Math.floor(s/30);
+  if(C.seen[dedupe]) return null;
+  C.seen[dedupe]=1;
+  const link={id:++C.seq, side:side, kind:kind, at:s, clock:causalClock(s),
+    label:(extra&&extra.label)||CAUSAL_KR[kind]||kind,
+    detail:(extra&&extra.detail)||'', data:(extra&&extra.data)||null};
+  C.links.push(link);
+  if(C.links.length>160) C.links.shift();
+  C.stats.links++;
+  return link;
+}
+/* 문장 관찰 — logEvent 끝에서 호출된다 */
+function causalObserve(kind,text){
+  const C=causalEnsure(); if(!C||!M) return null;
+  if(C.quiet) return null;                 /* 인과 해설 자신을 다시 관찰하지 않는다 */
+  const t=causalPlain(text);
+  if(!t||t.length<4) return null;
+  for(let i=0;i<CAUSAL_RULES.length;i++){
+    const R=CAUSAL_RULES[i];
+    if(!R.re.test(t)) continue;
+    const side=causalSideOf(kind,t);
+    if(!side) return null;
+    let detail='';
+    try{
+      if(R.kind==='read'){
+        const d=M.dopa&&M.dopa.read?M.dopa.read[side]:null;
+        if(d&&d.arch) detail=d.arch+(d.target?(' · '+d.target+' 방향'):'');
+      }
+    }catch(e){}
+    return causalPush(side,R.kind,causalSec(),{detail:detail});
+  }
+  return null;
+}
+/* 상태 관찰 — 1초마다. 문장이 없어도 확정된 사실(2:20 와드·카정·다이브 킬)을 잡는다 */
+function causalWatch(){
+  const C=causalEnsure(); if(!C||!M) return;
+  const s=causalSec();
+  try{
+    const d=M.dopa;
+    if(d&&d.raptorWard){
+      ['me','opp'].forEach(function(side){
+        const w=d.raptorWard[side];
+        if(!w||w.__caught) return;
+        w.__caught=true;
+        const mid=(M.lineups&&M.lineups[side]&&M.lineups[side].find(function(p){ return p.role==='MID'; }))||null;
+        causalPush(side,'prio',Math.max(0,(w.at||s)-6),{label:'미드 주도권',detail:mid&&mid.champ?mid.champ+' 라인 주도권':''});
+        causalPush(side,'ward',w.at||s,{label:'2:20 칼날부리 와드',detail:'상대 칼날부리 캠프 시야',data:{x:w.x,y:w.y}});
+        const rd=(d.read&&d.read[side])||null;
+        if(rd&&rd.arch) causalPush(side,'read',(rd.at||w.at)||s,{label:'정글 동선 발각',detail:rd.arch+(rd.target?(' · '+rd.target+' 방향'):'')});
+      });
+    }
+  }catch(e){}
+  /* 카정 카운터 */
+  try{
+    if(M.campSteal){
+      C.camp=C.camp||{me:-1,opp:-1};
+      ['me','opp'].forEach(function(side){
+        const v=Number(M.campSteal[side])||0;
+        if(C.camp[side]<0){ C.camp[side]=v; return; }
+        if(v>C.camp[side]){ C.camp[side]=v; causalPush(side,'campSteal',s,{label:'카운터 정글'}); }
+      });
+    }
+  }catch(e){}
+  /* 타임라인의 다이브 킬 */
+  try{
+    const tl=(M.timeline||[]);
+    for(let i=0;i<tl.length;i++){
+      const ev=tl[i];
+      if(!ev||ev.kind!=='kill'||ev.__caught) continue;
+      if(ev.__caught) continue;
+      if(ev.sub==='dive'){ ev.__caught=1; causalPush(ev.team,'dive',(ev.minute||0)*60+(ev.sec||0),{label:'다이브 성공'}); }
+    }
+  }catch(e){}
+}
+/* ---------- 체인 구성 ---------- */
+function causalChains(){
+  const C=(M&&M.causal)?M.causal:null;
+  if(!C||!C.links.length) return [];
+  const links=C.links.slice().sort(function(a,b){ return (a.at-b.at)||(a.id-b.id); });
+  const raw=[];
+  ['me','opp'].forEach(function(side){
+    const arr=links.filter(function(l){ return l.side===side; });
+    for(let i=0;i<arr.length;i++){
+      const chain=[arr[i]];
+      let last=arr[i];
+      for(let j=i+1;j<arr.length;j++){
+        const n=arr[j];
+        if(n.at-last.at>330) break;
+        if(n.at-chain[0].at>480) break;
+        const sn=CAUSAL_STAGE[n.kind]||0, sl=CAUSAL_STAGE[last.kind]||0;
+        if(sn<sl) continue;
+        if(n.kind===last.kind&&n.at-last.at<20) continue;
+        if(chain.length>=6) break;
+        chain.push(n); last=n;
+      }
+      if(chain.length<2) continue;
+      const lastLink=chain[chain.length-1];
+      raw.push({side:side, links:chain, start:chain[0].at, end:lastLink.at,
+        endKind:lastLink.kind,
+        result:((CAUSAL_STAGE[lastLink.kind]||0)>=6),
+        score:chain.length*10+(((CAUSAL_STAGE[lastLink.kind]||0)>=6)?8:0)});
+    }
+  });
+  /* 같은 링크 집합 중복 제거 */
+  const sigOf=function(ch){ return ch.side+':'+ch.links.map(function(l){ return l.id; }).join('-'); };
+  const seen={}, uniq=[];
+  raw.sort(function(a,b){ return (b.score-a.score)||(a.start-b.start); });
+  raw.forEach(function(ch){
+    const sg=sigOf(ch);
+    if(seen[sg]) return;
+    seen[sg]=1;
+    uniq.push(ch);
+  });
+  /* 긴 체인이 있으면 그 접두 체인은 버린다 */
+  const out=[];
+  uniq.forEach(function(ch){
+    const ids=ch.links.map(function(l){ return l.id; });
+    for(let i=0;i<out.length;i++){
+      const o=out[i];
+      if(o.side!==ch.side) continue;
+      const oids=o.links.map(function(l){ return l.id; });
+      const isPrefix=ids.every(function(id){ return oids.indexOf(id)>=0; })&&oids.length>ids.length;
+      if(isPrefix) return;
+    }
+    out.push(ch);
+  });
+  out.sort(function(a,b){ return a.start-b.start; });
+  return out;
+}
+/* 가장 최근/대표 체인 (결과로 끝난 것 우선) */
+function causalTopChains(n){
+  const ch=causalChains();
+  const good=ch.filter(function(c){ return c.links.length>=3; });
+  const pool=good.length?good:ch;
+  const lim=Math.max(1,n||3);
+  const sorted=pool.slice().sort(function(a,b){
+    if(!!b.result!==!!a.result) return (b.result?1:0)-(a.result?1:0);
+    if(b.links.length!==a.links.length) return b.links.length-a.links.length;
+    return b.end-a.end;
+  });
+  return sorted.slice(0,lim).sort(function(a,b){ return a.start-b.start; });
+}
+function causalWhyLines(chain){
+  const out=[];
+  for(let i=1;i<chain.links.length&&out.length<3;i++){
+    const a=chain.links[i-1], b=chain.links[i];
+    const w=CAUSAL_WHY[a.kind+'>'+b.kind];
+    if(w&&out.indexOf(w)<0) out.push(w);
+  }
+  return out;
+}
+function causalArrow(chain){
+  return chain.links.map(function(l){ return CAUSAL_KR[l.kind]+'('+causalClock(l.at)+')'; }).join(' → ');
+}
+/* 경기 중 1회 출력 — 3개 이상 + 결과로 끝난 체인 */
+function causalEmitTick(sec){
+  const C=causalEnsure(); if(!C||!M) return null;
+  const s=(sec==null)?causalSec():Number(sec)||0;
+  if(C.emitted.length>=5) return null;
+  const ch=causalChains();
+  for(let i=0;i<ch.length;i++){
+    const c=ch[i];
+    if(c.links.length<3||!c.result) continue;
+    const sig=c.side+':'+c.links.map(function(l){ return l.id; }).join('-');
+    if(C.emitted.indexOf(sig)>=0) continue;
+    if(c.end<s-90) continue;                 /* 이미 지나간 체인은 지금 다시 읽지 않는다 */
+    C.emitted.push(sig);
+    C.stats.emits++;
+    C.lastEmitAt=s;
+    const arrow=causalArrow(c);
+    const why=causalWhyLines(c);
+    const head='🔗 <b>인과 해설</b> — '+causalTag(c.side)+' '+(c.side==='me'?'우리':'상대')+' 흐름: '+arrow;
+    C.quiet=true;
+    try{ logEvent('sys', head+(why.length?('<br><span style="color:#9fd0f0">↳ '+why[0]+'</span>'):'')); }catch(e){}
+    C.quiet=false;
+    return c;
+  }
+  return null;
+}
+function causalLiveHTML(){
+  if(!M||!M.causal) return '';
+  const ch=causalTopChains(2);
+  if(!ch.length) return '';
+  const rows=ch.map(function(c){
+    const mine=c.side==='me';
+    return `<div class="cs-row ${mine?'me':'opp'}">
+      <b class="cs-team">${esc(causalTag(c.side))}</b>
+      <span class="cs-arrow">${c.links.map(function(l){ return '<i>'+esc(CAUSAL_KR[l.kind])+'</i><em>'+causalClock(l.at)+'</em>'; }).join('<s>→</s>')}</span>
+    </div>`;
+  }).join('');
+  return `<div class="cs-card" id="causalLive">
+    <div class="cs-h"><span>🔗 인과관계 트래커</span><b>원인 → 결과</b></div>
+    ${rows}
+  </div>`;
+}
+/* 경기 후 카드 */
+function causalCardHTML(){
+  if(!M) return '';
+  const ch=causalTopChains(3).filter(function(c){ return c.links.length>=2; });
+  if(!ch.length){
+    return `<div class="bx-card cs-bx">
+      <div class="bx-ch"><span>🔗 인과관계 해설</span><b>Cause → Effect</b></div>
+      <div class="empty-note">이 경기는 한 줄로 이어지는 설계된 흐름 없이 라인전 교환으로 갈렸습니다.</div>
+    </div>`;
+  }
+  return `<div class="bx-card cs-bx">
+    <div class="bx-ch"><span>🔗 인과관계 해설</span><b>${ch.length}개 흐름 · 원인 → 결과</b></div>
+    ${ch.map(function(c,i){
+      const mine=c.side==='me';
+      const why=causalWhyLines(c);
+      return `<div class="cs-chain ${mine?'me':'opp'}">
+        <div class="cs-chain-h"><em>#${i+1}</em><b>${esc(causalTag(c.side))}</b><span>${c.links.length}단계${c.result?' · 결과 확정':''}</span></div>
+        <div class="cs-steps">
+          ${c.links.map(function(l,ix){
+            return `${ix?'<span class="cs-ar">→</span>':''}<span class="cs-step"><i>${esc(CAUSAL_KR[l.kind])}</i><em>${causalClock(l.at)}</em>${l.detail?`<u>${esc(l.detail)}</u>`:''}</span>`;
+          }).join('')}
+        </div>
+        ${why.length?`<div class="cs-why">↳ ${esc(why[0])}</div>`:''}
+      </div>`;
+    }).join('')}
+    <div class="cs-foot">엔진이 확정한 사건(주도권·와드·카정·디나이·압박·다이브·턴)만 연결했습니다 · 같은 팀·단계 순서·5분 30초 이내</div>
+  </div>`;
+}
+/* 승부처 카드의 '원인' 한 줄 */
+function causalCauseFor(ev){
+  if(!ev||!M||!M.causal) return '';
+  const at=(ev.minute!=null)
+    ? (Number(ev.minute)||0)*60+(Number(ev.sec)||0)
+    : Math.round((Number(ev.at)||0)*60);
+  const ch=causalChains();
+  let best=null,bestD=999;
+  ch.forEach(function(c){
+    if(c.links.length<2) return;
+    const d=Math.abs(c.end-at);
+    if(d>120) return;
+    if(c.links.every(function(l){ return l.at>at+1; })) return;
+    if(d<bestD){ bestD=d; best=c; }
+  });
+  if(!best) return '';
+  const parts=best.links.filter(function(l){ return l.at<=at+1; }).slice(-3);
+  if(parts.length<2) return '';
+  return parts.map(function(l){ return CAUSAL_KR[l.kind]+'('+causalClock(l.at)+')'; }).join(' → ');
+}
+/* 초 단위 진입점 — macroTick/tickBody 에서 호출 */
+function causalTick(sec){
+  if(!M||M.over) return;
+  causalEnsure();
+  try{ causalWatch(); }catch(e){}
+  try{ causalEmitTick(sec); }catch(e){}
 }
 
 /* ============================================================================
@@ -35180,7 +36204,7 @@ function cloudPanelHTML(){
       </div>
       <button class="btn ghost block" id="clLogout" style="margin-top:8px">로그아웃</button>
     `:`
-      <input class="inp" id="clId" placeholder="아이디 (영문·숫자, 또는 이메일)" autocomplete="username" autocapitalize="off" spellcheck="false">
+      <input class="inp" id="clId" placeholder="아이디 (영문·숫자 2자 이상, 또는 이메일)" autocomplete="username" autocapitalize="off" spellcheck="false">
       <input class="inp" id="clPw" type="password" placeholder="비밀번호 (6자 이상)" autocomplete="current-password" style="margin-top:8px">
       <div class="tiny" id="clMsg" style="min-height:16px;margin-top:8px;color:var(--dim2)">아이디에 @가 없으면 내부적으로 @${CLOUD.domain} 이 붙습니다</div>
       <div class="row" style="gap:8px;margin-top:10px">
@@ -35215,23 +36239,23 @@ function cloudBindPanel(){
   const val=function(el){ return el&&el.value!=null?String(el.value):''; };
   const login=g('clLogin');
   if(login) login.onclick=function(){
-    if(!cloudIdLooksValid(val(idEl))){ msg('아이디를 2~32자 영문·숫자(또는 이메일)로 입력해 주세요'); return; }
-    if(!cloudPwLooksValid(val(pwEl))){ msg('비밀번호는 6자 이상이어야 합니다'); return; }
+    if(!cloudIdLooksValid(val(idEl))){ var _e1='아이디를 2~32자 영문·숫자(또는 이메일)로 입력해 주세요'; msg(_e1,false); try{ toast('⚠️ '+_e1); }catch(e){} return; }
+    if(!cloudPwLooksValid(val(pwEl))){ var _e2='비밀번호는 6자 이상이어야 합니다'; msg(_e2,false); try{ toast('⚠️ '+_e2); }catch(e){} return; }
     msg('로그인 중…',true);
     cloudSignIn(val(idEl),val(pwEl))
       .then(function(){ return cloudAfterLogin(true); })
-      .then(function(r){ CLOUD.lastErr=''; cloudRenderPanel(); try{ toast('☁️ '+(r&&r.msg||'클라우드 연결 완료')); }catch(e){} })
-      .catch(function(err){ CLOUD.lastErr=cloudErrMsg(err); msg(CLOUD.lastErr); cloudRenderPanel(); });
+      .then(function(r){ CLOUD.lastErr=''; try{ toast('☁️ '+(r&&r.msg||'클라우드 연결 완료')); }catch(e){} try{ if(typeof cloudUpdateChip==='function') cloudUpdateChip(); }catch(e){} cloudRenderPanel(); })
+      .catch(function(err){ CLOUD.lastErr=cloudErrMsg(err); msg(CLOUD.lastErr,false); try{ toast('⚠️ '+CLOUD.lastErr); }catch(e){} });
   };
   const signup=g('clSignup');
   if(signup) signup.onclick=function(){
-    if(!cloudIdLooksValid(val(idEl))){ msg('아이디를 2~32자 영문·숫자(또는 이메일)로 입력해 주세요'); return; }
-    if(!cloudPwLooksValid(val(pwEl))){ msg('비밀번호는 6자 이상이어야 합니다'); return; }
+    if(!cloudIdLooksValid(val(idEl))){ var _e1='아이디를 2~32자 영문·숫자(또는 이메일)로 입력해 주세요'; msg(_e1,false); try{ toast('⚠️ '+_e1); }catch(e){} return; }
+    if(!cloudPwLooksValid(val(pwEl))){ var _e2='비밀번호는 6자 이상이어야 합니다'; msg(_e2,false); try{ toast('⚠️ '+_e2); }catch(e){} return; }
     msg('가입 중…',true);
     cloudSignUp(val(idEl),val(pwEl))
       .then(function(){ return cloudAfterLogin(true); })
-      .then(function(r){ CLOUD.lastErr=''; cloudRenderPanel(); try{ toast('☁️ 가입 완료 — '+(r&&r.msg||'클라우드 연결')); }catch(e){} })
-      .catch(function(err){ CLOUD.lastErr=cloudErrMsg(err); msg(CLOUD.lastErr); cloudRenderPanel(); });
+      .then(function(r){ CLOUD.lastErr=''; try{ toast('☁️ 가입 완료 — '+(r&&r.msg||'클라우드 연결')); }catch(e){} try{ if(typeof cloudUpdateChip==='function') cloudUpdateChip(); }catch(e){} cloudRenderPanel(); })
+      .catch(function(err){ CLOUD.lastErr=cloudErrMsg(err); msg(CLOUD.lastErr,false); try{ toast('⚠️ '+CLOUD.lastErr); }catch(e){} });
   };
   const sync=g('clSync');
   if(sync) sync.onclick=function(){
