@@ -21,6 +21,8 @@ var q=new URLSearchParams(location.search);
 var W=parseInt(q.get('w')||'673',10), H=parseInt(q.get('h')||'841',10), SP=parseFloat(q.get('sp')||'8');
 var fr=document.getElementById('fr');
 fr.width=W; fr.height=H;
+/* 캐시 방지 — 같은 ?v 라도 새 파일을 받도록 */
+fr.src='lol-manager.html?v=34.12.1&cb='+(q.get('cb')||Date.now());
 var lab=document.getElementById('lab');
 lab.textContent=W+' x '+H+' — 경기 HUD (아이템 6칸)';
 fr.addEventListener('load',function(){
