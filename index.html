@@ -197,10 +197,11 @@ img{max-width:100%}
 /* ── ASK (Q&A assistant) ──────────────── */
 .ask{margin-top:3.2rem;padding:3rem 0 3.1rem;background:linear-gradient(180deg,#eef4fb 0%,#f7fafd 100%);border-top:1px solid #e1eaf5;border-bottom:1px solid #e1eaf5}
 .ask-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:1.7rem;align-items:start}
+.ask-grid>*{min-width:0}
 .ask-points{list-style:none;margin-top:1.1rem;display:grid;gap:.55rem}
 .ask-points li{position:relative;padding-left:1.1rem;font-size:12.2px;color:var(--text-mid);line-height:1.7}
 .ask-points li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.ask-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:1.15rem 1.15rem 1.05rem;box-shadow:0 24px 46px -34px rgba(16,51,94,.9)}
+.ask-card{min-width:0;background:var(--white);border:1px solid var(--border);border-radius:18px;padding:1.15rem 1.15rem 1.05rem;box-shadow:0 24px 46px -34px rgba(16,51,94,.9)}
 .ask-label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--text-muted);text-transform:uppercase;margin-bottom:.45rem}
 .ask-field{display:flex;align-items:center;gap:.45rem;border:1.5px solid var(--border);border-radius:12px;background:var(--navy-xlight);padding:.3rem .3rem .3rem .8rem;transition:border-color .15s,background .15s,box-shadow .15s}
 .ask-field:focus-within{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(45,108,192,.12)}
