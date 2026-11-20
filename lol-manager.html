@@ -3604,7 +3604,7 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 
 /* ---- 스위스 스테이지 ---- */
 .v34sw-note{font-size:9.5px;color:#8f97a6;margin:2px 0 6px;line-height:1.4}
-.v34sw-tbl{display:flex;flex-direction:column;gap:2px}
+.v34sw-tbl{display:flex;flex-direction:column;gap:2px;max-width:860px}
 .v34sw-row{display:flex;align-items:center;gap:6px;
   padding:3px 6px;border-radius:6px;background:#0c1016;border:1px solid transparent;min-width:0;overflow:hidden}
 .v34sw-row>*{flex:0 0 auto;min-width:0}
@@ -3734,10 +3734,15 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .bhud .btop{padding:4px 6px}
   .bhud .bt-k{font-size:15px}
   .bhud .bt-obj{display:flex;flex-wrap:wrap;justify-content:center;gap:3px 6px;font-size:8px}
-  /* 3열 그리드 → [미니맵 1줄] + [블루 5 | 레드 5] */
+  /* 3열 그리드 → [시야칩] → [미니맵] → [블루 5 | 레드 5] → [해설창] → [인과] */
   .bhud .bmid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    grid-template-areas:"map map" "me opp";gap:6px;padding:4px 5px 0;flex:0 0 auto;min-height:0}
-  .bhud .bmid>.bmap{grid-area:map;min-width:0}
+    grid-template-areas:"st st" "map map" "me opp" "cast cast" "caus caus";
+    gap:6px;padding:4px 5px 0;flex:0 0 auto;min-height:0}
+  .bhud .bmid>.bmap{display:contents;min-width:0}
+  .bhud .bmap-st{grid-area:st}
+  .bhud .bmap-cv{grid-area:map}
+  .bhud .bcaster{grid-area:cast}
+  .bhud #causalHost{grid-area:caus}
   .bhud .bmid>.bcol.me{grid-area:me}
   .bhud .bmid>.bcol.opp{grid-area:opp}
   .bhud .bcol{display:grid;grid-template-rows:none;grid-auto-rows:auto;gap:3px;align-content:start;min-width:0}
