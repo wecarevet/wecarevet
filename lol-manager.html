@@ -3838,6 +3838,14 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .bhud .b4items .b4img{max-width:10px;max-height:10px}
 }
 
+/* ===== V35 — 팀 표기 클릭 → 구단 정보 (이름·로고·배지 공통) ===== */
+[data-teaminfo]{cursor:pointer;-webkit-tap-highlight-color:transparent}
+[data-teaminfo].ti{border-radius:5px;transition:opacity .12s,background .12s}
+[data-teaminfo]:active{opacity:.62}
+[data-teaminfo].ti:active{background:rgba(37,224,255,.14)}
+[data-teaminfo]:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.badge[data-teaminfo]:active{transform:scale(.94)}
+
 </style>
 </head>
 <body>
@@ -12437,7 +12445,7 @@ function gallListHTML(compact){
       ${posts.map((p,i)=>`<button class="g-row fmk ${p.hot?'hot':''}" data-a="gallpost" data-v="${i}">
         <div class="fmk-l1">
           ${p.hot?'<span class="fmk-hot">인기</span>':''}
-          <span class="fmk-title">${esc(p.title)}</span>
+          <span class="fmk-title">${tiText(esc(p.title))}</span>
           <span class="fmk-cm">[${p.commentN}]</span>
         </div>
         <div class="fmk-meta">
@@ -12457,9 +12465,9 @@ function openGallPost(idx){
   $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal gall-modal">
     <div class="grab"></div>
     <div class="gm-tag">m.fmkorea.com · 롤 · ${esc(p.cat||'잡담')}${p.hot?' · <b>인기</b>':''}</div>
-    <h3 class="gm-title">${gallBadgeHTML(p.badge)} ${esc(p.title)} <span class="gm-cn">[${p.commentN}]</span></h3>
+    <h3 class="gm-title">${gallBadgeHTML(p.badge)} ${tiText(esc(p.title))} <span class="gm-cn">[${p.commentN}]</span></h3>
     <div class="gm-meta">🕒 ${esc(p.time)} | ☰ ${esc(p.cat||'잡담')} | 👤 ${esc(p.nick)} | 👁 ${gallViewsText(p.views)} | ★ ${p.recs.toLocaleString()}</div>
-    <div class="gm-body">${esc(p.body||'')}</div>
+    <div class="gm-body">${tiText(esc(p.body||''))}</div>
     <div class="divider"></div>
     <div class="gm-cl">댓글 ${p.commentN}</div>
     <div class="gm-comments">
@@ -13221,7 +13229,7 @@ function stoveNegTableHTML(p,neg){
   const round=(neg.round||0);
   return `<div class="fneg" data-neg="${esc(p.name)}">
     <div class="fneg-h"><span>🤝 협상 테이블 — <b>${esc(p.name)}</b></span>
-      <em>협상 ${round}/${FA_NEG_MAX}라운드${best?' · 최고 경쟁 '+esc(best.tag):''}${(rawOverall(p)>=85)?` · <span class="chip sm gold">${(neg.rivals||[]).length}개 구단 쨉탈전</span>`:''}</em></div>
+      <em>협상 ${round}/${FA_NEG_MAX}라운드${best?' · 최고 경쟁 '+tiSpan(best.t,esc(best.tag)):''}${(rawOverall(p)>=85)?` · <span class="chip sm gold">${(neg.rivals||[]).length}개 구단 쨉탈전</span>`:''}</em></div>
     <div class="fneg-grid">
       <div class="fneg-col me">
         <div class="fneg-k">내 제안</div>
@@ -13269,7 +13277,7 @@ function stoveFaHTML(){
             <div class="f-m">
               <div class="f-n">${esc(p.name)} <span class="role-tag">${ROLE_KR[p.role]}</span><span class="grade ${p.grade}">${p.grade}</span>${neg?'<span class="chip sm gold">협상 중</span>':''}</div>
               <div class="f-s">${p.age}세 · OVR ${rawOverall(p)} · 요구 ${demand.toFixed(1)}억 · 이적료 ${(p.fee||0).toFixed(1)}억</div>
-              <div class="f-s">${rivals.length?'경쟁: '+rivals.map(r=>esc(r.t.tag)).join(' · '):'경쟁 구단 없음'}</div>
+              <div class="f-s">${rivals.length?'경쟁: '+rivals.map(r=>tiSpan(r.t,esc(r.t.tag))).join(' · '):'경쟁 구단 없음'}</div>
             </div>
             <div class="f-b">
               <input class="inp sm" type="number" step="0.5" min="0.5" data-fasal="${esc(p.name)}" value="${neg?neg.offer.salary:demand}">
@@ -13402,7 +13410,7 @@ function stoveTradeHTML(){
   const maxCash=Math.max(4,Math.min(60,Math.floor(t.budget||0)));
   return `
     <div class="card tight trd-bar">
-      <div class="ch"><span>트레이드 데스크</span><b class="ch-n">${selT?esc(selT.tag)+' · '+(selT.wins||0)+'승 '+(selT.losses||0)+'패':'구단 선택'}</b></div>
+      <div class="ch"><span>트레이드 데스크</span><b class="ch-n">${selT?tiSpan(selT,esc(selT.tag))+' · '+(selT.wins||0)+'승 '+(selT.losses||0)+'패':'구단 선택'}</b></div>
       <div class="trd-lg">
         ${leagues.map(l=>`<button class="trd-lgbtn ${lg===l.k?'on':''}" data-a="stovelg" data-v="${l.k}">${l.n}</button>`).join('')}
       </div>
@@ -13419,7 +13427,7 @@ function stoveTradeHTML(){
     <div class="trd">
       <div class="trd-col">
         <div class="card tight">
-          <div class="ch"><span>${selT?esc(selT.tag):'—'} 로스터</span><b class="ch-n">${theirList.length}명 · ${pos==='ALL'?'전체':ROLE_KR[pos]}</b></div>
+          <div class="ch"><span>${selT?tiSpan(selT,esc(selT.tag)):'—'} 로스터</span><b class="ch-n">${theirList.length}명 · ${pos==='ALL'?'전체':ROLE_KR[pos]}</b></div>
           <div class="flist trd-list">
             ${theirList.map(p=>`<button class="trd-pl ${STOVE_SEL.target===p.name?'on':''}" data-a="stovetarget" data-v="${esc(p.name)}">
                 <div class="f-av">${pAvatarHTML(p,32)}</div>
@@ -13482,7 +13490,7 @@ function stoveTradeHTML(){
     </div>
     ${(st.trades||[]).length?`<div class="card">
       <div class="ch"><span>최근 성사</span><b class="ch-n">${st.trades.length}건</b></div>
-      ${st.trades.slice(0,5).map(x=>`<div class="kv"><span>${esc(x.text)}</span><b class="tiny">${x.season}시즌 ${x.week}주차</b></div>`).join('')}
+      ${st.trades.slice(0,5).map(x=>`<div class="kv"><span>${tiText(esc(x.text))}</span><b class="tiny">${x.season}시즌 ${x.week}주차</b></div>`).join('')}
     </div>`:''}
   `;
 }
@@ -15733,10 +15741,15 @@ function teamAcademyOf(teamId){
 }
 function openTeamInfo(teamId){
   if(!S||!teamId) return;
-  const t=(S.teams)?S.teams[teamId]:null;
+  /* V35 — 태그·객체·별칭으로 들어와도 실제 팀 id 로 맞춘다 (TBD·없는 팀은 무시) */
+  const tid=(typeof tiNorm==='function')?tiNorm(teamId):String(teamId);
+  if(!tid) return;
+  const t=(S.teams)?S.teams[tid]:null;
   if(!t) return;
+  teamId=tid;
   const st=(typeof standings==='function')?standings():[];
   const pos=st.findIndex(function(x){ return x.id===teamId; })+1;
+  const region=REGIONS_BY_ID[t.region]||t.region||'';
   const starters=ROLES.map(function(r){ return (t.lineup&&t.lineup[r])?S.players[t.lineup[r]]:null; }).filter(Boolean);
   const starterNames=Object.values(t.lineup||{});
   const bench=(t.roster||[]).map(function(n){ return S.players[n]; }).filter(function(p){ return p&&starterNames.indexOf(p.name)<0; });
@@ -15756,7 +15769,7 @@ function openTeamInfo(teamId){
         <div><div style="font-weight:900;font-size:17px">${esc(t.name)}</div>
         <div class="tiny">${esc(t.tag)} · ${esc(REGIONS_BY_ID[t.region]||t.region||'')} · ${esc(t.tier||'')}</div></div>
       </div>
-      <span class="chip ${pos&&pos<=6?'green':'red'}">${pos?pos+'위':'—'}</span>
+      <span class="chip ${pos?pos<=6?'green':'red':''}">${pos?pos+'위':(region||'해외')}</span>
     </div>
     <div class="card tight" style="margin-top:8px">
       <div class="kv"><span>정규시즌</span><b>${t.wins||0}승 ${t.losses||0}패 · 세트 ${t.gw||0}-${t.gl||0}</b></div>
@@ -15923,7 +15936,7 @@ function seasonCalendarHTML(){
     let win=null, score='';
     if(res){ win=(res.a===S.userTeam)?(res.sa>res.sb):(res.sb>res.sa); score=(res.a===S.userTeam?res.sa+'-'+res.sb:res.sb+'-'+res.sa); }
     const now=(w===cur);
-    return `<div class="sc-week ${now?'now':''} ${win===true?'w':win===false?'l':''}">
+    return `<div class="sc-week ${now?'now':''} ${win===true?'w':win===false?'l':''}"${opp?tiAttr(opp):''}>
       <span class="sc-w">${w}</span>
       <b class="sc-opp">${opp?esc(opp.tag):'—'}</b>
       <i class="sc-badge ${win===true?'w':win===false?'l':''}">${win===true?'W':win===false?'L':'·'}</i>
@@ -15968,7 +15981,9 @@ function toast(msg,ms){
 function badge(team,size){
   if(!team) return '';
   const px=size==='lg'?46:size==='xl'?64:size==='sm'?26:34;
-  return `<span class="badge svg ${size||''}" title="${esc(team.name||team.tag)}">${teamLogoSVG(team,px)}</span>`;
+  /* V35 — 구단 로고는 어느 화면에서든 그 구단 정보로 이어진다 */
+  const ti=tiAttr(team);
+  return `<span class="badge svg ${size||''}" title="${esc(team.name||team.tag)}"${ti}>${teamLogoSVG(team,px)}</span>`;
 }
 function openHelp(){
   $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal">
@@ -16343,7 +16358,7 @@ function homeHTML(){
         <div class="vs-row">
           <div class="side">${badge(t,'lg')}<div class="nm">${esc(t.name)}</div></div>
           <div class="vs-badge">VS</div>
-          <div class="side right"><div class="nm">${esc(oppTeam.name)}</div>${badge(oppTeam,'lg')}</div>
+          <div class="side right"${tiAttr(oppTeam)}><div class="nm">${esc(oppTeam.name)}</div>${badge(oppTeam,'lg')}</div>
         </div>
         <div class="row between" style="margin-top:8px">
           <span class="tiny">상대 전력 ${teamPowerRaw(oppTeam).toFixed(1)} · ${oppTeam.wins}승 ${oppTeam.losses}패</span>
@@ -16416,7 +16431,7 @@ function scoutHTML(opp){
     <div class="row" style="gap:10px">
       ${badge(opp,'lg')}
       <div class="grow">
-        <div style="font-weight:800">${esc(opp.name)}</div>
+        <div style="font-weight:800"${tiAttr(opp)}>${esc(opp.name)}</div>
         <div class="tiny">${esc(opp.tagline||'')} · ${REGIONS_BY_ID[opp.region]||''}</div>
       </div>
       <div style="text-align:right">
@@ -16558,7 +16573,7 @@ function leagueHTML(){
     </div>
     ${S.playoffs?`<div class="section-title"><h3>플레이오프</h3><div class="line"></div></div>${bracketHTML()}`:''}
     ${S.worlds?`<div class="section-title"><h3>롤드컵</h3><div class="line"></div></div>
-      <div class="card tight"><div class="row between"><span class="tiny">월즈 진출</span><b style="font-size:11px">${(S.worlds.seeds||[]).map(id=>esc(T(id).tag)).join(' · ')}</b></div>
+      <div class="card tight"><div class="row between"><span class="tiny">월즈 진출</span><b style="font-size:11px">${(S.worlds.seeds||[]).map(id=>tiSpan(id,esc(T(id).tag))).join(' · ')}</b></div>
       <button class="btn sm block" id="viewWorlds" style="margin-top:8px">월즈 대진 보기</button></div>`:''}
     <div style="height:6px"></div>
   `;
@@ -16572,7 +16587,7 @@ function pogHTML(){
       <div class="fa-rank">${i+1}</div>
       <div class="p-avatar" style="width:28px;height:28px;border-radius:8px;font-size:11px">${esc(n.slice(0,1))}</div>
       <div class="grow"><div style="font-size:12.5px;font-weight:800">${esc(n)} <span class="role-tag">${ROLE_KR[p.role]}</span></div>
-      <div class="tiny">${esc((S.teams[p.team]||{tag:'FA'}).tag)}</div></div>
+      <div class="tiny"${tiAttr(p.team)}>${esc((S.teams[p.team]||{tag:'FA'}).tag)}</div></div>
       <div style="font-weight:900;font-size:13px;color:var(--gold)">${v}</div>
     </div>`;
   }).join('');
@@ -17753,21 +17768,21 @@ function homeV3(){
             ${nm.opp?`<div class="nx-vs">
               <div class="nvs">${badge(t,'lg')}<span>${esc(t.tag)}</span></div>
               <div class="nvs-mid"><b class="up">토너먼트</b></div>
-              <div class="nvs">${badge(nm.opp,'lg')}<span>${esc(nm.opp.name)}</span></div>
+              <div class="nvs">${badge(nm.opp,'lg')}<span${tiAttr(nm.opp)}>${esc(nm.opp.name)}</span></div>
             </div>`:''}
             <button class="pillbtn gold" data-a="tourresume" data-v="${nm.go||'intl'}">🏆 ${esc(nm.tourName)} 진행 중 — 다음 경기 ${ico('play',11)}</button>
           `:nm.kind==='kespa'?`
             <div class="nx-vs">
               <div class="nvs">${badge(t,'lg')}<span>${esc(t.tag)}</span></div>
               <div class="nvs-mid"><b class="up">토너먼트</b></div>
-              <div class="nvs">${badge(nm.opp,'lg')}<span>${esc(nm.opp.name)}</span></div>
+              <div class="nvs">${badge(nm.opp,'lg')}<span${tiAttr(nm.opp)}>${esc(nm.opp.name)}</span></div>
             </div>
             <button class="pillbtn gold" data-a="kespastart">케스파컵 밴픽 ${ico('play',11)}</button>
           `:nm.kind==='week'?`
             <div class="nx-vs">
               <div class="nvs">${badge(t,'lg')}<span>${esc(t.tag)}</span></div>
               <div class="nvs-mid">${teamPower(t)>=teamPowerRaw(nm.opp)?'<b class="up">전력 우위</b>':'<b class="dn">전력 열세</b>'}</div>
-              <div class="nvs">${badge(nm.opp,'lg')}<span>${esc(nm.opp.name)}</span></div>
+              <div class="nvs">${badge(nm.opp,'lg')}<span${tiAttr(nm.opp)}>${esc(nm.opp.name)}</span></div>
             </div>
             <button class="pillbtn gold" data-a="match">밴픽 시작 ${ico('play',11)}</button>
           `:`
@@ -17863,7 +17878,7 @@ function homeV3(){
       <div class="ch"><span>받은 소식</span><b class="ch-n">새 ${newsUnread()}건</b>
         <span class="ch-r"><button class="lnk" data-a="newsread">모두 읽음</button><button class="lnk" data-a="tab" data-v="news">소식함 ›</button></span></div>
       <div class="newslist">
-        ${(c.news||[]).map((n,i)=>`<button class="news-row nrow" data-a="newsopen" data-v="${i}"><i class="nd ${n.read?'':'un'}"></i><span>${esc(n.t)}</span></button>`).slice(0,4).join('')||'<div class="empty-note">새 소식이 없습니다</div>'}
+        ${(c.news||[]).map((n,i)=>`<button class="news-row nrow" data-a="newsopen" data-v="${i}"><i class="nd ${n.read?'':'un'}"></i><span>${tiText(esc(n.t))}</span></button>`).slice(0,4).join('')||'<div class="empty-note">새 소식이 없습니다</div>'}
       </div>
     </div>
 
@@ -17889,7 +17904,7 @@ function openPostModal(kind, idx){
     <div class="pm-tag">${esc(d.tag)}</div>
     <h3 class="pm-title">${esc(d.title)}</h3>
     <div class="pm-meta">ㅇㅇ · ${d.when} · 추천 ${d.up} · 댓글 ${d.comments.length}</div>
-    <div class="pm-body">${esc(d.body)}</div>
+    <div class="pm-body">${tiText(esc(d.body))}</div>
     <div class="divider"></div>
     <div class="pm-cl">댓글 ${d.comments.length}</div>
     <div class="pm-comments">
@@ -17958,7 +17973,7 @@ function newsV3(){
           return `<button class="nf nrow ${n.read?'':'un'}" data-a="newsopen" data-v="${i}">
             <i class="nd ${n.read?'':'un'}"></i>
             <div class="nf-body">
-              <div class="nf-top"><span class="nf-badge ${cls}">${esc(lab)}</span><span class="nf-t">${esc(n.t)}</span></div>
+              <div class="nf-top"><span class="nf-badge ${cls}">${esc(lab)}</span><span class="nf-t">${tiText(esc(n.t))}</span></div>
               <div class="nf-m">${n.s}시즌 ${n.w}주차</div>
             </div></button>`;
         }).join('')||'<div class="empty-note">이 분류의 소식이 없습니다</div>'}
@@ -18007,7 +18022,7 @@ function renderPress(){
         <div>
           <div class="pr-k">PRESS CONFERENCE <span class="pr-tag">${esc(def.tag||'')}</span></div>
           <div class="pr-h">${post?'경기 후 기자회견':'경기 전 기자회견'}</div>
-          <div class="pr-s">${esc(myTeam().name)} vs ${esc(T(ctx.series.oppId).name)}${post?(' · '+pressScore()):''}</div>
+          <div class="pr-s">${tiSpan(myTeam(),esc(myTeam().name))} vs ${tiSpan(ctx.series.oppId,esc(T(ctx.series.oppId).name))}${post?(' · '+pressScore()):''}</div>
         </div>
         <div class="pr-step">${ctx.i+1}<em>/${list.length}</em></div>
       </div>
@@ -18523,16 +18538,8 @@ function bindHub(){
     try{ hubAction(el.dataset.a,el.dataset.v,el); }
     catch(e){ toast('처리 중 오류가 발생했습니다'); try{ console.error(e); }catch(_){} }
   });
-  /* 상대 구단 정보 모달 — 순위표·일정·대진의 팀 이름 */
-  document.addEventListener('click',ev=>{
-    const t=ev.target;
-    if(!t||!t.closest) return;
-    const hub=document.getElementById('view-hub');
-    if(!hub||!hub.contains(t)) return;
-    const el=t.closest('[data-teaminfo]'); if(!el) return;
-    ev.preventDefault(); ev.stopPropagation();
-    try{ if(typeof openTeamInfo==='function') openTeamInfo(el.dataset.teaminfo); }catch(e){}
-  });
+  /* 상대 구단 정보 모달 — V35 의 문서 캐프처 위임(tiBind)이 전 화면을 맡는다.
+     예전 허브 전용 리스너는 지웠다(밴픽·경기 중 예외 처리와 이중 호출 방지). */
   document.addEventListener('input',ev=>{
     const t=ev.target;
     if(t&&t.id==='codexQ'&&document.getElementById('view-hub')&&document.getElementById('view-hub').contains(t)){
@@ -19574,7 +19581,7 @@ function statBoardHTML(){
       <div class="st-h"><span>#</span><span>선수</span><span>K</span><span>D</span><span>A</span><span>KDA</span><span>CS/m</span><span>DPM</span><span>KP%</span><span>VSPM</span><span>POG</span></div>
       ${list.map((o,i)=>`<div class="st-row ${o.p.team===S.userTeam?'me':''}" data-a="player" data-v="${esc(o.name)}">
         <span class="st-rk">${i+1}</span>
-        <span class="st-n">${badge(o.p.team?T(o.p.team):null,'sm')}<b>${esc(o.name)}</b><i>${ROLE_KR[o.p.role]} · ${esc(teamTagOf(o.name))}</i></span>
+        <span class="st-n">${badge(o.p.team?T(o.p.team):null,'sm')}<b>${esc(o.name)}</b><i>${ROLE_KR[o.p.role]} · ${tiSpan(o.p.team,esc(teamTagOf(o.name)))}</i></span>
         <span>${o.r.k||0}</span><span>${o.r.d||0}</span><span>${o.r.a||0}</span>
         <span class="hi">${statKDA(o.r).toFixed(2)}</span><span>${statCSM(o.r)}</span><span>${o.r.dpm||0}</span>
         <span>${statKP(o.r)}</span><span>${statVSPM(o.r)}</span><span>${(S.pog&&S.pog[o.name])||0}</span>
@@ -19614,7 +19621,7 @@ function statsV3(){
     <div class="stat-hi">
       ${hi.map(function(h){return `<button class="hi-card ${h.top?'':'empty'}" ${h.top?`data-a="player" data-v="${esc(h.top.name)}"`:''}>
         <span class="hi-l">${h.d.ic} ${h.d.n}</span>
-        ${h.top?`<b>${esc(h.top.name)}</b><em>${h.d.fmt(h.top)}</em><i>${esc(teamTagOf(h.top.name))} · ${ROLE_KR[h.top.p.role]}</i>`:'<b>—</b><em>기록 없음</em>'}
+        ${h.top?`<b>${esc(h.top.name)}</b><em>${h.d.fmt(h.top)}</em><i>${tiSpan(h.top.p.team,esc(teamTagOf(h.top.name)))} · ${ROLE_KR[h.top.p.role]}</i>`:'<b>—</b><em>기록 없음</em>'}
       </button>`;}).join('')}
     </div>
     <div class="row wrap" style="gap:4px">
@@ -19627,7 +19634,7 @@ function statsV3(){
         <div class="st-h"><span>#</span><span>선수</span><span>K</span><span>D</span><span>A</span><span>KDA</span><span>CS/m</span><span>DPM</span><span>KP%</span><span>VSPM</span><span>POG</span></div>
         ${list0.slice(0,15).map(function(o,i){return `<div class="st-row ${o.p.team===S.userTeam?'me':''}" data-a="player" data-v="${esc(o.name)}">
           <span class="st-rk">${i+1}</span>
-          <span class="st-n">${badge(o.p.team?T(o.p.team):null,'sm')}<b>${esc(o.name)}</b><i>${ROLE_KR[o.p.role]} · ${esc(teamTagOf(o.name))}</i></span>
+          <span class="st-n">${badge(o.p.team?T(o.p.team):null,'sm')}<b>${esc(o.name)}</b><i>${ROLE_KR[o.p.role]} · ${tiSpan(o.p.team,esc(teamTagOf(o.name)))}</i></span>
           <span>${o.r.k||0}</span><span>${o.r.d||0}</span><span>${o.r.a||0}</span>
           <span class="hi">${statKDA(o.r).toFixed(2)}</span><span>${statCSM(o.r)}</span><span>${o.r.dpm||0}</span>
           <span>${statKP(o.r)}</span><span>${statVSPM(o.r)}</span><span>${(S.pog&&S.pog[o.name])||0}</span>
@@ -19644,10 +19651,10 @@ function awardsSummaryHTML(rec){
   const fm=(rec.awards||[]).find(a=>a.k==='fmvp');
   const all=(rec.awards||[]).find(a=>a.k==='alllck');
   return `<div class="aw-sum">
-    ${mvp?`<div class="aw-row"><span>MVP</span><b>${esc(mvp.name)}</b><i>${esc(mvp.team)}</i></div>`:''}
-    ${fm?`<div class="aw-row"><span>파이널 MVP</span><b>${esc(fm.name)}</b><i>${esc(fm.team)}</i></div>`:''}
+    ${mvp?`<div class="aw-row"><span>MVP</span><b>${esc(mvp.name)}</b><i>${tiSpan(mvp.team,esc(mvp.team))}</i></div>`:''}
+    ${fm?`<div class="aw-row"><span>파이널 MVP</span><b>${esc(fm.name)}</b><i>${tiSpan(fm.team,esc(fm.team))}</i></div>`:''}
     ${all?`<div class="aw-row"><span>All-LCK 1팀</span><b>${all.list.filter(x=>x.teamNo===1).map(x=>esc(x.name)).join(' · ')}</b><i></i></div>`:''}
-    ${(rec.leaders||[]).map(l=>`<div class="aw-row"><span>${esc(l.title)}</span><b>${esc(l.name)}</b><i>${esc(l.team)}</i></div>`).join('')}
+    ${(rec.leaders||[]).map(l=>`<div class="aw-row"><span>${esc(l.title)}</span><b>${esc(l.name)}</b><i>${tiSpan(l.team,esc(l.team))}</i></div>`).join('')}
   </div>`;
 }
 function trophyRoomV3(){
@@ -19691,10 +19698,10 @@ function openAwardsModal(rec){
     <div class="grab"></div>
     <div class="aw-k">LCK AWARDS · ${rec.season}</div>
     <h3 class="aw-h">${splitName} 시즌 시상식</h3>
-    ${mvp?`<div class="aw-mvp"><div class="aw-cup">🏆</div><div><span>정규시즌 MVP</span><b>${esc(mvp.name)}</b><i>${esc(mvp.team)}</i></div></div>`:''}
-    ${fm?`<div class="aw-line"><span>파이널 MVP</span><b>${esc(fm.name)} <i>${esc(fm.team)}</i></b></div>`:''}
+    ${mvp?`<div class="aw-mvp"><div class="aw-cup">🏆</div><div><span>정규시즌 MVP</span><b>${esc(mvp.name)}</b><i>${tiSpan(mvp.team,esc(mvp.team))}</i></div></div>`:''}
+    ${fm?`<div class="aw-line"><span>파이널 MVP</span><b>${esc(fm.name)} <i>${tiSpan(fm.team,esc(fm.team))}</i></b></div>`:''}
     ${all?[1,2,3].map(n=>`<div class="aw-line"><span>All-LCK ${n}팀</span><b>${all.list.filter(x=>x.teamNo===n).map(x=>esc(x.name)).join(' · ')}</b></div>`).join(''):''}
-    ${(rec.leaders||[]).map(l=>`<div class="aw-line"><span>${esc(l.title)}</span><b>${esc(l.name)} <i>${esc(l.team)}</i></b></div>`).join('')}
+    ${(rec.leaders||[]).map(l=>`<div class="aw-line"><span>${esc(l.title)}</span><b>${esc(l.name)} <i>${tiSpan(l.team,esc(l.team))}</i></b></div>`).join('')}
     <div class="aw-note">수상 기록은 선수 카드의 트로피 룸과 구단 트로피 룸에 영구 저장됩니다.</div>
     <button class="btn gold block" id="modalClose">확인</button>
   </div></div>`;
@@ -25949,16 +25956,16 @@ function seasonArchiveHTML(){
   return `<div class="stack" style="gap:6px">${arr.map(r=>`
     <div class="staff-card">
       <div class="row between">
-        <div><div style="font-weight:900;font-size:14px">${r.season} 시즌 <em style="font-style:normal;font-size:10px;color:var(--dim2)">${esc(r.region||'LCK')} · ${esc((T(r.myTeam)||{}).tag||r.myTeam||'')}</em></div>
+        <div><div style="font-weight:900;font-size:14px">${r.season} 시즌 <em style="font-style:normal;font-size:10px;color:var(--dim2)">${esc(r.region||'LCK')} · <span${tiAttr(r.myTeam)}>${esc((T(r.myTeam)||{}).tag||r.myTeam||'')}</span></em></div>
         <div class="tiny">정규 ${r.myWins||0}승 ${r.myLosses||0}패${r.myRank?(' · '+r.myRank+'위'):''}${r.mvp?(' · MVP '+esc(r.mvp)):''}</div></div>
-        <span class="chip sm ${r.champion===r.myTeam?'gold':''}">${r.champion?esc((T(r.champion)||{}).name||r.champion):'우승 없음'}</span>
+        <span class="chip sm ${r.champion===r.myTeam?'gold':''}"${tiAttr(r.champion)}>${r.champion?esc((T(r.champion)||{}).name||r.champion):'우승 없음'}</span>
       </div>
       <div class="tag-row" style="margin-top:4px">
-        ${r.spring?`<span class="tr good">스프링 ${esc((T(r.spring)||{}).tag||'')}</span>`:''}
-        ${r.summer?`<span class="tr good">서머 ${esc((T(r.summer)||{}).tag||'')}</span>`:''}
-        ${r.msi?`<span class="tr good">MSI ${esc((T(r.msi)||{}).tag||'')}</span>`:''}
-        ${r.ewc?`<span class="tr">EWC ${esc((T(r.ewc)||{}).tag||'')}</span>`:''}
-        ${r.worlds?`<span class="tr good">월즈 ${esc((T(r.worlds)||{}).tag||'')}</span>`:''}
+        ${r.spring?`<span class="tr good">스프링 ${tiSpan(r.spring,esc((T(r.spring)||{}).tag||''))}</span>`:''}
+        ${r.summer?`<span class="tr good">서머 ${tiSpan(r.summer,esc((T(r.summer)||{}).tag||''))}</span>`:''}
+        ${r.msi?`<span class="tr good">MSI ${tiSpan(r.msi,esc((T(r.msi)||{}).tag||''))}</span>`:''}
+        ${r.ewc?`<span class="tr">EWC ${tiSpan(r.ewc,esc((T(r.ewc)||{}).tag||''))}</span>`:''}
+        ${r.worlds?`<span class="tr good">월즈 ${tiSpan(r.worlds,esc((T(r.worlds)||{}).tag||''))}</span>`:''}
       </div>
     </div>`).join('')}</div>`;
 }
@@ -28093,7 +28100,7 @@ function renderWorlds(){
       <h1 style="font-size:27px">롤드컵</h1>
       <p>${stage==='swiss'?'스위스 스테이지 · 16팀 · 3승 진출 / 3패 탈락':stage==='bracket'?'녹아웃 토너먼트 · Bo5':'대회 종료'}</p>
       <div class="row" style="justify-content:center;gap:6px;margin-top:8px">
-        <span class="chip sm">LCK ${W.seeds.map(id=>T(id).tag).join('·')}</span>
+        <span class="chip sm">LCK ${W.seeds.map(id=>tiSpan(id,T(id).tag)).join('·')}</span>
         <span class="chip sm violet">우리 팀 ${W.userIn?(W.done?place:'진행 중'):'미진출'}</span>
       </div>
     </div>
@@ -28129,7 +28136,7 @@ function renderWorlds(){
     <div class="card">
       <div class="card-h"><h4>월즈 참가팀</h4><span class="k">${W.teams.length}팀</span></div>
       <div class="stack" style="gap:3px">
-        ${W.teams.map(id=>{const t=T(id);return `<div class="kv"><span>${badge(t,'sm')} ${esc(t.name)} <i class="tiny">${esc(t.region)}</i></span><b style="font-size:11px">${esc(teamStar(t))}</b></div>`;}).join('')}
+        ${W.teams.map(id=>{const t=T(id);return `<div class="kv"><span>${badge(t,'sm')} ${tiSpan(id,esc(t.name))} <i class="tiny">${esc(t.region)}</i></span><b style="font-size:11px">${esc(teamStar(t))}</b></div>`;}).join('')}
       </div>
     </div>
     <div style="height:10px"></div>`;
@@ -28228,7 +28235,7 @@ function renderChampion(){
       <div class="cup">${isWorlds?'🏆':'🥇'}</div>
       <div class="kicker" style="font-size:10px">${isWorlds?'WORLDS '+S.season+' CHAMPION':'LCK '+S.season+' SEASON'}</div>
       <h2>${esc(champ?champ.name:'-')}</h2>
-      <div class="tiny" style="margin-top:6px">${isMe?'당신이 이끌어낸 우승입니다':(isWorlds?'결승 상대: '+esc(runner?runner.name:''):'결승 상대: '+esc(runner?runner.name:''))}</div>
+      <div class="tiny" style="margin-top:6px">${isMe?'당신이 이끌어낸 우승입니다':(isWorlds?'결승 상대: '+(runner?tiSpan(runner,esc(runner.name)):''):'결승 상대: '+(runner?tiSpan(runner,esc(runner.name)):''))}</div>
     </div>
     ${(typeof v32CeremonyHTML==='function')?v32CeremonyHTML(isWorlds?'worlds':'lck',seasonChamp):''}
     <div class="card">
@@ -28248,7 +28255,7 @@ function renderChampion(){
     </div>
     ${hist.length?`<div class="card">
       <div class="card-h"><h4>월즈 히스토리</h4><span class="k">최근 ${hist.length}회</span></div>
-      ${hist.map(h=>`<div class="slide-item"><div class="fa-rank">${h.season}</div><div class="grow"><div style="font-size:12.5px;font-weight:800">${esc(T(h.champion).name)}</div><div class="tiny">준우승 ${esc(T(h.runnerUp).name)}</div></div><span class="chip sm">${esc(h.place||'')}</span></div>`).join('')}
+      ${hist.map(h=>`<div class="slide-item"><div class="fa-rank">${h.season}</div><div class="grow"><div style="font-size:12.5px;font-weight:800"${tiAttr(h.champion)}>${esc(T(h.champion).name)}</div><div class="tiny">준우승 ${tiSpan(h.runnerUp,esc(T(h.runnerUp).name))}</div></div><span class="chip sm">${esc(h.place||'')}</span></div>`).join('')}
     </div>`:''}
     <div class="card">
       <div class="card-h"><h4>시즌 POG 랭킹</h4><span class="k">TOP 5</span></div>
@@ -28396,7 +28403,7 @@ function renderIntl(){
         ? (tour.teams.length+'팀 스위스 · '+(tour.winTarget||3)+'승 진출 / '+(tour.loseTarget||3)+'패 탈락 → 플레이오프')
         : ('녹아웃 · '+(rd?esc(rd.name):'종료'))}</p>
       <div class="row" style="justify-content:center;gap:6px;margin-top:8px">
-        <span class="chip sm">${(tour.teams||[]).map(id=>esc(T(id).tag)).join(' · ')}</span>
+        <span class="chip sm">${(tour.teams||[]).map(id=>tiSpan(id,esc(T(id).tag))).join(' · ')}</span>
       </div>
     </div>
     ${stage==='swiss'&&typeof v34SwissHTML==='function'?v34SwissHTML(tour):''}
@@ -28433,7 +28440,7 @@ function renderIntl(){
     ${(typeof v34IntlRosterHTML==='function')?v34IntlRosterHTML(intlIds,{}):''}
     <div class="card">
       <div class="card-h"><h4>참가팀</h4><span class="k">${(tour.teams||[]).length}팀</span></div>
-      <div class="stack" style="gap:3px">${(tour.teams||[]).map(id=>{const t=T(id);return `<div class="kv"><span>${badge(t,'sm')} ${esc(t.name)} <i class="tiny">${esc(t.region)}</i></span><b style="font-size:11px">${esc(teamStar(t))}</b></div>`;}).join('')}</div>
+      <div class="stack" style="gap:3px">${(tour.teams||[]).map(id=>{const t=T(id);return `<div class="kv"><span>${badge(t,'sm')} ${tiSpan(id,esc(t.name))} <i class="tiny">${esc(t.region)}</i></span><b style="font-size:11px">${esc(teamStar(t))}</b></div>`;}).join('')}</div>
     </div>
     <div style="height:10px"></div>`;
   const p1=$('intlPlay'); if(p1) p1.onclick=()=>intlAction();
@@ -29330,7 +29337,7 @@ function hofCardHTML(h){
     <div class="hc-y">${h.year||''}</div>
     <div class="hc-k">${ROLE_KR[h.role]||h.role||''}</div>
     <div class="hc-n">${esc(h.name)}</div>
-    <div class="hc-r">${esc(t?t.name:(h.team||'—'))} · ${esc(h.era||'')}</div>
+    <div class="hc-r"${tiAttr(h.team)}>${esc(t?t.name:(h.team||'—'))} · ${esc(h.era||'')}</div>
     <div class="hc-c">${(h.champs||[]).map(c=>`<span class="hc-ch">${esc(c)}</span>`).join('')}</div>
     ${(h.titles||[]).length?`<div class="hc-t">${(h.titles||[]).slice(0,3).map(t2=>'🏆 '+esc(t2)).join('<br>')}</div>`:''}
     ${h.note?`<div class="tiny" style="margin-top:6px;color:var(--dim2);line-height:1.4">${esc(h.note)}</div>`:''}
@@ -30706,20 +30713,20 @@ function lckV3(){
       <div class="bd" style="gap:8px">
         <div style="flex:1"><div class="tiny" style="font-weight:900;color:#e6c481;margin-bottom:4px">LEGEND GROUP</div>
           ${(g.legend||[]).map((id,i)=>`<div class="sched-row">
-            <span class="sr-w">${i+1}</span><span class="sr-t">${esc(T(id).tag)} · ${esc(T(id).name)}</span>
+            <span class="sr-w">${i+1}</span><span class="sr-t"${tiAttr(id)}>${esc(T(id).tag)} · ${esc(T(id).name)}</span>
             <span class="sr-r">${T(id).wins}승 ${T(id).losses}패</span></div>`).join('')}
         </div>
         <div style="flex:1"><div class="tiny" style="font-weight:900;color:#7bb8e8;margin-bottom:4px">RISE GROUP</div>
           ${(g.rise||[]).map((id,i)=>`<div class="sched-row">
-            <span class="sr-w">${i+1}</span><span class="sr-t">${esc(T(id).tag)} · ${esc(T(id).name)}</span>
+            <span class="sr-w">${i+1}</span><span class="sr-t"${tiAttr(id)}>${esc(T(id).tag)} · ${esc(T(id).name)}</span>
             <span class="sr-r">${T(id).wins}승 ${T(id).losses}패</span></div>`).join('')}
         </div>
       </div>
     </div>`:''}
     ${pi?`<div class="card">
       <div class="ch"><span>플레이-인 결과</span><b class="ch-n">Bo3</b></div>
-      <div class="row between" style="padding:4px 0"><span>${esc(T(pi.a).tag)} vs ${esc(T(pi.b).tag)}</span>
-        <b>${pi.sa} : ${pi.sb} · ${esc(T(pi.winner).tag)} 승</b></div>
+      <div class="row between" style="padding:4px 0"><span>${tiSpan(pi.a,esc(T(pi.a).tag))} vs ${tiSpan(pi.b,esc(T(pi.b).tag))}</span>
+        <b>${pi.sa} : ${pi.sb} · ${tiSpan(pi.winner,esc(T(pi.winner).tag))} 승</b></div>
     </div>`:''}
     <div class="card">
       <div class="ch"><span>경기 일정</span><b class="ch-n">${(S.schedule||[]).length}주</b></div>
@@ -30729,7 +30736,7 @@ function lckV3(){
         const res=(S.results||[]).find(r=>r.week===w+1&&r.stage==='regular'&&(r.a===S.userTeam||r.b===S.userTeam));
         return `<div class="sched-row ${w+1===S.week?'on':''}">
           <span class="sr-w">${w+1}</span>
-          <span class="sr-t">${myPair?esc(T(myPair[0]).tag)+' vs '+esc(T(myPair[1]).tag):'-'}</span>
+          <span class="sr-t">${myPair?tiSpan(myPair[0],esc(T(myPair[0]).tag))+' vs '+tiSpan(myPair[1],esc(T(myPair[1]).tag)):'-'}</span>
           <span class="sr-r">${res?res.sa+'-'+res.sb:(w+1===S.week?'이번 주':'예정')}</span>
         </div>`;
       }).join('')}
@@ -39298,14 +39305,9 @@ function v32TeamInfo(id){
   return null;
 }
 if(typeof document!=='undefined'&&document.addEventListener){
-  document.addEventListener('click',function(e){
-    const t=e&&e.target;
-    const el=(t&&t.closest)?t.closest('[data-teaminfo]'):null;
-    if(!el) return;
-    const id=el.getAttribute('data-teaminfo');
-    if(!id) return;
-    v32TeamInfo(id);
-  },true);
+  /* V35 — 클릭 위임은 v35.js 의 tiBind() 한 곳에서만 건다.
+     여기서는 같은 창구를 직접 부를 수 있게 함수만 남긴다. */
+  V32TI.bind=function(){};
 }
 
 /* ============================================================================
@@ -40018,7 +40020,7 @@ function v33RecordsCardHTML(){
     return '<div class="v33rt"><span class="v33rt-ic">'+ic+'</span>'+
       '<span class="v33rt-k">'+esc(k)+'</span>'+
       '<b class="v33rt-v">'+esc(v||'—')+'</b>'+
-      '<span class="v33rt-s">'+esc(sub||'')+'</span></div>';
+      '<span class="v33rt-s">'+tiText(esc(sub||''))+'</span></div>';
   };
   const kills=r.kills&&r.kills.v?tile('🔥','최다 킬 (한 경기)',r.kills.v+'킬',(r.kills.who||'')+(r.kills.champ?' · '+r.kills.champ:'')+' · '+r.kills.season+'시즌'):
     tile('🔥','최다 킬 (한 경기)','—','아직 기록 없음');
@@ -40226,7 +40228,7 @@ function v33RetireCardHTML(r){
     '<div class="v33ret-k">'+(r.hof?'🏛 명예의 전당':'🕯 은퇴식')+'</div>'+
     '<div class="v33ret-n">'+esc(r.name)+'</div>'+
     '<div class="v33ret-m">'+esc(({TOP:'탑',JGL:'정글',MID:'미드',ADC:'원딜',SUP:'서폿'}[r.role]||r.role))+
-      ' · '+r.age+'세'+(r.team?' · '+esc(r.team):'')+(r.ovr?' · PEAK '+r.ovr:'')+'</div>'+
+      ' · '+r.age+'세'+(r.team?' · '+tiSpan(r.team,esc(r.team)):'')+(r.ovr?' · PEAK '+r.ovr:'')+'</div>'+
     '<p class="v33ret-q">'+esc(r.quote)+'</p>'+
     '<div class="v33ret-s">'+r.season+'시즌 은퇴</div>'+
   '</div>';
@@ -40927,7 +40929,7 @@ function v34IntlRosterHTML(ids,opt){
     const ovr=ps.filter(function(x){ return x.p; }).map(function(x){ return (typeof rawOverall==='function')?rawOverall(x.p):0; });
     const avg=ovr.length?Math.round(ovr.reduce(function(a,b){ return a+b; },0)/ovr.length):0;
     const mine=(S&&id===S.userTeam);
-    return '<div class="v34r-row'+(mine?' me':'')+'">'+
+    return '<div class="v34r-row'+(mine?' me':'')+'"'+tiAttr(id)+'>'+
       '<div class="v34r-h"><b>'+esc(t.tag)+'</b><span class="v34r-reg">'+esc(t.region||'')+'</span>'+
       '<i class="v34r-avg">OVR '+avg+'</i></div>'+
       '<div class="v34r-list">'+ps.map(function(x){
@@ -41122,7 +41124,7 @@ function v34RecRow(T,id,i){
   const q=T.qualified.indexOf(id)>=0, e=T.eliminated.indexOf(id)>=0;
   const t=v34T(id);
   const mine=(S&&id===S.userTeam);
-  return '<div class="v34sw-row'+(mine?' me':'')+(q?' q':'')+(e?' e':'')+'">'+
+  return '<div class="v34sw-row'+(mine?' me':'')+(q?' q':'')+(e?' e':'')+'"'+tiAttr(id)+'>'+
     '<span class="v34sw-rk">'+(i+1)+'</span>'+
     (t&&typeof badge==='function'?badge(t,'sm'):'')+
     '<span class="v34sw-nm">'+esc(t?t.name:String(id))+' <i>'+esc(t?(t.region||''):'')+'</i></span>'+
@@ -41150,8 +41152,8 @@ function v34SwissHTML(T,opt){
         const winA=m.done&&m.winner===m.a, winB=m.done&&m.winner===m.b;
         const mine=(S&&(m.a===S.userTeam||m.b===S.userTeam));
         return '<div class="v34sw-m'+(mine?' me':'')+(m.done?' done':'')+'">'+
-          '<div class="v34sw-s'+(winA?' win':'')+'">'+(a?badge(a,'sm'):'')+'<span>'+esc(a?a.tag:'TBD')+'</span><b>'+(m.done?m.sa:'–')+'</b></div>'+
-          '<div class="v34sw-s'+(winB?' win':'')+'">'+(b?badge(b,'sm'):'')+'<span>'+esc(b?b.tag:'TBD')+'</span><b>'+(m.done?m.sb:'–')+'</b></div>'+
+          '<div class="v34sw-s'+(winA?' win':'')+'"'+tiAttr(m.a)+'>'+(a?badge(a,'sm'):'')+'<span>'+esc(a?a.tag:'TBD')+'</span><b>'+(m.done?m.sa:'–')+'</b></div>'+
+          '<div class="v34sw-s'+(winB?' win':'')+'"'+tiAttr(m.b)+'>'+(b?badge(b,'sm'):'')+'<span>'+esc(b?b.tag:'TBD')+'</span><b>'+(m.done?m.sb:'–')+'</b></div>'+
           '<i class="v34sw-bo">BO'+m.bo+'</i>'+
         '</div>';
       }).join('')+'</div></div>':'')+
@@ -41172,12 +41174,12 @@ function v34BracketHTML(B,opt){
         const live=(B.round===ri&&!m.done&&m.a&&m.b);
         const mine=(S&&(m.a===S.userTeam||m.b===S.userTeam));
         return '<div class="v34ko-m'+(live?' live':'')+(mine?' me':'')+'">'+
-          '<div class="v34ko-t'+(winA?' win':'')+(m.a&&m.a===S.userTeam?' hl':'')+'">'+
+          '<div class="v34ko-t'+(winA?' win':'')+(m.a&&m.a===S.userTeam?' hl':'')+'"'+tiAttr(m.a)+'>'+
             (a?badge(a,'sm'):'<span class="v34ko-void"></span>')+
             '<span class="v34ko-n">'+esc(a?a.tag:'TBD')+'</span>'+
             (seedOf(m.a)?'<i class="v34ko-seed">'+seedOf(m.a)+'</i>':'')+
             '<b>'+(m.done?m.sa:'')+'</b></div>'+
-          '<div class="v34ko-t'+(winB?' win':'')+(m.b&&m.b===S.userTeam?' hl':'')+'">'+
+          '<div class="v34ko-t'+(winB?' win':'')+(m.b&&m.b===S.userTeam?' hl':'')+'"'+tiAttr(m.b)+'>'+
             (b?badge(b,'sm'):'<span class="v34ko-void"></span>')+
             '<span class="v34ko-n">'+esc(b?b.tag:'TBD')+'</span>'+
             (seedOf(m.b)?'<i class="v34ko-seed">'+seedOf(m.b)+'</i>':'')+
@@ -42139,6 +42141,245 @@ function v34Boot(){
   try{ if(S) v34IntlEnsure(); }catch(e){}
 }
 
+/* ============================================================================
+   V35 — 팀 표기 공통 링크
+   ----------------------------------------------------------------------------
+   원칙
+     · 화면 어디서든 팀 이름 · 로고 · 배지를 누르면 그 구단 정보 모달(openTeamInfo)이 열린다.
+     · 클릭 위임은 문서 캡처 단계 한 곳(tiBind)에서만 처리한다 — 상위 카드의
+       '이 경기 보기/치르기' 같은 액션보다 먼저 잡아 event.stopPropagation() 으로 끊는다.
+     · TBD · 빈 값 · 세이브에 없는 구단은 조용히 무시한다(오류·빈 모달 없음).
+     · 국가별 리그(LPL·LEC·LCS) 구단도 S.teams 에 있으면 그대로 열린다.
+   창구
+     tiNorm(v)          : 팀 객체 · id · 태그 → 실제 팀 id (없으면 '')
+     tiAttr(v)          : 기존 요소에 그대로 붙이는 속성 문자열
+     tiSpan(v, html)    : 텍스트를 감싸는 클릭 스팬
+     tiText(escaped)    : 소식·기록·일정 문장 안의 팀 표기를 클릭 스팬으로
+     tiScan(root)       : 렌더된 DOM에서 팀 태그/이름만으로 된 요소를 자동 링크
+     tiBind()           : 위임 · 자동 스캔 등록 (부트에서 1회)
+   ========================================================================== */
+const V35={ bound:false, obs:null, queued:false, pend:[], open:null, openAt:0, ver:35 };
+
+/* ---------- 팀 인덱스 ---------- */
+function tiTeams(){ try{ return (typeof S!=='undefined'&&S&&S.teams)?S.teams:null; }catch(e){ return null; } }
+function tiIndex(){
+  const teams=tiTeams()||{};
+  const tag={}, name={}, key={};
+  Object.keys(teams).forEach(function(k){
+    const t=teams[k]; if(!t) return;
+    if(t.tag){
+      const up=String(t.tag).toUpperCase();
+      if(!tag[up]) tag[up]=k;
+      if(String(t.tag).length>=2) key[String(t.tag)]=k;
+    }
+    if(t.name){
+      name[String(t.name)]=k;
+      name[String(t.name).toUpperCase()]=k;
+      if(String(t.name).length>=2) key[String(t.name)]=k;
+    }
+  });
+  V35._tag=tag; V35._name=name; V35._key=key; V35._teams=teams;
+  V35._keys=Object.keys(key).sort(function(a,b){ return b.length-a.length; });
+}
+function tiReady(){ const teams=tiTeams(); if(!teams) return false; if(V35._teams!==teams) tiIndex(); return true; }
+
+/* 팀 객체 · id · 태그 · 정식 이름 → 실제 팀 id */
+function tiNorm(v){
+  if(v==null) return '';
+  if(!tiReady()) return '';
+  const teams=V35._teams;
+  if(typeof v==='object'){
+    if(v.id&&teams[v.id]) return v.id;
+    if(v.tag) return tiNorm(String(v.tag));
+    if(v.name) return tiNorm(String(v.name));
+    return '';
+  }
+  const s=String(v).trim();
+  if(!s) return '';
+  if(s==='TBD'||s.toUpperCase()==='TBD'||s==='—'||s==='-'||s==='?'||s==='FA') return '';
+  if(teams[s]) return s;
+  if(typeof V34_ALIAS!=='undefined'){
+    const al=V34_ALIAS[s];
+    if(al&&teams[al]) return al;
+  }
+  const up=s.toUpperCase();
+  if(V35._tag[up]) return V35._tag[up];
+  if(V35._name[s]) return V35._name[s];
+  return '';
+}
+
+/* 기존 요소에 그대로 붙이는 속성 */
+function tiAttr(v){
+  try{
+    const id=tiNorm(v);
+    return id?(' data-teaminfo="'+id+'" role="button" tabindex="0"'):'';
+  }catch(e){ return ''; }
+}
+/* 텍스트를 클릭 스팬으로 감싼다 (이미 팀이 아니면 원문 그대로) */
+function tiSpan(v,html){
+  try{
+    const id=tiNorm(v);
+    if(!id) return html;
+    return '<span class="ti" data-teaminfo="'+id+'" role="button" tabindex="0">'+html+'</span>';
+  }catch(e){ return html; }
+}
+
+/* 이스케이프된 평문 안의 팀 태그·정식 이름을 클릭 스팬으로 바꾼다.
+   입력은 esc() 를 거친 '텍스트만' 이어야 한다(HTML 태그가 섞이면 건드리지 않는다). */
+function tiText(txt){
+  const s=String(txt==null?'':txt);
+  if(!s||s.indexOf('<')>=0||!tiReady()) return s;
+  const keys=V35._keys||[];
+  if(!keys.length) return s;
+  let out='', i=0;
+  while(i<s.length){
+    let hit=null;
+    for(let k=0;k<keys.length;k++){
+      const key=keys[k];
+      if(key.length>s.length-i) continue;
+      if(s.substr(i,key.length)===key){ hit=key; break; }
+    }
+    if(hit){
+      const before=i>0?s.charAt(i-1):' ';
+      const after=s.charAt(i+hit.length)||' ';
+      const latin=/[A-Za-z0-9]/.test(before)||/[A-Za-z0-9]/.test(after);
+      const hangul=/[\uAC00-\uD7A3]/.test(hit);
+      if(!latin||hangul){
+        const id=V35._key[hit];
+        out+='<span class="ti" data-teaminfo="'+id+'" role="button" tabindex="0">'+hit+'</span>';
+        i+=hit.length;
+        continue;
+      }
+    }
+    out+=s.charAt(i); i++;
+  }
+  return out;
+}
+
+/* ---------- 클릭 위임 ---------- */
+/* 진행 중인 밴픽 타이머 · 실시간 경기 중에는 열지 않는다 (조작을 덮어쓰지 않도록) */
+function tiAllowed(el){
+  try{
+    if(!el||!el.closest) return true;
+    if(el.closest('#view-draft')){
+      if(typeof DT!=='undefined'&&DT&&DT.int) return false;
+      /* 밴·픽이 진행 중이면(타이머가 상대 턴이라 멈춰 있어도) 덮지 않는다 */
+      if(typeof D!=='undefined'&&D&&!D.done&&D.phase!=='assign'&&D.phase!=='done') return false;
+    }
+    if(el.closest('#view-match')){
+      if(typeof M!=='undefined'&&M&&M.running) return false;
+    }
+  }catch(e){}
+  return true;
+}
+function tiOpen(v){
+  const id=tiNorm(v);
+  if(!id) return false;
+  if(typeof openTeamInfo!=='function') return false;
+  const now=(typeof Date!=='undefined'&&Date.now)?Date.now():0;
+  /* 같은 구단을 400ms 안에 다시 부르면 무시 (배지·이름이 겹쳐 있는 자리) */
+  if(V35.open===id&&now-V35.openAt<400) return false;
+  V35.open=id; V35.openAt=now;
+  try{ openTeamInfo(id); return true; }
+  catch(e){ try{ console.error(e); }catch(_){} return false; }
+}
+function tiHandleClick(ev){
+  const t=ev&&ev.target;
+  if(!t||!t.closest) return false;
+  const el=t.closest('[data-teaminfo]');
+  if(!el) return false;
+  const id=tiNorm(el.getAttribute('data-teaminfo'));
+  if(!id) return false;
+  if(!tiAllowed(el)) return false;
+  if(ev.preventDefault) ev.preventDefault();
+  if(ev.stopPropagation) ev.stopPropagation();
+  tiOpen(id);
+  return true;
+}
+function tiHandleKey(ev){
+  if(!ev||(ev.key!=='Enter'&&ev.key!==' '&&ev.key!=='Spacebar')) return false;
+  const t=ev.target;
+  if(!t||!t.closest) return false;
+  const el=t.closest('[data-teaminfo]');
+  if(!el||!tiAllowed(el)) return false;
+  if(ev.preventDefault) ev.preventDefault();
+  if(ev.stopPropagation) ev.stopPropagation();
+  tiOpen(el.getAttribute('data-teaminfo'));
+  return true;
+}
+
+/* ---------- 렌더 결과 자동 링크 ---------- */
+const V35_SKIP={SCRIPT:1,STYLE:1,NOSCRIPT:1,SVG:1,PATH:1,IMG:1,CANVAS:1,INPUT:1,TEXTAREA:1,SELECT:1,OPTION:1,BUTTON:1,A:1};
+/* 구형/특수 DOM 에서도 안전한 속성 검사 */
+function tiHas(el,k){
+  try{
+    if(el.hasAttribute) return el.hasAttribute(k);
+    return el.getAttribute(k)!=null;
+  }catch(e){ return false; }
+}
+function tiTagEl(el){
+  if(!el||(el.nodeType&&el.nodeType!==1)) return 0;
+  if(V35_SKIP[el.tagName]) return 0;
+  if(el.getAttribute('data-teaminfo')) return 0;
+  if(tiHas(el,'onclick')||tiHas(el,'data-a')||tiHas(el,'data-v')||tiHas(el,'data-player')) return 0;
+  if(el.children&&el.children.length) return 0;
+  const txt=(el.textContent||'').trim();
+  if(!txt||txt.length>32) return 0;
+  const id=tiNorm(txt);
+  if(!id) return 0;
+  if(!tiAllowed(el)) return 0;
+  el.setAttribute('data-teaminfo',id);
+  el.setAttribute('role','button');
+  el.setAttribute('tabindex','0');
+  try{ if(el.classList&&el.classList.add) el.classList.add('ti'); }catch(e){}
+  return 1;
+}
+function tiScan(root){
+  if(!root||!tiReady()) return 0;
+  let n=0;
+  try{
+    if(!root.nodeType||root.nodeType===1) n+=tiTagEl(root);
+    if(root.querySelectorAll){
+      const list=root.querySelectorAll('*');
+      for(let i=0;i<list.length;i++) n+=tiTagEl(list[i]);
+    }
+  }catch(e){}
+  return n;
+}
+function tiFlush(){
+  V35.queued=false;
+  const list=V35.pend; V35.pend=[];
+  for(let i=0;i<list.length;i++) tiScan(list[i]);
+}
+function tiBind(){
+  if(V35.bound||typeof document==='undefined'||!document.addEventListener) return;
+  V35.bound=true;
+  document.addEventListener('click',tiHandleClick,true);
+  document.addEventListener('keydown',tiHandleKey,true);
+  try{ tiScan(document.body); }catch(e){}
+  if(typeof MutationObserver==='undefined') return;
+  try{
+    V35.obs=new MutationObserver(function(recs){
+      for(let i=0;i<recs.length;i++){
+        const r=recs[i];
+        if(r.type!=='childList'||!r.addedNodes) continue;
+        for(let j=0;j<r.addedNodes.length;j++){
+          const nd=r.addedNodes[j];
+          if(!nd||nd.nodeType!==1) continue;
+          /* 진행 중인 경기 HUD 는 매 초 갱신된다 — 스캔하지 않는다 */
+          try{ if(nd.closest&&nd.closest('#view-match')&&typeof M!=='undefined'&&M&&M.running) continue; }catch(e){}
+          V35.pend.push(nd);
+        }
+      }
+      if(!V35.pend.length||V35.queued) return;
+      V35.queued=true;
+      if(typeof requestAnimationFrame==='function') requestAnimationFrame(tiFlush);
+      else setTimeout(tiFlush,0);
+    });
+    V35.obs.observe(document.body,{childList:true,subtree:true});
+  }catch(e){}
+}
+
 
 /* boot */
 window.__game={get S(){return S},get M(){return M},get D(){return D}};
@@ -42148,6 +42389,7 @@ try{v33Boot();}catch(e){}
 try{v34Boot();}catch(e){}
 try{cloudBoot();}catch(e){}
 renderTitle();
+try{tiBind();}catch(e){}
 
 </script>
 </body>
