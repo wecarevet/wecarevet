@@ -21817,6 +21817,15 @@ const MM_TW_ZONE_R=0.058;           /* 미니언 없이 들어가면 안 되는 
 const MM_TW_ZONE_WARN=0.078;        /* 목표가 이 안으로 들어오면 미리 안전선으로 당긴다 */
 const MM_TW_ZONE_SAFE=0.078;        /* 되돌릴 때 포탑에서 떨어지는 거리 */
 
+/* 끝내기 공성 중인 팀은 그 라인·본진 포탑의 어그로를 받지 않는다 (스크립트 공성은 웨이브를 동반한다) */
+function mmTwEndgameCover(side,t,s){
+  try{
+    const eg=M&&M.endgame;
+    if(!eg||eg.at==null||!eg.atk||eg.atk!==side) return false;
+    if(!(Number(s)-Number(eg.at)<=15)) return false;
+    return !!(t&&(t.nx||t.lane===eg.lane));
+  }catch(e){ return false; }
+}
 /* 살아있는 포탑 목록 (캐시 120ms) — 어느 쪽 미니언이 맞고 있는지(cover)까지 한 번에 */
 function mmTwTowers(fresh){
   const now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
@@ -21852,6 +21861,8 @@ function mmTwTowers(fresh){
         if(Math.hypot(t.x-bx,t.y-by)<=MM_TW_MINION_COVER) t.cover[b.side]=true;
       }
     }
+    /* V34.8 — 타임라인의 '끝내기' 공성은 웨이브와 함께 들어간다.
+       (아래 mmTwEndgameCover 가 사용 시점에 판단 — 캐시된 미니언 커버와 섞지 않는다) */
   }
   MM.twCache=list; MM.twCacheAt=now;
   return list;
@@ -21931,7 +21942,7 @@ function mmTurretChampStep(dsec,sec){
       if(d>MM_TW_CHAMP_RANGE) continue;
       const diving=mmTwDiving(t,u,s);
       /* ① 포탑 주변에 공격자 편 미니언이 맞고 있으면 포탑은 미니언을 쏜다 */
-      if(t.cover[preySide]&&!diving) continue;
+      if((t.cover[preySide]||mmTwEndgameCover(preySide,t,s))&&!diving) continue;
       if(diving&&!bestDive){ best=u; bd=d; bestDive=true; continue; }
       if(bestDive) continue;
       if(d<bd){ bd=d; best=u; }
@@ -22012,6 +22023,7 @@ function mmTurretZoneGuard(sec){
         const t=list[i];
         if(t.side===side||t.nx) continue;                /* 넥서스 포탑은 진입 가드 제외 (본진 타격 경로) */
         if(t.cover[side]) continue;                      /* 아군 미니언이 맞고 있다 → 통과 가능 */
+        if(mmTwEndgameCover(side,t,s)) continue;          /* 끝내기 공성 라인 → 통과 */
         const d=Math.hypot(u.x-t.x,u.y-t.y);
         if(d>MM_TW_ZONE_WARN) continue;
         if(d<bd){ bd=d; blk=t; }
@@ -22074,6 +22086,7 @@ function mmTurretPushOut(sec,stepDt){
         const t=list[i];
         if(t.side===side||t.nx) continue;
         if(t.cover[side]) continue;
+        if(mmTwEndgameCover(side,t,s)) continue;
         const d=Math.hypot(u.x-t.x,u.y-t.y);
         if(d>MM_TW_ZONE_R) continue;
         if(d<bd){ bd=d; blk=t; }
