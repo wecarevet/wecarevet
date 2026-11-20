@@ -3697,7 +3697,7 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .v34lk-drow b{flex:1;font-size:10px;font-weight:800;color:#ffc3cd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .v34lk-drow em{font-style:normal;font-size:9px;font-weight:900;color:#ff8a9b}
 .v34lk-ok{font-size:9.5px;color:#7fd6a8;font-weight:800;margin-top:5px}
-.v34lk-acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:7px}
+.v34lk-acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-top:7px;max-width:640px}
 .v34lk-act{display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 5px;border-radius:8px;
   background:#0c1018;border:1px solid #1d2432;color:#dfe6f2;min-width:0;cursor:pointer}
 .v34lk-act span{font-size:15px;line-height:1}
@@ -41251,9 +41251,9 @@ function v34GoldCardHTML(){
         '<clipPath id="v34clipUp"><rect x="0" y="0" width="'+W+'" height="'+midY.toFixed(1)+'"/></clipPath>'+
         '<clipPath id="v34clipDn"><rect x="0" y="'+midY.toFixed(1)+'" width="'+W+'" height="'+(H-midY).toFixed(1)+'"/></clipPath>'+
         '<linearGradient id="v34gUp" x1="0" y1="0" x2="0" y2="1">'+
-          '<stop offset="0%" stop-color="#4fa8ff" stop-opacity=".55"/><stop offset="100%" stop-color="#4fa8ff" stop-opacity=".04"/></linearGradient>'+
+          '<stop offset="0%" stop-color="#4fa8ff" stop-opacity=".78"/><stop offset="100%" stop-color="#4fa8ff" stop-opacity=".10"/></linearGradient>'+
         '<linearGradient id="v34gDn" x1="0" y1="0" x2="0" y2="1">'+
-          '<stop offset="0%" stop-color="#ff5570" stop-opacity=".04"/><stop offset="100%" stop-color="#ff5570" stop-opacity=".55"/></linearGradient>'+
+          '<stop offset="0%" stop-color="#ff5570" stop-opacity=".10"/><stop offset="100%" stop-color="#ff5570" stop-opacity=".78"/></linearGradient>'+
       '</defs>'+
       '<rect x="'+padL+'" y="'+padT+'" width="'+iw+'" height="'+ih+'" fill="rgba(255,255,255,.02)"/>'+
       [0.25,0.75].map(function(f){ const y=padT+ih*f; return '<line x1="'+padL+'" y1="'+y.toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y.toFixed(1)+'" stroke="rgba(255,255,255,.06)" stroke-width="1"/>'; }).join('')+
@@ -41568,7 +41568,20 @@ function v34RepDraw(){
   const ctx=cv.getContext('2d'); if(!ctx) return;
   const w=cv.width||320,h=cv.height||320;
   const t0=clip.frames[0].t;
-  const fr=v34RepFrameAt(clip,t0+V34.rep.t)||clip.frames[0];
+  const now0=t0+V34.rep.t;
+  const fr=v34RepFrameAt(clip,now0)||clip.frames[0];
+  const frPrev=v34RepFrameAt(clip,now0-0.4)||fr;
+  /* 승부처 확대 — 살아있는 챔피언 무리의 중심으로 1.7배 줌 */
+  const live=fr.u.filter(function(u){ return u.a; });
+  let cx=0.5, cy=0.5, z=1.55;
+  if(live.length>=2){
+    cx=live.reduce(function(a,u){ return a+u.x; },0)/live.length;
+    cy=live.reduce(function(a,u){ return a+u.y; },0)/live.length;
+    const spread=Math.max.apply(null,live.map(function(u){ return Math.hypot(u.x-cx,u.y-cy); }));
+    z=v34Clamp(1.85-spread*3.4,1.15,1.95);
+  }
+  ctx.save();
+  ctx.translate(w/2,h/2); ctx.scale(z,z); ctx.translate(-cx*w,-cy*h);
   v34RepDrawBase(ctx,w,h);
   /* 포탑 */
   ['me','opp'].forEach(function(side){
@@ -41621,7 +41634,7 @@ function v34RepDraw(){
       ctx.strokeStyle='rgba(200,206,220,.7)'; ctx.lineWidth=1.2; ctx.stroke();
       return;
     }
-    ctx.beginPath(); ctx.arc(x,y,6.2,0,Math.PI*2);
+    ctx.beginPath(); ctx.arc(x,y,6.6,0,Math.PI*2);
     ctx.fillStyle=col; ctx.fill();
     ctx.strokeStyle='rgba(4,8,14,.85)'; ctx.lineWidth=1.2; ctx.stroke();
     /* 체력 */
@@ -41633,6 +41646,19 @@ function v34RepDraw(){
     ctx.fillStyle='#06121c'; ctx.font='700 7px Pretendard,sans-serif';
     ctx.textAlign='center'; ctx.textBaseline='middle';
     ctx.fillText(String(u.c||u.r||'?').slice(0,2),x,y+0.5);
+  });
+  ctx.restore();
+  /* 킬 순간 버스트 — 직전 프레임에는 살아 있었는데 지금 죽어 있으면 폭발 표시 */
+  const pulseK=0.5+0.5*Math.sin(V34.rep.t*7.5);
+  fr.u.forEach(function(u){
+    if(u.a) return;
+    const prev=frPrev.u.filter(function(p){ return p.s===u.s&&p.r===u.r; })[0];
+    if(!prev||!prev.a) return;
+    const x=v34Clamp(u.x,0,1)*w, y=v34Clamp(u.y,0,1)*h;
+    ctx.beginPath(); ctx.arc(x,y,7+6*pulseK,0,Math.PI*2);
+    ctx.strokeStyle='rgba(255,120,140,'+(0.55-0.25*pulseK)+')'; ctx.lineWidth=2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(x,y,2.6,0,Math.PI*2);
+    ctx.fillStyle='rgba(255,190,120,.85)'; ctx.fill();
   });
   ctx.textAlign='left'; ctx.textBaseline='alphabetic';
 }
