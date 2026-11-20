@@ -44176,8 +44176,8 @@ function v3413TalkPick(name,kind){
   if(tk.n<=3){
     delta=fit>=0.8?7:(fit>=0.45?4:(fit>0.15?1:-5));
     if(tk.n===3&&delta>0) delta+=4;                /* 3번째 정성 = 삼고초려 보너스 */
-    msg=delta>0?('🙌 “'+def.d+'” — 마음이 움직였습니다 (호감도 +'+delta+'%)'):
-                ('😐 “'+def.d+'” — 표정이 굳었습니다 (호감도 '+delta+'%)');
+    msg=delta>0?(def.d+' — 🙌 마음이 움직였습니다 (호감도 +'+delta+'%)'):
+                (def.d+' — 😐 표정이 굳었습니다 (호감도 '+delta+'%)');
   }else{
     delta=(-4-Math.min(4,(tk.n-4)*1.5));
     tk.bad=(tk.bad||0)+1;
@@ -44187,7 +44187,7 @@ function v3413TalkPick(name,kind){
   p.faLike=(typeof S!=='undefined'&&S)?tk.like:0;   /* 실질 매력도에 반영 */
   neg.like=tk.like;
   try{
-    neg.log.unshift({who:'me',text:def.ic+' '+def.n+' — “'+def.d+'”'});
+    neg.log.unshift({who:'me',text:def.ic+' '+def.n+' — '+def.d});
     neg.log.unshift({who:'player',text:msg});
     if(neg.log.length>10) neg.log.length=10;
   }catch(e){}
