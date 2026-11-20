@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>LoL 매니저 HUD 폭 검증 (폴드 펼침·커버)</title>
+<style>
+  html,body{margin:0;background:#15171b;color:#9aa2b2;font:12px/1.4 system-ui,sans-serif}
+  .wrap{padding:8px}
+  .lab{margin:0 0 4px;font-weight:800}
+  iframe{border:1px solid #333;background:#000;display:block}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="lab" id="lab"></div><iframe id="fr" src="lol-manager.html?v=34.12.1"></iframe></div>
+<script>
+/* 검증용 임시 하네스 — 지정 뷰포트(폴드 펼침/커버)로 경기 HUD를 띄우고 아이템 6칸이 보이는지 확인한다.
+   ?w=673&h=841  (없으면 673x841) */
+var q=new URLSearchParams(location.search);
+var W=parseInt(q.get('w')||'673',10), H=parseInt(q.get('h')||'841',10);
+var fr=document.getElementById('fr');
+fr.width=W; fr.height=H;
+document.getElementById('lab').textContent=W+' x '+H+' — 경기 HUD (아이템 6칸)';
+fr.addEventListener('load',function(){
+  var w=fr.contentWindow;
+  function boot(){
+    try{
+      w.createState('T1');
+      var s=w.createSeries('GEN',3,'regular',{}); s.meta.pressDone=true;
+      w.startDraft(s); w.autoDraftRun();
+      w.D.assign.me=w.recommendAssign(w.dMyPicks());
+      w.D.assign.opp=w.aiAssign(w.dOppPicks(),w.D.oppId);
+      w.D.result=w.evalDraft();
+      w.startMatch(w.D.result);
+      w.M.running=true; w.M.speed=2;
+      w.mmReset(); w.mmJumpTargets(); w.mmStart();
+      for(var i=0;i<700;i++){
+        w.tick(true); w.mmSync();
+        for(var f=0;f<6;f++) w.mmUpdate(50);
+      }
+      /* 아이템이 아직 없으면 한 번 더 돌려 정비 귀환·구매를 만든다 */
+      var n=0;
+      try{ var it=w.M.items&&w.M.items.me; if(it){ Object.keys(it).forEach(function(k){ n+=(it[k].bought||[]).length; }); } }catch(e){}
+      if(n<8){ for(var j=0;j<220;j++){ w.tick(true); w.mmSync(); for(var f2=0;f2<6;f2++) w.mmUpdate(50); } }
+      w.renderMatch();
+      try{ w.b4ItemUpdateHud(); }catch(e){}
+      document.title='OK '+w.M.minute+'분';
+    }catch(e){ document.title='ERR '+e; }
+  }
+  setTimeout(boot,400);
+});
+</script>
+</body>
+</html>

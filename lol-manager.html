@@ -3404,6 +3404,28 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .bhud .bc-line .bc-tx{-webkit-line-clamp:2;font-size:10.5px}
   .bhud .mb-bar{display:none}
 }
+/* ============================================================================
+   V34.12.1 — 폴드 펼침(641~1100px)에서도 아이템 6칸 표시
+   · 34.9.1 한 화면(100dvh) 고정 패치가 `.bhud .b4items{display:none}` 으로 전 폭에서
+     아이템 줄을 감췄고, max-width:640px(폴드 커버·폰)에서만 다시 켰다.
+     그래서 폴드 펼침(673·717·840)에서만 아이템창이 사라져 보였다.
+   · 34.9.1 의 미니맵 크기 고정은 그대로 두고, 카드 안쪽 여백·글자만 압축해 6칸을 넣는다.
+   ========================================================================== */
+@media (min-width:641px){
+  .bhud .b4items{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;
+    width:100%;max-width:none;margin:1px 0 2px}
+  .bhud .b4items .b4slot.empty{border-radius:2px}
+  .bhud .b4items .b4img{max-width:13px;max-height:13px;border-radius:2px}
+  .bhud .bpl{padding:2px 4px;gap:3px}
+  .bhud .bpl-i b{font-size:9.5px;line-height:1.1}
+  .bhud .bpl-kda{font-size:8.5px;line-height:1.1}
+  .bhud .bpl-s{font-size:7px;gap:0 3px;line-height:1.05}
+}
+@media (min-width:641px) and (max-height:820px){
+  /* 폴드 펼침(높이 700~820) — 한 화면 고정을 지키려고 CS·DPM 줄을 접고 아이템 줄을 남긴다 */
+  .bhud .bpl-s{display:none}
+  .bhud .b4items .b4img{max-width:12px;max-height:12px}
+}
 @media (max-height:640px){
   .bhud .bt-obj{display:none}
   .bhud .bc-line:nth-child(2){display:none}
@@ -8011,6 +8033,15 @@ function lvTick(ds){
   if((M.sec||0)<90){
     ROLES.forEach(r=>{ ['me','opp'].forEach(s=>{ if(M.lv[s][r]!==1) M.lv[s][r]=1; if(M.xp&&M.xp[s]) M.xp[s][r]=0; }); });
     M.lvEdge=0; return;
+  }
+  /* V34.12.1 — 라이브 미니맵 시뮬 중에는 고정 패시브 경험치를 주지 않는다.
+     경험치는 ① 미니언이 사거리(0.10) 안에서 죽을 때 그 자리의 아군 챔피언이 나눠 먹고
+     ② 정글 캠프를 근접 처치했을 때 들어온다 (ui-minimap.js mmMinionXpShare · 캠프 클리어).
+     집·사망·로밍·디나이 상태에서는 경험치가 오르지 않는다.
+     (미니맵이 꺼진 빠른 진행·즉시 결과에서는 아래 고정 경험치로 폴백한다) */
+  if(typeof mmXpLive==='function'&&mmXpLive()){
+    M.lvEdge=lvEdgeNow();
+    return;
   }
   const m=M.minute||0;
   const adv=(M.winProb||0.5)-0.5;
@@ -21008,6 +21039,56 @@ function mmCampAlive(c,sec){
   if(c.first&&sec<c.first) return false;
   return c.alive;
 }
+/* ============================================================================
+   V34.12.1 — 경험치는 '그 자리에 있는 챔피언'만 먹는다
+   · 미니언이 죽을 때 그 주변(0.10)에 살아있는 아군 챔피언이 있을 때만 나눠 먹는다
+     (집·사망·로밍·디나이 상태면 경험치 없음 — 실제 롤과 같은 방식)
+   · 캠프는 정글러가 그 자리에서 처치했을 때만 (근접 클리어 창구)
+   · 미니맵 시뮬이 꺼진 빠른 진행에서는 engine.js lvTick 이 기존 고정 경험치로 폴백한다
+   ========================================================================== */
+const MM_XP_RANGE=0.18;                                    /* 미니언 경험치 사거리 (CS 사거리 0.135 보다 넓다) */
+const MM_XP_MINION={melee:6.6,caster:3.3,cannon:11,super:16};   /* 한 마리당 기본 경험치 */
+const MM_XP_CAMP={buff:50,sm:42,scuttle:32};                /* 캠프 처치 경험치 */
+const MM_XP_SHARE={1:1,2:1.30,3:1.45,4:1.55,5:1.60};        /* 같이 먹을 때 총량 보너스 */
+function mmCampXp(c){
+  if(!c) return MM_XP_CAMP.sm;
+  if(c.kind==='buff') return MM_XP_CAMP.buff;
+  if(c.kind==='scuttle') return MM_XP_CAMP.scuttle;
+  return MM_XP_CAMP.sm;
+}
+/* 미니맵 시뮬이 실시간으로 돌고 있는가 — 이때는 고정 경험치를 주지 않는다 */
+function mmXpLive(){
+  if(typeof MM==='undefined'||!MM||!MM.init||!MM.units) return false;
+  if(MM.started) return true;             /* 미니맵 루프가 켜져 있다 = 라이브 시뮬 */
+  if(!MM.aliveAt) return false;
+  const now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+  return (now-MM.aliveAt)<2600;
+}
+/* 죽은 미니언 주변의 아군 챔피언에게 경험치를 나눠 준다 */
+function mmMinionXpShare(mn){
+  if(!M||!mn||typeof MM==='undefined'||!MM||!MM.units) return 0;
+  if(typeof lvAddXp!=='function') return 0;
+  let p=null;
+  try{ p=mmPathPoint(LANE_PATH[mn.lane],mn.t); }catch(e){ return 0; }
+  if(!p) return 0;
+  const px=p[0]+(mn.off||0), py=p[1]+(mn.off||0);
+  const side=(mn.side==='me')?'opp':'me';
+  const near=[];
+  ROLES.forEach(function(role){
+    const u=MM.units[side+'-'+role];
+    if(!u||!u.alive) return;
+    if(u.tp||u.recall||u.recallT||u.recallWalk) return;
+    if(Math.hypot(u.x-px,u.y-py)>MM_XP_RANGE) return;
+    near.push(role);
+  });
+  if(!near.length) return 0;
+  const base=MM_XP_MINION[mn.kind||'melee']||MM_XP_MINION.melee;
+  const mul=MM_XP_SHARE[Math.min(5,near.length)]||1.6;
+  const each=base*mul/near.length;
+  for(let i=0;i<near.length;i++){ try{ lvAddXp(side,near[i],each); }catch(e){} }
+  try{ M.mmXp=(M.mmXp||0)+base*mul; }catch(e){}
+  return each;
+}
 
 function mmTokenKey(side,role){ return side+'-'+role; }
 /* 사망 폴백 — 레벨 기반 부활 타이머로 통일 (게임 초) */
@@ -21893,16 +21974,22 @@ function mmSync(){
   if(!MM.minions.length) mmSpawnWave();
 }
 
-/* 정글 캠프 강제 정리 — 정글 동선 AI 가 '이 캠프를 다 돌았다'고 판단한 시점의 창구.
-   실제 미니맵 진행(prog)과 같은 결과를 내고, 한 번만 CS·골드를 준다. */
+/* 정글 캠프 정리 — 정글 동선 AI 가 '이 캠프를 다 돌았다'고 판단한 시점의 창구.
+   V34.12.1 — 아무도 없는 캠프를 지우지 않는다. 그 팀 정글러가 실제로 캠프 앞에 있을 때만
+   정리한다 (미니맵 근접 클리어와 같은 결과·같은 보상). */
 function mmCampForceClear(side,camp,sec){
   if(!M||!camp||!camp.alive) return false;
   const s=(sec==null)?mmGameSec():sec;
   if(typeof mmCampAlive==='function'&&!mmCampAlive(camp,s)) return false;
+  try{
+    const u=(typeof MM!=='undefined'&&MM&&MM.units)?MM.units[side+'-JGL']:null;
+    if(!u||!u.alive) return false;
+    if(Math.hypot(u.x-camp.x,u.y-camp.y)>(typeof JGL_CLEAR_R==='number'?JGL_CLEAR_R:0.045)) return false;
+  }catch(e){ return false; }
   camp.alive=false; camp.prog=0; camp.respawnAt=s+(camp.respawn||135); camp.by=null;
   try{ if(typeof addGold==='function') addGold(side,camp.kind==='buff'?170:camp.kind==='scuttle'?120:130); }catch(e){}
   try{ if(typeof farmCampClear==='function') farmCampClear(side,camp); }catch(e){}
-  try{ if(typeof lvAddXp==='function') lvAddXp(side,'JGL',camp.kind==='buff'?22:camp.kind==='scuttle'?16:18); }catch(e){}
+  try{ if(typeof lvAddXp==='function') lvAddXp(side,'JGL',mmCampXp(camp)); }catch(e){}
   try{ mmAddFx({type:'burst',x:camp.x,y:camp.y,col:side==='me'?'#4fa8ff':'#ff5570',life:700,label:camp.n}); }catch(e){}
   return true;
 }
@@ -22354,6 +22441,8 @@ function mmMinionCombatStep(sec,dsec){
   const kill=(m,kSide,kRole)=>{ m.hp=0; m.alive=false;
     /* 실제 막타 — 챔피언이 마지막 타격으로 정리한 미니언만 CS·골드가 된다 */
     if(kSide&&kRole){ try{ farmMinionKill(kSide,kRole,m); }catch(e){} }
+    /* V34.12.1 — 경험치는 막타와 무관하게 '사거리 안에 있는 아군 챔피언'이 나눠 먹는다 */
+    try{ mmMinionXpShare(m); }catch(e){}
     const p=pathPt(m); mmAddFx({type:'spark',x:p[0]+m.off,y:p[1]+m.off,life:320}); };
   /* 1) 적 미니언끼리 — 사거리 안 가장 앞선 적을 때린다 */
   for(let i=0;i<MM.minions.length;i++){
@@ -22963,8 +23052,10 @@ function mmUpdate(dt){
             M.campSteal=M.campSteal||{me:0,opp:0};
             M.campSteal[u.side]=(M.campSteal[u.side]||0)+1;
             if(u.side==='me') M.campStealAtMe=M.minute; else M.campStealAtOpp=M.minute;
+            /* V34.12.1 — 카정은 '도착해서 실제로 먹은' 순간에만 기록된다 */
+            try{ if(typeof jglLog==='function') jglLog(u.side,'🗡 <b>카정 성공</b> — 적 정글 '+(c.n||'캠프')+' 캠프를 빼앗습니다.'); }catch(e){}
           }
-          if(typeof lvAddXp==='function') lvAddXp(u.side,'JGL',c.kind==='buff'?22:c.kind==='scuttle'?16:18);
+          if(typeof lvAddXp==='function') lvAddXp(u.side,'JGL',mmCampXp(c));
         }
       }
     }
@@ -35635,6 +35726,11 @@ const JGL_SCUTTLE_AT=210;                                                   /* 0
 const JGL_DUR={buff:24,sm:18,scuttle:14};
 const JGL_TRAVEL=0.0186;            /* 정글 이동속도(맵 단위/게임초) — mmdrive 와 동일 */
 const JGL_START_TICK=110;           /* 이 시각부터 동선 AI 가 미니맵 목표를 잡는다 */
+/* V34.12.1 — 캠프는 '실제로 그 자리에서 때려서' 잡았을 때만 사라진다 */
+const JGL_CLEAR_R=0.045;            /* 실제 처치 판정 거리 (ui-minimap 근접 클리어와 동일) */
+const JGL_WORK_R=0.055;             /* '도착해서 사냥 중'으로 보는 거리 */
+const JGL_WAIT_MAX=40;              /* 도착 예정이 계속 밀릴 때 다음 판단으로 넘기는 한계(초) */
+const JGL_SIT_MAX=30;               /* 도착했는데 캠프가 안 죽을 때 버티는 한계(초) */
 
 /* 초반 교전형 / 성장형 정글러 (사용자 가이드의 예시 + 실제 메타) */
 const JGL_GANK_CHAMPS=['리 신','신 짜오','엘리스','비에고','바이','자르반 4세','렉사이','키아나',
@@ -35751,6 +35847,14 @@ function jglDist(side,aIdx,bIdx){
   if(!a||!b) return 0.1;
   return Math.hypot(a[0]-b[0],a[1]-b[1]);
 }
+/* 정글러가 이 캠프까지 걸어가는 시간(게임초) — 실제 미니맵 위치 기준 */
+function jglEta(side,camp){
+  try{
+    const u=(typeof MM!=='undefined'&&MM&&MM.units)?MM.units[side+'-JGL']:null;
+    if(!u||!camp) return 0;
+    return Math.hypot(u.x-camp.x,u.y-camp.y)/JGL_TRAVEL;
+  }catch(e){ return 0; }
+}
 function jglLanePoint(side,lane){
   try{
     /* 갱 도착 지점 = 상대(갱 당하는 팀) 쪽 전선 */
@@ -35799,7 +35903,7 @@ function jglBuild(side){
     const idx=order[i], list=jglCampList(side), camp=list[idx];
     const spawn=jglSpawnAt(camp);
     let arrive;
-    if(prev==null) arrive=Math.max(spawn,spawn+2);
+    if(prev==null) arrive=Math.max(spawn,jglSec()+jglEta(side,camp)+2);
     else{
       const d=jglDist(side,prev,idx);
       arrive=Math.max(at+d/JGL_TRAVEL, spawn);
@@ -36016,16 +36120,25 @@ function jglTryInvade(side,sec){
   let alive=true;
   try{ alive=(typeof mmCampAlive==='function')?mmCampAlive(c,sec):c.alive; }catch(e){}
   if(!alive) return {ok:false,empty:true};
-  try{ c.alive=false; c.prog=0; c.respawnAt=sec+(c.respawn||135); }catch(e){}
-  try{ addGold(side,c.kind==='buff'?170:130); }catch(e){}
-  /* 카정으로 빼앗은 캠프도 정글 CS 로 기록된다 */
-  try{ if(typeof farmCampClear==='function') farmCampClear(side,c); }catch(e){}
-  try{ lvAddXp(side,'JGL',18); }catch(e){}
-  if(M.campSteal) M.campSteal[side]=(M.campSteal[side]||0)+1;
+  /* V34.12.1 — 카정도 '도착해서 때려서' 빼앗는다.
+     판정 즉시 캠프를 지우면 정글러가 가지도 않은 캠프가 미니맵에서 사라진다.
+     여기서는 정글러를 그 캠프로 보내기만 하고, 실제 처치·골드·CS·카운터 기록은
+     미니맵 근접 클리어(mmUpdate)가 도착한 순간에 한다. */
+  j.invadeCamp=c.k;
+  let eta=8;
+  try{
+    const k=side+'-JGL', u=(typeof MM!=='undefined'&&MM&&MM.units)?MM.units[k]:null;
+    if(u&&u.alive){
+      eta=Math.hypot(u.x-c.x,u.y-c.y)/JGL_TRAVEL;
+      if(!u.tp&&MM.tgt){ MM.tgt[k]={x:c.x,y:c.y}; u.mode='invade'; u.camp=c.k; }
+    }
+  }catch(e){}
+  /* 걸어가는 시간만큼 카정 창을 늘린다 (12초 고정이면 도착 전에 포기했다) */
+  try{ if(M.jgl&&M.jgl[side]&&M.jgl[side].st&&M.jgl[side].st.k==='invade') M.jgl[side].st.until=Math.max(M.jgl[side].st.until,sec+eta+8); }catch(e){}
   const shake=(typeof dopaInvadeBonus==='function'&&dopaInvadeBonus(side)>0);
-  jglLog(side,'🗡 <b>카정 성공</b> — '+(shake?'미드 쉐이크로 시선을 끈 사이 ':'')+MX_LANE_KR[lane]+
-    ' 주도권을 등에 업고 적 정글 '+(c.n||'캠프')+' 캠프를 빼앗습니다.');
-  return {ok:true,camp:c.base};
+  jglLog(side,'🗡 <b>카정</b> — '+(shake?'미드 쉐이크로 시선을 끈 사이 ':'')+MX_LANE_KR[lane]+
+    ' 주도권을 등에 업고 적 정글 '+(c.n||'캠프')+'로 들어갑니다.');
+  return {ok:true,camp:c.base,deferred:true};
 }
 /* ---------- 초/분 단위 틱 ---------- */
 function jglTick(sec){
@@ -36036,16 +36149,40 @@ function jglTick(sec){
   jglPlanAll(s);
   ['me','opp'].forEach(function(side){
     const j=M.jgl[side]; if(!j) return;
-    if(!j.st) jglSetStep(side,{k:'camp',idx:j.order[0],at:s,clearAt:s+jglClearDur(jglCampList(side)[j.order[0]])});
+    if(!j.st){
+      /* 첫 캠프는 스폰 + 실제 이동 시간 뒤에나 잡힌다 (예전엔 '지금+클리어시간'이라
+         스폰 4초 만에 아무도 없는 캠프가 사라졌다) */
+      const c0=jglCampList(side)[j.order[0]];
+      const eta0=jglEta(side,c0);
+      jglSetStep(side,{k:'camp',idx:j.order[0],at:s,
+        clearAt:Math.max(s,c0?jglSpawnAt(c0):s)+Math.max(2,eta0)+jglClearDur(c0)});
+    }
     const st=j.st;
     if(st.k==='camp'){
+      /* V34.12.1 — 캠프 사망은 '챔피언이 그 자리에서 처치' 단일 경로(mmUpdate 근접 클리어)뿐이다.
+         동선 AI 는 ① 이미 죽었으면 다음 캠프 ② 아직이면 도착 예정 시각을 실제 위치로 다시
+         계산해 기다린다 ③ 도착했는데 안 죽으면 처치가 끝날 때까지 기다린다.
+         (예전엔 예정 시각에 mmCampForceClear 로 지워서, 교전·오브젝트로 늦어지거나
+          다른 곳에 있는 정글러의 캠프가 아무도 안 먹었는데 사라졌다) */
+      const camp=jglCampList(side)[st.idx];
+      const alive=camp?((typeof mmCampAlive==='function')?mmCampAlive(camp,s):!!camp.alive):false;
+      if(!camp||!alive){ j.camps++; try{ jglNextStep(side,s); }catch(e){} return; }
+      const u=(typeof MM!=='undefined'&&MM&&MM.units)?MM.units[side+'-JGL']:null;
+      const dist=(u&&u.alive)?Math.hypot(u.x-camp.x,u.y-camp.y):null;
+      if(dist!=null&&dist<=JGL_WORK_R){
+        st.sit=(st.sit||0)+1;
+        if(st.sit>JGL_SIT_MAX){ st.sit=0; try{ jglNextStep(side,s); }catch(e){} }
+        return;
+      }
+      st.sit=0;
       if(s>=st.clearAt){
-        /* 동선 AI 가 캠프를 다 돈 시점 — 실제 캠프도 같이 정리된다 (CS·골드 동기화) */
-        try{
-          const camp=jglCampList(side)[st.idx];
-          if(camp&&typeof mmCampForceClear==='function') mmCampForceClear(side,camp,s);
-        }catch(e){}
-        j.camps++; try{ jglNextStep(side,s); }catch(e){}
+        if(u&&u.alive&&!u.tp&&u.mode!=='recall'&&u.mode!=='recallWalk'&&!u.recallT){
+          st.eta=(st.eta||0)+1;
+          st.clearAt=s+Math.max(3,Math.hypot(u.x-camp.x,u.y-camp.y)/JGL_TRAVEL)+jglClearDur(camp);
+          if(st.eta>JGL_WAIT_MAX){ st.eta=0; try{ jglNextStep(side,s); }catch(e){} }
+        }else{
+          st.clearAt=s+6;          /* 죽음·귀환·텔포 중 — 복귀하면 다시 계산한다 */
+        }
       }
       return;
     }
@@ -36056,7 +36193,15 @@ function jglTick(sec){
     }
     if(st.k==='invade'){
       if(!st.done&&s>=st.at+3){ st.done=true; try{ jglTryInvade(side,s); }catch(e){} }
-      if(s>=st.until){ try{ jglNextStep(side,s); }catch(e){} }
+      /* 아직 적 캠프로 걸어가는 중이면 창을 닫지 않는다 (도착 전에 포기 금지) */
+      if(s>=st.until){
+        let heading=false;
+        try{
+          const u=MM.units[side+'-JGL'], ic=jglCampList((side==='me')?'opp':'me')[(j.target==='BOT')?3:2];
+          if(u&&u.alive&&ic&&Math.hypot(u.x-ic.x,u.y-ic.y)>JGL_WORK_R&&st.until<s+16) heading=true;
+        }catch(e){}
+        if(heading) st.until=s+4; else { try{ jglNextStep(side,s); }catch(e){} }
+      }
       return;
     }
     if(s>=st.until){ try{ jglNextStep(side,s); }catch(e){} }
