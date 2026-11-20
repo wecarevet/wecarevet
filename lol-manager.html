@@ -23844,7 +23844,8 @@ function mmDraw(dt){
     }
   });
   /* ---------- 타워 · 억제기 (실제 미니맵 배치 + 14분 전 판 표시) ---------- */
-  const twCol=side=>side==='me'?'#3aa8e0':'#e0566f';
+  /* V34.14 — 포탑 색도 실제 진영 색을 따른다 (우리가 레드면 내 포탑이 빨강) */
+  const twCol=side=>SIDE_COL[side]||(side==='me'?'#4fa8ff':'#ff5570');
   const drawTowerIcon=(x,y,side,destroyed,tier,hp)=>{
     const cx=x*w, cy=y*h;
     const s0=Math.max(4.8,w*0.0196);
