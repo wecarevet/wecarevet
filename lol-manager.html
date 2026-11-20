@@ -3422,15 +3422,22 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .bhud .bmap-st{flex:0 0 34px;height:34px;overflow:hidden;align-content:flex-start;margin:0 0 2px}
   .bhud .bmap-cv{flex:1 1 auto;min-height:0}
   .bhud .bcaster{flex:0 0 74px;height:74px;margin-top:4px}
-  .bhud #causalHost{flex:0 0 56px;height:56px;overflow:hidden}
-  .bhud #causalHost .cs-card{height:100%;overflow:hidden;margin:0}
+  .bhud #causalHost{flex:0 0 46px;height:46px;overflow:hidden}
+  /* 인과 트래커는 높이가 고정된 한 줄짜리 밴드로 압축 (내용이 늘어도 자리 불변) */
+  .bhud #causalHost .cs-card{margin:2px 0 0;padding:3px 8px;height:calc(100% - 2px);overflow:hidden;border-radius:8px}
+  .bhud #causalHost .cs-h{display:none}
+  .bhud #causalHost .cs-row{padding:0;border-top:0;gap:5px;align-items:center;height:20px;overflow:hidden}
+  .bhud #causalHost .cs-team{font-size:9px;padding:0 4px}
+  .bhud #causalHost .cs-arrow{flex-wrap:nowrap;overflow:hidden;font-size:9.5px;line-height:1.2}
+  .bhud #causalHost .cs-arrow em{font-size:8px}
+  .bhud #causalHost .cs-arrow i{font-size:9.5px}
   .bhud .bbar{flex-wrap:nowrap;overflow-x:auto}
 }
 @media (max-width:640px){
   /* 폰(360~412px) — 세로 스택에서도 해설창 높이를 고정해 화면 점프를 막는다 */
   .bhud .bcaster{height:118px;flex:0 0 118px;overflow:hidden}
   .bhud.nocc .bcaster{display:none}
-  .bhud #causalHost{max-height:120px;overflow:hidden}
+  .bhud #causalHost{max-height:120px;overflow:hidden;width:100%}
 }
 /* V32 승부처 스냅샷 (박스스코어) */
 .v32-snaprow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
@@ -30263,6 +30270,7 @@ function v6TitleBgmKick(silent){
   V6BGM.ctx='title';
   V6BGM.on=true; V6BGM.dead=false; V6BGM.blocked=false; V6BGM.playT=0;
   V6BGM.loginKeep=true; V6BGM.loginHold=true;
+  V6BGM.titleMuted=false; V6BGM.titleGesture=true;
   const id=V6BGM.titleId;
   if(!v6BgmApiReady()){ v6BgmEnsureApi(); }
   if(!V6BGM.player){ v6BgmCreate(id); }
@@ -30289,7 +30297,8 @@ function v6TitleBgmOff(){
   return false;
 }
 function v6TitleBgmToggle(){
-  if(V6BGM.on&&V6BGM.playing) return v6TitleBgmOff();
+  /* 무음으로 버퍼링 중이면 ‘끄기’가 아니라 이번 탭에서 소리를 켠다 */
+  if(V6BGM.on&&V6BGM.playing&&!V6BGM.titleMuted) return v6TitleBgmOff();
   V6BGM.on=true; V6BGM.loginKeep=true; V6BGM.loginHold=true; V6BGM.blocked=false;
   return v6TitleBgmKick();
 }
@@ -30412,7 +30421,7 @@ function v6LoginPillSync(){
     let el=document.getElementById?document.getElementById('loginBgmPill'):null;
     const view=(typeof window!=='undefined'&&window.__lastView)||'';
     const hasOwn=/(^|,)(title|draft|plan|match|hub)(,|$)/.test(view);
-    const show=v6LoginHeld()&&!hasOwn;
+    const show=!hasOwn;
     if(!el){
       if(!show) return;
       el=document.createElement('button');
@@ -30422,7 +30431,7 @@ function v6LoginPillSync(){
       if(document.body) document.body.appendChild(el);
     }
     const st=v6LoginState();
-    el.innerHTML='🎵 징크스 <em>'+(st.playing?'재생 중':st.label)+'</em>';
+    el.innerHTML='🎵 징크스 <em>'+(st.playing?'재생 중':(st.keep?'대기':'꺼짐'))+'</em>';
     el.className='login-pill'+(st.held?' on':'');
     el.style.display=show?'flex':'none';
   }catch(e){}
