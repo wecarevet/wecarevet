@@ -41264,8 +41264,9 @@ function v34GoldCardHTML(){
   const leadTag=mine?myTeam().tag:T(M.oppId).tag;
   const markSvg=marks.map(function(mk){
     const x=X(mk.min), y=Y(v34DiffAt(ser,mk.min));
-    return '<g class="v34m"><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="6.4" fill="'+mk.col+'" opacity=".20"/>'+
-      '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3.2" fill="#0a0e16" stroke="'+mk.col+'" stroke-width="1.3"/>'+
+    /* preserveAspectRatio=none 로 가로로 늘어나므로 원은 ellipse 로 두고, 렌더 후 v34GoldFit 이 rx 를 보정한다 */
+    return '<g class="v34m"><ellipse class="mh" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" rx="6.4" ry="6.4" fill="'+mk.col+'" opacity=".20"/>'+
+      '<ellipse class="mk" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" rx="3.2" ry="3.2" fill="#0a0e16" stroke="'+mk.col+'" stroke-width="1.3"/>'+
       '<title>'+esc(mk.min+'분 · '+mk.text)+'</title></g>';
   }).join('');
   const svg=
@@ -41747,8 +41748,29 @@ function v34RepScene(i,autoplay){
   v34RepBtn();
   v34RepTick();
 }
+/* 가로로 늘어난 SVG 안에서 마커가 타원으로 보이지 않게 rx 를 보정 */
+function v34GoldFit(){
+  if(typeof document==='undefined'||!document.querySelectorAll) return;
+  let svgs=[];
+  try{ svgs=document.querySelectorAll('.v34g-svg'); }catch(e){ svgs=[]; }
+  for(let i=0;i<svgs.length;i++){
+    const svg=svgs[i];
+    let w=0;
+    try{ w=svg.getBoundingClientRect().width; }catch(e){ w=0; }
+    if(!w) continue;
+    const k=Math.max(0.2,w/340);
+    let els=[];
+    try{ els=svg.querySelectorAll('.v34m ellipse'); }catch(e){ els=[]; }
+    for(let j=0;j<els.length;j++){
+      const el=els[j];
+      const base=(el.getAttribute('class')==='mh')?6.4:3.2;
+      try{ el.setAttribute('rx',(base/k).toFixed(2)); }catch(e){}
+    }
+  }
+}
 function v34ReplayBind(){
   if(typeof document==='undefined') return;
+  try{ v34GoldFit(); }catch(e){}
   const q=function(id){ return document.getElementById(id); };
   const play=q('v34repPlay'), prev=q('v34repPrev'), next=q('v34repNext');
   if(play) play.onclick=function(){ V34.rep.playing=!V34.rep.playing; if(V34.rep.playing){ V34.rep.t=0; } v34RepBtn(); v34RepTick(); };
