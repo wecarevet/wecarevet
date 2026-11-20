@@ -23101,7 +23101,7 @@ function mmEngageLock(sec){
         n++;
         if(ret) return;                              /* 물러나는 중 — 도망갈 수 있게 둔다 */
         const ddx=u.x-foe.x, ddy=u.y-foe.y, ddd=Math.hypot(ddx,ddy)||1;
-        const hold=earlyLane?(mmUnitRanged(u)?0.052:0.046):(mmUnitRanged(u)?0.042:0.034);
+        const hold=earlyLane?(mmUnitRanged(u)?0.058:0.052):(mmUnitRanged(u)?0.042:0.034);
         MM.tgt[side+'-'+role]={x:clamp(foe.x+ddx/ddd*hold,0.03,0.97),y:clamp(foe.y+ddy/ddd*hold,0.03,0.97)};
         return;
       }
