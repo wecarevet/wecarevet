@@ -9796,114 +9796,6 @@ function seasonPlaceText(){
 }
 
 /* ---------- playoffs ---------- */
-function startPlayoffs(split){
-  S.playoffSplit=split||S.split||'summer';
-  applyRandomPatch('플레이오프 직전');
-  const st=standings();
-  const seeds=st.slice(0,6).map(t=>t.id);
-  if(seeds.length>=6){
-    S.playoffs={
-      seeds,
-      rounds:[
-        {name:'6강 PO',matches:[
-          {a:seeds[2],b:seeds[5],done:false},
-          {a:seeds[3],b:seeds[4],done:false},
-        ]},
-        {name:'4강 PO',matches:[
-          {a:seeds[0],b:null,done:false},
-          {a:seeds[1],b:null,done:false},
-        ]},
-        {name:'결승',matches:[{a:null,b:null,done:false}]},
-      ],
-      done:false,
-    };
-  }else{
-    /* 4팀 리그: 1·2시드 부전승 → 4강에서 3·4시드 승자와 맞붙는다 */
-    const s4=seeds.slice(0,4);
-    S.playoffs={
-      seeds:s4,
-      rounds:[
-        {name:'PO 1라운드',matches:[
-          {a:s4[3],b:null,done:true,winner:s4[3]},
-          {a:s4[2],b:null,done:true,winner:s4[2]},
-        ]},
-        {name:'4강 PO',matches:[
-          {a:s4[0],b:null,done:false},
-          {a:s4[1],b:null,done:false},
-        ]},
-        {name:'결승',matches:[{a:null,b:null,done:false}]},
-      ],
-      done:false,
-    };
-  }
-  S.phase='playoffs';
-  saveGame();
-}
-function ensureBracket(){
-  const P=S.playoffs; if(!P) return;
-  const r0=P.rounds[0],r1=P.rounds[1],r2=P.rounds[2];
-  if(r0.matches.every(m=>m.done)){
-    r1.matches[0].b=r0.matches[0].winner;
-    r1.matches[1].b=r0.matches[1].winner;
-  }
-  if(r1.matches.every(m=>m.done&&m.winner)){
-    r2.matches[0].a=r1.matches[0].winner;
-    r2.matches[0].b=r1.matches[1].winner;
-  }
-}
-function checkPlayoffComplete(){
-  const P=S.playoffs; if(!P) return false;
-  const fin=P.rounds[2].matches[0];
-  if(!fin.done) return false;
-  P.done=true;
-  S.lckChampion=fin.winner;
-  S.lckRunnerUp=fin.winner===fin.a?fin.b:fin.a;
-  if(S.playoffSplit==='spring'){
-    /* 스프링 우승은 스프링 챔피언 — 시즌 챔피언(S.champion)으로 승격하지 않는다 */
-    S.springChampion=fin.winner; S.springRunnerUp=S.lckRunnerUp;
-    S.lckChampion=S.summerChampion||S.lckChampion;
-    try{ if(typeof computeAwards==='function') S.awardsPending=computeAwards('spring'); }catch(e){}
-    startMSI();
-  }else{
-    S.summerChampion=fin.winner; S.summerRunnerUp=S.lckRunnerUp;
-    S.champion=S.lckChampion; S.runnerUp=S.lckRunnerUp;
-    try{ if(typeof computeAwards==='function') S.awardsPending=computeAwards('summer'); }catch(e){}
-    startWorlds();
-  }
-  return true;
-}
-function playoffNext(){
-  const P=S.playoffs; if(!P||P.done) return {action:'done'};
-  for(let pass=0;pass<6;pass++){
-    ensureBracket();
-    let simmed=false;
-    for(let r=0;r<P.rounds.length;r++){
-      for(const m of P.rounds[r].matches){
-        if(m.done||!m.a||!m.b) continue;
-        if(m.a===S.userTeam||m.b===S.userTeam){
-          return {action:'user',match:m,round:r,roundName:P.rounds[r].name};
-        }
-        const res=simAIBo(m.a,m.b,5);
-        m.sa=res.sa;m.sb=res.sb;m.winner=res.sa>res.sb?m.a:m.b;m.done=true;
-        recordResult(m.a,m.b,res.sa,res.sb,S.week,'playoffs');
-        simmed=true;
-      }
-    }
-    ensureBracket();
-    const fin=P.rounds[2].matches[0];
-    if(fin.done){ checkPlayoffComplete(); return {action:'done'}; }
-    if(!simmed) break;
-  }
-  return {action:'none'};
-}
-function startPlayoffSeries(match,roundName){
-  const oppId=match.a===S.userTeam?match.b:match.a;
-  const s=createSeries(oppId,5,'playoff',{match,roundName});
-  if(!s.sides[0]) s.sides[0]='blue';
-  saveGame();
-  return s;
-}
-
 /* ================= MSI / EWC 국제 초청 토너먼트 ================= */
 function startMSI(){
   try{ S.splashPending='msi'; }catch(e){}
@@ -10013,22 +9905,6 @@ function worldsIntlList(){
     }
   }catch(e){}
   return WORLDS_INTL.slice();
-}
-function lckSeeds(){
-  const P=S.playoffs;
-  const st=standings().map(t=>t.id);
-  const out=[];
-  const fin=P?P.rounds[2].matches[0]:null;
-  if(fin&&fin.winner){
-    out.push(fin.winner);
-    const loser=fin.winner===fin.a?fin.b:fin.a;
-    if(loser&&!out.includes(loser)) out.push(loser);
-  }
-  if(P&&P.rounds[1]){
-    P.rounds[1].matches.forEach(m=>{ if(m.done&&m.winner){ const loser=m.winner===m.a?m.b:m.a; if(loser&&!out.includes(loser)) out.push(loser); } });
-  }
-  st.forEach(id=>{ if(out.length<4&&!out.includes(id)) out.push(id); });
-  return out.slice(0,4);
 }
 function startWorlds(seedOverride){
   try{ S.splashPending='worlds'; }catch(e){}
@@ -15017,28 +14893,6 @@ function dMySigs(){
   ROLES.forEach(r=>{ const p=S.players[myTeam().lineup[r]]; if(p&&p.sigs) p.sigs.forEach(n=>out.push(n)); });
   return out;
 }
-function autoDraftRun(){
-  if(!D||D.done) return;
-  const c=coachSupport();
-  let guard=0;
-  while(D&&!D.done&&D.phase!=='assign'&&guard<70){
-    guard++;
-    const cur=dCur(); if(!cur) break;
-    if(dActor()==='me'){
-      const name=autoDraftChoose(cur.t);
-      if(!name) break;
-      if(cur.t==='ban') draftMyBan(name); else draftMyPick(name);
-    }else{
-      aiDraftAct();
-    }
-  }
-  if(D&&D.phase==='assign'){
-    D.assign.me=recommendAssign(dMyPicks());
-    D.result=evalDraft();
-    renderDraft();
-  }
-  toast('🧑‍🏫 '+(c.head?c.head.name+' 감독':'감독')+'이 밴픽을 마쳤습니다 — 라인 배정을 확인하세요');
-}
 /* ---------- 자동 전술 (코치에게 위임) ---------- */
 let AUTOTL=false, AUTOTL_AT=-99;
 function autoTacticsQuality(){
@@ -16065,37 +15919,6 @@ function badge(team,size){
   const px=size==='lg'?46:size==='xl'?64:size==='sm'?26:34;
   return `<span class="badge svg ${size||''}" title="${esc(team.name||team.tag)}">${teamLogoSVG(team,px)}</span>`;
 }
-function show(name){
-  closeModal();
-  ['title','select','create','hub','draft','plan','match','series','playoffs','champion','worlds','intl','offseason'].forEach(v=>{
-    const n=$('view-'+v); if(n) n.classList.toggle('hidden', v!==name);
-  });
-  if(name!=='match') mmStop();
-  const tb=$('topbar');
-  tb.classList.toggle('hidden', !(S&&(name==='hub'||name==='offseason')));
-  $('tabbar').classList.toggle('hidden', !(S&&name==='hub'&&S.phase==='regular'));
-  window.scrollTo(0,0);
-}
-function renderTopbar(){
-  if(!S) return;
-  const t=myTeam(); const rank=S.phase==='regular'?myRank():null;
-  $('topbar').innerHTML=`
-    <div class="tb-team">
-      ${badge(t)}
-      <div style="min-width:0">
-        <div class="tb-name">${esc(t.name)}</div>
-        <div class="tb-sub">${S.owner?esc(S.owner.role)+' · ':''}${rank?rank+'위 · ':''}${t.wins}승 ${t.losses}패</div>
-      </div>
-    </div>
-    <div class="tb-spacer"></div>
-    <div class="tb-week">${S.phase==='regular'?('WK '+S.week):S.phase==='playoffs'?'PO':S.phase==='worlds'?'월즈':'OFF'}</div>
-    <div class="tb-pill"><span>예산</span><b>${t.budget.toFixed(1)}억</b></div>
-    <button class="tb-week" id="cloudBtn" style="padding:4px 8px">☁️</button>
-    <button class="tb-week" id="helpBtn" style="padding:4px 8px">?</button>
-  `;
-  const hb=$('helpBtn'); if(hb) hb.onclick=openHelp;
-  const cb=$('cloudBtn'); if(cb) cb.onclick=function(){ try{ cloudOpen(); }catch(e){} };
-}
 function openHelp(){
   $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal">
     <div class="grab"></div>
@@ -16119,18 +15942,6 @@ function openHelp(){
   $('modalClose').onclick=closeModal;
   $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
 }
-function renderAll(){
-  if(!S){ show('title'); renderTitle(); return; }
-  renderTopbar();
-  if(S.phase==='end'){ show('champion'); renderChampion(); return; }
-  if(S.phase==='offseason'){ show('offseason'); renderOffseason(); return; }
-  if(S.phase==='worlds'){ show('worlds'); renderWorlds(); return; }
-  if(S.phase==='msi'||S.phase==='ewc'){ show('intl'); renderIntl(); return; }
-  if(S.phase==='playoffs'){ show('playoffs'); renderPlayoffs(); return; }
-  if(S.currentSeries && !S.currentSeries.done){ TAB='home'; }
-  show('hub'); renderHub();
-}
-
 
 /* ---------- 팀 로고 · 선수 아바타 (inline SVG) ---------- */
 function _shade(hex,amt){
@@ -16429,25 +16240,6 @@ const TABS=[
   {k:'ach',icon:'🏆',label:'업적'},
   {k:'honors',icon:'🏅',label:'기록'},
 ];
-function renderHub(){
-  renderTopbar();
-  const tb=$('tabbar');
-  tb.innerHTML=TABS.map(t=>`<button data-tab="${t.k}" class="${TAB===t.k?'on':''}"><span class="ic">${t.icon}</span>${t.label}</button>`).join('');
-  tb.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;renderHub();});
-  const c=$('view-hub');
-  if(TAB==='home') c.innerHTML=homeHTML();
-  else if(TAB==='roster') c.innerHTML=rosterHTML();
-  else if(TAB==='league') c.innerHTML=leagueHTML();
-  else if(TAB==='staff') c.innerHTML=staffHTML();
-  else if(TAB==='patch') c.innerHTML=patchHTML();
-  else if(TAB==='codex') c.innerHTML=codexHTML();
-  else if(TAB==='ach') c.innerHTML=achHTML();
-  else if(TAB==='honors') c.innerHTML=(typeof honorsHTML==='function')?honorsHTML():'';
-  else c.innerHTML=marketHTML();
-  bindHub();
-  show('hub');
-  try{ if(typeof v33MaybeRetireModal==='function') v33MaybeRetireModal(); }catch(e){}
-}
 function contractTxt(p){
   if(!p) return '-';
   const c=p.contract===undefined?1:p.contract;
@@ -16840,51 +16632,6 @@ function staffHTML(){
 }
 
 /* ---------- hub bindings ---------- */
-function bindHub(){
-  const c=$('view-hub');
-  c.querySelectorAll('[data-act]').forEach(b=>b.onclick=()=>{ S.weekAction=b.dataset.act; renderHub(); });
-  c.querySelectorAll('[data-focus]').forEach(b=>b.onclick=()=>{ S.weekActionTarget=b.dataset.focus; renderHub(); });
-  if(typeof skipHandleClick==='function') c.querySelectorAll('[data-skip]').forEach(b=>b.onclick=()=>skipHandleClick(b));
-  const scop=c.querySelector('[data-a="scandal-open"]');
-  if(scop) scop.onclick=()=>{ if(typeof openScandalModal==='function') openScandalModal(S.scandals&&S.scandals.pending); };
-  const gm=$('goMatch'); if(gm) gm.onclick=()=>prepareMatch();
-  const rs=$('resumeSeries'); if(rs) rs.onclick=()=>{ if(S.currentSeries){ if(S.currentSeries.pendingSide) renderSideChoice(); else startDraft(S.currentSeries);} };
-  const sp=$('seePatch'); if(sp) sp.onclick=()=>{ if(S.patchNotes&&S.patchNotes[0]) showPatchNote(S.patchNotes[0]); };
-  const gs=$('goStaff'); if(gs) gs.onclick=()=>{TAB='staff';renderHub();};
-  const os=$('openStaffTab'); if(os) os.onclick=()=>{TAB='staff';renderHub();};
-  const oe=$('openEditor'); if(oe) oe.onclick=()=>openPlayerEditor(null);
-  const vw=$('viewWorlds'); if(vw) vw.onclick=()=>{ if(S.worlds){ show('worlds'); renderWorlds(); } };
-  c.querySelectorAll('[data-player]').forEach(el=>el.onclick=()=>openPlayer(el.dataset.player));
-  c.querySelectorAll('[data-sign]').forEach(b=>b.onclick=(e)=>{
-    e.stopPropagation();
-    const sel=c.querySelector('[data-years="'+b.dataset.sign.replace(/"/g,'\\"')+'"]');
-    const years=sel?Number(sel.value):2;
-    const r=signFA(b.dataset.sign,years); if(!r.ok) toast(r.msg);
-  });
-  c.querySelectorAll('[data-release]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); if(confirm(b.dataset.release+' 선수를 방출할까요?')){const r=releasePlayer(b.dataset.release); if(!r.ok) toast(r.msg);}});
-  c.querySelectorAll('[data-hire]').forEach(b=>b.onclick=(e)=>{
-    e.stopPropagation();
-    const sel=c.querySelector('[data-styears="'+b.dataset.hire+'"]');
-    const seasons=sel?Number(sel.value):2;
-    const r=hireStaff(b.dataset.hire,seasons); if(!r.ok) toast(r.msg);
-  });
-  c.querySelectorAll('[data-renew]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); const r=renewStaff(b.dataset.renew); if(!r.ok) toast(r.msg);});
-  c.querySelectorAll('[data-fire]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); if(confirm('이 스태프와 계약을 해지할까요? (위약금 발생)')){const r=fireStaff(b.dataset.fire); if(!r.ok) toast(r.msg);}});
-  c.querySelectorAll('[data-subgo]').forEach(b=>b.onclick=(e)=>{
-    e.stopPropagation();
-    const role=b.dataset.subgo;
-    const sel=c.querySelector('[data-subsel="'+role+'"]');
-    if(sel){ const r=setSeriesSub(role,sel.value); if(r&&!r.ok) toast(r.msg); else renderHub(); }
-  });
-  const cq=$('codexQ'); if(cq) cq.oninput=()=>{ CODEX.q=cq.value; renderHub(); const el=$('codexQ'); if(el){ el.focus(); el.setSelectionRange(el.value.length,el.value.length);} };
-  c.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{ CODEX.cat=b.dataset.cat; renderHub(); });
-  c.querySelectorAll('[data-patchview]').forEach(b=>b.onclick=(e)=>{ e.stopPropagation(); const rec=(S.patchNotes||[]).find(x=>String(x.no)===String(b.dataset.patchview)); if(rec) showPatchNote(rec); });
-  c.querySelectorAll('[data-editstaff]').forEach(b=>b.onclick=(e)=>{e.stopPropagation(); openStaffEditor(b.dataset.editstaff);});
-  /* 상대 구단 정보 모달 — 순위표·일정·대진의 팀 이름 */
-  c.querySelectorAll('[data-teaminfo]').forEach(b=>b.onclick=(e)=>{ e.stopPropagation(); if(typeof openTeamInfo==='function') openTeamInfo(b.dataset.teaminfo); });
-  /* 챔피언 꾹 누르기 → 상성 카드 */
-  try{ if(typeof b4BindLongPress==='function') b4BindLongPress(c); }catch(e){}
-}
 function prepareMatch(){
   /* 밴픽 전 라인업 점검 — 빈 슬롯이면 '원딜' 같은 포지션 글자가 뜬다 */
   try{ if(typeof aiRosterFillAll==='function') aiRosterFillAll(); }catch(e){}
@@ -16900,78 +16647,6 @@ function prepareMatch(){
 }
 
 /* ---------- player modal ---------- */
-function openPlayer(name){
-  const p=S.players[name]; if(!p) return;
-  const st=p.stats;
-  const t=myTeam();
-  const isStarter=Object.values(t.lineup).includes(name);
-  const cureRows=(p.bad||[]).map(id=>{const tr=TRAIT_MAP[id];return {tr:tr,prog:(p.cure&&p.cure[id])||0};});
-  $('modal').innerHTML=`<div class="modal-wrap" id="modalWrap"><div class="modal">
-    <div class="grab"></div>
-    <div class="row" style="gap:12px">
-      ${pAvatarHTML(p,54)}
-      <div class="grow">
-        <div style="font-weight:900;font-size:19px;letter-spacing:-.03em">${esc(p.name)} <span class="grade ${p.grade}">${p.grade}</span></div>
-        <div class="tiny">${ROLE_KR[p.role]} · ${p.age}세 · ${esc((S.teams[p.team]||{name:'FA'}).name)} · ${contractTxt(p)}</div>
-        <div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;align-items:center">${playChip(p)}${persChipsHTML(p)}</div>
-      </div>
-      <div class="p-rating" style="font-size:26px">${rawOverall(p)}</div>
-    </div>
-    <div class="divider"></div>
-    <div class="bars">
-      <div class="bar-row"><span>라인전</span><div class="bar"><i style="width:${st.lane}%"></i></div><b>${st.lane}</b></div>
-      <div class="bar-row"><span>한타</span><div class="bar violet"><i style="width:${st.fight}%"></i></div><b>${st.fight}</b></div>
-      <div class="bar-row"><span>운영</span><div class="bar cyan"><i style="width:${st.macro}%"></i></div><b>${st.macro}</b></div>
-      <div class="bar-row"><span>챔프폭</span><div class="bar gold"><i style="width:${st.pool}%"></i></div><b>${st.pool}</b></div>
-      <div class="bar-row"><span>멘탈</span><div class="bar green"><i style="width:${st.mental}%"></i></div><b>${st.mental}</b></div>
-    </div>
-    <div class="divider"></div>
-    <div class="var-lines">${[['컨디션',p.form+' ('+condLabel(p)+')'],['피로도',p.fatigue],['연봉',p.salary+'억'],['계약',contractTxt(p)],['성격',persName(p)+(personalityOf(p)?' — '+personalityOf(p).d:'')],['실전 EXP',(p.exp||0)+'% / 100%'],['성장 가능성',p.age<=21?'높음':p.age<=25?'보통':'낮음']].map(([k,v])=>`<div class="kv"><span>${k}</span><b>${esc(v)}</b></div>`).join('')}</div>
-    <div style="margin-top:6px">
-      <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:4px">대표 성향 · 특성</div>
-      <div class="tag-row">${(p.good||[]).map(id=>{const tr=TRAIT_MAP[id];return tr?`<span class="tr good" data-trait="${id}" title="${esc(tr.d)}">${esc(tr.n)}</span>`:'';}).join('')}
-      ${(p.bad||[]).map(id=>{const tr=TRAIT_MAP[id];return tr?`<span class="tr bad" data-trait="${id}" title="${esc(tr.d)}">${esc(tr.n)}</span>`:'';}).join('')}</div>
-    </div>
-    ${cureRows.length?`<div style="margin-top:8px">
-      <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:4px">나쁜 특성 극복 진행</div>
-      ${cureRows.map(r=>`<div class="cure-row"><span class="tr bad">${esc(r.tr?r.tr.n:'')}</span><div class="cure-bar"><i style="width:${r.prog}%"></i></div><span class="tiny">${Math.round(r.prog)}%</span></div>`).join('')}
-    </div>`:''}
-    <div style="margin-top:10px">
-      <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:6px">주특기 챔피언</div>
-      <div class="tag-row">${p.sigs.map(n=>`<span class="chip sm gold">★ ${esc(n)}</span>`).join('')}</div>
-    </div>
-    ${(typeof champPoolOf==='function')?(()=>{
-      try{
-        const cp=champPoolOf(p), fx=flexPoolOf(p), tg=poolTagOf(p);
-        if(!cp.length) return '';
-        return `<div style="margin-top:10px">
-          <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:6px">챔프폭 <span class="asg-pool ${tg.k}">${tg.size}개 · ${tg.label}</span>
-            ${fx.length?`<span class="asg-pool good" style="margin-left:4px">🔀 플렉스 ${fx.length}</span>`:''}</div>
-          <div class="tag-row">${cp.map(n=>`<span class="chip sm ${fx.indexOf(n)>=0?'violet':''}">${esc(n)}</span>`).join('')}</div>
-          <div class="tiny" style="margin-top:4px">${tg.k==='wide'?'주력 2~3개를 저격 밴해도 남는 카드가 많습니다. 플렉스로 라인 스왑 심리전이 가능합니다.':tg.k==='narrow'?'주력 2개가 밴되면 이 라인 효율이 크게 떨어집니다.'  :'저격 밴 1~2개에 흔들릴 수 있는 폭입니다.'}</div>
-        </div>`;
-      }catch(e){ return ''; }
-    })():''}
-    ${p.team===S.userTeam?`
-      <div class="divider"></div>
-      <div class="tiny" style="font-weight:800;letter-spacing:.08em;margin-bottom:6px">선발 라인 변경</div>
-      <div class="row wrap" style="gap:6px">
-        ${ROLES.map(r=>`<button class="chip ${t.lineup[r]===p.name?'on':''}" data-setstarter="${r}">${ROLE_KR[r]}</button>`).join('')}
-      </div>`:''}
-    <div style="height:12px"></div>
-    ${(typeof rcPlayerButtonHTML==='function')?rcPlayerButtonHTML(p.name):''}
-    <div class="btn-row">
-      <button class="btn" id="editPlayer">✏️ 편집</button>
-      <button class="btn ghost" id="modalClose">닫기</button>
-    </div>
-  </div></div>`;
-  $('modal').classList.remove('hidden');
-  $('modalClose').onclick=closeModal;
-  $('editPlayer').onclick=()=>openPlayerEditor(p.name);
-  const rcb=$('rcBtn'); if(rcb) rcb.onclick=()=>{ openRoleChangeModal(p.name); };
-  $('modalWrap').onclick=e=>{ if(e.target.id==='modalWrap') closeModal(); };
-  $('modal').querySelectorAll('[data-setstarter]').forEach(b=>b.onclick=()=>{ setStarter(b.dataset.setstarter,p.name); closeModal(); renderHub(); });
-}
 function closeModal(){ $('modal').classList.add('hidden'); $('modal').innerHTML=''; }
 
 /* ---------- player editor ---------- */
@@ -18570,36 +18245,6 @@ function staffV3(){
     </div>
   </div>`;
 }
-function academyV3(){
-  const c=clubC();
-  const inv=ACAD_MAP[c.acadInvest]||ACAD_MAP.std;
-  return `
-  <div class="pg">
-    <div class="pg-h"><h2>아카데미 (CL 2군)</h2><span class="pg-s">유망주 육성 · 1군 콜업</span>
-      <div class="pg-r"><button class="btn sm" data-a="acadsign">유망주 스카우트</button></div></div>
-    <div class="card">
-      <div class="ch"><span>CL(2군) 육성 투자</span><b class="ch-n">${inv.cost}억 / 시즌</b></div>
-      <div class="seg">
-        ${ACAD_INVEST.map(a=>`<button class="seg-b ${c.acadInvest===a.k?'on':''}" data-a="invest" data-v="${a.k}">${a.n} <em>-${a.cost}억</em></button>`).join('')}
-      </div>
-      <div class="tiny" style="margin-top:6px">투자가 클수록 유망주 성장 속도가 빨라지고, 예산 장부의 CL 육성비가 늘어납니다.</div>
-    </div>
-    <div class="card">
-      <div class="ch"><span>유망주</span><b class="ch-n">${c.academy.length}명</b></div>
-      <div class="alist">
-        ${c.academy.map((a,i)=>`<div class="arow">
-          <div class="a-av">${esc(a.name.slice(0,1))}</div>
-          <div class="a-m">
-            <div class="a-n">${esc(a.name)} <span>${a.age}세</span> <span class="role-tag">${ROLE_KR[a.role]}</span></div>
-            <div class="a-s">레이팅 ${a.rating} · 잠재력 ${a.potential} · ${a.note||'훈련 중'}</div>
-          </div>
-          <div class="a-b"><div class="pbar mini"><i style="width:${Math.round(a.rating/a.potential*100)}%"></i></div></div>
-          <button class="btn sm ${a.rating>=64?'primary':''}" data-a="callup" data-v="${i}">1군 콜업</button>
-        </div>`).join('')||'<div class="empty-note">유망주가 없습니다</div>'}
-      </div>
-    </div>
-  </div>`;
-}
 function budgetV3(){
   const c=clubC(); const led=finLedger(); const t=myTeam();
   const avg=Math.round(t.budget/((led.inc.total/10)||1)*10)/10;
@@ -19795,39 +19440,6 @@ function kespaV3(){
     </div>
   </div>`;
 }
-function lckV3(){
-  const st=standings();
-  const po=st.slice(0,6).map(t=>t.id);
-  return `
-  <div class="pg">
-    <div class="pg-h"><h2>LCK ${S.phase==='regular'?(S.split==='spring'?'스프링':'서머')+' 정규시즌':'정규시즌'}</h2><span class="pg-s">${S.week}주차 · ${myRank()}위</span></div>
-    <div class="card">
-      <div class="ch"><span>순위표</span><b class="ch-n">상위 6팀 플레이오프</b></div>
-      <table class="tbl2">
-        <thead><tr><th>TEAM</th><th>승</th><th>패</th><th>세트</th><th>최근</th></tr></thead>
-        <tbody>
-          ${st.map((t,i)=>`<tr class="${t.id===S.userTeam?'me':po.includes(t.id)?'po':''}">
-            <td><span class="tn2" data-teaminfo="${t.id}" title="${esc(t.name)} 구단 정보" style="cursor:pointer"><i>${i+1}</i>${badge(t,'sm')}<b>${esc(t.tag)}</b></span></td>
-            <td>${t.wins}</td><td>${t.losses}</td><td>${t.gw}-${t.gl}</td>
-            <td><span class="frm">${t.form.slice(-4).map(f=>`<i class="${f==='W'?'w':'l'}"></i>`).join('')}</span></td>
-          </tr>`).join('')}
-        </tbody>
-      </table>
-    </div>
-    <div class="card">
-      <div class="ch"><span>경기 일정</span></div>
-      ${S.schedule.map((pairs,w)=>{
-        const myPair=pairs.find(p=>p.includes(S.userTeam));
-        const res=S.results.find(r=>r.week===w+1&&r.stage==='regular'&&(r.a===S.userTeam||r.b===S.userTeam));
-        return `<div class="sched-row ${w+1===S.week?'on':''}">
-          <span class="sr-w">${w+1}</span>
-          <span class="sr-t">${myPair?`<b data-teaminfo="${myPair[0]}" style="cursor:pointer">${esc(T(myPair[0]).tag)}</b> vs <b data-teaminfo="${myPair[1]}" style="cursor:pointer">${esc(T(myPair[1]).tag)}</b>`:'-'}</span>
-          <span class="sr-r">${res?res.sa+'-'+res.sb:(w+1===S.week?'이번 주':'예정')}</span>
-        </div>`;
-      }).join('')}
-    </div>
-  </div>`;
-}
 function poV3(){
   const P=S.playoffs;
   return `<div class="pg">
@@ -20627,78 +20239,6 @@ function syncGpLegacy(){
   GP.dive=GP.dive3!=='none';
   return GP;
 }
-function renderGameplan(){
-  const r=D.result||evalDraft();
-  const lane=r.lane;
-  const weak=ROLES.slice().sort((a,b)=>(lane[a].my-lane[a].opp)-(lane[b].my-lane[b].opp))[0];
-  const strong=ROLES.slice().sort((a,b)=>(lane[b].my-lane[b].opp)-(lane[a].my-lane[a].opp))[0];
-  const coach=staffAll(S.userTeam).map(st=>`<span class="chip sm gold">${esc(st.name)}</span>`).join(' ');
-  const rec=gpRec(r);
-  const eff=(typeof gpEffects==='function')?gpEffects(GP,r):{lines:[]};
-  $('view-plan').innerHTML=`
-    <div class="draft-head" style="position:static">
-      <div><div class="draft-phase">GAME PLAN</div><div class="tiny" style="margin-top:2px">${esc(myTeam().tag)} vs ${esc(T(D.oppId).tag)} · ${D.gameIdx+1}세트</div></div>
-      <div class="chip sm violet">밴픽 ${r.myPct.toFixed(0)}%</div>
-    </div>
-    <div class="draft-body">
-      ${draftAdvBar(r)}
-      <div class="card tight">
-        <div class="card-h"><h4>상대 라인 분석</h4><span class="k">스카우팅</span></div>
-        <div class="kv"><span>공략 대상</span><b style="color:var(--green)">${ROLE_KR[strong]} ${esc(lane[strong].myPlayer)} (+${(lane[strong].my-lane[strong].opp).toFixed(1)})</b></div>
-        <div class="kv"><span>주의 라인</span><b style="color:var(--red)">${ROLE_KR[weak]} ${esc(lane[weak].myPlayer)} (${(lane[weak].my-lane[weak].opp).toFixed(1)})</b></div>
-        ${coach?`<div class="kv"><span>코칭스태프</span><b style="font-size:11px">${coach}</b></div>`:''}
-        <div class="row" style="margin-top:8px"><button class="btn sm gold block" id="gpAuto">🧠 코치 추천 자동 세팅</button></div>
-      </div>
-      ${compAnalysisHTML(r)}
-      <div class="card tight gp-sum">
-        <div class="row between" style="align-items:flex-start"><span class="tiny">현재 작전 효과 (시뮬레이션 반영)</span><b class="tiny" style="color:var(--gold);text-align:right">${eff.lines.join(' · ')}</b></div>
-      </div>
-      ${gpChoiceRow('집중 케어 · 주 캐리', GP_FOCUS, GP.focus, 'gpf', rec.focus)}
-      <div class="section-title"><h3>정글 동선</h3><div class="line"></div></div>
-      <div class="action-grid">
-        ${[['top','🗡','탑 스트롱사이드','탑 집중 케어·유충 사냥, 봇 소외'],['bot','🏹','바텀 스트롱사이드','봇 집중 케어·드래곤, 탑 소외'],['mid','✨','미드 주도권','미드·정글 시야 장악, 균형'],['farm','🌾','풀캠프 성장형','초반 교전 회피, 정글 성장 우선']].map(([k,ic,n,d])=>`
-          <button class="action ${GP.jungle===k?'on':''}" data-jg="${k}"><div class="ai">${ic}</div><div class="an">${n}</div><div class="ad">${d}</div></button>`).join('')}
-      </div>
-      ${gpChoiceRow('중후반 운영 승리 공식', GP_MACRO, GP.macro, 'gpm', rec.macro)}
-      ${gpChoiceRow('라인전 · 로밍 자세', GP_POSTURE, GP.posture, 'gpp', rec.posture)}
-      ${gpChoiceRow('1레벨 설계', GP_LEVEL1, GP.level1, 'gpl1', rec.level1)}
-      ${gpChoiceRow('3레벨 다이브', GP_DIVE3, GP.dive3, 'gpd3', rec.dive3)}
-      <div class="section-title"><h3>첫 오브젝트 우선순위</h3><div class="line"></div></div>
-      <div class="action-grid">
-        <button class="action ${GP.firstObj==='grub'?'on':''}" data-obj="grub"><div class="ai">🪱</div><div class="an">공허 유충 6스택</div><div class="ad">타워 압박·초반 스노우볼</div></button>
-        <button class="action ${GP.firstObj==='dragon'?'on':''}" data-obj="dragon"><div class="ai">🐉</div><div class="an">드래곤 스택</div><div class="ad">중후반 한타 버프·소울</div></button>
-        <button class="action ${GP.firstObj==='herald'?'on':''}" data-obj="herald"><div class="ai">🕯</div><div class="an">전령 스노우볼</div><div class="ad">14분 전령으로 타워 철거</div></button>
-      </div>
-      <div class="card tight">
-        <div class="row between">
-          <div class="grow"><div style="font-weight:800;font-size:13px">라인 스왑</div><div class="tiny">봇 라인 열세를 무마, 대신 유충 주도권 상실</div></div>
-          <button class="chip ${GP.laneSwap?'on':''}" data-ls="1">${GP.laneSwap?'시도':'안 함'}</button>
-        </div>
-      </div>
-      <button class="btn primary block" id="startGameBtn">경기 시작</button>
-      <div style="height:6px"></div>
-    </div>`;
-  const v=$('view-plan');
-  v.querySelectorAll('[data-jg]').forEach(b=>b.onclick=()=>{GP.jungle=b.dataset.jg;renderGameplan();});
-  v.querySelectorAll('[data-ls]').forEach(b=>b.onclick=()=>{GP.laneSwap=!GP.laneSwap;renderGameplan();});
-  v.querySelectorAll('[data-obj]').forEach(b=>b.onclick=()=>{GP.firstObj=b.dataset.obj;renderGameplan();});
-  v.querySelectorAll('[data-gpf]').forEach(b=>b.onclick=()=>{GP.focus=b.dataset.gpf;renderGameplan();});
-  v.querySelectorAll('[data-gpm]').forEach(b=>b.onclick=()=>{GP.macro=b.dataset.gpm;renderGameplan();});
-  v.querySelectorAll('[data-gpp]').forEach(b=>b.onclick=()=>{GP.posture=b.dataset.gpp;renderGameplan();});
-  v.querySelectorAll('[data-gpl1]').forEach(b=>b.onclick=()=>{GP.level1=b.dataset.gpl1;GP.invade=gpInvadeOf(GP.level1);renderGameplan();});
-  v.querySelectorAll('[data-gpd3]').forEach(b=>b.onclick=()=>{GP.dive3=b.dataset.gpd3;GP.dive=GP.dive3!=='none';renderGameplan();});
-  const ga=$('gpAuto'); if(ga) ga.onclick=()=>{ Object.assign(GP,rec); GP.invade=gpInvadeOf(GP.level1); GP.dive=GP.dive3!=='none'; renderGameplan(); toast('🧠 코치 추천 세팅을 적용했습니다'); };
-  $('startGameBtn').onclick=()=>{
-    syncGpLegacy();
-    S.gameplan={...GP};
-    saveGame();
-    startMatch(D.result||evalDraft());
-    M.running=true;
-    renderMatch();
-  };
-  show('plan');
-}
-
 /* ---------- match ---------- */
 function nextObjInfo(){
   const m=M.minute;
@@ -20790,71 +20330,6 @@ function touchlineHTML(){
     <div class="tl-sugg" id="tlSugg">${tacticChipsHTML()}</div>
     <div class="tiny tl-note" id="tlNote">${tacticNoteHTML()}</div>
   </div>`;
-}
-function renderMatch(){
-  if(!M) return;
-  const wp=Math.round(M.winProb*100);
-  const gd=M.gold[0]-M.gold[1];
-  const dp=Math.round(M.draftPct||50);
-  const st=M.stance?STANCE_MAP[M.stance]:null;
-  const fo=M.focusKey?FOCUS_MAP[M.focusKey]:null;
-  $('view-match').innerHTML=`
-    <div class="live-top">
-      <div class="score">
-        <div class="sd">${badge(myTeam(),'sm')}<span class="sn">${esc(myTeam().tag)}</span></div>
-        <div class="sk" style="color:var(--cyan)">${M.kills[0]}</div>
-        <div class="mid"><div class="clock">${String(Math.floor(M.minute||0)).padStart(2,'0')}:${String((M.sec||0)%60).padStart(2,'0')}</div></div>
-        <div class="sk" style="color:var(--red)">${M.kills[1]}</div>
-        <div class="sd right"><span class="sn">${esc(T(M.oppId).tag)}</span>${badge(T(M.oppId),'sm')}</div>
-      </div>
-      <div class="series-line">${M.series?('SET '+(M.gameIdx+1)+' · '+esc(myTeam().tag)+' '+M.series.score.me+' : '+M.series.score.opp+' '+esc(T(M.oppId).tag)):''}</div>
-      ${objectivesHTML()}
-      <div class="winprob">
-        <span style="color:var(--cyan)">${wp}%</span>
-        <div class="wp-bar"><i style="width:${wp}%"></i></div>
-        <span style="color:var(--red)">${100-wp}%</span>
-        <span style="color:var(--dim);min-width:54px;text-align:right">${gd>=0?'+':''}${(gd/1000).toFixed(1)}K</span>
-      </div>
-      <div class="draft-line"><span>밴픽 ${dp}% : ${100-dp}%</span>
-        <span class="dotsep">·</span><span>${st?st.icon+' '+st.n:'표준 운영'}</span>
-        ${fo?`<span class="dotsep">·</span><span style="color:#ffe6a8">${fo.icon} ${esc(fo.n)}</span>`:''}
-        ${(typeof macroHudHTML==='function')?macroHudHTML():''}
-      </div>
-    </div>
-    <div class="map-card">
-      <div class="map-head">
-        <span>🗺 소환사 협곡</span>
-        <span class="map-ctrl">
-          <button class="mbtn" data-play title="재생/정지">${M.running?'⏸':'▶'}</button>
-          ${[1,2,4,8].map(s=>`<button class="mbtn ${M.speed===s?'on':''}" data-speed="${s}">${s}x</button>`).join('')}
-        </span>
-      </div>
-      <div class="map-wrap"><canvas id="riftCanvas"></canvas></div>
-      <div class="map-legend">
-        <span><i class="dot blue"></i>블루</span><span><i class="dot red"></i>레드</span>
-        <span>🪱 ${M.grubs[0]}:${M.grubs[1]}</span><span>🐉 ${M.dragons[0]}:${M.dragons[1]}</span>
-        <span>👁 ${M.barons[0]}:${M.barons[1]}</span>
-      </div>
-    </div>
-    <div class="graph-wrap"><canvas id="goldCanvas"></canvas></div>
-    ${touchlineHTML()}
-    <div class="match-controls">
-      ${M.over?`<button class="btn sm gold" id="resultBtn">경기 결과 보기 →</button>`:`<button class="btn sm" id="playBtn">${M.running?'⏸ 일시정지':'▶ 재개'}</button>`}
-      <div class="speed-pill">
-        ${[1,2,4,8].map(s=>`<button class="${M.speed===s?'on':''}" data-speed="${s}">${s}x</button>`).join('')}
-      </div>
-      <div class="grow"></div>
-      <span class="tiny">${fo?('작전: '+fo.icon+' '+fo.n):'작전 없음'}</span>
-    </div>
-    <div class="feed" id="feed">
-      ${M.events.map(e=>`<div class="ev ${e.kind==='sys'?'sys':e.kind}">${e.kind==='sys'?'':`<span class="t">${e.minute}'</span>`}${e.text}</div>`).join('')}
-    </div>
-    <div style="height:10px"></div>`;
-  drawGraph();
-  mmSync();
-  mmStart();
-  bindMatch();
-  show('match');
 }
 function bindMatch(){
   const v=$('view-match');
@@ -21316,6 +20791,7 @@ function mmFallbackDeath(u,victimSide){
 }
 function mmReset(){
   MM.units={}; MM.tgt={}; MM.minions=[]; MM.proj=[]; MM.fx=[]; MM.marks=[];
+  MM.twCache=[]; MM.twCacheAt=0; MM.twNext={};   /* V34.8 포탑 사격·진입 가드 상태 */
   MM.focus=null; MM.focusUntil=0; MM.dead={}; MM.towerIdx={me:0,opp:0};
   MM.waveAt=0; MM.nextWaveSec=65; MM.waveNo=0; MM.combatAt=0; MM.combatSec=0; MM.t=0; MM.phase='lane'; MM.phaseLabel='라인전';
   MM.simMark=0; MM.hover=null; MM.tpCount=0;
@@ -21917,6 +21393,8 @@ function mmComputeTargets(){
   if(typeof macroMicroMotion==='function'){ try{ macroMicroMotion(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='micro:'+String(e); } }
   /* 후반 마무리 — 이긴 팀은 모여서 넥서스까지 끝낸다 (지는 팀은 본진 수비). 마지막 단계에서 덮어쓴다 */
   if(typeof macroEndgameTick==='function'){ try{ macroEndgameTick(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='eg:'+String(e); } }
+  /* V34.8 — 포탑 진입 가드 (파이프라인 마지막 단계 — 어떤 동선도 살아있는 적 포탑을 넘지 못한다) */
+  if(typeof mmTurretZoneGuard==='function'){ try{ mmTurretZoneGuard(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='twz:'+String(e); } }
   /* 귀환 고정 — B를 차는 중이거나 귀환 지점으로 걷는 중이면 다른 동선이 목표를 빼앗지 않는다 */
   try{ mmRecallPin(); }catch(e){}
 }
@@ -22311,6 +21789,307 @@ const MM_TW_PLATE_MUL=0.55;
 const MM_TW_ZONED_MUL=0.35;                        /* 상대 챔피언이 포탑을 지키고 있으면 미니언은 쫓겨 다친다 */
 const MM_TW_SIEGE_RANGE=0.045;                     /* 포탑 사거리(라인 경로 파라미터) */
 const MM_TW_LANE_COOLDOWN=120;                     /* 같은 라인 연속 철거 간격 — 수비 재정비 시간(2게임분) */
+
+/* ============================================================================
+   V34.8 — 살아있는 포탑이 챔피언을 직접 쏜다 · 포탑 사거리 진입 가드
+
+   · 1~3차 포탑과 넥서스 포탑은 사거리(0.055) 안의 적 챔피언을 실제로 때린다.
+     ① 포탑 주변에 그 챔피언 편 미니언이 없으면 바로 챔피언을 쏜다
+        (미니언이 맞고 있으면 포탑은 미니언을 본다 — 이미 3) 단계가 처리)
+     ② 미니언이 있어도 그 챔피언이 포탑 범위 안에서 수비 챔피언을 때리는 중이면
+        포탑 어그로가 챔피언에게 넘어간다 (실제 포탑의 다이브 어그로)
+   · 티어가 높을수록·넥서스 포탑일수록 강하고, 같은 대상 연속 사격은 더 아프다
+   · 피해는 최대 체력 대비 비율 → 어떤 챔피언이든 같은 체감
+   · HP 0 이면 수비 챔피언의 킬(포탑 처형)로 확정한다 (골드는 주지 않는다)
+
+   · 진입 가드: 아군 미니언 없이 살아있는 적 1~3차 포탑 사거리(0.050) 안으로
+     들어가지 못한다. 목표가 포탑 뒤면 포탑 앞 안전선으로 당기고, 사격을 맞거나
+     체력 45% 이하로 떨어지면 즉시 retreat 로 빼낸다. (backdoor 는 예외)
+   ========================================================================== */
+const MM_TW_CHAMP_RANGE=0.055;      /* 포탑이 챔피언을 쏘는 사거리 */
+const MM_TW_MINION_COVER=0.062;     /* 아군 미니언이 이 안에 있으면 포탑은 미니언을 본다 */
+const MM_TW_SHOT_GAP=0.95;          /* 사격 간격(게임초) — 실제 포탑 1.1발/초 수준 */
+const MM_TW_SHOT_DMG=[0.050,0.060,0.070];  /* 1·2·3차 한 발 = 최대 체력 대비 */
+const MM_TW_NEX_DMG=0.080;          /* 넥서스 포탑 한 발 */
+const MM_TW_SHOT_STACK=0.012;       /* 같은 대상 연속 사격 증가분 */
+const MM_TW_SHOT_STACK_MAX=0.036;   /* 증가 상한 */
+const MM_TW_ZONE_R=0.058;           /* 미니언 없이 들어가면 안 되는 반경(1~3차) — 사격 사거리(0.055)보다 살짝 넓다 */
+const MM_TW_ZONE_WARN=0.078;        /* 목표가 이 안으로 들어오면 미리 안전선으로 당긴다 */
+const MM_TW_ZONE_SAFE=0.078;        /* 되돌릴 때 포탑에서 떨어지는 거리 */
+
+/* 살아있는 포탑 목록 (캐시 120ms) — 어느 쪽 미니언이 맞고 있는지(cover)까지 한 번에 */
+function mmTwTowers(fresh){
+  const now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+  if(!fresh&&MM.twCache&&(now-(MM.twCacheAt||0))<120) return MM.twCache;
+  const list=[];
+  if(M&&M.tw&&typeof MAP_TOWERS!=='undefined'){
+    ['me','opp'].forEach(function(towerSide){
+      const tw=M.tw[towerSide]||{};
+      ['TOP','MID','BOT'].forEach(function(lane){
+        const arr=tw[lane]||[1,1,1];
+        const pts=(MAP_TOWERS[towerSide]&&MAP_TOWERS[towerSide][lane])||[];
+        for(let i=0;i<3;i++){
+          if(!arr[i]||!pts[i]) continue;
+          list.push({side:towerSide,lane:lane,tier:i+1,x:pts[i][0],y:pts[i][1],nx:false,cover:{me:false,opp:false}});
+        }
+      });
+      const nexArr=tw[(towerSide==='me')?'meNex':'oppNex']||[1,1];
+      const nexPts=(MAP_TOWERS[towerSide]&&MAP_TOWERS[towerSide].NEXUS)||[];
+      for(let i=0;i<nexPts.length;i++){
+        if(!nexArr[i]||!nexPts[i]) continue;
+        list.push({side:towerSide,lane:'NEXUS',tier:4,x:nexPts[i][0],y:nexPts[i][1],nx:true,cover:{me:false,opp:false}});
+      }
+    });
+    const ms=MM.minions||[];
+    for(let j=0;j<ms.length;j++){
+      const b=ms[j];
+      if(!b||!b.alive||!b.lane||!LANE_PATH[b.lane]) continue;
+      const p=mmPathPoint(LANE_PATH[b.lane],b.t);
+      const bx=p[0]+(b.off||0), by=p[1]+(b.off||0);
+      for(let i=0;i<list.length;i++){
+        const t=list[i];
+        if(Math.abs(t.x-bx)>MM_TW_MINION_COVER||Math.abs(t.y-by)>MM_TW_MINION_COVER) continue;
+        if(Math.hypot(t.x-bx,t.y-by)<=MM_TW_MINION_COVER) t.cover[b.side]=true;
+      }
+    }
+  }
+  MM.twCache=list; MM.twCacheAt=now;
+  return list;
+}
+/* 그 챔피언이 포탑 범위 안에서 수비 챔피언을 때리고 있는가 (다이브 어그로) */
+function mmTwDiving(t,u,sec){
+  if(!u) return false;
+  if(!(u.mode==='fight'||u.mode==='dive'||(u.engageUntil&&u.engageUntil>=sec))) return false;
+  for(let i=0;i<ROLES.length;i++){
+    const d=MM.units[t.side+'-'+ROLES[i]];
+    if(!d||!d.alive||d.tp) continue;
+    if(Math.hypot(d.x-t.x,d.y-t.y)>MM_TW_CHAMP_RANGE+0.025) continue;
+    if(Math.hypot(d.x-u.x,d.y-u.y)<=0.098) return true;
+  }
+  return false;
+}
+/* 포탑 처형 — 수비 챔피언의 킬로 확정 (골드 없음). 수비수가 없으면 사망 처리만 한다 */
+function mmTwExecute(t,preySide,role,sec){
+  const u=MM.units[preySide+'-'+role];
+  if(!u||!u.alive) return false;
+  let defRole=null,bd=9;
+  for(let i=0;i<ROLES.length;i++){
+    const d=MM.units[t.side+'-'+ROLES[i]];
+    if(!d||!d.alive||d.tp) continue;
+    const dd=Math.hypot(d.x-t.x,d.y-t.y);
+    if(dd<bd){ bd=dd; defRole=ROLES[i]; }
+  }
+  const atkName=(typeof mmPxName==='function')?mmPxName(preySide,role):role;
+  const where=(t.tier>=4)?'넥서스 포탑':(t.tier+'차 포탑');
+  let killed=false;
+  if(defRole&&bd<=0.25&&typeof commitKill==='function'){
+    let kg=null;
+    try{
+      kg=commitKill(t.side,{role:defRole,victimRole:role,kind:'turret',
+        lane:(t.lane!=='NEXUS')?t.lane:'MID',gold:0,pt:[u.x,u.y],d:bd});
+    }catch(e){ kg=null; }
+    if(kg&&!kg.deferred&&kg.ok!==false){
+      killed=true;
+      try{
+        const line='🛡 <b>포탑 처형</b> — '+atkName+'이(가) '+where+'에 맞고 쓰러졌습니다 ('+
+          ((typeof mmPxName==='function')?mmPxName(t.side,defRole):defRole)+' 킬).';
+        if(typeof kgLog==='function') kgLog(kg,t.side==='me'?'blue':'red',line);
+        else logEvent(t.side==='me'?'blue':'red',line);
+      }catch(e){}
+    }
+  }
+  if(!killed){
+    /* 수비수 전멸 — 처형 기록 없이 사망 처리 (K/D 합을 어긋나게 하지 않는다) */
+    try{
+      if(typeof v6KillUnit==='function') v6KillUnit(preySide,role,(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now());
+      const who=(typeof mmPxName==='function')?mmPxName(preySide,role):role;
+      logEvent(preySide==='me'?'red':'blue','💀 <b>포탑 처형</b> — '+who+'이(가) '+where+'에 맞고 쓰러졌습니다.');
+    }catch(e){}
+  }
+  try{ mmAddFx({type:'burst',x:u.x,y:u.y,col:t.side==='me'?'#8fd3ff':'#ffb3c0',life:900,label:'처형'}); }catch(e){}
+  return killed;
+}
+/* 포탑 → 적 챔피언 사격 (게임초 기준 사격 간격) */
+function mmTurretChampStep(dsec,sec){
+  if(!M||!M.tw||typeof MM==='undefined'||!MM.units) return 0;
+  const s=(sec!=null)?Number(sec):((typeof mmGameSec==='function')?mmGameSec():((M&&M.sec)||0));
+  if(!(s>=75)) return 0;                    /* 01:15 이전에는 포탑이 챔피언을 쏘지 않는다 */
+  const list=mmTwTowers(true);
+  if(!list.length) return 0;
+  if(!MM.twNext||typeof MM.twNext!=='object') MM.twNext={};
+  let hits=0;
+  for(let i=0;i<list.length;i++){
+    const t=list[i];
+    const preySide=(t.side==='me')?'opp':'me';
+    /* 사거리 안에서 가장 위협적인 적 챔피언 하나 (다이브 어그로 > 가장 가까운 적) */
+    let best=null,bd=9,bestDive=false;
+    for(let r=0;r<ROLES.length;r++){
+      const role=ROLES[r];
+      const u=MM.units[preySide+'-'+role];
+      if(!u||!u.alive||u.tp) continue;
+      const d=Math.hypot(u.x-t.x,u.y-t.y);
+      if(d>MM_TW_CHAMP_RANGE) continue;
+      const diving=mmTwDiving(t,u,s);
+      /* ① 포탑 주변에 공격자 편 미니언이 맞고 있으면 포탑은 미니언을 쏜다 */
+      if(t.cover[preySide]&&!diving) continue;
+      if(diving&&!bestDive){ best=u; bd=d; bestDive=true; continue; }
+      if(bestDive) continue;
+      if(d<bd){ bd=d; best=u; }
+    }
+    if(!best) continue;
+    const key=t.side+'-'+t.lane+'-'+t.tier;
+    let next=(MM.twNext[key]==null)?s:MM.twNext[key];   /* 첫 사격은 즉시 — 밀린 사격을 몰아치지 않는다 */
+    let nFire=0;
+    while(s>=next&&nFire<3){ nFire++; next+=MM_TW_SHOT_GAP; }   /* 배속에서도 같은 게임속도 */
+    if(nFire<=0) continue;
+    MM.twNext[key]=next;
+    if(best._twTowerKey!==key||s-(best._twShotAt||-999)>6) best._twStack=0;
+    const baseFrac=(t.tier>=4)?MM_TW_NEX_DMG:(MM_TW_SHOT_DMG[Math.max(0,Math.min(2,t.tier-1))]||MM_TW_SHOT_DMG[0]);
+    const maxHp=best.hpMax||100;
+    for(let n=0;n<nFire;n++){
+      const frac=baseFrac+Math.min(MM_TW_SHOT_STACK_MAX,(best._twStack||0)*MM_TW_SHOT_STACK);
+      best.hp=Math.max(0,(best.hp||0)-maxHp*frac);
+      best._twStack=(best._twStack||0)+1;
+      if(best.hp<=0) break;
+    }
+    best._twTowerKey=key; best._twShotAt=s; best._twShots=(best._twShots||0)+nFire;
+    const nms=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+    best.lastHitAt=nms; best.regenAt=nms;
+    const col=t.side==='me'?'#8fd3ff':'#ffb3c0';
+    mmAddFx({type:'laser',x1:t.x,y1:t.y,x2:best.x,y2:best.y,col:col,life:230+nFire*60});
+    mmAddFx({type:'hit',x:best.x,y:best.y,col:col,life:200});
+    if(t.tier>=3) mmAddFx({type:'ring',x:best.x,y:best.y,col:col,life:380,r:0.024});
+    hits+=nFire;
+    if(best.hp<=0) mmTwExecute(t,preySide,best.role,s);
+  }
+  return hits;
+}
+/* 포탑을 등진 목표인가 — 라인 경로 기준으로 포탑보다 깊은가 */
+function mmTwTargetDeeper(t,side,tx,ty){
+  if(t.nx||!t.lane||!LANE_PATH[t.lane]) return false;
+  const tp=mmTowerParam(t.side,t.lane,t.tier);
+  const pf=mmPointFront(t.lane,tx,ty);
+  if(pf.dist>0.13) return false;
+  return (side==='me')?(pf.param>tp-0.004):(pf.param<tp+0.004);
+}
+/* 포탑 앞 안전선 — 포탑에서 내 진영 쪽으로 MM_TW_ZONE_SAFE 만큼 떨어진 라인 위 지점 */
+function mmTwSafePoint(t,side,dist){
+  const off=(dist==null)?MM_TW_ZONE_SAFE:dist;
+  let dx=0,dy=0;
+  try{
+    const tp=mmTowerParam(t.side,t.lane,t.tier);
+    const d=laneDir(t.lane,tp);
+    dx=d[0]; dy=d[1];
+  }catch(e){ dx=0; dy=0; }
+  const dir=(side==='me')?1:-1;
+  let bx=t.x-dx*dir*off, by=t.y-dy*dir*off;
+  /* 라인 밖(벽)으로 밀리지 않게 자기 진영 쪽으로 살짝 당긴다 */
+  const f=MM_NEXUS[side];
+  const vx=f[0]-t.x, vy=f[1]-t.y, vd=Math.hypot(vx,vy)||1;
+  bx+=vx/vd*0.010; by+=vy/vd*0.010;
+  return [clamp(bx,0.03,0.97),clamp(by,0.03,0.97)];
+}
+/* 진입 가드 — 목표·모드·후퇴를 한 곳에서 정리한다 (프레임마다 마지막에 호출) */
+function mmTurretZoneGuard(sec){
+  if(!M||!M.tw||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return 0;
+  const s=(sec==null)?((typeof mmGameSec==='function')?mmGameSec():((M&&M.sec)||0)):Number(sec)||0;
+  if(!(s>=70)) return 0;
+  const list=mmTwTowers();
+  if(!list.length) return 0;
+  let fixed=0;
+  for(let ri=0;ri<ROLES.length;ri++){
+    const role=ROLES[ri];
+    for(let si=0;si<2;si++){
+      const side=si===0?'me':'opp';
+      const k=side+'-'+role;
+      const u=MM.units[k];
+      if(!u||!u.alive||u.tp) continue;
+      if(u.mode==='backdoor') continue;                  /* 백도어는 예외 */
+      if(u.recallT||u.recallWalk||u.recall) continue;   /* 귀환 중에는 건드리지 않는다 */
+      /* 가장 가까운 '위험한' 적 1~3차 포탑 */
+      let blk=null,bd=9;
+      for(let i=0;i<list.length;i++){
+        const t=list[i];
+        if(t.side===side||t.nx) continue;                /* 넥서스 포탑은 진입 가드 제외 (본진 타격 경로) */
+        if(t.cover[side]) continue;                      /* 아군 미니언이 맞고 있다 → 통과 가능 */
+        const d=Math.hypot(u.x-t.x,u.y-t.y);
+        if(d>MM_TW_ZONE_WARN) continue;
+        if(d<bd){ bd=d; blk=t; }
+      }
+      if(!blk) continue;
+      const tgt=MM.tgt[k]||{x:u.x,y:u.y};
+      const hpPct=(u.hp||0)/(u.hpMax||100);
+      const shotAt=(u._twShotAt==null)?-999:u._twShotAt;
+      const shot=(s-shotAt)<=2.5;
+      const deeper=mmTwTargetDeeper(blk,side,tgt.x,tgt.y)||(Math.hypot(tgt.x-blk.x,tgt.y-blk.y)<bd-0.001);
+      const dugIn=(bd<=MM_TW_ZONE_R);
+      if(!dugIn&&!deeper) continue;                      /* 포탑 앞을 스쳐 지나가는 중이면 간섭하지 않는다 */
+      /* 후퇴 조건 — 사격을 맞고 있거나 체력 45% 이하 (한 번 걸리면 몇 초간 유지) */
+      const sticky=(u._twRetreatUntil||0)>s;
+      const retreat=sticky||(hpPct<=0.45)||(shot&&hpPct<=0.62)||(shot&&(u._twShots||0)>=2&&hpPct<=0.70);
+      if(retreat){
+        const back=mmTwSafePoint(blk,side,MM_TW_ZONE_SAFE+0.055);
+        u.mode='retreat';
+        u.retreatUntil=Math.max(u.retreatUntil||0,s+3.5);
+        u._twRetreatUntil=s+2.5;
+        u.engageUntil=0;
+        MM.tgt[k]={x:back[0],y:back[1]};
+      }else{
+        u._twRetreatUntil=0;
+        const safe=mmTwSafePoint(blk,side);
+        const far=Math.hypot(MM.tgt[k].x-safe[0],MM.tgt[k].y-safe[1]);
+        if(far>0.003||dugIn){
+          MM.tgt[k]={x:safe[0],y:safe[1]};
+          if(u.mode==='fight'||u.mode==='gank'||u.mode==='jungle'||u.mode==='dive'||u.mode==='siege'||u.mode==='split'||u.mode==='trade'||u.mode==='obj'||u.mode==='rotate'){
+            u.mode='lane';
+            u.engageUntil=0;
+          }
+          u.tgtHold=null;
+        }
+      }
+      u._twGuardAt=s;
+      fixed++;
+    }
+  }
+  if(fixed) M.twGuard={at:s,fixed:fixed};
+  return fixed;
+}
+/* 프레임 안전망 — 이미 사거리 안으로 파고든 유닛을 밖으로 밀어낸다 (순간이동 금지: 프레임당 조금씩) */
+function mmTurretPushOut(sec,stepDt){
+  if(!M||!M.tw||typeof MM==='undefined'||!MM||!MM.units) return 0;
+  const s=(sec==null)?((typeof mmGameSec==='function')?mmGameSec():((M&&M.sec)||0)):Number(sec)||0;
+  if(!(s>=70)) return 0;
+  const list=mmTwTowers();
+  if(!list.length) return 0;
+  const maxPush=Math.max(0.0015,0.006*Math.max(0.2,Math.min(3,(Number(stepDt)||0.016)*60)));
+  let n=0;
+  for(let ri=0;ri<ROLES.length;ri++){
+    for(let si=0;si<2;si++){
+      const side=si===0?'me':'opp';
+      const u=MM.units[side+'-'+ROLES[ri]];
+      if(!u||!u.alive||u.tp||u.mode==='backdoor') continue;
+      if(u.recallT||u.recallWalk||u.recall) continue;
+      let blk=null,bd=9;
+      for(let i=0;i<list.length;i++){
+        const t=list[i];
+        if(t.side===side||t.nx) continue;
+        if(t.cover[side]) continue;
+        const d=Math.hypot(u.x-t.x,u.y-t.y);
+        if(d>MM_TW_ZONE_R) continue;
+        if(d<bd){ bd=d; blk=t; }
+      }
+      if(!blk) continue;
+      const sp=mmTwSafePoint(blk,side);
+      const dx=sp[0]-u.x, dy=sp[1]-u.y, dd=Math.hypot(dx,dy)||1;
+      const mv=Math.min(maxPush,dd);
+      u.x=clamp(u.x+dx/dd*mv,0.03,0.97);
+      u.y=clamp(u.y+dy/dd*mv,0.03,0.97);
+      u.vx=0; u.vy=0;
+      n++;
+    }
+  }
+  return n;
+}
 /* dsec: 직전 처리 이후 흐른 게임초 — 배속(1x·2x·4x·8x)과 무관하게 같은 게임속도 */
 function mmMinionCombat(sec,gameDt){
   if(!MM.minions.length) return;
@@ -22849,7 +22628,12 @@ function mmUpdate(dt){
     try{ mmMinionCombat(sec,dsec); }catch(e){}
     /* 적 챔피언과 스쳐 지나가는 장면 — 견제·스파크·후퇴 (무음 통과 금지) */
     try{ mmProximityCombat(sec,gameDt); }catch(e){}
+    /* V34.8 — 살아있는 포탑이 사거리 안의 적 챔피언을 실제로 쏜다 */
+    try{ mmTurretChampStep(dsec,sec); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='twshot:'+String(e); }
   }
+  /* V34.8 — 포탑 진입 가드: 아군 미니언 없이 적 포탑 사거리 안으로 들어가지 못한다
+     (추격·갱킹·교전이 목표를 덮어쓴 뒤 마지막에 한 번 더 잡는다) */
+  if(!paused){ try{ mmTurretZoneGuard(sec); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='twz:'+String(e); } }
   /* ---- 유닛 이동 ---- */
   Object.keys(MM.units).forEach(k=>{
     const u=MM.units[k], t=MM.tgt[k]||u;
@@ -22913,7 +22697,8 @@ function mmUpdate(dt){
       u.y=Math.max(0.03,Math.min(0.97,u.y));
       if(Math.hypot(t.x-u.x,t.y-u.y)<=0.004){ u.x=t.x; u.y=t.y; u.vx=0; u.vy=0; }
     }
-    if(u.alive) u.hp=Math.min(u.hpMax,u.hp+step*3.5);
+    /* 포탑에 맞고 있는 동안에는 자연 회복이 멈춘다 (맞는 동안 피가 차오르면 처벌이 안 된다) */
+    if(u.alive&&!((sec-((u._twShotAt==null)?-999:u._twShotAt))<3)) u.hp=Math.min(u.hpMax,u.hp+step*3.5);
     /* 정글 캠프 클리어 — 캠프 앞에 있으면 모드와 무관하게 진행된다 (갱·교전 중 잠깐 때리는 것도 포함) */
     if(u.role==='JGL'&&!paused&&u.mode!=='recall'&&u.mode!=='recallWalk'&&!u.tp){
       const c=mmAllCamps().find(c=>Math.hypot(c.x-u.x,c.y-u.y)<0.045&&mmCampAlive(c,sec));
@@ -22937,6 +22722,8 @@ function mmUpdate(dt){
       }
     }
   });
+  /* V34.8 — 이동 직후 안전망: 살아있는 적 포탑 사거리 안에 남은 유닛을 밖으로 밀어낸다 */
+  if(!paused){ try{ mmTurretPushOut(sec,step); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='twpush:'+String(e); } }
   /* V32 — 실제 스탯·스펠·궁극기·서폿 케어·전령·유충·바론·파워스파이크·승부처 기록 */
   try{ if(typeof v32Tick==='function') v32Tick(sec,step); }catch(e){}
   try{ if(typeof v33Tick==='function') v33Tick(sec,step); }catch(e){}
@@ -28151,62 +27938,6 @@ function nextUserPlayoffMatch(){
   }
   return null;
 }
-function renderPlayoffs(){
-  const P=S.playoffs; if(!P){ renderAll(); return; }
-  const fin=P.rounds[2].matches[0];
-  const um=nextUserPlayoffMatch();
-  const st=standings();
-  const myPos=st.findIndex(t=>t.id===S.userTeam)+1;
-  const alive=!P.done && !P.rounds.flatMap(r=>r.matches).some(m=>m.done&&m.winner&&((m.a===S.userTeam&&m.winner!==S.userTeam)||(m.b===S.userTeam&&m.winner!==S.userTeam)));
-  const resumable=S.currentSeries&&!S.currentSeries.done?S.currentSeries:null;
-  $('view-playoffs').innerHTML=`
-    <div class="hero" style="padding:16px 14px 4px">
-      <div class="kicker">LCK ${S.playoffSplit==='spring'?'SPRING':'SUMMER'} PLAYOFFS · ${S.playoffSplit==='spring'?'3월':'8월'}</div>
-      <h1 style="font-size:26px">${S.season}시즌 ${S.playoffSplit==='spring'?'스프링':'서머'} 플레이오프</h1>
-      <p>6강 단판 시리즈 · 상위 4팀은 롤드컵 진출</p>
-    </div>
-    <div class="card">
-      <div class="card-h"><h4>대진표</h4><span class="k">Bo5</span></div>
-      ${bracketHTML()}
-      <div class="tiny" style="margin-top:6px">6강: 3v6 · 4v5 → 4강: 1위 vs 승자, 2위 vs 승자 → 결승</div>
-    </div>
-    <div class="card">
-      <div class="row between">
-        <div><div class="tiny">정규시즌 최종 순위</div><div style="font-weight:900;font-size:17px">${myPos}위 · ${esc(myTeam().tag)}</div></div>
-        <span class="chip ${P.seeds.includes(S.userTeam)?'green':'red'}">${P.seeds.includes(S.userTeam)?'PO 진출':'PO 탈락'}</span>
-      </div>
-      ${P.done?`<div class="divider"></div><div class="row between"><span class="tiny">LCK 우승</span><b style="color:var(--gold)">${esc(T(P.rounds[2].matches[0].winner).name)}</b></div>`:''}
-    </div>
-    ${resumable?`<div class="card" style="border-color:rgba(255,201,74,.4)">
-      <div class="card-h"><h4>진행 중인 플레이오프 시리즈</h4><span class="k">${resumable.score.me} : ${resumable.score.opp}</span></div>
-      <button class="btn gold block" id="poResume">시리즈 이어하기</button>
-    </div>`:''}
-    ${um?`<div class="card" style="border-color:rgba(37,224,255,.4)">
-      <div class="card-h"><h4>${esc(um.rd.name)} · 다음 경기</h4><span class="k">Bo5</span></div>
-      <div class="row between" style="margin-bottom:10px">
-        <div class="row" style="gap:7px">${badge(myTeam())}<b>${esc(myTeam().tag)}</b></div>
-        <span class="chip sm">VS</span>
-        <div class="row" style="gap:7px"><b>${esc(T(um.m.a===S.userTeam?um.m.b:um.m.a).tag)}</b>${badge(T(um.m.a===S.userTeam?um.m.b:um.m.a))}</div>
-      </div>
-      <button class="btn primary block" id="poBtn">경기 시작 · 밴픽</button>
-    </div>`:P.done?`
-      <button class="btn gold block" id="poDone">롤드컵으로 →</button>
-    `:`
-      <div class="card">
-        <div class="card-h"><h4>남은 경기 진행</h4><span class="k">${alive?'우리 팀 생존':'우리 팀 탈락'}</span></div>
-        <div class="tiny" style="margin-bottom:10px">${alive?'다른 팀 경기를 시뮬레이션합니다':'우리 팀은 탈락했습니다. 남은 경기를 진행하세요.'}</div>
-        <button class="btn block" id="poBtn">다음 경기 진행</button>
-      </div>`}
-    <div class="card">
-      <div class="card-h"><h4>정규시즌 순위</h4><span class="k">TOP 6 진출</span></div>
-      ${st.slice(0,6).map((t,i)=>`<div class="slide-item"><div class="fa-rank">${i+1}</div>${badge(t,'sm')}<div class="grow"><div style="font-size:12px;font-weight:800">${esc(t.name)}</div></div><div class="tiny">${t.wins}승 ${t.losses}패</div></div>`).join('')}
-    </div>
-    <div style="height:10px"></div>`;
-  const pb=$('poBtn'); if(pb) pb.onclick=()=>playoffAction();
-  const pr=$('poResume'); if(pr) pr.onclick=()=>{ if(resumable.pendingSide) renderSideChoice(); else startDraft(resumable); };
-  const pd=$('poDone'); if(pd) pd.onclick=()=>{ if(!S.worlds) startWorlds(); if(S.worlds) renderWorlds(); else renderChampion(); };
-  show('playoffs');
-}
 function playoffAction(){
   const um=nextUserPlayoffMatch();
   if(um){
@@ -29087,6 +28818,12 @@ function v6HpTick(step,now){
       /* 근접 조우(미니맵에서 실제로 붙어 싸우는 중)는 라인전 트레이드가 아니라 진짜 교전이다 */
       const pxFight=!!(u.engageUntil&&sec<u.engageUntil);
       let trading=inFight||pxFight||(recentKill&&lcNear(lk,u));
+      /* V34.8 — 포탑에 맞고 있는 동안은 '맞는 중'이다. 물약·도란 회복이나 45% 바닥 보정으로
+         포탑 피해가 지워지면 안 된다 (피해·처형은 포탑 사격 한 곳이 결정한다) */
+      if((sec-((u._twShotAt==null)?-999:u._twShotAt))<=3.5){
+        u.regenAt=now; u.lastHitAt=now;
+        return;
+      }
       if(!trading&&laning){
         if((u.tradeUntil||0)>=now) trading=true;
         else if(Math.random()<0.030*dt*(0.6+Math.max(0,(nd<0.05?0.4:0)))) u.tradeUntil=now+1400+Math.random()*2400;
@@ -34831,8 +34568,21 @@ function macroDeepPushGuard(sec){
   if(fixed) M.deepGuard={at:s,fixed:fixed};
   return fixed;
 }
-/* ③ 포탑 어그로 — 아군 미니언 없이 적 포탑 아래에 서 있으면 실제 피해 */
+/* ③ 포탑 어그로 — 아군 미니언 없이 적 포탑 사거리에 서 있으면 실제 피해
+   V34.8 — 피해 계산은 ui-minimap 의 mmTurretChampStep 한 곳으로 옮겼다 (모든 생존 포탑·사격 이펙트·처형).
+   여기서는 게임 1초마다 그 창구를 같이 돌려 준다 (프레임이 멈춰도 포탑은 쏜다). */
 function macroTurretDamageTick(s){
+  if(!M||typeof MM==='undefined'||!MM||!MM.units||!M.tw) return 0;
+  const sec=Number(s)||0;
+  if(sec<120) return 0;
+  let hit=0;
+  try{ if(typeof mmTurretChampStep==='function') hit=mmTurretChampStep(0.55,sec)||0; }catch(e){ hit=0; }
+  /* 포탑 사거리 안에 있는데 아군 미니언이 없으면 진입 가드로도 잡는다 */
+  try{ if(typeof mmTurretZoneGuard==='function') mmTurretZoneGuard(sec); }catch(e){}
+  if(hit) M.turretAggro={at:sec,hit:hit};
+  return hit;
+}
+function macroTurretDamageTickLegacy(s){
   if(!M||typeof MM==='undefined'||!MM||!MM.units||!M.tw) return 0;
   const sec=Number(s)||0;
   if(sec<120) return 0;
@@ -35644,7 +35394,18 @@ function jglAliveCamp(side,idx,sec){
   try{ alive=(typeof mmCampAlive==='function')?mmCampAlive(c,sec):c.alive; }catch(e){ alive=c.alive; }
   return alive?c:null;
 }
-/* 다음 할 일: 동선 다음 캠프 → 없으면 갱/바위게/카정 */
+/* 아군 캠프 중 지금 살아 있는 것들 (인덱스) — 카정 판단의 기준 */
+function jglAllyLivingCamps(side,sec){
+  const out=[];
+  const list=jglCampList(side);
+  for(let i=0;i<list.length;i++){
+    const c=list[i]; if(!c) continue;
+    const alive=(typeof mmCampAlive==='function')?mmCampAlive(c,sec):!!c.alive;
+    if(alive) out.push(i);
+  }
+  return out;
+}
+/* 다음 할 일: 동선 다음 캠프 → 없으면 남은 아군 캠프 → 갱/바위게/카정 */
 function jglNextStep(side,sec){
   const j=M.jgl[side]; if(!j) return;
   const cur=j.st||{};
@@ -35660,18 +35421,27 @@ function jglNextStep(side,sec){
       if(jglAliveCamp(side,order[i],sec)){ next=order[i]; break; }
     }
   }
-  /* 계획 동선을 다 돌았으면 아직 살아있는 캠프 중 가까운 곳으로 이어서 돈다 (9캠프 이후 공백 방지) */
+  /* 3캠프 동선을 끝냈으면 계획된 목표 라인 갱을 먼저 간다 (남은 캠프보다 우선 — 실제 3캠프 정글의 턴) */
+  if(next==null&&j.mode==='3camp'&&j.gankUsed<1&&!j.gankDone&&(cur.k==='camp')&&order.length&&order.indexOf(cur.idx)===order.length-1){
+    j.gankDone=true;
+    jglSetStep(side,{k:'gank',lane:j.target,at:sec,until:sec+11,done:false});
+    return;
+  }
+  /* 계획 동선(j.order)을 다 돌았어도 아군 캠프가 남아 있으면 그 캠프를 먼저 돈다.
+     V34.8 — 3캠프 정글러가 남은 아군 캠프를 두고 3렙에 상대 정글(카정)로 건너가던 오류 수정.
+     남은 캠프로 갈 때도 jglCrossMid 통로 우회가 그대로 적용된다 (j.prevCamp 기준). */
   if(next==null){
-    const all=jglCampList(side);
+    const full=(Array.isArray(j.full)&&j.full.length)?j.full:(jglCampList(side).map(function(_,i){ return i; }));
     const u=(typeof MM!=='undefined'&&MM.units)?MM.units[side+'-JGL']:null;
     let bd=9;
-    for(let i=0;i<all.length;i++){
-      const c=all[i]; if(!c) continue;
-      const alive=(typeof mmCampAlive==='function')?mmCampAlive(c,sec):c.alive;
-      if(!alive) continue;
+    for(let i=0;i<full.length;i++){
+      const idx=full[i];
+      const c=jglAliveCamp(side,idx,sec);
+      if(!c) continue;
       const d=u?Math.hypot(u.x-c.x,u.y-c.y):1;
-      if(d<bd){ bd=d; next=i; }
+      if(d<bd){ bd=d; next=idx; }
     }
+    if(next!=null) j.reFull=true;            /* 동선 밖 아군 캠프로 복귀 (카정 아님) */
   }
   /* 3:30 바위게 — 힘 있는 쪽만 */
   if(sec>=JGL_SCUTTLE_AT-26&&sec<=JGL_SCUTTLE_AT+40&&!j.scuttle){
@@ -35685,13 +35455,7 @@ function jglNextStep(side,sec){
     j.lastCamp=next;
     return;
   }
-  /* 3캠프 동선을 끝냈으면 계획된 목표 라인 갱으로 바로 넘어간다 (턴) */
-  if(j.mode==='3camp'&&j.gankUsed<1&&(cur.k==='camp')&&order.indexOf(cur.idx)===order.length-1&&!j.gankDone){
-    j.gankDone=true;
-    jglSetStep(side,{k:'gank',lane:j.target,at:sec,until:sec+11,done:false});
-    return;
-  }
-  /* 캠프가 전부 죽어 있으면(<45초) 턴: 갱 → 시야 → 대기 */
+  /* 아군 캠프가 전부 비었을 때만 턴: 갱 → 시야 → 카정 → 대기 */
   const turn=jglTurnChoice(side,sec);
   jglSetStep(side,turn);
 }
@@ -35703,7 +35467,10 @@ function jglTurnChoice(side,sec){
   if(j.gankUsed<2&&sec<720&&(pr>0.02||jglHasCC(side,lane))&&Math.random()<0.7){
     return {k:'gank',lane:lane,at:sec,until:sec+9,done:false};
   }
-  if(!j.invaded&&sec<420&&jglPrio(side,lane)>0.2&&Math.random()<0.55){
+  /* 카정은 세 조건을 모두 만족할 때만: ① 아군 캠프가 전부 비었고 ② 3분 이후 ③ 그 라인 주도권이 확실 */
+  let allyLeft=0;
+  try{ allyLeft=jglAllyLivingCamps(side,sec).length; }catch(e){ allyLeft=1; }
+  if(!j.invaded&&allyLeft===0&&sec>=180&&sec<=600&&pr>0.35&&Math.random()<0.55){
     return {k:'invade',at:sec,until:sec+12,done:false,lane:lane};
   }
   return {k:'wait',at:sec,until:sec+6};
