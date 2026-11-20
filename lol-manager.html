@@ -3420,6 +3420,12 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .bhud .bpl-i b{font-size:9.5px;line-height:1.1}
   .bhud .bpl-kda{font-size:8.5px;line-height:1.1}
   .bhud .bpl-s{font-size:7px;gap:0 3px;line-height:1.05}
+  /* 641~820px 에서는 max-width:820px 규칙의 order(.bmap 0 · .bcol 1)가 남아
+     미니맵이 왼쪽 124px 사이드 칸으로 밀리고 선수 카드가 가운데를 차지했다.
+     한 화면 HUD 에서는 [아군 카드][미니맵][적군 카드] 순서를 되돌린다. */
+  .bhud .bmid>.bcol.me{order:0}
+  .bhud .bmid>.bmap{order:0}
+  .bhud .bmid>.bcol.opp{order:0}
 }
 @media (min-width:641px) and (max-height:820px){
   /* 폴드 펼침(높이 700~820) — 한 화면 고정을 지키려고 CS·DPM 줄을 접고 아이템 줄을 남긴다 */
