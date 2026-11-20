@@ -15978,11 +15978,12 @@ function toast(msg,ms){
   t.textContent=msg; t.classList.remove('hidden');
   clearTimeout(t._tm); t._tm=setTimeout(()=>t.classList.add('hidden'),ms||2400);
 }
-function badge(team,size){
+function badge(team,size,noLink){
   if(!team) return '';
   const px=size==='lg'?46:size==='xl'?64:size==='sm'?26:34;
-  /* V35 — 구단 로고는 어느 화면에서든 그 구단 정보로 이어진다 */
-  const ti=tiAttr(team);
+  /* V35 — 구단 로고는 어느 화면에서든 그 구단 정보로 이어진다.
+     이미 자기 액션이 있는 자리(상단바 구단 메뉴 등)는 noLink 로 끈다. */
+  const ti=noLink?'':tiAttr(team);
   return `<span class="badge svg ${size||''}" title="${esc(team.name||team.tag)}"${ti}>${teamLogoSVG(team,px)}</span>`;
 }
 function openHelp(){
@@ -17612,7 +17613,7 @@ function renderTopbar(){
   const t=myTeam();
   const subs=subTabsFor();
   const cur=currentSub();
-  const badgeHTML=badge(t,'sm');
+  const badgeHTML=badge(t,'sm',true);   /* 상단바 크레스트는 '구단 홈' 버튼 — 구단 정보 링크는 끈다 */
   tb.innerHTML=`
     <div class="tb-left">
       <button class="tb-ic" data-nav="home" title="홈">${badgeHTML}</button>
