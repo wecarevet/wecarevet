@@ -20395,9 +20395,6 @@ function draftRefreshGrid(){
   if(g){ g.innerHTML=draftGridHTML(); }
   v.querySelectorAll('[data-rf]').forEach(b=>b.classList.toggle('on',D.roleFilter===b.dataset.rf));
   bindChampGrid();
-  /* V34.13.1 — 이미 픽된 챔피언(좌우 픽 슬롯·스왑 칩·배정 카드)도 꾹 누르면 정보창.
-     클릭 핸들러는 건드리지 않고 data-lp-champ 만 읽는다. */
-  try{ if(typeof b4BindLongPress==='function') b4BindLongPress(v,'[data-lp-champ]'); }catch(e){}
 }
 function bindChampGrid(){
   const v=$('view-draft'); if(!v) return;
@@ -20570,6 +20567,9 @@ function bindDraft(){
     if(D.q){ cq.focus(); try{ cq.setSelectionRange(cq.value.length,cq.value.length); }catch(e){} }
   }
   bindChampGrid();
+  /* V34.13.1 — 이미 픽된 챔피언(좌우 픽 슬롯·스왑 칩·배정 카드)도 꾹 누르면 정보창.
+     클릭 핸들러는 건드리지 않고 data-lp-champ 만 읽는다. */
+  try{ if(typeof b4BindLongPress==='function') b4BindLongPress(v,'[data-lp-champ]'); }catch(e){}
   v.querySelectorAll('[data-sel]').forEach(b=>b.onclick=()=>{ D.sel=(D.sel===b.dataset.sel?null:b.dataset.sel); renderDraft(); });
   /* 라인 배정 슬롯만 잡는다 — 예전에는 [data-role] 전체를 잡아 챔피언 카드의
      클릭 핸들러를 덮어써서 밴/픽이 전혀 등록되지 않았다 (v30 치명 버그). */
