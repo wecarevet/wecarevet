@@ -13767,7 +13767,7 @@ function stoveAction(a,v,root){
     const r=stoveFaNegAdvance(v);
     toast(r.msg,(r.signed||r.left)?4200:(r.ok?3200:3800)); stoveRender(); return true;
   }
-  if(a==='fstalk'){
+  if(a==='fstalk'||a==='stovefstalk'){
     /* V34.13 — 대화·설득 선택지 (삼고초려 / 과접촉) */
     const parts=String(v||'').split(':');
     const nm=parts[0], kind=parts[1];
@@ -44222,7 +44222,7 @@ function v3413TalkHTML(name){
       ${V3413_TALK.map(function(x){
         const fit=(V3413_TALK_FIT[fk]||{})[x.k]||0;
         const mark=fit>=0.8?' ★':(fit>=0.45?' ·':'');
-        return `<button class="chip ${tk.last===x.k?'on':''}" data-a="fstalk" data-v="${esc(name)}:${x.k}" title="${esc(x.d)}">${x.ic} ${x.n}${mark}</button>`;
+        return `<button class="chip ${tk.last===x.k?'on':''}" data-a="stovefstalk" data-v="${esc(name)}:${x.k}" title="${esc(x.d)}">${x.ic} ${x.n}${mark}</button>`;
       }).join('')}
     </div>
     ${over?`<div class="tiny" style="color:#ff9aa9;margin-top:6px">⚠ ${n}회차 — 반복 방문은 “부담스럽다”는 반응을 부릅니다. 호감도가 크게 떨어집니다.</div>`:''}
