@@ -15,13 +15,14 @@
 <body>
 <div class="wrap"><div class="lab" id="lab"></div><iframe id="fr" src="lol-manager.html?v=34.12.1"></iframe></div>
 <script>
-/* 검증용 임시 하네스 — 지정 뷰포트(폴드 펼침/커버)로 경기 HUD를 띄우고 아이템 6칸이 보이는지 확인한다.
-   ?w=673&h=841  (없으면 673x841) */
+/* 검증용 임시 하네스 — 지정 뷰포트(폴드 펼침/커버)로 실제 경기를 띄우고 아이템 6칸이 보이는지 확인한다.
+   ?w=673&h=841&sp=8  (뷰포트 폭/높이, 배속) */
 var q=new URLSearchParams(location.search);
-var W=parseInt(q.get('w')||'673',10), H=parseInt(q.get('h')||'841',10);
+var W=parseInt(q.get('w')||'673',10), H=parseInt(q.get('h')||'841',10), SP=parseFloat(q.get('sp')||'8');
 var fr=document.getElementById('fr');
 fr.width=W; fr.height=H;
-document.getElementById('lab').textContent=W+' x '+H+' — 경기 HUD (아이템 6칸)';
+var lab=document.getElementById('lab');
+lab.textContent=W+' x '+H+' — 경기 HUD (아이템 6칸)';
 fr.addEventListener('load',function(){
   var w=fr.contentWindow;
   function G(){ return w.__game; }
@@ -36,19 +37,17 @@ fr.addEventListener('load',function(){
       D.result=w.evalDraft();
       w.startMatch(D.result);
       var M=G().M;
-      M.running=true; M.speed=2;
-      w.mmReset(); w.mmJumpTargets(); w.mmStart();
-      for(var i=0;i<700;i++){
-        w.tick(true); w.mmSync();
-        for(var f=0;f<6;f++) w.mmUpdate(50);
-      }
-      var n=0;
-      try{ var it=M.items&&M.items.me; if(it){ Object.keys(it).forEach(function(k){ n+=(it[k].bought||[]).length; }); } }catch(e){}
-      if(n<10){ for(var j=0;j<260;j++){ w.tick(true); w.mmSync(); for(var f2=0;f2<6;f2++) w.mmUpdate(50); } }
+      M.running=true; M.speed=SP;
+      w.mmReset(); w.mmJumpTargets();
       w.renderMatch();
-      try{ w.b4ItemUpdateHud(); }catch(e){}
-      document.title='OK '+M.minute+'분 item='+n;
-    }catch(e){ document.title='ERR '+e; }
+      try{ w.mmStart(); }catch(e){}
+      setInterval(function(){
+        var it=0, n=0;
+        try{ ROLES.forEach(function(r){ ['me','opp'].forEach(function(sd){ var st=M.items&&M.items[sd]&&M.items[sd][r]; it+=(st&&st.bought)?st.bought.length:0; n++; }); }); }catch(e){}
+        lab.textContent=W+' x '+H+' — '+M.minute+'분 · 아이템 '+it+'개';
+        document.title='OK '+W+'x'+H+' '+M.minute+'분 item='+it;
+      },1500);
+    }catch(e){ document.title='ERR '+e; lab.textContent='ERR '+e; }
   }
   setTimeout(boot,400);
 });
