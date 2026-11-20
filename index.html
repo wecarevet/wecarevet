@@ -393,6 +393,110 @@ img{max-width:100%}
   *{transition:none!important}
   .dcard:hover,.qcard:hover,.pill:hover,.tool:hover,.note a:hover{transform:none}
 }
+
+/* ── 원장 프로필(시안 A) ── */
+/* ─────────────────────────────────────────────
+   위케어 원장 소개 섹션 (샘플 시안 v1)
+   index.html의 전역 스타일(:root 토큰, .wrap, .kicker,
+   .sec-title, .sec-sub, body 폰트/배경)을 그대로 쓰고,
+   이 파일은 섹션 전용 규칙만 담습니다.
+   사진 경로: assets/doctor-a.jpg (B안은 doctor-b.jpg)
+   ───────────────────────────────────────────── */
+.vp{padding:2.9rem 0 3rem}
+.vp-head{text-align:center;margin-bottom:1.6rem}
+.vp-card{display:grid;grid-template-columns:312px minmax(0,1fr);background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 26px 54px -38px rgba(16,51,94,.85)}
+.vp-media{display:flex;flex-direction:column;background:#fff;border-right:1px solid #eaf0f8;min-width:0}
+.vp-photo{position:relative;flex:1;min-height:398px;background:linear-gradient(180deg,#fbfdff 0%,#f1f6fc 100%);overflow:hidden}
+.vp-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.vp-cap{display:flex;align-items:center;justify-content:space-between;gap:.5rem;background:#f4f8fd;border-top:1px solid #e8eef7;padding:.62rem .9rem;font-size:9px;letter-spacing:.13em;color:#8296ab;text-transform:uppercase;line-height:1.5}
+.vp-cap b{font-size:9.5px;font-weight:700;letter-spacing:.1em;color:var(--navy)}
+
+.vp-body{padding:1.75rem 1.8rem 1.65rem;display:flex;flex-direction:column;gap:.95rem;min-width:0}
+.vp-name{font-family:var(--serif);font-size:30px;font-weight:600;color:var(--navy);letter-spacing:-.02em;line-height:1.2;display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.vp-name span{font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:700;color:var(--navy);background:var(--accent-light);border:1px solid #c9dcf3;border-radius:6px;padding:2px 8px;letter-spacing:.01em;line-height:1.5}
+.vp-org{font-size:12.3px;color:var(--text-muted);margin-top:-.5rem;letter-spacing:.01em}
+.vp-quote{font-family:var(--serif);font-size:13.8px;font-weight:500;color:var(--navy);line-height:1.85;letter-spacing:-.01em;border-left:3px solid var(--accent-light);padding-left:.85rem;word-break:keep-all}
+.vp-play{font-style:normal;color:var(--accent);font-weight:600}
+.vp-foot{margin-top:auto;padding-top:.7rem;border-top:1px dashed #e6eef8;width:100%}
+.vp-more{display:inline-flex;align-items:center;gap:.3rem;font-size:11.3px;font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid rgba(16,51,94,.24);padding-bottom:1px;line-height:1.6;transition:color .15s,border-color .15s}
+.vp-more span{font-size:10px;color:var(--accent);transition:transform .15s}
+.vp-more:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.vp-more:hover span{transform:translateY(2px)}
+
+.vp-block{display:flex;flex-direction:column;gap:.42rem}
+.vp-key{font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--text-muted);text-transform:uppercase;line-height:1.5}
+.edu-row{display:flex;flex-wrap:wrap;gap:.35rem}
+.edu-pill{display:inline-flex;align-items:center;gap:.35rem;font-size:11.3px;font-weight:600;color:var(--navy);background:var(--navy-xlight);border:1px solid #c9dcf3;border-radius:8px;padding:.32rem .62rem;line-height:1.55;letter-spacing:-.005em}
+.edu-pill i{font-style:normal;width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
+.spec-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem}
+.spec-tile{position:relative;background:var(--navy-xlight);border:1px solid var(--border);border-radius:10px;padding:.5rem .55rem .5rem .7rem;overflow:hidden}
+.spec-tile::before{content:"";position:absolute;left:0;top:.45rem;bottom:.45rem;width:2px;background:var(--accent);border-radius:2px}
+.spec-tile b{display:block;font-size:12.3px;font-weight:700;color:var(--navy);letter-spacing:-.02em;line-height:1.45}
+.spec-tile span{display:block;font-size:9.3px;color:var(--text-muted);line-height:1.5;margin-top:1px;letter-spacing:.005em}
+.spec-chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.1rem}
+.spec-chip{font-size:10.6px;font-weight:500;color:var(--text-mid);background:#fff;border:1px solid var(--border);border-radius:999px;padding:.22rem .6rem;line-height:1.5;white-space:nowrap}
+
+/* 약력 카드 */
+.cv{scroll-margin-top:1.5rem;margin-top:.9rem;background:var(--white);border:1px solid var(--border);border-radius:18px;padding:1.45rem 1.55rem 1.3rem;box-shadow:0 18px 40px -34px rgba(16,51,94,.8)}
+.cv-head{display:flex;align-items:flex-end;justify-content:space-between;gap:.8rem 1rem;flex-wrap:wrap;margin-bottom:.95rem}
+.cv-kicker{font-size:9.5px;font-weight:700;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;line-height:1.5}
+.cv-title{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--navy);letter-spacing:-.02em;line-height:1.45;margin-top:.15rem}
+.cv-sum{font-size:10.3px;color:var(--text-muted);line-height:1.7;font-variant-numeric:tabular-nums;padding-bottom:.15rem}
+.cv-sum b{color:var(--navy);font-weight:700}
+.cv-tabs{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem}
+.cv-tab{font-family:inherit;display:inline-flex;align-items:center;gap:.3rem;padding:7px 13px;border-radius:999px;border:1px solid var(--border);background:#fff;color:var(--text-mid);font-size:12px;font-weight:500;line-height:1.4;cursor:pointer;white-space:nowrap;transition:background .16s,border-color .16s,color .16s,box-shadow .16s}
+.cv-tab:hover{border-color:#b7d0ee;color:var(--navy)}
+.cv-tab[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:0 10px 20px -12px rgba(16,51,94,.85)}
+.cv-cnt{font-size:10.5px;font-weight:600;opacity:.55}
+.cv-tab[aria-selected="true"] .cv-cnt{opacity:.85}
+.cv-tab:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.cv-panel[hidden]{display:none}
+.bk-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem .5rem;list-style:none}
+.bk{display:flex;gap:.5rem;align-items:flex-start;padding:.55rem .65rem;border:1px solid #e9f0f8;border-radius:10px;background:#fbfdff}
+.bk-n{font-family:var(--serif);font-size:10.5px;font-weight:600;color:#a7b8c9;letter-spacing:.03em;flex-shrink:0;padding-top:.12rem}
+.bk-t{font-family:var(--serif);font-size:13px;font-weight:600;color:var(--navy);line-height:1.5;letter-spacing:-.015em}
+.bk-role{display:inline-block;font-size:9px;font-weight:700;margin-top:.22rem;padding:1px 6px;border-radius:4px;line-height:1.6;letter-spacing:.01em;white-space:nowrap}
+.bk-note{display:flex;align-items:center;padding:.3rem .2rem .3rem .7rem;border-left:2px solid #e1ebf7;font-size:10.2px;color:var(--text-muted);line-height:1.75}
+.r-write{background:var(--navy);color:#fff}
+.r-trans{background:var(--accent-light);color:#1f4f8b}
+.r-check{background:#f4ead7;color:var(--sand-ink)}
+.pp-grid{display:grid;gap:.4rem}
+.pp{padding:.6rem .8rem;border:1px solid #e6eef7;border-left:3px solid #b9d4f0;border-radius:4px 10px 10px 4px;background:#fbfdff;display:flex;gap:.6rem;align-items:flex-start}
+.pp-n{font-family:var(--serif);font-size:10.5px;font-weight:600;color:#a7b8c9;padding-top:.2rem;flex-shrink:0}
+.pp-t{font-size:12.3px;font-weight:500;color:var(--navy);line-height:1.6;letter-spacing:.002em;overflow-wrap:anywhere}
+.tr-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem .55rem}
+.tr{display:flex;gap:.45rem;align-items:flex-start;padding:.5rem .6rem;border:1px solid #e6eef7;border-radius:10px;background:#fbfdff}
+.tr-tag{flex-shrink:0;font-size:8.8px;font-weight:700;color:var(--accent);background:var(--accent-light);border-radius:4px;padding:2px 5px;margin-top:1px;letter-spacing:.02em;line-height:1.5}
+.tr-t{font-size:11.4px;color:var(--text);line-height:1.55;letter-spacing:-.005em}
+.soc{display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;margin-top:.7rem;padding-top:.7rem;border-top:1px dashed #e2e9f2}
+.soc-k{font-size:9.3px;font-weight:700;letter-spacing:.12em;color:var(--text-muted);margin-right:.15rem;text-transform:uppercase}
+.soc-chip{font-size:10.6px;font-weight:600;color:var(--navy);background:var(--navy-xlight);border:1px solid var(--border);border-radius:999px;padding:.22rem .6rem;line-height:1.5;white-space:nowrap}
+.vp-note{font-size:10.3px;color:var(--text-muted);line-height:1.8;margin-top:.85rem;display:flex;gap:.4rem;align-items:flex-start}
+.vp-note::before{content:"·";color:var(--accent);font-weight:700}
+
+@media(max-width:760px){
+  .vp{padding:2.2rem 0 2.4rem}
+  .vp-card{grid-template-columns:1fr}
+  .vp-media{border-right:0;border-bottom:1px solid #eaf0f8}
+  .vp-photo{flex:none;aspect-ratio:4/5;min-height:0}
+  .vp-body{padding:1.35rem 1.3rem 1.45rem;gap:.85rem}
+  .vp-name{font-size:25px}
+  .vp-quote{font-size:12.8px;line-height:1.8}
+  .spec-grid{grid-template-columns:1fr;gap:.3rem}
+  .spec-tile{display:flex;align-items:center;gap:.5rem;padding:.42rem .55rem .42rem .7rem}
+  .spec-tile b{font-size:12px}
+  .spec-tile span{margin-top:0;margin-left:auto;font-size:9.2px;text-align:right}
+  .cv{padding:1.2rem 1.1rem 1.1rem;border-radius:16px}
+  .cv-title{font-size:16.5px}
+  .cv-sum{font-size:10.2px;line-height:1.6}
+  .bk-grid,.tr-grid{grid-template-columns:1fr}
+  .cv-tab{font-size:11.2px;padding:6px 11px}
+  .bk{background:#fff;border-color:#edf3fa}
+  .tr{background:#fff;border-color:#edf3fa}
+  .pp{background:#fff;border-color:#edf3fa;border-left-color:#b9d4f0}
+  .pp-t{font-size:11.8px}
+}
+
 </style>
 </head>
 <body>
@@ -552,41 +656,118 @@ img{max-width:100%}
   </div>
 </section>
 
-<section class="doc sec">
+<!-- ─────────────────────────────────────────────
+     위케어 원장 소개 섹션 (샘플 시안 v1)
+     - index.html의 기존 <section class="doc sec"> 블록을 대체하는 안
+     - 섹션 CSS는 section.css, 사진은 wecarevet/assets/에 복사
+     - 사진 교체 시 object-position: top center 유지
+     ───────────────────────────────────────────── -->
+<section class="vp" id="doctor">
   <div class="wrap">
-    <div class="doc-card">
-      <div class="doc-aside">
-        <div class="doc-head">
-          <img class="doc-mark" src="logo-mark.png" width="38" height="38" alt="위케어동물의료센터 로고">
-          <div>
-            <div class="doc-label">의료진</div>
-            <div class="doc-name">박성수 원장<small>심장(심초음파) · 신장 · 영상 진단</small></div>
+    <div class="vp-head">
+      <span class="kicker">의료진 · VETERINARIAN</span>
+      <h2 class="sec-title">박성수 대표원장</h2>
+      <p class="sec-sub">심장병 · 신장병 · 신경계 질환을 내과적으로 진단하고, 약리학을 근거로 치료합니다.</p>
+    </div>
+
+    <article class="vp-card">
+      <div class="vp-media">
+        <div class="vp-photo">
+          <img id="vpPhoto" src="assets/doctor-a.jpg" alt="푸들을 안고 웃고 있는 박성수 대표원장" width="913" height="1280">
+        </div>
+        <div class="vp-cap">
+          <span>WECARE ANIMAL MEDICAL CENTER</span>
+          <b>수의사</b>
+        </div>
+      </div>
+
+      <div class="vp-body">
+        <h3 class="vp-name">박성수 <span>대표원장</span></h3>
+        <p class="vp-org">위케어동물의료센터 · 수의사</p>
+
+        <blockquote class="vp-quote">
+          정확한 진단과 책임 있는 치료, 그리고 <em class="vp-play">아이를 진심으로 아끼는 마음</em>을 최우선 가치로 삼습니다.
+        </blockquote>
+
+        <div class="vp-block">
+          <span class="vp-key">학력</span>
+          <div class="edu-row">
+            <span class="edu-pill"><i></i>중앙대학교 의과대학 약리학 석사</span>
+            <span class="edu-pill"><i></i>강원대학교 수의학과 학사</span>
           </div>
         </div>
-        <blockquote class="doc-quote">
-          정확한 진단과 책임 있는 치료, 그리고<br>
-          <em>아이를 진심으로 아끼는 마음을 최우선 가치로 삼습니다.</em>
-        </blockquote>
-        <div class="doc-tags">
-          <span class="dtag">심장초음파</span>
-          <span class="dtag">ACVIM 회원</span>
-          <span class="dtag">내분비·면역매개 질환</span>
-          <span class="dtag">중증 내과</span>
-          <span class="dtag">WVAC 참가</span>
-          <span class="dtag">Osaka Metropolitan Univ. 연수</span>
-          <span class="dtag">UPC·SDMA·IRIS 평가</span>
+
+        <div class="vp-block">
+          <span class="vp-key">전문 분야</span>
+          <div class="spec-grid">
+            <div class="spec-tile"><b>심장병</b><span>내과적 진단 · 치료</span></div>
+            <div class="spec-tile"><b>신장병</b><span>내과적 진단 · 치료</span></div>
+            <div class="spec-tile"><b>신경계 질환</b><span>내과적 진단 · 치료</span></div>
+          </div>
+          <div class="spec-chips">
+            <span class="spec-chip">약리학 기반 임상 적용</span>
+            <span class="spec-chip">반려동물 심화 진료</span>
+          </div>
+        </div>
+
+        <div class="vp-foot">
+          <a class="vp-more" href="#credentials">저서 · 논문 · 연수 보기 <span>↓</span></a>
         </div>
       </div>
-      <div class="doc-body">
-        <div class="doc-spec"><span class="doc-spec-k">진료 전문 분야</span><span class="doc-spec-v">심장 · 신장 · 고난이도 내과 전문</span></div>
-        <div class="doc-text">
-          <p>내과 수의학에서 가장 넓고, 가장 복잡한 분야를 다루며, 가장 까다로운 요구를 받는 분야입니다.<br>
-          위케어동물의료센터는 대학병원급 진단 프로토콜을 기반으로 <strong>심장질환, 신장질환, 내분비·면역매개성 난치성 질환, 중증 내과 케이스를 직접 진단하고 치료</strong>하는 동물병원입니다.</p>
-          <p>수년간 다양한 중증 환자 케이스를 직접 관리하며 심장초음파, 신장 검사(UPC·SDMA·IRIS), 내분비 평가, 면역질환 감별 그리고 복잡한 환자의 장기별 상호작용 분석까지 한 번에 보고 해석할 수 있는 임상 경험과 내과적 판단 능력을 갖추고 있습니다.</p>
-          <p><strong>위케어는 단순히 검사 수치를 보는 병원이 아닙니다.<br>병의 '맥락'을 읽고, 예후를 미리 판단하며, 악화를 멈추는 진료를 목표로 합니다.</strong></p>
+    </article>
+
+    <article class="cv" id="credentials">
+      <div class="cv-head">
+        <div>
+          <span class="cv-kicker">약력 · CREDENTIALS</span>
+          <h3 class="cv-title">저서와 논문, 연수 기록</h3>
+        </div>
+        <p class="cv-sum">출판 참여 <b>5</b>권 · 학술 논문 <b>3</b>편 · 연수 <b>6</b>건 · 소속·학회 <b>3</b>곳</p>
+      </div>
+
+      <div class="cv-tabs" role="tablist" aria-label="원장 약력">
+        <button class="cv-tab" role="tab" id="tab-books" aria-controls="panel-books" aria-selected="true" data-tab="books">저서 · 출판 <span class="cv-cnt">5</span></button>
+        <button class="cv-tab" role="tab" id="tab-papers" aria-controls="panel-papers" aria-selected="false" data-tab="papers" tabindex="-1">학술 논문 <span class="cv-cnt">3</span></button>
+        <button class="cv-tab" role="tab" id="tab-training" aria-controls="panel-training" aria-selected="false" data-tab="training" tabindex="-1">연수 · 학회 <span class="cv-cnt">6</span></button>
+      </div>
+
+      <div class="cv-panel" id="panel-books" role="tabpanel" aria-labelledby="tab-books">
+        <ul class="bk-grid" style="list-style:none">
+          <li class="bk"><span class="bk-n">01</span><div><div class="bk-t">《증례로 보는 소동물 심장학》</div><span class="bk-role r-write">집필 참여</span></div></li>
+          <li class="bk"><span class="bk-n">02</span><div><div class="bk-t">《임상가를 위한 소동물 신장학 진단과 치료지침》</div><span class="bk-role r-check">교정 참여</span></div></li>
+          <li class="bk"><span class="bk-n">03</span><div><div class="bk-t">《개와 고양이의 실전 뇌전증 관리》</div><span class="bk-role r-trans">번역</span></div></li>
+          <li class="bk"><span class="bk-n">04</span><div><div class="bk-t">《수의사를 위한 동물병원 바이블》</div><span class="bk-role r-trans">번역 참여</span></div></li>
+          <li class="bk"><span class="bk-n">05</span><div><div class="bk-t">《알기 쉬운 약리학》</div><span class="bk-role r-check">검수</span></div></li>
+          <li class="bk-note">심장 · 신장 · 신경 · 약리 분야 서적에 집필 · 번역 · 검수로 참여했습니다.</li>
+        </ul>
+      </div>
+
+      <div class="cv-panel" id="panel-papers" role="tabpanel" aria-labelledby="tab-papers" hidden>
+        <div class="pp-grid">
+          <div class="pp"><span class="pp-n">01</span><span class="pp-t">Evaluation of efficacy of tolvaptan in dogs with MMVD and cardiorenal syndrome</span></div>
+          <div class="pp"><span class="pp-n">02</span><span class="pp-t">Extract of Humulus japonicus inhibits lipogenesis and promotes lipolysis via PKA/p38 signaling</span></div>
+          <div class="pp"><span class="pp-n">03</span><span class="pp-t">AMPK/autophagy-mediated alleviation of tendinopathy by IL-38: A novel strategy for the treatment of obesity-related tendinopathy</span></div>
+        </div>
+        <p class="vp-note">심장·신장(심장신증후군), 약리, 비만 관련 대사 질환을 주제로 한 논문입니다.</p>
+      </div>
+
+      <div class="cv-panel" id="panel-training" role="tabpanel" aria-labelledby="tab-training" hidden>
+        <div class="tr-grid">
+          <div class="tr"><span class="tr-tag">심장</span><span class="tr-t">V-Clamp 심장수술 핸즈온 코스 수료</span></div>
+          <div class="tr"><span class="tr-tag">심장</span><span class="tr-t">V-ACADEMY 현창백 박사 심장학 세미나</span></div>
+          <div class="tr"><span class="tr-tag">정형</span><span class="tr-t">대전성심병원 TPLO · 슬개골 탈구 수술 연수</span></div>
+          <div class="tr"><span class="tr-tag">안과</span><span class="tr-t">눈초롱 동물병원 안과 세미나</span></div>
+          <div class="tr"><span class="tr-tag">해외</span><span class="tr-t">오사카시립 수의과대학 실습</span></div>
+          <div class="tr"><span class="tr-tag">학회</span><span class="tr-t">세계수의사대회(WVAC) · 미국수의내과학회(ACVIM) · 상하이 심장학회(CFVD 2024)</span></div>
+        </div>
+        <div class="soc">
+          <span class="soc-k">소속 · 학회</span>
+          <span class="soc-chip">대한수의학회 정회원</span>
+          <span class="soc-chip">한국수의심장학회 정회원</span>
+          <span class="soc-chip">중앙대 의대 약리학연구실</span>
         </div>
       </div>
-    </div>
+    </article>
   </div>
 </section>
 
@@ -1228,6 +1409,35 @@ img{max-width:100%}
       try{ input.focus({preventScroll:true}); }catch(err){ input.focus(); }
     });
   });
+})();
+</script>
+<script>
+(function(){
+  var tabs = [].slice.call(document.querySelectorAll('.cv-tab'));
+  if (!tabs.length) return;
+  var panels = {
+    books: document.getElementById('panel-books'),
+    papers: document.getElementById('panel-papers'),
+    training: document.getElementById('panel-training')
+  };
+  function select(name){
+    tabs.forEach(function(t){
+      var on = t.dataset.tab === name;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    Object.keys(panels).forEach(function(k){ if (panels[k]) panels[k].hidden = (k !== name); });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ select(t.dataset.tab); });
+    t.addEventListener('keydown', function(e){
+      var i = tabs.indexOf(t), n = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = tabs[(i+1) % tabs.length];
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = tabs[(i-1+tabs.length) % tabs.length];
+      if (n) { e.preventDefault(); n.focus(); select(n.dataset.tab); }
+    });
+  });
+  select('books');
 })();
 </script>
 <script src="wecare-ui.js" defer></script>
