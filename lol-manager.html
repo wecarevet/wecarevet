@@ -20867,8 +20867,11 @@ const CAMP_BLUE=[
   {k:'red',   n:'레드',   ic:'🔶', x:0.522, y:0.704, kind:'buff', respawn:300},
   {k:'krugs', n:'크럽',   ic:'🪨', x:0.565, y:0.800, kind:'sm', respawn:135},
 ];
-/* 협곡 게: 실제 강가 위치 (탑 강가 · 봇 강가) */
-const SCUTTLE_DEF=[{k:'scuttleTop', n:'협곡 게', x:0.314, y:0.357},{k:'scuttleBot',n:'협곡 게',x:0.686,y:0.643}];
+/* 협곡 게: 실제 강가 위치 (탑 강가 · 봇 강가)
+   V33.1 — sr-minimap-2024.jpg 픽셀 측정: 강어귀의 둥근 강가 웅덩이 중심
+   (탑 100,104 · 봇 407.5,397.5 / 512px, MM_BG_INSET 반영 후 캔버스 좌표).
+   핏(드래곤 0.674,0.708 · 바론 0.329,0.289)과 0.1 이상 떨어져 아이콘·라벨이 겹치지 않는다. */
+const SCUTTLE_DEF=[{k:'scuttleTop', n:'협곡 게', x:0.188, y:0.196},{k:'scuttleBot',n:'협곡 게',x:0.803,y:0.783}];
 const CAMP_FIRST=90;      /* 01:30 버프·늑대·칼날부리 (돌거북·두꺼비는 01:40) */
 const CAMP_FIRST_LATE=100;/* 01:40 돌거북·두꺼비 */
 const SCUTTLE_FIRST=210;  /* 03:30 협곡 게 */
@@ -20911,7 +20914,10 @@ const LANE_POS={
   ADC:{me:[0.856,0.868],opp:[0.888,0.836]},
   SUP:{me:[0.842,0.884],opp:[0.898,0.822]},
 };
-const PIT={dragon:[0.700,0.720],baron:[0.300,0.280],grub:[0.300,0.280]};
+/* 오브젝트 핏 중심 — sr-minimap-2024.jpg 의 실제 둥지(물웅덩이) 픽셀 중심.
+   이미지 512px 기준 드래곤 (343,360) · 바론 (170.5,150.5), 배경 인셋(MM_BG_INSET=0.012)을
+   되돌린 캔버스 좌표 = 1.024*u-0.012 (V33.1 — 우측 벽/강가로 밀려 있던 좌표 수정). */
+const PIT={dragon:[0.674,0.708],baron:[0.329,0.289],grub:[0.329,0.289]};
 const OBJ_TIMES={dragon:[5,11,17,23,29],grub:[6,10],herald:[14],baron:[20,26,32]};
 const SIDE_COL={me:'#4fa8ff',opp:'#ff5570'};
 
@@ -21643,12 +21649,21 @@ function mmRecallPin(){
 /* ---------- 텔레포트 ---------- */
 /* V32 — 360초(10분 이후 240초) · 목적지 근처면 낭비 금지 · 목적지 기준 타워/와드 착지 */
 function mmTpCdSec(sec){ return (Number(sec)||0)>=600?240:360; }
+/* 게임 시간(초) — 10분(600초) 경계 판정용 */
+function mmTpSec(){
+  try{ if(typeof mmGameSec==='function') return mmGameSec(); }catch(e){}
+  return ((M&&M.minute)||0)*60;
+}
 function mmTryTeleport(u,tx,ty,sec){
   if(u.tp||u.flash>0) return false;
   if((u.tpCd||0)>sec) return false;
   const d=Math.hypot(tx-u.x,ty-u.y);
   if(d<0.22) return false;                       /* 이미 목적지 근처 — 텔포 낭비 금지 */
   const target=mmTpTarget(u.side,u.role,tx,ty);
+  /* V33.1 — 착지점이 지금 서 있는 자리보다 목적지에 실제로 더 가까워질 때만 쓴다
+     (먼 탑 타워로 타는 낭비 · 벽 너머 착지 금지) */
+  const gain=Math.hypot(u.x-tx,u.y-ty)-Math.hypot(target[0]-tx,target[1]-ty);
+  if(!(gain>0.10)) return false;
   u.tp={left:4, x:target[0], y:target[1], toX:tx, toY:ty};
   if(u.side==='me'&&M) M.tpAt=M.minute;
   u.tpCd=sec+mmTpCdSec(sec);
@@ -21656,17 +21671,76 @@ function mmTryTeleport(u,tx,ty,sec){
   MM.tpCount++;
   mmAddFx({type:'tpring',x:u.x,y:u.y,life:900,col:'#b98cff'});
   if(u.side==='me'&&typeof logEvent==='function'){
-    const where=(typeof v6TpLog==='function')?v6TpLog('me',u.role):(ROLE_KR[u.role]+' 라인');
+    const where=(typeof v6TpLog==='function')?v6TpLog('me',u.role,target):(ROLE_KR[u.role]+' 라인');
     logEvent('sys','🌀 '+(lineupAt('me',u.role).name||ROLE_KR[u.role])+' 텔레포트 — '+where+' 합류');
   }
   return true;
 }
-function mmTpTarget(side,role){
-  /* 아군 타워(2차) 또는 와드 위치 — 사이드면 사이드 라인 타워, 아니면 교전 지점 */
-  const lane=role==='TOP'?'TOP':role==='MID'?'MID':'BOT';
-  const f=side==='me'?0.30:0.70;
-  const p=mmLaneFrontPos(lane,side,0.02);
-  return [clamp(p[0]*0.55+f*0.45,0.05,0.95),clamp(p[1]*0.55+(1-f)*0.45,0.05,0.95)];
+/* V33.1 — 텔레포트 착지점: 합류 목적지(tx,ty)에 가장 가까운 아군 생존 타워(1~3차)·아군 와드.
+   · 10분(600초) 이전에는 타워에만 착지한다 (와드는 10분 이후부터)
+   · 목적지 없이 부르면 예전처럼 자기 라인에서 가장 앞선 생존 타워 → 다른 라인 → 넥서스 순 */
+function mmTpTarget(side,role,tx,ty){
+  const hasDest=(tx!=null&&ty!=null&&isFinite(tx)&&isFinite(ty));
+  const towersOnly=mmTpSec()<600;               /* 10분 이전: 타워만 */
+  if(hasDest){
+    let best=null,bd=Infinity;
+    try{
+      ['TOP','MID','BOT'].forEach(function(l){
+        const arr=(M&&M.tw&&M.tw[side]&&M.tw[side][l])||[1,1,1];
+        ((typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[side]&&MAP_TOWERS[side][l])||[]).forEach(function(p,i){
+          if(!arr[i]) return;                    /* 부서진 타워에는 타지 않는다 */
+          const dd=Math.hypot(p[0]-tx,p[1]-ty);
+          if(dd<bd){ bd=dd; best=[p[0],p[1],'tower']; }
+        });
+      });
+    }catch(e){}
+    if(!towersOnly){
+      try{
+        const vw=(M&&M.visionWar&&M.visionWar.wards)?(M.visionWar.wards[side]||[]):[];
+        vw.forEach(function(w){
+          if(!w||!isFinite(w.x)||!isFinite(w.y)) return;
+          const dd=Math.hypot(w.x-tx,w.y-ty);
+          if(dd<bd){ bd=dd; best=[w.x,w.y,'ward']; }
+        });
+      }catch(e){}
+    }
+    if(best) return [best[0],best[1]];
+    /* 살아있는 아군 구조물이 없으면 넥서스 타워 → 본진 */
+    try{
+      const nex=(side==='me'?M.tw.meNex:M.tw.oppNex)||[1,1];
+      const npts=(MAP_TOWERS[side]&&MAP_TOWERS[side].NEXUS)||[];
+      for(let i=npts.length-1;i>=0;i--){ if(nex[i]&&npts[i]) return [npts[i][0],npts[i][1]]; }
+    }catch(e){}
+    return MM_NEXUS[side]||[0.09,0.91];
+  }
+  /* ---- 목적지 없는 호출: 기존 동작 유지 ---- */
+  const lane=(typeof v6TpLane==='function')?v6TpLane(role):(role==='TOP'?'TOP':role==='MID'?'MID':'BOT');
+  /* 10분 이후: 교전/오브젝트 근처 아군 와드 */
+  if(!towersOnly&&typeof v6AllyWardNear==='function'){
+    let focus=null;
+    try{
+      if(M&&M.focus) focus=M.focus;
+      else if(M&&M.objMacro&&M.objMacro.kind&&typeof PIT!=='undefined') focus=PIT[M.objMacro.kind==='grub'?'baron':M.objMacro.kind];
+    }catch(e){}
+    if(!focus&&typeof PIT!=='undefined') focus=PIT.dragon;
+    const w=focus?v6AllyWardNear(side,focus,0.26):null;
+    if(w) return [w.x,w.y];
+  }
+  if(typeof v6FurthestAllyTower==='function'){
+    const tw=v6FurthestAllyTower(side,lane);
+    if(tw) return tw.pt;
+    const others=['TOP','MID','BOT'].filter(function(l){ return l!==lane; });
+    for(let i=0;i<others.length;i++){
+      const t2=v6FurthestAllyTower(side,others[i]);
+      if(t2) return t2.pt;
+    }
+    try{
+      const nex=(side==='me'?M.tw.meNex:M.tw.oppNex)||[1,1];
+      const npts=(MAP_TOWERS[side]&&MAP_TOWERS[side].NEXUS)||[];
+      for(let i=npts.length-1;i>=0;i--){ if(nex[i]&&npts[i]) return [npts[i][0],npts[i][1]]; }
+    }catch(e){}
+  }
+  return MM_NEXUS[side]||[0.09,0.91];
 }
 
 /* ---------- 이벤트 동기화 ---------- */
@@ -22889,7 +22963,11 @@ function mmDraw(dt){
   const elderActive=M.elderAt&&M.minute>=M.elderAt;
   const pitIcon=(kind,icon)=>kind==='dragon'?(soulActive?'💠':icon):kind==='baron'&&elderActive?'🐲':icon;
   const pitCol=(kind,col)=>kind==='dragon'?(soulActive?'#b98cff':col):kind==='baron'&&elderActive?'#ff5c9a':col;
-  [['dragon',0.700,0.720,'🐉','#ff8a5c'],['baron',0.300,0.280,'👁','#b98cff'],['grub',0.280,0.320,'🪱','#ffc94a']].forEach(([kind,x,y,icon0,col0])=>{
+  /* V33.1 — 핏 아이콘 좌표는 PIT 한 곳에서만 가져온다 (이미지의 실제 둥지 중심).
+     같은 둥지를 쓰는 바론/유충은 시간대에 따라 하나만 그린다 (두 아이콘 겹침 방지) */
+  const topPitK=((M.minute||0)<14)?'grub':'baron';
+  [['dragon',PIT.dragon[0],PIT.dragon[1],'🐉','#ff8a5c'],
+   [topPitK,PIT[topPitK][0],PIT[topPitK][1],topPitK==='grub'?'🪱':'👁',topPitK==='grub'?'#ffc94a':'#b98cff']].forEach(([kind,x,y,icon0,col0])=>{
     const icon=pitIcon(kind,icon0), col=pitCol(kind,col0);
     const dead=MM.marks.some(mk=>mk.type===kind&&(M.minute-mk.at)<4);
     ctx.beginPath(); ctx.arc(x*w,y*h,Math.max(11,w*0.045),0,7);
@@ -23761,10 +23839,21 @@ function mmdObjRoles(obj, atSec){
 function mmdObjCount(obj, atSec){ return mmdObjRoles(obj,atSec).length; }
 
 function mmdPitPoint(kind){
-  if(kind==='grub'||kind==='herald') return [0.300,0.280];
-  if(kind==='baron'||kind==='elder') return [0.300,0.280];
-  if(kind==='scuttle') return [0.415,0.375];
-  return [0.700,0.720];
+  /* V33.1 — 핏 좌표는 ui-minimap 의 PIT 하나만 신뢰한다 (이미지 실제 둥지 중심) */
+  const P=(typeof PIT!=='undefined')?PIT:null;
+  if(kind==='grub'||kind==='herald') return P?[P.grub[0],P.grub[1]]:[0.329,0.289];
+  if(kind==='baron'||kind==='elder') return P?[P.baron[0],P.baron[1]]:[0.329,0.289];
+  if(kind==='scuttle'){
+    /* 사이드 선택이 있으면 그 쪽 바위게 자리로 */
+    try{
+      const lane=(M&&M.scuttleWar&&M.scuttleWar.lane)||'TOP';
+      const def=(typeof SCUTTLE_DEF!=='undefined')?SCUTTLE_DEF:null;
+      const d=def?(def.filter(function(x){ return x.k===(lane==='BOT'?'scuttleBot':'scuttleTop'); })[0]||def[0]):null;
+      if(d) return [d.x,d.y];
+    }catch(e){}
+    return [0.188,0.196];
+  }
+  return P?[P.dragon[0],P.dragon[1]]:[0.674,0.708];
 }
 /* 결과 이벤트 → 비트 (모여들기 pre → 충돌 0 → 흩어지기 post) */
 function mmdBeatFromNote(n){
@@ -23787,7 +23876,8 @@ function mmdBeatFromNote(n){
     push({kind:'siege',at:s,pre:10,post:8,x:tw[0],y:tw[1],lane:lane,side:i.side||'me',
       roles:i.side==='me'?['TOP','MID','ADC']:['TOP','MID','ADC'],label:'타워 공성'});
   }else if(n.kind==='scuttle'){
-    push({kind:'obj',at:s,pre:15,post:8,x:0.415,y:0.375,obj:'scuttle',side:i.team||null,
+    const sp=mmdPitPoint('scuttle');
+    push({kind:'obj',at:s,pre:15,post:8,x:sp[0],y:sp[1],obj:'scuttle',side:i.team||null,
       roles:['JGL','MID','TOP'],label:'바위게'});
   }
 }
@@ -23822,18 +23912,39 @@ function mmdActiveBeats(sec){
   }
   return out;
 }
+/* V33.1 — 초반 정글러 보호. 아래 둘 중 하나면 교전(fight) 비트에 끌려가지 않는다:
+   ① 3분(180초) 이전 — 캠프/커버 우선. 1레벨 인베이드(스틸) 설계라도 '적 정글 인베이드 지점'의
+      교전만 따라가고, 미드 한가운데 난전에는 끌려가지 않는다
+   ② 7분(420초) 이전이면서 첫 풀캠프 동선(mmdJungleClearing) 수행 중 — 미드 난전 금지 */
+function mmdJungleProtect(side,role,beat,sec){
+  if(role!=='JGL'||!beat||beat.kind!=='fight') return false;
+  const s=(sec==null)?mmdSec():Number(sec)||0;
+  const gp=(M&&M.gp)||{};
+  const invade=(gp.level1==='fiveMan')||(gp.invade==='steal');
+  if(s<180){
+    if(!invade) return true;                       /* 3분 이전: 캠프·커버 우선 */
+    const bx=(beat.x==null)?0.5:Number(beat.x), by=(beat.y==null)?0.5:Number(beat.y);
+    const w=MMD_INVADE_WAIT.JGL;
+    const ip=(side==='opp')?[1-w[0],1-w[1]]:[w[0],w[1]];
+    return Math.hypot(bx-ip[0],by-ip[1])>0.12;     /* 적 정글 인베이드 교전만 허용 */
+  }
+  if(s<420&&mmdJungleClearing(s,side)) return true; /* 첫 풀캠프 중이면 미드 난전 금지 */
+  return false;
+}
 function mmdBeatFor(side,role,sec){
   const bs=mmdActiveBeats(sec);
   for(let i=0;i<bs.length;i++){
     const b=bs[i];
     if(b.roles&&b.roles.indexOf(role)>=0&&!b.planned){
       if(b.kind==='obj'&&b.obj&&typeof v6PitGuard==='function'&&!v6PitGuard(b.obj,sec/60)) continue;
+      if(mmdJungleProtect(side,role,b,sec)) continue;
       return b;
     }
   }
   for(let i=0;i<bs.length;i++){
     if(!bs[i].planned||bs[i].roles.indexOf(role)<0) continue;
     if(bs[i].kind==='obj'&&bs[i].obj&&typeof v6PitGuard==='function'&&!v6PitGuard(bs[i].obj,sec/60)) continue;
+    if(mmdJungleProtect(side,role,bs[i],sec)) continue;
     return bs[i];
   }
   return null;
@@ -30912,6 +31023,11 @@ function v6JungleFix(){
     if(atCamp&&!mmCampAlive(atCamp,sec)){
       const nxt=mmNearestCamp(side,'JGL',u.x,u.y,sec);
       if(nxt){ MM.tgt[key]={x:nxt.x,y:nxt.y}; u.mode='jungle'; u.camp=nxt.k; }
+      else if(sec<150){
+        /* V33.1 — 01:30 첫 캠프가 아직 살아나지 않은 시각에는 미드 갱 대신 자기 첫 캠프로 */
+        const c0=(MM.camps[side]||[])[0];
+        if(c0){ MM.tgt[key]={x:c0.x,y:c0.y}; u.mode='jungle'; u.camp=c0.k; }
+      }
       else{
         const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos('MID',side,0.02):[0.5,0.5];
         MM.tgt[key]={x:p[0],y:p[1]}; u.mode='gank';
@@ -30931,6 +31047,12 @@ function v6JungleFix(){
       u._idle=0;
       const nxt=mmNearestCamp(side,'JGL',u.x,u.y,sec);
       if(nxt){ MM.tgt[key]={x:nxt.x,y:nxt.y}; u.mode='jungle'; u.camp=nxt.k; }
+      else if(sec<150){
+        /* V33.1 — 01:30 첫 캠프가 아직 살아나지 않은 시각에는 라인 갱 대신 자기 첫 캠프 자리로 간다
+           (예전엔 빈 캠프 때문에 무작위 라인 갱 → 양 팀 정글러가 1:25에 미드 한가운데서 싸움) */
+        const c0=(MM.camps[side]||[])[0];
+        if(c0){ MM.tgt[key]={x:c0.x,y:c0.y}; u.mode='jungle'; u.camp=c0.k; }
+      }
       else{
         const lane=['TOP','MID','BOT'][Math.floor(Math.random()*3)];
         const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos(lane,side==='me'?'me':'opp',0.02):[0.5,0.5];
@@ -31501,73 +31623,36 @@ function v6AllyWardNear(side,focus,radius){
   }catch(e){}
   return null;
 }
-/* 기존 mmTpTarget 을 대체 — 빈 땅으로 타지 않는다.
-   V32: 합류 목적지(tx,ty)가 주어지면 그 근처의 아군 타워·와드로 찍는다 (자기 라인 고정 금지) */
-function mmTpTarget(side,role,tx,ty){
-  const lane=v6TpLane(role);
-  const m=(M&&M.minute)||0;
-  /* 0) 실제 합류 목적지가 주어졌으면 목적지 주변 아군 와드 → 아군 타워 순으로 찍는다 */
-  if(tx!=null&&ty!=null&&isFinite(tx)&&isFinite(ty)){
-    let ward=null,wd=9;
-    try{
-      const vw=(M&&M.visionWar&&M.visionWar.wards)?(M.visionWar.wards[side]||[]):[];
-      vw.forEach(function(w){
-        const d=Math.hypot(w.x-tx,w.y-ty);
-        if(d<wd){ wd=d; ward=w; }
-      });
-    }catch(e){ ward=null; }
-    if(ward&&wd<=0.20) return [ward.x,ward.y];
-    let twBest=null,td=9;
+/* V33.1 — 텔레포트 착지점 계산은 ui-minimap.js 의 mmTpTarget 한 곳으로 모았다.
+   (여기서 같은 이름으로 재정의하면 그쪽 수정이 가려지므로 override 를 두지 않는다.
+    v6TpLane · v6FurthestAllyTower · v6AllyWardNear 는 그쪽에서 그대로 쓰는 도우미다.) */
+/* 텔레포트 시작 시 목적지 라벨 — 착지 좌표가 있으면 그 구조물(탑 2차 타워/와드/본진) 이름 */
+function v6TpLog(side,role,at){
+  if(!M) return '';
+  const laneKr={TOP:'탑',MID:'미드',BOT:'봇'};
+  const tierKr=function(t){ return t===1?'1차':t===2?'2차':'3차'; };
+  if(at&&isFinite(at[0])&&isFinite(at[1])){
+    let best=null,bd=0.02;
     try{
       ['TOP','MID','BOT'].forEach(function(l){
-        const arr=(M.tw&&M.tw[side]&&M.tw[side][l])||[1,1,1];
         ((MAP_TOWERS[side]&&MAP_TOWERS[side][l])||[]).forEach(function(p,i){
-          if(!arr[i]) return;
-          const d=Math.hypot(p[0]-tx,p[1]-ty);
-          if(d<td){ td=d; twBest=p; }
+          const dd=Math.hypot(p[0]-at[0],p[1]-at[1]);
+          if(dd<bd){ bd=dd; best={lane:l,tier:i+1}; }
         });
       });
-    }catch(e){ twBest=null; }
-    if(twBest&&td<=0.24) return [twBest[0],twBest[1]];
-    /* 목적지 근처에 타워·와드가 없으면 목적지에서 아군 진영 쪽으로 살짝 붙인 자리 */
-    const f=MM_NEXUS[side]||[0.09,0.91];
-    const dx=f[0]-tx, dy=f[1]-ty, dd=Math.hypot(dx,dy)||1;
-    return [v6ClampTp(tx+dx/dd*0.035),v6ClampTp(ty+dy/dd*0.035)];
-  }
-  /* 10분 이후: 교전/오브젝트 근처에 아군 와드가 있으면 그 와드로 */
-  if(m>=10){
-    let focus=null;
-    try{
-      if(M&&M.focus) focus=M.focus;
-      else if(M&&M.objMacro&&M.objMacro.kind&&typeof PIT!=='undefined') focus=PIT[M.objMacro.kind==='grub'?'baron':M.objMacro.kind];
     }catch(e){}
-    if(!focus) focus=(typeof PIT!=='undefined')?PIT.dragon:[0.70,0.72];
-    const w=v6AllyWardNear(side,focus,0.26);
-    if(w) return [w.x,w.y];
+    if(best) return (laneKr[best.lane]||'미드')+' '+tierKr(best.tier)+' 타워';
+    try{
+      const npts=(MAP_TOWERS[side]&&MAP_TOWERS[side].NEXUS)||[];
+      for(let i=0;i<npts.length;i++){
+        if(Math.hypot(npts[i][0]-at[0],npts[i][1]-at[1])<0.03) return '본진'; 
+      }
+    }catch(e){}
+    return '와드';
   }
-  /* 그 라인에서 가장 앞선 살아있는 아군 타워 */
-  const tw=v6FurthestAllyTower(side,lane);
-  if(tw) return tw.pt;
-  /* 라인 타워가 전부 부서졌으면 다른 라인 → 넥서스 타워 → 본진 */
-  const others=['TOP','MID','BOT'].filter(function(l){ return l!==lane; });
-  for(let i=0;i<others.length;i++){
-    const t2=v6FurthestAllyTower(side,others[i]);
-    if(t2) return t2.pt;
-  }
-  try{
-    const nex=(side==='me'?M.tw.meNex:M.tw.oppNex)||[1,1];
-    const npts=(MAP_TOWERS[side]&&MAP_TOWERS[side].NEXUS)||[];
-    for(let i=npts.length-1;i>=0;i--){ if(nex[i]&&npts[i]) return [npts[i][0],npts[i][1]]; }
-  }catch(e){}
-  return MM_NEXUS[side];
-}
-/* 텔레포트 시작 시 목적지 라벨을 실제 타워 이름으로 남긴다 */
-function v6TpLog(side,role){
-  if(!M) return '';
   const lane=v6TpLane(role);
   const tw=v6FurthestAllyTower(side,lane);
-  const laneKr={TOP:'탑',MID:'미드',BOT:'봇'}[lane]||'미드';
-  return laneKr+(tw?(' '+(tw.tier===1?'1차':tw.tier===2?'2차':'3차')+' 타워'):' 본진');
+  return (laneKr[lane]||'미드')+(tw?(' '+tierKr(tw.tier)+' 타워'):' 본진');
 }
 
 /* ==========================================================================
@@ -35416,9 +35501,14 @@ function jglMidGapPoint(side){
     return [t[0]+0.022,t[1]-0.052];
   }catch(e){ return side==='me'?[0.379,0.624]:[0.621,0.376]; }
 }
-/* 칼날부리(3) ↔ 늑대(2) 이동은 미드 라인을 가로지르지 않고 정글 통로로 돈다 */
+/* 레드 진영(3,4,5) ↔ 블루 진영(0,1,2) 사이의 이동은 모두 미드 라인을 가로지른다.
+   V33.1 — 기존엔 (3↔2)만 막아서 5(크럽)→2(늑대) 이동이 미드를 직선 횡단했다.
+   이제 진영을 넘는 모든 이동을 아군 미드 1차 뒤 정글 통로로 우회시킨다. */
 function jglCrossMid(a,b){
-  return (a===3&&b===2)||(a===2&&b===3);
+  if(a==null||b==null) return false;
+  const A=Number(a), B=Number(b);
+  if(!isFinite(A)||!isFinite(B)) return false;
+  return (A>=3&&B<=2)||(A<=2&&B>=3);
 }
 /* ---------- 미니맵 목표 (파이프라인 중간) ---------- */
 function jglMinimap(sec){
