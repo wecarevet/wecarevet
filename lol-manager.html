@@ -35556,16 +35556,21 @@ function jglMinimap(sec){
       pt=jglCampPos(side,st.idx);
       const c=jglCampList(side)[st.idx];
       if(c) u.camp=c.k;
-      /* V32 — 칼날부리↔늑대 직선 횡단 금지: 아군 미드 1차 뒤 정글 통로 경유 */
-      if(jglCrossMid((j.prevCamp!=null?j.prevCamp:j.lastCamp),st.idx)){
+      /* V32/V33.1 — 진영을 넘는 이동은 미드 한가운데를 직선 횡단하지 않고 아군 미드 1차 뒤 정글 통로로 돈다.
+         통로에 한 번 들어서면(viaDone) 같은 캠프로는 다시 돌아오지 않아 덜덜거리지 않고, 로그는 캠프당 한 번만 남긴다. */
+      if(j._viaIdx!==st.idx){ j._viaIdx=st.idx; j.viaDone=false; j.viaTo=null; j.viaLogged=false; }
+      if(jglCrossMid((j.prevCamp!=null?j.prevCamp:j.lastCamp),st.idx)&&!j.viaDone){
         const via=jglMidGapPoint(side);
         if(Math.hypot(u.x-via[0],u.y-via[1])>0.032){
           pt=via; mode='jungle';
           if(j.viaTo!==st.idx){
             j.viaTo=st.idx;
-            try{ jglLog(side,'🧭 정글 통로 우회 — 미드 한가운데를 가로지르지 않고 '+((st.idx===2)?'늑대':'칼날부리')+' 쪽으로 돕니다.'); }catch(e){}
+            if(!j.viaLogged){
+              j.viaLogged=true;
+              try{ jglLog(side,'🧭 정글 통로 우회 — 미드 한가운데를 가로지르지 않고 '+((st.idx===2)?'늑대':'칼날부리')+' 쪽으로 돕니다.'); }catch(e){}
+            }
           }
-        }else if(j.viaTo===st.idx){ j.viaTo=null; }
+        }else{ j.viaDone=true; j.viaTo=null; }
       }else{ j.viaTo=null; }
     }else if(st.k==='gank'){
       pt=jglLanePoint(side,st.lane);
