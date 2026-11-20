@@ -3653,8 +3653,14 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .v34g-k i{font-style:normal;color:#6f7887}
 .v34g-mos{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
 .v34g-mo{background:#12161f;border:1px solid #222a38;border-radius:5px;padding:1px 5px;font-weight:800;color:#dfe6f2;font-variant-numeric:tabular-nums}
-.v34g-box{width:100%;background:linear-gradient(180deg,#0a0f18,#070b12);border:1px solid #1b2331;border-radius:9px;padding:2px;overflow:hidden}
+.v34g-box{position:relative;width:100%;background:linear-gradient(180deg,#0a0f18,#070b12);border:1px solid #1b2331;border-radius:9px;padding:4px 6px 0;overflow:hidden}
+.v34g-canvas{position:relative;margin-left:22px}
 .v34g-svg{display:block;width:100%;height:150px}
+.v34g-yl{position:absolute;left:5px;top:6px;bottom:16px;display:flex;flex-direction:column;justify-content:space-between;
+  font-size:8px;font-weight:800;color:rgba(200,214,232,.5);pointer-events:none}
+.v34g-xl{display:flex;justify-content:space-between;margin:0 2px 3px 22px;font-size:8px;font-weight:800;color:rgba(200,214,232,.62)}
+.v34g-lg.blue{color:#8fd0ff}
+.v34g-lg.red{color:#ff9aa9}
 .v34g-legend{display:flex;flex-wrap:wrap;gap:4px 9px;margin-top:5px;font-size:9px;color:#8f97a6;font-weight:800}
 .v34g-lg i{font-style:normal;margin-right:2px}
 
@@ -41233,8 +41239,8 @@ function v34GoldStats(){
   let best={min:0,diff:0}, low={min:0,diff:0};
   ser.forEach(function(p){ if(p.diff>best.diff) best=p; if(p.diff<low.diff) low=p; });
   const end=ser[ser.length-1];
-  return {ser:ser, max:+best.diff, maxAt:best.min, min:+low.diff, minAt:low.min,
-    end:+end.diff, endAt:end.min, span:end.min||1};
+  return {ser:ser, max:+best.diff, maxAt:Math.round(best.min), min:+low.diff, minAt:Math.round(low.min),
+    end:+end.diff, endAt:Math.round(end.min), span:end.min||1};
 }
 /* SVG 곡선 — 블루/레드 우세 영역 색칠 + 오브젝트·한타 마커 */
 function v34GoldCardHTML(){
@@ -41281,14 +41287,12 @@ function v34GoldCardHTML(){
       markSvg+
       ticks.map(function(m,i){
         const x=X(m);
-        const lab=(i%labelEvery===0)?('<text x="'+x.toFixed(1)+'" y="'+(H-6)+'" fill="rgba(200,214,232,.62)" font-size="8" text-anchor="middle">'+m+"'"+'</text>'):'';
-        return '<line x1="'+x.toFixed(1)+'" y1="'+(H-padB)+'" x2="'+x.toFixed(1)+'" y2="'+(H-padB+3)+'" stroke="rgba(255,255,255,.18)"/>'+lab;
+        return '<line x1="'+x.toFixed(1)+'" y1="'+(H-padB)+'" x2="'+x.toFixed(1)+'" y2="'+(H-padB+4)+'" stroke="rgba(255,255,255,.20)"/>';
       }).join('')+
-      '<text x="4" y="'+(padT+7)+'" fill="rgba(255,255,255,.45)" font-size="8">+'+(maxAbs/1000).toFixed(1)+'K</text>'+
-      '<text x="4" y="'+(H-padB-2)+'" fill="rgba(255,255,255,.45)" font-size="8">-'+(maxAbs/1000).toFixed(1)+'K</text>'+
-      '<text x="'+(padL+2)+'" y="'+(padT-5)+'" fill="rgba(79,168,255,.9)" font-size="8" font-weight="700">BLUE 우세</text>'+
-      '<text x="'+(W-padR)+'" y="'+(H-padB+13)+'" fill="rgba(255,85,112,.9)" font-size="8" font-weight="700" text-anchor="end">RED 우세</text>'+
     '</svg>';
+  const xlab='<div class="v34g-xl">'+ticks.filter(function(m,i){ return i%labelEvery===0; }).map(function(m){
+    return '<span>'+m+"'"+'</span>'; }).join('')+'</div>';
+  const ylab='<div class="v34g-yl"><span>+'+(maxAbs/1000).toFixed(1)+'K</span><span>-'+(maxAbs/1000).toFixed(1)+'K</span></div>';
   const legend=V34_MARK.filter(function(m){ return marks.some(function(x){ return x.kind===m.k; }); })
     .map(function(m){ return '<span class="v34g-lg"><i style="color:'+m.col+'">'+m.ic+'</i>'+({baron:'바론',elder:'장로',dragon:'용',grub:'유충·전령',tower:'타워',fight:'한타',kill:'킬'})[m.k]+'</span>'; }).join('');
   const moments=marks.filter(function(m){ return m.kind==='baron'||m.kind==='fight'||m.kind==='dragon'||m.kind==='elder'; }).slice(0,4)
@@ -41300,8 +41304,8 @@ function v34GoldCardHTML(){
       '<span class="v34g-k">최대 열세 <b style="color:#ff9aa9">'+(st.min/1000).toFixed(1)+'K</b> <i>'+st.minAt+"'</i></span>"+
       (moments?'<span class="v34g-mos">'+moments+'</span>':'')+
     '</div>'+
-    '<div class="v34g-box">'+svg+'</div>'+
-    (legend?'<div class="v34g-legend">'+legend+'</div>':'')+
+    '<div class="v34g-box">'+ylab+'<div class="v34g-canvas">'+svg+'</div>'+xlab+'</div>'+
+    '<div class="v34g-legend"><span class="v34g-lg blue"><i>■</i>BLUE 우세</span><span class="v34g-lg red"><i>■</i>RED 우세</span>'+legend+'</div>'+
   '</div>';
 }
 
@@ -41359,9 +41363,12 @@ function v34ClipKind(fr,prev){
   const label=(M&&Array.isArray(M.events))?M.events.filter(function(e){ return Number(e.minute)===Number(Math.floor(fr.t/60)); }):[];
   let kind=null, tag='';
   for(let i=label.length-1;i>=0;i--){
-    const mk=v34MarkerOf(label[i].text);
+    const txt=String(label[i].text||'');
+    /* 등장 알림·사전 시야 안내는 승부처가 아니다 */
+    if(/등장|45초 전|시야 —|시야를 잡으세요/.test(txt)) continue;
+    const mk=v34MarkerOf(txt);
     if(mk&&(mk.k==='baron'||mk.k==='elder'||mk.k==='dragon'||mk.k==='fight')){
-      kind=mk.k; tag=String(label[i].text||'').replace(/<[^>]+>/g,'').trim(); break;
+      kind=mk.k; tag=txt.replace(/<[^>]+>/g,'').trim(); break;
     }
   }
   if(!kind&&dK>=3){ kind='fight'; }
