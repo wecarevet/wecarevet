@@ -3774,6 +3774,13 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .bhud .drake-hud{flex-wrap:wrap;overflow:visible;justify-content:center}
   .bhud-extra .bgraph canvas{height:96px}
 }
+/* POG 결과창·모달이 좁은 화면에서 화면 밖으로 넘치지 않게 (확인 버튼 도달 보장) */
+@media (max-width:640px){
+  .modal-wrap.pog-wrap{align-items:stretch;justify-content:flex-start;overflow-y:auto;max-width:none;
+    padding:8px 8px calc(10px + env(safe-area-inset-bottom))}
+  .modal-wrap.pog-wrap .pog-ok{position:sticky;bottom:0;z-index:6}
+  .modal-wrap:not(.pog-wrap){align-items:flex-end}
+}
 @media (max-width:380px){
   .bhud .bpl-p .cimg,.bhud .bpl-p img{width:22px!important;height:22px!important}
   .bhud .bpl-i b{font-size:9px}
