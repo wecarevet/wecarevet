@@ -3846,6 +3846,38 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 [data-teaminfo]:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .badge[data-teaminfo]:active{transform:scale(.94)}
 
+/* ===================== V34.11 — 스토브리그 FA 경쟁 입찰 ===================== */
+.fwturn{border-color:rgba(255,201,74,.32);background:linear-gradient(180deg,rgba(255,201,74,.08),rgba(255,255,255,.02))}
+.fwturn-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fwturn-h b{font-size:13.5px;font-weight:900;color:#ffe6a3}
+.fwturn-h .tiny{margin-left:auto}
+.fwturn-h .btn{flex:0 0 auto}
+.fw-card{border-color:rgba(255,85,112,.28)}
+.fawar{padding:8px 9px;margin:6px 0;border-radius:10px;background:rgba(255,85,112,.06);
+  border:1px solid rgba(255,85,112,.22)}
+.fawar-h{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12.5px}
+.fawar-h b{font-weight:900;color:#fff}
+.fawar-h em{font-style:normal;font-size:10.5px;color:#9fb2cc;font-weight:800}
+.fw-d{margin-left:auto;font-size:10.5px;font-weight:900;color:#ffc9a3;padding:1px 7px;border-radius:999px;
+  background:rgba(255,140,60,.14);border:1px solid rgba(255,140,60,.3)}
+.fw-d.now{color:#fff;background:rgba(255,60,80,.35);border-color:rgba(255,60,80,.6);animation:fwpulse 1.4s infinite}
+@keyframes fwpulse{0%,100%{opacity:1}50%{opacity:.55}}
+.fw-bids{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 5px}
+.fw-tag{font-size:10.5px;font-weight:900;color:#dbe6f5;padding:2px 7px;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.fw-tag.hot{color:#fff;background:rgba(255,85,112,.24);border-color:rgba(255,85,112,.5)}
+.fw-state{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fw-me{font-size:11px;font-weight:800;color:#9fb2cc}
+.fw-me.on{color:#8ff0c4}
+.fw-me.off{color:#ff9aa9}
+.fw-state .btn{margin-left:auto}
+.fawar-badge{display:inline-block;font-size:10px;font-weight:900;color:#ffd0a3;padding:1px 7px;border-radius:999px;
+  background:rgba(255,140,60,.13);border:1px solid rgba(255,140,60,.3)}
+@media (max-width:520px){
+  .fwturn-h b{font-size:12.5px}
+  .fw-state .btn{margin-left:0;width:100%}
+}
+
 </style>
 </head>
 <body>
@@ -6696,6 +6728,8 @@ const DRAFT_ORDER = [
 
 function startDraft(series){
   if(!series) return;
+  /* V34.11 — 새 밴픽: 밴픽 BGM 자동 전환 상태를 초기화한다 */
+  try{ if(typeof V6BGM!=='undefined'){ V6BGM.draftManual=false; V6BGM.draftAuto=false; V6BGM.view='draft'; } }catch(e){}
   /* V33 — 새 밴픽: 이전 경기의 감독 대응 플랜을 초기화하고 패턴을 다시 읽는다 */
   try{ if(typeof v33CounterReset==='function') v33CounterReset(); }catch(e){}
   if(!(series.meta&&series.meta.pressDone===true)&&typeof pressNeededFor==='function'&&pressNeededFor(series)){
@@ -10206,6 +10240,8 @@ function startOffseason(){
   S.offseason=st;
   /* V33 — 스토브리그 진입: 대어급 FA 이적 루머·영입전 기사 */
   try{ if(typeof v33FaRumorBurst==='function'){ v33FaRumorBurst('enter'); v33FaRumorBurst('burst'); } }catch(e){}
+  /* V34.11 — FA 경쟁 입찰 시장 개장: S·A급부터 영입전이 열린다 */
+  try{ if(typeof fa36OpenMarket==='function') fa36OpenMarket(); }catch(e){}
   saveGame();
   renderOffseason();
 }
@@ -10257,6 +10293,8 @@ function finishOffseason(){
     });
     S.offseason={players:[],staff:[],aiLog:(S.offseason.aiLog||[])};
   }
+  /* V34.11 — 이적시장 마감: 남은 영입전·FA를 전부 정리한다 (미계약 방치 0) */
+  try{ if(typeof fa36Finish==='function') fa36Finish(); }catch(e){}
   nextSeason();
 }
 
@@ -12904,6 +12942,7 @@ function stoveFaOffer(name,salary,years){
     stoveLog('fa',name+' 영입 — 연봉 '+sal.toFixed(1)+'억 · '+yrs+'년 · 이적료 '+fee.toFixed(1)+'억');
     try{ newsAdd('이적','✍️ '+name+' 영입 완료 — 연봉 '+sal.toFixed(1)+'억 · '+yrs+'년 · 이적료 '+fee.toFixed(1)+'억'+(rivals.length?' (경쟁 '+rivals.map(x=>x.t.tag).join('·')+' 제압)':'')); }catch(e){}
     stoveReaction(true,'fa',{p:name});
+    try{ if(typeof fa36CloseWar==='function') fa36CloseWar(name); }catch(e){}
     saveGame();
     return {ok:true,msg:name+' 영입 완료 — 연봉 '+sal.toFixed(1)+'억 · '+yrs+'년 (이적료 '+fee.toFixed(1)+'억)',rivals:rivals.map(x=>x.t.tag),cost:cost};
   }
@@ -12915,6 +12954,7 @@ function stoveFaOffer(name,salary,years){
   stoveLog('fa-fail',name+' 영입 경쟁 패배 — '+winT.name+' 연봉 '+bestRival.toFixed(1)+'억');
   try{ newsAdd('이적','❌ '+name+' 영입 경쟁 패배 — '+winT.name+'와(과) 연봉 '+bestRival.toFixed(1)+'억에 계약'); }catch(e){}
   stoveReaction(false,'fa',{p:name});
+  try{ if(typeof fa36CloseWar==='function') fa36CloseWar(name); }catch(e){}
   saveGame();
   return {ok:false,msg:name+' 영입 실패 — '+winT.name+'가 연봉 '+bestRival.toFixed(1)+'억을 제시했습니다 (내 제시 '+sal.toFixed(1)+'억)',rival:winT.name,rivalSalary:bestRival};
 }
@@ -12998,6 +13038,7 @@ function stoveFaBidOpen(name, salary, years, opts){
   };
   const neg=st.neg[name];
   neg.pref=stoveNegPrefText(neg);
+  try{ if(typeof fa36AttachBid==='function') fa36AttachBid(name,neg); }catch(e){}
   neg.log.unshift({who:'player', text:'협상 테이블에 나왔습니다 — 제안을 검토하겠습니다'});
   neg.log.unshift({who:'me', text:'연봉 '+sal.toFixed(1)+'억 · '+yrs+'년'+(neg.offer.starter?' · 주전 보장':'')+' 제시'});
   stoveLog('fa-neg',name+' 협상 테이블 개설 — 내 제안 '+sal.toFixed(1)+'억/'+yrs+'년 · 요구 '+demand.toFixed(1)+'억');
@@ -13022,6 +13063,7 @@ function stoveFaCounter(name, salary, years, opts){
   neg.bonus=bonus; neg.cost=cost;
   neg.demand=Math.max(neg.demand, stoveDemand(p,yrs));
   neg.pref=stoveNegPrefText(neg);
+  try{ if(typeof fa36AttachBid==='function') fa36AttachBid(name,neg); }catch(e){}
   neg.log.unshift({who:'me', text:'재제안 — 연봉 '+sal.toFixed(1)+'억 · '+yrs+'년'+(neg.offer.starter?' · 주전 보장':'')});
   stoveLog('fa-neg',name+' 조건 수정 — '+sal.toFixed(1)+'억/'+yrs+'년');
   saveGame();
@@ -13045,6 +13087,7 @@ function stoveFaSignNow(name, neg){
   const rivalTxt=(neg.rivals&&neg.rivals.length)?(' (경쟁 '+neg.rivals.map(function(r){return r.tag;}).join('·')+' 제압)'):'';
   stoveLog('fa',name+' 영입 — 협상 '+neg.round+'라운드 · 연봉 '+sal.toFixed(1)+'억 · '+yrs+'년 · 이적료 '+neg.fee.toFixed(1)+'억');
   try{ newsAdd('이적','✍️ '+name+' 영입 완료 — 연봉 '+sal.toFixed(1)+'억 · '+yrs+'년 · 이적료 '+neg.fee.toFixed(1)+'억'+rivalTxt); }catch(e){}
+  try{ if(typeof fa36CloseWar==='function') fa36CloseWar(name); }catch(e){}
   stoveReaction(true,'fa',{p:name});
   stoveNegDrop(name);
   saveGame();
@@ -13061,6 +13104,7 @@ function stoveFaLoseNow(name, neg, rival){
     try{ newsAdd('이적','❌ '+name+' — 협상 결렬. '+((rt&&rt.tag)||rid)+'가 연봉 '+rival.sal.toFixed(1)+'억에 데려갑니다'); }catch(e){}
     stoveReaction(false,'fa',{p:name});
   }
+  try{ if(typeof fa36CloseWar==='function') fa36CloseWar(name); }catch(e){}
   stoveNegDrop(name);
   saveGame();
   return {ok:false,msg:name+' 측이 타 구단 이적을 택했습니다'+((rival&&rival.tag)?(' — '+rival.tag+' 연봉 '+rival.sal.toFixed(1)+'억'):''),left:true};
@@ -13262,7 +13306,9 @@ function stoveFaHTML(){
   const fas=freeAgents().sort((a,b)=>rawOverall(b)-rawOverall(a));
   const negs=stoveNegAll();
   const open=Object.keys(negs).filter(function(n){ return negs[n]&&negs[n].status==='open'; });
+  const war=(typeof fa36WarBoardHTML==='function')?fa36WarBoardHTML():'';
   return `
+    ${war}
     <div class="card">
       <div class="ch"><span>FA 입찰</span><b class="ch-n">${fas.length}명 · 협상 테이블${open.length?(' · 진행 중 '+open.length):''}</b><button class="lnk" data-a="stovetab" data-v="resign">재계약 ›</button></div>
       <div class="tiny" style="margin:-2px 0 6px">입찰은 <b>협상 테이블</b>을 여는 단계입니다 — 경쟁 구단 입찰가와 선수 요구를 보고 조건을 조정한 뒤 최종 결정하세요.</div>
@@ -13271,13 +13317,14 @@ function stoveFaHTML(){
           const demand=stoveDemand(p,2);
           const rivals=stoveRivals(p.name);
           const neg=negs[p.name]||null;
+          const badge=(typeof fa36WarBadge==='function')?fa36WarBadge(p):'';
           return `<div class="frow-wrap">
             <div class="frow" data-a="player" data-v="${esc(p.name)}">
             <div class="f-av">${pAvatarHTML(p,38)}</div>
             <div class="f-m">
               <div class="f-n">${esc(p.name)} <span class="role-tag">${ROLE_KR[p.role]}</span><span class="grade ${p.grade}">${p.grade}</span>${neg?'<span class="chip sm gold">협상 중</span>':''}</div>
               <div class="f-s">${p.age}세 · OVR ${rawOverall(p)} · 요구 ${demand.toFixed(1)}억 · 이적료 ${(p.fee||0).toFixed(1)}억</div>
-              <div class="f-s">${rivals.length?'경쟁: '+rivals.map(r=>tiSpan(r.t,esc(r.t.tag))).join(' · '):'경쟁 구단 없음'}</div>
+              <div class="f-s">${badge||(rivals.length?'경쟁: '+rivals.map(r=>tiSpan(r.t,esc(r.t.tag))).join(' · '):'경쟁 구단 없음')}</div>
             </div>
             <div class="f-b">
               <input class="inp sm" type="number" step="0.5" min="0.5" data-fasal="${esc(p.name)}" value="${neg?neg.offer.salary:demand}">
@@ -13498,6 +13545,7 @@ function stoveTradeHTML(){
 function stovePanelHTML(){
   const tab=STOVE_TAB||'fa';
   return `
+    ${(typeof fa36TurnBarHTML==='function')?fa36TurnBarHTML():''}
     <div class="section-title"><h3>스토브리그 · 이적 시장</h3><div class="line"></div><span class="tiny">재계약 · FA 입찰 · 트레이드</span></div>
     <div class="card tight"><div class="seg3">
       ${STOVE_TABS.map(x=>`<button class="seg-b ${tab===x.k?'on':''}" data-a="stovetab" data-v="${x.k}">${x.n}</button>`).join('')}
@@ -13517,6 +13565,14 @@ function stoveAction(a,v,root){
     return el?String(el.value||'').trim():null;
   };
   if(a==='tab'){ STOVE_TAB=v||'fa'; stoveRender(); return true; }
+  if(a==='faturn'){
+    const r=(typeof fa36Advance==='function')?fa36Advance():{ok:false,msg:'이적시장 모듈을 찾을 수 없습니다'};
+    toast(r.msg,r.lost&&r.lost.length?5200:(r.ok?3600:3400)); stoveRender(); return true;
+  }
+  if(a==='famatch'){
+    const r=(typeof fa36MatchBid==='function')?fa36MatchBid(v):{ok:false,msg:'이적시장 모듈을 찾을 수 없습니다'};
+    toast(r.msg,r.ok?3400:3600); stoveRender(); return true;
+  }
   if(a==='pos'){ return stovePosSet(v||'ALL'); }
   if(a==='team'){ return stoveTeamPick(v||null); }
   if(a==='lg'){ STOVE_LG=v||'LCK'; STOVE_SEL.team=null; STOVE_SEL.target=null; stoveRender(); return true; }
@@ -13592,54 +13648,70 @@ function aiTeamRankInfo(){
 function aiFaSigningTick(){
   if(!S||!S.players) return null;
   if(S.phase!=='regular'&&S.phase!=='offseason') return null;
-  if(((S.week||1)%2)!==0) return null;                  /* 격주에 한 번 */
   const fas=Object.values(S.players).filter(p=>p&&p.fa&&!p.team&&!p.retired);
   if(!fas.length) return null;
-  const info=aiTeamRankInfo();
-  const rankOf={}; info.byRecord.forEach((t,i)=>rankOf[t.id]=i);
-  const powerOf={}; info.byPower.forEach((t,i)=>powerOf[t.id]=i);
-  const needy=Object.values(S.teams||{}).filter(t=>{
-    if(!t||t.id===S.userTeam) return false;
+  const offseason=(S.phase==='offseason');
+  if(!offseason&&((S.week||1)%2)!==0) return null;      /* 정규시즌은 격주 */
+  const info=aiTeamRankInfo(); const rankOf={}, powerOf={};
+  info.byRecord.forEach((t,i)=>rankOf[t.id]=i);
+  info.byPower.forEach((t,i)=>powerOf[t.id]=i);
+  /* 성적이 전력보다 처지거나 로스터가 얇은 구단부터 — 스토브리그에서는 매 턴 여러 건 */
+  const needScore=t=>{
+    let s=0;
     const roster=(t.roster||[]).length;
-    const slump=(t.losses||0)>=(t.wins||0)+3;
-    const below=((rankOf[t.id]||0)-(powerOf[t.id]||0))>=3;
-    return roster<=8||slump||below;
-  });
-  if(!needy.length) return null;
-  const t=needy[Math.floor(Math.random()*needy.length)];
-  /* 가장 약한 라인을 채운다 */
-  let weakRole=null,weakVal=999;
-  ROLES.forEach(r=>{
-    const n=t.lineup&&t.lineup[r];
-    const p=n?S.players[n]:null;
-    const v=p?rawOverall(p):0;
-    if(v<weakVal){ weakVal=v; weakRole=r; }
-  });
-  const pool=fas.filter(p=>p.role===weakRole);
-  const list=(pool.length?pool:fas).slice().sort((a,b)=>rawOverall(b)-rawOverall(a));
-  const budget=Number(t.budget)||0;
-  let cand=null;
-  for(let i=0;i<list.length;i++){
-    const p=list[i];
-    const fee=Math.round(((p.fee||(p.salary||1)*1.7))*10)/10;
-    const sal=Math.max(0.4,Math.round((p.salary||1)*10)/10);
-    if(fee+(t.budget||0)*0<budget*0.45||sal<=budget*0.2){ cand={p:p,fee:fee,sal:sal}; break; }
-    if(!cand&&i===list.length-1&&sal<=budget*0.25){ cand={p:p,fee:fee,sal:sal}; }
+    if(roster<5) s+=6; else if(roster<7) s+=2.5;
+    if((t.losses||0)>=(t.wins||0)+3) s+=3;
+    s+=Math.max(0,(rankOf[t.id]||0)-(powerOf[t.id]||0));
+    s-=Math.min(3,(t.budget||0)/40);
+    return s;
+  };
+  const teams=Object.values(S.teams||{}).filter(t=>t&&t.id!==S.userTeam).sort((a,b)=>needScore(b)-needScore(a));
+  const pace=offseason?Math.min(3,Math.max(1,Math.ceil(fas.length/6))):(fas.length>=8?2:1);
+  let signed=0, last=null;
+  for(let i=0;i<teams.length&&signed<pace;i++){
+    const t=teams[i];
+    if((t.roster||[]).length>=10) continue;
+    /* 이 구단이 가장 크게 좋아지는 FA — 빈 포지션 > 업그레이드 */
+    let best=null,bestGain=-1;
+    for(let k=0;k<fas.length;k++){
+      const p=fas[k];
+      if(!p||p.team) continue;
+      const cur=(t.lineup&&t.lineup[p.role])?S.players[t.lineup[p.role]]:null;
+      const co=cur?rawOverall(cur):0;
+      const ovr=rawOverall(p);
+      const gain=cur?(ovr-co):(ovr-58);
+      if(cur&&gain<3) continue;                         /* 주전보다 확실히 강해야 업그레이드 */
+      if(!cur&&gain<0) continue;
+      const sal=Math.max(0.5,Math.round((Number(p.salary)||1)*10)/10);
+      const fee=Math.round((Number(p.fee)||sal*1.7)*(typeof FA36!=='undefined'?FA36.FEE_AI:0.38)*10)/10;
+      if((Number(t.budget)||0)<fee+sal*0.3+1) continue;
+      if(sal>(Number(t.budget)||0)*0.55) continue;
+      if(ovr>=86&&!((Number(t.budget)||0)>=60||teamPower(t)>=85)) continue;   /* 초대형 계약은 상위권만 */
+      const bonus=(!cur?1.2:0)+Math.min(1.5,gain/10);
+      if(bonus>bestGain){ bestGain=bonus; best={p:p,sal:sal,fee:fee}; }
+    }
+    if(!best) continue;
+    const p=best.p;
+    const prev=(t.lineup&&t.lineup[p.role])?S.players[t.lineup[p.role]]:null;
+    if(!t.roster) t.roster=[];
+    if(!t.lineup) t.lineup={};
+    if(!t.roster.includes(p.name)) t.roster.push(p.name);
+    p.team=t.id; p.fa=false; p.fee=0; p.contract=2; p.salary=best.sal; p.starter=true;
+    t.lineup[p.role]=p.name;
+    if(prev&&prev.name!==p.name) prev.starter=false;    /* 기존 주전 → 벤치 */
+    try{ t.budget=Math.round(((Number(t.budget)||0)-(best.fee+best.sal*0.3))*10)/10; }catch(e){}
+    try{ if(typeof stoveFillLineup==='function') stoveFillLineup(t.id); }catch(e){}
+    const tag=fa36Tag(t);
+    try{
+      newsAdd('이적','[오피셜] ✍️ '+tag+' '+p.name+' 영입 — '+ROLE_KR[p.role]+' · 연봉 '+best.sal.toFixed(1)+'억 · 2년'+(prev&&prev.name!==p.name?' (기존 주전 '+prev.name+' 벤치)':''));
+      newsAdd('fmk','📱 [FM코리아] [오피셜] '+tag+' '+p.name+' 영입 떴다 — '+(p.role==='JGL'?'정글 보강':'전력 보강')+' 인정?');
+    }catch(e){}
+    try{ stoveLog('ai',tag+' '+p.name+' 영입 — 연봉 '+best.sal.toFixed(1)+'억'); }catch(e){}
+    fas.splice(fas.indexOf(p),1);
+    signed++; last={team:t.id,name:p.name,salary:best.sal};
   }
-  if(!cand) return null;
-  const p=cand.p, yrs=2;
-  try{
-    t.budget=Math.round(((budget-(cand.fee||0)))*10)/10;
-    p.team=t.id; p.fa=false; p.fee=0; p.contract=yrs; p.salary=cand.sal;
-    if(!(t.roster||[]).includes(p.name)) t.roster.push(p.name);
-    if(typeof stoveFillLineup==='function') stoveFillLineup(t.id);
-    const tag=t.tag||t.id;
-    newsAdd('이적','[오피셜] ✍️ '+tag+' '+p.name+' 영입 — '+ROLE_KR[p.role]+' · 연봉 '+cand.sal.toFixed(1)+'억 · '+yrs+'년');
-    newsAdd('fmk','📱 [FM코리아] [오피셜] '+tag+' '+p.name+' 영입 떴다 — '+(p.role==='JGL'?'정글 보강':'전력 보강')+' 인정?');
-  }catch(e){}
-  try{ if(typeof stoveLog==='function') stoveLog('ai',(t.tag||t.id)+' '+p.name+' 영입 — 연봉 '+cand.sal.toFixed(1)+'억'); }catch(e){}
-  try{ saveGame(); }catch(e){}
-  return {team:t.id, name:p.name, salary:cand.sal};
+  if(last) try{ saveGame(); }catch(e){}
+  return last;
 }
 
 /* ============ CHEM: 선수 케미 · 듀오 시너지 · 라커룸 불화 ============ */
@@ -17562,8 +17634,12 @@ function show(name){
   /* V6: 밴픽 BGM은 밴픽·게임플랜 구간에서만. 다른 화면(경기·결과·허브 등)으로 나가면 즉시 정지 */
   if(name==='draft'||name==='plan'){
     try{ if(typeof V6BGM!=='undefined'&&V6BGM.on&&!SND.on) SND.on=true; }catch(e){}
-    /* 로그인 BGM(징크스)이 유지 중이면 밴픽 곡으로 갈아타지 않는다 */
-    if(typeof v6LoginHeld==='function'&&v6LoginHeld()){
+    /* V34.11 — 로그인 BGM 유지 설정이어도 밴픽 진입 동안은 밴픽 곡으로 자동 전환
+       (사용자가 밴픽 화면에서 직접 징크스로 돌린 경우만 예외) */
+    if(typeof v6DraftBgmEnter==='function'){
+      try{ v6DraftBgmEnter(); }catch(e){}
+      if(name==='plan'&&typeof V6BGM!=='undefined') V6BGM.view='plan';
+    }else if(typeof v6LoginHeld==='function'&&v6LoginHeld()){
       try{ if(typeof v6LoginBgmHold==='function') v6LoginBgmHold(true); }catch(e){}
     }else if(SND.on||(typeof V6BGM!=='undefined'&&V6BGM.on)){
       try{ bgmStart(bgmCtx()); }catch(e){}
@@ -17573,7 +17649,12 @@ function show(name){
     try{ if(typeof v6TitleBgmEnter==='function') v6TitleBgmEnter(); }catch(e){}
     try{ if(typeof v6TitleBgmChip==='function') v6TitleBgmChip(); }catch(e){}
   }else{
-    if(typeof v6LoginContinue==='function'&&v6LoginContinue()){
+    /* V34.11 — 밴픽에서 자동 전환했던 징크스 곡을 허브·구단·스토브리그로 돌아오면 복원 */
+    let backLogin=false;
+    /* 경기 화면은 인게임 BGM 이 이어받는다 — 복원은 허브·구단·스토브리그로 돌아올 때 */
+    if(name!=='match'){ try{ if(typeof v6DraftBgmLeave==='function') backLogin=!!v6DraftBgmLeave(); }catch(e){} }
+    if(backLogin){ /* 복원됨 */ }
+    else if(typeof v6LoginContinue==='function'&&v6LoginContinue()){
       /* 타이틀에서 재생 중인 징크스 BGM 을 게임 화면으로 그대로 이어온다 (플레이어는 1개, 파괴 없음) */
       try{ if(typeof v6LoginBgmHold==='function') v6LoginBgmHold(true); }catch(e){}
     }else{
@@ -28276,6 +28357,8 @@ function renderChampion(){
 
 /* ---------- offseason (스토브리그) ---------- */
 function renderOffseason(){
+  /* V34.11 — 옛 세이브/재진입: 이적시장 영입전이 비어 있으면 개장 */
+  try{ if(typeof fa36Sync==='function') fa36Sync(); }catch(e){}
   const O=S.offseason||{players:[],staff:[]};
   const t=myTeam();
   const expPlayers=(O.players||[]).map(n=>S.players[n]).filter(Boolean);
@@ -29909,7 +29992,9 @@ const V6BGM={ytId:'V1gTYew5k4U', mode:'yt', on:true, vol:55, player:null, ready:
   titleId:'BShu7Jp5X3k', titleName:'징크스: 난폭한 말괄량이 (로그인 화면)', ctx:'draft', titleArmed:false,
   titleMuted:false, titleWaitTouch:false, titleGesture:false,
   /* V35 — 로그인 BGM 유지: loginKeep=사용자 설정(저장), loginHold=지금 징크스 곡이 재생 중 */
-  loginKeep:true, loginHold:false, loadedId:null};
+  loginKeep:true, loginHold:false, loadedId:null,
+  /* V34.11 — 밴픽 진입 시 자동 밴픽 곡: draftManual=사용자가 밴픽 화면에서 직접 징크스로 돌림, draftAuto=자동 전환했음(복귀 시 복원) */
+  draftManual:false, draftAuto:false, view:''};
 function v6BgmLoad(){
   try{
     const raw=localStorage.getItem('lckManager.bgm6');
@@ -30179,6 +30264,39 @@ function v6BgmPlay(ctxKey){
   return true;
 }
 /* ==========================================================================
+   V34.11 — 밴픽 화면 진입: 로그인 BGM 유지 설정이어도 밴픽 곡으로 자동 전환
+   · 사용자가 밴픽 화면에서 직접 '징크스 BGM'을 누른 경우(draftManual)는 존중한다
+   · 밴픽/게임플랜을 벗어나면 v6DraftBgmLeave() 가 징크스 곡을 되살린다
+   ========================================================================== */
+function v6DraftBgmEnter(){
+  if(!V6BGM) return 'none';
+  V6BGM.view='draft';
+  /* 사용자가 이 밴픽에서 직접 징크스를 고른 경우 — 자동 전환하지 않는다 */
+  if(V6BGM.draftManual&&v6LoginKeep()){
+    try{ if(typeof v6LoginBgmHold==='function') v6LoginBgmHold(true); }catch(e){}
+    return 'login';
+  }
+  V6BGM.draftManual=false;
+  /* 징크스가 재생 중이면 잠시 양보 → 밴픽 곡이 올라간다 (설정 loginKeep 은 그대로) */
+  let yielded=false;
+  try{ if(v6LoginHeld()&&typeof v6LoginBgmYield==='function') yielded=!!v6LoginBgmYield(); }catch(e){}
+  V6BGM.draftAuto=!!(v6LoginKeep()||yielded);
+  try{ if(typeof v6DraftTrackEnsure==='function') v6DraftTrackEnsure(); }catch(e){}
+  try{ if(typeof v6BgmPlay==='function') v6BgmPlay('draft'); }catch(e){}
+  return 'draft';
+}
+/* 밴픽·게임플랜을 벗어날 때 — 유지 설정이면 징크스 곡을 이어서 복원 */
+function v6DraftBgmLeave(){
+  V6BGM.view='';
+  const back=!!(V6BGM.draftAuto&&v6LoginKeep());
+  V6BGM.draftAuto=false;
+  if(!back) return false;
+  V6BGM.draftManual=false;
+  try{ if(typeof v6LoginBgmHold==='function') return !!v6LoginBgmHold(true); }catch(e){}
+  return false;
+}
+
+/* ==========================================================================
    타이틀(로그인) 화면 BGM — 징크스 테마 (BShu7Jp5X3k)
    · 안드로이드/모바일 자동재생 차단 → 타이틀 화면 첫 탭(또는 전용 버튼)에서 시작
    · 본 화면(구단 선택·허브·경기)으로 넘어가면 iframe 을 제거해 깔끔하게 정지
@@ -30387,6 +30505,9 @@ function v6LoginBgmYield(){
 function v6LoginBgmSet(on,silent){
   const want=(on!==false);
   V6BGM.loginKeep=want;
+  /* 밴픽 화면에서 직접 징크스를 고른 경우 — 다음 밴픽 진입에서도 자동 전환하지 않는다 */
+  if(want&&(V6BGM.view==='draft'||V6BGM.view==='plan')) V6BGM.draftManual=true;
+  if(!want) V6BGM.draftManual=false;
   if(want){
     V6BGM.on=true; V6BGM.dead=false; V6BGM.loginHold=true; V6BGM.titleGesture=true;
     v6LoginBgmHold(true);
@@ -42140,6 +42261,573 @@ function v34OnSaveLoad(){
 function v34Boot(){
   try{ v34State(); }catch(e){}
   try{ if(S) v34IntlEnsure(); }catch(e){}
+}
+
+/* ============================================================================
+   FA36 — 스토브리그 FA 경쟁 입찰 엔진 (V34.11)
+   ----------------------------------------------------------------------------
+   증상(수정 전)
+     · 스토브리그에 들어가면 계약 만료 선수가 FA로 풀리는데, 그 뒤로 AI 구단이
+       아무도 데려가지 않아 이적시장에 선수가 그대로 쌓였다.
+       원인 3가지
+        ① 스토브리그에는 주차 진행이 없다 — aiFaSigningTick 은 clubWeekAdvance()
+           안에서만 불리고, 그 함수는 정규시즌 주차에만 돈다. 게다가 틱은
+           S.week % 2 === 0 일 때만 동작해 스토브리그(week=1)에서는 항상 null.
+        ② 예산 판정이 이적료(fee = 연봉×1.7)를 그대로 써서 상위 선수는 어떤
+           구단도 감당 못 했다 (월 26억 선수 = 이적료 45억 > 대부분 구단 예산).
+        ③ 이미 5인 주전이 찬 구단은 로스터 9인 미만 조건에 걸려 입찰 자체를
+           하지 못했다 → 업그레이드 영입 경로가 없었다.
+   개편
+     · 이적시장을 '턴'으로 돌린다. 개장과 동시에 S·A급(고OVR)부터 우선순위로
+       영입전(war)이 열리고, 필요 포지션·업그레이드 욕구·예산 여유가 있는
+       여러 구단이 동시에 입찰한다.
+     · 턴마다 경쟁 구단이 연봉을 올리고, 2턴(1~3턴) 안에 마감 → 최고 입찰
+       구단과 전격 계약 + ⚔️ [긴급] 소식. 유저가 협상 중이면 밀린 순간 바로
+       알림·로그가 남고, [매칭 입찰] 한 번으로 최고가를 따라잡을 수 있다.
+     · B·C급은 턴이 흐르며 빈 로스터·벤치로 채우고, 이적시장 마감(다음 시즌
+       시작)에는 남은 FA를 전부 정리한다(미계약 방치 0).
+   창구
+     fa36OpenMarket()  스토브리그 개장 — 상위 FA 영입전 개설
+     fa36Advance()     턴 1회 진행 (입찰 상승 → 마감 계약 → 다음 매물)
+     fa36Finish()      마감 — 남은 영입전·FA 전부 정리 (finishOffseason 훅)
+     fa36AttachBid()   유저 입찰을 영입전에 등록
+     fa36MatchBid()    경쟁 최고가 매칭
+     fa36Sync()        옛 세이브/화면 재진입 보정
+   ========================================================================== */
+const FA36={
+  ver:1,
+  MAX_OPEN:5,        /* 동시에 열리는 영입전 수 */
+  MAX_ROUND:4,       /* 표시용 스토브리그 주차 */
+  FEE_AI:0.38,       /* AI 구단이 FA 영입에서 부담하는 이적료 계수 */
+  SAL_CAP:0.36,      /* 구단 예산 중 연봉으로 쓸 수 있는 비율 */
+};
+
+/* ---------- 상태 ---------- */
+function fa36State(create){
+  if(typeof stoveInit!=='function') return null;
+  const st=stoveInit(); if(!st) return null;
+  if(!st.fa||typeof st.fa!=='object'){
+    if(!create) return null;
+    st.fa={round:0,open:{},done:{},unsold:{},log:[],burst:false};
+  }
+  const f=st.fa;
+  if(!f.open||typeof f.open!=='object') f.open={};
+  if(!f.done||typeof f.done!=='object') f.done={};
+  if(!Array.isArray(f.log)) f.log=[];
+  if(typeof f.round!=='number') f.round=0;
+  if(!f.unsold||typeof f.unsold!=='object') f.unsold={};
+  if(!f.turnSign||typeof f.turnSign!=='object') f.turnSign={};
+  return f;
+}
+function fa36Pool(){
+  try{
+    return Object.values(S.players||{}).filter(function(p){ return p&&p.fa&&!p.team&&!p.retired; })
+      .sort(function(a,b){ return rawOverall(b)-rawOverall(a); });
+  }catch(e){ return []; }
+}
+function fa36Tier(p){
+  if(!p) return 'C';
+  const ovr=rawOverall(p), g=String(p.grade||'');
+  if(ovr>=85||g==='S+'||g==='S') return 'S';
+  if(ovr>=80||g==='A+'||g==='A') return 'A';
+  if(ovr>=73||g==='B+'||g==='B') return 'B';
+  return 'C';
+}
+function fa36TierRank(t){ return t==='S'?0:t==='A'?1:t==='B'?2:3; }
+function fa36Ovr(p){ try{ return rawOverall(p); }catch(e){ return 70; } }
+function fa36Demand(p){ try{ return stoveDemand(p,2); }catch(e){ return Math.max(0.5,Number(p&&p.salary)||1); } }
+function fa36Fee(p,dem){
+  const base=Number(p&&p.fee);
+  return Math.round(((base>0?base:(dem||1)*1.7)*FA36.FEE_AI)*10)/10;
+}
+/* 그 구단이 이 선수를 감당할 수 있는가 — 연봉 상한 + 이적료·계약금 여유 */
+function fa36Afford(t,p,dem){
+  if(!t) return false;
+  const budget=Number(t.budget)||0;
+  const sal=Math.min(dem||1,budget*FA36.SAL_CAP);
+  if(sal<(dem||1)*0.82) return false;                    /* 요구액에 크게 못 미치면 입찰 자체를 안 한다 */
+  const fee=fa36Fee(p,dem);
+  return budget>=(fee+sal*0.3+0.8);
+}
+function fa36MaxBid(t,p,dem){
+  const budget=Number(t&&t.budget)||0;
+  return Math.max(0.5,Math.round(Math.min(budget*FA36.SAL_CAP,(dem||1)*1.5)*10)/10);
+}
+function fa36Starter(t,role){
+  try{ const n=t&&t.lineup?t.lineup[role]:null; return n?(S.players[n]||null):null; }catch(e){ return null; }
+}
+function fa36Tag(t){ return (t&&(t.tag||t.id))||'?'; }
+
+/* ---------- 입찰 구단 선정 ----------
+   필요 포지션(주전 없음) · 업그레이드 욕구(주전보다 확실히 강함) · 예산 여유 */
+function fa36Suitors(p){
+  const out=[], seen={};
+  if(!p) return out;
+  const ovr=fa36Ovr(p), dem=fa36Demand(p), tier=fa36Tier(p);
+  function push(t,v,need,upgrade){
+    if(!t||t.id===S.userTeam||seen[t.id]) return;
+    const cur=fa36Starter(t,p.role);
+    if(cur&&fa36Ovr(p)<fa36Ovr(cur)-3) return;          /* 주전이 확실히 더 강하면 입찰하지 않는다 */
+    if(!fa36Afford(t,p,dem)) return;
+    seen[t.id]=1;
+    out.push({id:t.id,tag:fa36Tag(t),power:Math.round(teamPower(t)),v:clamp(v,-1,1),need:!!need,upgrade:!!upgrade});
+  }
+  /* ① 기존 경쟁 로직 — 상위권·자금력 구단이 먼저 달려든다 */
+  let base=[];
+  try{ base=stoveRivals(p.name)||[]; }catch(e){ base=[]; }
+  base.forEach(function(r){ push(r.t,r.v,r.need,fa36Starter(r.t,p.role)?true:false); });
+  /* ② 업그레이드 입찰 — 로스터가 차 있어도 주전보다 확실히 강하면 교체 경쟁 */
+  if(tier==='S'||tier==='A'){
+    Object.values(S.teams||{}).forEach(function(t){
+      if(!t||seen[t.id]||t.id===S.userTeam) return;
+      if((t.roster||[]).length>11) return;
+      const cur=fa36Starter(t,p.role);
+      const co=cur?fa36Ovr(cur):0;
+      if(cur&&ovr<co+4) return;                           /* 주전보다 강하지 않으면 업그레이드 아님 */
+      const big=(teamPower(t)>=80)||((t.budget||0)>=45);
+      if(!big) return;
+      const v=0.42+(teamPower(t)-78)/40+((t.budget||0)>=60?0.2:0)+Math.random()*0.22;
+      push(t,v,!cur,!!cur);
+    });
+  }
+  out.sort(function(a,b){ return (b.v+b.power/400)-(a.v+a.power/400); });
+  return out;
+}
+
+/* ---------- 영입전 개설 ---------- */
+function fa36OpenWar(name){
+  const f=fa36State(true); if(!f) return null;
+  const p=S.players[name]; if(!p||!p.fa||p.team||p.retired) return null;
+  if(f.open[name]||f.done[name]) return null;
+  const tier=fa36Tier(p);
+  const dem=fa36Demand(p);
+  let suitors=fa36Suitors(p);
+  if(!suitors.length) return null;
+  const cap=(tier==='S')?5:(tier==='A'?4:(tier==='B'?3:2));
+  suitors=suitors.slice(0,cap);
+  const bids=suitors.map(function(s){
+    const t=T(s.id);
+    const sal=Math.min(fa36MaxBid(t,p,dem),dem*(0.86+s.v*0.14));
+    return {id:s.id,tag:s.tag,sal:Math.round(Math.max(0.5,sal)*10)/10,upgrade:!!s.upgrade,v:s.v,out:false};
+  }).sort(function(a,b){ return b.sal-a.sal; });
+  const w={
+    name:name, role:p.role, ovr:fa36Ovr(p), tier:tier, grade:p.grade||'',
+    round:f.round, deadline:f.round+((tier==='S'||tier==='A')?2:1),
+    demand:Math.round(dem*10)/10, bids:bids, top:bids.length?bids[0].sal:0,
+    status:'open', userSal:0, userIn:false, created:f.round, news:false,
+  };
+  f.open[name]=w;
+  f.log.unshift({k:'open',name:name,tier:tier,sal:w.top,round:f.round,season:S.season,at:Date.now()});
+  if(f.log.length>80) f.log.length=80;
+  try{ stoveLog('fa36',name+' 영입전 개설 — '+bids.map(function(b){return b.tag;}).join('·')+' · 최고 '+w.top.toFixed(1)+'억'); }catch(e){}
+  if(tier==='S'||(tier==='A'&&bids.length>=3)){
+    try{
+      newsAdd('이적','⚔️ [긴급] '+bids.map(function(b){return b.tag;}).join('·')+', '+name+' 영입전 개막 — 연봉 '+w.top.toFixed(1)+'억부터, 스토브리그 최대어');
+    }catch(e){}
+  }
+  return w;
+}
+/* 우선순위(S→A→B→C, 같은 급은 OVR)로 다음 매물 개설 */
+function fa36OpenNext(limit){
+  const f=fa36State(true); if(!f) return 0;
+  let room=Math.max(0,limit-Object.keys(f.open).length);
+  if(room<=0) return 0;
+  const pool=fa36Pool().filter(function(p){ return !f.open[p.name]&&!f.done[p.name]&&!p.legend&&(f.unsold[p.name]===undefined); });
+  pool.sort(function(a,b){
+    const ta=fa36TierRank(fa36Tier(a)), tb=fa36TierRank(fa36Tier(b));
+    if(ta!==tb) return ta-tb;
+    return fa36Ovr(b)-fa36Ovr(a);
+  });
+  let n=0;
+  for(let i=0;i<pool.length&&room>0;i++){
+    if(fa36OpenWar(pool[i].name)){ room--; n++; }
+  }
+  return n;
+}
+/* 원클럽맨 레전드 — 자기 구단과 잔류(FA로 묶여 남지 않게). 유저 구단은 유저가 결정 */
+function fa36LegendHome(){
+  let n=0;
+  fa36Pool().forEach(function(p){
+    if(!p.legend) return;
+    const t=T(p.legend);
+    if(!t||t.id===S.userTeam) return;
+    if((t.roster||[]).length>=11) return;
+    if(!t.roster.includes(p.name)) t.roster.push(p.name);
+    p.team=t.id; p.fa=false; p.fee=0; p.contract=Math.max(2,Number(p.contract)||2);
+    n++;
+    try{ newsAdd('이적','🏛 '+p.name+' — “저는 이 구단에 남습니다.” '+fa36Tag(t)+' 잔류 선언 (연봉 '+Number(p.salary||0).toFixed(1)+'억)'); }catch(e){}
+  });
+  return n;
+}
+/* 스토브리그 개장 — S·A급부터 영입전을 연다 */
+function fa36OpenMarket(){
+  const f=fa36State(true); if(!f||!S) return {open:0};
+  if(Object.keys(f.open).length) return {open:Object.keys(f.open).length,cached:true};
+  try{ fa36LegendHome(); }catch(e){}
+  if(!fa36Pool().length) return {open:0};
+  f.burst=true;
+  const n=fa36OpenNext(FA36.MAX_OPEN);
+  try{ saveGame(); }catch(e){}
+  return {open:Object.keys(f.open).length, added:n};
+}
+/* 옛 세이브·재진입 보정 — 스토브리그인데 영입전이 하나도 없으면 개장 */
+function fa36Sync(){
+  const f=fa36State(true);
+  if(!f) return false;
+  if(!S||S.phase!=='offseason') return false;
+  if(!Object.keys(f.open).length&&fa36Pool().length){ fa36OpenMarket(); return true; }
+  return false;
+}
+
+/* ---------- 입찰 상승 · 철수 ---------- */
+function fa36Bump(w){
+  const p=S.players[w.name]; if(!p||!p.fa||p.team) return;
+  const dem=w.demand;
+  w.bids.forEach(function(b){
+    if(b.out) return;
+    const t=T(b.id); if(!t){ b.out=true; return; }
+    const cap=fa36MaxBid(t,p,dem);
+    const next=Math.min(cap,b.sal*(1.03+Math.random()*0.05)+0.1);
+    if(next>b.sal+0.01){ b.sal=Math.round(next*10)/10; b.capped=false; }
+    else b.capped=true;                                  /* 상한 도달 — 선두면 버티고, 밀리면 철수 */
+  });
+  const top=w.bids.reduce(function(m,b){ return b.out?m:Math.max(m,b.sal); },0);
+  w.bids.forEach(function(b){
+    if(b.out||!b.capped) return;
+    if(b.sal<top-0.01&&w.bids.filter(function(x){return !x.out;}).length>1){
+      b.out=true;
+      try{ newsAdd('이적','🏳 '+b.tag+', '+w.name+' 영입전에서 철수 — 연봉 상한 도달'); }catch(e){}
+    }
+  });
+  const live=w.bids.filter(function(b){ return !b.out; }).sort(function(a,b){ return b.sal-a.sal; });
+  w.bids=live;
+  w.top=live.length?live[0].sal:0;
+}
+
+/* ---------- 유저 협상 테이블 ↔ 영입전 동기화 ---------- */
+function fa36AttachBid(name,neg){
+  const f=fa36State(false); if(!f||!neg) return false;
+  const w=f.open[name]; if(!w) return false;
+  w.userIn=true; w.userSal=Number(neg.offer&&neg.offer.salary)||0;
+  neg.rivals=w.bids.map(function(b){ return {id:b.id,tag:b.tag,sal:b.sal,need:true,v:b.v}; });
+  neg.war=w.deadline;
+  try{ neg.pref=stoveNegPrefText(neg); }catch(e){}
+  return true;
+}
+function fa36SyncNeg(w){
+  const neg=(typeof stoveNegOf==='function')?stoveNegOf(w.name):null;
+  if(!neg) return null;
+  neg.rivals=w.bids.map(function(b){ return {id:b.id,tag:b.tag,sal:b.sal,need:true,v:b.v}; });
+  const best=w.bids[0]||null;
+  const my=Number(neg.offer&&neg.offer.salary)||0;
+  neg.warDealine=w.deadline;
+  neg.warRound=w.round;
+  if(best&&my<best.sal-0.04){
+    const nw=!neg.outbid||Math.abs((neg.outbidAt||0)-best.sal)>0.04;
+    neg.outbid=true; neg.outbidAt=best.sal;
+    if(nw){
+      neg.log.unshift({who:'rival',text:best.tag+'가 '+best.sal.toFixed(1)+'억으로 올렸습니다 — 매칭하려면 '+(best.sal+0.1).toFixed(1)+'억 이상'});
+      if(neg.log.length>8) neg.log.length=8;
+    }
+  }else if(best){
+    neg.outbid=false; neg.lead=true;
+  }
+  try{ neg.pref=stoveNegPrefText(neg); }catch(e){}
+  return neg;
+}
+/* 최고 입찰가 매칭 — 한 번의 클릭으로 따라잡는다 */
+function fa36MatchBid(name){
+  const f=fa36State(false); const w=f&&f.open[name];
+  if(!w) return {ok:false,msg:'진행 중인 영입전이 없습니다'};
+  const best=w.bids[0];
+  if(!best) return {ok:false,msg:'경쟁 구단이 없습니다 — 자유롭게 입찰하세요'};
+  const sal=Math.round((best.sal+0.1)*10)/10;
+  let neg=(typeof stoveNegOf==='function')?stoveNegOf(name):null;
+  if(!neg){
+    const r=(typeof stoveFaBidOpen==='function')?stoveFaBidOpen(name,sal,2,{}):{ok:false,msg:'협상 모듈 없음'};
+    if(!r.ok) return r;
+    neg=stoveNegOf(name);
+    if(neg) fa36AttachBid(name,neg);
+    return {ok:true,msg:best.tag+' 최고가 '+best.sal.toFixed(1)+'억에 매칭 입찰 — '+sal.toFixed(1)+'억 제시',sal:sal};
+  }
+  const r=stoveFaCounter(name,sal,neg.offer.years,{starter:!!neg.offer.starter});
+  if(r.ok) fa36AttachBid(name,neg);
+  return {ok:!!r.ok,msg:r.ok?(best.tag+' '+best.sal.toFixed(1)+'억에 매칭 — '+sal.toFixed(1)+'억으로 재제안'):r.msg,sal:sal};
+}
+
+/* ---------- 계약 실행 (AI) ---------- */
+function fa36SignAI(w,bid){
+  const p=S.players[w.name], t=T(bid.id);
+  if(!p||!t) return null;
+  const prev=fa36Starter(t,p.role);
+  const fee=fa36Fee(p,w.demand);
+  const sal=Math.round((bid.sal||w.demand)*10)/10;
+  if(!t.roster) t.roster=[];
+  if(!t.lineup) t.lineup={};
+  if(!t.roster.includes(p.name)) t.roster.push(p.name);
+  p.team=t.id; p.fa=false; p.fee=0; p.salary=sal; p.contract=2; p.starter=true;
+  t.lineup[p.role]=p.name;
+  if(prev&&prev.name!==p.name){ prev.starter=false; }     /* 기존 주전 → 벤치(2군행) */
+  try{ t.budget=Math.round(((Number(t.budget)||0)-(fee+sal*0.3))*10)/10; }catch(e){}
+  try{ if(typeof stoveFillLineup==='function') stoveFillLineup(t.id); }catch(e){}
+  return {team:t.id,name:p.name,sal:sal,prev:prev?prev.name:null};
+}
+/* ---------- 마감 · 계약 ---------- */
+/* 아직 이 구단에 필요한 영입인가 — 그 사이 주전이 채워졌으면 철수한다 */
+function fa36BidValid(w,b){
+  const p=S.players[w.name], t=T(b.id);
+  if(!p||!t) return false;
+  if((t.roster||[]).length>=11) return false;
+  const cur=fa36Starter(t,p.role);
+  if(cur&&fa36Ovr(p)<fa36Ovr(cur)-2) return false;      /* 주전보다 확실히 약하면 데려가지 않는다 */
+  return true;
+}
+function fa36Resolve(name,opts){
+  opts=opts||{};
+  const f=fa36State(false); const w=f&&f.open[name];
+  if(!w) return null;
+  const p=S.players[name];
+  if(!p||!p.fa||p.team){ fa36CloseWar(name); return null; }
+  if(!opts.noBump) fa36Bump(w);
+  /* 그 사이 전력이 바뀐 구단은 입찰에서 빠진다 + 한 팀이 한 턴에 여러 건 독식하지 않는다 */
+  const turnSign=f.turnSign||{};
+  const capWins=(w.tier==='S'||w.tier==='A')?1:2;
+  const live=w.bids.filter(function(b){ return fa36BidValid(w,b)&&((turnSign[b.id]||0)<capWins); })
+    .sort(function(a,b){ return b.sal-a.sal; });
+  if(!live.length){ f.unsold=f.unsold||{}; f.unsold[name]=f.round; fa36CloseWar(name); return null; }
+  const best=live[0]||null;
+  const neg=(typeof stoveNegOf==='function')?stoveNegOf(name):null;
+  const winnerTag=best?best.tag:null;
+  const tags=(live.length?live.map(function(b){return b.tag;}):[]).slice(0,4);
+  /* 유저가 최고가 이상이면 우리 구단 계약 */
+  if(neg&&(!best||(Number(neg.offer.salary)||0)>=best.sal-0.001)){
+    const sal=Number(neg.offer.salary)||0;
+    if(!opts.quiet) try{ newsAdd('이적','⚔️ [긴급] '+tags.join('·')+', '+name+' 영입전 — 연봉 '+sal.toFixed(1)+'억에 우리 구단('+((T(S.userTeam)||{}).tag||'MY')+') 전격 계약!'); }catch(e){}
+    f.done[name]={team:S.userTeam,sal:sal,round:f.round,tier:w.tier,user:true};
+    f.turnSign=f.turnSign||{}; f.turnSign[S.userTeam]=(f.turnSign[S.userTeam]||0)+1;
+    try{ stoveFaSignNow(name,neg); }catch(e){}
+    fa36CloseWar(name);
+    return {signed:S.userTeam,name:name,sal:sal,user:true};
+  }
+  if(!best){ fa36CloseWar(name); return null; }
+  const out=fa36SignAI(w,best)||null;
+  if(out){
+    if(!opts.quiet) try{ newsAdd('이적','⚔️ [긴급] '+tags.join('·')+', '+name+' 영입전 — 연봉 '+out.sal.toFixed(1)+'억에 '+best.tag+' 전격 계약!'); }catch(e){}
+    if(!opts.quiet&&(w.tier==='S'||w.tier==='A')){
+      try{ newsAdd('fmk','📱 [FM코리아] '+best.tag+' '+name+' 영입 떴다 — '+(w.tier==='S'?'스토브리그 판도 흔드는 초대형 계약':'주전 경쟁 예고')+' 인정?'); }catch(e){}
+    }
+    f.done[name]={team:best.id,sal:out.sal,round:f.round,tier:w.tier};
+    f.turnSign=f.turnSign||{}; f.turnSign[best.id]=(f.turnSign[best.id]||0)+1;
+    try{ stoveLog('fa36',name+' → '+best.tag+' · 연봉 '+out.sal.toFixed(1)+'억 ('+tags.join('·')+')'); }catch(e){}
+  }
+  /* 유저 협상 중이었다면 결렬 처리 */
+  if(neg){
+    try{ stoveFaLoseNow(name,neg,best); }catch(e){}
+  }
+  fa36CloseWar(name);
+  return {signed:best.id,name:name,sal:out?out.sal:0,user:false,tags:tags};
+}
+function fa36CloseWar(name){
+  const f=fa36State(false); if(!f) return;
+  if(f.open[name]) delete f.open[name];
+}
+
+/* ---------- 하위 선수 채우기 ---------- */
+function fa36BestHome(p){
+  const dem=fa36Demand(p);
+  let best=null,bestScore=-1e9;
+  Object.values(S.teams||{}).forEach(function(t){
+    if(!t||t.id===S.userTeam) return;
+    const roster=(t.roster||[]).length;
+    if(roster>=11) return;
+    const elite=fa36Ovr(p)>=85;
+    if(!elite&&!fa36Afford(t,p,dem)) return;
+    if(elite&&(Number(t.budget)||0)<fa36Fee(p,dem)+dem*0.3+2) return;
+    const cur=fa36Starter(t,p.role);
+    let score=0;
+    if(!cur) score+=3;                                        /* 주전 자리 빔 */
+    else if(fa36Ovr(p)>fa36Ovr(cur)+2) score+=1.6;            /* 업그레이드 */
+    else if(fa36Ovr(p)<fa36Ovr(cur)-6) score-=1.2;
+    score+=(9-Math.min(9,roster))*0.35;                        /* 인원 얇은 구단 */
+    score+=Math.min(1.2,(Number(t.budget)||0)/80);
+    score+=Math.random()*0.4;
+    if(score>bestScore){ bestScore=score; best=t; }
+  });
+  return best;
+}
+function fa36FillLeftovers(max,opts){
+  opts=opts||{};
+  const f=fa36State(true); if(!f) return {n:0};
+  const pool=fa36Pool().filter(function(p){ return !f.open[p.name]&&!f.done[p.name]&&!p.legend; });
+  let n=0, teams=[];
+  for(let i=0;i<pool.length;i++){
+    if(n>=(max||99)) break;
+    const p=pool[i];
+    const t=fa36BestHome(p);
+    if(!t) continue;
+    const dem=fa36Demand(p);
+    const sal=Math.round(Math.max(0.5,Math.min(dem,(Number(t.budget)||0)*FA36.SAL_CAP))*10)/10;
+    const prev=fa36Starter(t,p.role);
+    if(!t.roster) t.roster=[];
+    if(!t.lineup) t.lineup={};
+    if(!t.roster.includes(p.name)) t.roster.push(p.name);
+    p.team=t.id; p.fa=false; p.fee=0; p.salary=sal; p.contract=2;
+    if(!prev||fa36Ovr(p)>fa36Ovr(prev)){ t.lineup[p.role]=p.name; p.starter=true; if(prev) prev.starter=false; }
+    try{ t.budget=Math.round(((Number(t.budget)||0)-(fa36Fee(p,dem)+sal*0.3))*10)/10; }catch(e){}
+    f.done[p.name]={team:t.id,sal:sal,round:f.round,tier:fa36Tier(p),quiet:true};
+    teams.push(fa36Tag(t));
+    n++;
+  }
+  if(n>0&&!opts.quiet){
+    try{ newsAdd('이적','📝 스토브리그 — 잔여 FA '+n+'명 계약 완료 ('+Array.from(new Set(teams)).slice(0,5).join('·')+(teams.length>5?' 외':'')+')'); }catch(e){}
+  }
+  try{ Object.values(S.teams||{}).forEach(function(t){ if(t&&t.id!==S.userTeam) aiRosterFill(t.id); }); }catch(e){}
+  return {n:n};
+}
+
+/* ---------- 턴 진행 ---------- */
+function fa36Advance(){
+  if(!S||S.phase!=='offseason') return {ok:false,msg:'스토브리그에서만 턴을 진행할 수 있습니다'};
+  const f=fa36State(true); if(!f) return {ok:false,msg:'이적시장을 열 수 없습니다'};
+  f.round=(f.round||0)+1;
+  f.turnSign={};
+  const signed=[], lost=[];
+  /* 1) 마감된 영입전 먼저 계약 — 유저가 마지막에 매칭한 제안이 그대로 승부가 된다 */
+  Object.keys(f.open).forEach(function(name){
+    const w=f.open[name];
+    const p=S.players[name];
+    if(!p||!p.fa||p.team){ fa36CloseWar(name); return; }
+    if(f.round>=w.deadline){
+      const r=fa36Resolve(name,{noBump:true});
+      if(r) signed.push(r);
+    }
+  });
+  /* 2) 아직 살아 있는 영입전 — 경쟁 구단이 연봉을 올리고, 유저에게 밀림 알림 */
+  Object.keys(f.open).forEach(function(name){
+    const w=f.open[name]; if(!w) return;
+    const p=S.players[name];
+    if(!p||!p.fa||p.team){ fa36CloseWar(name); return; }
+    fa36Bump(w);
+    const neg=fa36SyncNeg(w);
+    if(neg&&neg.outbid&&w.bids[0]) lost.push({name:name,tag:w.bids[0].tag,sal:w.bids[0].sal});
+  });
+  /* 3) 다음 매물 개설 (우선순위: S→A→B→C) */
+  fa36OpenNext(FA36.MAX_OPEN);
+  /* 4) 하위 매물은 턴이 흐르면 빈 로스터로 바로 채운다 */
+  let filled=0;
+  const pool=fa36Pool().filter(function(p){ return !f.open[p.name]; });
+  const low=pool.filter(function(p){ return f.unsold[p.name]!==undefined||fa36Tier(p)==='B'||fa36Tier(p)==='C'; });
+  if(low.length&&(f.round>=1||Object.keys(f.open).length<2)){
+    filled=fa36FillLeftovers(Math.min(6,low.length),{}).n;
+  }
+  try{ saveGame(); }catch(e){}
+  /* 5) 요약 문구 */
+  const parts=[];
+  signed.forEach(function(r){
+    const tag=(T(r.signed)||{}).tag||r.signed;
+    parts.push((r.user?'우리 구단 ':(tag+' '))+r.name+' '+(r.sal?r.sal.toFixed(1)+'억 ':'')+'계약');
+  });
+  let msg='스토브리그 '+(f.round+1)+'주차 — ';
+  if(parts.length) msg+='⚔️ '+parts.slice(0,3).join(' · ')+(parts.length>3?' 외 '+(parts.length-3)+'건':'');
+  else if(lost.length) msg+='⚠️ '+lost[0].tag+'가 '+lost[0].name+'에 '+lost[0].sal.toFixed(1)+'억 재입찰 — 매칭하지 않으면 빼앗깁니다';
+  else if(filled) msg+=filled+'명 계약';
+  else if(!Object.keys(f.open).length&&!fa36Pool().length) msg+='이적시장 마감 — 남은 FA가 없습니다';
+  else msg+='경쟁 구단이 연봉을 올렸습니다';
+  if(lost.length&&parts.length) msg+=' · ⚠️ '+lost[0].tag+' '+lost[0].name+' '+lost[0].sal.toFixed(1)+'억 재입찰';
+  return {ok:true,msg:msg,round:f.round,signed:signed,lost:lost,filled:filled};
+}
+/* 마감 — 남은 영입전·FA 전부 정리 (미계약 0) */
+function fa36Finish(){
+  const f=fa36State(true); if(!f) return {signed:0,left:0};
+  try{ fa36LegendHome(); }catch(e){}
+  let guard=0,before=fa36Pool().length,n=0,big=[];
+  while(guard++<10){
+    const names=Object.keys(f.open).slice();
+    names.forEach(function(name){
+      const w=f.open[name];
+      const r=fa36Resolve(name,{quiet:true});
+      if(r){ n++; if(w&&(w.tier==='S'||w.tier==='A')) big.push({name:name,sal:r.sal,tier:w.tier,tags:(r.tags||[])}); }
+    });
+    if(!fa36Pool().length) break;
+    const added=fa36OpenNext(FA36.MAX_OPEN);
+    if(!added&&!Object.keys(f.open).length) break;
+  }
+  /* 마감 소식 — 대어 계약은 개별 [긴급], 나머지는 한 줄 요약 */
+  big.sort(function(a,b){ return b.sal-a.sal; }).slice(0,3).forEach(function(x){
+    try{ newsAdd('이적','⚔️ [긴급] '+(x.tags||[]).slice(0,3).join('·')+', '+x.name+' 영입전 — 연봉 '+x.sal.toFixed(1)+'억에 '+((T(f.done[x.name]&&f.done[x.name].team)||{}).tag||'계약')+' 전격 계약!'); }catch(e){}
+  });
+  const fill=fa36FillLeftovers(99,{quiet:true});
+  n+=fill.n;
+  const left=fa36Pool().length;
+  /* 그래도 남으면 - 극소수. 미계약 방치 대신 은퇴 처리 */
+  if(left){
+    fa36Pool().forEach(function(p){
+      p.fa=false; p.team=null; p.retired=true;
+      try{ newsAdd('이적','🎓 '+p.name+' — 새 구단을 찾지 못하고 은퇴를 선언했습니다'); }catch(e){}
+    });
+  }
+  try{ saveGame(); }catch(e){}
+  return {signed:n,left:left,before:before};
+}
+
+/* ============================ UI ============================ */
+function fa36WarBadge(p){
+  if(!p) return '';
+  const f=fa36State(false); if(!f) return '';
+  const w=f.open[p.name];
+  if(!w) return '';
+  const d=Math.max(0,(w.deadline||0)-(f.round||0));
+  const me=w.userIn?' · 내 '+(Number(w.userSal)||0).toFixed(1)+'억':'' ;
+  return '<span class="fawar-badge">⚔️ '+w.bids.length+'구단 입찰전 · 최고 '+w.top.toFixed(1)+'억 · D-'+(d||1)+me+'</span>';
+}
+function fa36WarRow(w){
+  const p=S.players[w.name]; if(!p) return '';
+  const f=fa36State(false);
+  const d=Math.max(0,(w.deadline||0)-(f?f.round:0));
+  const neg=(typeof stoveNegOf==='function')?stoveNegOf(w.name):null;
+  const my=neg?(Number(neg.offer&&neg.offer.salary)||0):0;
+  const best=w.bids[0]||null;
+  const behind=!!(best&&my>0&&my<best.sal-0.04);
+  const lead=!!(best&&my>0&&my>=best.sal-0.001);
+  const rivalTxt=w.bids.map(function(b){
+    return '<span class="fw-tag'+(behind&&best&&b.id===best.id?' hot':'')+'">'+tiSpan(T(b.id),esc(b.tag))+' '+b.sal.toFixed(1)+'</span>';
+  }).join('');
+  return '<div class="fawar">'
+    +'<div class="fawar-h"><b>'+esc(w.name)+'</b>'
+      +'<span class="role-tag">'+ROLE_KR[w.role]+'</span>'
+      +'<span class="grade '+(w.grade||'A')+'">'+(w.grade||w.tier)+'</span>'
+      +'<em>OVR '+w.ovr+' · 요구 '+w.demand.toFixed(1)+'억</em>'
+      +'<span class="fw-d '+(d<=1?'now':'')+'">D-'+(d||1)+'</span></div>'
+    +'<div class="fw-bids">'+rivalTxt+'</div>'
+    +'<div class="fw-state">'
+      +(my>0
+        ? (lead?'<span class="fw-me on">내 제안 '+my.toFixed(1)+'억 — 1위</span>'
+               :'<span class="fw-me off">내 제안 '+my.toFixed(1)+'억 — 밀림 (최고 '+(best?best.sal.toFixed(1):'0')+'억)</span>')
+        :'<span class="fw-me">아직 입찰 전 — 최고 '+(best?best.sal.toFixed(1):'0')+'억</span>')
+      +'<button class="btn xs '+(behind?'primary':'')+'" data-a="stovefamatch" data-v="'+esc(w.name)+'">'+(behind?'매칭 +'+(best.sal+0.1).toFixed(1)+'억':'입찰 참전')+'</button>'
+    +'</div></div>';
+}
+function fa36WarBoardHTML(){
+  const f=fa36State(false); if(!f) return '';
+  const keys=Object.keys(f.open);
+  if(!keys.length) return '';
+  return '<div class="card tight fw-card">'
+    +'<div class="ch"><span>⚔️ 진행 중인 영입전</span><b class="ch-n">'+keys.length+'건 · '+(f.round+1)+'주차</b></div>'
+    +'<div class="tiny" style="margin:-2px 0 6px">경쟁 구단이 턴마다 연봉을 올립니다. D-1이 되면 다음 턴에 마감 — 그 전에 매칭하지 않으면 빼앗깁니다.</div>'
+    +keys.sort(function(a,b){ return (f.open[a].deadline-f.open[b].deadline)||(f.open[b].ovr-f.open[a].ovr); }).map(function(n){ return fa36WarRow(f.open[n]); }).join('')
+    +'</div>';
+}
+function fa36TurnBarHTML(){
+  const f=fa36State(false);
+  if(!S||S.phase!=='offseason'||!f) return '';
+  const pool=fa36Pool().length;
+  const open=Object.keys(f.open).length;
+  return '<div class="card tight fwturn">'
+    +'<div class="fwturn-h"><b>스토브리그 '+(f.round+1)+'주차</b>'
+      +'<span class="tiny">영입전 '+open+'건 · 시장 FA '+pool+'명</span>'
+      +'<button class="btn sm primary" data-a="stovefaturn">다음 턴 →</button></div>'
+    +'<div class="tiny">턴이 지나면 경쟁 구단이 연봉을 올리고, 마감된 영입전은 실제 계약으로 확정됩니다.</div>'
+    +'</div>';
 }
 
 /* ============================================================================
