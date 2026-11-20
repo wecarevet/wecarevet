@@ -2505,6 +2505,19 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .gp6-body{display:flex;flex-direction:column;gap:8px}
 .bgm-bar .bgm-on.pin.on{color:#ffe6a6;border-color:rgba(230,196,129,.8);background:rgba(230,196,129,.14)}
 .mb-bar .mb-b.on{color:#ffe6a6;border-color:rgba(230,196,129,.7)}
+/* V34.9 — 로그인 BGM(징크스) 토글 */
+.bgm-bar .bgm-on.login{color:#bfe2ff;border-color:rgba(120,200,255,.38);white-space:nowrap}
+.bgm-bar .bgm-on.login.on{background:linear-gradient(180deg,#8ed0ff,#5aa9e6);color:#06131f;border-color:#8ed0ff}
+.mb-bar .mb-b.mb-login{color:#bfe2ff;border-color:rgba(120,200,255,.38);white-space:nowrap}
+.mb-bar .mb-b.mb-login.on{background:linear-gradient(180deg,#8ed0ff,#5aa9e6);color:#06131f;border-color:#8ed0ff}
+.tb-ic.tb-login{font-size:13px;line-height:1;min-width:26px;height:26px;border:1px solid #262b36;background:#12161e;border-radius:8px}
+.tb-ic.tb-login.on{border-color:rgba(230,196,129,.7);background:rgba(230,196,129,.14)}
+.login-pill{position:fixed;left:10px;bottom:calc(58px + env(safe-area-inset-bottom));z-index:80;display:none;
+  align-items:center;gap:5px;padding:6px 11px;border-radius:999px;background:rgba(12,16,24,.94);
+  border:1px solid #2a3040;color:#cfe0f5;font-size:10.5px;font-weight:900;cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.login-pill em{font-style:normal;font-size:9px;color:#8fa6c0;font-weight:800}
+.login-pill.on{border-color:rgba(230,196,129,.6);color:#ffe9b0}
 .bgm-bar.finals5{border-color:rgba(255,206,94,.85);background:linear-gradient(180deg,rgba(52,38,10,.9),rgba(18,13,5,.92));
   box-shadow:0 0 18px rgba(255,201,74,.35) inset}
 .bgm-bar.finals5 .bgm-t b{color:#ffe6a6;text-shadow:0 0 10px rgba(255,201,74,.6)}
@@ -3394,6 +3407,30 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 @media (max-height:640px){
   .bhud .bt-obj{display:none}
   .bhud .bc-line:nth-child(2){display:none}
+}
+/* ============================================================================
+   V34.9 — 해설 길이에 따라 시뮬레이션(미니맵) 화면이 출렁이던 현상 고정
+   · 해설창(.bcaster)·시야칩(.bmap-st)·인과 트래커(#causalHost)·카운터 배너는
+     내용과 무관하게 높이를 고정한다 (넘치는 글자는 line-clamp / overflow 로 잘라낸다)
+   · 그 결과 미니맵(.bmap-cv)의 남은 공간이 매 초 동일해진다
+   ========================================================================== */
+.bhud .bmap{position:relative}
+.bhud .bcaster{flex:0 0 auto;overflow:hidden}
+.bhud .bc-line{flex:0 0 auto;max-height:100%}
+.bhud .v33counter{position:absolute;left:6px;right:6px;top:24px;z-index:6;margin:0}
+@media (min-width:641px){
+  .bhud .bmap-st{flex:0 0 34px;height:34px;overflow:hidden;align-content:flex-start;margin:0 0 2px}
+  .bhud .bmap-cv{flex:1 1 auto;min-height:0}
+  .bhud .bcaster{flex:0 0 74px;height:74px;margin-top:4px}
+  .bhud #causalHost{flex:0 0 56px;height:56px;overflow:hidden}
+  .bhud #causalHost .cs-card{height:100%;overflow:hidden;margin:0}
+  .bhud .bbar{flex-wrap:nowrap;overflow-x:auto}
+}
+@media (max-width:640px){
+  /* 폰(360~412px) — 세로 스택에서도 해설창 높이를 고정해 화면 점프를 막는다 */
+  .bhud .bcaster{height:118px;flex:0 0 118px;overflow:hidden}
+  .bhud.nocc .bcaster{display:none}
+  .bhud #causalHost{max-height:120px;overflow:hidden}
 }
 /* V32 승부처 스냅샷 (박스스코어) */
 .v32-snaprow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
@@ -15551,7 +15588,14 @@ function sndToggle(){
   SND.on=!SND.on;
   try{ localStorage.setItem('lckManager.snd',SND.on?'1':'0'); }catch(e){}
   if(!SND.on){ bgmStop(); }
-  else{ sndCtx(); sndWake(); if(typeof D!=='undefined'&&D&&!D.done) bgmStart('draft'); }
+  else{
+    sndCtx(); sndWake();
+    /* 로그인 BGM(징크스)을 유지 중이었으면 그 곡부터 이어서 */
+    let resumed=false;
+    try{ if(typeof V6BGM!=='undefined'&&V6BGM.loginHold&&typeof v6LoginBgmHold==='function') resumed=!!v6LoginBgmHold(true); }catch(e){}
+    if(!resumed&&typeof D!=='undefined'&&D&&!D.done) bgmStart('draft');
+    try{ if(typeof v6LoginUi==='function') v6LoginUi(); }catch(e){}
+  }
   renderTopbar();
   toast(SND.on?'🔊 사운드 켬':'🔇 사운드 끔');
 }
@@ -17495,17 +17539,29 @@ function show(name){
   /* V6: 밴픽 BGM은 밴픽·게임플랜 구간에서만. 다른 화면(경기·결과·허브 등)으로 나가면 즉시 정지 */
   if(name==='draft'||name==='plan'){
     try{ if(typeof V6BGM!=='undefined'&&V6BGM.on&&!SND.on) SND.on=true; }catch(e){}
-    if(SND.on||(typeof V6BGM!=='undefined'&&V6BGM.on)){ try{ bgmStart(bgmCtx()); }catch(e){} }
+    /* 로그인 BGM(징크스)이 유지 중이면 밴픽 곡으로 갈아타지 않는다 */
+    if(typeof v6LoginHeld==='function'&&v6LoginHeld()){
+      try{ if(typeof v6LoginBgmHold==='function') v6LoginBgmHold(true); }catch(e){}
+    }else if(SND.on||(typeof V6BGM!=='undefined'&&V6BGM.on)){
+      try{ bgmStart(bgmCtx()); }catch(e){}
+    }
   }else if(name==='title'){
-    /* 타이틀 화면 — 징크스 테마 (첫 탭에서 시작, 본 화면 진입 시 정지) */
+    /* 타이틀 화면 — 징크스 테마 (첫 탭에서 시작) */
     try{ if(typeof v6TitleBgmEnter==='function') v6TitleBgmEnter(); }catch(e){}
     try{ if(typeof v6TitleBgmChip==='function') v6TitleBgmChip(); }catch(e){}
   }else{
-    bgmStop();
-    /* 밴픽/게임 플랜 밖에서는 유튜브 iframe 자체를 제거 (잔여 오디오 원천 차단) */
-    try{ if(typeof v6BgmUnload==='function') v6BgmUnload(); }catch(e){}
-    try{ if(typeof v6TitleBgmUnload==='function') v6TitleBgmUnload(); }catch(e){}
+    if(typeof v6LoginContinue==='function'&&v6LoginContinue()){
+      /* 타이틀에서 재생 중인 징크스 BGM 을 게임 화면으로 그대로 이어온다 (플레이어는 1개, 파괴 없음) */
+      try{ if(typeof v6LoginBgmHold==='function') v6LoginBgmHold(true); }catch(e){}
+    }else{
+      bgmStop();
+      /* 밴픽/게임 플랜 밖에서는 유튜브 iframe 자체를 제거 (잔여 오디오 원천 차단) */
+      try{ if(typeof v6BgmUnload==='function') v6BgmUnload(); }catch(e){}
+      try{ if(typeof v6TitleBgmUnload==='function') v6TitleBgmUnload(); }catch(e){}
+    }
   }
+  try{ if(typeof v6LoginPillSync==='function') v6LoginPillSync(); }catch(e){}
+  try{ if(typeof v6LoginTopbar==='function') v6LoginTopbar(); }catch(e){}
   const shellish=(S&&(name==='hub'||name==='offseason'||name==='kespa'||name==='press'));
   const tb=$('topbar'); if(tb) tb.classList.toggle('hidden', !shellish);
   const rail=$('rail'); if(rail) rail.classList.toggle('hidden', !shellish);
@@ -17553,11 +17609,13 @@ function renderTopbar(){
       </button>
       <div class="tb-days" title="시즌 남은 일정">${ico('cal',14)}<span>일정 <b>${seasonDaysLeft()}</b></span></div>
       <div class="tb-money"><span>예산</span><b>${t.budget.toFixed(1)}억</b></div>
+      <button class="tb-ic tb-login${(typeof v6LoginState==='function'&&v6LoginState().held)?' on':''}" id="tbLoginBgm" title="로그인 BGM(징크스) 켜기/끄기">${(typeof v6LoginState==='function'&&v6LoginState().held)?'🔇':'🎵'}</button>
       <button class="tb-ic" id="sndBtn" title="사운드">${ico(SND.on?'sound':'mute',18)}</button>
       <button class="tb-ic" id="setBtn" title="사운드 설정">${ico('gear',18)}</button>
       <button class="tb-go" id="goBtn">진행하기 ${ico('play',12)}</button>
     </div>`;
   const sb=$('sndBtn'); if(sb) sb.onclick=sndToggle;
+  const lb=$('tbLoginBgm'); if(lb) lb.onclick=(ev)=>{ if(ev&&ev.stopPropagation) ev.stopPropagation(); try{ if(typeof v6LoginBgmToggle==='function') v6LoginBgmToggle(); }catch(e){} };
   const stb=$('setBtn'); if(stb) stb.onclick=openAudioSettings;
   const gb=$('goBtn'); if(gb) gb.onclick=()=>hubAction('advance');
   const tpb=$('tbPatch'); if(tpb) tpb.onclick=()=>{ try{ openLatestPatch(); }catch(e){} };
@@ -26918,6 +26976,7 @@ function buildMatchDOM(v,key){
       <button class="mb-b" id="mbNext" data-mb="next">⏭ 다음 곡</button>
       <button class="mb-b" id="mbMute" data-mb="mute">🔊 음소거</button>
       <button class="mb-b" id="mbPin" data-mb="pin">📌 고정</button>
+      <button class="mb-b mb-login" id="mbLogin" data-mb="login" title="로그인 BGM(징크스) 켜기/끄기">🎵 징크스 BGM</button>
     </div>
    </div><!-- /bhud -->
    <div class="bhud-extra">
@@ -27183,7 +27242,8 @@ function renderMatch(){
   if(!v) return;
   if(MMDOM.key!==key||!v.querySelector('.bcast')){
     buildMatchDOM(v,key);
-    try{ bgmStop(); }catch(e){}
+    /* 로그인 BGM 유지 중에는 정지시키지 않는다 (인게임 BGM 은 v6MbStart 쪽에서 양보) */
+    try{ if(!(typeof v6LoginHeld==='function'&&v6LoginHeld())) bgmStop(); }catch(e){}
     return;
   }
   if(MMFAST) return;
@@ -29832,7 +29892,9 @@ const V6BGM={ytId:'V1gTYew5k4U', mode:'yt', on:true, vol:55, player:null, ready:
   watchdog:null, host:null, title:'LCK Draft BGM',
   /* 타이틀(로그인) 화면 BGM — 징크스: 난폭한 말괄량이 | 로그인 화면 */
   titleId:'BShu7Jp5X3k', titleName:'징크스: 난폭한 말괄량이 (로그인 화면)', ctx:'draft', titleArmed:false,
-  titleMuted:false, titleWaitTouch:false, titleGesture:false};
+  titleMuted:false, titleWaitTouch:false, titleGesture:false,
+  /* V35 — 로그인 BGM 유지: loginKeep=사용자 설정(저장), loginHold=지금 징크스 곡이 재생 중 */
+  loginKeep:true, loginHold:false, loadedId:null};
 function v6BgmLoad(){
   try{
     const raw=localStorage.getItem('lckManager.bgm6');
@@ -29841,11 +29903,12 @@ function v6BgmLoad(){
     if(!o) return;
     if(typeof o.vol==='number') V6BGM.vol=v6Clamp(o.vol,0,100);
     if(typeof o.on==='boolean') V6BGM.on=o.on;
+    if(typeof o.loginKeep==='boolean') V6BGM.loginKeep=o.loginKeep;
     if(o.mode==='synth'||o.mode==='yt') V6BGM.mode=o.mode;
   }catch(e){}
 }
 function v6BgmSave(){
-  try{ localStorage.setItem('lckManager.bgm6',JSON.stringify({vol:V6BGM.vol,on:V6BGM.on,mode:V6BGM.mode})); }catch(e){}
+  try{ localStorage.setItem('lckManager.bgm6',JSON.stringify({vol:V6BGM.vol,on:V6BGM.on,mode:V6BGM.mode,loginKeep:V6BGM.loginKeep})); }catch(e){}
 }
 function v6BgmUrl(){ return 'https://www.youtube.com/watch?v='+V6BGM.ytId; }
 /* 재생기 컨테이너는 #app 밖(document.body)에 1개만 — 화면 재렌더로 끊기지 않는다 */
@@ -29912,8 +29975,9 @@ function v6BgmCreate(videoId){
       events:{
         onReady:function(ev){
           V6BGM.ready=true;
+          V6BGM.loadedId=vid;
           try{ ev.target.setVolume(V6BGM.vol); }catch(e){}
-          try{ if(V6BGM.pendingId&&V6BGM.pendingId!==vid){ ev.target.loadVideoById(V6BGM.pendingId); } }catch(e){}
+          try{ if(V6BGM.pendingId&&V6BGM.pendingId!==vid){ ev.target.loadVideoById(V6BGM.pendingId); V6BGM.loadedId=V6BGM.pendingId; } }catch(e){}
           v6BgmTryPlay();
         },
         onStateChange:function(ev){
@@ -29954,7 +30018,7 @@ function v6BgmTrackError(code){
   }
   const id=pool[Math.floor(Math.random()*pool.length)];
   V6BGM.dead=false; V6BGM.blocked=false; V6BGM.playT=0;
-  V6BGM.ytId=id; V6BGM.pendingId=id; V6BGM.current=id;
+  V6BGM.ytId=id; V6BGM.pendingId=id; V6BGM.current=id; V6BGM.loadedId=id;
   try{
     const p=V6BGM.player;
     if(p&&V6BGM.ready){ p.loadVideoById(id); p.setVolume(V6BGM.vol); p.unMute(); p.playVideo(); }
@@ -30002,6 +30066,7 @@ function v6BgmKick(){
 function v6BgmPlayVideo(id){
   V6BGM.pendingId=id;
   V6BGM.current=id;
+  V6BGM.loadedId=id;
   if(!v6BgmApiReady()){
     V6BGM.dead=false; V6BGM.blocked=false; V6BGM.playT=0;
     v6BgmEnsureApi();
@@ -30014,6 +30079,7 @@ function v6BgmPlayVideo(id){
   try{
     const p=V6BGM.player;
     p.loadVideoById(id);
+    V6BGM.loadedId=id;
     p.setVolume(V6MB.muted?0:V6BGM.vol);
     if(V6MB.muted){ try{ p.mute(); }catch(e){} } else { try{ p.unMute(); }catch(e){} }
     p.playVideo();
@@ -30061,8 +30127,8 @@ function v6BgmArmGesture(){
   document.addEventListener('pointerdown',function(){
     if(!V6BGM.on||V6BGM.dead) return;
     if(V6BGM.mode!=='yt') return;
-    /* 타이틀 화면은 v6TitleBgmArm 이 무음재생→소리켜기까지 직접 처리한다 */
-    if(V6BGM.ctx==='title') return;
+    /* 로그인 BGM 유지 중 — 자동재생이 막혔으면 첫 터치에서 이어받는다 */
+    if(V6BGM.ctx==='title'){ try{ if(v6LoginHeld()&&!V6BGM.playing) v6LoginBgmNudge(); }catch(e){} return; }
     if(!V6BGM.player||!V6BGM.ready||V6BGM.playing) return;
     try{
       V6BGM.player.setVolume(V6BGM.vol); V6BGM.player.unMute(); V6BGM.player.playVideo();
@@ -30079,6 +30145,8 @@ function v6BgmPlay(ctxKey){
   if(!V6BGM.on) return false;
   if(V6BGM.mode==='synth') return false;
   if(V6BGM.dead) return false;
+  /* 로그인 BGM(징크스)이 재생 중이면 인게임·밴픽 BGM 자동 재생은 보류 — 두 곡 동시 재생 금지 */
+  if(ctxKey!=='title'&&v6LoginHeld()) return false;
   V6BGM.ctx=(ctxKey==='title')?'title':'draft';
   const want=(V6BGM.ctx==='title')?V6BGM.titleId:V6BGM.ytId;
   /* 다른 화면의 곡이 걸려 있으면 지금 화면 곡으로 되돌린다 */
@@ -30102,7 +30170,9 @@ function v6BgmPlay(ctxKey){
    ========================================================================== */
 function v6TitleBgmEnter(){
   V6BGM.ctx='title';
+  if(!v6LoginKeep()) return false;
   if(!V6BGM.on||V6BGM.dead) return false;
+  V6BGM.loginHold=true;
   V6BGM.blocked=false; V6BGM.playT=0;
   V6BGM.titleMuted=false; V6BGM.titleWaitTouch=false; V6BGM.titleGesture=false;
   v6TitleBgmArm();
@@ -30135,6 +30205,7 @@ function v6TitleBgmMutedStart(){
   try{
     const p=V6BGM.player;
     p.loadVideoById(V6BGM.titleId);
+    V6BGM.loadedId=V6BGM.titleId;
     p.setVolume(0);
     p.mute();
     p.playVideo();
@@ -30152,8 +30223,8 @@ function v6TitleBgmUnmuteNow(){
     const p=V6BGM.player;
     if(!p){ v6BgmCreate(V6BGM.titleId); V6BGM.titleWaitTouch=true; return false; }
     if(!V6BGM.ready){ V6BGM.titleWaitTouch=true; V6BGM.current=V6BGM.titleId; V6BGM.pendingId=V6BGM.titleId; return false; }
-    if(V6BGM.current&&V6BGM.current!==V6BGM.titleId){ try{ p.loadVideoById(V6BGM.titleId); }catch(e){} }
-    V6BGM.current=V6BGM.titleId; V6BGM.pendingId=V6BGM.titleId;
+    if(V6BGM.current&&V6BGM.current!==V6BGM.titleId){ try{ p.loadVideoById(V6BGM.titleId); V6BGM.loadedId=V6BGM.titleId; }catch(e){} }
+    V6BGM.current=V6BGM.titleId; V6BGM.pendingId=V6BGM.titleId; V6BGM.loadedId=V6BGM.titleId;
     const vol=(typeof V6BGM.vol==='number')?V6BGM.vol:55;
     try{ p.setVolume(vol); }catch(e){}
     try{ p.unMute(); }catch(e){}
@@ -30191,41 +30262,178 @@ function v6TitleBgmArm(){
 function v6TitleBgmKick(silent){
   V6BGM.ctx='title';
   V6BGM.on=true; V6BGM.dead=false; V6BGM.blocked=false; V6BGM.playT=0;
+  V6BGM.loginKeep=true; V6BGM.loginHold=true;
   const id=V6BGM.titleId;
   if(!v6BgmApiReady()){ v6BgmEnsureApi(); }
   if(!V6BGM.player){ v6BgmCreate(id); }
   try{
     const p=V6BGM.player;
-    if(p&&V6BGM.ready){ p.loadVideoById(id); p.setVolume(V6BGM.vol); p.unMute(); p.playVideo(); }
+    if(p&&V6BGM.ready){ p.loadVideoById(id); V6BGM.loadedId=id; p.setVolume(V6BGM.vol); p.unMute(); p.playVideo(); }
     else { V6BGM.pendingId=id; V6BGM.current=id; }
   }catch(e){}
   V6BGM.current=id; V6BGM.pendingId=id;
+  v6BgmSave();
   if(!silent) try{ toast('🎵 '+V6BGM.titleName+' 재생'); }catch(e){}
   setTimeout(function(){ if(!V6BGM.playing) V6BGM.blocked=true; try{ v6TitleBgmChip(); }catch(e){} },1600);
   return true;
 }
 function v6TitleBgmOff(){
   V6BGM.on=false; V6BGM.playing=false;
+  V6BGM.loginKeep=false; V6BGM.loginHold=false;
   const p=V6BGM.player;
   if(p){ try{ p.pauseVideo(); }catch(e){} try{ if(p.stopVideo) p.stopVideo(); }catch(e){} }
+  v6BgmSave();
   try{ v6TitleBgmChip(); }catch(e){}
+  try{ v6LoginUi(); }catch(e){}
   try{ toast('🔇 타이틀 BGM 꺼짐'); }catch(e){}
   return false;
 }
 function v6TitleBgmToggle(){
   if(V6BGM.on&&V6BGM.playing) return v6TitleBgmOff();
-  V6BGM.on=true; V6BGM.blocked=false;
+  V6BGM.on=true; V6BGM.loginKeep=true; V6BGM.loginHold=true; V6BGM.blocked=false;
   return v6TitleBgmKick();
 }
 function v6TitleBgmChip(){
   try{
     const b=(typeof document!=='undefined'&&document.getElementById)?document.getElementById('tsBgm'):null;
     if(!b) return;
-    const on=V6BGM.on;
+    const on=V6BGM.on&&v6LoginKeep();
     const st=!on?'꺼짐':(V6BGM.playing?(V6BGM.titleMuted?'무음 · 탭해서 소리':'재생 중'):(V6BGM.blocked||!V6BGM.ready)?'탭해서 재생':'재생 준비');
     b.innerHTML='🎵 징크스 테마 <em>'+st+'</em>';
     b.className='ts-bgm'+(on&&V6BGM.playing?' on':'');
   }catch(e){}
+}
+/* ==========================================================================
+   V35 — 로그인 BGM(징크스) 유지 · 어디서든 ON/OFF · 이중 재생 방지
+   · 타이틀의 ctx==='title' 상태를 게임 화면에서도 그대로 살려 둔다 (플레이어 1개 공유)
+   · 인게임 BGM(Heavy Is the Crown 등)이 시작되면 징크스 곡은 즉시 양보(일시정지)
+   ========================================================================== */
+function v6LoginKeep(){ return V6BGM.loginKeep!==false; }
+function v6LoginHeld(){ return !!(v6LoginKeep()&&V6BGM.loginHold&&!V6BGM.dead); }
+function v6LoginState(){
+  const keep=v6LoginKeep(), held=v6LoginHeld(), playing=!!(held&&V6BGM.playing);
+  let txt;
+  if(!keep) txt='꺼짐';
+  else if(!held) txt='대기';
+  else if(playing) txt='재생 중';
+  else if(V6BGM.titleMuted||V6BGM.blocked) txt='탭해서 재생';
+  else txt='준비 중';
+  return {keep:keep, held:held, playing:playing, label:txt};
+}
+/* 화면을 옮겨도 이어서 재생 — 플레이어가 살아 있으면 곡을 처음부터 다시 틀지 않는다 */
+function v6LoginBgmHold(silent){
+  if(!v6LoginKeep()) return false;
+  V6BGM.loginHold=true;
+  V6BGM.ctx='title';              /* 타이틀과 같은 재생 경로 (실패 시 다른 곡으로 튀지 않음) */
+  V6BGM.blocked=false; V6BGM.playT=0;
+  try{ if(typeof V6MB!=='undefined'&&V6MB.on){ V6MB.on=false; v6MbUi(); } }catch(e){}
+  const id=V6BGM.titleId;
+  if(V6BGM.playing&&V6BGM.ready&&V6BGM.loadedId===id) return true;   /* 이미 재생 중 — 건드리지 않는다 */
+  if(!v6BgmApiReady()){ V6BGM.pendingId=id; v6BgmEnsureApi(); return true; }
+  if(!V6BGM.player){ V6BGM.pendingId=id; V6BGM.current=id; v6BgmCreate(id); return true; }
+  if(!V6BGM.ready){ V6BGM.pendingId=id; return true; }
+  try{
+    const p=V6BGM.player;
+    if(V6BGM.loadedId!==id){ V6BGM.current=id; V6BGM.pendingId=id; V6BGM.loadedId=id; p.loadVideoById(id); }
+    p.setVolume(V6BGM.vol);
+    if(!V6BGM.titleMuted) { try{ p.unMute(); }catch(e){} }
+    p.playVideo();
+  }catch(e){ return false; }
+  return true;
+}
+/* 자동재생 차단 상태에서 화면을 만지면 이어받기 (0초 지연 재개) */
+function v6LoginBgmNudge(){
+  if(!v6LoginHeld()) return false;
+  if(V6BGM.playing&&!V6BGM.titleMuted) return false;
+  if(!v6BgmApiReady()){ v6BgmEnsureApi(); return false; }
+  if(!V6BGM.player){ v6BgmCreate(V6BGM.titleId); return false; }
+  if(!V6BGM.ready) return false;
+  try{
+    const p=V6BGM.player, id=V6BGM.titleId;
+    if(V6BGM.loadedId!==id){ p.loadVideoById(id); V6BGM.loadedId=id; V6BGM.current=id; V6BGM.pendingId=id; }
+    p.setVolume(V6BGM.vol); p.unMute(); p.playVideo();
+    V6BGM.titleMuted=false; V6BGM.titleGesture=true;
+    return true;
+  }catch(e){ return false; }
+}
+/* 로그인 BGM을 잠시 양보 — 인게임 BGM이 재생을 시작할 때 (설정은 그대로 둔다) */
+function v6LoginBgmYield(){
+  if(!V6BGM.loginHold) return false;
+  V6BGM.loginHold=false; V6BGM.playing=false;
+  if(V6BGM.ctx==='title') V6BGM.ctx='draft';
+  const p=V6BGM.player;
+  if(p&&V6BGM.ready){ try{ p.pauseVideo(); }catch(e){} }
+  try{ v6LoginUi(); }catch(e){}
+  return true;
+}
+/* 인게임에서 로그인 BGM 켜기/끄기 (설정은 localStorage 에 저장) */
+function v6LoginBgmSet(on,silent){
+  const want=(on!==false);
+  V6BGM.loginKeep=want;
+  if(want){
+    V6BGM.on=true; V6BGM.dead=false; V6BGM.loginHold=true; V6BGM.titleGesture=true;
+    v6LoginBgmHold(true);
+    if(!silent){ try{ toast('🎵 징크스 로그인 BGM 켜짐'); }catch(e){} }
+  }else{
+    V6BGM.loginHold=false; V6BGM.playing=false; V6BGM.titleMuted=false; V6BGM.blocked=false;
+    const p=V6BGM.player;
+    if(p&&V6BGM.ready){ try{ p.pauseVideo(); }catch(e){} }
+    if(V6BGM.ctx==='title') V6BGM.ctx='draft';
+    try{
+      if(typeof D!=='undefined'&&D&&!D.done&&D.phase!=='done'){ v6DraftTrackEnsure(); v6BgmPlay('draft'); }
+    }catch(e){}
+    if(!silent){ try{ toast('🔇 로그인 BGM(징크스) 꺼짐'); }catch(e){} }
+  }
+  v6BgmSave();
+  v6LoginUi();
+  return want;
+}
+function v6LoginBgmToggle(silent){ return v6LoginBgmSet(!v6LoginHeld(),silent); }
+/* 타이틀에서 이어서 게임으로 유지할지 */
+function v6LoginContinue(){
+  if(!v6LoginKeep()||V6BGM.dead) return false;
+  return !!(V6BGM.loginHold||V6BGM.ctx==='title');
+}
+/* 상단바 토글 상태 갱신 (화면 재렌더 없이) */
+function v6LoginTopbar(){
+  try{
+    const b=(typeof document!=='undefined'&&document.getElementById)?document.getElementById('tbLoginBgm'):null;
+    if(!b) return;
+    const s=v6LoginState();
+    b.innerHTML=s.held?'🔇':'🎵';
+    b.title='로그인 BGM(징크스) '+(s.held?'켜짐 — 누르면 끕니다':'꺼짐 — 누르면 재생합니다');
+    if(b.classList) b.classList.toggle('on',s.held);
+  }catch(e){}
+}
+/* 음악 바가 없는 화면용 떠 있는 미니 토글 */
+function v6LoginPillSync(){
+  try{
+    if(typeof document==='undefined'||!document.createElement) return;
+    let el=document.getElementById?document.getElementById('loginBgmPill'):null;
+    const view=(typeof window!=='undefined'&&window.__lastView)||'';
+    const hasOwn=/(^|,)(title|draft|plan|match|hub)(,|$)/.test(view);
+    const show=v6LoginHeld()&&!hasOwn;
+    if(!el){
+      if(!show) return;
+      el=document.createElement('button');
+      el.id='loginBgmPill'; el.type='button';
+      el.className='login-pill';
+      el.addEventListener('click',function(ev){ try{ if(ev&&ev.stopPropagation) ev.stopPropagation(); }catch(e){} v6LoginBgmToggle(); });
+      if(document.body) document.body.appendChild(el);
+    }
+    const st=v6LoginState();
+    el.innerHTML='🎵 징크스 <em>'+(st.playing?'재생 중':st.label)+'</em>';
+    el.className='login-pill'+(st.held?' on':'');
+    el.style.display=show?'flex':'none';
+  }catch(e){}
+}
+/* 모든 음악 컨트롤을 한 번에 갱신 */
+function v6LoginUi(){
+  try{ v6BgmRefresh(); }catch(e){}
+  try{ if(typeof v6MbUi==='function') v6MbUi(); }catch(e){}
+  try{ v6LoginTopbar(); }catch(e){}
+  try{ v6TitleBgmChip(); }catch(e){}
+  try{ v6LoginPillSync(); }catch(e){}
 }
 function v6TitleBgmUnload(){
   if(V6BGM.ctx!=='title') return;
@@ -30253,6 +30461,7 @@ function v6BgmUnload(){
     try{ if(p.destroy) p.destroy(); }catch(e){}
   }
   V6BGM.player=null; V6BGM.ready=false; V6BGM.playing=false; V6BGM.started=0; V6BGM.playT=0; V6BGM.blocked=false;
+  V6BGM.loginHold=false; V6BGM.loadedId=null;
   try{
     const host=(typeof v6BgmHost==='function')?v6BgmHost():null;
     if(host&&typeof host.innerHTML!=='undefined') host.innerHTML='';   /* yt iframe 제거 */
@@ -30284,11 +30493,12 @@ function v6BgmResume(){
 }
 function v6BgmToggle(){
   V6BGM.on=!V6BGM.on;
-  if(!V6BGM.on){ v6BgmStop(); try{ if(typeof bgmStop==='function') bgmStop(); }catch(e){} }
+  if(!V6BGM.on){ v6BgmStop(); try{ if(typeof bgmStop==='function') bgmStop(); }catch(e){} ; V6BGM.loginHold=false; }
   else{
     try{ if(typeof SND!=='undefined'&&!SND.on){ SND.on=true; if(typeof sndCtx==='function') sndCtx(); if(typeof sndWake==='function') sndWake(); } }catch(e){}
     V6BGM.blocked=false; V6BGM.playT=0;
-    v6BgmTryPlay();
+    if(v6LoginKeep()&&V6BGM.ctx==='title') v6LoginBgmHold(true);
+    else v6BgmTryPlay();
   }
   v6BgmSave();
   if(typeof renderDraft==='function'&&typeof D!=='undefined'&&D) renderDraft();
@@ -30313,9 +30523,10 @@ function v6BgmMode(m){
 }
 function v6BgmBarHTML(){
   const on=V6BGM.on;
+  const L=v6LoginState();
   const finals5=!!(V6BGM.finals5||((typeof v6IsFinalsGame==='function')&&v6IsFinalsGame()));
-  const state=!on?'꺼짐':V6BGM.dead?'유튜브 차단 — 무음':V6BGM.playing?'재생 중':V6BGM.blocked?'탭해서 켜기':'준비 중';
-  const needKick=!!(on&&!V6BGM.playing);   /* 차단/실패 상태에서도 다시 켤 수 있게 항상 노출 */
+  const state=L.held?('로그인 BGM(징크스) '+L.label):(!on?'꺼짐':V6BGM.dead?'유튜브 차단 — 무음':V6BGM.playing?'재생 중':V6BGM.blocked?'탭해서 켜기':'준비 중');
+  const needKick=!!(on&&!V6BGM.playing&&!L.held);   /* 차단/실패 상태에서도 다시 켤 수 있게 항상 노출 */
   return `<div class="bgm-bar ${finals5?'finals5':''}" id="bgmBar">
     <span class="bgm-live ${on&&V6BGM.playing?'on':''}"></span>
     <div class="bgm-t">
@@ -30324,6 +30535,7 @@ function v6BgmBarHTML(){
     </div>
     ${needKick?`<button class="bgm-kick" data-bgm="kick">▶ 브금 켜기</button>`:''}
     <button class="bgm-on ${on?'on':''}" data-bgm="toggle">${on?'ON':'OFF'}</button>
+    <button class="bgm-on login ${L.held?'on':''}" data-bgm="login" title="로그인 BGM(징크스) 켜기/끄기">${L.held?'🔇 로그인 BGM 끄기':'🎵 징크스 BGM'}</button>
     <input type="range" min="0" max="100" step="5" value="${V6BGM.vol}" data-bgm="vol" aria-label="BGM 볼륨">
     <span class="bgm-v">${V6BGM.vol}</span>
     <button class="bgm-on next" data-bgm="next" title="다음 곡으로 건너뛰기">⏭️ 다음 곡</button>
@@ -30340,6 +30552,7 @@ function v6BgmBind(){
     if(!b) return;
     const k=b.dataset.bgm;
     if(k==='toggle') v6BgmToggle();
+    else if(k==='login') v6LoginBgmToggle();
     else if(k==='kick') v6BgmKick();
     else if(k==='next'){ v6BgmNextTrack(); try{ renderDraft(); }catch(e){} }
     else if(k==='pin'){ v6BgmPinToggle(); try{ renderDraft(); }catch(e){} }
@@ -31418,6 +31631,7 @@ function v6IsFinalsGame(){
 }
 function v6DraftTrackEnsure(){
   try{
+    if(v6LoginHeld()) return;   /* 로그인 BGM 유지 중에는 밴픽 곡으로 갈아타지 않는다 */
     if(v6IsFinalsGame()){
       V6BGM.ytId='MJzqr9qdopQ'; V6BGM.pendingId='MJzqr9qdopQ';
       V6BGM.finals5=true;
@@ -31478,6 +31692,8 @@ function v6MbPick(){
   return i;
 }
 function v6MbPlayIdx(i){
+  /* 두 곡 동시 재생 금지 — 인게임 BGM이 시작되면 로그인 BGM은 즉시 양보 */
+  if(V6BGM.loginHold) v6LoginBgmYield();
   V6MB.idx=i; V6MB.on=true; V6MB.muted=false;
   const id=v6MbTrackId(i);
   try{ if(typeof v6BgmPlayVideo==='function') v6BgmPlayVideo(id); }catch(e){}
@@ -31486,21 +31702,31 @@ function v6MbPlayIdx(i){
 }
 function v6MbStart(){
   if(!V6MB.tracks.length) return null;
-  if(V6MB.on&&V6MB.idx>=0) return v6MbTrackId(V6MB.idx);
-  return v6MbPlayIdx(v6MbPick());
+  /* 로그인 BGM이 재생 중이면 인게임 BGM은 자동으로 겁지 않는다 (사용자가 ▶ 누르면 전환) */
+  if(v6LoginHeld()){ v6MbUi(); return null; }
+  if(V6MB.idx<0) V6MB.idx=v6MbPick();
+  const id=v6MbTrackId(V6MB.idx);
+  V6MB.on=true;
+  /* 공유 플레이어에 이미 이 곡이 올려져 있으면 이어서, 아니면(다른 곡·징크스가 올라 있으면) 새로 올린다 */
+  if(V6BGM.player&&V6BGM.ready&&V6BGM.loadedId===id){
+    try{ if(!V6MB.muted) V6BGM.player.playVideo(); }catch(e){}
+    v6MbUi();
+    return id;
+  }
+  return v6MbPlayIdx(V6MB.idx);
 }
 function v6MbToggle(){
   const p=V6BGM.player;
   if(!V6MB.on){
-    V6MB.on=true;
-    if(p&&V6BGM.ready){ try{ p.playVideo(); }catch(e){} }
-    else return v6MbStart();
-  }else{
-    V6MB.on=false;
-    if(p){ try{ p.pauseVideo(); }catch(e){} }
+    if(V6BGM.loginHold) v6LoginBgmYield();
+    v6MbStart();
+    v6MbUi();
+    return V6MB.on;
   }
+  V6MB.on=false;
+  if(p){ try{ p.pauseVideo(); }catch(e){} }
   v6MbUi();
-  return V6MB.on;
+  return false;
 }
 function v6MbNext(){
   const n=V6MB.tracks.length;
@@ -31526,10 +31752,11 @@ function v6MbUi(){
   const bar=document.getElementById?document.getElementById('mbBar'):null;
   if(!bar) return;
   const info=v6MbTrackInfo(V6MB.idx);
+  const L=v6LoginState();
   const t=document.getElementById('mbTitle');
-  if(t) t.textContent=V6MB.on?('🎵 '+info.title):'🎵 일시정지';
+  if(t) t.textContent=L.held?'🎵 징크스 — 로그인 BGM':(V6MB.on?('🎵 '+info.title):'🎵 일시정지');
   const ar=document.getElementById('mbArtist');
-  if(ar) ar.textContent=V6MB.on?('— '+info.artist):'';
+  if(ar) ar.textContent=L.held?'인게임 BGM 은 쉬는 중':(V6MB.on?('— '+info.artist):'');
   const pb=document.getElementById('mbPlay');
   if(pb) pb.textContent=V6MB.on?'⏸ 멈춤':'▶ 재생';
   const mb=document.getElementById('mbMute');
@@ -31543,6 +31770,12 @@ function v6MbUi(){
   }
   const lv=document.getElementById('mbLive');
   if(lv){ if(V6MB.on) lv.classList.add('on'); else lv.classList.remove('on'); }
+  const lg=document.getElementById('mbLogin');
+  if(lg){
+    lg.textContent=L.held?'🔇 로그인 BGM 끄기':'🎵 징크스 BGM';
+    lg.title='로그인 BGM(징크스) 켜기/끄기 — 켜면 인게임 BGM 은 멈춥니다';
+    if(lg.classList) lg.classList.toggle('on',L.held);
+  }
 }
 function v6MatchBgmMount(){
   if(typeof document==='undefined') return;
@@ -31557,6 +31790,7 @@ function v6MatchBgmMount(){
       else if(k==='next') v6MbNext();
       else if(k==='mute') v6MbMute();
       else if(k==='pin') v6MbPin();
+      else if(k==='login') v6LoginBgmToggle();
     });
   }
   /* 경기 시작과 동시에 인게임 BGM 랜덤 재생 */
