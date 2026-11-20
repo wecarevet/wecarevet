@@ -7900,7 +7900,7 @@ function laneLossApply(killerSide, role, m, tag){
   M.csLost[victimSide]=(M.csLost[victimSide]||0)+cs;
   /* v31 — 웨이브 손실 골드는 실제 미니언 막타(farm.js)가 만들어낸다. 여기서는 소량만. */
   addGold(killerSide, 40);
-  try{ if(xp>0) lvAddXp(killerSide, laneRole, xp); }catch(e){}
+  try{ if(xp>0) lvAddXpEv(killerSide, laneRole, xp); }catch(e){}
   /* 14분 전이면 포탑 방패(판) 골드까지 */
   let plate=0;
   if((m||M.minute||0)<14){ plate=125; addGold(killerSide, plate); }
@@ -8006,16 +8006,24 @@ function tickBody(silent){
 
 /* ============ 챔피언 레벨 1~18 ============ */
 const LV_MAX=18, ULT_LEVELS=[6,11,16];
-const LV_XP=[0];
-for(let n=2;n<=LV_MAX;n++) LV_XP[n]=Math.round(43*Math.pow(n-1,1.3));
+/* V34.12.1 — 실제 리그 오브 레전드 경험치통 (누적 XP)
+   Lv.2 280 · Lv.3 660 · Lv.4 1140 · Lv.5 1720 · Lv.6 2400 · Lv.7 3180 · Lv.8 4060 · Lv.9 5040
+   Lv.10 6120 · Lv.11 7300 · Lv.12 8580 · Lv.13 9960 · Lv.14 11440 · Lv.15 13020 · Lv.16 14700
+   Lv.17 16480 · Lv.18 18360  (한 레벨 필요량 = 80 + 100*(n-1)) */
+const LV_XP=[0,0,280,660,1140,1720,2400,3180,4060,5040,6120,7300,8580,9960,11440,13020,14700,16480,18360];
+/* 킬·어시스트·오브젝트·웨이브(퀵 시뮬) 경험치는 예전 임의 경험치통(43*(n-1)^1.3) 기준 값이라
+   실제 경험치통에 맞춰 8배로 올린다 (6렙 348 → 2400, 11렙 858 → 7300, 16렙 1445 → 14700). */
+const LV_EVENT_XP=8;
 /* 솔로 라인(탑·미드)이 가장 빠르고, 정글은 중간, 봇/서폿은 경험치를 나눠 1~2렙 뒤진다 */
-const LV_RATE={TOP:1.00,MID:1.00,JGL:0.90,ADC:0.72,SUP:0.58};
+const LV_RATE={TOP:8.0,MID:8.0,JGL:7.2,ADC:5.6,SUP:4.6};   /* 초당 XP — 실제 경험치통 스케일(미니맵 꺼짐 폴백) */
 function lvInit(){
   M.lv={me:{},opp:{}}; M.xp={me:{},opp:{}}; M.lvUlt={me:0,opp:0}; M.lvEdge=0;
   ROLES.forEach(r=>{ ['me','opp'].forEach(s=>{ M.lv[s][r]=1; M.xp[s][r]=0; }); });
 }
 function lvOf(side,role){ return (M&&M.lv&&M.lv[side]&&M.lv[side][role])||1; }
 function lvFromXp(xp){ let n=1; for(let i=2;i<=LV_MAX;i++){ if(xp>=LV_XP[i]) n=i; else break; } return n; }
+/* 이벤트(킬·어시스트·타워·오브젝트·웨이브) 경험치 — 예전 단위 값을 실제 경험치통으로 환산 */
+function lvAddXpEv(side,role,amt){ if(!amt) return; lvAddXp(side,role,amt*LV_EVENT_XP); }
 function lvAddXp(side,role,amt){
   if(!M||!amt) return;
   if(!M.lv) lvInit();
@@ -8172,7 +8180,7 @@ function simStep(silent){
       const cp=pickClutchPlayer(t);
       if(cp){
         const kg=commitKill('me',{role:cp.role, kind:'clutch', gold:330});
-        lvAddXp('me',cp.role,26);
+        lvAddXpEv('me',cp.role,26);
         M.clutch=(M.clutch||0)+1;
         kgLog(kg,'blue', m+'분 · ⚡ <b>슈퍼플레이</b> — '+cp.name+'('+myChampAt(cp.role)+')이(가) '+pickOf(['대박 이니시','바론 스틸','퀵실버 역전 한타','1대3 처형'])+'로 판을 뒤집습니다!');
         kgLog(kg,'sys','🎤 전용준: 이건 개인 기량입니다! '+cp.name+'가 게임을 바꿉니다!');
@@ -8239,8 +8247,8 @@ function simStep(silent){
     const meWins=Math.random()<laneFavor;
     const team=meWins?'me':'opp';
     const kgL=commitKill(team,{role:role, kind:'lane', lane:mmLaneOfRole(role), gold:300});
-    lvAddXp(team,role,30);
-    ROLES.forEach(r=>{ if(r!==role) lvAddXp(team,r,8); });
+    lvAddXpEv(team,role,30);
+    ROLES.forEach(r=>{ if(r!==role) lvAddXpEv(team,r,8); });
     const champ=team==='me'?myChampAt(role):oppChampAt(role);
     const nm=team==='me'?myNameAt(role):oppNameAt(role);
     const pl=playerAt(team,role);
@@ -8270,7 +8278,7 @@ function simStep(silent){
     const team=meWins?'me':'opp';
     const role=pickOf(['SUP','JGL','MID']);
     const kgP=commitKill(team,{role:role, kind:'pickoff', lane:'MID', gold:380});
-    lvAddXp(team,role,30); ROLES.forEach(r=>{ if(r!==role) lvAddXp(team,r,12); });
+    lvAddXpEv(team,role,30); ROLES.forEach(r=>{ if(r!==role) lvAddXpEv(team,r,12); });
     kgLog(kgP, team==='me'?'blue':'red', m+'분 · <b>부시 매복 픽오프</b> — '+(team==='me'?myNameAt(role):oppNameAt(role))+'이(가) 시야 밖에서 끊어냅니다.');
   }
   // 위험 특성
@@ -8307,7 +8315,7 @@ function simStep(silent){
     M.grubs[sideIdx(team)]+=3;
     try{ if(typeof bountyObjective==='function') bountyObjective(team,'grub',m); }catch(e){}
     addGold(team,190*S.meta.obj.grub);
-    ROLES.forEach(r=>lvAddXp(team,r,16));
+    ROLES.forEach(r=>lvAddXpEv(team,r,16));
     try{
       tlEmit({kind:'obj', obj:'grub', team:team, label:'공허 유충 '+(M.grubs[sideIdx(team)])+'스택 — <em>'+esc(team==='me'?myTeam().tag:T(M.oppId).tag)+'</em> 확보',
         lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 공허 유충 3스택 — <b>'+(team==='me'?M.myName:M.oppName)+'</b>이(가) 유충을 가져갑니다.'}],
@@ -8347,7 +8355,7 @@ function simStep(silent){
     let _drakeBounty=0;
     try{ if(typeof bountyObjective==='function') _drakeBounty=bountyObjective(team,'dragon',m); }catch(e){}
     addGold(team,380*S.meta.obj.dragon);
-    ROLES.forEach(r=>lvAddXp(team,r,18));
+    ROLES.forEach(r=>lvAddXpEv(team,r,18));
     M._tlDragon={team:team,elem:elem,n:n};
     const dcl=team==='me'?'blue':'red';
     const dlines=[];
@@ -8462,7 +8470,7 @@ function simStep(silent){
     M.barons[sideIdx(team)]++;
     try{ if(typeof bountyObjective==='function') bountyObjective(team,'baron',m); }catch(e){}
     addGold(team,1200*S.meta.obj.baron);
-    ROLES.forEach(r=>lvAddXp(team,r,22));
+    ROLES.forEach(r=>lvAddXpEv(team,r,22));
     try{ if(typeof v5BaronTaken==='function') v5BaronTaken(team,m); }catch(e){}
     try{ tlEmit({kind:'obj', obj:'baron', team:team, label:'바론 — <em>'+esc(team==='me'?myTeam().tag:T(M.oppId).tag)+'</em> 확보',
       lines:[{kind:team==='me'?'blue':'red', text:m+'분 · <b>바론 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 바론 버프로 공성을 시작합니다 — 3분간 2차·3차 타워 압박, 슈퍼 미니언과 함께 넥서스를 노립니다.'}],
@@ -9182,7 +9190,7 @@ function v5TowerFall(side,m,forceLane){
   M.towers[idx]=(M.towers[idx]||0)+1;
   try{ if(typeof bountyObjective==='function') bountyObjective(side,'tower',m); }catch(e){}
   addGold(side,nx?320:240);
-  ROLES.forEach(r2=>lvAddXp(side,r2,10));
+  ROLES.forEach(r2=>lvAddXpEv(side,r2,10));
   const teamNm=side==='me'?M.myName:M.oppName;
   const tierNm=nx?'넥서스 타워':('T'+(tier+1)+' 타워');
   const act=nx
@@ -9252,8 +9260,8 @@ function v5Scuttle(){
     const n=W[side]||0;
     if(!n) return;
     addGold(side,130*n);
-    lvAddXp(side,'JGL',10*n);
-    (W.roam[side]||[]).forEach(r=>lvAddXp(side,r,7*n));
+    lvAddXpEv(side,'JGL',10*n);
+    (W.roam[side]||[]).forEach(r=>lvAddXpEv(side,r,7*n));
     M.vision[side==='me'?0:1]+=4*n;
     if(M.trait&&M.trait[side]) M.trait[side].vision=(M.trait[side].vision||0)+0.15*n;
   });
@@ -9266,7 +9274,7 @@ function v5Scuttle(){
       ? commitKill(side,{role:r, kind:'scuttle', lane:'MID', gold:300*k, n:k})
       : null;
     if(!kg){ M.kills[side==='me'?0:1]+=k; addGold(side,300*k); }
-    lvAddXp(side,r,14);
+    lvAddXpEv(side,r,14);
     kgLog(kg, side==='me'?'blue':'red', '3분 · <b>바위게 교전 '+k+'킬</b> — '+
       (side==='me'?myNameAt(r):oppNameAt(r))+'('+(side==='me'?myChampAt(r):oppChampAt(r))+')이(가) 강타 싸움에서 이깁니다.');
   });
@@ -9373,7 +9381,7 @@ function v5VisionTick(m){
       ? commitKill(side,{role:role, kind:'pickoff', lane:'MID', gold:380})
       : null;
     if(!kg){ M.kills[idx]=(M.kills[idx]||0)+1; addGold(side,380); }
-    lvAddXp(side,role,26);
+    lvAddXpEv(side,role,26);
     W.ambush[side]=(W.ambush[side]||0)+1;
     kgLog(kg, side==='me'?'blue':'red', m+'분 · <b>시야 매복 픽오프</b> — '+
       (side==='me'?myNameAt(role):oppNameAt(role))+'('+(side==='me'?myChampAt(role):oppChampAt(role))+
@@ -9538,7 +9546,7 @@ function v5MacroTrade(side,kind,m){
   const res=(Math.random()<0.45+intel*0.4)?v5TowerFall(side,m,lane):null;
   const plate=Math.round((60+Math.random()*110)*(0.8+intel*0.4));
   addGold(side,res?320:(180+plate));
-  ROLES.forEach(r=>lvAddXp(side,r,7));
+  ROLES.forEach(r=>lvAddXpEv(side,r,7));
   if(M.vision) M.vision[side==='me'?0:1]+=3;
   /* 적 반대편 정글 약탈 — 골드와 시야를 실제로 가져온다 */
   const camp=Math.round((40+Math.random()*80)*(0.85+intel*0.3));
@@ -21052,10 +21060,15 @@ function mmCampAlive(c,sec){
    · 캠프는 정글러가 그 자리에서 처치했을 때만 (근접 클리어 창구)
    · 미니맵 시뮬이 꺼진 빠른 진행에서는 engine.js lvTick 이 기존 고정 경험치로 폴백한다
    ========================================================================== */
-const MM_XP_RANGE=0.18;                                    /* 미니언 경험치 사거리 (CS 사거리 0.135 보다 넓다) */
-const MM_XP_MINION={melee:6.6,caster:3.3,cannon:11,super:16};   /* 한 마리당 기본 경험치 */
-const MM_XP_CAMP={buff:50,sm:42,scuttle:32};                /* 캠프 처치 경험치 */
-const MM_XP_SHARE={1:1,2:1.30,3:1.45,4:1.55,5:1.60};        /* 같이 먹을 때 총량 보너스 */
+const MM_XP_RANGE=0.20;                                    /* 미니언 경험치 사거리 (CS 사거리 0.135 보다 넓다) */
+/* V34.12.1 — 실제 롤 미니언 경험치 (한 마리당, 솔로 기준)
+   근거리 60 · 원거리 30 · 대포 93 · 슈퍼 97 → 3근+3원 웨이브 270 XP (대포 웨이브 +93) */
+const MM_XP_MINION={melee:60,ranged:30,cannon:93,super:97,baron:60};
+/* 정글 캠프 — 첫 캠프 Lv.2(280+), 3캠프 Lv.3(660+), 6캠프 Lv.4(1140+)에 맞춘 실제 스케일 */
+const MM_XP_CAMP={buff:300,sm:240,scuttle:120};
+const MM_XP_CAMP_FIRST=45;                                  /* 첫 캠프 보너스(정글 펫) — 합계 285 */
+/* 2인 분배는 각자 62.5%(총 125%) — 실제 롤 근거리 60 / 2인 37.5, 원거리 30 / 2인 18.5 와 같은 비율 */
+const MM_XP_SHARE={1:1,2:1.25,3:1.35,4:1.45,5:1.50};
 function mmCampXp(c){
   if(!c) return MM_XP_CAMP.sm;
   if(c.kind==='buff') return MM_XP_CAMP.buff;
@@ -22018,7 +22031,9 @@ function mv(g,side){ return g; }
 function mmSpawnWave(sec){
   const t0=(sec==null)?mmGameSec():Number(sec)||0;
   MM.waveNo=(MM.waveNo||0)+1;
-  const cannon=(MM.waveNo%3===0);
+  /* 실제 롤 대포 미니언 주기 — 15분 전 3웨이브마다, 15~25분 2웨이브마다, 25분 이후 매 웨이브 */
+  const minNow=(Number(t0)||0)/60;
+  const cannon=(minNow<15)?((MM.waveNo%3)===0):(minNow<25?((MM.waveNo%2)===0):true);
   const sup=(typeof v5SuperLanes==='function'&&M)?v5SuperLanes():{me:[],opp:[]};
   const baronOn=(side)=>!!(M&&M.baronBuff&&M.baronBuff[side]>=((M.minute||0)));
   const push=(mn)=>{ MM.minions.push(mn); };
@@ -23049,6 +23064,7 @@ function mmUpdate(dt){
         c.by=k;
         if(c.prog>=1){
           c.alive=false; c.prog=0; c.respawnAt=sec+c.respawn; c.by=null;
+          const firstCamp=((u.clears||0)===0);
           u.clears=(u.clears||0)+1; u.firstClearAt=u.clears>=(3)?(u.firstClearAt||sec):u.firstClearAt;
           mmAddFx({type:'burst',x:c.x,y:c.y,col:c.side==='me'?'#4fa8ff':c.side==='opp'?'#ff5570':'#ffc94a',life:800,label:c.n});
           if(typeof addGold==='function') addGold(u.side,c.kind==='buff'?170:c.kind==='scuttle'?120:130);
@@ -23061,7 +23077,7 @@ function mmUpdate(dt){
             /* V34.12.1 — 카정은 '도착해서 실제로 먹은' 순간에만 기록된다 */
             try{ if(typeof jglLog==='function') jglLog(u.side,'🗡 <b>카정 성공</b> — 적 정글 '+(c.n||'캠프')+' 캠프를 빼앗습니다.'); }catch(e){}
           }
-          if(typeof lvAddXp==='function') lvAddXp(u.side,'JGL',mmCampXp(c));
+          if(typeof lvAddXp==='function') lvAddXp(u.side,'JGL',mmCampXp(c)+(firstCamp?MM_XP_CAMP_FIRST:0));
         }
       }
     }
@@ -33439,7 +33455,7 @@ function macroPlateMine(side,lane,m){
   const plateGold=Math.round(125*(0.62+0.38*sk));
   addGold(side,plateGold);
   mx.stats.plates[side]=(mx.stats.plates[side]||0)+plateGold;
-  try{ lvAddXp(side,role,6); }catch(e){}
+  try{ lvAddXpEv(side,role,6); }catch(e){}
   const L=M.lane&&M.lane[role];
   if(L){ const s=0.8; if(side==='me'){ L.my=mxClamp(L.my+s,5,95); } else { L.opp=mxClamp(L.opp+s,5,95); } }
   if((mx.plateLog=(mx.plateLog||0)+1)<=3){
@@ -33520,7 +33536,7 @@ function macroCsSwing(side,role,cs,xp,plate){
   /* v31 — 골드는 실제 미니언 막타(farm.js)가 준다. 여기서는 라인 주도권·CS 손실 기록만. */
   if(plate) addGold(side,125);
   if(plate) mx.stats.plates[side]=(mx.stats.plates[side]||0)+125;
-  if(xp>0){ try{ lvAddXp(side,role,xp); }catch(e){} }
+  if(xp>0){ try{ lvAddXpEv(side,role,xp); }catch(e){} }
   mx.stats.cs[side]=(mx.stats.cs[side]||0)+cs;
   return {cs:cs,gold:0};
 }
@@ -36171,8 +36187,11 @@ function jglTick(sec){
          (예전엔 예정 시각에 mmCampForceClear 로 지워서, 교전·오브젝트로 늦어지거나
           다른 곳에 있는 정글러의 캠프가 아무도 안 먹었는데 사라졌다) */
       const camp=jglCampList(side)[st.idx];
-      const alive=camp?((typeof mmCampAlive==='function')?mmCampAlive(camp,s):!!camp.alive):false;
-      if(!camp||!alive){ j.camps++; try{ jglNextStep(side,s); }catch(e){} return; }
+      if(!camp){ j.camps++; try{ jglNextStep(side,s); }catch(e){} return; }
+      /* 아직 스폰 전(01:30/01:40 이전)이면 '비어 있다'가 아니라 '아직 없다' — 기다린다 */
+      if(camp.first&&s<camp.first) return;
+      const alive=(typeof mmCampAlive==='function')?mmCampAlive(camp,s):!!camp.alive;
+      if(!alive){ j.camps++; try{ jglNextStep(side,s); }catch(e){} return; }
       const u=(typeof MM!=='undefined'&&MM&&MM.units)?MM.units[side+'-JGL']:null;
       const dist=(u&&u.alive)?Math.hypot(u.x-camp.x,u.y-camp.y):null;
       if(dist!=null&&dist<=JGL_WORK_R){
