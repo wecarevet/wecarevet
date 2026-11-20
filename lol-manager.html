@@ -1101,6 +1101,10 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .ob-lab{color:#5b6270}
 .ob b{color:#c3c9d4;font-weight:900}
 .bset{text-align:center;font-size:10px;color:#7f8798;font-weight:800;padding:3px 0;background:#0b0c10;border-bottom:1px solid #14161c}
+/* V34.14 — HUD 진영 배지 */
+.bset .bside{display:inline-block;padding:0 5px;margin-right:5px;border-radius:6px;font-size:9px;font-weight:900;letter-spacing:.2px;vertical-align:1px}
+.bset .bside.blue{color:#bfe2ff;background:rgba(79,168,255,.18);border:1px solid rgba(79,168,255,.45)}
+.bset .bside.red{color:#ffd0d8;background:rgba(255,85,112,.20);border:1px solid rgba(255,85,112,.55)}
 .bmid{display:grid;grid-template-columns:132px minmax(0,1fr) 132px;gap:10px;padding:8px;max-width:1120px;margin:0 auto;width:100%}
 .bcol{display:flex;flex-direction:column;justify-content:space-around;gap:5px;min-width:0}
 .bpl{display:flex;align-items:center;gap:6px;padding:5px;border-radius:8px;background:#101218;border:1px solid #20232b;min-width:0}
@@ -21059,14 +21063,35 @@ const LANE_HALF={
   BOT:{blue:[[0.06,0.94],[0.26,0.935],[0.50,0.930],[0.72,0.905],[0.875,0.85]],
        red:[[0.94,0.06],[0.927,0.28],[0.914,0.55],[0.895,0.76],[0.875,0.85]]},
 };
-const LANE_PATH={}, LANE_MIDT={};
-['TOP','MID','BOT'].forEach(l=>{
-  const b=LANE_HALF[l].blue, r=LANE_HALF[l].red;
-  LANE_PATH[l]=b.concat(r.slice().reverse().slice(1));
-  const len=p=>{ let s=0; for(let i=1;i<p.length;i++) s+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]); return s; };
-  const lb=len(b), lr=len(r);
-  LANE_MIDT[l]=lb/(lb+lr);
-});
+const LANE_PATH={}, LANE_MIDT={}, LANE_LEN={};
+/* V34.14 — 진영(블루/레드) 대응.
+   협곡은 180도 대칭이지만 라인·핏은 지도 위 절대 위치다. 그래서 'me = 좌하단' 고정을 버리고,
+   우리 팀이 레드 사이드면 me 쪽 좌표를 실제 레드(우상단) 좌표로 재구성한다.
+   탑·봇 라인의 물리 위치는 절대 뒤집지 않는다(탑=좌상단, 봇=우하단). */
+const MM_CANON={ready:false};
+let MM_SIDE='blue';
+function mmSideNow(){ try{ return (M&&M.mySide==='red')?'red':'blue'; }catch(e){ return 'blue'; } }
+function mmIsRed(){ return MM_SIDE==='red'; }
+/* 'me'|'opp' 기준으로 블루 진영 기준 좌표를 실제 진영 좌표로 바꾼다 */
+function mmSidePt(side,p){
+  if(!p||p.length<2||!isFinite(p[0])||!isFinite(p[1])) return p;
+  const mine=(side==='me')!==(MM_SIDE==='red');
+  return mine?[p[0],p[1]]:[1-p[0],1-p[1]];
+}
+function mmLaneBuild(red){
+  ['TOP','MID','BOT'].forEach(l=>{
+    const b=LANE_HALF[l].blue, r=LANE_HALF[l].red;
+    /* 경로 진행 방향은 항상 '내 본진(t=0) → 상대 본진(t=1)'.
+       그래서 라인전 코드의 (side==='me' ? + : -) 규칙이 진영과 무관하게 유지된다. */
+    const pts=(red? r.concat(b.slice().reverse().slice(1)) : b.concat(r.slice().reverse().slice(1)));
+    LANE_PATH[l]=pts.map(p=>[p[0],p[1]]);
+    const len=q=>{ let s=0; for(let i=1;i<q.length;i++) s+=Math.hypot(q[i][0]-q[i-1][0],q[i][1]-q[i-1][1]); return s; };
+    const lb=len(b), lr=len(r);
+    LANE_LEN[l]=len(LANE_PATH[l]);            /* 라인 전체 길이(맵 단위) — param↔map 거리 변환용 */
+    LANE_MIDT[l]= red ? (lr/(lb+lr)) : (lb/(lb+lr));
+  });
+}
+mmLaneBuild(false);
 /* 블루(me) 진영 좌표 → 레드(opp)는 180도 회전 */
 const mirrorPt=pt=>[1-pt[0],1-pt[1]];
 
@@ -21132,6 +21157,42 @@ const LANE_POS={
 const PIT={dragon:[0.674,0.708],baron:[0.329,0.289],grub:[0.329,0.289]};
 const OBJ_TIMES={dragon:[5,11,17,23,29],grub:[6,10],herald:[14],baron:[20,26,32]};
 const SIDE_COL={me:'#4fa8ff',opp:'#ff5570'};
+const SIDE_RGB={me:'79,168,255',opp:'255,85,112'};
+/* V34.14 — 진영 적용: me/opp 좌표 테이블을 우리 팀 진영에 맞춰 재구성한다.
+   매치 시작(mmReset)에서 한 번 호출된다. */
+function mmSideApply(){
+  if(!MM_CANON.ready){
+    const cp=o=>JSON.parse(JSON.stringify(o));
+    MM_CANON.nexus=cp(MM_NEXUS); MM_CANON.fountain=cp(MM_FOUNTAIN);
+    MM_CANON.towers=cp(MAP_TOWERS); MM_CANON.inhibs=cp(MAP_INHIBS);
+    MM_CANON.lanePos=cp(LANE_POS); MM_CANON.walls=cp(MAP_WALLS);
+    MM_CANON.guard=cp(GUARD); MM_CANON.standoff=cp(STANDOFF); MM_CANON.leash=cp(LEASH);
+    MM_CANON.col=cp(SIDE_COL); MM_CANON.rgb=cp(SIDE_RGB);
+    MM_CANON.ready=true;
+  }
+  const cp=o=>JSON.parse(JSON.stringify(o));
+  const put=(dst,src,swap)=>{ dst.me=cp(src.me); dst.opp=cp(src.opp); if(swap){ const t=dst.me; dst.me=dst.opp; dst.opp=t; } };
+  const red=(mmSideNow()==='red');
+  put(MM_NEXUS,MM_CANON.nexus,red);
+  put(MM_FOUNTAIN,MM_CANON.fountain,red);
+  put(MAP_TOWERS,MM_CANON.towers,red);
+  put(MAP_INHIBS,MM_CANON.inhibs,red);
+  put(MAP_WALLS,MM_CANON.walls,red);
+  put(GUARD,MM_CANON.guard,red);
+  put(STANDOFF,MM_CANON.standoff,red);
+  put(LEASH,MM_CANON.leash,red);
+  put(SIDE_COL,MM_CANON.col,red);
+  put(SIDE_RGB,MM_CANON.rgb,red);
+  /* LANE_POS 는 라인별 me/opp */
+  ['TOP','MID','BOT','ADC','SUP'].forEach(function(l){
+    if(!LANE_POS[l]||!MM_CANON.lanePos[l]) return;
+    LANE_POS[l].me=cp(MM_CANON.lanePos[l].me);
+    LANE_POS[l].opp=cp(MM_CANON.lanePos[l].opp);
+    if(red){ const t=LANE_POS[l].me; LANE_POS[l].me=LANE_POS[l].opp; LANE_POS[l].opp=t; }
+  });
+  mmLaneBuild(red);
+  MM_SIDE=red?'red':'blue';
+}
 
 MM.imgs={};
 MM.mapImg=null; MM.mapTried=false; MM.mapReady=false;
@@ -21201,7 +21262,7 @@ const STANDOFF={me:{TOP:[0.300,0.678],MID:[0.330,0.650],JGL:[0.318,0.632],ADC:[0
                 opp:{TOP:[0.700,0.322],MID:[0.670,0.350],JGL:[0.682,0.368],ADC:[0.724,0.284],SUP:[0.706,0.300]}};
 /* V34.13.1 — 2025~2026 롤은 노리쉬(정글러 솔로 1캠프)가 기본이다. 라이너 리쉬 지점은 없앴다. */
 const LEASH={me:{JGL:[0.165,0.725]},opp:{JGL:[0.835,0.275]}};
-const mmMirrorRole=(side,pt)=>side==='me'?pt:mirrorPt(pt);
+const mmMirrorRole=(side,pt)=>mmSidePt(side,pt);
 function mmPreScript(role){
   /* 반환: [{sec, pt}, ...] 보간 지점 */
   const g=GUARD.me[role], st=STANDOFF.me[role], l=LEASH.me[role];
@@ -21228,7 +21289,8 @@ function mmPreScript(role){
 /* ---------- 캠프 초기화 ---------- */
 function mmCampInit(){
   const mk=(def,side)=>{
-    const p=side==='me'?[def.x,def.y]:mirrorPt([def.x,def.y]);
+    /* V34.14 — 우리 팀이 레드 사이드면 me 캠프는 실제 레드 진영(우상단)에, opp 캠프는 블루 진영에 놓인다 */
+    const p=((side==='me')!==(MM_SIDE==='red'))?[def.x,def.y]:mirrorPt([def.x,def.y]);
     return {k:side+'-'+def.k, base:def.k, n:def.n, ic:def.ic, x:p[0], y:p[1], kind:def.kind||'sm',
       respawn:def.respawn||135, alive:true, respawnAt:0, prog:0, by:null, side:side, fresh:false,
       first:(def.k==='krugs'||def.k==='gromp')?CAMP_FIRST_LATE:CAMP_FIRST};
@@ -21325,6 +21387,8 @@ function mmFallbackDeath(u,victimSide){
   u.deathPos=[u.x,u.y];
 }
 function mmReset(){
+  /* V34.14 — 경기 진영(블루/레드)을 먼저 확정한다. me/opp 좌표 테이블·라인 경로가 여기서 바뀐다 */
+  try{ mmSideApply(); }catch(e){}
   MM.units={}; MM.tgt={}; MM.minions=[]; MM.proj=[]; MM.fx=[]; MM.marks=[];
   MM.twCache=[]; MM.twCacheAt=0; MM.twNext={};   /* V34.8 포탑 사격·진입 가드 상태 */
   MM.focus=null; MM.focusUntil=0; MM.dead={}; MM.towerIdx={me:0,opp:0};
@@ -21973,21 +22037,28 @@ function mmTpWorthy(u,tx,ty,sec){
   const s=Number(sec)||0;
   if(s<290) return false;                        /* 04:50 이전 라인전엔 텔레포트 사유 없음 */
   const near=(x,y,r)=>Math.hypot(tx-x,ty-y)<=r;
-  /* ① 교전 합류 — 목적지 근처에서 실제 교전·갱·다이브가 벌어지는 중 */
-  try{
-    let fight=false;
-    ROLES.forEach(function(r){
-      ['me','opp'].forEach(function(sd){
-        const v=MM.units[sd+'-'+r];
-        if(!v||!v.alive||v.tp) return;
-        if(!near(v.x,v.y,0.17)) return;
-        if(v.mode==='fight'||v.mode==='dive'||v.mode==='gank'||(v.engageUntil||0)>s) fight=true;
+  /* V34.14 — 10분(600초) 이전은 실제 롤처럼 엄격하다:
+     · 타워에만 탈 수 있다 (와드 텔 금지 — mmTpTarget 이 이미 막는다)
+     · 교전 합류 텔 금지 (걸어서 합류)
+     · '본진에서 출발해 자기 라인 1차 타워에 적 미니언 3마리 이상이 박힌 빅웨이브'만 복귀 텔 */
+  const early=(s<600);
+  /* ① 교전 합류 — 목적지 근처에서 실제 교전·갱·다이브가 벌어지는 중 (10분 이후) */
+  if(!early){
+    try{
+      let fight=false;
+      ROLES.forEach(function(r){
+        ['me','opp'].forEach(function(sd){
+          const v=MM.units[sd+'-'+r];
+          if(!v||!v.alive||v.tp) return;
+          if(!near(v.x,v.y,0.17)) return;
+          if(v.mode==='fight'||v.mode==='dive'||v.mode==='gank'||(v.engageUntil||0)>s) fight=true;
+        });
       });
-    });
-    if(fight) return true;
-  }catch(e){}
-  /* ② 오브젝트 합류 — 살아있거나 20초 안에 나오는 오브젝트 핏에 모이는 중 */
-  if(u.mode==='obj'){
+      if(fight) return true;
+    }catch(e){}
+  }
+  /* ② 오브젝트 합류 — 살아있거나 20초 안에 나오는 오브젝트 핏에 모이는 중 (10분 이후) */
+  if(!early&&u.mode==='obj'){
     try{
       const pits={dragon:PIT.dragon,grub:PIT.grub,herald:PIT.grub,baron:PIT.baron};
       for(const k in pits){
@@ -21998,21 +22069,29 @@ function mmTpWorthy(u,tx,ty,sec){
       }
     }catch(e){}
   }
-  /* ③ 자기 라인 타워 방어 — 적 웨이브가 타워까지 밀고 들어와 있을 때(귀환 복귀) */
+  /* ③ 자기 라인 타워 방어 (빅웨이브 복귀) */
   if(u.mode==='lane'||u.mode==='retreat'){
     try{
       const lane=mmRoleLane(u.role,s);
       const tws=(MAP_TOWERS[u.side]&&MAP_TOWERS[u.side][lane])||[];
       const foeSide=(u.side==='me')?'opp':'me';
+      let homeD=0;
+      try{ const nx=MM_NEXUS[u.side]; homeD=Math.hypot(u.x-nx[0],u.y-nx[1]); }catch(e){ homeD=0; }
       for(let i=0;i<tws.length;i++){
         if(!near(tws[i][0],tws[i][1],0.09)) continue;
-        let press=false;
+        /* 초반: 1차 타워만, 그리고 '이미 라인에 있는' 유닛은 걸어서 복귀한다 */
+        if(early){
+          if(i!==0) continue;
+          if(homeD>0.24) continue;
+        }
+        let cnt=0;
         (MM.minions||[]).forEach(function(mn){
           if(!mn||!mn.alive||mn.side!==foeSide||mn.lane!==lane) return;
           const q=mmPathPoint(LANE_PATH[lane],mn.t);
-          if(Math.hypot(q[0]-tws[i][0],q[1]-tws[i][1])<0.07) press=true;
+          if(Math.hypot(q[0]-tws[i][0],q[1]-tws[i][1])<0.07) cnt++;
         });
-        if(press) return true;
+        if(early){ if(cnt>=3) return true; }        /* 빅웨이브(3마리 이상)만 */
+        else if(cnt>0) return true;
       }
     }catch(e){}
   }
@@ -22773,7 +22852,7 @@ function mmMinionCombatStep(sec,dsec){
         const p=pathPt(b);
         const d=Math.hypot(p[0]+b.off-u.x,p[1]+b.off-u.y);
         /* 정글러는 지나가면서 가끔만 라인 미니언을 먹는다 (라인 세금 과다 방지) */
-        const atkR=(role==='JGL')?0.042:(mmUnitRanged(u)?0.052:0.030);
+        const atkR=(role==='JGL')?0.045:(mmUnitRanged(u)?0.058:0.038);
         if(d>atkR) continue;
         if(b.hp<bestHp-0.01||(Math.abs(b.hp-bestHp)<=0.01&&d<bd)){ bestHp=b.hp; bd=d; best=b; }
       }
@@ -23012,16 +23091,17 @@ function mmEngageLock(sec){
       if(!foe||fd>0.060) return;                    /* V34.13.1 — 사거리 현실화: ~890유닛 */
       /* V34.13.1 — 01:30~02:15(1~2렙) 또는 파밍 판단 라이너의 1v1 은 근접 돌진하지 않는다.
          실제 정글 갱·오브젝트 합류·다이브·인베이드(gank/obj/dive/invade)는 기존처럼 교전 허용. */
-      const earlyLane=(s<135);
-      const farmDuel=!!u.v13farm&&!!foe.v13farm;
+      /* V34.14 — 01:30~02:05 첫 웨이브만 거리를 두고, 그 뒤엔 파밍 중에도
+         정상 견제 거리(0.034~0.042)에서 평타·스킬을 주고받는다. */
+      const earlyLane=(s<125);
       const commitMode=(u.mode==='gank'||u.mode==='obj'||u.mode==='dive'||u.mode==='invade'||u.mode==='fight'||u.mode==='siege');
-      if((earlyLane||farmDuel)&&!commitMode){
+      if(!commitMode){
         const ret=(u.retreatUntil>s);
         if(!ret&&u.mode!=='lane'&&u.mode!=='trade'&&u.mode!=='pre'&&u.mode!=='walk') u.mode='lane';
         n++;
         if(ret) return;                              /* 물러나는 중 — 도망갈 수 있게 둔다 */
         const ddx=u.x-foe.x, ddy=u.y-foe.y, ddd=Math.hypot(ddx,ddy)||1;
-        const hold=mmUnitRanged(u)?0.058:0.052;     /* 견제 거리만 유지 (붙지 않는다) */
+        const hold=earlyLane?(mmUnitRanged(u)?0.052:0.046):(mmUnitRanged(u)?0.042:0.034);
         MM.tgt[side+'-'+role]={x:clamp(foe.x+ddx/ddd*hold,0.03,0.97),y:clamp(foe.y+ddy/ddd*hold,0.03,0.97)};
         return;
       }
@@ -23057,8 +23137,8 @@ function mmProximityCombat(sec,gameDt){
       if(sec<next) return;
       MM.pxAt[key]=sec+1.1;                     /* 같은 상대와 1.1게임초에 한 번 딜 교환 */
       /* V34.13 — 파밍 판단(밸류·상성·OVR)이 선 라이너는 무리한 딜교를 하지 않는다 */
+      /* V34.14 — 둘 다 파밍 판단이어도 견제 딜교는 계속한다(예전엔 아예 0킬 평화 협정) */
       const farmA=!!a.v13farm, farmB=!!b.v13farm;
-      if(farmA&&farmB&&a.mode!=='recall'&&b.mode!=='recall') return;
       const pa=mmChampPower('me',roleM), pb=mmChampPower('opp',roleO);
       const edge=pa-pb;
       const aMax=a.hpMax||100, bMax=b.hpMax||100;
@@ -23067,10 +23147,11 @@ function mmProximityCombat(sec,gameDt){
       const committed=(aPct<MM_PX_LOW||bPct<MM_PX_LOW||!!a.rush||!!b.rush||a.mode==='recall'||b.mode==='recall'||a.mode==='recallWalk'||b.mode==='recallWalk');
       const swing=Math.max(-0.06,Math.min(0.06,edge/700));
       let rate=committed?0.062:0.026;
-      /* V34.13.1 — 01:30~02:15 첫 웨이브는 견제만 (풀피끼리 20%까지 맞다이 금지) */
-      if(sec<135&&!committed) rate*=0.30;
-      if(farmA) rate*=0.45;
-      if(farmB) rate*=0.45;
+      /* V34.14 — 첫 웨이브(s<125)만 자제, 그 뒤엔 파밍 중에도 정상 딜교 (0.85) */
+      if(sec<125&&!committed) rate*=0.40;
+      else if(sec<135&&!committed) rate*=0.80;
+      if(farmA) rate*=0.62;
+      if(farmB) rate*=0.62;
       /* V32 — 실제 스탯 교전: 공격력·주문력, 방어력·마법저항, 최대 체력으로 킬각이 갈린다 */
       const fa=(typeof v32DuelFrac==='function')?v32DuelFrac('me',roleM,'opp',roleO):1;
       const fb=(typeof v32DuelFrac==='function')?v32DuelFrac('opp',roleO,'me',roleM):1;
@@ -23660,8 +23741,8 @@ function mmDraw(dt){
     ctx.restore();
   };
   if(!photo){
-    basePlate(MM_NEXUS.me[0],MM_NEXUS.me[1],'#2f9bdc');
-    basePlate(MM_NEXUS.opp[0],MM_NEXUS.opp[1],'#d0455f');
+    basePlate(MM_NEXUS.me[0],MM_NEXUS.me[1],SIDE_COL.me);
+    basePlate(MM_NEXUS.opp[0],MM_NEXUS.opp[1],SIDE_COL.opp);
   }
   /* 라인 */
   const drawLane=(pts,width)=>{
@@ -23689,8 +23770,8 @@ function mmDraw(dt){
     };
     const mid=(mmLaneFrontT(lane));
     const pByte=laneFrontParam(lane,mid);
-    seg(0,Math.max(0.01,pByte-0.01),'79,168,255');
-    seg(Math.min(0.99,pByte+0.01),1,'255,85,112');
+    seg(0,Math.max(0.01,pByte-0.01),SIDE_RGB.me);
+    seg(Math.min(0.99,pByte+0.01),1,SIDE_RGB.opp);
   };
   ribbon('TOP'); ribbon('MID'); ribbon('BOT');
   /* 오브젝트 핏 아이콘 */
@@ -24687,7 +24768,7 @@ function mmdBeatFor(side,role,sec){
 
 /* ---------- 목표 지점 계산 (mmComputeTargets 뒤에서 덮어쓴다) ---------- */
 function mmdCoverFor(side,role,sec,v){
-  const mir=p=>side==='me'?p:[1-p[0],1-p[1]];
+  const mir=p=>(typeof mmSidePt==='function')?mmSidePt(side,p):(side==='me'?p:[1-p[0],1-p[1]]);
   /* 1레벨 설계: 5인 인베이드 · 바텀 부시 매복 · 칼날부리 와드 카정 */
   if(v.level1==='fiveMan'&&sec>=28&&sec<=85){
     const spread={TOP:[-0.030,0.022],MID:[-0.008,-0.018],JGL:[0.000,0.000],ADC:[0.026,0.020],SUP:[0.036,0.030]}[role]||[0,0];
@@ -27518,6 +27599,7 @@ function castBanter(){
 }
 
 function buildMatchDOM(v,key){
+  try{ if(typeof v3414NoteSide==='function') v3414NoteSide(); }catch(e){}
   const t=myTeam(), opp=T(M.oppId);
   const wp=Math.round(M.winProb*100);
   const st=M.stance?STANCE_MAP[M.stance]:null;
@@ -27543,7 +27625,7 @@ function buildMatchDOM(v,key){
         <b>${esc(opp.tag)}</b>${badge(opp,'sm')}
       </div>
     </div>
-    <div class="bset" id="mmSet">SET ${M.gameIdx+1} · ${esc(t.tag)} ${M.series?M.series.score.me:0} : ${M.series?M.series.score.opp:0} ${esc(opp.tag)}</div>
+    <div class="bset" id="mmSet">${(typeof v3414SideChipHTML==='function')?v3414SideChipHTML():''} SET ${M.gameIdx+1} · ${esc(t.tag)} ${M.series?M.series.score.me:0} : ${M.series?M.series.score.opp:0} ${esc(opp.tag)}</div>
     <div class="bmid">
       <div class="bcol me" id="colMe">${sideColHTML('me')}</div>
       <div class="bmap">
@@ -32140,8 +32222,9 @@ function v6OwnSafeHalf(side,x,y){
       });
       if(near) return true;
     }
-    /* 진영 대각선 분할 — 블루(me)는 x+y<1 쪽이 자기 진영 */
-    return (side==='me')?((x+y)<=1.0):((x+y)>=1.0);
+    /* 진영 분할 — 자기 넥서스에 더 가까운 쪽이 자기 진영 (진영 무관) */
+    const en=(side==='me')?'opp':'me';
+    return Math.hypot(x-my[0],y-my[1])<=Math.hypot(x-MM_NEXUS[en][0],y-MM_NEXUS[en][1]);
   }catch(e){}
   return true;
 }
@@ -33066,7 +33149,10 @@ function v6GallMeme(mk){
 const V6_COVER_OPP={TOP:[0.360,0.240],ADC:[0.730,0.650],SUP:[0.690,0.605],JGL:[0.620,0.440],MID:[0.550,0.520]};
 function v6CoverPoint(side,role){
   const base=(typeof MMD_COVER!=='undefined'&&MMD_COVER[role])?MMD_COVER[role]:[0.30,0.62];
-  if(side==='me') return [base[0],base[1]];
+  /* V34.14 — 우리 팀이 레드 사이드면 me 가 레드 진영 커버 좌표를 쓴다 */
+  const red=(typeof mmIsRed==='function')&&mmIsRed();
+  const blueTeam=(side==='me')!==red;      /* 이 side 가 물리적 블루 진영인가 */
+  if(blueTeam) return [base[0],base[1]];
   /* 라인 스왑이 켜져 있으면 기존 미러(스왑된 라인)를 그대로 쓴다 */
   try{ if(M&&M.gp&&(M.gp.laneSwap||M.gp.level1==='swap1')) return [1-base[0],1-base[1]]; }catch(e){}
   const p=V6_COVER_OPP[role];
@@ -36926,14 +37012,26 @@ function dopaPositionTick(sec){
     let su=null;
     try{ su=MM.units[enemy+'-SUP']; }catch(e){}
     if(!su||!su.alive) return;
-    const ownHalf=(enemy==='me')?((su.x+su.y)<=1.0):((su.x+su.y)>=1.0);
+    /* V34.14 — 진영(블루/레드)과 무관하게 '자기 넥서스에 더 가까운 쪽'이 자기 진영 */
+    const ownHalf=(function(){
+      try{
+        const mn=MM_NEXUS[enemy], on=MM_NEXUS[side];
+        return Math.hypot(su.x-mn[0],su.y-mn[1])<=Math.hypot(su.x-on[0],su.y-on[1]);
+      }catch(e){ return true; }
+    })();
     if(ownHalf) return;                       /* 상대 서폿이 우리 진영 깊숙이 들어온 상태 */
     /* 능력치 게이트 — 서폿의 시야·운영 판단력이 있어야 전진 추론이 된다 */
     if(typeof tactOk==='function'&&!tactOk(side,'SUP','vision','supportRead')) return;
     d.supportRead=s; d.stats.opens++;
     d.pushUntil[side]=s+70;
     if(d.stats.opens>3) return;
-    const lane=(su.y<0.5)?'BOT':'TOP';        /* 서폿이 올라가 있으면 반대(봇)가 비었다 */
+    /* 서폿이 들어온 라인의 반대편이 비었다 — 라인 경로로 실제 위치를 판정(진영 무관) */
+    let lane='BOT';
+    try{
+      let bd=9, near=null;
+      ['TOP','MID','BOT'].forEach(function(L){ const f=mmPointFront(L,su.x,su.y); if(f.dist<bd){ bd=f.dist; near=L; } });
+      lane = near==='TOP'?'BOT' : near==='BOT'?'TOP' : ((su.y<0.5)?'BOT':'TOP');
+    }catch(e){ lane=(su.y<0.5)?'BOT':'TOP'; }
     dopaLog(side,'🧠 <b>서폿 전진 추론</b> — '+dopaTag(enemy)+' 서포터가 '+(lane==='BOT'?'탑':'봇')+
       ' 쪽으로 전진했습니다. 정글 커버가 있거나 반대편이 비었다고 읽고 '+laneName(lane)+' 사이드 푸시를 가속합니다.');
     try{ addGold(side,120); }catch(e){}
@@ -39491,8 +39589,8 @@ function v32EarlyWardSpot(side,idx){
   const pool=V32_WARD_POOL.me[key]||V32_WARD_POOL.me.riverTop;
   const p=pool[Math.floor(v32Hash(seed)*pool.length)%pool.length];
   const kind=(idx===1||idx===3)?'pink':'yellow';
-  if(side==='me') return [p[0],p[1],kind,key];
-  const q=mirrorPt(p);
+  /* V34.14 — 우리 팀이 레드 사이드면 와드 자리도 실제 진영 좌표를 쓴다 */
+  const q=(typeof mmSidePt==='function')?mmSidePt(side,p):(side==='me'?[p[0],p[1]]:mirrorPt(p));
   return [q[0],q[1],kind,key];
 }
 function v32WardSpotName(key){
@@ -44213,9 +44311,13 @@ function v3413FightJudgment(side,role,sec){
     /* 판단 정확도 — OVR·운영·멘탈이 높을수록 옳게 본다 */
     const trust=clamp(((ovr-64)/26)*0.62 + ((macro-64)/26)*0.24 + ((mental-64)/26)*0.14,0.18,1);
     out.trust=Math.round(trust*100)/100;
-    /* 1레벨 첫 웨이브(01:30~02:12) — 킬각이 명백하지 않으면 CS·경험치 우선 */
-    const lv1Window=(s<132);
+    /* 1레벨 첫 웨이브(01:30~02:05) — 킬각이 명백하지 않으면 CS·경험치 우선 */
+    const lv1Window=(s<125);
     if(lv1Window){ out.go=false; out.farm=true; out.why='1렙 첫 웨이브 — CS·경험치 우선'; return out; }
+    /* V34.14 — 선 2·3·6레벨 타이밍에 렙 우위면 먼저 들어간다 */
+    try{
+      if((lv===2||lv===3||lv===6)&&lv>olv){ score+=0.22; }
+    }catch(e){}
     /* 수적 열세 — OVR 이 매우 낮아 실수(억지 교전)하지 않는 한 절대 붙지 않는다 */
     if(outnumbered){
       const gamble=(trust<0.42&&Math.random()<0.14);      /* 저OVR 선수의 판단 실수 */
@@ -44226,18 +44328,37 @@ function v3413FightJudgment(side,role,sec){
         return out;
       }
     }
-    /* 체력·레벨 열세 — 즉시 교전 중단하고 자기 타워 쪽으로 빠진다 */
+    /* V34.14 — 수적 우위(갱·서폿 로밍 합류)면 먼저 들어간다 */
+    if(allyN>foeN){
+      out.go=true; out.farm=false;
+      out.why='수적 우위('+allyN+'v'+foeN+') — 먼저 들어간다';
+      return out;
+    }
+    /* 체력 열세 — 즉시 교전 중단하고 자기 타워 쪽으로 빠진다 */
     const levelGap=(olv-lv);
-    const hpBad=(hp<0.45)||((ohp-hp)>0.22)||(levelGap>=1&&lv<=2);
+    const hpBad=(hp<0.45)||((ohp-hp)>0.22);
     if(hpBad){
       out.go=false; out.farm=true;
-      out.why='체력·레벨 열세 — 교전 중단·후퇴';
+      out.why='체력 열세 — 교전 중단·후퇴';
       out.retreat=3.5;
+      return out;
+    }
+    /* V34.14 — 레벨이 낮아도 체력이 충분하면(≥0.45) 맞다이만 피하고 CS·경험치는 챙긴다.
+       (예전엔 Lv.3 vs Lv.2 만으로도 타워 뒤까지 빼서 CS 0~2개에 멈췄다) */
+    if(levelGap>=1&&lv<=2&&hp<0.45){
+      out.go=false; out.farm=true; out.why='레벨·체력 열세 — 선제 맞다이 금지·CS 우선';
+      out.retreat=2.0;
+      return out;
+    }
+    if(levelGap>=1&&lv<=2){
+      out.go=false; out.farm=true;
+      out.why='레벨 열세 — 선제 맞다이만 금지, CS·경험치 우선';
+      out.retreat=0;
       return out;
     }
     /* 후반 밸류형(왕귀) + 불리 상성이면 지금은 파밍 */
     const scaling=(myC.scale>=1&&myC.late>=4);
-    let threshold=scaling?1.05:0.45;
+    let threshold=scaling?0.55:0.18;
     let go=score>threshold;
     /* 판단이 흐리면(저OVR) 실수로 억지 교전을 건다 */
     if(trust<0.55){
@@ -44362,8 +44483,10 @@ function v3413LaneAnchor(sec){
         else { if(mn.t<opF) opF=mn.t; }
       });
       if(myF>=0&&opF<=1&&Math.abs(opF-myF)<0.30){
+        /* V34.14 — 실제 미니언 충돌선이 있으면 그 자리를 그대로 쓴다.
+           (전선 추정값과 섞으면 챔피언이 웨이브에서 0.1 이상 떨어져 CS 를 놓쳤다) */
         const clash=(myF+opF)/2;
-        param=param*0.25+clamp(clash,0.06,0.94)*0.75;
+        param=clamp(clash,0.06,0.94);
       }
     }catch(e){}
     const pt=mmPathPoint(LANE_PATH[lane],param);
@@ -44405,14 +44528,16 @@ function v3413LaneAnchor(sec){
         u.v13farm=jd?!!jd.farm:false;
         u.v13go=jd?!!jd.go:false;
         /* V34.13.1 — 수적 열세·체력/레벨 열세면 즉시 교전을 끊고 후퇴 (무지성 맞다이 금지) */
+        const gapToFoe=foeAlive?Math.hypot(u.x-foe.x,u.y-foe.y):9;
         if(jd&&jd.retreat){
           u.retreatUntil=Math.max(u.retreatUntil||0,s+Number(jd.retreat||3.5));
           u.engageUntil=0;
           u.mode='retreat';
         }
-        /* 상대가 죽어 있으면 체력 비교로 후퇴하지 않는다 — 솔킬 뒤 라인 뒤에 멍하니 서는 원인 */
-        let losing=foeAlive?((hp<0.45&&hp<fhp-0.02)||(fhp-hp>0.28)):false;
-        if(jd&&jd.retreat&&foeAlive) losing=true;
+        /* V34.14 — '타워 뒤로 빠지는 후퇴'는 진짜 위험할 때만.
+           (예전엔 레벨 -1·수적 열세만으로도 1차 타워 뒤까지 빠져 CS 를 아예 못 먹었다) */
+        let losing=foeAlive?((hp<0.36)||((fhp-hp)>0.30)||(gapToFoe<0.075&&hp<fhp-0.06)):false;
+        if(jd&&jd.retreat&&foeAlive&&(hp<0.40||(fhp-hp)>0.26)) losing=true;
         /* V34.13.1 — 솔킬 후: 상대 부활 시간·적 정글 위치·웨이브·템 상태로 '밀고 귀환'을 판단 */
         const saf=foeAlive?null:((typeof v3413LaneSafety==='function')?v3413LaneSafety(side,role,lane,s,foe):null);
         const shoved=(typeof v3413ShovedTurn==='function')?v3413ShovedTurn(side,lane,s):false;
@@ -44424,23 +44549,28 @@ function v3413LaneAnchor(sec){
           u._noGreedy=false;
         }
         const laneParamMe=mmTowerParam(side,lane,1);
+        /* V34.14 — param ↔ 맵 거리 변환 (라인마다 길이가 다르다) */
+        const Llen=(typeof LANE_LEN!=='undefined'&&LANE_LEN[lane])?LANE_LEN[lane]:1.5;
+        const sMap=m=>m/Llen;
+        /* 막타·견제 스탠드오프: 자기 웨이브 바로 뒤 = 적 미니언 막타 사거리(0.030~0.052) 안,
+           맞라이너끼리는 약 0.034~0.045 떨어져 서서 평타·스킬 견제를 주고받는다. */
+        const standMap=(role==='SUP')?0.028:(mmUnitRanged(u)?0.018:0.011);
         let pWant;
         if(!foeAlive&&saf&&saf.safe&&hp>=0.22){
           /* 상대 사망 → 적 타워/웨이브까지 밀어넣는다 (방패·포탑 타격은 v3413TurretPress 가 맡는다) */
           pWant=param+((side==='me')?0.045:-0.045);
           u._laneRetreat=0;
         }else if(losing){
-          /* 아군 1차 타워 바로 뒤(내 진영 쪽) — 라인 경로를 따라 걸어서 빠진다 */
+          /* 체력이 위험하거나 붙어서 밀릴 때만 아군 1차 타워 뒤로 — 라인 경로를 따라 빠진다 */
           const back=(side==='me')?laneParamMe-0.030:laneParamMe+0.030;
           pWant=back;
           u._laneRetreat=s+4;
         }else if(u._laneRetreat&&u._laneRetreat>s){
           return;                                       /* 후퇴 유지 중엔 새 목표를 주지 않는다 */
         }else{
-          /* 웨이브 충돌선 양옆 — 서로 겹치지 않게 0.035씩 벌린다, 서폿은 원딜 뒤 한 발 */
-          const farmBack=(u.v13farm&&s>=132?0.030:0.0);
-          /* 내 라이너는 충돌선 바로 뒤, 상대는 그보다 앞 — 아래에서 최소 간격까지 벌린다 */
-          pWant=param+((side==='me')?(-0.050-farmBack-(role==='SUP'?0.022:0)):(0.050+farmBack+(role==='SUP'?0.022:0)));
+          /* 웨이브 충돌선 바로 뒤에서 CS·견제 (타워 뒤로 도망가지 않는다) */
+          const off=sMap(standMap);
+          pWant=param+((side==='me')?-off:off);
         }
         const cur=mmPointFront(lane,u.x,u.y).param;
         /* 가까우면 바로 그 자리로, 멀면(후퇴·복귀) 라인을 따라 한 구간씩 */
@@ -44454,17 +44584,20 @@ function v3413LaneAnchor(sec){
         n++;
       });
     });
-    /* V34.13 — 맞라이너가 같은 픽셀에 겹치지 않게 최소 0.075 간격 보장 */
+    /* V34.14 — 맞라이너가 같은 픽셀에 겹치지 않게 최소 간격(맵 0.028 ≈ 410유닛)만 보장.
+       (예전 0.075 는 CS 사거리(0.030~0.052) 밖으로 서로 밀어내 막타를 불가능하게 만들었다) */
     try{
       const km='me-'+roles[0], ko='opp-'+roles[0];
       const a=MM.tgt[km], b=MM.tgt[ko];
       if(a&&b){
         const d=Math.hypot(a.x-b.x,a.y-b.y);
-        if(d<0.075){
+        if(d<0.028){
+          const Llen2=(typeof LANE_LEN!=='undefined'&&LANE_LEN[lane])?LANE_LEN[lane]:1.5;
+          const half=0.014/Llen2;
           const pa=mmPointFront(lane,a.x,a.y), pb=mmPointFront(lane,b.x,b.y);
-          const nbp=mmPathPoint(LANE_PATH[lane],clamp(pb.param+0.085,0.03,0.97));
+          const nbp=mmPathPoint(LANE_PATH[lane],clamp(pb.param+half,0.03,0.97));
           MM.tgt[ko]={x:nbp[0],y:nbp[1]};
-          const nap=mmPathPoint(LANE_PATH[lane],clamp(pa.param-0.035,0.03,0.97));
+          const nap=mmPathPoint(LANE_PATH[lane],clamp(pa.param-half,0.03,0.97));
           MM.tgt[km]={x:nap[0],y:nap[1]};
         }
       }
@@ -44733,6 +44866,37 @@ function v3413Boot(){
 }
 
 /* ============================================================================
+   V34.14 — 블루/레드 진영 위아래 교대
+   · 미니맵 좌표계(ui-minimap.js mmSideApply)가 우리 팀 진영에 맞춰 me/opp 를 재구성한다
+   · HUD 상단에 '지금 우리가 어느 사이드인지' 배지를 붙인다
+   · 라인전 스탠드오프/교전 판단은 v3413.js 쪽에서 손봤다 (CS 0~2 고착 · 0킬 평화 협정)
+   ========================================================================== */
+const V3414={ver:'34.14', side:null, at:-9};
+
+function v3414Side(){
+  try{ return (M&&M.mySide==='red')?'red':'blue'; }catch(e){ return 'blue'; }
+}
+function v3414SideLabel(side){
+  return ((side||v3414Side())==='red')?'레드':'블루';
+}
+/* HUD 상단 세트 표시 앞에 붙는 진영 배지 */
+function v3414SideChipHTML(){
+  const red=(v3414Side()==='red');
+  return '<span class="bside '+(red?'red':'blue')+'">'+(red?'🔴 레드 사이드':'🔵 블루 사이드')+'</span>';
+}
+/* 경기 시작 시 진영을 기록 — 같은 경기에서 여러 번 불려도 한 번만 남긴다 */
+function v3414NoteSide(){
+  try{
+    if(!M) return;
+    const s=v3414Side();
+    const key=(M.series?(M.series.startedAt||0):0)+'-'+M.gameIdx+'-'+s;
+    if(V3414.side===key) return;
+    V3414.side=key; V3414.at=(M.sec||0);
+  }catch(e){}
+}
+function v3414Boot(){ /* 부팅 시 별도 작업 없음 — 진영은 경기 시작(mmReset)에서 정해진다 */ }
+
+/* ============================================================================
    V35 — 팀 표기 공통 링크
    ----------------------------------------------------------------------------
    원칙
@@ -44979,6 +45143,7 @@ sndLoad();bgmLoad();try{v32CcBoot();}catch(e){}
 try{v33Boot();}catch(e){}
 try{v34Boot();}catch(e){}
 try{v3413Boot();}catch(e){}
+try{v3414Boot();}catch(e){}
 try{cloudBoot();}catch(e){}
 renderTitle();
 try{tiBind();}catch(e){}
