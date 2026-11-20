@@ -42341,11 +42341,12 @@ function fa36Fee(p,dem){
   return Math.round(((base>0?base:(dem||1)*1.7)*FA36.FEE_AI)*10)/10;
 }
 /* 그 구단이 이 선수를 감당할 수 있는가 — 연봉 상한 + 이적료·계약금 여유 */
-function fa36Afford(t,p,dem){
+function fa36Afford(t,p,dem,relax){
   if(!t) return false;
   const budget=Number(t.budget)||0;
+  const floor=relax?0.72:0.82;                           /* S급 쟁탈전은 조금 더 넓게 */
   const sal=Math.min(dem||1,budget*FA36.SAL_CAP);
-  if(sal<(dem||1)*0.82) return false;                    /* 요구액에 크게 못 미치면 입찰 자체를 안 한다 */
+  if(sal<(dem||1)*floor) return false;                   /* 요구액에 크게 못 미치면 입찰 자체를 안 한다 */
   const fee=fa36Fee(p,dem);
   return budget>=(fee+sal*0.3+0.8);
 }
@@ -42368,7 +42369,7 @@ function fa36Suitors(p){
     if(!t||t.id===S.userTeam||seen[t.id]) return;
     const cur=fa36Starter(t,p.role);
     if(cur&&fa36Ovr(p)<fa36Ovr(cur)-3) return;          /* 주전이 확실히 더 강하면 입찰하지 않는다 */
-    if(!fa36Afford(t,p,dem)) return;
+    if(!fa36Afford(t,p,dem,tier==='S')) return;
     seen[t.id]=1;
     out.push({id:t.id,tag:fa36Tag(t),power:Math.round(teamPower(t)),v:clamp(v,-1,1),need:!!need,upgrade:!!upgrade});
   }
