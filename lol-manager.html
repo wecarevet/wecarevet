@@ -42729,12 +42729,7 @@ function fa36Resolve(name,opts){
   if(neg&&(!best||userEff>=bestEff-0.001)){
     const sal=Number(neg.offer.salary)||0;
     if(!opts.quiet) try{ newsAdd('이적','⚔️ [긴급] '+tags.join('·')+', '+name+' 영입전 — 연봉 '+sal.toFixed(1)+'억에 우리 구단('+((T(S.userTeam)||{}).tag||'MY')+') 전격 계약!'); }catch(e){}
-    /* 더 높은 연봉을 부른 구단을 제치고 온 경우 — 이유를 소식으로 남긴다 */
-    try{
-      const richer=live.filter(function(b){ return b.sal>sal+0.05; }).sort(function(a,b){ return b.sal-a.sal; })[0];
-      const story=faPrefStory(p,S.userTeam,sal,richer);
-      if(story&&!opts.quiet) newsAdd('이적',story);
-    }catch(e){}
+    /* 소식 스토리는 stoveFaSignNow 가 남긴다 (중복 방지) */
     f.done[name]={team:S.userTeam,sal:sal,round:f.round,tier:w.tier,user:true};
     f.turnSign=f.turnSign||{}; f.turnSign[S.userTeam]=(f.turnSign[S.userTeam]||0)+1;
     try{ stoveFaSignNow(name,neg); }catch(e){}
@@ -42748,7 +42743,8 @@ function fa36Resolve(name,opts){
     /* V34.12 — 더 큰 연봉을 마다하고 대권/은사/친정을 택한 계약 스토리 */
     try{
       const richer=live.filter(function(b){ return b.id!==best.id&&b.sal>best.sal+0.05; }).sort(function(a,b){ return b.sal-a.sal; })[0];
-      const story=faPrefStory(p,best.id,out.sal,richer||(neg&&(Number(neg.offer.salary)||0)>out.sal+0.05?{tag:((T(S.userTeam)||{}).tag||'MY'),sal:Number(neg.offer.salary)||0}:null));
+      /* 유저가 더 썼다면 stoveFaLoseNow 가 그 관점의 스토리를 남긴다 (중복 방지) */
+      const story=faPrefStory(p,best.id,out.sal,richer||null);
       if(story&&!opts.quiet) newsAdd('이적',story);
     }catch(e){}
     if(!opts.quiet&&(w.tier==='S'||w.tier==='A')){
@@ -43311,11 +43307,11 @@ function faPrefWhyText(p,t){
   if(pr.kind==='money') return '최고 연봉';
   const top=pr.parts.filter(function(x){ return x.v>0; }).sort(function(a,b){ return b.v-a.v; })[0];
   if(!top) return '';
-  if(top.k==='contender') return '대권 도전';
-  if(top.k==='coach') return '은사 재회';
-  if(top.k==='mate') return '좋아하는 동료와 함께';
-  if(top.k==='home') return '친정팀 복귀';
-  if(top.k==='play') return '주전 보장';
+  if(top.k==='contender') return '대권 도전을';
+  if(top.k==='coach') return '은사 재회를';
+  if(top.k==='mate') return '좋아하는 동료와 함께하는 길을';
+  if(top.k==='home') return '친정팀 복귀를';
+  if(top.k==='play') return '주전 보장을';
   return '';
 }
 /* 한 줄 요약 — 영입전 보드·목록용 */
@@ -43336,11 +43332,11 @@ function faPrefStory(p,winTeamId,winSal,loseBid){
   const why=faPrefWhyText(p,t);
   if(!why||why==='최고 연봉') return '';
   const tag=(t.tag||t.id);
-  let s='💰 더 높은 오퍼를 마다하고 '+why+'를 택해 '+Number(winSal).toFixed(1)+'억에 '+tag+' 합류!';
+  const win=Number(winSal).toFixed(1);
   if(loseBid&&Number(loseBid.sal)>Number(winSal)+0.05){
-    s='💰 '+(loseBid.tag||'경쟁 구단')+'의 '+Number(loseBid.sal).toFixed(1)+'억을 마다하고 '+why+'를 택해 '+Number(winSal).toFixed(1)+'억에 '+tag+' 합류!';
+    return '💰 '+p.name+', '+(loseBid.tag||'경쟁 구단')+'의 '+Number(loseBid.sal).toFixed(1)+'억을 마다하고 '+why+' 택해 '+win+'억에 '+tag+' 합류!';
   }
-  return s;
+  return '💰 '+p.name+', '+why+' 택해 '+win+'억에 '+tag+' 합류!';
 }
 
 /* ============================================================================
