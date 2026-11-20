@@ -3605,13 +3605,17 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 /* ---- 스위스 스테이지 ---- */
 .v34sw-note{font-size:9.5px;color:#8f97a6;margin:2px 0 6px;line-height:1.4}
 .v34sw-tbl{display:flex;flex-direction:column;gap:2px}
-.v34sw-row{display:grid;grid-template-columns:16px 18px minmax(0,1fr) 44px auto;align-items:center;gap:5px;
-  padding:3px 5px;border-radius:6px;background:#0c1016;border:1px solid transparent;min-width:0}
+.v34sw-row{display:flex;align-items:center;gap:6px;
+  padding:3px 6px;border-radius:6px;background:#0c1016;border:1px solid transparent;min-width:0;overflow:hidden}
+.v34sw-row>*{flex:0 0 auto;min-width:0}
+.v34sw-row .v34sw-nm{flex:1 1 auto}
+.v34sw-row .v34sw-wl{flex:0 0 auto;margin-left:auto}
+.v34sw-row>span:last-child{flex:0 0 auto}
 .v34sw-row.me{border-color:rgba(37,224,255,.4);background:rgba(37,224,255,.06)}
 .v34sw-row.q{background:rgba(61,220,151,.07)}
 .v34sw-row.e{opacity:.55}
-.v34sw-rk{font-size:9px;font-weight:900;color:#79828f;text-align:center}
-.v34sw-nm{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#dfe6f2}
+.v34sw-rk{width:14px;font-size:9px;font-weight:900;color:#79828f;text-align:center}
+.v34sw-nm{font-size:11px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#dfe6f2;min-width:0}
 .v34sw-nm i{font-style:normal;font-size:8.5px;color:#79828f;margin-left:3px}
 .v34sw-wl{font-size:9.5px;font-weight:900;color:#c9d2e0;text-align:right;font-variant-numeric:tabular-nums}
 .v34sw-round{margin-top:8px}
