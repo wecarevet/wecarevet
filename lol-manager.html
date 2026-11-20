@@ -3878,6 +3878,40 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .fw-state .btn{margin-left:0;width:100%}
 }
 
+/* ===================== V34.12 — FA 선호 · 실질 매력도 ===================== */
+.fap-kind{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:900;padding:1px 7px;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#dbe6f5;white-space:nowrap}
+.fap-kind.sm{font-size:9.5px;padding:0 6px}
+.fap-kind.contender{color:#ffe6a3;background:rgba(255,201,74,.14);border-color:rgba(255,201,74,.38)}
+.fap-kind.money{color:#a8ffcf;background:rgba(61,220,151,.13);border-color:rgba(61,220,151,.35)}
+.fap-kind.loyal{color:#c9d6ff;background:rgba(120,150,255,.14);border-color:rgba(120,150,255,.36)}
+.fap-kind.playing{color:#a8e6ff;background:rgba(60,180,255,.13);border-color:rgba(60,180,255,.34)}
+.fap-badges{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:3px 0 4px}
+.fap-team{font-size:10px;font-weight:900;color:#9fb2cc}
+.fap-badge{font-size:10px;font-weight:900;padding:1px 7px;border-radius:999px;white-space:nowrap;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#c6d3e6}
+.fap-badge.plus{color:#9dffd0;background:rgba(61,220,151,.12);border-color:rgba(61,220,151,.34)}
+.fap-badge.minus{color:#ff9fae;background:rgba(255,85,112,.12);border-color:rgba(255,85,112,.34)}
+.fap-badge.money{color:#a8ffcf;background:rgba(61,220,151,.12);border-color:rgba(61,220,151,.34)}
+.fap-badge.none{color:#8291a6}
+.fap-badge.total{color:#ffe6a3;background:rgba(255,201,74,.14);border-color:rgba(255,201,74,.38)}
+.fap-stand{margin:2px 0 6px;padding:5px 8px;border-radius:8px;font-size:10.5px;font-weight:800;line-height:1.45;
+  background:rgba(6,10,18,.55);border:1px solid rgba(255,255,255,.08);color:#adbcd2}
+.fap-stand.on{color:#bfffe4;border-color:rgba(61,220,151,.4);background:rgba(61,220,151,.08)}
+.fap-stand.off{color:#ffd3da;border-color:rgba(255,85,112,.34);background:rgba(255,85,112,.07)}
+.fap-stand b{color:#fff}
+.fap-mini{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:900;padding:0 6px;border-radius:999px;
+  color:#ffe6a3;background:rgba(255,201,74,.1);border:1px solid rgba(255,201,74,.28)}
+.fap-mini.money{color:#a8ffcf;background:rgba(61,220,151,.1);border-color:rgba(61,220,151,.3)}
+.fap-mini.loyal{color:#c9d6ff;background:rgba(120,150,255,.12);border-color:rgba(120,150,255,.32)}
+.fap-mini.playing{color:#a8e6ff;background:rgba(60,180,255,.1);border-color:rgba(60,180,255,.3)}
+.fw-eff{font-style:normal;font-size:9px;font-weight:900;color:#8ff0c4;margin-left:3px}
+.fneg-eff{font-style:normal;font-size:9.5px;font-weight:900;color:#8ff0c4;margin-left:4px}
+@media (max-width:520px){
+  .fap-badge{font-size:9.5px}
+  .fap-stand{font-size:10px}
+}
+
 </style>
 </head>
 <body>
@@ -10196,6 +10230,8 @@ function startWorldsMode(teamId){
 
 /* ---------- offseason: 계약 만료 · 재계약 / FA ---------- */
 function startOffseason(){
+  /* V34.12 — 계약 만료로 선수가 떠나기 전에 FA 성향·친정팀을 확정한다 */
+  try{ if(typeof faPrefEnsure==='function') faPrefEnsure(); }catch(e){}
   try{ if(typeof maybeJobOffers==='function') maybeJobOffers(); }catch(e){}
   try{ if(typeof maybeCoachOffers==='function') maybeCoachOffers(); }catch(e){}
   const st={players:[],staff:[],aiLog:[]};
@@ -12931,10 +12967,10 @@ function stoveFaOffer(name,salary,years){
     const offer=Math.round(demand*(0.96+r.v*0.26)*10)/10;
     if(offer>bestRival){ bestRival=offer; bestTeam=r.id; }
   });
-  const myPower=teamPower(t), rvPower=bestTeam?teamPower(T(bestTeam)):0;
-  const myScore=sal+((myPower-rvPower)*0.04);
-  const rivalScore=bestRival;
-  if(!bestTeam||myScore>=rivalScore){
+  /* V34.12 — 연봉 대신 실질 매력도(선호 보정)로 승자를 가린다 */
+  const myEff=faEffBidOf(p,t.id,sal);
+  const rivalEff=bestTeam?faEffBidOf(p,bestTeam,bestRival):0;
+  if(!bestTeam||myEff>=rivalEff){
     t.budget=Math.round((t.budget-cost)*10)/10;
     p.team=t.id; p.fa=false; p.contract=yrs; p.salary=sal;
     t.roster.push(p.name);
@@ -12956,7 +12992,14 @@ function stoveFaOffer(name,salary,years){
   stoveReaction(false,'fa',{p:name});
   try{ if(typeof fa36CloseWar==='function') fa36CloseWar(name); }catch(e){}
   saveGame();
-  return {ok:false,msg:name+' 영입 실패 — '+winT.name+'가 연봉 '+bestRival.toFixed(1)+'억을 제시했습니다 (내 제시 '+sal.toFixed(1)+'억)',rival:winT.name,rivalSalary:bestRival};
+  /* V34.12 — 우리가 더 썼는데도 대권·은사 있는 구단에 뺏기는 경우 */
+  try{
+    if(bestRival<sal-0.05){
+      const story=faPrefStory(p,bestTeam,bestRival,{tag:(t.tag||'MY'),sal:sal});
+      if(story) newsAdd('이적',story);
+    }
+  }catch(e){}
+  return {ok:false,msg:name+' 영입 실패 — '+winT.name+'가 연봉 '+bestRival.toFixed(1)+'억(실질 '+rivalEff.toFixed(1)+'억)을 제시했습니다 (내 제시 '+sal.toFixed(1)+'억 → 실질 '+myEff.toFixed(1)+'억)',rival:winT.name,rivalSalary:bestRival};
 }
 
 /* ============================================================================
@@ -12995,13 +13038,22 @@ function stoveFaPowerGap(rivalId){
 /* 선수 선호 문구 — 금액·주전 보장·구단 위상을 사람 말로 */
 function stoveNegPrefText(neg){
   if(!neg) return '';
+  const p=S.players[neg.name];
   const best=(neg.rivals&&neg.rivals[0])||null;
   const offer=neg.offer||{};
   const sal=Number(offer.salary)||0;
-  if(best&&sal<best.sal-0.05) return '경쟁 구단('+best.tag+')이 '+(best.sal.toFixed(1))+'억을 제시했습니다 — 최소 '+(best.sal+0.1).toFixed(1)+'억은 필요합니다';
+  /* V34.12 — 선수는 연봉 숫자가 아니라 '실질 매력도'로 저울질한다 */
+  let st=null;
+  try{ st=faPrefStanding(p,sal,neg.rivals,null,{starter:!!offer.starter}); }catch(e){ st=null; }
+  const need=st?st.needSal:(best?best.sal+0.1:neg.demand);
+  if(best&&st&&st.behind) return '경쟁 구단('+best.tag+')이 '+best.sal.toFixed(1)+'억(실질 '+st.bestEff.toFixed(1)+'억)을 제시했습니다 — '+need.toFixed(1)+'억 이상이면 매칭됩니다';
   if(sal<neg.demand-0.05) return '연봉 +'+(neg.demand-sal).toFixed(1)+'억 상향을 요청합니다';
   if(!offer.starter&&best) return '주전 보장이면 '+best.tag+'보다 이쪽이 낫습니다 (지금은 보장이 없습니다)';
   if(!offer.starter) return '주전 보장이 있으면 더 좋겠습니다';
+  try{
+    const why=(st&&st.pref&&st.pref.parts.filter(function(x){ return x.v>0; })[0])||null;
+    if(why) return why.ic+' '+why.txt+' '+faPctTxt(why.v)+' — 실질 '+st.eff.toFixed(1)+'억으로 1위입니다. 이 조건이면 충분합니다';
+  }catch(e){}
   return '제안 조건이면 충분히 좋습니다 — 마음이 기웠습니다';
 }
 /* 입찰 → 협상 테이블 열기 (계약 아님) */
@@ -13087,6 +13139,11 @@ function stoveFaSignNow(name, neg){
   const rivalTxt=(neg.rivals&&neg.rivals.length)?(' (경쟁 '+neg.rivals.map(function(r){return r.tag;}).join('·')+' 제압)'):'';
   stoveLog('fa',name+' 영입 — 협상 '+neg.round+'라운드 · 연봉 '+sal.toFixed(1)+'억 · '+yrs+'년 · 이적료 '+neg.fee.toFixed(1)+'억');
   try{ newsAdd('이적','✍️ '+name+' 영입 완료 — 연봉 '+sal.toFixed(1)+'억 · '+yrs+'년 · 이적료 '+neg.fee.toFixed(1)+'억'+rivalTxt); }catch(e){}
+  try{
+    const richer=(neg.rivals||[]).filter(function(r){ return Number(r.sal)>Number(sal)+0.05; }).sort(function(a,b){ return b.sal-a.sal; })[0];
+    const story=faPrefStory(p,S.userTeam,sal,richer?{tag:richer.tag,sal:richer.sal}:null);
+    if(story) newsAdd('이적',story);
+  }catch(e){}
   try{ if(typeof fa36CloseWar==='function') fa36CloseWar(name); }catch(e){}
   stoveReaction(true,'fa',{p:name});
   stoveNegDrop(name);
@@ -13102,6 +13159,14 @@ function stoveFaLoseNow(name, neg, rival){
     try{ if(rt&&!rt.roster.includes(p.name)) rt.roster.push(p.name); stoveFillLineup(rid); }catch(e){}
     stoveLog('fa-fail',name+' 협상 결렬 — '+((rt&&rt.tag)||rid)+' 연봉 '+rival.sal.toFixed(1)+'억');
     try{ newsAdd('이적','❌ '+name+' — 협상 결렬. '+((rt&&rt.tag)||rid)+'가 연봉 '+rival.sal.toFixed(1)+'억에 데려갑니다'); }catch(e){}
+    /* V34.12 — 우리 구단이 돈을 더 얹었는데도 선호(대권·은사·친정) 때문에 뺏긴 경우 */
+    try{
+      const mySal=Number(neg&&neg.offer&&neg.offer.salary)||0;
+      if(rival.sal<mySal-0.05){
+        const story=faPrefStory(p,rid,rival.sal,{tag:((T(S.userTeam)||{}).tag||'MY'),sal:mySal});
+        if(story) newsAdd('이적',story);
+      }
+    }catch(e){}
     stoveReaction(false,'fa',{p:name});
   }
   try{ if(typeof fa36CloseWar==='function') fa36CloseWar(name); }catch(e){}
@@ -13139,13 +13204,14 @@ function stoveFaNegAdvance(name){
     }
   }catch(e){}
   const best=(neg.rivals&&neg.rivals[0])||null;
-  /* 선수가 보는 패키지 점수 — 연봉 + 주전 보장 + 구단 위상 */
-  const starterBonus=neg.offer.starter?0.42:0;
-  const prestige=(best?stoveFaPowerGap(best.id):0)*0.04;
-  const myScore=sal+starterBonus+prestige;
-  const rivalScore=best?best.sal:0;
-  const needSal=Math.max(neg.demand, best?(best.sal+0.1):neg.demand);
-  const accepted=(myScore>=rivalScore-0.001)&&(sal>=needSal-0.05);
+  /* V34.12 — 선수가 보는 건 연봉 숫자가 아니라 '실질 매력도'
+     (대권 도전 · 좋아하는 선수/코치 · 친정팀 · 출전 기회 + 주전 보장 약속) */
+  let pst=null;
+  try{ pst=faPrefStanding(p,sal,neg.rivals,null,{demand:neg.demand,starter:!!neg.offer.starter}); }catch(e){ pst=null; }
+  const myEff=pst?pst.eff:sal;
+  const bestEff=pst?pst.bestEff:(best?best.sal:0);
+  const needSal=(pst&&pst.needSal>0)?pst.needSal:Math.max(neg.demand,best?best.sal+0.1:neg.demand);
+  const accepted=(myEff>=bestEff-0.001)&&(myEff>=neg.demand-0.05);
   if(accepted){
     neg.log.unshift({who:'player', text:'조건을 수락했습니다 — 계약하겠습니다'});
     return stoveFaSignNow(name,neg);
@@ -13153,9 +13219,11 @@ function stoveFaNegAdvance(name){
   /* 카운터 제시 */
   neg.round=(neg.round||0)+1;
   neg.asked={salary:Math.round(needSal*10)/10, years:neg.offer.years, starter:!neg.offer.starter?true:neg.offer.starter};
-  neg.pref=(sal<needSal-0.05)
-    ? '연봉 +'+(needSal-sal).toFixed(1)+'억 상향을 요청합니다 ('+needSal.toFixed(1)+'억 이상)'
-    : ((!neg.offer.starter&&best)?'경쟁 구단('+best.tag+')보다 확실한 주전 보장이 필요합니다':'조건이 아직 마음에 차지 않습니다 — 한 번 더 조정해 주세요');
+  neg.pref=(best&&myEff<bestEff-0.04)
+    ? (best.tag+'가 '+best.sal.toFixed(1)+'억(실질 '+bestEff.toFixed(1)+'억)입니다 — 보정을 감안해도 '+needSal.toFixed(1)+'억 이상 필요합니다')
+    : ((myEff<neg.demand-0.05)
+      ? ('연봉 +'+Math.max(0,needSal-sal).toFixed(1)+'억 상향을 요청합니다 ('+needSal.toFixed(1)+'억 이상)')
+      : ((!neg.offer.starter&&best)?'경쟁 구단('+best.tag+')보다 확실한 주전 보장이 필요합니다':'조건이 아직 마음에 차지 않습니다 — 한 번 더 조정해 주세요'));
   neg.log.unshift({who:'player', text:neg.pref});
   stoveLog('fa-neg',name+' 카운터 — 요구 '+needSal.toFixed(1)+'억 (라운드 '+neg.round+')');
   saveGame();
@@ -13268,12 +13336,21 @@ function stoveNegTableHTML(p,neg){
   const t=myTeam();
   const best=(neg.rivals&&neg.rivals[0])||null;
   const rows=(neg.rivals||[]).map(function(r){
-    return `<div class="fneg-rival"><span>${esc(r.tag)}</span><b>${r.sal.toFixed(1)}억</b></div>`;
+    /* V34.12 — 경쟁 구단 입찰도 '연봉 → 실질'을 같이 보여준다 */
+    let re=Number(r.sal);
+    try{ re=faEffBidOf(p,r.id,r.sal); }catch(e){}
+    const ef=Math.abs(re-r.sal)>=0.15?`<em class="fneg-eff">→ ${re.toFixed(1)}</em>`:'';
+    return `<div class="fneg-rival"><span>${esc(r.tag)}</span><b>${r.sal.toFixed(1)}억${ef}</b></div>`;
   }).join('')||'<div class="fneg-none">경쟁 구단 없음</div>';
   const round=(neg.round||0);
+  let fst=null;
+  try{ fst=faPrefStanding(p,neg.offer.salary,neg.rivals,t.id,{starter:!!neg.offer.starter}); }catch(e){ fst=null; }
+  const kd=faPrefKindDef(p);
   return `<div class="fneg" data-neg="${esc(p.name)}">
     <div class="fneg-h"><span>🤝 협상 테이블 — <b>${esc(p.name)}</b></span>
       <em>협상 ${round}/${FA_NEG_MAX}라운드${best?' · 최고 경쟁 '+tiSpan(best.t,esc(best.tag)):''}${(rawOverall(p)>=85)?` · <span class="chip sm gold">${(neg.rivals||[]).length}개 구단 쨉탈전</span>`:''}</em></div>
+    ${(typeof faPrefBadgesHTML==='function')?faPrefBadgesHTML(p,t,{teamTag:(t.tag||'MY'),starter:!!neg.offer.starter}):''}
+    ${fst?`<div class="fap-stand ${fst.lead?'on':'off'}">실질 매력도 — 내 ${Number(neg.offer.salary).toFixed(1)}억 → <b>${fst.eff.toFixed(1)}억</b>${fst.bestTag?` · 경쟁 ${esc(fst.bestTag)} ${fst.bestSal.toFixed(1)}억 → ${fst.bestEff.toFixed(1)}억`:''} · ${fst.lead?'<b>현재 1위</b>':`<b>${fst.gap.toFixed(1)}억 부족</b> · ${fst.needSal.toFixed(1)}억 이상 필요`}</div>`:''}
     <div class="fneg-grid">
       <div class="fneg-col me">
         <div class="fneg-k">내 제안</div>
@@ -13287,6 +13364,7 @@ function stoveNegTableHTML(p,neg){
       <div class="fneg-col want">
         <div class="fneg-k">선수 요구 · 선호</div>
         <div class="fneg-pref">${esc(neg.pref||stoveNegPrefText(neg))}</div>
+        <div class="fneg-s">${kd.ic} ${esc(kd.n)} — ${esc(kd.d)}</div>
         <div class="fneg-s">요구 ${Number(neg.demand||0).toFixed(1)}억${neg.asked?' · 카운터 '+Number(neg.asked.salary).toFixed(1)+'억':''}</div>
       </div>
     </div>
@@ -13322,8 +13400,8 @@ function stoveFaHTML(){
             <div class="frow" data-a="player" data-v="${esc(p.name)}">
             <div class="f-av">${pAvatarHTML(p,38)}</div>
             <div class="f-m">
-              <div class="f-n">${esc(p.name)} <span class="role-tag">${ROLE_KR[p.role]}</span><span class="grade ${p.grade}">${p.grade}</span>${neg?'<span class="chip sm gold">협상 중</span>':''}</div>
-              <div class="f-s">${p.age}세 · OVR ${rawOverall(p)} · 요구 ${demand.toFixed(1)}억 · 이적료 ${(p.fee||0).toFixed(1)}억</div>
+              <div class="f-n">${esc(p.name)} <span class="role-tag">${ROLE_KR[p.role]}</span><span class="grade ${p.grade}">${p.grade}</span>${(typeof faPrefKindChip==='function')?faPrefKindChip(p):''}${neg?'<span class="chip sm gold">협상 중</span>':''}</div>
+              <div class="f-s">${p.age}세 · OVR ${rawOverall(p)} · 요구 ${demand.toFixed(1)}억 · 이적료 ${(p.fee||0).toFixed(1)}억 · ${(typeof faPrefMiniHTML==='function')?faPrefMiniHTML(p,t):''}</div>
               <div class="f-s">${badge||(rivals.length?'경쟁: '+rivals.map(r=>tiSpan(r.t,esc(r.t.tag))).join(' · '):'경쟁 구단 없음')}</div>
             </div>
             <div class="f-b">
@@ -13676,6 +13754,8 @@ function aiFaSigningTick(){
     for(let k=0;k<fas.length;k++){
       const p=fas[k];
       if(!p||p.team) continue;
+      /* V34.12 — 영입전(경쟁 입찰)이 열린 선수는 그 절차에서만 계약한다 */
+      try{ if(S.stove&&S.stove.fa&&S.stove.fa.open&&S.stove.fa.open[p.name]) continue; }catch(e){}
       const cur=(t.lineup&&t.lineup[p.role])?S.players[t.lineup[p.role]]:null;
       const co=cur?rawOverall(cur):0;
       const ovr=rawOverall(p);
@@ -42371,6 +42451,8 @@ function fa36Suitors(p){
     if(cur&&fa36Ovr(p)<fa36Ovr(cur)-3) return;          /* 주전이 확실히 더 강하면 입찰하지 않는다 */
     if(!fa36Afford(t,p,dem,tier==='S')) return;
     seen[t.id]=1;
+    /* V34.12 — 선수가 그 구단을 좋아할수록(대권·동료·코치·친정) 더 적극적으로 뛰어든다 */
+    try{ v=clamp(v+faPrefOf(p,t).cut*0.5,-1,1); }catch(e){}
     out.push({id:t.id,tag:fa36Tag(t),power:Math.round(teamPower(t)),v:clamp(v,-1,1),need:!!need,upgrade:!!upgrade});
   }
   /* ① 기존 경쟁 로직 — 상위권·자금력 구단이 먼저 달려든다 */
@@ -42403,6 +42485,21 @@ function fa36OpenWar(name){
   const tier=fa36Tier(p);
   const dem=fa36Demand(p);
   let suitors=fa36Suitors(p);
+  /* V34.12 — S급 최대어는 조건이 맞는 구단이 적어도 3개 구단 쟁탈전이 열린다 */
+  if(tier==='S'&&suitors.length<3){
+    const have={}; suitors.forEach(function(s){ have[s.id]=1; });
+    Object.values(S.teams||{}).forEach(function(t){
+      if(!t||t.id===S.userTeam||have[t.id]) return;
+      if((t.roster||[]).length>=11) return;
+      if(!fa36Afford(t,p,dem,true)) return;
+      const cur=fa36Starter(t,p.role);
+      if(cur&&fa36Ovr(p)<fa36Ovr(cur)-3) return;
+      const v=clamp(0.45+(teamPower(t)-76)/40,0,1);
+      suitors.push({id:t.id,tag:fa36Tag(t),power:Math.round(teamPower(t)),v:v,need:!cur,upgrade:!!cur});
+      have[t.id]=1;
+    });
+    suitors.sort(function(a,b){ return (b.v+b.power/400)-(a.v+a.power/400); });
+  }
   if(!suitors.length) return null;
   const cap=(tier==='S')?5:(tier==='A'?4:(tier==='B'?3:2));
   suitors=suitors.slice(0,cap);
@@ -42416,7 +42513,10 @@ function fa36OpenWar(name){
     round:f.round, deadline:f.round+((tier==='S'||tier==='A')?2:1),
     demand:Math.round(dem*10)/10, bids:bids, top:bids.length?bids[0].sal:0,
     status:'open', userSal:0, userIn:false, created:f.round, news:false,
+    prefKind:(typeof faPrefKind==='function')?faPrefKind(p):null,
   };
+  /* V34.12 — 경쟁 승자는 연봉이 아니라 실질 매력도(연봉 환산)로 가린다 */
+  try{ fa36BidEff(w); }catch(e){}
   f.open[name]=w;
   f.log.unshift({k:'open',name:name,tier:tier,sal:w.top,round:f.round,season:S.season,at:Date.now()});
   if(f.log.length>80) f.log.length=80;
@@ -42463,6 +42563,7 @@ function fa36LegendHome(){
 /* 스토브리그 개장 — S·A급부터 영입전을 연다 */
 function fa36OpenMarket(){
   const f=fa36State(true); if(!f||!S) return {open:0};
+  try{ faPrefEnsure(); }catch(e){}            /* V34.12 — 성향·친정팀 확정 */
   if(Object.keys(f.open).length) return {open:Object.keys(f.open).length,cached:true};
   try{ fa36LegendHome(); }catch(e){}
   if(!fa36Pool().length) return {open:0};
@@ -42503,6 +42604,7 @@ function fa36Bump(w){
   const live=w.bids.filter(function(b){ return !b.out; }).sort(function(a,b){ return b.sal-a.sal; });
   w.bids=live;
   w.top=live.length?live[0].sal:0;
+  try{ fa36BidEff(w); }catch(e){}
 }
 
 /* ---------- 유저 협상 테이블 ↔ 영입전 동기화 ---------- */
@@ -42510,7 +42612,8 @@ function fa36AttachBid(name,neg){
   const f=fa36State(false); if(!f||!neg) return false;
   const w=f.open[name]; if(!w) return false;
   w.userIn=true; w.userSal=Number(neg.offer&&neg.offer.salary)||0;
-  neg.rivals=w.bids.map(function(b){ return {id:b.id,tag:b.tag,sal:b.sal,need:true,v:b.v}; });
+  try{ fa36BidEff(w); }catch(e){}
+  neg.rivals=w.bids.map(function(b){ return {id:b.id,tag:b.tag,sal:b.sal,eff:b.eff,need:true,v:b.v}; });
   neg.war=w.deadline;
   try{ neg.pref=stoveNegPrefText(neg); }catch(e){}
   return true;
@@ -42518,16 +42621,24 @@ function fa36AttachBid(name,neg){
 function fa36SyncNeg(w){
   const neg=(typeof stoveNegOf==='function')?stoveNegOf(w.name):null;
   if(!neg) return null;
-  neg.rivals=w.bids.map(function(b){ return {id:b.id,tag:b.tag,sal:b.sal,need:true,v:b.v}; });
+  try{ fa36BidEff(w); }catch(e){}
+  neg.rivals=w.bids.map(function(b){ return {id:b.id,tag:b.tag,sal:b.sal,eff:b.eff,need:true,v:b.v}; });
   const best=w.bids[0]||null;
+  const p=S.players[w.name];
   const my=Number(neg.offer&&neg.offer.salary)||0;
   neg.warDealine=w.deadline;
   neg.warRound=w.round;
-  if(best&&my<best.sal-0.04){
-    const nw=!neg.outbid||Math.abs((neg.outbidAt||0)-best.sal)>0.04;
-    neg.outbid=true; neg.outbidAt=best.sal;
+  /* V34.12 — 밀렸는지도 '연봉'이 아니라 '실질 매력도'로 판단한다 */
+  let myEff=my, bestEff=0, needSal=0;
+  try{
+    const st=faPrefStanding(p,my,w.bids,null,{demand:w.demand,starter:!!(neg.offer&&neg.offer.starter)});
+    myEff=st.eff; bestEff=st.bestEff; needSal=st.needSal;
+  }catch(e){ bestEff=best?best.sal:0; }
+  if(best&&myEff<bestEff-0.04){
+    const nw=!neg.outbid||Math.abs((neg.outbidEff||0)-bestEff)>0.04;
+    neg.outbid=true; neg.outbidAt=best.sal; neg.outbidEff=bestEff;
     if(nw){
-      neg.log.unshift({who:'rival',text:best.tag+'가 '+best.sal.toFixed(1)+'억으로 올렸습니다 — 매칭하려면 '+(best.sal+0.1).toFixed(1)+'억 이상'});
+      neg.log.unshift({who:'rival',text:best.tag+'가 '+best.sal.toFixed(1)+'억(실질 '+bestEff.toFixed(1)+'억)으로 올렸습니다 — 매칭하려면 '+needSal.toFixed(1)+'억 이상'});
       if(neg.log.length>8) neg.log.length=8;
     }
   }else if(best){
@@ -42542,14 +42653,21 @@ function fa36MatchBid(name){
   if(!w) return {ok:false,msg:'진행 중인 영입전이 없습니다'};
   const best=w.bids[0];
   if(!best) return {ok:false,msg:'경쟁 구단이 없습니다 — 자유롭게 입찰하세요'};
-  const sal=Math.round((best.sal+0.1)*10)/10;
+  /* V34.12 — 실질 매력도에서 1위가 되는 최소 연봉 (보정이 크면 경쟁 연봉보다 낮다) */
+  let sal=Math.round((best.sal+0.1)*10)/10;
+  let neg0=null;
+  try{ neg0=(typeof stoveNegOf==='function')?stoveNegOf(name):null; }catch(e){}
+  try{
+    const st=faPrefStanding(S.players[name],0,w.bids,null,{starter:!!(neg0&&neg0.offer&&neg0.offer.starter)});
+    if(st.needSal>0) sal=Math.round(st.needSal*10)/10;
+  }catch(e){}
   let neg=(typeof stoveNegOf==='function')?stoveNegOf(name):null;
   if(!neg){
     const r=(typeof stoveFaBidOpen==='function')?stoveFaBidOpen(name,sal,2,{}):{ok:false,msg:'협상 모듈 없음'};
     if(!r.ok) return r;
     neg=stoveNegOf(name);
     if(neg) fa36AttachBid(name,neg);
-    return {ok:true,msg:best.tag+' 최고가 '+best.sal.toFixed(1)+'억에 매칭 입찰 — '+sal.toFixed(1)+'억 제시',sal:sal};
+    return {ok:true,msg:best.tag+' 최고가 '+best.sal.toFixed(1)+'억(실질 '+faBidEff(S.players[name],best).toFixed(1)+'억)에 매칭 — '+sal.toFixed(1)+'억 제시',sal:sal};
   }
   const r=stoveFaCounter(name,sal,neg.offer.years,{starter:!!neg.offer.starter});
   if(r.ok) fa36AttachBid(name,neg);
@@ -42593,17 +42711,30 @@ function fa36Resolve(name,opts){
   /* 그 사이 전력이 바뀐 구단은 입찰에서 빠진다 + 한 팀이 한 턴에 여러 건 독식하지 않는다 */
   const turnSign=f.turnSign||{};
   const capWins=(w.tier==='S'||w.tier==='A')?1:2;
-  const live=w.bids.filter(function(b){ return fa36BidValid(w,b)&&((turnSign[b.id]||0)<capWins); })
-    .sort(function(a,b){ return b.sal-a.sal; });
-  if(!live.length){ f.unsold=f.unsold||{}; f.unsold[name]=f.round; fa36CloseWar(name); return null; }
-  const best=live[0]||null;
+  const live=w.bids.filter(function(b){ return !b.out&&fa36BidValid(w,b)&&((turnSign[b.id]||0)<capWins); })
+    .sort(function(a,b){ return (faBidEff(p,b))-(faBidEff(p,a)); });   /* V34.12 — 실질 매력도 순 */
   const neg=(typeof stoveNegOf==='function')?stoveNegOf(name):null;
+  /* V34.12 — 경쟁 구단이 모두 빠졌어도 우리 협상은 그대로 살린다 (협상 객체 유실 방지) */
+  if(!live.length&&!neg){ f.unsold=f.unsold||{}; f.unsold[name]=f.round; fa36CloseWar(name); return null; }
+  const best=live[0]||null;
   const winnerTag=best?best.tag:null;
   const tags=(live.length?live.map(function(b){return b.tag;}):[]).slice(0,4);
-  /* 유저가 최고가 이상이면 우리 구단 계약 */
-  if(neg&&(!best||(Number(neg.offer.salary)||0)>=best.sal-0.001)){
+  /* V34.12 — 우리 구단의 실질 매력도 (대권·동료·코치·친정 보정) */
+  const userSal=neg?(Number(neg.offer.salary)||0):0;
+  let myCut=0;
+  try{ myCut=faPrefOf(p,myTeam(),{starter:!!(neg&&neg.offer&&neg.offer.starter)}).cut; }catch(e){ myCut=0; }
+  const userEff=Math.round(userSal*(1+myCut)*100)/100;
+  const bestEff=best?faBidEff(p,best):0;
+  /* 유저가 실질 매력도에서 1위면 우리 구단 계약 */
+  if(neg&&(!best||userEff>=bestEff-0.001)){
     const sal=Number(neg.offer.salary)||0;
     if(!opts.quiet) try{ newsAdd('이적','⚔️ [긴급] '+tags.join('·')+', '+name+' 영입전 — 연봉 '+sal.toFixed(1)+'억에 우리 구단('+((T(S.userTeam)||{}).tag||'MY')+') 전격 계약!'); }catch(e){}
+    /* 더 높은 연봉을 부른 구단을 제치고 온 경우 — 이유를 소식으로 남긴다 */
+    try{
+      const richer=live.filter(function(b){ return b.sal>sal+0.05; }).sort(function(a,b){ return b.sal-a.sal; })[0];
+      const story=faPrefStory(p,S.userTeam,sal,richer);
+      if(story&&!opts.quiet) newsAdd('이적',story);
+    }catch(e){}
     f.done[name]={team:S.userTeam,sal:sal,round:f.round,tier:w.tier,user:true};
     f.turnSign=f.turnSign||{}; f.turnSign[S.userTeam]=(f.turnSign[S.userTeam]||0)+1;
     try{ stoveFaSignNow(name,neg); }catch(e){}
@@ -42614,6 +42745,12 @@ function fa36Resolve(name,opts){
   const out=fa36SignAI(w,best)||null;
   if(out){
     if(!opts.quiet) try{ newsAdd('이적','⚔️ [긴급] '+tags.join('·')+', '+name+' 영입전 — 연봉 '+out.sal.toFixed(1)+'억에 '+best.tag+' 전격 계약!'); }catch(e){}
+    /* V34.12 — 더 큰 연봉을 마다하고 대권/은사/친정을 택한 계약 스토리 */
+    try{
+      const richer=live.filter(function(b){ return b.id!==best.id&&b.sal>best.sal+0.05; }).sort(function(a,b){ return b.sal-a.sal; })[0];
+      const story=faPrefStory(p,best.id,out.sal,richer||(neg&&(Number(neg.offer.salary)||0)>out.sal+0.05?{tag:((T(S.userTeam)||{}).tag||'MY'),sal:Number(neg.offer.salary)||0}:null));
+      if(story&&!opts.quiet) newsAdd('이적',story);
+    }catch(e){}
     if(!opts.quiet&&(w.tier==='S'||w.tier==='A')){
       try{ newsAdd('fmk','📱 [FM코리아] '+best.tag+' '+name+' 영입 떴다 — '+(w.tier==='S'?'스토브리그 판도 흔드는 초대형 계약':'주전 경쟁 예고')+' 인정?'); }catch(e){}
     }
@@ -42651,6 +42788,7 @@ function fa36BestHome(p){
     else if(fa36Ovr(p)<fa36Ovr(cur)-6) score-=1.2;
     score+=(9-Math.min(9,roster))*0.35;                        /* 인원 얇은 구단 */
     score+=Math.min(1.2,(Number(t.budget)||0)/80);
+    try{ score+=faPrefOf(p,t).cut*4; }catch(e){}               /* V34.12 — 선호하는 구단으로 */
     score+=Math.random()*0.4;
     if(score>bestScore){ bestScore=score; best=t; }
   });
@@ -42779,7 +42917,9 @@ function fa36WarBadge(p){
   if(!w) return '';
   const d=Math.max(0,(w.deadline||0)-(f.round||0));
   const me=w.userIn?' · 내 '+(Number(w.userSal)||0).toFixed(1)+'억':'' ;
-  return '<span class="fawar-badge">⚔️ '+w.bids.length+'구단 입찰전 · 최고 '+w.top.toFixed(1)+'억 · D-'+(d||1)+me+'</span>';
+  const kind=(typeof faPrefKindDef==='function')?faPrefKindDef(p):null;
+  return '<span class="fawar-badge">⚔️ '+w.bids.length+'구단 입찰전 · 최고 '+w.top.toFixed(1)+'억 · D-'+(d||1)+me+'</span>'
+    +(kind?'<span class="fap-kind sm '+kind.k+'">'+kind.ic+' '+esc(kind.n)+'</span>':'');
 }
 function fa36WarRow(w){
   const p=S.players[w.name]; if(!p) return '';
@@ -42788,24 +42928,33 @@ function fa36WarRow(w){
   const neg=(typeof stoveNegOf==='function')?stoveNegOf(w.name):null;
   const my=neg?(Number(neg.offer&&neg.offer.salary)||0):0;
   const best=w.bids[0]||null;
-  const behind=!!(best&&my>0&&my<best.sal-0.04);
-  const lead=!!(best&&my>0&&my>=best.sal-0.001);
+  /* V34.12 — 판정은 연봉이 아니라 실질 매력도 */
+  let st={eff:my,bestEff:best?best.sal:0,behind:false,lead:false,gap:0,needSal:0,pref:null};
+  try{ st=faPrefStanding(p,my,w.bids,null,{starter:!!(neg&&neg.offer&&neg.offer.starter)}); }catch(e){}
+  const behind=!!(best&&my>0&&st.behind);
+  const lead=!!(best&&my>0&&st.lead);
   const rivalTxt=w.bids.map(function(b){
-    return '<span class="fw-tag'+(behind&&best&&b.id===best.id?' hot':'')+'">'+tiSpan(T(b.id),esc(b.tag))+' '+b.sal.toFixed(1)+'</span>';
+    let eff=Number(b.sal);
+    try{ eff=faEffBidOf(p,b.id,b.sal); }catch(e){}
+    const ef=Math.abs(eff-b.sal)>=0.15?'<em class="fw-eff">→'+eff.toFixed(1)+'</em>':'deal';
+    return '<span class="fw-tag'+(behind&&best&&b.id===best.id?' hot':'')+'">'+tiSpan(T(b.id),esc(b.tag))+' '+b.sal.toFixed(1)+(ef==='deal'?'':ef)+'</span>';
   }).join('');
+  const myTag=((T(S.userTeam)||{}).tag||'MY');
+  const stand=my>0
+    ? (lead?'<span class="fw-me on">내 제안 '+my.toFixed(1)+'억 → 실질 '+st.eff.toFixed(1)+'억 — <b>1위</b></span>'
+           :'<span class="fw-me off">내 제안 '+my.toFixed(1)+'억 → 실질 '+st.eff.toFixed(1)+'억 — 밀림 (1위 '+st.bestEff.toFixed(1)+'억, <b>'+st.gap.toFixed(1)+'억 부족</b>)</span>')
+    : '<span class="fw-me">아직 입찰 전 — 실질 1위 '+st.bestEff.toFixed(1)+'억</span>';
   return '<div class="fawar">'
     +'<div class="fawar-h"><b>'+esc(w.name)+'</b>'
       +'<span class="role-tag">'+ROLE_KR[w.role]+'</span>'
       +'<span class="grade '+(w.grade||'A')+'">'+(w.grade||w.tier)+'</span>'
       +'<em>OVR '+w.ovr+' · 요구 '+w.demand.toFixed(1)+'억</em>'
       +'<span class="fw-d '+(d<=1?'now':'')+'">D-'+(d||1)+'</span></div>'
+    +(typeof faPrefBadgesHTML==='function'?faPrefBadgesHTML(p,myTeam(),{teamTag:myTag,starter:!!(neg&&neg.offer&&neg.offer.starter)}):'')
     +'<div class="fw-bids">'+rivalTxt+'</div>'
     +'<div class="fw-state">'
-      +(my>0
-        ? (lead?'<span class="fw-me on">내 제안 '+my.toFixed(1)+'억 — 1위</span>'
-               :'<span class="fw-me off">내 제안 '+my.toFixed(1)+'억 — 밀림 (최고 '+(best?best.sal.toFixed(1):'0')+'억)</span>')
-        :'<span class="fw-me">아직 입찰 전 — 최고 '+(best?best.sal.toFixed(1):'0')+'억</span>')
-      +'<button class="btn xs '+(behind?'primary':'')+'" data-a="stovefamatch" data-v="'+esc(w.name)+'">'+(behind?'매칭 +'+(best.sal+0.1).toFixed(1)+'억':'입찰 참전')+'</button>'
+      +stand
+      +'<button class="btn xs '+(behind?'primary':'')+'" data-a="stovefamatch" data-v="'+esc(w.name)+'">'+(behind?'매칭 '+st.needSal.toFixed(1)+'억':'입찰 참전')+'</button>'
     +'</div></div>';
 }
 function fa36WarBoardHTML(){
@@ -42829,6 +42978,369 @@ function fa36TurnBarHTML(){
       +'<button class="btn sm primary" data-a="stovefaturn">다음 턴 →</button></div>'
     +'<div class="tiny">턴이 지나면 경쟁 구단이 연봉을 올리고, 마감된 영입전은 실제 계약으로 확정됩니다.</div>'
     +'</div>';
+}
+
+/* ============================================================================
+   V34.12 — FA 선호 · 실질 매력도 (대권 도전 페이컷 · 좋아하는 선수/코치 · 친정팀)
+   ----------------------------------------------------------------------------
+   문제
+     · 지금까지 FA 경쟁은 '연봉 숫자' 하나였다. T1이 11억, 하위권 구단이 13억을
+       부르면 선수는 무조건 13억을 택했다. 우승을 원하는 선수가 페이컷하는
+       실제 스토브리그와 정반대다.
+   개편
+     · 선수마다 FA 성향(faKind)을 데이터에서 뽑아낸다.
+         🏆 우승 야망형 · 💰 최고 대우형 · 🏠 의리·친정팀형 · 🎮 출전 기회형
+       (성격 persons · 나이 · OVR · 커리어 · 원클럽맨 여부 · 벤치 여부로 결정,
+        이름 해시로 동점을 깨므로 화면을 다시 그려도 성향이 바뀌지 않는다)
+     · 구단마다 그 선수가 느끼는 비금전 가치를 %로 계산해 연봉에 환산한다.
+         🏆 대권 도전  S급 로스터(OVR 88+)·전력·직전 성적·트로피 → 최대 +35%
+         🤝 좋아하는 선수  케미 72+/82+ 동료 → 동료당 +3~12%, 불화는 마이너스
+         🤝 좋아하는 코치  성격이 원하는 코칭 특성을 가진 감독·코치 → +7~10%
+         🏠 친정팀  그 선수가 첫 소속으로 뛴 구단 → +22%
+         🎮 출전 기회  주전 자리가 비었거나 경쟁 우위 → +14%, 확실히 밀리면 -12%
+     · 실질 가치 = 연봉 × (1 + 보정). 경쟁 승자는 '연봉'이 아니라 '실질 가치'로
+       가린다 → 조금 낮은 연봉으로도 대권 팀이 이기고, 돈을 더 써도 뺏긴다.
+     · 돈 우선형(faKind money)은 보정이 0이다 — 오직 최고 연봉만 본다.
+   창구
+     faPrefEnsure()               성향·친정팀을 세이브에 확정 (구단 이동 전에 1회)
+     faPrefKind(p)                성향 키
+     faPrefOf(p,t)                {kind, cut, parts[], K} — 구단별 보정
+     faEffBidOf(p,teamId,sal)     실질 가치(억)
+     faBidEff(p,b)                영입전 입찰의 실질 가치
+     fa36BidEff(w)                영입전 입찰을 실질 가치 순으로 정렬
+     faPrefStanding(p,mySal,bids) 실질 기준 1위/부족분·필요 연봉
+     faPrefBadgesHTML(p,t)        선호 이유 배지
+     faPrefKindChip(p)            성향 칩
+     faPrefWhyText(p,t)           소식용 한 마디 (대권 도전/은사 재회 …)
+   ========================================================================== */
+
+const FAP_KIND={
+  contender:{k:'contender', n:'우승 야망형', ic:'🏆', d:'우승할 수 있는 팀이라면 연봉을 깎는다',
+    w:{contender:1.0, mate:0.85, coach:0.85, home:0.50, play:0.50}},
+  money:{k:'money', n:'최고 대우형', ic:'💰', d:'오직 최고 연봉 — 우승·친분보다 돈',
+    w:{contender:0, mate:0, coach:0, home:0, play:0}},
+  loyal:{k:'loyal', n:'의리·친정팀형', ic:'🏠', d:'인연이 있는 구단이라면 연봉을 깎는다',
+    w:{contender:0.30, mate:1.0, coach:0.80, home:1.0, play:0.40}},
+  playing:{k:'playing', n:'출전 기회형', ic:'🎮', d:'주전으로 뛸 수 있는 팀을 고른다',
+    w:{contender:0.30, mate:0.60, coach:0.80, home:0.50, play:1.0}},
+};
+const FAP_KINDS=Object.keys(FAP_KIND);
+
+/* ---------- 성향 판정 ---------- */
+function faPrefKind(p){
+  if(!p) return 'money';
+  if(p.faKind&&FAP_KIND[p.faKind]) return p.faKind;
+  const ps=(typeof personalitiesOf==='function')?personalitiesOf(p).map(function(x){ return x.k; }):(p.persons||[]);
+  const has=function(k){ return ps.indexOf(k)>=0; };
+  const sc={contender:0, money:0.55, loyal:0, playing:0};
+  /* 성격 30종 → 4성향 */
+  if(has('winner')) sc.contender+=3.0;
+  if(has('clutchgene')) sc.contender+=2.4;
+  if(has('bo5')) sc.contender+=1.6;
+  if(has('ironheart')) sc.contender+=1.1;
+  if(has('seniorKiller')) sc.contender+=1.0;
+  if(has('orderleader')) sc.contender+=0.8;
+  if(has('teamfirst')) sc.contender+=0.5;
+  if(has('professor')) sc.contender+=0.4;
+  if(has('showman')) sc.money+=2.6;
+  if(has('dopamine')) sc.money+=2.2;
+  if(has('maverick')) sc.money+=2.0;
+  if(has('genius')) sc.money+=1.5;
+  if(has('trashtalker')) sc.money+=1.4;
+  if(has('lazygenius')) sc.money+=1.2;
+  if(has('clown')) sc.money+=0.9;
+  if(has('bold')) sc.money+=0.7;
+  if(has('loyalist')) sc.loyal+=3.4;
+  if(has('quiet')) sc.loyal+=1.2;
+  if(has('stable')) sc.loyal+=0.9;
+  if(has('craftsman')) sc.loyal+=0.9;
+  if(has('moodmaker')) sc.loyal+=0.6;
+  if(has('mentalcarer')) sc.loyal+=0.5;
+  if(has('glassmental')) sc.playing+=1.4;
+  if(has('slowstart')) sc.playing+=1.1;
+  if(has('practicebug')) sc.playing+=1.0;
+  /* 나이 · 커리어 */
+  let ovr=70;
+  try{ ovr=rawOverall(p); }catch(e){ ovr=Number(p.ovr)||70; }
+  const age=Number(p.age)||24;
+  if(age>=28&&ovr>=84) sc.contender+=1.8;          /* 커리어 막바지 — 우승 반지 */
+  if(ovr>=88) sc.contender+=1.2;
+  if(age<=21&&ovr<80) sc.playing+=3.0;             /* 신인은 뛰어야 산다 */
+  if(age<=22&&ovr<78) sc.playing+=2.0;
+  if(ovr<75) sc.playing+=1.2;
+  if(p.legend) sc.loyal+=3.2;                       /* 원클럽맨 */
+  if(age>=29) sc.loyal+=0.6;
+  if(p.starter===false) sc.playing+=0.9;
+  /* 동점은 이름 해시로 고정 — 렌더링마다 성향이 흔들리지 않는다 */
+  let best='money', bv=-1e9;
+  FAP_KINDS.forEach(function(k){
+    const v=sc[k]+((hashN(String(p.name)+'#'+k)%997)/997)*0.04;
+    if(v>bv){ bv=v; best=k; }
+  });
+  return best;
+}
+function faPrefKindDef(p){ return FAP_KIND[faPrefKind(p)]||FAP_KIND.money; }
+/* 성향·친정팀을 세이브에 확정한다 (선수가 구단을 떠나기 전에 호출) */
+function faPrefEnsure(){
+  if(typeof S==='undefined'||!S||!S.players) return;
+  Object.keys(S.players).forEach(function(n){
+    const p=S.players[n]; if(!p||p.retired) return;
+    if(!p.faKind||!FAP_KIND[p.faKind]) p.faKind=faPrefKind(p);
+    if(p.homeTeam===undefined) p.homeTeam=p.team||null;   /* 처음 기록된 소속 = 친정팀 */
+  });
+}
+
+/* ---------- 구성 요소 ---------- */
+function faPrefSStars(t){
+  let n=0;
+  try{
+    (t.roster||[]).forEach(function(nm){ const p=S.players[nm]; if(p&&rawOverall(p)>=88) n++; });
+  }catch(e){}
+  return n;
+}
+function faContenderPart(t){
+  if(!t) return {raw:0, s:0, power:0};
+  let power=70;
+  try{ power=teamPower(t); }catch(e){ power=70; }
+  const s=faPrefSStars(t);
+  const wl=(Number(t.wins)||0)+(Number(t.losses)||0);
+  const wr=wl>0?(Number(t.wins)||0)/wl:0.5;
+  const tier=String(t.tier||'');
+  let raw=(s>=4?0.15:s>=3?0.13:s>=2?0.07:s>=1?0.025:0);
+  raw+=clamp((power-78)*0.013,-0.02,0.15);          /* 전력 87 → +11.7% */
+  raw+=clamp((wr-0.5)*0.10,-0.03,0.05);             /* 직전 성적 */
+  raw+=(tier==='S+'?0.02:tier==='S'?0.015:tier==='A+'?0.008:0);
+  try{
+    if(S&&(S.champion===t.id||S.springChampion===t.id||S.summerChampion===t.id)) raw+=0.05;
+    else if(S&&S.msiChampion===t.id) raw+=0.035;
+  }catch(e){}
+  return {raw:clamp(raw,0,0.35), s:s, power:power};
+}
+function faMatePart(p,t){
+  const out={raw:0, names:[], bad:[]};
+  if(!p||!t) return out;
+  let names=[], bad=[];
+  try{
+    (t.roster||[]).slice(0,11).forEach(function(nm){
+      if(nm===p.name) return;
+      const r=S.players[nm]; if(!r) return;
+      let c=50;
+      try{ c=chemOf(p.name,r.name,t.id); }catch(e){ c=50; }
+      let v=0;
+      if(c>=82) v=0.10;                               /* 환상의 듀오 */
+      else if(c>=72) v=0.065;                         /* 절친 */
+      else if(c>=62) v=0.03;
+      else if(c<32) v=-0.075;                         /* 불화 */
+      else if(c<42) v=-0.035;
+      if(v>0&&rawOverall(r)>=88) v+=0.02;             /* S급 동료와의 시너지 */
+      if(v>0) names.push({n:r.name, v:v});
+      else if(v<0) bad.push(r.name);
+    });
+  }catch(e){}
+  names.sort(function(a,b){ return b.v-a.v; });
+  const top=names.slice(0,2).reduce(function(a,x){ return a+x.v; },0);
+  const neg=bad.length?Math.max(-0.12,-0.06*Math.min(2,bad.length)):0;
+  out.raw=clamp(top+neg,-0.15,0.25);
+  out.names=names.slice(0,2).map(function(x){ return x.n; });
+  out.bad=bad.slice(0,2);
+  return out;
+}
+function faCoachPart(p,t){
+  const out={raw:0, names:[]};
+  if(!p||!t) return out;
+  try{
+    const st=(typeof staffOf==='function')?staffOf(t.id):null;
+    if(!st) return out;
+    const likes={};
+    (typeof personalitiesOf==='function'?personalitiesOf(p):[]).forEach(function(x){ if(x&&x.likes) likes[x.likes]=true; });
+    let raw=0, names=[];
+    [st.head].concat(st.coaches||[]).filter(Boolean).forEach(function(s){
+      let v=0;
+      (s.traits||[]).forEach(function(tr){
+        if(likes[tr]) v=Math.max(v,(s.role==='HEAD'?0.10:0.07));
+      });
+      if(!v&&(s.rating||0)>=92) v=0.03;                /* 최고 명장은 누구나 선호 */
+      if(v>0){ raw+=v; names.push(s.name); }
+    });
+    if(st.head&&(st.head.rating||0)>=90&&raw<0.02){ raw+=0.02; names.push(st.head.name); }
+    out.raw=clamp(raw,0,0.20);
+    out.names=names.slice(0,2);
+  }catch(e){}
+  return out;
+}
+function faPlayPart(p,t){
+  if(!p||!t) return {raw:0, why:''};
+  try{
+    const cur=(typeof fa36Starter==='function')?fa36Starter(t,p.role):null;
+    if(!cur) return {raw:0.14, why:'주전 자리가 비어 있음'};
+    const d=rawOverall(p)-rawOverall(cur);
+    if(d>=6) return {raw:0.10, why:'확실한 주전'};
+    if(d>=0) return {raw:0.05, why:'주전 경쟁 우위'};
+    if(d>=-3) return {raw:-0.03, why:'주전 경쟁'};
+    return {raw:-0.12, why:cur.name+'에 밀림'};
+  }catch(e){ return {raw:0, why:''}; }
+}
+function faHomeOf(p){
+  if(!p) return null;
+  return p.homeTeam||p.legend||null;
+}
+
+/* ---------- 구단별 보정 ---------- */
+function faPrefOf(p,t,opts){
+  const kind=faPrefKind(p);
+  const K=FAP_KIND[kind]||FAP_KIND.money;
+  opts=opts||{};
+  const out={kind:kind, K:K, cut:0, pct:0, parts:[], home:null};
+  if(!p||!t) return out;
+  const c=faContenderPart(t), m=faMatePart(p,t), co=faCoachPart(p,t), pl=faPlayPart(p,t);
+  const home=faHomeOf(p);
+  const isHome=!!(home&&home===t.id);
+  const comps=[
+    {k:'contender', v:c.raw*K.w.contender},
+    {k:'mate',      v:m.raw*K.w.mate},
+    {k:'coach',     v:co.raw*K.w.coach},
+    {k:'home',      v:(isHome?0.22:0)*K.w.home},
+    {k:'play',      v:pl.raw*K.w.play},
+  ];
+  if(opts.starter){                                   /* 주전 보장 약속 */
+    comps.push({k:'starter', v:0.05*Math.max(0.3,K.w.play)});
+  }
+  let cut=0;
+  comps.forEach(function(x){ cut+=x.v; });
+  cut=clamp(cut,-0.20,0.42);
+  out.cut=cut; out.pct=Math.round(cut*1000)/10;
+  out.home=home;
+  if(Math.abs(comps[0].v)>=0.005) out.parts.push({k:'contender', ic:'🏆', v:comps[0].v,
+    txt:'대권 도전 로스터'+(c.s?' ('+c.s+'명 S급)':'')});
+  if(Math.abs(comps[1].v)>=0.005) out.parts.push({k:'mate', ic:(m.raw>=0?'🤝':'💢'), v:comps[1].v,
+    txt:(m.raw>=0?'좋아함: ':'불화: ')+((m.raw>=0?m.names:m.bad)||[]).join('·')});
+  if(Math.abs(comps[2].v)>=0.005) out.parts.push({k:'coach', ic:'🎓', v:comps[2].v,
+    txt:'선호 코치: '+(co.names||[]).join('·')});
+  if(Math.abs(comps[3].v)>=0.005) out.parts.push({k:'home', ic:'🏠', v:comps[3].v, txt:'친정팀'});
+  if(Math.abs(comps[4].v)>=0.005) out.parts.push({k:'play', ic:'🎮', v:comps[4].v, txt:'출전 기회 — '+pl.why});
+  if(Math.abs(comps[5]?comps[5].v:0)>=0.005) out.parts.push({k:'starter', ic:'🎽', v:comps[5].v, txt:'주전 보장 약속'});
+  out.parts.sort(function(a,b){ return Math.abs(b.v)-Math.abs(a.v); });
+  return out;
+}
+function faEffBidOf(p,teamId,sal,opts){
+  const s=Number(sal)||0;
+  if(!p||!teamId) return Math.round(s*100)/100;
+  let t=null;
+  try{ t=T(teamId); }catch(e){ t=null; }
+  if(!t) return Math.round(s*100)/100;
+  const pr=faPrefOf(p,t,opts);
+  return Math.round(s*(1+pr.cut)*100)/100;
+}
+function faBidEff(p,b){
+  /* 캐시하지 않는다 — 턴 사이에 구단 로스터·전력이 바뀌면 보정도 바뀐다 */
+  if(!b) return 0;
+  return faEffBidOf(p,b.id,b.sal);
+}
+/* 영입전 입찰을 실질 가치 순으로 정렬 (top = 실질 1위의 연봉) */
+function fa36BidEff(w){
+  if(!w) return w;
+  let p=null;
+  try{ p=S.players[w.name]; }catch(e){ p=null; }
+  (w.bids||[]).forEach(function(b){ b.eff=faEffBidOf(p,b.id,b.sal); });
+  (w.bids||[]).sort(function(a,b){ return (b.eff||0)-(a.eff||0); });
+  if(w.bids&&w.bids.length){
+    w.effTop=w.bids[0].eff;
+    w.effLead=w.bids[0].sal;
+    w.top=(w.bids||[]).reduce(function(m,b){ return Math.max(m,Number(b.sal)||0); },0);   /* 최고 연봉(표시용) */
+  }
+  else { w.effTop=0; w.effLead=0; w.top=0; }
+  return w;
+}
+/* 실질 기준 현재 순위 · 부족분 */
+function faPrefStanding(p,mySal,bids,myTeamId,opts){
+  opts=opts||{};
+  const t=(myTeamId&&T(myTeamId))||myTeam();
+  const pr=faPrefOf(p,t,opts);
+  const sal=Number(mySal)||0;
+  const myEff=Math.round(sal*(1+pr.cut)*100)/100;
+  let bestEff=0, bestTag=null, bestSal=0, bestId=null;
+  (bids||[]).forEach(function(b){
+    const e=faEffBidOf(p,b.id,b.sal);
+    if(e>bestEff){ bestEff=e; bestTag=b.tag; bestSal=Number(b.sal)||0; bestId=b.id; }
+  });
+  const demand=Number(opts.demand)||0;
+  const lead=sal>0&&myEff>=bestEff-0.001&&myEff>=demand-0.05;
+  const gap=Math.max(0,Math.round((bestEff-myEff)*100)/100);
+  const mul=1+pr.cut;
+  const needEff=Math.max(bestEff,demand);
+  const needSal=mul>0.05?Math.max(0.5,Math.round((needEff/mul+0.05)*10)/10):0;
+  return {pref:pr, sal:sal, eff:myEff, cut:pr.cut, bestEff:bestEff, bestTag:bestTag, bestSal:bestSal, bestId:bestId,
+    lead:lead, gap:gap, needSal:needSal, demand:demand, behind:!!(bestTag&&!lead)};
+}
+/* ---------- 표시 ---------- */
+function faPctTxt(v){
+  const n=Math.round(v*1000)/10;
+  return (n>=0?'+':'')+n.toFixed(n%1===0?0:1)+'%';
+}
+function faPrefBadgesHTML(p,t,opts){
+  opts=opts||{};
+  if(!p||!t) return '';
+  const pr=faPrefOf(p,t,opts);
+  const K=pr.K;
+  const out=['<span class="fap-kind '+pr.kind+'">'+K.ic+' '+K.n+'</span>'];
+  if(pr.kind==='money'){
+    out.push('<span class="fap-badge money">💰 최고 대우 선호 — 비금전 보정 없음</span>');
+    return '<div class="fap-badges">'+out.join('')+'</div>';
+  }
+  if(!pr.parts.length){
+    out.push('<span class="fap-badge none">선호 보정 없음</span>');
+    return '<div class="fap-badges">'+out.join('')+'</div>';
+  }
+  pr.parts.forEach(function(x){
+    const cut=Math.abs(x.v)>=0.03&&x.k==='contender'?' 페이컷 의향':'';
+    out.push('<span class="fap-badge '+(x.v>0?'plus':'minus')+' '+(x.k||'')+'">'+x.ic+' '+esc(x.txt)+' ('+faPctTxt(x.v)+cut+')</span>');
+  });
+  if(Math.abs(pr.cut)>=0.005){
+    out.push('<span class="fap-badge total">= 실질 '+faPctTxt(pr.cut)+'</span>');
+  }
+  if(opts.teamTag) out.unshift('<span class="fap-team">'+esc(opts.teamTag)+'</span>');
+  return '<div class="fap-badges">'+out.join('')+'</div>';
+}
+function faPrefKindChip(p){
+  const K=faPrefKindDef(p);
+  return '<span class="fap-kind sm '+K.k+'" title="'+esc(K.d)+'">'+K.ic+' '+esc(K.n)+'</span>';
+}
+function faPrefWhyText(p,t){
+  if(!p||!t) return '';
+  const pr=faPrefOf(p,t);
+  if(pr.kind==='money') return '최고 연봉';
+  const top=pr.parts.filter(function(x){ return x.v>0; }).sort(function(a,b){ return b.v-a.v; })[0];
+  if(!top) return '';
+  if(top.k==='contender') return '대권 도전';
+  if(top.k==='coach') return '은사 재회';
+  if(top.k==='mate') return '좋아하는 동료와 함께';
+  if(top.k==='home') return '친정팀 복귀';
+  if(top.k==='play') return '주전 보장';
+  return '';
+}
+/* 한 줄 요약 — 영입전 보드·목록용 */
+function faPrefMiniHTML(p,t){
+  if(!p||!t) return '';
+  const pr=faPrefOf(p,t);
+  const K=pr.K;
+  const pos=pr.parts.filter(function(x){ return x.v>0; }).slice(0,2).map(function(x){ return esc(x.ic+' '+x.txt.split(' — ')[0]+' '+faPctTxt(x.v)); });
+  const neg=pr.parts.filter(function(x){ return x.v<0; }).slice(0,1).map(function(x){ return esc(x.ic+' '+x.txt+' '+faPctTxt(x.v)); });
+  if(pr.kind==='money') return '<span class="fap-mini money">💰 최고 대우 선호</span>';
+  if(!pos.length&&!neg.length) return '';
+  return '<span class="fap-mini '+pr.kind+'">'+K.ic+' '+esc(K.n)+(pos.length?' · '+pos.join(' · '):'')+(neg.length?' · '+neg.join(' · '):'')+'</span>';
+}
+/* 소식 피드용: 더 높은 오퍼를 마다한 이유 */
+function faPrefStory(p,winTeamId,winSal,loseBid){
+  const t=(winTeamId&&T(winTeamId))||null;
+  if(!p||!t) return '';
+  const why=faPrefWhyText(p,t);
+  if(!why||why==='최고 연봉') return '';
+  const tag=(t.tag||t.id);
+  let s='💰 더 높은 오퍼를 마다하고 '+why+'를 택해 '+Number(winSal).toFixed(1)+'억에 '+tag+' 합류!';
+  if(loseBid&&Number(loseBid.sal)>Number(winSal)+0.05){
+    s='💰 '+(loseBid.tag||'경쟁 구단')+'의 '+Number(loseBid.sal).toFixed(1)+'억을 마다하고 '+why+'를 택해 '+Number(winSal).toFixed(1)+'억에 '+tag+' 합류!';
+  }
+  return s;
 }
 
 /* ============================================================================
