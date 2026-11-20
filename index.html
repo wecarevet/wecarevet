@@ -267,6 +267,14 @@ img{max-width:100%}
 .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem}
 .dcard{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem 1.15rem 1rem;text-decoration:none;color:var(--text);box-shadow:0 1px 2px rgba(16,51,94,.04);transition:transform .18s,box-shadow .18s,border-color .18s}
 .dcard.hide{display:none}
+/* 모바일 기본 4개만 보기 + 전체 보기 토글 (767px 이하) */
+@media(max-width:767px){.dcard.peek-hide{display:none}}
+.guide-more-wrap{display:none;justify-content:center;margin-top:1.1rem}
+@media(max-width:767px){.guide-more-wrap.is-on{display:flex}}
+.guide-more{display:inline-flex;align-items:center;gap:.45rem;padding:11px 22px;border-radius:999px;border:1px solid var(--border);background:var(--white);color:var(--navy);font-family:inherit;font-size:13px;font-weight:600;line-height:1.4;letter-spacing:-.01em;cursor:pointer;box-shadow:0 1px 2px rgba(16,51,94,.04);transition:border-color .16s,background .16s,box-shadow .16s}
+.guide-more:hover{border-color:#b7d0ee;background:var(--navy-xlight)}
+.guide-more:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.guide-more .arw{font-size:11px;line-height:1}
 .dcard:hover{transform:translateY(-3px);border-color:#b7d0ee;box-shadow:0 16px 34px -20px rgba(16,51,94,.75)}
 .dcard:focus-visible,.qcard:focus-visible,.pill:focus-visible,.tbtn:focus-visible,.ask-btn:focus-visible,.ask-chip:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .dcard-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem}
@@ -666,7 +674,7 @@ img{max-width:100%}
   <div class="wrap">
     <div class="vp-head">
       <span class="kicker">의료진 · VETERINARIAN</span>
-      <h2 class="sec-title">박성수 대표원장</h2>
+      <h2 class="sec-title">의료진 소개</h2>
       <p class="sec-sub">심장병 · 신장병 · 신경계 질환을 내과적으로 진단하고, 약리학을 근거로 치료합니다.</p>
     </div>
 
@@ -956,6 +964,10 @@ img{max-width:100%}
         </div>
       </a>
     </div>
+
+    <div class="guide-more-wrap" id="dcard-more-wrap">
+      <button class="guide-more" id="dcard-more" type="button" aria-expanded="false" aria-controls="dcard-list">질환 안내 전체 보기 (12종) <span class="arw" aria-hidden="true">▾</span></button>
+    </div>
   </div>
 </section>
 
@@ -1123,20 +1135,80 @@ img{max-width:100%}
 
 <script>
 (function(){
-  var tabs=document.querySelectorAll('.tab');
-  var cards=document.querySelectorAll('#dcard-list .dcard');
-  Array.prototype.forEach.call(tabs,function(t){
+  var tabs=[].slice.call(document.querySelectorAll('#guides .tab'));
+  var cards=[].slice.call(document.querySelectorAll('#dcard-list .dcard'));
+  var moreBtn=document.getElementById('dcard-more');
+  var moreWrap=document.getElementById('dcard-more-wrap');
+  var askInput=document.getElementById('askInput');
+  var guides=document.getElementById('guides');
+  if(!cards.length) return;
+
+  var LIMIT=4;                 /* 모바일 기본 노출 카드 수 */
+  var cat='all';
+  var expanded=false;          /* 사용자가 '전체 보기'를 누른 상태 */
+  var mq=window.matchMedia('(max-width:767px)');
+  var TOTAL=cards.length;
+
+  function keyword(){ return askInput && askInput.value.replace(/\s/g,'') ? askInput.value.trim() : ''; }
+
+  function render(){
+    var q=keyword();
+    var mobile=mq.matches;
+    var collapsed=mobile && cat==='all' && !q && !expanded;
+    var shown=0;
+
+    cards.forEach(function(c){
+      var match=(cat==='all'||c.getAttribute('data-cat')===cat);
+      c.classList.toggle('hide',!match);
+      c.classList.toggle('peek-hide',match && collapsed && shown>=LIMIT);
+      if(match) shown++;
+    });
+
+    if(moreWrap) moreWrap.classList.toggle('is-on',mobile && cat==='all' && !q);
+    if(moreBtn){
+      moreBtn.setAttribute('aria-expanded',collapsed?'false':'true');
+      moreBtn.innerHTML=collapsed
+        ? '질환 안내 전체 보기 ('+TOTAL+'종) <span class="arw" aria-hidden="true">▾</span>'
+        : '간략히 접기 <span class="arw" aria-hidden="true">▴</span>';
+    }
+  }
+
+  tabs.forEach(function(t){
     t.addEventListener('click',function(){
-      Array.prototype.forEach.call(tabs,function(x){x.classList.remove('active');x.setAttribute('aria-selected','false');});
+      tabs.forEach(function(x){x.classList.remove('active');x.setAttribute('aria-selected','false');});
       t.classList.add('active');
       t.setAttribute('aria-selected','true');
-      var cat=t.getAttribute('data-filter');
-      Array.prototype.forEach.call(cards,function(c){
-        var show=(cat==='all'||c.getAttribute('data-cat')===cat);
-        c.classList.toggle('hide',!show);
-      });
+      cat=t.getAttribute('data-filter');
+      expanded=false;           /* 탭을 고르면 해당 카드를 전부 보여줍니다 */
+      render();
     });
   });
+
+  if(moreBtn){
+    moreBtn.addEventListener('click',function(){
+      expanded=!expanded;
+      render();
+      if(!expanded && guides){
+        try{ guides.scrollIntoView({behavior:'smooth',block:'start'}); }
+        catch(err){ guides.scrollIntoView(); }
+      }
+    });
+  }
+
+  /* 키워드 검색창에 입력이 생기면 접힘을 풀고 해당 카드를 모두 보여줍니다 */
+  if(askInput){
+    askInput.addEventListener('input',render);
+    askInput.addEventListener('change',render);
+  }
+  document.addEventListener('click',function(e){
+    var chip=e.target && e.target.closest ? e.target.closest('.ask-chip') : null;
+    if(chip) setTimeout(render,0);
+  });
+
+  if(mq.addEventListener) mq.addEventListener('change',render);
+  else if(mq.addListener) mq.addListener(render);
+
+  render();
 })();
 </script>
 
