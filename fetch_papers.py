@@ -288,28 +288,29 @@ def get_papers(journal):
 
 
 def summarize_papers(papers, label=""):
-    """아직 한글 요약이 없는 논문들을 병렬로 요약해 채운다(목록 순서는 그대로 유지)."""
+    """아직 한글 요약이 없는 논문들을 병렬로 요약해 채운다(목록 순서는 그대로 유지).
+    이미 summary_ko가 있는(기존에 요약해 둔) 논문은 건너뛰므로 누적 병합 후에도 다시 요약하지 않는다."""
     todo = [p for p in papers if not p.get("summary_ko")]
     if not todo:
         return papers
     if not ANTHROPIC_API_KEY:
         for p in todo:
-            p["specialty"] = p.get("specialty") or guess_specialties(f"{p['title']} {p['abstract']}")
+            p["specialty"] = p.get("specialty") or guess_specialties(f"{p.get('title', '')} {p.get('abstract', '')}")
         return papers
 
     print(f"  {label}요약 {len(todo)}편 (동시 {SUMMARY_WORKERS})")
     done = 0
     with ThreadPoolExecutor(max_workers=max(1, SUMMARY_WORKERS)) as ex:
-        futures = {ex.submit(summarize_ko, p["title"], p["abstract"]): p for p in todo}
+        futures = {ex.submit(summarize_ko, p.get("title", ""), p.get("abstract", "")): p for p in todo}
         for fut in as_completed(futures):
             p = futures[fut]
             try:
                 summary_ko, specialty = fut.result()
             except Exception as e:
-                print(f"  요약 실패: {p['title'][:40]} ({e})")
-                summary_ko, specialty = "", guess_specialties(f"{p['title']} {p['abstract']}")
+                print(f"  요약 실패: {p.get('title', '')[:40]} ({e})")
+                summary_ko, specialty = "", guess_specialties(f"{p.get('title', '')} {p.get('abstract', '')}")
             p["summary_ko"] = summary_ko
-            p["specialty"] = specialty or guess_specialties(f"{p['title']} {p['abstract']}")
+            p["specialty"] = specialty or guess_specialties(f"{p.get('title', '')} {p.get('abstract', '')}")
             done += 1
             if done % 20 == 0 or done == len(todo):
                 print(f"    ...{done}/{len(todo)}")
@@ -332,14 +333,92 @@ def normalize_date(value):
             continue
     return ""
 
+MONTH_NUM = {m: i + 1 for i, m in enumerate(
+    ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"])}
+
+def parse_pub_date(value):
+    """PubMed·ISO 날짜 표기를 정렬용 (연, 월, 일) 튜플로 바꾼다.
+    '2026-11-05', '2026 Nov 5', '2026 Nov', '2026 Nov-Dec', '2026' 등을 처리하고,
+    해석할 수 없는 값은 (0, 0, 0)으로 두어 맨 뒤로 보낸다."""
+    s = str(value or "").strip()
+    if not s:
+        return (0, 0, 0)
+    m = re.match(r'^(\d{4})-(\d{1,2})-(\d{1,2})$', s)
+    if m:
+        return (int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    m = re.match(r'^(\d{4})\s+([A-Za-z]{3})(?:\s*[-\u2013]\s*[A-Za-z]{3})?(?:\s+(\d{1,2}))?$', s)
+    if m:
+        return (int(m.group(1)), MONTH_NUM.get(m.group(2).title(), 0), int(m.group(3) or 0))
+    m = re.match(r'^(\d{4})$', s)
+    if m:
+        return (int(m.group(1)), 0, 0)
+    return (0, 0, 0)
+
 def load_previous_papers():
-    """이전 papers.json의 PubMed 논문 목록(수집 실패 시 대체용)."""
+    """이전 papers.json의 PubMed 논문 목록(누적 병합의 기준)."""
     try:
         with open("papers.json", encoding="utf-8") as f:
             data = json.load(f)
         return data.get("papers", [])
     except (OSError, ValueError):
         return []
+
+def paper_key(item):
+    """논문 고유 키. PubMed는 pmid(id)를, 그 밖에는 url을 쓴다."""
+    for k in ("pmid", "id", "url"):
+        v = item.get(k)
+        if v not in (None, ""):
+            return str(v).strip()
+    return ""
+
+def merge_papers(fresh, previous):
+    """새로 받아온 논문을 기존 papers.json 목록에 누적 병합한다.
+
+    - 고유 키(pmid/id/url)가 같은 논문은 이미 만들어 둔 summary_ko·specialty를 그대로 살린다.
+      (summarize_papers가 summary_ko 있는 논문을 건너뛰므로 API 비용도 다시 들지 않는다)
+    - 이번 수집 범위(retmax=30, 최근 60일) 밖으로 밀려난 과거 논문도 하나도 버리지 않고 유지한다.
+    - 반환값: (병합된 전체 목록, 이번에 새로 추가된 편수). 정렬은 호출 쪽에서 한다.
+    """
+    prev_by_key = {}
+    for p in previous:
+        k = paper_key(p)
+        if k and k not in prev_by_key:
+            prev_by_key[k] = p
+
+    merged = []
+    seen = set()
+    added = 0
+    for p in fresh:
+        k = paper_key(p)
+        if not k or k in seen:
+            continue
+        seen.add(k)
+        old = prev_by_key.get(k)
+        if old is None:
+            merged.append(p)
+            added += 1
+            continue
+        # 이미 있던 논문: 수집값(제목·날짜·초록 등)은 새 값으로 갱신하되 요약·태그는 보존
+        item = dict(old)
+        for field, value in p.items():
+            if field in ("summary_ko", "specialty"):
+                continue
+            if value not in (None, "", []):
+                item[field] = value
+        if not item.get("summary_ko") and p.get("summary_ko"):
+            item["summary_ko"] = p["summary_ko"]
+        if not item.get("specialty") and p.get("specialty"):
+            item["specialty"] = p["specialty"]
+        merged.append(item)
+
+    # 이번에 다시 받아오지 않은 과거 논문도 순서 그대로 뒤에 붙인다
+    for p in previous:
+        k = paper_key(p)
+        if not k or k in seen:
+            continue
+        seen.add(k)
+        merged.append(p)
+    return merged, added
 
 def load_previous_cb():
     """이전 papers.json의 CB 아티클을 URL → 항목으로 불러온다."""
@@ -394,15 +473,69 @@ def cb_article_excerpt(url):
 
 
 def previous_cb_items():
-    """이전 CB 목록을 결정적 ID로 정리해서 돌려준다(수집 실패 시 대체용)."""
+    """이전 CB 목록을 결정적 ID로 정리해서 돌려준다(수집 실패 시 대체용).
+    상한 없이 저장된 CB 아티클을 전부 돌려준다(CB_MAX는 한 번에 긁는 양에만 쓴다)."""
     items = []
     for url, article in load_previous_cb().items():
         article = dict(article)
         article["id"] = cb_article_id(url)
-        article["date"] = normalize_date(article.get("date")) or datetime.now().strftime("%Y-%m-%d")
+        article["date"] = normalize_date(article.get("date")) or str(article.get("date") or "")
         article.setdefault("category", "Clinician's Brief")
         items.append(article)
-    return items[:CB_MAX]
+    items.sort(key=lambda a: parse_pub_date(a.get("date")), reverse=True)
+    return items
+
+def merge_cb_articles(fresh, previous):
+    """Clinician's Brief 아티클을 기존 목록에 누적 병합한다.
+
+    CB_MAX는 '한 번에 긁어오는 양'에만 적용하고, 저장 목록은 기존 글을 모두 유지한 뒤
+    새 URL만 위에 보태 날짜순으로 정렬한다.
+    """
+    prev_by_url = {}
+    for a in previous:
+        url = a.get("url")
+        if url and url not in prev_by_url:
+            prev_by_url[url] = a
+
+    merged = []
+    seen = set()
+    added = 0
+    for a in fresh:
+        url = a.get("url")
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        old = prev_by_url.get(url)
+        if old is None:
+            merged.append(a)
+            added += 1
+            continue
+        item = dict(old)
+        for field, value in a.items():
+            # 처음 확인한 날짜와 이미 만든 요약·태그·ID는 유지한다
+            if field in ("date", "summary_ko", "specialty", "id"):
+                continue
+            if value not in (None, "", []):
+                item[field] = value
+        if not item.get("summary_ko") and a.get("summary_ko"):
+            item["summary_ko"] = a["summary_ko"]
+        if not normalize_specialty(item.get("specialty")) and a.get("specialty"):
+            item["specialty"] = a["specialty"]
+        merged.append(item)
+
+    for a in previous:
+        url = a.get("url")
+        if not url or url in seen:
+            continue
+        seen.add(url)
+        merged.append(a)
+
+    for a in merged:
+        url = a.get("url") or ""
+        a["id"] = a.get("id") or (cb_article_id(url) if url else "")
+        a["date"] = normalize_date(a.get("date")) or str(a.get("date") or "")
+        a.setdefault("category", "Clinician's Brief")
+    return merged, added
 
 def fetch_clinicians_brief():
     previous = load_previous_cb()
@@ -458,41 +591,50 @@ def fetch_clinicians_brief():
         a["specialty"] = normalize_specialty(a.get("specialty")) or \
             guess_specialties(f"{a['title']} {a['abstract']}")
 
-    print(f"  → Clinician's Brief {len(cards_out)}편")
-    return cards_out
+    if not cards_out:
+        print("  → CB 목록 수집 실패: 기존 CB 목록을 유지합니다.")
+
+    # 기존에 저장돼 있던 CB 글을 모두 유지하고 새 글만 위에 병합한다
+    merged, added = merge_cb_articles(cards_out, list(previous.values()))
+    merged.sort(key=lambda a: parse_pub_date(a.get("date")), reverse=True)
+    print(f"  → Clinician's Brief {len(merged)}편 (기존 {len(merged) - added}편 + 신규 {added}편)")
+    return merged
 
 def main():
-    all_papers = []
+    fresh_papers = []
     for j in JOURNALS:
         print(f"Fetching {j['name']}...")
         try:
             papers = get_papers(j)
-            all_papers.extend(papers)
+            fresh_papers.extend(papers)
             print(f"  → {len(papers)}편")
         except Exception as e:
             print(f"  → 오류: {e}")
         time.sleep(0.3)
 
-    if all_papers:
-        summarize_papers(all_papers, "PubMed ")
-        for p in all_papers:
-            p["abstract"] = (p.get("abstract") or "")[:500]
+    if not fresh_papers:
+        print("  → PubMed 수집 실패: 기존 논문 목록을 유지합니다.")
 
-    all_papers.sort(key=lambda x: x.get("date", ""), reverse=True)
+    # 새로 받아온 논문을 기존 papers.json과 누적 병합한다.
+    # (이미 요약한 논문은 summary_ko·specialty를 그대로 살리고,
+    #  이번 수집 범위 밖으로 밀려난 과거 논문도 하나도 버리지 않는다)
+    previous_papers = load_previous_papers()
+    all_papers, added = merge_papers(fresh_papers, previous_papers)
+    if previous_papers:
+        print(f"  → 기존 {len(previous_papers)}편 보존 + 신규 {added}편 = {len(all_papers)}편")
 
-    # PubMed이 전부 실패하면 기존 논문 데이터를 지우지 않고 유지한다
-    if not all_papers:
-        previous_papers = load_previous_papers()
-        if previous_papers:
-            print("  → PubMed 수집 실패: 기존 논문 목록을 유지합니다.")
-            all_papers = previous_papers
+    summarize_papers(all_papers, "PubMed ")
+    for p in all_papers:
+        p["abstract"] = (p.get("abstract") or "")[:500]
+
+    all_papers.sort(key=lambda x: parse_pub_date(x.get("date")), reverse=True)
 
     print("Fetching Clinician's Brief...")
     cb_articles = fetch_clinicians_brief()
     if not cb_articles:
         cb_articles = previous_cb_items()
         if cb_articles:
-            print("  → CB 수집 실패: 기존 CB 목록을 유지합니다.")
+            print(f"  → CB 수집 실패: 기존 CB {len(cb_articles)}편을 유지합니다.")
 
     output = {
         "updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
