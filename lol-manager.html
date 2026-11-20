@@ -39639,8 +39639,8 @@ function v33PogMoments(mvp,ps){
   };
   const nameRe=nm?escRe(nm):null;
   const champRe=champ?escRe(champ):null;
-  /* 1) 본인 킬·펜타·에이스 장면 */
-  if(nameRe) add('⚔️','핵심 활약',find(new RegExp('('+nameRe+')'),/궁극기 |Lv\.|아이템|구매|와드를|텔레포트/));
+  /* 1) 본인 킬·펜타·에이스 장면 (포탑 처형·쓰러짐은 제외 — POG 하이라이트가 자기 죽음이면 안 된다) */
+  if(nameRe) add('⚔️','핵심 활약',find(new RegExp('('+nameRe+')'),/궁극기 |Lv\.|아이템|구매|와드를|텔레포트|포탑 처형|쓰러졌/));
   if(out.length===0) add('⚔️','핵심 활약',find(/펜타킬|쿼드라킬|트리플 킬|더블 킬|에이스/,/턴 정리/));
   /* 2) 오브젝트 장면 */
   add('🐉','오브젝트',find(/(바론|드래곤|전령|유충|영혼) (처치|처치!|확보|스택|사냥)/,/턴 정리/));
