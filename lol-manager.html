@@ -27972,8 +27972,11 @@ function matchPatch(){
     });
     try{
       const inh=(typeof v5SuperLanes==='function')?v5SuperLanes():{me:[],opp:[]};
-      if(inh.me.length) parts.push('🟡 슈퍼 '+inh.me.join('/'));
-      if(inh.opp.length) parts.push('🔴 슈퍼 '+inh.opp.join('/'));
+      /* V34.15.3 — 색 이모지 대신 팀 태그로 표기 (레드 사이드에서 색이 반대로 읽히지 않게) */
+      [bLeftSide(),bRightSide()].forEach(side=>{
+        const lane=inh[side]||[];
+        if(lane.length) parts.push('🟡 슈퍼 '+bSideTeam(side).tag+' '+lane.join('/'));
+      });
     }catch(e){}
     const et=parts.join(' · ');
     if(eq.textContent!==et) eq.textContent=et;
@@ -40476,6 +40479,14 @@ function v33News(kind,text){ try{ if(typeof newsAdd==='function') newsAdd(kind,t
    1. 전장의 안개 (Fog of War) — 관전 화면 3단 시야
    ========================================================================== */
 const V33_FOG_LABEL={all:'👁 전체 보기', me:'🔵 우리 시야', opp:'🔴 상대 시야'};
+/* V34.15.3 — 우리가 레드 사이드면 미니맵에서 우리 시야도 빨강으로 그려진다.
+   스위치 라벨 색도 같은 진영 색을 쓴다 (왼쪽=블루, 오른쪽=레드). */
+function v33FogLabel(k){
+  const red=(M&&M.mySide==='red');
+  if(!red) return V33_FOG_LABEL[k]||'';
+  const flip={all:'👁 전체 보기', me:'🔴 우리 시야', opp:'🔵 상대 시야'};
+  return flip[k]||'';
+}
 function v33FogSet(v){
   if(['all','me','opp'].indexOf(v)<0) return V33.fog;
   V33.fog=v; V33.visAt=0;
@@ -40499,12 +40510,12 @@ function v33FogButtons(){
     try{ if(el&&el.classList){ if(on) el.classList.add('on'); else el.classList.remove('on'); } }catch(e){}
   }
   const lbl=document.getElementById?document.getElementById('v33fogNow'):null;
-  if(lbl) lbl.textContent=V33_FOG_LABEL[V33.fog]||'';
+  if(lbl) lbl.textContent=v33FogLabel(V33.fog)||'';
 }
 function v33FogHTML(){
   return '<span class="v33fog" id="mmFog"><b class="fog-t">시야</b>'+
     ['all','me','opp'].map(function(k){
-      return '<button data-a="fog" data-v="'+k+'" class="fog-b'+(V33.fog===k?' on':'')+'">'+V33_FOG_LABEL[k]+'</button>';
+      return '<button data-a="fog" data-v="'+k+'" class="fog-b'+(V33.fog===k?' on':'')+'">'+v33FogLabel(k)+'</button>';
     }).join('')+'</span>';
 }
 /* 시야 원 — 챔피언·타워·억제기·넥서스·와드·미니언 */
