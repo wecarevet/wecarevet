@@ -46450,8 +46450,7 @@ function v3416LaneReturn(sec){
   if(!M||typeof MM==='undefined'||!MM.units||!MM.tgt) return 0;
   if(typeof LANE_PATH==='undefined'||typeof mmPointFront!=='function') return 0;
   const s=(sec==null)?v3416Sec():Number(sec)||0;
-  if(s<840) return 0;
-  let win=null;
+  if(s<840) return 0;  let win=null;
   try{ win=(typeof mmObjectiveWindow==='function')?mmObjectiveWindow(M.minute||0):null; }catch(e){}
   if(win) return 0;                       /* 오브젝트 창에는 개입하지 않는다 */
   let n=0;
@@ -46459,7 +46458,7 @@ function v3416LaneReturn(sec){
     ROLES.forEach(function(role){
       const k=side+'-'+role, u=MM.units[k];
       if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
-      if(u.mode!=='rotate') return;
+      if(u.mode!=='rotate'&&u.mode!=='lane') return;      /* obj·fight·gank 등은 그대로 */
       if((u.engageUntil||0)>s) return;
       if(V3416_NOJOIN[u.mode]) return;
       let bd=9, lane=null;
@@ -46469,9 +46468,9 @@ function v3416LaneReturn(sec){
       });
       if(!lane||bd<=0.085) return;
       const tg=MM.tgt[k]; if(!tg) return;
-      /* 목표가 핏 쪽이면 그대로 (바론·드래곤·전령 진입) */
+      /* 목표가 핏 쪽이면 그대로 (바론·드래곤·전령 진입) — 대신 모드를 obj 로 맞춘다 */
       const pitD=Math.min(Math.hypot(tg.x-PIT.dragon[0],tg.y-PIT.dragon[1]),Math.hypot(tg.x-PIT.baron[0],tg.y-PIT.baron[1]));
-      if(pitD<0.10) return;
+      if(pitD<0.10){ if(u.mode==='rotate') u.mode='obj'; return; }
       /* 목표 자리도 라인 위면 그대로 둔다 */
       let td=9;
       ['TOP','MID','BOT'].forEach(function(L){ const p=mmPointFront(L,tg.x,tg.y); if(p.dist<td) td=p.dist; });
@@ -46485,6 +46484,16 @@ function v3416LaneReturn(sec){
 }
 
 /* 상대 전술이 실제 동선을 바꾼다 — 파이프라인 마지막(귀환 고정 직전)에 호출 */
+const V3416_OBJ_TIMES={dragon:[5,11,17,23,29],grub:[6,10],herald:[14],baron:[20,26,32],elder:[24,30,36]};
+function v3416ObjSoon(m){
+  let best=null;
+  Object.keys(V3416_OBJ_TIMES).forEach(function(k){
+    (V3416_OBJ_TIMES[k]||[]).forEach(function(t){
+      if(t>=m-0.3&&t<=m+0.8){ if(!best||t<best.at) best={kind:k,at:t,left:t-m}; }
+    });
+  });
+  return best;
+}
 function v3416OppTargets(sec){
   if(!M) return 0;
   if(!v3416EnsureAI()) return 0;
@@ -46515,8 +46524,12 @@ function v3416OppTargets(sec){
         const tgtLane=(m%3===0)?'TOP':(m%3===1)?'BOT':'MID';
         const p=mmPathPoint(LANE_PATH[tgtLane],laneFrontParam(tgtLane,v3416Clamp((typeof mmLaneFrontT==='function'?mmLaneFrontT(tgtLane):0.5)-0.035,0.06,0.94)));
         tx=p[0]; ty=p[1];
+      }else if(role==='ADC'||role==='SUP'){
+        /* 바텀 듀오는 CS를 버리지 않는다 — 라인 유지 */
+        const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos(lane,'opp',0.008):frontPt(own+0.008);
+        tx=p[0]; ty=p[1];
       }else{
-        const p=frontPt(own-0.022);           /* 웨이브를 넘어 압박 */
+        const p=frontPt(own-0.020);           /* 웨이브를 넘어 압박 */
         tx=p[0]; ty=p[1];
       }
     }else if(k==='lane'){
@@ -46528,14 +46541,10 @@ function v3416OppTargets(sec){
         tx=p[0]; ty=p[1];
       }
     }else if(k==='obj'){
-      /* 오브젝트 45초 전부터 자리 — 다음 오브젝트 핏 */
-      let kind=null;
-      try{ kind=(typeof mmObjectiveWindow==='function')?mmObjectiveWindow(m):null; }catch(e){}
-      if(!kind&&m>=20) kind='baron';
-      else if(!kind&&m>=13) kind='herald';
-      else if(!kind&&m>=5) kind='dragon';
-      if(kind){
-        const pit=(typeof mmdPitPoint==='function')?mmdPitPoint(kind):PIT.dragon;
+      /* 오브젝트 45초 전부터 자리 — 그 외 시간에는 라인을 지킨다 (CS 손실 방지) */
+      const soon=v3416ObjSoon(m);
+      if(soon){
+        const pit=(typeof mmdPitPoint==='function')?mmdPitPoint(soon.kind):PIT.dragon;
         const fan={TOP:[-0.026,0.020],JGL:[0.004,0.010],MID:[0.014,-0.014],ADC:[0.030,0.024],SUP:[0.040,-0.002]}[role]||[0,0];
         tx=v3416Clamp(pit[0]+fan[0],0.04,0.96); ty=v3416Clamp(pit[1]+fan[1],0.04,0.96);
       }else{
@@ -46543,7 +46552,11 @@ function v3416OppTargets(sec){
         tx=p[0]; ty=p[1];
       }
     }else if(k==='split'){
-      if(role==='TOP'){ const p=mmPathPoint(LANE_PATH.BOT,0.13); tx=p[0]; ty=p[1]; }
+      if(m<14){
+        /* 라인전에는 스플릿을 하지 않는다 */
+        const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos(lane,'opp',0.012):frontPt(own+0.012);
+        tx=p[0]; ty=p[1];
+      }else if(role==='TOP'){ const p=mmPathPoint(LANE_PATH.BOT,0.13); tx=p[0]; ty=p[1]; }
       else if(role==='MID'){ const p=mmPathPoint(LANE_PATH.TOP,0.13); tx=p[0]; ty=p[1]; }
       else if(role==='JGL'){ const p=frontPt(own-0.03); tx=p[0]; ty=p[1]; }
       else { const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos('MID','opp',0.010):frontPt(own+0.01); tx=p[0]; ty=p[1]; }
@@ -46553,13 +46566,18 @@ function v3416OppTargets(sec){
         if(c){ tx=c.x; ty=c.y; }
         else { const p=frontPt(own+0.03); tx=p[0]; ty=p[1]; }
       }else{
-        /* 자기 진영 쪽에서 파밍·수비 — 20분 이후에는 따라 붙는다 */
-        const back=(m<20)?0.05:0.02;
+        /* 자기 진영 쪽에서 파밍·수비 — 라인전에는 조금만 뒤, 20분 이후에는 따라 붙는다 */
+        const back=(m<14)?0.014:(m<20?0.05:0.02);
         const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos(lane,'opp',back):frontPt(own+back);
         tx=p[0]; ty=p[1];
       }
     }
     if(tx==null||ty==null) return;
+    /* 라인전에는 아군 목표와 너무 가까이 서지 않는다 (스탠드오프 유지) */
+    if(m<14&&role!=='JGL'){
+      const mt=MM.tgt['me-'+role];
+      if(mt&&Math.hypot(tx-mt.x,ty-mt.y)<0.062) return;
+    }
     MM.tgt[key]={x:v3416Clamp(tx,0.04,0.96),y:v3416Clamp(ty,0.04,0.96)};
     if(u.mode!=='fight'&&u.mode!=='obj'&&u.mode!=='siege') u.mode=(k==='split')?'split':'rotate';
     n++;
