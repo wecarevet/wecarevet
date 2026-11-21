@@ -45216,10 +45216,11 @@ function v3415Tick(sec,gameDt){
     });
     const nMe=atk.me.length, nOp=atk.opp.length;
     if(!nMe&&!nOp){
-      /* 아무도 없으면 6게임초 뒤 풀 회복 (리셋) */
+      /* 아무도 없으면 10게임초 뒤부터 천천히 회복 (실제 롤의 리쉬 리셋과 유사).
+         공허 유충은 체력이 돌아오지 않는다 — 한 번 깎으면 그대로다. */
       mn.noHit=(mn.noHit||0)+dt;
-      if(mn.noHit>=6&&mn.hp<mn.hpMax){
-        mn.hp=Math.min(mn.hpMax,mn.hp+mn.hpMax*0.16*dt);
+      if(mn.kind!=='grub'&&mn.noHit>=10&&mn.hp<mn.hpMax){
+        mn.hp=Math.min(mn.hpMax,mn.hp+mn.hpMax*0.07*dt);
         if(mn.hp>=mn.hpMax-1){ mn.hp=mn.hpMax; mn.dmg.me=0; mn.dmg.opp=0; }
       }
       return;
