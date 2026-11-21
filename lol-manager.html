@@ -7866,6 +7866,8 @@ function startMatch(draftResult){
   try{ if(typeof v5InitMatch==='function') v5InitMatch(); }catch(e){}
   /* V6 포탑 HP — 지난 경기 잔여 수치 초기화 (미니언 공성이 실제 HP 를 깎는다) */
   try{ if(typeof v6TwReset==='function') v6TwReset(); }catch(e){}
+  /* V34.16 — 포탑 방패(14분 전 5칸) · 상대 AI 전술 성향 초기화 */
+  try{ if(typeof v3416MatchInit==='function') v3416MatchInit(); }catch(e){}
   /* PRO MACRO v7 — 웨이브·턴·시야·포메이션 상태 초기화 */
   try{ if(typeof macroInit==='function') macroInit(); }catch(e){}
   /* JUNGLE ROUTE AI — 정글 동선 상태 초기화 */
@@ -8083,6 +8085,10 @@ function tickBody(silent){
     if(M.history&&(M.sec%5===0)) M.history.push({min:M.sec/60,diff:M.gold[0]-M.gold[1]});
   }
   M.winProb=winProb();
+  /* V34.16 — 상대 AI 전술: 유불리·영혼 포인트에 따라 3분 간격으로 성향을 바꾼다 */
+  try{ if(typeof v3416OppTick==='function') v3416OppTick(M.sec); }catch(e){}
+  /* V34.16 — 포탑 방패 채굴 (미니맵을 끈 스킵 경기에서도 골드가 빠지지 않게) */
+  try{ if(typeof v3416PlateTick==='function') v3416PlateTick(M.sec); }catch(e){}
   if(!silent) renderMatch();
 }
 
@@ -8319,6 +8325,8 @@ function simStep(silent){
     if(M.elder.me&&m<=(M.elderUntil.me||0)) laneFavor=clamp(laneFavor+0.05,0.08,0.95);
     if(M.stance==='aggro') laneFavor=clamp(laneFavor+0.04,0.08,0.93);
     if(M.stance==='defensive') laneFavor=clamp(laneFavor-0.03,0.07,0.92);
+    /* V34.16 — 상대 AI 전술 성향(초반 압박·라인전·스플릿·후반 등)이 라인 교전 확률에 반영된다 */
+    try{ if(typeof v3416LaneFavor==='function') laneFavor=v3416LaneFavor(laneFavor,role,m); }catch(e){}
     /* 원소 드래곤 실제 반영: 화염 화력 · 대지 내구 · 바다 회복 · 화학공학 역전 */
     try{
       const dm=drakeBonus('me'), dop=drakeBonus('opp');
@@ -8386,6 +8394,7 @@ function simStep(silent){
     let favor=killFavor+focus+objEdge+(sta.obj||0);
     try{ if(typeof v6NumEdge==='function') favor+=v6NumEdge('grub'); }catch(e){}
     try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('grub',m); }catch(e){}
+    try{ if(typeof v3416ObjFavor==='function') favor=v3416ObjFavor('grub',m,favor); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.08;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.92;
     const fgF=maybeObjFight('grub',m,favor); if(fgF) favor+=(fgF==='me'?0.12:-0.12);
@@ -8421,6 +8430,7 @@ function simStep(silent){
     let favor=killFavor+dFocus+objEdge;
     try{ if(typeof v6NumEdge==='function') favor+=v6NumEdge('dragon'); }catch(e){}
     try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('dragon',m); }catch(e){}
+    try{ if(typeof v3416ObjFavor==='function') favor=v3416ObjFavor('dragon',m,favor); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.06;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.94;
     else if(macro.me==='trade'&&macro.opp==='trade') favor=0.5;
@@ -8484,6 +8494,7 @@ function simStep(silent){
     let favor=killFavor+(fo&&fo.mm==='top'?0.1:0)+(M.gp.firstObj==='grub'?0.05:0)+(M.gp.firstObj==='herald'?0.18:0);
     try{ if(typeof v6NumEdge==='function') favor+=v6NumEdge('herald'); }catch(e){}
     try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('herald',m); }catch(e){}
+    try{ if(typeof v3416ObjFavor==='function') favor=v3416ObjFavor('herald',m,favor); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.06;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.94;
     const hdF=maybeObjFight('herald',m,favor); if(hdF) favor+=(hdF==='me'?0.13:-0.13);
@@ -8541,6 +8552,7 @@ function simStep(silent){
     let favor=killFavor+baronFocus+objEdge;
     try{ if(typeof v6NumEdge==='function') favor+=v6NumEdge('baron'); }catch(e){}
     try{ if(typeof macroObjEdge==='function') favor+=macroObjEdge('baron',m); }catch(e){}
+    try{ if(typeof v3416ObjFavor==='function') favor=v3416ObjFavor('baron',m,favor); }catch(e){}
     if(macro.me==='trade'&&macro.opp!=='trade') favor=0.04;
     else if(macro.opp==='trade'&&macro.me!=='trade') favor=0.96;
     const brF=maybeObjFight('baron',m,favor); if(brF) favor+=(brF==='me'?0.14:-0.14);
@@ -21494,6 +21506,7 @@ function mmReset(){
   try{ if(typeof v32Reset==='function') v32Reset(); }catch(e){}
   try{ if(typeof v33Reset==='function') v33Reset(); }catch(e){}
   try{ if(typeof v3415Reset==='function') v3415Reset(); }catch(e){}
+  try{ if(typeof v3416Reset==='function') v3416Reset(); }catch(e){}
   mmCampInit();
   ROLES.forEach(role=>{
     ['me','opp'].forEach(side=>{
@@ -21542,6 +21555,8 @@ function mmObjectiveWindow(m){
   });
   if(hit(first)) return first;
   for(const kind in OBJ_TIMES){ if(hit(kind)) return kind; }
+  /* V34.16 — 14분 전령 콜 창(13:00~17:00): 살아있는 전령이 있으면 목표 창을 열어 둔다 */
+  try{ const cw=(typeof v3416ObjWindow==='function')?v3416ObjWindow(curSec):null; if(cw) return cw; }catch(e){}
   return null;
 }
 /* 계획된 라인 배정 (라인 스왑 반영) */
@@ -21574,7 +21589,10 @@ function mmUpdatePhase(){
   if(m<2){ MM.phase='pre'; MM.phaseLabel='초반 설계'; return null; }
   if(MM.focusUntil>m){ MM.phase='fight'; MM.phaseLabel='한타 교전'; return MM.focus; }
   const win=mmObjectiveWindow(m);
-  if(win){ MM.phase='obj'; MM.phaseLabel=(win==='dragon'?'드래곤':win==='baron'?'바론':'공허 유충')+' 교전'; return PIT[win==='grub'?'baron':win]; }
+  if(win){ MM.phase='obj';
+    /* V34.16 — 전령 창(13:00~17:00)도 "전령 교전"으로 표시하고 포커스를 핏에 둔다 */
+    MM.phaseLabel=(win==='dragon'?'드래곤':win==='baron'?'바론':win==='herald'?'전령':win==='elder'?'장로 드래곤':'공허 유충')+' 교전';
+    return PIT[win==='grub'||win==='herald'?'baron':win]||null; }
   if(m>=25){ MM.phase='late'; MM.phaseLabel='후반 운영'; return null; }
   if(m>=14){ MM.phase='mid'; MM.phaseLabel='미드게임 운영'; return null; }
   MM.phase='lane'; MM.phaseLabel='라인전'; return null;
@@ -22101,6 +22119,13 @@ function mmComputeTargets(){
   if(typeof v3413TeamCohesion==='function'){ try{ v3413TeamCohesion(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='cohesion:'+String(e); } }
   /* V34.13 — 미니언이 포탑을 맞는 동안 챔피언이 실제로 포탑을 때린다 (공성) */
   if(typeof v3413TurretPress==='function'){ try{ v3413TurretPress(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='v13press:'+String(e); } }
+  /* V34.16 — 포탑 방패(14분 전 1차 포탑 5칸 · 칸당 +125G) 판정 */
+  if(typeof v3416PlateTick==='function'){ try{ v3416PlateTick(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='plate:'+String(e); } }
+  /* V34.16 — 14분 전령 콜: 스폰 전 정비 + 살아있는 동안 5인 합류 (방치 리셋 금지) */
+  if(typeof v3416CallDrive==='function'){ try{ v3416CallDrive(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='call:'+String(e); } }
+  /* V34.16 — 상대 AI 전술 성향이 상대 유닛 동선을 바꾼다 (성향 전환도 여기서) */
+  if(typeof v3416OppTick==='function'){ try{ v3416OppTick(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='opptick:'+String(e); } }
+  if(typeof v3416OppTargets==='function'){ try{ v3416OppTargets(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='oppai:'+String(e); } }
   /* 귀환 고정 — B를 차는 중이거나 귀환 지점으로 걷는 중이면 다른 동선이 목표를 빼앗지 않는다 */
   try{ mmRecallPin(); }catch(e){}
 }
@@ -23114,6 +23139,8 @@ function mmMinionSiegeTowerStep(dsec){
       let mul=1;
       if(guarded) mul*=MM_TW_ZONED_MUL;
       if(sec<MM_TW_PLATE_UNTIL&&!tgt.nx) mul*=MM_TW_PLATE_MUL;
+      /* V34.16 — 14분 전 1차 포탑 방패: 미니언 공성도 방패가 피해를 받아낸다 */
+      try{ if(typeof v3416TwPlateMul==='function'&&!tgt.nx) mul*=v3416TwPlateMul(enemy,keyLane,tgt.tier-1,sec); }catch(e){}
       /* V32 — 공허 유충 스택 · 바론 버프는 미니언 공성 딜을 실제로 올린다 */
       try{
         if(typeof v32GrubSiegeMul==='function') mul*=v32GrubSiegeMul(side);
@@ -23706,16 +23733,19 @@ function mmDrawWards(ctx,w,h,sec,now){
       ctx.strokeStyle='rgba(190,230,255,.6)'; ctx.lineWidth=0.9; ctx.stroke();
       ctx.setLineDash([]);
     }
-    /* 2:20 칼날부리 라벨 — 지도가 좁으면 생략해 지저분해지지 않게 */
+    /* 2:20 칼날부리 라벨 — 작은 알약, 겹치면 다른 자리로 밀린다 */
     if(src==='dopa'&&MMWARD.labels&&!small){
       const tx='2:20';
-      ctx.font='900 '+Math.max(6,Math.round(w*0.017))+'px Pretendard,sans-serif';
+      const fnt='900 '+Math.max(6,Math.round(w*0.017))+'px Pretendard,sans-serif';
+      ctx.font=fnt;
       const tw=ctx.measureText(tx).width;
-      mmRoundRect(ctx,x-tw/2-2.5,y-r*2.9,tw+5,Math.max(7,Math.round(w*0.021)),2.5);
-      ctx.fillStyle='rgba(10,8,16,.86)'; ctx.fill();
-      ctx.strokeStyle='rgba(255,224,102,.65)'; ctx.lineWidth=0.7; ctx.stroke();
-      ctx.fillStyle='#ffe9a3'; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText(tx,x,y-r*2.9+Math.max(7,Math.round(w*0.021))/2+0.5);
+      const ph=Math.max(8,Math.round(w*0.021));
+      const offY=(r*2.9+ph*0.5)/h;
+      (function(txt,f2,tw2,ph2,off,id){
+        try{ v3416Lbl(4,wd.x,wd.y-off,tw2+5,ph2,function(px,py){
+          v3416Pill(ctx,px,py,tw2,ph2,'rgba(10,8,16,.88)','rgba(255,224,102,.65)',txt,'#ffe9a3',f2);
+        },id); }catch(e){}
+      })(tx,fnt,tw,ph,offY,'ward:'+(wd.kind||'y'));
     }
     ctx.restore();
   });
@@ -23787,6 +23817,8 @@ function mmDraw(dt){
   const sec=mmGameSec();
   mmZoomStep(dt||16);
   const z=MM.zoom;
+  /* V34.16 — 라벨(이름표·캠프 타이머·오브젝트 타이머)을 한 프레임에 모아 겹치지 않게 배치한다 */
+  try{ if(typeof v3416LblBegin==='function') v3416LblBegin(w,h); }catch(e){}
   ctx.save();
   ctx.translate(w/2,h/2); ctx.scale(z.s,z.s); ctx.translate(-z.cx*w,-z.cy*h);
   /* 배경 — 실제 2024+ 소환사의 협곡 미니맵 사진 위에 어두운 톤을 입혀 마커가 돋보이게 */
@@ -23922,12 +23954,21 @@ function mmDraw(dt){
       ctx.globalAlpha=0.34;
       ctx.beginPath(); ctx.arc(cx,cy,Math.max(3.4,w*0.0132),0,7);
       ctx.strokeStyle=col; ctx.lineWidth=1.2; ctx.stroke();
-      ctx.globalAlpha=0.65;
-      ctx.fillStyle='#9fb2cc'; ctx.font=`700 ${Math.max(6,Math.round(w*0.017))}px sans-serif`;
-      ctx.textAlign='center'; ctx.textBaseline='middle';
-      const tt=left>=60?Math.floor(left/60)+':'+String(left%60).padStart(2,'0'):left+'';
-      ctx.fillText(left>0?tt:'',cx,cy);
       ctx.globalAlpha=1;
+      /* V34.16 — 캠프 리젠 타이머는 점 아래 작은 알약. 이름표·다른 타이머와 겹치면 밀어서 배치 */
+      const tt=left>=60?Math.floor(left/60)+':'+String(left%60).padStart(2,'0'):(left>0?String(left):'');
+      if(tt){
+        const fnt=`900 ${Math.max(8,Math.round(w*0.0195))}px Pretendard,sans-serif`;
+        ctx.font=fnt;
+        const tw=ctx.measureText(tt).width;
+        const bh=Math.max(9,Math.round(w*0.0225));
+        const anchorY=(cy+Math.max(6,w*0.020)+bh*0.5)/h;
+        (function(txt,f2,tw2,bh2,ay,id){
+          try{ v3416Lbl(3,c.x,ay,tw2+4,bh2,function(px,py){
+            v3416Pill(ctx,px,py,tw2,bh2,'rgba(4,8,14,.80)','rgba(159,178,204,.52)',txt,'#c8d5e8',f2);
+          },id); }catch(e){}
+        })(tt,fnt,tw,bh,anchorY,'camp:'+(c.k||c.n||''));
+      }
       return;
     }
     ctx.beginPath(); ctx.arc(cx,cy,Math.max(4.6,w*0.0182),0,7);
@@ -23954,7 +23995,7 @@ function mmDraw(dt){
   /* ---------- 타워 · 억제기 (실제 미니맵 배치 + 14분 전 판 표시) ---------- */
   /* V34.14 — 포탑 색도 실제 진영 색을 따른다 (우리가 레드면 내 포탑이 빨강) */
   const twCol=side=>SIDE_COL[side]||(side==='me'?'#4fa8ff':'#ff5570');
-  const drawTowerIcon=(x,y,side,destroyed,tier,hp)=>{
+  const drawTowerIcon=(x,y,side,destroyed,tier,hp,lane)=>{
     const cx=x*w, cy=y*h;
     const s0=Math.max(4.8,w*0.0196);
     ctx.save();
@@ -23989,16 +24030,8 @@ function mmDraw(dt){
       ctx.strokeStyle='rgba(255,255,255,.22)'; ctx.lineWidth=.6;
       mmRoundRect(ctx,cx-hpw/2,hy,hpw,hph,1); ctx.stroke();
     }
-    /* 판(plate) '5' — 14분 전 외곽 타워에만 */
-    if(tier===1&&sec<840){
-      const ph=Math.max(7,Math.round(w*0.028));
-      ctx.fillStyle='rgba(8,12,18,.92)';
-      mmRoundRect(ctx,cx-ph*0.52,cy-s0-ph*1.35,ph,ph*0.86,2); ctx.fill();
-      ctx.strokeStyle=col+'cc'; ctx.lineWidth=1; ctx.stroke();
-      ctx.fillStyle=col; ctx.font=`900 ${Math.max(5,Math.round(ph*0.72))}px Pretendard,sans-serif`;
-      ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.fillText('5',cx,cy-s0-ph*0.92);
-    }
+    /* V34.16 — 14분 전 1차 포탑 방패: 남은 칸을 포탑 아래 세그먼트로 표시 (칸당 +125G) */
+    if(tier===1){ try{ if(typeof v3416DrawPlates==='function') v3416DrawPlates(ctx,cx,cy,s0,side,lane,sec,w); }catch(e){} }
     ctx.restore();
   };
   const drawInhib=(x,y,side,alive)=>{
@@ -24022,14 +24055,14 @@ function mmDraw(dt){
     ['TOP','MID','BOT'].forEach(lane=>{
       const arr=(M.tw&&M.tw[side]&&M.tw[side][lane])||[1,1,1];
       (MAP_TOWERS[side][lane]||[]).forEach((tp,i)=>drawTowerIcon(tp[0],tp[1],side,!arr[i],i+1,
-        (typeof v6TwHpAt==='function')?v6TwHpAt(side,lane,i):null));
+        (typeof v6TwHpAt==='function')?v6TwHpAt(side,lane,i):null,lane));
       const inhPt=(MAP_INHIBS[side]||{})[lane];
       const inhRec=(M.inhib&&M.inhib[side])?M.inhib[side][lane]:null;
       if(inhPt) drawInhib(inhPt[0],inhPt[1],side,inhRec?!!inhRec.alive:true);
     });
     const nex=(M.tw&&(side==='me'?M.tw.meNex:M.tw.oppNex))||[1,1];
     (MAP_TOWERS[side].NEXUS||[]).forEach((tp,i)=>drawTowerIcon(tp[0],tp[1],side,!nex[i],0,
-      (typeof v6TwHpAt==='function')?v6TwHpAt(side,'NEXUS',i):null));
+      (typeof v6TwHpAt==='function')?v6TwHpAt(side,'NEXUS',i):null,'NEXUS'));
   });
   /* ---------- 넥서스 본체 (V32 HP 5500) ---------- */
   ['me','opp'].forEach(side=>{
@@ -24219,18 +24252,20 @@ function mmDraw(dt){
       ctx.font=`900 ${Math.max(6,Math.round(lbw*0.58))}px sans-serif`;
       ctx.textAlign='center'; ctx.textBaseline='middle';
       ctx.fillText(lv,x-r-lbw+2+lbw/2,y+0.5);
-      /* IGN — 서폿 라벨은 아래쪽에 그린다 (바텀 듀오 라벨 겹침 방지) */
+      /* IGN — V34.16 라벨 레이어(최우선순위). 이름표는 어떤 경우에도 겹치지 않고 표시된다 */
       const ign=(line&&line.name)||'';
       if(ign){
-        const bhL=Math.max(3.4,r*0.42);
         const isSup=(u.role==='SUP');
-        const ly=isSup?(y+r+bhL*1.9+7):(y-r-13);
-        ctx.font=`900 ${Math.max(7,Math.round(w*0.019))}px Pretendard,sans-serif`;
-        ctx.textAlign='center'; ctx.textBaseline='bottom';
+        const fnt=`900 ${Math.max(8,Math.round(w*0.0205))}px Pretendard,sans-serif`;
+        ctx.font=fnt;
         const tw=ctx.measureText(ign).width;
-        ctx.fillStyle='rgba(4,8,14,.72)'; ctx.fillRect(x-tw/2-2,ly,tw+4,10);
-        ctx.fillStyle=side==='me'?'#bdf0ff':'#ffc2cd';
-        ctx.fillText(ign,x,ly+9);
+        const bhL=Math.max(11,Math.round(w*0.028));
+        const offY=(isSup?(r+bhL*0.9+7):-(r+7+bhL*0.5));
+        (function(txt,f2,tw2,bh2,off,col2,id){
+          try{ v3416Lbl(0,u.x,u.y+off/h,tw2+5,bh2,function(px,py){
+            v3416Pill(ctx,px,py,tw2,bh2,'rgba(4,8,14,.82)','rgba(255,255,255,.16)',txt,col2,f2);
+          },id); }catch(e){}
+        })(ign,fnt,tw,bhL,offY,(side==='me'?'#bdf0ff':'#ffc2cd'),'ign:'+k);
       }
       /* V6 — 귀환(B) 채널 링 */
       if(u.recallT){
@@ -24397,6 +24432,8 @@ function mmDraw(dt){
      캔버스 안에는 어떤 텍스트도 겹치지 않도록 아무 것도 그리지 않는다. */
   /* ---------- 오브젝트 라벨·카운트다운·원소 배지 (mmdrive.js) ---------- */
   if(typeof mmdDrawObjects==='function'){ try{ mmdDrawObjects(ctx,w,h); }catch(e){} }
+  /* ---------- V34.16 라벨 레이아웃: 모아둔 이름표·타이머를 충돌 없이 배치 ---------- */
+  try{ if(typeof v3416LblFlush==='function') v3416LblFlush(ctx); }catch(e){}
   /* ---------- 호버 오버레이 ---------- */
   if(MM.hover&&now-MM.hover.at<6000){
     let best=null,bd=0.055;
@@ -24827,7 +24864,8 @@ function mmdActiveBeats(sec){
      바위게는 정글 동선 중간이라 20초 전에 움직인다 (정글 첫 클리어 방해 금지) */
   for(let i=0;i<MMD.plan.length;i++){
     const q=MMD.plan[i];
-    const pre=(q.obj==='scuttle')?20:35;
+    /* V34.16 — 전령은 55초 전부터 미리 움직인다 (13:05 부터 자리 정비) */
+    const pre=(q.obj==='scuttle')?20:(q.obj==='herald'?55:35);
     if(sec>=q.at-pre&&sec<q.at){
       /* V6 — 이미 잡혔거나 20초 안에 안 나오는 오브젝트 핏에는 모이지 않는다 */
       if(typeof v6ObjTakenAt==='function'&&v6ObjTakenAt(q.obj,q.at)) continue;
@@ -25130,8 +25168,27 @@ function mmdMove(u,dt,dSim,now){
 
 /* ---------- 지도 오브젝트 표시 (라벨·카운트다운·원소) ---------- */
 function mmdCountdown(txt,x,y,ctx,w,col){
-  ctx.font=`900 ${Math.max(6,Math.round(w*0.016))}px Pretendard,sans-serif`;
+  /* V34.16 — 오브젝트 타이머도 라벨 레이어(우선순위 2)로 모아 이름표·캠프 타이머와 겹치지 않게 배치 */
+  const fnt=`900 ${Math.max(6,Math.round(w*0.016))}px Pretendard,sans-serif`;
+  ctx.font=fnt;
   const tw=ctx.measureText(txt).width;
+  const bh=Math.max(10,Math.round(w*0.023));
+  try{
+    if(typeof v3416Lbl==='function'){
+      v3416Lbl(2,(x||0)/(w||320),(y||0)/(w||320),tw+7,bh,function(px,py){
+        if(typeof mmRoundRect==='function'){
+          mmRoundRect(ctx,px-(tw+6)/2,py-bh/2,tw+6,bh,3);
+          ctx.fillStyle='rgba(4,8,14,.86)'; ctx.fill();
+          ctx.strokeStyle=(col||'#9fb2cc')+'aa'; ctx.lineWidth=1; ctx.stroke();
+        }
+        ctx.font=fnt; ctx.fillStyle=col||'#c9d4e6';
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText(txt,px,py+0.5);
+      },'obj:'+String(txt).slice(0,10));
+      return;
+    }
+  }catch(e){}
+  /* 폴백 — 라벨 레이어가 없을 때 기존 방식 */
   mmRoundRect(ctx,x-tw/2-3,y-6,tw+6,11,3);
   ctx.fillStyle='rgba(4,8,14,.82)'; ctx.fill();
   ctx.strokeStyle=(col||'#9fb2cc')+'aa'; ctx.lineWidth=1; ctx.stroke();
@@ -27782,7 +27839,7 @@ function buildMatchDOM(v,key){
           <span class="bms-phase" id="mmPhase">${MM.phaseLabel||'라인전'}</span>
           ${(typeof v33FogHTML==='function')?v33FogHTML():''}
           <span class="bms-vision" id="mmVision">👁 시야 ${bLRt(0,0)} · 와드 ${bLRt(0,0)}</span>
-          <span class="bms-extra" id="mmExtra"></span>
+          <span class="bms-extra" id="mmExtra">${(typeof v3416OppChip==='function')?v3416OppChip():''}</span>
         </div>
         <div class="bmap-cv"><canvas id="riftCanvas"></canvas>
           <div class="kf-anchor"><div class="kf-stack" id="kfStack"></div></div>
@@ -27978,6 +28035,8 @@ function matchPatch(){
         if(lane.length) parts.push('🟡 슈퍼 '+bSideTeam(side).tag+' '+lane.join('/'));
       });
     }catch(e){}
+    /* V34.16 — 상대 AI 전술 성향 (상단 HUD에서 상대가 무엇을 노리는지 한 눈에) */
+    try{ const oc=(typeof v3416OppChip==='function')?v3416OppChip():''; if(oc) parts.push(oc); }catch(e){}
     const et=parts.join(' · ');
     if(eq.textContent!==et) eq.textContent=et;
   }
@@ -33589,7 +33648,9 @@ function v6TwTick(){
         });
         if(!press) return;
         const rate=(1.6+press*1.4)*(hp>80?0.6:1);
-        V6TW.hp[k]=Math.max(8,hp-rate*dt);
+        let rate2=rate*dt;
+        try{ if(typeof v3416TwPlateMul==='function') rate2*=v3416TwPlateMul(side,lane,i,sec); }catch(e){}
+        V6TW.hp[k]=Math.max(8,hp-rate2);
       });
     });
   });
@@ -34194,6 +34255,8 @@ function macroDecision(kind,at){
   let plan=null;
   try{ plan=(typeof v5MacroPlan==='function')?v5MacroPlan(kind,at):null; }catch(e){ plan=null; }
   if(!plan) plan={me:'contest',opp:'contest'};
+  /* V34.16 — 상대 AI 전술 성향이 오브젝트 응전/교환 판단을 바꾼다 */
+  try{ if(typeof v3416MacroAdjust==='function') plan=v3416MacroAdjust(kind,at,plan)||plan; }catch(e){}
   mx.decide[key]=plan;
   return plan;
 }
@@ -44969,7 +45032,9 @@ function v3413TurretPress(sec){
           V3413.pressAt[k]=s;
           const cur=mmTwHpGet(t.side,t.lane,t.tier-1);
           if(cur>0){
-            const dmg=0.55+Math.random()*0.35;
+            /* V34.16 — 14분 전 1차 포탑은 방패가 피해를 받아낸다 */
+            let dmg=0.55+Math.random()*0.35;
+            try{ if(typeof v3416TwPlateMul==='function') dmg*=v3416TwPlateMul(t.side,t.lane,t.tier-1,s); }catch(e){}
             mmTwHpSet(t.side,t.lane,t.tier-1,Math.max(0,cur-dmg));
             if(Math.random()<0.5) mmAddFx({type:'hit',x:t.x,y:t.y,col:side==='me'?'#7cf7ff':'#ff9aa9',life:260});
             if(Math.random()<0.12) mmAddFx({type:'spark',x:t.x,y:t.y,life:220});
@@ -45398,7 +45463,10 @@ function v3415Tick(sec,gameDt){
          공허 유충은 체력이 돌아오지 않는다 — 한 번 깎으면 그대로다. */
       mn.noHit=(mn.noHit||0)+dt;
       if(mn.kind!=='grub'&&mn.noHit>=10&&mn.hp<mn.hpMax){
-        mn.hp=Math.min(mn.hpMax,mn.hp+mn.hpMax*0.07*dt);
+        /* V34.16 — 전령·바론·장로는 회복이 아주 느리다. 한 번 깎은 체력이 남아 다음 진입 때 이어진다
+           (전령이 잠깐 비면 만피로 돌아와 영원히 안 잡히는 문제 방지) */
+        const heal=(mn.kind==='herald'||mn.kind==='baron'||mn.kind==='elder')?0.0035:0.07;
+        mn.hp=Math.min(mn.hpMax,mn.hp+mn.hpMax*heal*dt);
         if(mn.hp>=mn.hpMax-1){ mn.hp=mn.hpMax; mn.dmg.me=0; mn.dmg.opp=0; }
       }
       return;
@@ -45477,7 +45545,7 @@ function v3415Kill(mn,team,how,smiteDmg){
       logEvent(team==='me'?'blue':'red','🗡 <b>'+V3415_KR[mn.kind]+' 처치</b> — '+v3415Tag(team)+'이(가) 강타 없이 화력으로 마무리했습니다.');
     }catch(e){}
   }
-  v3415Award(mn.kind,team,v3415Min(),mn);
+  v3415Award(mn.kind,team,v3415Min(),mn,how==='stale');
   /* 목록에서 제거 */
   V3415.live=V3415.live.filter(function(x){ return x!==mn; });
 }
@@ -45486,12 +45554,21 @@ function v3415Kill(mn,team,how,smiteDmg){
    3. 획득 판정 — engine.js 의 보상과 동일한 효과를 한 번만 실행
    ========================================================================== */
 function v3415SideIdx(side){ return side==='me'?0:1; }
-function v3415Award(kind,team,m,mn){
+function v3415Award(kind,team,m,mn,quiet){
   if(!M||!team) return;
   const idx=v3415SideIdx(team);
   const meta=(S&&S.meta&&S.meta.obj)?S.meta.obj:{dragon:1,baron:1,grub:1,tower:1};
   const tag=v3415Tag(team);
   const nameOf=function(side){ return side==='me'?M.myName:M.oppName; };
+  /* 리셋 정리(stale)는 타임라인 오브젝트 이벤트를 만들지 않는다 — 같은 분에 새 오브젝트 획득과
+     겹치면 "같은 분·같은 팀 오브젝트" 중복으로 보이기 때문. 보상은 그대로 지급하고 로그만 남긴다. */
+  const EM=function(ev){
+    if(quiet){
+      try{ (ev.lines||[]).forEach(function(l){ logEvent(l.kind||'sys', l.text||''); }); }catch(e){}
+      return;
+    }
+    tlEmit(ev);
+  };
   try{ if(typeof bountyObjective==='function') bountyObjective(team,kind,m); }catch(e){}
   if(kind==='grub'){
     /* 유충 1마리 = 1스택 (engine 은 3스택 한 번에 줬다 → 총량은 같게) */
@@ -45499,7 +45576,7 @@ function v3415Award(kind,team,m,mn){
     try{ addGold(team,Math.round(190*(meta.grub||1)/3)); }catch(e){}
     try{ ROLES.forEach(function(r){ lvAddXpEv(team,r,5); }); }catch(e){}
     try{
-      tlEmit({kind:'obj', obj:'grub', team:team,
+      EM({kind:'obj', obj:'grub', team:team,
         label:'공허 유충 '+(M.grubs[idx]||0)+'스택 — <em>'+esc(tag)+'</em>',
         lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 🪱 공허 유충 처치 — <b>'+nameOf(team)+'</b> ('+(M.grubs[idx]||0)+'스택)'}],
         mmKind:'obj', mm:{obj:'grub',team:team}});
@@ -45528,7 +45605,7 @@ function v3415Award(kind,team,m,mn){
       lines.push({kind:team==='me'?'blue':'red', text:m+'분 · '+drakeIcon(elem)+' '+drakeName(elem)+' 드래곤 처치 — <b>'+nameOf(team)+'</b> ('+n+'스택)'});
     }
     const label=(n>=4&&M.soulGranted[team])?'드래곤 영혼':(drakeName(elem)+' 드래곤');
-    try{ tlEmit({kind:'obj', obj:'dragon', team:team, elem:elem, lines:lines,
+    try{ EM({kind:'obj', obj:'dragon', team:team, elem:elem, lines:lines,
       label:label+' — <em>'+esc(tag)+'</em>', mmKind:'obj', mm:{obj:'dragon',team:team,elem:elem}}); }
     catch(e){ lines.forEach(function(l){ try{ logEvent(l.kind,l.text); }catch(e2){} }); }
     return;
@@ -45538,7 +45615,7 @@ function v3415Award(kind,team,m,mn){
     M.elderCount[idx]=(M.elderCount[idx]||0)+1;
     try{ addGold(team,600); }catch(e){}
     try{
-      tlEmit({kind:'obj', obj:'elder', team:team, label:'장로 드래곤 — <em>'+esc(tag)+'</em> 처형 버프',
+      EM({kind:'obj', obj:'elder', team:team, label:'장로 드래곤 — <em>'+esc(tag)+'</em> 처형 버프',
         lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 🐲 <b>장로 드래곤 처치!</b> '+nameOf(team)+'이(가) 처형 버프를 얻습니다 (3분)'}],
         mmKind:'obj', mm:{obj:'elder',team:team}});
     }catch(e){}
@@ -45548,7 +45625,7 @@ function v3415Award(kind,team,m,mn){
     M.heralds[idx]=(M.heralds[idx]||0)+1;
     try{ addGold(team,450); }catch(e){}
     try{
-      tlEmit({kind:'obj', obj:'herald', team:team, label:'협곡의 전령 — <em>'+esc(tag)+'</em> 확보',
+      EM({kind:'obj', obj:'herald', team:team, label:'협곡의 전령 — <em>'+esc(tag)+'</em> 확보',
         lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 🕯 <b>협곡의 전령 처치</b> — '+nameOf(team)+'이(가) 전령을 확보해 타워 압박에 나섭니다.'}],
         mmKind:'obj', mm:{obj:'herald',team:team}});
     }catch(e){}
@@ -45561,7 +45638,7 @@ function v3415Award(kind,team,m,mn){
     try{ ROLES.forEach(function(r){ lvAddXpEv(team,r,22); }); }catch(e){}
     try{ if(typeof v5BaronTaken==='function') v5BaronTaken(team,m); }catch(e){}
     try{
-      tlEmit({kind:'obj', obj:'baron', team:team, label:'바론 — <em>'+esc(tag)+'</em> 확보',
+      EM({kind:'obj', obj:'baron', team:team, label:'바론 — <em>'+esc(tag)+'</em> 확보',
         lines:[{kind:team==='me'?'blue':'red', text:m+'분 · <b>바론 처치!</b> '+nameOf(team)+'이(가) 바론 버프로 공성을 시작합니다 — 3분간 2차·3차 타워 압박'}],
         mmKind:'obj', mm:{obj:'baron',team:team}});
     }catch(e){}
@@ -45633,6 +45710,11 @@ function v3415Draw(ctx,w,h,sec){
     ctx.textAlign='center'; ctx.textBaseline='bottom';
     ctx.fillStyle=mn.hp<=(mn.smiteLo||0)?'#ffd98f':'#e8eefc';
     ctx.fillText(num,x*w,by-1.4);
+    /* V34.16 — HP 숫자·바 자리를 라벨 레이어에 알려 이름표가 겹치지 않게 한다 */
+    try{ if(typeof v3416LblBlock==='function'){
+      const nh=Math.max(6,Math.round(w*0.016));
+      v3416LblBlock(x,(by-bh-3-nh*0.5)/h,Math.max(bw,ctx.measureText(num).width+2),bh+nh+6);
+    } }catch(e){}
     /* 강타 사거리 표시 — HP 가 어느 한쪽 강타 데미지 이하로 내려오면 경고 링 */
     let lo=9e9;
     ['me','opp'].forEach(function(side){ if(v3415SmiteReady(side)) lo=Math.min(lo,v3415SmiteOf(side)); });
@@ -45803,8 +45885,10 @@ function v3415PitDrive(sec){
   let n=0;
   order.forEach(function(mn){
     if(!mn||!mn.alive) return;
-    /* 3분 이상 아무도 때리지 않은 몬스터에는 인원을 계속 묶지 않는다 (그사이 다음 오브젝트가 나온다) */
-    if(s-(mn.born||0)>180&&mn.hp>mn.hpMax*0.95) return;
+    /* 3분 이상 아무도 때리지 않은 몬스터에는 인원을 계속 묶지 않는다 (그사이 다음 오브젝트가 나온다)
+       V34.16 — 전령·바론은 예외. 5분 넘게 만피로 방치됐을 때만 포기한다 (방치 리셋 방지) */
+    const idleLimit=(mn.kind==='herald'||mn.kind==='baron'||mn.kind==='elder')?300:180;
+    if(s-(mn.born||0)>idleLimit&&mn.hp>mn.hpMax*0.95) return;
     const kind=mn.kind;
     const roles=(typeof mmdObjRoles==='function')?mmdObjRoles(kind,s):['TOP','JGL','MID','ADC','SUP'];
     ['me','opp'].forEach(function(side){
@@ -45894,6 +45978,603 @@ function v3415Reset(){
   V3415.lastLogAt=-99; V3415.at=0;
 }
 function v3415Boot(){ V3415.ver='34.15.3'; return V3415.ver; }
+
+/* ============================================================================
+   V34.16 — 미니맵 가독성 · 14분 전령 콜 · 포탑 방패(골드 채굴) · 상대 AI 전술
+   ----------------------------------------------------------------------------
+   ① 라벨 레이아웃  : 미니맵의 이름표·캠프 타이머·오브젝트 타이머·와드 라벨이
+                      서로 겹치지 않도록 한 프레임에 모아 우선순위대로 배치한다.
+                      (챔피언 이름 > 오브젝트 타이머 > 캠프 타이머 > 와드 라벨)
+   ② 전령 콜        : 13:00 부터 둥지 시야·웨이브를 정리하고 14:00 전령 스폰 뒤
+                      살아있는 동안 5인이 계속 친다 (방치 리셋 방지).
+   ③ 포탑 방패      : 14분 전 1차 포탑은 5칸(20% 구간) 방패. 한 칸이 깨질 때마다
+                      공격 팀에 +125G, 해설/이벤트 로그, 미니맵에 남은 칸 표시.
+                      14분이 되면 남은 방패는 사라진다 (추가 골드 없음).
+   ④ 상대 AI 전술   : 상대 팀이 우리 조합·밴픽·라인 상성·체급을 보고 성향
+                      (초반 압박 · 라인전 · 오브젝트 한타 · 1-3-1 · 후반 성장)을
+                      고르고, 경기 중반 유불리에 따라 전술을 바꾼다.
+   ========================================================================== */
+const V3416={ver:'34.16'};
+
+function v3416Clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function v3416Sec(){ try{ return (typeof mmGameSec==='function')?mmGameSec():((M&&M.sec)||0); }catch(e){ return (M&&M.sec)||0; } }
+function v3416Min(){ return Math.floor(v3416Sec()/60); }
+function v3416Tag(side){
+  try{ return side==='me'?myTeam().tag:T(M.oppId).tag; }catch(e){ return side==='me'?'우리 팀':'상대 팀'; }
+}
+function v3416Name(side,role){
+  try{ const l=lineupAt(side,role); return (l&&l.name)||ROLE_KR[role]||role; }catch(e){ return role; }
+}
+const V3416_LANE_KR={TOP:'탑',MID:'미드',BOT:'봇'};
+const V3416_NOJOIN={recall:1,recallWalk:1,recallSpot:1,backdoor:1};
+
+/* ============================================================================
+   1. 라벨 레이아웃 — 프레임 단위 수집 → 충돌 회피 배치 → 그리기
+   ----------------------------------------------------------------------------
+   좌표는 '지도 비율(0~1)'로 받는다. 그래야 줌(확대) 상태에서도 화면 좌표를
+   다시 계산해 글자가 아이콘에서 떨어지지 않는다.
+   우선순위(prio) 0 = 챔피언 이름(항상 표시) · 1 = 사망 카운트 · 2 = 오브젝트/핏
+   3 = 캠프 타이머 · 4 = 와드 라벨. 우선순위가 낮은 라벨은 자리가 없으면 숨긴다.
+   ========================================================================== */
+const V3416LBL={items:[], blocks:[], active:false, w:320, h:320, z:{cx:0.5,cy:0.5,s:1}, frame:0,
+  last:{placed:[],hidden:[],frame:0}};
+
+function v3416LblBegin(w,h){
+  V3416LBL.items=[]; V3416LBL.blocks=[];
+  V3416LBL.w=Math.max(1,w||320); V3416LBL.h=Math.max(1,h||320);
+  V3416LBL.active=true;
+  try{ const z=MM.zoom; V3416LBL.z={cx:(z&&z.cx!=null)?z.cx:0.5, cy:(z&&z.cy!=null)?z.cy:0.5, s:(z&&z.s)||1}; }
+  catch(e){ V3416LBL.z={cx:0.5,cy:0.5,s:1}; }
+  V3416LBL.frame++;
+}
+/* 이미 직접 그린 요소(체력바·숫자)의 자리 — 라벨이 겹치지 않게 피한다 */
+function v3416LblBlock(fx,fy,bw,bh){
+  if(!V3416LBL.active) return;
+  V3416LBL.blocks.push({x:fx,y:fy,w:Math.max(2,bw||2),h:Math.max(2,bh||2)});
+}
+function v3416Lbl(prio,fx,fy,bw,bh,draw,id){
+  if(typeof draw!=='function') return;
+  if(!V3416LBL.active){ try{ draw(fx*V3416LBL.w, fy*V3416LBL.h); }catch(e){} return; }
+  if(!isFinite(fx)||!isFinite(fy)) return;
+  V3416LBL.items.push({prio:prio|0, x:fx, y:fy, w:Math.max(4,bw||4), h:Math.max(4,bh||4),
+    draw:draw, id:id||'', seq:V3416LBL.items.length});
+}
+/* 화면 픽셀 좌표로 받는 호출용 (mmdrive.js 처럼 변환 밖에서 그리는 코드) */
+function v3416LblPx(prio,xpx,ypx,bw,bh,draw,id){
+  const w=V3416LBL.w||320, h=V3416LBL.h||320;
+  /* 픽셀 → 비율 변환은 '변환 없는 좌표계' 기준. 줌이 켜져 있으면 flush 가 다시 화면 좌표로 푼다. */
+  const z=V3416LBL.z||{cx:0.5,cy:0.5,s:1};
+  const fx=((xpx||0)-w/2)/(w*(z.s||1))+z.cx;
+  const fy=((ypx||0)-h/2)/(h*(z.s||1))+z.cy;
+  v3416Lbl(prio,fx,fy,bw,bh,draw,id);
+}
+function v3416LblFlush(ctx){
+  if(!V3416LBL.active) return null;
+  V3416LBL.active=false;
+  const W=V3416LBL.w||320, H=V3416LBL.h||320, z=V3416LBL.z||{cx:0.5,cy:0.5,s:1};
+  const zoom=z.s||1;
+  const SX=f=>W/2+(Number(f)-z.cx)*W*zoom;
+  const SY=f=>H/2+(Number(f)-z.cy)*H*zoom;
+  const placed=[];
+  /* 직접 그린 체력바·숫자 자리를 먼저 점유한다 */
+  V3416LBL.blocks.forEach(function(b){
+    const cx=SX(b.x), cy=SY(b.y), bw=b.w, bh=b.h;
+    const r={l:cx-bw/2,r:cx+bw/2,t:cy-bh/2,b:cy+bh/2};
+    if(r.r>0&&r.l<W&&r.b>0&&r.t<H) placed.push(r);
+  });
+  const items=V3416LBL.items.slice().sort(function(a,b){ return a.prio!==b.prio? a.prio-b.prio : a.seq-b.seq; });
+  const OFF=[[0,0],[0,-1],[0,1],[-1,0],[1,0],[0,-2],[0,2],[-1,-1],[1,-1],[-1,1],[1,1],
+             [-2,0],[2,0],[-2,-1],[2,-1],[-2,1],[2,1],[0,-3],[0,3],[-3,0],[3,0]];
+  const hidden=[];
+  items.forEach(function(it){
+    const ax=SX(it.x), ay=SY(it.y);
+    let best=null,bestOv=1e9;
+    for(let i=0;i<OFF.length;i++){
+      const cx=ax+OFF[i][0]*(it.w*0.62+2.5);
+      const cy=ay+OFF[i][1]*(it.h+2.0);
+      const r={l:cx-it.w/2,r:cx+it.w/2,t:cy-it.h/2,b:cy+it.h/2};
+      if(r.l<0.5||r.r>W-0.5||r.t<0.5||r.b>H-0.5) continue;
+      let ov=0;
+      for(let j=0;j<placed.length;j++){
+        const q=placed[j];
+        if(r.l<q.r&&r.r>q.l&&r.t<q.b&&r.b>q.t) ov++;
+      }
+      if(ov<bestOv){ bestOv=ov; best={cx:cx,cy:cy,r:r}; if(!ov) break; }
+    }
+    if(!best){ hidden.push({id:it.id,prio:it.prio}); return; }
+    if(bestOv>0&&it.prio>0){ hidden.push({id:it.id,prio:it.prio}); return; }
+    best.r.id=it.id; best.r.prio=it.prio;
+    placed.push(best.r);
+    try{ it.draw(best.cx,best.cy); }catch(e){}
+  });
+  V3416LBL.last={placed:placed.filter(function(r){ return r.id!=null; }), hidden:hidden, frame:V3416LBL.frame};
+  V3416LBL.items=[];
+  return V3416LBL.last;
+}
+
+/* 작은 글씨 알약(배경판) — 캠프 타이머·와드 라벨·핏 타이머가 공통으로 쓴다 */
+function v3416Pill(ctx,cx,cy,tw,hgt,bg,border,text,col,font){
+  ctx.save();
+  ctx.font=font; ctx.textAlign='center'; ctx.textBaseline='middle';
+  if(typeof mmRoundRect==='function'){
+    mmRoundRect(ctx,cx-tw/2-3,cy-hgt/2,tw+6,hgt,Math.min(3,hgt/2));
+    ctx.fillStyle=bg; ctx.fill();
+    if(border){ ctx.strokeStyle=border; ctx.lineWidth=0.9; ctx.stroke(); }
+  }
+  ctx.fillStyle=col; ctx.fillText(text,cx,cy+0.5);
+  ctx.restore();
+}
+
+/* ============================================================================
+   2. 포탑 방패 (14분 전 1차 포탑 · 5칸 · 칸당 125G)
+   ========================================================================== */
+const V3416P={max:5, until:840, gold:125, plates:{}, golds:{me:0,opp:0}, log:[], init:false};
+function v3416PKey(side,lane){ return side+'|'+lane; }
+function v3416PlatesReset(){
+  V3416P.plates={}; V3416P.golds={me:0,opp:0}; V3416P.log=[];
+  ['me','opp'].forEach(function(side){
+    ['TOP','MID','BOT'].forEach(function(l){ V3416P.plates[v3416PKey(side,l)]=V3416P.max; });
+  });
+  V3416P.init=true;
+}
+function v3416PlateOf(side,lane){
+  const v=V3416P.plates[v3416PKey(side,lane)];
+  return (v==null)?V3416P.max:v;
+}
+function v3416PlateLeft(side,lane){
+  if(!M) return 0;
+  const s=v3416Sec();
+  if(s>=V3416P.until) return 0;
+  const arr=(M.tw&&M.tw[side])?M.tw[side][lane]:null;
+  if(arr&&!arr[0]) return 0;
+  return v3416PlateOf(side,lane);
+}
+function v3416PlateAward(owner,lane,n,left,s){
+  const atk=(owner==='me')?'opp':'me';
+  const gold=Math.max(0,n)*V3416P.gold;
+  if(!gold) return null;
+  try{ if(typeof addGold==='function') addGold(atk,gold); }catch(e){}
+  V3416P.golds[atk]=(V3416P.golds[atk]||0)+gold;
+  /* 채굴에 참여한(가장 가까운) 공격팀 챔피언 */
+  let who=null;
+  try{
+    const pt=(typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[owner]&&MAP_TOWERS[owner][lane])?MAP_TOWERS[owner][lane][0]:null;
+    if(pt&&typeof MM!=='undefined'&&MM.units){
+      let bd=0.13;
+      ROLES.forEach(function(r){
+        const u=MM.units[atk+'-'+r];
+        if(!u||!u.alive) return;
+        const d=Math.hypot(u.x-pt[0],u.y-pt[1]);
+        if(d<bd){ bd=d; who=r; }
+      });
+    }
+  }catch(e){}
+  const m=Math.floor((Number(s)||0)/60);
+  try{
+    if(typeof logEvent==='function'){
+      logEvent(atk==='me'?'blue':'red', m+'분 · 🛡 <b>포탑 방패 채굴</b> — '+v3416Tag(atk)+'이(가) '+
+        (V3416_LANE_KR[lane]||lane)+' 1차 포탑 방패 '+n+'칸'+(left>0?(' (남은 '+left+'칸)'):' (전부 파괴)')+
+        '을 깨고 <b>+'+gold+'G</b>'+(who?(' · '+v3416Name(atk,who)):''));
+    }
+  }catch(e){}
+  try{
+    if(typeof mmAddFx==='function'&&typeof MAP_TOWERS!=='undefined'&&MAP_TOWERS[owner]&&MAP_TOWERS[owner][lane]){
+      const pt=MAP_TOWERS[owner][lane][0];
+      mmAddFx({type:'burst',x:pt[0],y:pt[1],col:'#ffc94a',life:1000,label:'+'+gold+'G'});
+    }
+  }catch(e){}
+  const rec={at:s,owner:owner,lane:lane,n:n,gold:gold,left:left};
+  V3416P.log.push(rec);
+  if(V3416P.log.length>40) V3416P.log.shift();
+  return rec;
+}
+/* 포탑 HP(0~100)를 5칸 방패로 환산 — 20% 구간마다 한 칸 */
+function v3416PlateTick(sec){
+  if(!M) return 0;
+  if(!V3416P.init) v3416PlatesReset();
+  const s=(sec==null)?v3416Sec():Number(sec)||0;
+  let broke=0;
+  ['me','opp'].forEach(function(side){
+    const arr=(M.tw&&M.tw[side])||null;
+    ['TOP','MID','BOT'].forEach(function(lane){
+      const k=v3416PKey(side,lane);
+      const alive=arr&&arr[lane]?arr[lane][0]:1;
+      let left=(V3416P.plates[k]==null)?V3416P.max:V3416P.plates[k];
+      if(!alive){ if(left!==0){ V3416P.plates[k]=0; } return; }
+      if(s>=V3416P.until){
+        /* 14분 — 남은 방패는 그대로 사라진다 (골드 없음) */
+        return;
+      }
+      const hp=(typeof v6TwHpAt==='function')?v6TwHpAt(side,lane,0):100;
+      const now=Math.max(0,Math.min(V3416P.max,Math.ceil(hp/20)));
+      if(now<left){
+        V3416P.plates[k]=now;
+        const n=left-now;
+        broke+=n;
+        v3416PlateAward(side,lane,n,now,s);
+      }
+    });
+  });
+  return broke;
+}
+/* 포탑 피해 배율 — 14분 전 1차 포탑은 방패(플레이트)가 받아내 던전이 느리다.
+   14분이 지나면 방패가 사라지며 원래 화력으로 돌아간다. */
+function v3416TwPlateMul(side,lane,i,sec){
+  const s=(sec==null)?v3416Sec():Number(sec)||0;
+  if(s>=V3416P.until) return 1;
+  if(Number(i)!==0) return 1;
+  return 0.45;
+}
+/* 미니맵 1차 포탑 아래 — 남은 방패 칸(세그먼트) */
+function v3416DrawPlates(ctx,cx,cy,s0,side,lane,sec,w){
+  if(!ctx||!M) return 0;
+  const s=(sec==null)?v3416Sec():Number(sec)||0;
+  if(s>=V3416P.until) return 0;
+  if(!V3416P.init) v3416PlatesReset();
+  const arr=(M.tw&&M.tw[side])?M.tw[side][lane]:null;
+  if(arr&&!arr[0]) return 0;
+  const left=v3416PlateOf(side,lane);
+  const col=(typeof SIDE_COL!=='undefined'&&SIDE_COL[side])?SIDE_COL[side]:(side==='me'?'#4fa8ff':'#ff5570');
+  const n=V3416P.max;
+  const bw=Math.max(3.4,w*0.0085), gap=Math.max(1.2,w*0.0032), hgt=Math.max(2.4,w*0.0068);
+  const total=n*bw+(n-1)*gap;
+  const x0=cx-total/2, y0=cy+s0*1.18;
+  ctx.save();
+  if(typeof mmRoundRect==='function'){
+    mmRoundRect(ctx,x0-gap,y0-1.3,total+gap*2,hgt+2.6,2);
+    ctx.fillStyle='rgba(3,7,14,.8)'; ctx.fill();
+  }
+  for(let i=0;i<n;i++){
+    const x=x0+i*(bw+gap);
+    if(typeof mmRoundRect==='function') mmRoundRect(ctx,x,y0,bw,hgt,1);
+    const on=i<left;
+    ctx.fillStyle=on?col:'rgba(120,134,156,.32)';
+    ctx.globalAlpha=on?0.98:0.7; ctx.fill(); ctx.globalAlpha=1;
+    if(on){ ctx.strokeStyle='rgba(255,255,255,.45)'; ctx.lineWidth=0.5; ctx.stroke(); }
+  }
+  ctx.restore();
+  return left;
+}
+
+/* ============================================================================
+   3. 14분 전령 콜 — 스폰 전 정비 · 스폰 후 방치 금지
+   ========================================================================== */
+const V3416CALL={herald:{from:780, at:840, until:1020}, fired:{}, lastKind:null, log:[]};
+function v3416HeraldAlive(){
+  try{
+    if(typeof V3415==='undefined'||!V3415||!V3415.live) return false;
+    for(let i=0;i<V3415.live.length;i++){ const m=V3415.live[i]; if(m&&m.alive&&m.kind==='herald') return true; }
+  }catch(e){}
+  return false;
+}
+function v3416Live(){
+  try{ return (typeof v3415Live==='function')?v3415Live():false; }catch(e){ return false; }
+}
+function v3416CallKind(sec){
+  if(!M||M.over) return null;
+  if(!v3416Live()) return null;
+  const s=Number(sec)||0;
+  const H=V3416CALL.herald;
+  if(s<H.from||s>H.until) return null;
+  if(s>=H.at&&!v3416HeraldAlive()) return null;      /* 이미 잡혔으면 콜 종료 */
+  return 'herald';
+}
+/* mmObjectiveWindow 가 목표 창을 물어볼 때 쓰는 확장 창 (13:00~17:00) */
+function v3416ObjWindow(sec){ return v3416CallKind(sec); }
+
+/* 13:00~13:30 정비(탑·정글·서폿 먼저) → 13:50~ 5인 · 스폰 후에는 살아있는 동안 5인 */
+function v3416CallDrive(sec){
+  if(!M||typeof MM==='undefined'||!MM.units||!MM.tgt) return 0;
+  const s=(sec==null)?v3416Sec():Number(sec)||0;
+  const kind=v3416CallKind(s);
+  if(!kind) return 0;
+  let pit=[0.329,0.289];
+  try{ pit=(typeof v3415PitPt==='function')?v3415PitPt(kind):pit; }catch(e){}
+  const allRoles=(s>=V3416CALL.herald.at-10);
+  let n=0;
+  ['me','opp'].forEach(function(side){
+    ROLES.forEach(function(role){
+      if(!allRoles&&role!=='TOP'&&role!=='JGL'&&role!=='SUP'){
+        /* 스폰 10초 전까지는 사이드 정리 — 나머지는 라인 유지 */
+        return;
+      }
+      const k=side+'-'+role, u=MM.units[k];
+      if(!u||!u.alive||u.tp) return;
+      if(u.recallT||u.recallSpot) return;
+      if((u.engageUntil||0)>s) return;
+      if(u.retreatUntil&&s<u.retreatUntil) return;
+      if(V3416_NOJOIN[u.mode]) return;
+      if(u.mode==='recall'||u.mode==='recallWalk') return;
+      const fan={TOP:[-0.028,0.022],JGL:[0.002,0.012],MID:[0.014,-0.016],ADC:[0.032,0.028],SUP:[0.042,-0.002]}[role]||[0,0];
+      const sg=(side==='me')?1:-1;
+      const tx=v3416Clamp(pit[0]+fan[0]*sg,0.04,0.96);
+      const ty=v3416Clamp(pit[1]+fan[1]*sg,0.04,0.96);
+      MM.tgt[k]={x:tx,y:ty};
+      if(u.mode!=='fight'&&u.mode!=='obj') u.mode='obj';
+      n++;
+    });
+  });
+  if(!V3416CALL.fired[kind]&&n>0){
+    V3416CALL.fired[kind]=1;
+    try{
+      logEvent('sys','🕯 <b>전령 콜</b> — 13분. 사이드를 먼저 정리하고 14분 협곡의 전령에 5인이 붙습니다. 한 번 시작한 전령은 끝까지 칩니다.');
+    }catch(e){}
+  }
+  return n;
+}
+
+/* ============================================================================
+   4. 상대 AI 전술 성향
+   ----------------------------------------------------------------------------
+   · 경기 시작 시 우리 조합·밴픽, 라인 상성, 팀 체급, 상대 조합·감독 성향을
+     점수화해 5가지 성향 중 하나를 고른다 (매 경기 달라진다).
+   · 경기 중 골드·킬·타워·드래곤 영혼 포인트를 보고 3분 간격으로 전환한다.
+   · 전술은 (a) 상대 유닛의 실제 동선 (b) 라인 킬 확률 (c) 오브젝트 응전 판단
+     (d) 교차 이득 선택에 반영된다.
+   ========================================================================== */
+const V3416AI={
+  cur:null, since:0, lastMin:-1, hist:[], key:null,
+  PLAN:{
+    press:{k:'press', n:'초반 압박',    ic:'🔥', why:'초반 스노우볼 조합', desc:'3~14분 라인 압박·갱킹으로 골드 차를 벌립니다.'},
+    lane: {k:'lane',  n:'라인전 위주',  ic:'⚔', why:'솔로 라인 주도권',   desc:'무리한 로테이션 없이 라인 상성으로 격차를 만듭니다.'},
+    obj:  {k:'obj',   n:'오브젝트 한타', ic:'🐉', why:'한타·이니시 조합',  desc:'오브젝트 40초 전부터 5인이 자리를 잡고 강제 한타를 엽니다.'},
+    split:{k:'split', n:'1-3-1 스플릿', ic:'↔', why:'사이드 스플릿 밸류',  desc:'탑·미드가 사이드를 밀며 오브젝트를 교환합니다.'},
+    scale:{k:'scale', n:'후반 성장·수비', ic:'🌙', why:'후반 밸류 조합',    desc:'초반 손실을 감수하고 파밍·타워 수비로 후반을 노립니다.'},
+  }
+};
+function v3416Plan(k){
+  const p=V3416AI.PLAN[k]||V3416AI.PLAN.lane;
+  return {k:p.k,n:p.n,ic:p.ic,why:p.why,desc:p.desc,atMin:0};
+}
+function v3416ChoosePlan(){
+  const c=(M&&M.oppComp)||{};
+  const tags=c.tags||{};
+  const curve=c.curve||[0,0,0];
+  const ln=(M&&M.lane)||{};
+  const L=r=>ln[r]||{my:60,opp:60};
+  const power=(M&&M.powerEdge)||0;                     /* 우리 − 상대 체급 */
+  const s={press:1,lane:1,obj:1,split:1,scale:1};
+  /* 각 항목은 '평균(3~4)보다 높은가'만 보도록 중심을 맞춘다 (한 성향이 무조건 이기지 않게) */
+  s.press += ((curve[0]||3)-3.4)*0.6 + ((tags.fight||10)-10)*0.14 + Math.max(0,-power)*0.32;
+  s.lane  += ((L('TOP').opp-L('TOP').my)+(L('MID').opp-L('MID').my)+(L('ADC').opp-L('ADC').my))*0.055
+           + ((c.tierAvg||4.2)-4.2)*0.40;
+  s.obj   += ((tags.engage||8)-8)*0.16 + ((tags.fight||10)-10)*0.10 + ((c.front||0)>=7?0.40:0);
+  s.split += ((tags.split||6)-6)*0.26
+           + (((L('TOP').opp+L('BOT').opp)-(L('TOP').my+L('BOT').my))*0.05);
+  s.scale += ((curve[2]||2.6)-2.6)*0.55 + ((tags.scale||9)-9)*0.12 + Math.max(0,power)*0.20;
+  /* 상대(우리) 조합에 대한 대응 — 우리 조합을 보고 전술을 고른다 */
+  const myArch=(M&&M.arch&&M.arch.me)?M.arch.me.arch:null;
+  if(myArch==='poke') s.obj+=0.75;          /* 포킹 상대로 돌진 한타 */
+  if(myArch==='scale') s.press+=0.7;        /* 후반 조합 상대로 초반 압박 */
+  if(myArch==='split') s.obj+=0.45;         /* 스플릿 상대로 5:5 강제 */
+  if(myArch==='dive') s.split+=0.4;         /* 돌진 상대로 사이드 유인 */
+  /* 상대 조합 아키타입 */
+  const opArch=(M&&M.arch&&M.arch.opp)?M.arch.opp.arch:null;
+  if(opArch==='split') s.split+=1.1;
+  if(opArch==='scale'||opArch==='protect') s.scale+=0.75;
+  if(opArch==='dive') s.obj+=0.85;
+  if(opArch==='poke') s.lane+=0.7;
+  if(opArch==='skirmish') s.press+=0.85;
+  if(opArch==='anti') s.lane+=0.55;
+  if(opArch==='pickoff') s.obj+=0.35;
+  /* 상대 감독 성향 (초반 설계 · 오더 · 오브젝트) */
+  try{
+    const co=(M&&M.coach&&M.coach.opp)||{};
+    s.press += (co.early||0)*0.6;
+    s.obj   += (co.obj||0)*0.4;
+    s.lane  += (co.order||0)*0.25;
+  }catch(e){}
+  /* 팀 아이덴티티 — 같은 조합이라도 구단마다 선호하는 운영이 다르다 (매 경기 고정된 아주 작은 편향) */
+  try{
+    const ids=['press','obj','split','lane','scale'];
+    const id=String((M&&M.oppId)||'');
+    let hh=0; for(let i=0;i<id.length;i++) hh=(hh*31+id.charCodeAt(i))%997;
+    s[ids[hh%ids.length]]+=0.4;
+  }catch(e){}
+  /* 매 경기 달라지도록 흔들림 — 성향이 한 가지로 고정되지 않게 (원장 지적: 상대 전술이 늘 같다) */
+  Object.keys(s).forEach(function(k){ s[k]=Math.max(0.2,s[k])*0.9+Math.random()*1.35; });
+  let best='lane';
+  Object.keys(s).forEach(function(k){ if(s[k]>s[best]) best=k; });
+  return best;
+}
+function v3416MatchKey(){ return (((M&&M.series)?(M.series.startedAt||0):0))+'|'+((M&&M.gameIdx!=null)?M.gameIdx:0); }
+function v3416MatchInit(){
+  if(!M) return;
+  V3416AI.hist=[]; V3416AI.since=0; V3416AI.lastMin=-1;
+  const k=v3416ChoosePlan();
+  V3416AI.cur=v3416Plan(k);
+  V3416AI.cur.atMin=0;
+  V3416AI.key=v3416MatchKey();
+  M.oppTactic=k;
+  try{
+    logEvent('sys','🧠 <b>상대 전술 분석</b> — '+v3416Tag('opp')+'은(는) <b>'+V3416AI.cur.ic+' '+V3416AI.cur.n+
+      '</b> 성향으로 나옵니다. '+V3416AI.cur.desc);
+  }catch(e){}
+  try{ if(typeof MMD!=='undefined'&&MMD.variety) MMD.variety.oppTactic=k; }catch(e){}
+}
+/* mmReset 이 경기 시작 직후 불려도 성향은 유지 — 다른 경기면 새로 고른다 */
+function v3416EnsureAI(){
+  if(!M) return null;
+  if(!V3416AI.cur||V3416AI.key!==v3416MatchKey()) v3416MatchInit();
+  return V3416AI.cur;
+}
+/* 경기 중 유불리에 따른 전술 전환 (1분에 한 번 판정, 최소 3분 간격) */
+function v3416OppTick(sec){
+  if(!M||M.over) return 0;
+  if(!v3416EnsureAI()) return 0;
+  const s=(sec==null)?v3416Sec():Number(sec)||0;
+  const m=Math.floor(s/60);
+  if(m===V3416AI.lastMin) return 0;
+  V3416AI.lastMin=m;
+  if((m-(V3416AI.cur.atMin||0))<3) return 0;
+  const gd=((M.gold&&M.gold[0])||0)-((M.gold&&M.gold[1])||0);   /* 우리 − 상대 */
+  const behind=-gd;
+  const cur=V3416AI.cur.k;
+  let want=null, why='';
+  if(m>=26&&behind>6000){ want='scale'; why='골드 열세 — 후반 수비·성장'; }
+  else if(m>=20&&gd>5200&&cur!=='obj'){ want='obj'; why='리드 — 바론 한타로 끝내기'; }
+  else if(m>=16&&gd>3600&&cur==='lane'&&((M.towers&&M.towers[0])||0)>=((M.towers&&M.towers[1])||0)){
+    want='split'; why='타워 리드 — 사이드 압박'; }
+  else if(m>=14&&m<20&&behind>3200&&(cur==='press'||cur==='lane')){ want='scale'; why='초반 주도권 상실 — 성장 전환'; }
+  else if(m>=18&&behind>2200&&cur==='obj'){ want='split'; why='한타 열세 — 사이드 교환'; }
+  else if(((M.dragons&&M.dragons[1])||0)>=2&&M.soulType&&M.soulType.opp&&!(M.soulGranted&&M.soulGranted.opp)&&cur!=='obj'){
+    want='obj'; why='드래곤 영혼 포인트'; }
+  if(!want||want===cur) return 0;
+  V3416AI.cur=v3416Plan(want);
+  V3416AI.cur.atMin=m; V3416AI.cur.why=why;
+  M.oppTactic=want;
+  V3416AI.hist.push({min:m,k:want,why:why});
+  if(V3416AI.hist.length>12) V3416AI.hist.shift();
+  try{
+    logEvent('sys','🧠 <b>상대 전술 전환</b> — '+V3416AI.cur.ic+' <b>'+V3416AI.cur.n+'</b> ('+why+')');
+  }catch(e){}
+  return 1;
+}
+/* HUD·중계용 짧은 표시 */
+function v3416OppChip(){
+  if(!M||!V3416AI.cur) return '';
+  return '🧠 상대 '+V3416AI.cur.ic+' '+V3416AI.cur.n;
+}
+function v3416OppChipHTML(){
+  if(!M||!V3416AI.cur) return '';
+  return '<span class="opp-tac" title="'+esc(V3416AI.cur.desc||'')+'">'+v3416OppChip()+'</span>';
+}
+
+/* 상대 전술이 실제 동선을 바꾼다 — 파이프라인 마지막(귀환 고정 직전)에 호출 */
+function v3416OppTargets(sec){
+  if(!M) return 0;
+  if(!v3416EnsureAI()) return 0;
+  if(typeof MM==='undefined'||!MM.units||!MM.tgt) return 0;
+  if(!v3416Live()) return 0;
+  const s=(sec==null)?v3416Sec():Number(sec)||0;
+  /* 전령 콜 중에는 콜이 우선 — 대신 콜에 맞춰 함께 붙는다 */
+  if(v3416CallKind(s)) return 0;
+  const k=V3416AI.cur.k;
+  const m=Math.floor(s/60);
+  let n=0;
+  ROLES.forEach(function(role){
+    const key='opp-'+role, u=MM.units[key];
+    if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+    if((u.engageUntil||0)>s) return;
+    if(u.mode==='recall'||u.mode==='recallWalk') return;
+    if(V3416_NOJOIN[u.mode]) return;
+    const lane=(role==='ADC'||role==='SUP')?'BOT':(role==='JGL'?'MID':role);
+    let tx=null,ty=null;
+    const own=(typeof mmLaneFrontT==='function')?mmLaneFrontT(lane):0.5;
+    const frontPt=function(f){
+      const p=mmPathPoint(LANE_PATH[lane],laneFrontParam(lane,v3416Clamp(f,0.05,0.95)));
+      return [p[0],p[1]];
+    };
+    if(k==='press'){
+      if(role==='JGL'){
+        /* 갱각 — 우리 라인 쪽으로 더 깊게 */
+        const tgtLane=(m%3===0)?'TOP':(m%3===1)?'BOT':'MID';
+        const p=mmPathPoint(LANE_PATH[tgtLane],laneFrontParam(tgtLane,v3416Clamp((typeof mmLaneFrontT==='function'?mmLaneFrontT(tgtLane):0.5)-0.035,0.06,0.94)));
+        tx=p[0]; ty=p[1];
+      }else{
+        const p=frontPt(own-0.022);           /* 웨이브를 넘어 압박 */
+        tx=p[0]; ty=p[1];
+      }
+    }else if(k==='lane'){
+      if(role==='JGL'){
+        const c=(typeof mmNearestCamp==='function')?mmNearestCamp('opp',role,u.x,u.y,s):null;
+        if(c){ tx=c.x; ty=c.y; }
+      }else{
+        const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos(lane,'opp',0.012):frontPt(own+0.012);
+        tx=p[0]; ty=p[1];
+      }
+    }else if(k==='obj'){
+      /* 오브젝트 45초 전부터 자리 — 다음 오브젝트 핏 */
+      let kind=null;
+      try{ kind=(typeof mmObjectiveWindow==='function')?mmObjectiveWindow(m):null; }catch(e){}
+      if(!kind&&m>=20) kind='baron';
+      else if(!kind&&m>=13) kind='herald';
+      else if(!kind&&m>=5) kind='dragon';
+      if(kind){
+        const pit=(typeof mmdPitPoint==='function')?mmdPitPoint(kind):PIT.dragon;
+        const fan={TOP:[-0.026,0.020],JGL:[0.004,0.010],MID:[0.014,-0.014],ADC:[0.030,0.024],SUP:[0.040,-0.002]}[role]||[0,0];
+        tx=v3416Clamp(pit[0]+fan[0],0.04,0.96); ty=v3416Clamp(pit[1]+fan[1],0.04,0.96);
+      }else{
+        const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos(lane,'opp',0.014):frontPt(own+0.014);
+        tx=p[0]; ty=p[1];
+      }
+    }else if(k==='split'){
+      if(role==='TOP'){ const p=mmPathPoint(LANE_PATH.BOT,0.13); tx=p[0]; ty=p[1]; }
+      else if(role==='MID'){ const p=mmPathPoint(LANE_PATH.TOP,0.13); tx=p[0]; ty=p[1]; }
+      else if(role==='JGL'){ const p=frontPt(own-0.03); tx=p[0]; ty=p[1]; }
+      else { const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos('MID','opp',0.010):frontPt(own+0.01); tx=p[0]; ty=p[1]; }
+    }else if(k==='scale'){
+      if(role==='JGL'){
+        const c=(typeof mmNearestCamp==='function')?mmNearestCamp('opp',role,u.x,u.y,s):null;
+        if(c){ tx=c.x; ty=c.y; }
+        else { const p=frontPt(own+0.03); tx=p[0]; ty=p[1]; }
+      }else{
+        /* 자기 진영 쪽에서 파밍·수비 — 20분 이후에는 따라 붙는다 */
+        const back=(m<20)?0.05:0.02;
+        const p=(typeof mmLaneFrontPos==='function')?mmLaneFrontPos(lane,'opp',back):frontPt(own+back);
+        tx=p[0]; ty=p[1];
+      }
+    }
+    if(tx==null||ty==null) return;
+    MM.tgt[key]={x:v3416Clamp(tx,0.04,0.96),y:v3416Clamp(ty,0.04,0.96)};
+    if(u.mode!=='fight'&&u.mode!=='obj'&&u.mode!=='siege') u.mode=(k==='split')?'split':'rotate';
+    n++;
+  });
+  return n;
+}
+/* 라인 킬 확률 — 상대 전술이 라인 상성에 반영된다 (favor = 우리가 이길 확률) */
+function v3416LaneFavor(favor,role,m){
+  const k=(V3416AI.cur&&V3416AI.cur.k)||null;
+  if(!k) return favor;
+  let v=Number(favor);
+  if(!isFinite(v)) v=0.5;
+  if(k==='press'&&m<14) v-=0.035;
+  else if(k==='scale'&&m<15) v+=0.032;
+  else if(k==='lane') v-=0.012;
+  else if(k==='obj'&&m<14) v-=0.006;
+  if(k==='split'&&m>=14&&(role==='TOP'||role==='MID')) v+=0.018;   /* 사이드 압박은 한타에서 손해 */
+  return v3416Clamp(v,0.05,0.95);
+}
+/* 오브젝트 응전 확률 — favor = 우리가 가져갈 확률 */
+function v3416ObjFavor(kind,m,favor){
+  const k=(V3416AI.cur&&V3416AI.cur.k)||null;
+  if(!k) return favor;
+  let v=Number(favor);
+  if(!isFinite(v)) v=0.5;
+  if(k==='obj') v-=0.042;
+  else if(k==='press') v-=((m<15)?0.03:0);
+  else if(k==='split') v+=(kind==='baron'||kind==='herald')?0.045:0.02;
+  else if(k==='scale') v+=(m<20?0.05:-0.02);
+  return v3416Clamp(v,0.05,0.95);
+}
+/* 교차 이득(오브젝트 포기) 판단 — 상대 전술이 정한다 */
+function v3416MacroAdjust(kind,at,plan){
+  if(!plan) return plan;
+  const k=(V3416AI.cur&&V3416AI.cur.k)||null;
+  if(!k) return plan;
+  if(k==='obj'){ plan.opp='contest'; }
+  else if(k==='split'){ plan.opp=(kind==='baron'||kind==='herald'||kind==='elder')?'contest':'trade'; }
+  else if(k==='scale'){
+    if(kind==='dragon'&&at<20) plan.opp=(Math.random()<0.55?'trade':'contest');
+    else if(kind==='herald') plan.opp='trade';
+    else plan.opp='contest';
+  }
+  else if(k==='press'){ plan.opp='contest'; }
+  if(plan.why&&typeof plan.why==='object') plan.why.opp='AI 성향 · '+V3416AI.cur.n;
+  return plan;
+}
+
+/* ---------- 리셋 · 부팅 ---------- */
+function v3416Reset(){
+  v3416PlatesReset();
+  V3416CALL.fired={}; V3416CALL.lastKind=null; V3416CALL.log=[];
+  /* 경기 시작 직후 mmReset 이 다시 불려도 이번 경기의 상대 성향은 유지한다 */
+  if(!M||V3416AI.key!==v3416MatchKey()){
+    V3416AI.cur=null; V3416AI.hist=[]; V3416AI.lastMin=-1; V3416AI.since=0; V3416AI.key=null;
+  }
+  V3416LBL.items=[]; V3416LBL.blocks=[]; V3416LBL.last={placed:[],hidden:[],frame:V3416LBL.frame};
+}
+function v3416Boot(){ V3416.ver='34.16'; return V3416.ver; }
 
 /* ============================================================================
    V35 — 팀 표기 공통 링크
@@ -46144,6 +46825,7 @@ try{v34Boot();}catch(e){}
 try{v3413Boot();}catch(e){}
 try{v3414Boot();}catch(e){}
 try{v3415Boot();}catch(e){}
+try{v3416Boot();}catch(e){}
 try{cloudBoot();}catch(e){}
 renderTitle();
 try{tiBind();}catch(e){}
