@@ -7559,7 +7559,7 @@ function applyTacticImpulse(k){
   };
   const e=map[k]; if(!e) return;
   if(e.g) addGold('me',e.g);
-  if(e.v) M.vision[0]+=e.v;
+  if(e.v) v5VisionArr()[0]+=e.v;
   if(e.txt) logEvent('sys','⚡ '+e.txt);
 }
 const DRAKE_ELEMENTS=[
@@ -7863,7 +7863,7 @@ function startMatch(draftResult){
     const plan=(typeof nextPlanMods==='function')?nextPlanMods():null;
     if(plan){
       if(plan.aceHunt&&plan.aceHunt.role){ M.lane[plan.aceHunt.role].opp-=3.0; M.aceHunt=plan.aceHunt; }
-      if(plan.laneCare&&plan.laneCare.role){ M.lane[plan.laneCare.role].my+=3.0; M.vision=M.vision||[0,0]; M.vision[0]+=6; }
+      if(plan.laneCare&&plan.laneCare.role){ M.lane[plan.laneCare.role].my+=3.0; v5VisionArr()[0]+=6; }
       if(plan.carryFocus&&plan.carryFocus.role){ M.lane[plan.carryFocus.role].my+=2.6; M.carryLane=plan.carryFocus.role; }
       if(plan.tempo==='early'){ M.gpe=M.gpe||{}; M.gpe.earlyGold=(M.gpe.earlyGold||0)+26; M.gpe.lateGold=(M.gpe.lateGold||0)-6; edge+=0.25; }
       if(plan.tempo==='late'){ M.gpe=M.gpe||{}; M.gpe.earlyGold=(M.gpe.earlyGold||0)-14; M.gpe.lateGold=(M.gpe.lateGold||0)+30; }
@@ -8009,6 +8009,8 @@ function winProb(){
     + ((M.elder&&M.elder.me&&M.minute<=(M.elderUntil.me||0))?0.3:0) - ((M.elder&&M.elder.opp&&M.minute<=(M.elderUntil.opp||0))?0.3:0)
     + (M.minute<=12?(M.earlyEdge||0)*0.35:0)
     + (M.scuttleEdge||0) + (typeof v5VisionScoreEdge==='function'?v5VisionScoreEdge():0);
+  /* V34.15.1 — 어떤 항이든 NaN 이면 승률이 통째로 NaN% 가 된다. 승률은 절대 NaN 을 내보내지 않는다. */
+  if(!Number.isFinite(s)) s=0;
   /* 현상금 — 오브젝트 현상금이 열려 있는 열세 팀은 역전 확률이 살짝 올라간다 */
   try{
     if(typeof bountyGoldDiff==='function'){
@@ -8016,7 +8018,8 @@ function winProb(){
       if(bountyGoldDiff('opp')>=3000) s-=0.03;
     }
   }catch(e){}
-  return clamp(sig(s),0.03,0.97);
+  const p=clamp(sig(s),0.03,0.97);
+  return Number.isFinite(p)?p:0.5;
 }
 function sideIdx(team){ return team==='me'?0:1; }
 function addGold(team,amount){ M.gold[sideIdx(team)]+=Math.round(amount); }
@@ -8544,7 +8547,9 @@ function simStep(silent){
     const bonus=M.focusKey==='split14'?60:M.focusKey==='split131'?48:40;
     addGold(Math.random()<killFavor?'me':'opp',bonus);
   }
-  M.vision[0]+=ri(2,4); M.vision[1]+=ri(2,4);
+  /* V34.15.1 — 시야 점수는 [내,상대] 숫자 배열로만 다룬다 (오염되면 시야·승률이 NaN) */
+  const VA=(typeof v5VisionArr==='function')?v5VisionArr():(Array.isArray(M.vision)?M.vision:(M.vision=[0,0]));
+  VA[0]+=ri(2,4); VA[1]+=ri(2,4);
   M.winProb=winProb();
   M.history.push({min:m,diff:M.gold[0]-M.gold[1]});
   const gd=M.gold[0]-M.gold[1];
@@ -9152,6 +9157,7 @@ function v5InitMatch(){
   M.tw={me:{TOP:[1,1,1],MID:[1,1,1],BOT:[1,1,1]},opp:{TOP:[1,1,1],MID:[1,1,1],BOT:[1,1,1]},meNex:[1,1],oppNex:[1,1]};
   M.scuttleEdge=0;
   if(!M.vision) M.vision=[0,0];
+  try{ M.vision=v5VisionArr(); }catch(e){}
 }
 /* ---------- 0) 00:30~01:25 초반 시야·와드 싸움 ---------- */
 /* 블루 진영 기준: 강가 부시 · 칼날부리 입구 · 탑/봇 삼거리 부시 */
@@ -9354,7 +9360,7 @@ function v5Scuttle(){
     addGold(side,130*n);
     lvAddXpEv(side,'JGL',10*n);
     (W.roam[side]||[]).forEach(r=>lvAddXpEv(side,r,7*n));
-    M.vision[side==='me'?0:1]+=4*n;
+    v5VisionArr()[side==='me'?0:1]+=4*n;
     if(M.trait&&M.trait[side]) M.trait[side].vision=(M.trait[side].vision||0)+0.15*n;
   });
   ['me','opp'].forEach(side=>{
@@ -9402,7 +9408,7 @@ function v5WardPut(side,kind,x,y,m,opts){
     src:o.src||'std', tag:o.tag||null};
   W.wards[side].push(w);
   if(W.wards[side].length>10) W.wards[side].shift();
-  M.vision[side==='me'?0:1]+=(w.kind==='pink'?4:2);
+  v5VisionArr()[side==='me'?0:1]+=(w.kind==='pink'?4:2);
   return w;
 }
 function v5Sweep(side,x,y,m){
@@ -9416,13 +9422,30 @@ function v5Sweep(side,x,y,m){
   if(removed>0){
     W.sweeps.push({x:x,y:y,side:side,at:m,seq:(++W.seq),removed:removed});
     if(W.sweeps.length>24) W.sweeps.shift();
-    M.vision[side==='me'?0:1]+=3*removed;
+    v5VisionArr()[side==='me'?0:1]+=3*removed;
   }
   return removed;
 }
+/* V34.15.1 — 시야 점수 배열 무결성.
+   M.vision 은 반드시 [내 시야, 상대 시야] 의 숫자 2칸 배열이어야 한다. 게임플랜(칼부 1렙 와드)·세트 전환 등
+   외부 코드가 스칼라로 덮어써 "0,02" 같은 문자열이나 숫자가 되면 시야가 `0:NaN`, 승률이 `NaN%` 로 깨진다.
+   모든 가산 지점이 이 함수를 거쳐 오염된 값을 숫자 배열로 되살린 뒤 더한다. */
+function v5VisionArr(){
+  if(!M) return [0,0];
+  const a=M.vision;
+  if(Array.isArray(a)&&Number.isFinite(a[0])&&Number.isFinite(a[1])) return a;
+  const src=Array.isArray(a)?a:[];
+  const n0=(typeof src[0]==='number'&&Number.isFinite(src[0]))?src[0]:0;
+  const n1=(typeof src[1]==='number'&&Number.isFinite(src[1]))?src[1]:0;
+  M.vision=[n0,n1];
+  return M.vision;
+}
 function v5VisionScoreEdge(){
-  if(!M||!M.vision) return 0;
-  return clamp(((M.vision[0]||0)-(M.vision[1]||0))/520,-0.05,0.05);
+  if(!M) return 0;
+  const v=v5VisionArr();
+  const d=(Number.isFinite(v[0])?v[0]:0)-(Number.isFinite(v[1])?v[1]:0);
+  const e=clamp(d/520,-0.05,0.05);
+  return Number.isFinite(e)?e:0;
 }
 /* 오브젝트 경합·한타에서 시야 우위가 주는 보정 */
 function v5ObjVision(){ return clamp(v5VisionScoreEdge()*1.6,-0.07,0.07); }
@@ -9462,7 +9485,10 @@ function v5VisionTick(m){
   });
   W.wardsMe=W.wards.me.length; W.wardsOpp=W.wards.opp.length;
   const vm=(M.gpe&&M.gpe.visionMul)||1;
-  M.vision[0]+=Math.round(W.wardsMe*vm); M.vision[1]+=W.wardsOpp;
+  const VA=v5VisionArr();
+  const vMe=Number.isFinite(W.wardsMe)?W.wardsMe:0;
+  const vOp=Number.isFinite(W.wardsOpp)?W.wardsOpp:((W.wards&&W.wards.opp)?W.wards.opp.length:0);
+  VA[0]+=Math.round(vMe*vm); VA[1]+=vOp;
   /* 시야 우위 → 오브젝트 앞 부시 매복 픽오프 */
   const diff=(M.vision[0]||0)-(M.vision[1]||0);
   const atObj=['dragon','baron'].some(kind=>(V5_OBJ_AT[kind]||[]).indexOf(m)>=0);
@@ -9641,7 +9667,7 @@ function v5MacroTrade(side,kind,m){
   const plate=Math.round((60+Math.random()*110)*(0.8+intel*0.4));
   addGold(side,res?320:(180+plate));
   ROLES.forEach(r=>lvAddXpEv(side,r,7));
-  if(M.vision) M.vision[side==='me'?0:1]+=3;
+  v5VisionArr()[side==='me'?0:1]+=3;
   /* 적 반대편 정글 약탈 — 골드와 시야를 실제로 가져온다 */
   const camp=Math.round((40+Math.random()*80)*(0.85+intel*0.3));
   addGold(side,camp);
@@ -22468,9 +22494,12 @@ function mmMinionBlocked(mn){
 /* ---------- 미니언 · 챔피언 교전 ----------
    · 미니언끼리 서로 때려 웨이브가 실제로 정리된다 (수적 우위가 이김)
    · 챔피언은 사거리 안의 적 미니언을 때려 라인을 밀어준다 (스파크·체력 감소·사망) */
-/* 미니언 초당 피해 — 실제 롤처럼 같은 웨이브가 20게임초 안에 서로 정리된다
-   (마법사 3 + 원거리 3 = 15.6HP/게임초 → 156HP 웨이브가 약 19게임초) */
-const MM_MINION_DPS={melee:2.0,ranged:1.45,cannon:3.6,baron:3.6,super:15.5};
+/* 미니언 초당 피해 — 34.15.1 핫픽스
+   기존 2.0/1.45/3.6 은 15분 성장 웨이브(근접3+원거리3 ≈ 235HP, 대포 포함 ≈ 313HP)를 정리하는 데
+   31~32게임초가 걸려 웨이브 주기(30게임초)보다 길었다 → 다음 웨이브와 계속 겹쳐 미니언이 쌓였다.
+   상향 후 실측: 동등 웨이브 정리 15~16게임초(8·15·25분 모두), 수적 우위·슈퍼·바론 웨이브는 더 빨리 밀어낸다.
+   챔피언 막타(CS)는 그대로 — 챔피언 화력(MM_CHAMP_DPS 44)이 미니언보다 압도적이라 막타 기회는 유지된다. */
+const MM_MINION_DPS={melee:4.0,ranged:3.0,cannon:6.8,baron:7.4,super:26.0};
 const MM_CHAMP_DPS={melee:44,ranged:46};          /* 실제 라인 클리어 템포 — 막타 경쟁이 남도록 미니언 화력과 비슷하게 */
 const MM_TURRET_DPS=16;                            /* 포탑 = 미니언 1기당 약 1.9게임초 (푸시가 눈에 보이게) */
 /* 미니언 → 포탑 피해 (포탑 HP 0~100 기준 · 게임초당)
@@ -27614,10 +27643,25 @@ function castBanter(){
   return {who:who, line:line};
 }
 
+/* V34.15.1 — HUD 숫자 방어: 시야·승률이 어떤 경로로 오염되어도 NaN 을 화면에 내보내지 않는다 */
+function bVisionV(){
+  try{ if(typeof v5VisionArr==='function') return v5VisionArr(); }catch(e){}
+  const a=(M&&M.vision);
+  return (Array.isArray(a)&&Number.isFinite(a[0])&&Number.isFinite(a[1]))?a:[0,0];
+}
+function bVisionNum(i){
+  const v=bVisionV();
+  const x=v[i];
+  return Number.isFinite(x)?Math.round(x):0;
+}
+function bWpPct(){
+  const w=(M&&M.winProb);
+  return Math.round((Number.isFinite(w)?w:0.5)*100);
+}
 function buildMatchDOM(v,key){
   try{ if(typeof v3414NoteSide==='function') v3414NoteSide(); }catch(e){}
   const t=myTeam(), opp=T(M.oppId);
-  const wp=Math.round(M.winProb*100);
+  const wp=bWpPct();
   const st=M.stance?STANCE_MAP[M.stance]:null;
   const fo=M.focusKey?FOCUS_MAP[M.focusKey]:null;
   /* V32 — 폴드 한 화면(100dvh) HUD: 10명 카드 + 미니맵 + 하단 바가 스크롤 없이 들어간다.
@@ -27729,22 +27773,20 @@ function evNode(e){
 }
 function objKey(){
   const t=myTeam(), o=T(M.oppId);
-  const v=M.vision||[0,0];
   return [t.tag,o.tag,M.grubs.join(':'),M.dragons.join(':'),M.heralds.join(':'),M.barons.join(':'),M.towers.join(':'),
-    Math.round(v[0]),Math.round(v[1]),
+    bVisionNum(0),bVisionNum(1),
     M.baronBuff?M.baronBuff.me+':'+M.baronBuff.opp:'',
     M.inhib?[M.inhib.me.TOP.alive,M.inhib.me.MID.alive,M.inhib.me.BOT.alive,M.inhib.opp.TOP.alive,M.inhib.opp.MID.alive,M.inhib.opp.BOT.alive].join(''):''];
 }
 function objStripHTML(){
   const ic={grub:'🪱',drag:'🐉',herald:'👁',baron:'💀'};
   const mk=(a,b)=>`<span class="ob"><b>${a}</b>:<b>${b}</b></span>`;
-  const v=M.vision||[0,0];
   const buf=(M.baronBuff&&M.baronBuff.me>=((M.minute||0)))?'🟣':(M.baronBuff&&M.baronBuff.opp>=((M.minute||0)))?'🟣':'';
   return `<span class="ob-lab">유충</span>${mk(M.grubs[0],M.grubs[1])}
     <span class="ob-lab">드래곤</span>${mk(M.dragons[0],M.dragons[1])}
     <span class="ob-lab">전령</span>${mk(M.heralds[0],M.heralds[1])}
     <span class="ob-lab">바론</span>${mk(M.barons[0],M.barons[1])}
-    <span class="ob-lab">시야</span>${mk(Math.round(v[0]),Math.round(v[1]))}${buf}`;
+    <span class="ob-lab">시야</span>${mk(bVisionNum(0),bVisionNum(1))}${buf}`;
 }
 function sideColHTML(side){
   const team=side==='me'?myTeam():T(M.oppId);
@@ -27791,7 +27833,7 @@ function matchPatch(){
   const gl=q('mmGoldL'), gr=q('mmGoldR');
   if(gl) gl.textContent=mGoldK(M.gold[0]);
   if(gr) gr.textContent=mGoldK(M.gold[1]);
-  const wp=Math.round(M.winProb*100);
+  const wp=bWpPct();
   const wb=q('mmWp'); if(wb) wb.style.width=wp+'%';
   const wl=document.querySelector('.wp-l'); if(wl) wl.textContent=myTeam().tag+' '+wp+'%';
   const wr=document.querySelector('.wp-r'); if(wr) wr.textContent=(100-wp)+'% '+T(M.oppId).tag;
@@ -27806,8 +27848,7 @@ function matchPatch(){
   }
   const vq=q('mmVision');
   if(vq){
-    const v=M.vision||[0,0];
-    let vt='👁 시야 '+Math.round(v[0])+':'+Math.round(v[1]);
+    let vt='👁 시야 '+bVisionNum(0)+':'+bVisionNum(1);
     try{
       const c=(typeof mmWardCounts==='function')?mmWardCounts(M.sec||0):null;
       if(c){
@@ -31735,7 +31776,9 @@ function v6GpApplyToMatch(Mobj, gp, draft){
   Mobj.gpe=Mobj.gpe||{};
   if(js==='raptor3'){ Mobj.gpe.killMul=(Mobj.gpe.killMul||1)*1.10; Mobj.gpe.earlyGold=(Mobj.gpe.earlyGold||0)+14; }
   else if(js==='counterBuff'){ Mobj.gpe.killMul=(Mobj.gpe.killMul||1)*1.05; Mobj.campSteal=Mobj.campSteal||{me:0,opp:0}; Mobj.campIntent='counter'; }
-  else if(js==='kalbuWard'){ Mobj.gpe.earlyGold=(Mobj.gpe.earlyGold||0)+10; Mobj.vision=(Mobj.vision||0)+2; Mobj.wardL1=true; }
+  /* V34.15.1 — M.vision 은 [내 시야, 상대 시야] 배열이다. 예전 스칼라 시절 코드 `(M.vision||0)+2` 는
+     배열을 문자열로 만들어 "0,02" 로 오염시켰고, 그 세트의 시야가 `0:NaN`, 승률이 NaN% 로 깨졌다. */
+  else if(js==='kalbuWard'){ Mobj.gpe.earlyGold=(Mobj.gpe.earlyGold||0)+10; if(!Mobj.vision||typeof Mobj.vision!=='object') Mobj.vision=[0,0]; Mobj.vision[0]=(Number(Mobj.vision[0])||0)+2; Mobj.wardL1=true; }
   else if(js==='fullClear'){ Mobj.gpe.earlyGold=(Mobj.gpe.earlyGold||0)+16; Mobj.gpe.objMul=(Mobj.gpe.objMul||1)*1.04; Mobj.fullClear=true; }
   else if(js==='blue'||js==='red'){ Mobj.gpe.earlyGold=(Mobj.gpe.earlyGold||0)+10; }
   /* 매치업 저격 */
@@ -31779,7 +31822,7 @@ function v6GpApplyToMatch(Mobj, gp, draft){
   if(gp.macro==='fast'){ Mobj.gpe.objMul=(Mobj.gpe.objMul||1)*1.03; }
   else if(gp.macro==='slow'){ Mobj.gpe.killMul=(Mobj.gpe.killMul||1)*0.97; Mobj.gpe.earlyGold=(Mobj.gpe.earlyGold||0)+10; }
   else if(gp.macro==='even'){ Mobj.gpe.killMul=(Mobj.gpe.killMul||1)*0.94; Mobj.gpe.earlyGold=(Mobj.gpe.earlyGold||0)+18; }
-  if(gp.vision==='high'||gp.vision==='deep'){ Mobj.vision=(Mobj.vision||0); Mobj.gpe.visionMul=(gp.vision==='deep')?1.25:1.15; Mobj.deepWard=(gp.vision==='deep'); }
+  if(gp.vision==='high'||gp.vision==='deep'){ if(!Mobj.vision||typeof Mobj.vision!=='object') Mobj.vision=[0,0]; Mobj.gpe.visionMul=(gp.vision==='deep')?1.25:1.15; Mobj.deepWard=(gp.vision==='deep'); }
   else if(gp.vision==='setup'){ Mobj.gpe.visionSetup=true; }
   if(gp.posture==='split41'||gp.posture==='split'){ Mobj.splitSide=true; }
   return Mobj;
@@ -34172,9 +34215,10 @@ function macroVisionSetup(kind,at,left){
   rec.opp=macroWardsNear('opp',pit,0.17);
   rec.owner=rec.me>rec.opp?'me':(rec.opp>rec.me?'opp':'even');
   mx.vision[kind+':'+at]=rec;
-  if(rec.owner!=='even'&&M.vision){
+  if(rec.owner!=='even'){
     const idx=rec.owner==='me'?0:1;
-    M.vision[idx]=(M.vision[idx]||0)+3;
+    const VA=(typeof v5VisionArr==='function')?v5VisionArr():(Array.isArray(M.vision)?M.vision:(M.vision=[0,0]));
+    VA[idx]=(Number.isFinite(VA[idx])?VA[idx]:0)+3;
   }
   /* 중계 — 핏 시야 소유권 */
   const kr=MX_OBJ_KR[kind]||'오브젝트';
@@ -36936,7 +36980,7 @@ function dopaWardTick(sec){
     d.raptorWard[side]={at:s,x:raptor.x,y:raptor.y};
     /* 와드 — 시야 장악 (v5 와드 시스템) */
     try{ if(typeof v5WardPut==='function') v5WardPut(side,'yellow',raptor.x,raptor.y,Math.floor(s/60),{src:'dopa',tag:'2:20 칼날부리'}); }catch(e){}
-    try{ if(M.vision) M.vision[side==='me'?0:1]+=4; }catch(e){}
+    try{ if(typeof v5VisionArr==='function') v5VisionArr()[side==='me'?0:1]+=4; }catch(e){}
     /* 정글 동선 역추적 — 상대 계획(3캠프/풀캠프)과 시작 방향 */
     let arch='', target='';
     try{
@@ -37521,7 +37565,7 @@ function farmDrive(side,role,sec,tgt){
     const ok=Math.random()<tactProb(0.42,side,role,'roam');
     if(ok){
       try{ addGold(side,side==='me'?90:90); }catch(e){}
-      try{ if(M.vision) M.vision[side==='me'?0:1]+=2; }catch(e){}
+      try{ if(typeof v5VisionArr==='function') v5VisionArr()[side==='me'?0:1]+=2; }catch(e){}
       farmLogPush(side,'🏃 '+sec+'초 · '+farmTag(side)+' '+farmName(side,role)+' '+laneName(lane)+' 로밍 — 각을 만들고 시야까지 챙깁니다.');
     }else{
       farmLogPush(side,'🌾 '+sec+'초 · '+farmTag(side)+' '+farmName(side,role)+' '+laneName(lane)+' 로밍 무위 — 웨이브를 비운 사이 CS 를 흘립니다.');
@@ -45715,7 +45759,7 @@ function v3415Reset(){
   V3415.stats={spawn:0,smite:0,steal:0,kill:0,heraldSmash:0,heraldFocus:0};
   V3415.lastLogAt=-99; V3415.at=0;
 }
-function v3415Boot(){ V3415.ver='34.15'; return V3415.ver; }
+function v3415Boot(){ V3415.ver='34.15.1'; return V3415.ver; }
 
 /* ============================================================================
    V35 — 팀 표기 공통 링크
