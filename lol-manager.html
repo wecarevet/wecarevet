@@ -45098,6 +45098,8 @@ function v3415ResolveStale(mn,m){
     return;
   }
   mn.alive=false;
+  /* 배열에서도 빼낸다 (죽은 몬스터가 계속 남아 다음 오브젝트 판정을 흐리는 것 방지) */
+  if(mn.kind) V3415.live=V3415.live.filter(function(x){ return x!==mn; });
   try{ logEvent('sys','⌛ '+V3415_KR[mn.kind]+'이(가) 핏에서 리셋되었습니다 — 아무도 끝까지 때리지 못했습니다.'); }catch(e){}
 }
 
@@ -45550,7 +45552,7 @@ function v3415LaneEntry(lane,x,y){
   return best;
 }
 const V3415_DEEP={backdoor:1,dive:1,invade:1,gank:1,obj:1,fight:1,siege:1,split:1};
-const V3415_ROUTE_SKIP={recall:1,recallWalk:1,recallSpot:1};
+const V3415_ROUTE_SKIP={recall:1,recallWalk:1,recallSpot:1,obj:1,fight:1,ward:1,jungle:1,gank:1,dive:1,invade:1,backdoor:1};
 function v3415RouteGuard(sec){
   if(!M||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return 0;
   const s=(sec==null)?v3415Sec():Number(sec)||0;
@@ -45612,8 +45614,8 @@ function v3415PitDrive(sec){
   let n=0;
   V3415.live.forEach(function(mn){
     if(!mn||!mn.alive) return;
-    /* 오래 방치된(2분 이상, 체력 거의 그대로) 몬스터에는 인원을 묶지 않는다 */
-    if(s-(mn.born||0)>120&&mn.hp>mn.hpMax*0.80) return;
+    /* 3분 이상 아무도 때리지 않은 몬스터에는 인원을 계속 묶지 않는다 (그사이 다음 오브젝트가 나온다) */
+    if(s-(mn.born||0)>180&&mn.hp>mn.hpMax*0.95) return;
     const kind=mn.kind;
     const roles=(typeof mmdObjRoles==='function')?mmdObjRoles(kind,s):['TOP','JGL','MID','ADC','SUP'];
     ['me','opp'].forEach(function(side){
