@@ -1089,12 +1089,12 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .btop{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:7px 10px;
   background:linear-gradient(180deg,#101218,#0b0c10);border-bottom:1px solid #1e2129;position:sticky;top:0;z-index:30}
 .bt-side{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:900;color:#dfe3ea}
-.bt-side.opp{justify-content:flex-end}
+.bt-side.red{justify-content:flex-end}
 .bt-g,.bt-t{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:#9aa2b2;font-weight:800}
 .bt-g i,.bt-t i{font-style:normal;color:#dfe3ea}
 .bt-mid{display:flex;flex-direction:column;align-items:center;gap:1px;min-width:130px}
 .bt-k{display:flex;align-items:center;gap:5px;font-size:19px;font-weight:900;letter-spacing:-.02em}
-.bt-k .me{color:#7bb8e8}.bt-k .opp{color:#e0687a}
+.bt-k .blu{color:#7bb8e8}.bt-k .red{color:#e0687a}
 .bt-k em{color:#5b6270;font-style:normal;font-size:14px}
 .bt-c{font-size:10.5px;color:#c3c9d4;font-weight:900;font-variant-numeric:tabular-nums}
 .bt-obj{display:flex;gap:5px;align-items:center;font-size:8.5px;color:#7f8798;font-weight:800;flex-wrap:wrap;justify-content:center}
@@ -1108,8 +1108,8 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .bmid{display:grid;grid-template-columns:132px minmax(0,1fr) 132px;gap:10px;padding:8px;max-width:1120px;margin:0 auto;width:100%}
 .bcol{display:flex;flex-direction:column;justify-content:space-around;gap:5px;min-width:0}
 .bpl{display:flex;align-items:center;gap:6px;padding:5px;border-radius:8px;background:#101218;border:1px solid #20232b;min-width:0}
-.bpl.me{border-color:#1d3a52}
-.bpl.opp{border-color:#3d1c26;flex-direction:row-reverse;text-align:right}
+.bpl.blu{border-color:#1d3a52}
+.bpl.red{border-color:#3d1c26;flex-direction:row-reverse;text-align:right}
 .bpl-p{position:relative;flex:0 0 auto}
 .bpl-role{position:absolute;left:-2px;bottom:-3px;font-size:7.5px;font-weight:900;padding:0 2px;border-radius:3px;background:#0a0c11;color:#9aa2b2;border:1px solid #2a2e37}
 .cimg{border-radius:7px;object-fit:cover;background:#161a22;display:block}
@@ -1177,6 +1177,8 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 .bwp .wp-bar{flex:1;height:6px;border-radius:4px;background:#2a1720;overflow:hidden}
 .bwp .wp-bar>i{display:block;height:100%;background:linear-gradient(90deg,#4a7fb5,#7bb8e8);transition:width .4s}
 .wp-g{font-size:10.5px;font-weight:900;color:var(--gold2);min-width:44px;text-align:right}
+.wp-g.blu{color:#9fd0f0}
+.wp-g.red{color:#ff9aa9}
 .bln{display:flex;gap:6px;align-items:center;padding:0 12px 6px;font-size:10px;font-weight:800;color:var(--dim2);flex-wrap:wrap}
 .bln i{font-style:normal;opacity:.5}
 .bln .hl{color:#e6c481}
@@ -1193,10 +1195,10 @@ h1,h2,h3,h4{letter-spacing:-.02em}
 @media(max-width:820px){
   .bmid{grid-template-columns:1fr;gap:6px}
   .bcol{flex-direction:row;overflow-x:auto;gap:4px;order:1}
-  .bcol.opp{order:2}
+  .bcol.red{order:2}
   .bmap{order:0}
   .bpl{flex:0 0 104px}
-  .bpl.opp{flex-direction:row}
+  .bpl.red{flex-direction:row}
   .btop{grid-template-columns:1fr auto 1fr;padding:5px 6px}
   .bt-obj{display:none}
   .bt-side{font-size:11px;gap:4px}
@@ -2005,8 +2007,8 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 .drake-hud{display:flex;gap:4px;flex-wrap:wrap;padding:2px 10px 4px;justify-content:center}
 .dh-chip{font-size:9px;font-weight:900;padding:2px 6px;border-radius:5px;background:rgba(255,255,255,.05);color:#cfd7e6;border:1px solid rgba(255,255,255,.08)}
 .dh-chip b{color:#fff}
-.dh-chip.me{background:rgba(37,224,255,.12);border-color:rgba(37,224,255,.35);color:#bfe9ff}
-.dh-chip.opp{background:rgba(255,77,109,.12);border-color:rgba(255,77,109,.3);color:#ffb3bf}
+.dh-chip.blu{background:rgba(37,224,255,.12);border-color:rgba(37,224,255,.35);color:#bfe9ff}
+.dh-chip.red{background:rgba(255,77,109,.12);border-color:rgba(255,77,109,.3);color:#ffb3bf}
 .dh-chip.soul.me{background:rgba(139,92,246,.18);border-color:rgba(196,177,255,.45);color:#d9c9ff}
 .dh-chip.soul.opp{background:rgba(255,107,213,.16);border-color:rgba(255,107,213,.4);color:#ffc4ef}
 .dh-chip.dim{color:#7b8497}
@@ -3429,9 +3431,9 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   /* 641~820px 에서는 max-width:820px 규칙의 order(.bmap 0 · .bcol 1)가 남아
      미니맵이 왼쪽 124px 사이드 칸으로 밀리고 선수 카드가 가운데를 차지했다.
      한 화면 HUD 에서는 [아군 카드][미니맵][적군 카드] 순서를 되돌린다. */
-  .bhud .bmid>.bcol.me{order:0}
+  .bhud .bmid>.bcol.blu{order:0}
   .bhud .bmid>.bmap{order:0}
-  .bhud .bmid>.bcol.opp{order:0}
+  .bhud .bmid>.bcol.red{order:0}
 }
 @media (min-width:641px) and (max-height:820px){
   /* V34.13.1 — 폴드 펼침(높이 700~820): CS 는 절대 자르지 않는다.
@@ -3834,8 +3836,8 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
   .bhud .bmap-cv{grid-area:map}
   .bhud .bcaster{grid-area:cast}
   .bhud #causalHost{grid-area:caus}
-  .bhud .bmid>.bcol.me{grid-area:me}
-  .bhud .bmid>.bcol.opp{grid-area:opp}
+  .bhud .bmid>.bcol.blu{grid-area:me}
+  .bhud .bmid>.bcol.red{grid-area:opp}
   .bhud .bcol{display:grid;grid-template-rows:none;grid-auto-rows:auto;gap:3px;align-content:start;min-width:0}
   /* 미니맵은 가로를 넉넉히 쓰는 정사각 */
   .bhud .bmap-cv{display:block;width:min(100%,330px);height:auto;max-width:none;margin:0 auto;
@@ -27125,7 +27127,8 @@ function drakeChipsHTML(){
   const names={infernal:'화염',mountain:'대지',ocean:'바다',cloud:'바람',hextech:'마법공학',chemtech:'화학공학'};
   const rows=keys.filter(k=>me[k]||opp[k]).map(k=>{
     const a=me[k]||0, b=opp[k]||0;
-    return `<span class="dh-chip ${a>b?'me':b>a?'opp':''}">${icons[k]} ${names[k]} <b>${a}</b>:<b>${b}</b></span>`;
+    const v=bLR(a,b);
+    return `<span class="dh-chip ${v[0]>v[1]?'blu':v[1]>v[0]?'red':''}">${icons[k]} ${names[k]} <b>${v[0]}</b>:<b>${v[1]}</b></span>`;
   });
   if(me.soul) rows.push(`<span class="dh-chip soul me">💠 ${esc(myTeam().tag)} 영혼 ${names[me.soulK]||''}</span>`);
   if(opp.soul) rows.push(`<span class="dh-chip soul opp">💠 ${esc(T(M.oppId).tag)} 영혼 ${names[opp.soulK]||''}</span>`);
@@ -27711,10 +27714,33 @@ function bWpPct(){
   const w=(M&&M.winProb);
   return Math.round((Number.isFinite(w)?w:0.5)*100);
 }
+/* ============================================================================
+   V34.15.3 — 레드 사이드 좌우 대칭
+   방송 관례대로 HUD 는 '왼쪽 = 블루 사이드, 오른쪽 = 레드 사이드' 로 고정한다.
+   데이터 키는 여전히 me/opp 이고, 화면 위치만 우리 팀 진영(M.mySide)에 따라 뒤집는다.
+   · 상단 스코어보드·선수 카드 컬럼·승률 바가 모두 같은 left/right 를 본다
+   · 숫자 페어(a:b)는 전부 bLR/bLRt 를 거쳐 '왼쪽:오른쪽 = 블루:레드' 로 출력한다
+   ========================================================================== */
+function bIsRed(){ try{ return !!(M&&M.mySide==='red'); }catch(e){ return false; } }
+function bLeftSide(){ return bIsRed()?'opp':'me'; }
+function bRightSide(){ return bIsRed()?'me':'opp'; }
+function bPos(side){ return (side===bLeftSide())?'blu':'red'; }
+function bIdx(side){ return side==='me'?0:1; }
+function bSideTeam(side){ return side==='me'?myTeam():T(M.oppId); }
+function bLR(a,b){ return bIsRed()?[b,a]:[a,b]; }
+function bLRt(a,b){ const v=bLR(a,b); return v[0]+':'+v[1]; }
+function bDraftLR(){ const d=Math.round((M&&M.draftPct)||50); return bLR(d,100-d); }
+function bGoldLR(){
+  return (M.gold[bIdx(bLeftSide())]||0)-(M.gold[bIdx(bRightSide())]||0);
+}
 function buildMatchDOM(v,key){
   try{ if(typeof v3414NoteSide==='function') v3414NoteSide(); }catch(e){}
   const t=myTeam(), opp=T(M.oppId);
-  const wp=bWpPct();
+  const L=bLeftSide(), R=bRightSide(), Lt=bSideTeam(L), Rt=bSideTeam(R);
+  const wpMe=bWpPct();
+  const wpL=(L==='me')?wpMe:100-wpMe;      /* 왼쪽(블루) 승률 */
+  const gdL=bGoldLR();                     /* 왼쪽(블루) − 오른쪽(레드) 골드차 */
+  const dp=bDraftLR();
   const st=M.stance?STANCE_MAP[M.stance]:null;
   const fo=M.focusKey?FOCUS_MAP[M.focusKey]:null;
   /* V32 — 폴드 한 화면(100dvh) HUD: 10명 카드 + 미니맵 + 하단 바가 스크롤 없이 들어간다.
@@ -27723,29 +27749,29 @@ function buildMatchDOM(v,key){
   <div class="bcast">
    <div class="bhud${(typeof V32CC!=='undefined'&&!V32CC.on)?' nocc':''}" id="bhud">
     <div class="btop">
-      <div class="bt-side me">${badge(t,'sm')}<b>${esc(t.tag)}</b>
-        <span class="bt-g">${ico('money',12)}<i id="mmGoldL">${mGoldK(M.gold[0])}</i></span>
-        <span class="bt-t">▮<i id="mmTowL">${M.towers[0]}</i></span>
+      <div class="bt-side ${bPos(L)}">${badge(Lt,'sm')}<b>${esc(Lt.tag)}</b>
+        <span class="bt-g">${ico('money',12)}<i id="mmGoldL">${mGoldK(M.gold[bIdx(L)])}</i></span>
+        <span class="bt-t">▮<i id="mmTowL">${M.towers[bIdx(L)]}</i></span>
       </div>
       <div class="bt-mid">
-        <div class="bt-k"><span class="me" id="mmK0">${M.kills[0]}</span><em>:</em><span class="opp" id="mmK1">${M.kills[1]}</span></div>
+        <div class="bt-k"><span class="blu" id="mmK0">${M.kills[bIdx(L)]}</span><em>:</em><span class="red" id="mmK1">${M.kills[bIdx(R)]}</span></div>
         <div class="bt-c" id="mmClock">${mmClockStr()}</div>
         <div class="bt-obj" id="mmObj">${objStripHTML()}</div>
       </div>
-      <div class="bt-side opp">
-        <span class="bt-t">▮<i id="mmTowR">${M.towers[1]}</i></span>
-        <span class="bt-g">${ico('money',12)}<i id="mmGoldR">${mGoldK(M.gold[1])}</i></span>
-        <b>${esc(opp.tag)}</b>${badge(opp,'sm')}
+      <div class="bt-side ${bPos(R)}">
+        <span class="bt-t">▮<i id="mmTowR">${M.towers[bIdx(R)]}</i></span>
+        <span class="bt-g">${ico('money',12)}<i id="mmGoldR">${mGoldK(M.gold[bIdx(R)])}</i></span>
+        <b>${esc(Rt.tag)}</b>${badge(Rt,'sm')}
       </div>
     </div>
     <div class="bset" id="mmSet">${(typeof v3414SideChipHTML==='function')?v3414SideChipHTML():''} SET ${M.gameIdx+1} · ${esc(t.tag)} ${M.series?M.series.score.me:0} : ${M.series?M.series.score.opp:0} ${esc(opp.tag)}</div>
     <div class="bmid">
-      <div class="bcol me" id="colMe">${sideColHTML('me')}</div>
+      <div class="bcol blu" id="colBlue">${sideColHTML(L)}</div>
       <div class="bmap">
         <div class="bmap-st">
           <span class="bms-phase" id="mmPhase">${MM.phaseLabel||'라인전'}</span>
           ${(typeof v33FogHTML==='function')?v33FogHTML():''}
-          <span class="bms-vision" id="mmVision">👁 시야 0:0 · 와드 0:0</span>
+          <span class="bms-vision" id="mmVision">👁 시야 ${bLRt(0,0)} · 와드 ${bLRt(0,0)}</span>
           <span class="bms-extra" id="mmExtra"></span>
         </div>
         <div class="bmap-cv"><canvas id="riftCanvas"></canvas>
@@ -27759,13 +27785,13 @@ function buildMatchDOM(v,key){
         </div>
         <div id="causalHost"></div>
       </div>
-      <div class="bcol opp" id="colOpp">${sideColHTML('opp')}</div>
+      <div class="bcol red" id="colRed">${sideColHTML(R)}</div>
     </div>
     <div class="bwp">
-      <span class="wp-l">${esc(t.tag)} ${wp}%</span>
-      <div class="wp-bar"><i id="mmWp" style="width:${wp}%"></i></div>
-      <span class="wp-r">${100-wp}% ${esc(opp.tag)}</span>
-      <span class="wp-g" id="mmGd">${(M.gold[0]-M.gold[1])>=0?'+':''}${((M.gold[0]-M.gold[1])/1000).toFixed(1)}K</span>
+      <span class="wp-l">${esc(Lt.tag)} ${wpL}%</span>
+      <div class="wp-bar"><i id="mmWp" style="width:${wpL}%"></i></div>
+      <span class="wp-r">${100-wpL}% ${esc(Rt.tag)}</span>
+      <span class="wp-g ${gdL>0?'blu':gdL<0?'red':''}" id="mmGd">${gdL>=0?'+':''}${(gdL/1000).toFixed(1)}K</span>
     </div>
     <div class="drake-hud" id="mmDrake">${drakeChipsHTML()}</div>
     <div class="bbar">
@@ -27790,7 +27816,7 @@ function buildMatchDOM(v,key){
    <div class="bhud-extra">
     ${(typeof bountyHudHTML==='function')?bountyHudHTML():''}
     <div class="bln" id="mmLine">
-      <span>밴픽 ${Math.round(M.draftPct||50)}% : ${Math.round(100-(M.draftPct||50))}%</span><i>·</i>
+      <span>밴픽 ${dp[0]}% : ${dp[1]}%</span><i>·</i>
       <span>${st?st.icon+' '+st.n:'표준 운영'}</span>
       ${fo?`<i>·</i><span class="hl">${fo.icon} ${esc(fo.n)}</span>`:''}
     </div>
@@ -27834,22 +27860,26 @@ function objKey(){
 function objStripHTML(){
   const ic={grub:'🪱',drag:'🐉',herald:'👁',baron:'💀'};
   const mk=(a,b)=>`<span class="ob"><b>${a}</b>:<b>${b}</b></span>`;
+  /* V34.15.3 — 가운데 숫자는 전부 '왼쪽(블루):오른쪽(레드)' 순서 */
+  const pair=k=>{ const v=bLR(M[k][0],M[k][1]); return mk(v[0],v[1]); };
   const buf=(M.baronBuff&&M.baronBuff.me>=((M.minute||0)))?'🟣':(M.baronBuff&&M.baronBuff.opp>=((M.minute||0)))?'🟣':'';
-  return `<span class="ob-lab">유충</span>${mk(M.grubs[0],M.grubs[1])}
-    <span class="ob-lab">드래곤</span>${mk(M.dragons[0],M.dragons[1])}
-    <span class="ob-lab">전령</span>${mk(M.heralds[0],M.heralds[1])}
-    <span class="ob-lab">바론</span>${mk(M.barons[0],M.barons[1])}
-    <span class="ob-lab">시야</span>${mk(bVisionNum(0),bVisionNum(1))}${buf}`;
+  return `<span class="ob-lab">유충</span>${pair('grubs')}
+    <span class="ob-lab">드래곤</span>${pair('dragons')}
+    <span class="ob-lab">전령</span>${pair('heralds')}
+    <span class="ob-lab">바론</span>${pair('barons')}
+    <span class="ob-lab">시야</span>${(()=>{ const v=bLR(bVisionNum(0),bVisionNum(1)); return mk(v[0],v[1]); })()}${buf}`;
 }
 function sideColHTML(side){
   const team=side==='me'?myTeam():T(M.oppId);
+  /* V34.15.3 — 카드 테두리·정렬은 팀이 아니라 좌우 위치를 따른다 (왼쪽=블루, 오른쪽=레드) */
+  const pos=bPos(side);
   return ROLES.map(r=>{
     const l=lineupAt(side,r);
     const kd=MM.kda?(MM.kda[side+'-'+r]||{k:0,d:0,a:0,cs:0,dpm:0}):{k:0,d:0,a:0,cs:0,dpm:0};
     const lv=(typeof lvOf==='function')?lvOf(side,r):1;
     const hpU=(typeof v6Unit==='function')?v6Unit(side,r):null;
     const hpPct=hpU?Math.round(Math.max(0,Math.min(1,(hpU.hp||0)/(hpU.hpMax||100)))*100):100;
-    return `<div class="bpl ${side}" id="bpl-${side}-${r}" data-kda="${side}-${r}">
+    return `<div class="bpl ${pos}" id="bpl-${side}-${r}" data-kda="${side}-${r}">
       <div class="bpl-p">${champImg(l.champ,34)}<span class="bpl-role">${esc(({TOP:'탑',JGL:'정',MID:'미',ADC:'원',SUP:'서'})[r])}</span>
         <span class="bpl-lv ${lv>=16?'ult3':lv>=11?'ult2':lv>=6?'ult1':''}" id="lv-${side}-${r}">Lv.${lv}</span></div>
       <div class="bpl-i"><b>${esc(l.name||ROLE_KR[r])}</b><span class="bpl-kda" id="kda-${side}-${r}">${kdStr(kd.k,kd.d,kd.a)}</span>
@@ -27879,21 +27909,32 @@ function matchPatch(){
   if(!M) return;
   if(M.over) mmGuardFinish();
   const q=(id)=>document.getElementById(id);
+  /* V34.15.3 — 좌우는 항상 블루/레드. me/opp 데이터를 위치에 매핑해서 넣는다 */
+  const LS=bLeftSide(), RS=bRightSide();
   const c=q('mmClock'); if(c) c.textContent=mmClockStr();
   const k0=q('mmK0'), k1=q('mmK1');
-  if(k0) k0.textContent=M.kills[0];
-  if(k1) k1.textContent=M.kills[1];
+  if(k0) k0.textContent=M.kills[bIdx(LS)];
+  if(k1) k1.textContent=M.kills[bIdx(RS)];
   const gl=q('mmGoldL'), gr=q('mmGoldR');
-  if(gl) gl.textContent=mGoldK(M.gold[0]);
-  if(gr) gr.textContent=mGoldK(M.gold[1]);
-  const wp=bWpPct();
-  const wb=q('mmWp'); if(wb) wb.style.width=wp+'%';
-  const wl=document.querySelector('.wp-l'); if(wl) wl.textContent=myTeam().tag+' '+wp+'%';
-  const wr=document.querySelector('.wp-r'); if(wr) wr.textContent=(100-wp)+'% '+T(M.oppId).tag;
-  const gd=q('mmGd'); if(gd) gd.textContent=((M.gold[0]-M.gold[1])>=0?'+':'')+((M.gold[0]-M.gold[1])/1000).toFixed(1)+'K';
+  if(gl) gl.textContent=mGoldK(M.gold[bIdx(LS)]);
+  if(gr) gr.textContent=mGoldK(M.gold[bIdx(RS)]);
+  const wpMe=bWpPct();
+  const wpL=(LS==='me')?wpMe:100-wpMe;
+  const wb=q('mmWp'); if(wb) wb.style.width=wpL+'%';
+  const wl=document.querySelector('.wp-l'); if(wl) wl.textContent=bSideTeam(LS).tag+' '+wpL+'%';
+  const wr=document.querySelector('.wp-r'); if(wr) wr.textContent=(100-wpL)+'% '+bSideTeam(RS).tag;
+  const gdL=bGoldLR();
+  const gd=q('mmGd');
+  if(gd){
+    gd.textContent=(gdL>=0?'+':'')+(gdL/1000).toFixed(1)+'K';
+    try{
+      gd.classList.toggle('blu',gdL>0);
+      gd.classList.toggle('red',gdL<0);
+    }catch(e){}
+  }
   const ok=JSON.stringify(objKey());
   if(ok!==MMDOM.obj){ MMDOM.obj=ok; const ob=q('mmObj'); if(ob) ob.innerHTML=objStripHTML();
-    const tl=q('mmTowL'), tr=q('mmTowR'); if(tl) tl.textContent=M.towers[0]; if(tr) tr.textContent=M.towers[1]; }
+    const tl=q('mmTowL'), tr=q('mmTowR'); if(tl) tl.textContent=M.towers[bIdx(LS)]; if(tr) tr.textContent=M.towers[bIdx(RS)]; }
   const ph=q('mmPhase');
   if(ph){
     const txt=(MM.phaseLabel||'라인전')+' · '+mmClockStr();
@@ -27901,12 +27942,12 @@ function matchPatch(){
   }
   const vq=q('mmVision');
   if(vq){
-    let vt='👁 시야 '+bVisionNum(0)+':'+bVisionNum(1);
+    let vt='👁 시야 '+bLRt(bVisionNum(0),bVisionNum(1));
     try{
       const c=(typeof mmWardCounts==='function')?mmWardCounts(M.sec||0):null;
       if(c){
         const me=c.me, op=c.opp;
-        vt+=' · 와드 '+(me.yellow+me.pink)+':'+(op.yellow+op.pink)
+        vt+=' · 와드 '+bLRt(me.yellow+me.pink,op.yellow+op.pink)
           +' (🟡'+(me.yellow+op.yellow)+' 제어 '+(me.pink+op.pink)+')';
       }
     }catch(e){}
@@ -27915,7 +27956,7 @@ function matchPatch(){
   const eq=q('mmExtra');
   if(eq){
     const parts=[];
-    ['me','opp'].forEach(side=>{
+    [bLeftSide(),bRightSide()].forEach(side=>{
       const b=(M.baronBuff&&M.baronBuff[side]!=null)?M.baronBuff[side]:-1;
       if(b>=((M.minute||0))) parts.push('🟣'+(side==='me'?myTeam().tag:T(M.oppId).tag)+' '+(b-(M.minute||0))+'분');
     });
@@ -28037,7 +28078,8 @@ function matchPatch(){
   const ln=q('mmLine');
   if(ln){
     const st=M.stance?STANCE_MAP[M.stance]:null, fo=M.focusKey?FOCUS_MAP[M.focusKey]:null;
-    ln.innerHTML=`<span>밴픽 ${Math.round(M.draftPct||50)}% : ${Math.round(100-(M.draftPct||50))}%</span><i>·</i><span>${st?st.icon+' '+st.n:'표준 운영'}</span>${fo?`<i>·</i><span class="hl">${fo.icon} ${esc(fo.n)}</span>`:''}`;
+    const dp=bDraftLR();
+    ln.innerHTML=`<span>밴픽 ${dp[0]}% : ${dp[1]}%</span><i>·</i><span>${st?st.icon+' '+st.n:'표준 운영'}</span>${fo?`<i>·</i><span class="hl">${fo.icon} ${esc(fo.n)}</span>`:''}`;
   }
 }
 function renderMatch(){
@@ -45830,7 +45872,7 @@ function v3415Reset(){
   V3415.stats={spawn:0,smite:0,steal:0,kill:0,heraldSmash:0,heraldFocus:0};
   V3415.lastLogAt=-99; V3415.at=0;
 }
-function v3415Boot(){ V3415.ver='34.15.2'; return V3415.ver; }
+function v3415Boot(){ V3415.ver='34.15.3'; return V3415.ver; }
 
 /* ============================================================================
    V35 — 팀 표기 공통 링크
