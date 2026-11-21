@@ -3889,6 +3889,16 @@ button.comrow:hover{background:rgba(255,255,255,.05)}
 [data-teaminfo]:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
 .badge[data-teaminfo]:active{transform:scale(.94)}
 
+@media (max-width:400px){
+  /* V34.15.3 — 360px(폴드 커버)에서 스코어보드가 21px 넘쳐 오른쪽 팀 로고가 잘렸다.
+     가운데(승률·오브젝트 스트립) 최소폭과 간격을 줄여 '블루 | 중앙 | 레드'를 화면 안에 넣는다. */
+  .bhud .btop{gap:4px;padding:4px 5px}
+  .bhud .bt-mid{min-width:92px}
+  .bhud .bt-side{gap:4px;font-size:10px}
+  .bhud .bt-side .badge{width:20px!important;height:20px!important}
+  .bhud .bt-g,.bhud .bt-t{font-size:10px}
+}
+
 /* ===================== V34.11 — 스토브리그 FA 경쟁 입찰 ===================== */
 .fwturn{border-color:rgba(255,201,74,.32);background:linear-gradient(180deg,rgba(255,201,74,.08),rgba(255,255,255,.02))}
 .fwturn-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
