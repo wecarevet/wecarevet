@@ -6837,6 +6837,14 @@ const DRAFT_ORDER = [
 
 function startDraft(series){
   if(!series) return;
+  /* V34.15.2 — 승패가 이미 결정된 시리즈(예: 3전 2선승 0:2)는 세트를 더 열지 않는다.
+     새로고침 후 '이어하기'가 3세트를 열어 0:3 이 되던 버그의 마지막 방어선. */
+  try{
+    if(typeof seriesOver==='function'&&seriesOver(series)){
+      if(typeof settleOverSeries==='function') settleOverSeries(series);
+      return;
+    }
+  }catch(e){}
   /* V34.13 — 훈련을 적용하지 않고 경기에 들어오면 자동 적용 (주차 진행·경기 진입 전 1회) */
   try{
     if(typeof applyWeekAction==='function'&&S&&!S.actionApplied){
@@ -8621,7 +8629,10 @@ function finishGame(forcedTeam){
   try{ growTeam(S.userTeam,meWin); growTeam(M.oppId,!meWin); }catch(e){ S.lastGrowth=S.lastGrowth||[]; }
   try{ if(typeof statApplyMyGame==='function') statApplyMyGame(); }catch(e){}
   const sr=M.series;
-  if(meWin) sr.score.me++; else sr.score.opp++;
+  /* V34.15.2 — mmGuardFinish() 가 이미 이 세트를 기록했으면 점수·세트 기록을 다시 넣지 않는다
+     (기록이 두 번 쌓이면 3전 2선승이 4세트가 되고 시리즈 승패가 뒤집혔다) */
+  const srFirstRecord=!!sr&&(sr.games.length<=M.gameIdx);
+  if(srFirstRecord){ if(meWin) sr.score.me++; else sr.score.opp++; }
   S.bestDraftPct=Math.max(S.bestDraftPct||0, M.draftPct||0);
   if(M.elder&&M.elder.me) S.elderTaken=(S.elderTaken||0)+1;
   /* V5: 케미 진화 · 듀오 소식 */
@@ -8629,14 +8640,16 @@ function finishGame(forcedTeam){
   try{ if(meWin&&typeof chemDuoNews==='function') chemDuoNews(); }catch(e){}
   if(M.soulGranted&&M.soulGranted.opp&&meWin) S.soulComeback=(S.soulComeback||0)+1;
   if(M.barons[0]>0&&M.gold[0]<M.gold[1]-3000&&meWin) S.baronSteals=(S.baronSteals||0)+1;
-  sr.games.push({win:meWin, minute:M.minute, kills:M.kills.slice(), gold:M.gold.slice(),
-    mvp:(M.mvp||{}).name||'', mvpChamp:(M.mvp||{}).champ||'',
-    dragons:M.dragons.slice(), towers:M.towers.slice(), barons:M.barons.slice(),
-    myComp:M.myComp, oppComp:M.oppComp, lane:M.lane, edge:M.edge, tactics:M.tacticAt, history:M.history.slice(),
-    myPct:M.draftPct, myPicks:dMyPicks().slice(), oppPicks:dOppPicks().slice(),
-    assign:{me:Object.assign({},D.assign.me),opp:Object.assign({},D.assign.opp)}});
-  if(sr.fearless){ const _u=new Set(sr.fearlessUsed||[]); dMyPicks().concat(dOppPicks()).forEach(function(n){ _u.add(n); }); sr.fearlessUsed=Array.from(_u); }
-  if(sr.bo>=3&&sr.score.me-sr.score.opp>=2) S.sweeps=(S.sweeps||0)+1;
+  if(srFirstRecord){
+    sr.games.push({win:meWin, minute:M.minute, kills:M.kills.slice(), gold:M.gold.slice(),
+      mvp:(M.mvp||{}).name||'', mvpChamp:(M.mvp||{}).champ||'',
+      dragons:M.dragons.slice(), towers:M.towers.slice(), barons:M.barons.slice(),
+      myComp:M.myComp, oppComp:M.oppComp, lane:M.lane, edge:M.edge, tactics:M.tacticAt, history:M.history.slice(),
+      myPct:M.draftPct, myPicks:dMyPicks().slice(), oppPicks:dOppPicks().slice(),
+      assign:{me:Object.assign({},D.assign.me),opp:Object.assign({},D.assign.opp)}});
+    if(sr.fearless){ const _u=new Set(sr.fearlessUsed||[]); dMyPicks().concat(dOppPicks()).forEach(function(n){ _u.add(n); }); sr.fearlessUsed=Array.from(_u); }
+    if(sr.bo>=3&&sr.score.me-sr.score.opp>=2) S.sweeps=(S.sweeps||0)+1;
+  }
   /* V33 — 시즌 명예 기록실 · 반복 픽/전술 추적 */
   try{ if(typeof v33AfterGame==='function') v33AfterGame(); }catch(e){}
   saveGame();
@@ -9874,6 +9887,29 @@ function createSeries(oppId,bo,stage,meta){
 }
 function seriesWinNeed(s){ return Math.ceil(s.bo/2); }
 function seriesOver(s){ return s.score.me>=seriesWinNeed(s)||s.score.opp>=seriesWinNeed(s); }
+/* V34.15.2 — 시리즈 승패는 이미 정해졌는데(seriesOver) '시리즈 마무리'를 누르기 전에
+   새로고침하면 currentSeries.done 이 아직 false 라, '이어하기'가 다음 세트 밴픽을 열어
+   3전 2선승이 0:2 → 0:3 이 됐다. 재개 지점은 아래 두 함수로 '정산'과 '재개'를 가른다. */
+function seriesNeedsSettle(s){ return !!(s&&!s.done&&seriesOver(s)); }
+function settleOverSeries(s){
+  s=s||S.currentSeries;
+  if(!seriesNeedsSettle(s)) return false;
+  /* 지금 시리즈가 아니면 건드리지 않는다 (다른 스테이지 결과를 중복 기록하지 않게) */
+  if(S.currentSeries&&S.currentSeries!==s) return false;
+  S.currentSeries=s;
+  finishSeries();
+  return true;
+}
+/* '이어하기 / 다음 경기 / 경기 시작' 버튼의 공통 입구 — 진행 중 시리즈가 있으면
+   새 0:0 시리즈를 만들지 않고, 이미 결정된 시리즈는 밴픽 대신 결과 정산으로 보낸다.
+   반환: 'settled' | 'resume' | null(진행 중 시리즈 없음) */
+function resumeOrSettleSeries(){
+  const s=S.currentSeries;
+  if(!s||s.done) return null;
+  if(seriesOver(s)){ settleOverSeries(s); return 'settled'; }
+  if(s.pendingSide) renderSideChoice(); else startDraft(s);
+  return 'resume';
+}
 function userWonSeries(s){ return s.score.me>=seriesWinNeed(s); }
 function aiSideChoice(){
   const opp=T(S.currentSeries.oppId);
@@ -9948,6 +9984,8 @@ function poFindSeriesMatch(s){
 }
 function finishSeries(){
   const s=S.currentSeries; if(!s) return;
+  /* V34.15.2 — 이미 정산된 시리즈를 다시 정산하면 주차·전적이 두 번 넘어간다 */
+  if(s.done) return;
   s.done=true;
   const meWon=userWonSeries(s);
   const oppId=s.oppId;
@@ -16728,8 +16766,8 @@ function homeHTML(){
     ${(()=>{const fat=Math.round(starters.reduce((a,p)=>a+p.fatigue,0)/Math.max(starters.length,1));return fat>=62?`<div class="card tight" style="border-color:rgba(255,77,109,.4);background:rgba(255,77,109,.08)"><div class="row between"><span class="tiny" style="color:#ff92a5;font-weight:800">⚠ 선수단 평균 피로 ${fat} — 휴식으로 컨디션을 회복하세요</span></div></div>`:'';})()}
     ${nextSeries?`
       <div class="card" style="border-color:rgba(255,201,74,.4)">
-        <div class="card-h"><h4>진행 중인 시리즈</h4><span class="k">${nextSeries.score.me} : ${nextSeries.score.opp}</span></div>
-        <button class="btn gold block" id="resumeSeries">시리즈 이어하기</button>
+        <div class="card-h"><h4>${(typeof seriesNeedsSettle==='function'&&seriesNeedsSettle(nextSeries))?'종료된 시리즈 · 결과 정산 대기':'진행 중인 시리즈'}</h4><span class="k">${nextSeries.score.me} : ${nextSeries.score.opp}</span></div>
+        <button class="btn gold block" id="resumeSeries">${(typeof seriesNeedsSettle==='function'&&seriesNeedsSettle(nextSeries))?'결과 정산':'시리즈 이어하기'}</button>
       </div>`:''}
     ${oppTeam?`
       <div class="match-banner">
@@ -17080,6 +17118,8 @@ function staffHTML(){
 function prepareMatch(){
   /* 밴픽 전 라인업 점검 — 빈 슬롯이면 '원딜' 같은 포지션 글자가 뜬다 */
   try{ if(typeof aiRosterFillAll==='function') aiRosterFillAll(); }catch(e){}
+  /* V34.15.2 — 0:2 로 이미 끝난 시리즈는 3세트 밴픽을 열지 않고 결과를 정산한다 */
+  if(typeof resumeOrSettleSeries==='function'&&resumeOrSettleSeries()) return;
   if(S.currentSeries && !S.currentSeries.done){
     if(S.currentSeries.pendingSide) renderSideChoice(); else startDraft(S.currentSeries);
     return;
@@ -18078,7 +18118,9 @@ function nextMatchInfo(){
   const s=S.currentSeries;
   if(s&&!s.done){
     const lab=s.stage==='kespa'?'케스파컵':s.stage==='playoffs'?'플레이오프':s.stage==='worlds'?'월드 챔피언십':s.stage==='msi'?'MSI':s.stage==='ewc'?'EWC':'LCK';
-    return {kind:'series', series:s, opp:T(s.oppId), label:lab};
+    /* V34.15.2 — 승패가 결정된 시리즈는 '이어하기' 대신 '결과 정산'으로 보여준다 */
+    const settle=(typeof seriesNeedsSettle==='function')?seriesNeedsSettle(s):false;
+    return {kind:'series', series:s, opp:T(s.oppId), label:lab, settle:settle};
   }
   /* MSI / EWC — 토너먼트 진행 중 */
   if(S.phase==='msi'||S.phase==='ewc'){
@@ -18164,8 +18206,8 @@ function homeV3(){
             </div>
             <button class="pillbtn gold" data-a="match">밴픽 시작 ${ico('play',11)}</button>
           `:`
-            <div class="nx-state">${nm.series.score.me} : ${nm.series.score.opp} · SET ${nm.series.games.length+1}</div>
-            <button class="pillbtn gold" data-a="resume">시리즈 이어하기 ${ico('play',11)}</button>
+            <div class="nx-state">${nm.settle?(nm.series.score.me+' : '+nm.series.score.opp+' · 시리즈 종료 · 정산 대기'):(nm.series.score.me+' : '+nm.series.score.opp+' · SET '+(nm.series.games.length+1))}</div>
+            <button class="pillbtn gold" data-a="resume">${nm.settle?'결과 정산':'시리즈 이어하기'} ${ico('play',11)}</button>
           `}
         </div>`
        :`<div class="nx-in"><div class="nx-comp">${S.phase==='regular'?'다음 일정 없음':'시즌 종료'}</div><div class="nx-state">진행하기를 눌러 다음 단계로</div><button class="pillbtn" data-a="advance" style="margin-top:8px">진행하기</button></div>`}
@@ -18943,6 +18985,8 @@ document.addEventListener('click',ev=>{
   try{ hubAction(a,el.dataset.v,el); }catch(e){ try{ toast('처리 중 오류가 발생했습니다'); }catch(_){} }
 });
 function prepareMatchV3(){
+  /* V34.15.2 — 진행 중 시리즈가 있으면(이미 끝났으면 정산) 새 시리즈를 만들지 않는다 */
+  if(typeof resumeOrSettleSeries==='function'&&resumeOrSettleSeries()) return;
   if(S.phase==='kespa'){ kespaBegin(); return; }
   if(S.currentSeries && !S.currentSeries.done){ prepareMatch(); return; }
   prepareMatch();
@@ -18996,7 +19040,14 @@ function hubAction(a,v,el){
     return;
   }
   if(a==='match'){ prepareMatchV3(); return; }
-  if(a==='resume'){ if(S.currentSeries){ if(S.currentSeries.pendingSide) renderSideChoice(); else startDraft(S.currentSeries); } return; }
+  if(a==='resume'){
+    /* V34.15.2 — 이미 승패가 결정된 시리즈는 새 세트를 열지 않고 정산으로 */
+    if(S.currentSeries){
+      if(typeof seriesNeedsSettle==='function'&&seriesNeedsSettle(S.currentSeries)){ settleOverSeries(S.currentSeries); return; }
+      if(S.currentSeries.pendingSide) renderSideChoice(); else startDraft(S.currentSeries);
+    }
+    return;
+  }
   if(a==='player'){ openPlayer(v); return; }
   if(a==='setstarter'){ const parts=String(v||'').split(':'); const r=setStarter(parts[0],parts[1]); closeModal(); renderHub(); return; }
   /* 선발 ↔ 후보 교체 (1군 선수단 카드) */
@@ -20165,6 +20216,8 @@ function marketV3(){
 }
 /* ---------- 추가 액션 ---------- */
 function kespaBegin(){
+  /* V34.15.2 — 케스파컵 진행 중 시리즈가 있으면 새 0:0 시리즈로 덮어쓰지 않는다 */
+  if(typeof resumeOrSettleSeries==='function'&&resumeOrSettleSeries()) return;
   const k=S.kespa||kespaInit();
   if(!k.started){ k.started=true; saveGame(); sfx('start'); }
   const m=kespaMyMatch();
@@ -28764,9 +28817,15 @@ function nextUserPlayoffMatch(){
   return null;
 }
 function playoffAction(){
-  /* V34.13.1 — 진행 중인 시리즈가 있으면 0:0 새 시리즈를 만들지 않고 이어간다 */
+  /* V34.13.1 — 진행 중인 시리즈가 있으면 0:0 새 시리즈를 만들지 않고 이어간다
+     V34.15.2 — 승패가 이미 결정된 시리즈면 이어하기 대신 결과를 정산한다 */
   const cur=(S.currentSeries&&!S.currentSeries.done)?S.currentSeries:null;
-  if(cur&&(cur.stage==='playoff'||cur.stage==='playoffs')){ saveGame(); startDraft(cur); return; }
+  if(cur){
+    if(typeof seriesNeedsSettle==='function'&&seriesNeedsSettle(cur)){ settleOverSeries(cur); return; }
+    const st=cur.stage;
+    if(st==='playoff'||st==='playoffs'){ saveGame(); startDraft(cur); return; }
+    if(typeof resumeOrSettleSeries==='function'&&resumeOrSettleSeries()) return;
+  }
   const um=nextUserPlayoffMatch();
   if(um){
     const oppId=um.m.a===S.userTeam?um.m.b:um.m.a;
@@ -28923,6 +28982,8 @@ function teamStar(t){
   return s? s.name+' · '+playName(s):'';
 }
 function worldsAction(){
+  /* V34.15.2 — 진행 중 시리즈가 있으면 새 0:0 시리즈를 만들지 않는다 */
+  if(typeof resumeOrSettleSeries==='function'&&resumeOrSettleSeries()) return;
   const r=worldsNext();
   if(r.action==='user'){
     const s=worldsSeries(r.match,r.roundName);
@@ -29127,6 +29188,7 @@ function renderIntl(){
     : (tour.bracket?tour.bracket.rounds[tour.bracket.round]:null);
   const mine=rd?rd.matches.find(m=>!m.done&&m.a&&m.b&&(m.a===S.userTeam||m.b===S.userTeam)):null;
   const resumable=(S.currentSeries&&!S.currentSeries.done)?S.currentSeries:null;
+  const settlePending=(typeof seriesNeedsSettle==='function')?seriesNeedsSettle(resumable):false;
   const stageName=stage==='swiss'?('스위스 R'+(tour.round||1)):(rd?rd.name:'플레이오프');
   const roundInfo=rd?(rd.matches.filter(m=>m.done).length+'/'+rd.matches.length):'';
   const intlIds=(tour.teams||[]).filter(function(id){ return (typeof v34IsIntl!=='function')||v34IsIntl(id); });
@@ -29161,8 +29223,8 @@ function renderIntl(){
       <button class="btn primary block" id="intlNext">${isMSI?'서머 시즌 시작 →':'서머 재개 →'}</button>
     `:`
       ${resumable?`<div class="card" style="border-color:rgba(255,201,74,.45)">
-        <div class="card-h"><h4>진행 중인 시리즈</h4><span class="k">${resumable.score.me} : ${resumable.score.opp}</span></div>
-        <button class="btn gold block" id="intlResume">시리즈 이어하기</button>
+        <div class="card-h"><h4>${settlePending?'종료된 시리즈 · 결과 정산 대기':'진행 중인 시리즈'}</h4><span class="k">${resumable.score.me} : ${resumable.score.opp}</span></div>
+        <button class="btn gold block" id="intlResume">${settlePending?'결과 정산':'시리즈 이어하기'}</button>
       </div>`:''}
       ${mine?`<div class="card" style="border-color:rgba(37,224,255,.5)">
         <div class="card-h"><h4>${esc(rd.name)} · 우리 경기</h4><span class="k">BO${mine.bo||tour.bo}</span></div>
@@ -29191,10 +29253,15 @@ function renderIntl(){
   const p3=$('intlSim'); if(p3) p3.onclick=()=>{ intlSimAll(); };
   const hn=$('intlHome'); if(hn) hn.onclick=()=>{ TAB='home'; renderHub(); };
   const nb=$('intlNextBtn'); if(nb) nb.onclick=()=>{ intlAction(); };
-  const rs=$('intlResume'); if(rs) rs.onclick=()=>{ if(resumable.pendingSide) renderSideChoice(); else startDraft(resumable); };
+  const rs=$('intlResume'); if(rs) rs.onclick=()=>{
+    if(typeof resumeOrSettleSeries==='function'&&resumeOrSettleSeries()) return;
+    if(resumable.pendingSide) renderSideChoice(); else startDraft(resumable);
+  };
   show('intl');
 }
 function intlAction(){
+  /* V34.15.2 — 진행 중 시리즈가 있으면 새 시리즈를 만들지 않고 그 시리즈로 돌아간다 */
+  if(typeof resumeOrSettleSeries==='function'&&resumeOrSettleSeries()) return;
   const r=intlNext();
   if(r.action==='user'){
     const s=intlSeries(r.match,r.roundName,r.tour);
@@ -30522,6 +30589,7 @@ function renderPlayoffs(){
   const st=(typeof standings==='function')?standings():[];
   const myPos=st.findIndex(t=>t.id===S.userTeam)+1;
   const resumable=(S.currentSeries&&!S.currentSeries.done)?S.currentSeries:null;
+  const settlePending=(typeof seriesNeedsSettle==='function')?seriesNeedsSettle(resumable):false;
   /* V34.13.1 — 이어갈 시리즈가 있으면 아래 '경기 시작 · 밴픽' 카드는 띄우지 않는다
      (누르면 0:0 새 시리즈로 덮어써 같은 대진이 반복됐다) */
   const userMatch=resumable?null:v6NextUserMatch();
@@ -30568,8 +30636,8 @@ function renderPlayoffs(){
       ${P.done?`<div class="divider"></div><div class="row between"><span class="tiny">LCK 우승</span><b style="color:var(--gold)">${esc(T(P.champion||fin.winner).name)}</b></div>`:''}
     </div>
     ${resumable?`<div class="card" style="border-color:rgba(255,201,74,.4)">
-      <div class="card-h"><h4>진행 중인 플레이오프 시리즈</h4><span class="k">${resumable.score.me} : ${resumable.score.opp}</span></div>
-      <button class="btn gold block" id="poResume">시리즈 이어하기</button>
+      <div class="card-h"><h4>${settlePending?'종료된 플레이오프 시리즈 · 정산 대기':'진행 중인 플레이오프 시리즈'}</h4><span class="k">${resumable.score.me} : ${resumable.score.opp}</span></div>
+      <button class="btn gold block" id="poResume">${settlePending?'결과 정산':'시리즈 이어하기'}</button>
     </div>`:''}
     ${userMatch?`<div class="card" style="border-color:rgba(37,224,255,.4)">
       <div class="card-h"><h4>${esc(userMatch.rd.name)} · 다음 경기</h4><span class="k">Bo5</span></div>
@@ -30596,7 +30664,10 @@ function renderPlayoffs(){
     </div>
     <div style="height:10px"></div>`;
   const pb=$('poBtn'); if(pb) pb.onclick=()=>playoffAction();
-  const pr=$('poResume'); if(pr) pr.onclick=()=>{ if(resumable.pendingSide) renderSideChoice(); else startDraft(resumable); };
+  const pr=$('poResume'); if(pr) pr.onclick=()=>{
+    if(typeof resumeOrSettleSeries==='function'&&resumeOrSettleSeries()) return;
+    if(resumable.pendingSide) renderSideChoice(); else startDraft(resumable);
+  };
   const pd=$('poDone'); if(pd) pd.onclick=()=>{ if(!S.worlds) startWorlds(); if(S.worlds) renderWorlds(); else renderChampion(); };
   const home=$('poHome'); if(home) home.onclick=()=>{ TAB='home'; renderHub(); };
   const autoBtn=$('poAuto'); if(autoBtn) autoBtn.onclick=()=>v6PoAutoAdvance();
@@ -45759,7 +45830,7 @@ function v3415Reset(){
   V3415.stats={spawn:0,smite:0,steal:0,kill:0,heraldSmash:0,heraldFocus:0};
   V3415.lastLogAt=-99; V3415.at=0;
 }
-function v3415Boot(){ V3415.ver='34.15.1'; return V3415.ver; }
+function v3415Boot(){ V3415.ver='34.15.2'; return V3415.ver; }
 
 /* ============================================================================
    V35 — 팀 표기 공통 링크
