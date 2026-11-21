@@ -8352,8 +8352,8 @@ function simStep(silent){
     const bad=badStyleLine(pl)||'무리한 진입';
     kgLog(kgC, team==='me'?'blue':'red', m+'분 · <b>'+bad+'</b> — '+(team==='me'?M.oppName:M.myName)+'이(가) 역습 킬을 챙깁니다.');
   }
-  // 공허 유충
-  if(m===6||m===10){
+  // 공허 유충 — V34.15 라이브는 몬스터 실체 HP 전투(v3415.js)가 판정한다
+  if((m===6||m===10) && !(typeof v3415SpawnPit==='function'&&v3415SpawnPit('grub',m))){
     const macro=(typeof macroDecision==='function')?macroDecision('grub',m):{me:'contest',opp:'contest'};
     M.objMacro={kind:'grub',at:m,me:macro.me,opp:macro.opp};
     if(macro.me==='trade') try{ v5MacroTrade('me','grub',m); }catch(e){}
@@ -8387,7 +8387,7 @@ function simStep(silent){
   const soulClaimed=(M.soulGranted.me||M.soulGranted.opp);
   const soulEdgeDiff=((M.soulGranted.me?0.03:0)-(M.soulGranted.opp?0.03:0));
   const elderEdgeDiff=((M.elder.me&&m<=(M.elderUntil.me||0))?0.08:0)-((M.elder.opp&&m<=(M.elderUntil.opp||0))?0.08:0);
-  if(!soulClaimed && dTimes.includes(m)){
+  if(!soulClaimed && dTimes.includes(m) && !(typeof v3415SpawnPit==='function'&&v3415SpawnPit('dragon',m))){
     const macro=(typeof macroDecision==='function')?macroDecision('dragon',m):{me:'contest',opp:'contest'};
     M.objMacro={kind:'dragon',at:m,me:macro.me,opp:macro.opp};
     if(macro.me==='trade') try{ v5MacroTrade('me','dragon',m); }catch(e){}
@@ -8436,7 +8436,7 @@ function simStep(silent){
     catch(e){ dlines.forEach(function(l){ try{ logEvent(l.kind,l.text); }catch(e2){} }); }
   }
   // 장로 드래곤 (영혼 획득 6분 후)
-  if(M.elderAt && m>=M.elderAt && (m-M.elderAt)%6===0){
+  if(M.elderAt && m>=M.elderAt && (m-M.elderAt)%6===0 && !(typeof v3415SpawnPit==='function'&&v3415SpawnPit('elder',m))){
     const objEdge=(M.trait.me.obj-M.trait.opp.obj)*0.012+soulEdgeDiff;
     let elFavor=clamp(killFavor+0.02+objEdge+((typeof macroVisionEdge==='function')?macroVisionEdge('elder',m):0),0.08,0.92);
     const elF=maybeObjFight('elder',m,elFavor); if(elF) elFavor+=(elF==='me'?0.14:-0.14);
@@ -8452,8 +8452,8 @@ function simStep(silent){
       mmKind:'obj', mm:{obj:'elder',team:team}}); }
     catch(e){ logEvent(team==='me'?'blue':'red', m+'분 · 🐲 <b>장로 드래곤 처치!</b> '+(team==='me'?M.myName:M.oppName)+'이(가) 처형 버프를 얻습니다 (3분)'); }
   }
-  // 협곡의 전령
-  if(m===14){
+  // 협곡의 전령 — V34.15 라이브는 둥지 몬스터 HP 로 판정
+  if(m===14 && !(typeof v3415SpawnPit==='function'&&v3415SpawnPit('herald',m))){
     const macro=(typeof macroDecision==='function')?macroDecision('herald',m):{me:'contest',opp:'contest'};
     M.objMacro={kind:'herald',at:m,me:macro.me,opp:macro.opp};
     if(macro.me==='trade') try{ v5MacroTrade('me','herald',m); }catch(e){}
@@ -8508,7 +8508,7 @@ function simStep(silent){
     kgLog(kgF, team==='me'?'blue':'red', m+'분 · <b>대규모 한타</b> — '+(team==='me'?M.myName:M.oppName)+archTag+'이(가) '+n+'킬 스왑'+(flavour?' · '+flavour+'!':'하며 주도권을 가져갑니다.'));
   }
   // 바론
-  if([20,26,32].includes(m)){
+  if([20,26,32].includes(m) && !(typeof v3415SpawnPit==='function'&&v3415SpawnPit('baron',m))){
     const macro=(typeof macroDecision==='function')?macroDecision('baron',m):{me:'contest',opp:'contest'};
     M.objMacro={kind:'baron',at:m,me:macro.me,opp:macro.opp};
     if(macro.me==='trade') try{ v5MacroTrade('me','baron',m); }catch(e){}
@@ -21402,6 +21402,7 @@ function mmReset(){
   if(typeof MMD!=='undefined'){ MMD.notes=[]; MMD.beats=[]; MMD.variety=null; MMD.clash=0; MMD.lastKill=[0,0]; }
   try{ if(typeof v32Reset==='function') v32Reset(); }catch(e){}
   try{ if(typeof v33Reset==='function') v33Reset(); }catch(e){}
+  try{ if(typeof v3415Reset==='function') v3415Reset(); }catch(e){}
   mmCampInit();
   ROLES.forEach(role=>{
     ['me','opp'].forEach(side=>{
@@ -21993,8 +21994,16 @@ function mmComputeTargets(){
   if(typeof macroMicroMotion==='function'){ try{ macroMicroMotion(); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='micro:'+String(e); } }
   /* 후반 마무리 — 이긴 팀은 모여서 넥서스까지 끝낸다 (지는 팀은 본진 수비). 마지막 단계에서 덮어쓴다 */
   if(typeof macroEndgameTick==='function'){ try{ macroEndgameTick(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='eg:'+String(e); } }
-  /* V34.8 — 포탑 진입 가드 (파이프라인 마지막 단계 — 어떤 동선도 살아있는 적 포탑을 넘지 못한다) */
+  /* V34.9 — 포탑 진입 가드 (파이프라인 마지막 단계 — 어떤 동선도 살아있는 적 포탑을 넘지 못한다) */
   if(typeof mmTurretZoneGuard==='function'){ try{ mmTurretZoneGuard(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='twz:'+String(e); } }
+  /* V34.15 — 둥지 몬스터가 살아 있으면 배정 인원이 실제로 핏을 친다 */
+  if(typeof v3415PitDrive==='function'){ try{ v3415PitDrive(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='pitd:'+String(e); } }
+  /* V34.15 — 소환된 전령이 밀고 오면 그 라인 수비수가 전령을 최우선 목표로 삼는다 */
+  if(typeof v3415HeraldDefend==='function'){ try{ v3415HeraldDefend(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='hdef:'+String(e); } }
+  /* V34.15 — 한타가 열리면 미드 라이너가 적 정글에 혼자 남지 않고 합류한다 */
+  if(typeof v3415FightJoin==='function'){ try{ v3415FightJoin(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='fjoin:'+String(e); } }
+  /* V34.15 — 사이드로 갈 때 적 정글을 직선 횡단하지 않고 라인 경로를 탄다 */
+  if(typeof v3415RouteGuard==='function'){ try{ v3415RouteGuard(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='route:'+String(e); } }
   /* V34.13 — 라인 중심선 고정·체력 열세 후퇴 (정글·오브젝트 합류는 예외) */
   if(typeof v3413LaneAnchor==='function'){ try{ v3413LaneAnchor(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='v13lane:'+String(e); } }
   /* V34.13.1 — 중후반 본대 응집: 라인전이 끝난 4~5인이 0.065 안에서 함께 움직인다 */
@@ -22387,25 +22396,25 @@ function mmSpawnWave(sec){
       const g=mv(v32MinionGrow(t0), side);
       for(let i=0;i<3;i++){
         push({lane,side,t:back+sgn*(0.016+i*0.0045),hp:30*g.hp,hpMax:30*g.hp,alive:true,
-          off:(Math.random()-0.5)*0.010,spd:0.019+Math.random()*0.0016,ranged:false,kind:'melee',atkAt:0,
+          off:(Math.random()-0.5)*0.010,spd:0.0272+Math.random()*0.0016,ranged:false,kind:'melee',atkAt:0,
           dps:MM_MINION_DPS.melee*g.ad, twdps:MM_MINION_TOWER_DPS.melee*g.ad});
       }
       for(let i=0;i<3;i++){
         push({lane,side,t:back+sgn*(0.004+i*0.004),hp:22*g.hp,hpMax:22*g.hp,alive:true,
-          off:(Math.random()-0.5)*0.012+(sgn>0?0.008:-0.008),spd:0.0238+Math.random()*0.0018,ranged:true,kind:'ranged',atkAt:0,
+          off:(Math.random()-0.5)*0.012+(sgn>0?0.008:-0.008),spd:0.0294+Math.random()*0.0018,ranged:true,kind:'ranged',atkAt:0,
           dps:MM_MINION_DPS.ranged*g.ad, twdps:MM_MINION_TOWER_DPS.ranged*g.ad});
       }
       if(cannon){
         push({lane,side,t:back,hp:52*g.hp,hpMax:52*g.hp,alive:true,off:(Math.random()-0.5)*0.006,
-          spd:0.0234,ranged:true,kind:'cannon',atkAt:0,dps:MM_MINION_DPS.cannon*g.ad,twdps:MM_MINION_TOWER_DPS.cannon*g.ad});
+          spd:0.0300,ranged:true,kind:'cannon',atkAt:0,dps:MM_MINION_DPS.cannon*g.ad,twdps:MM_MINION_TOWER_DPS.cannon*g.ad});
       }
       if(baronOn(side)){
         push({lane,side,t:back,hp:44*g.hp,hpMax:44*g.hp,alive:true,off:(sgn>0?0.02:-0.02),
-          spd:0.0236,ranged:false,kind:'baron',atkAt:0,dps:MM_MINION_DPS.baron*g.ad,twdps:MM_MINION_TOWER_DPS.baron*g.ad,baron:1});
+          spd:0.0304,ranged:false,kind:'baron',atkAt:0,dps:MM_MINION_DPS.baron*g.ad,twdps:MM_MINION_TOWER_DPS.baron*g.ad,baron:1});
       }
       /* 슈퍼 미니언: 상대 억제기가 파괴된 라인에서 밀려나온다 — 일반 미니언보다 훨씬 단단하고 세다 */
       if((sup[side]||[]).indexOf(lane)>=0){
-        push({lane,side,t:back,hp:260*g.hp,hpMax:260*g.hp,alive:true,off:0,spd:0.0216,ranged:false,super:true,kind:'super',atkAt:0,
+        push({lane,side,t:back,hp:260*g.hp,hpMax:260*g.hp,alive:true,off:0,spd:0.0296,ranged:false,super:true,kind:'super',atkAt:0,
           dps:MM_MINION_DPS.super*g.ad, twdps:MM_MINION_TOWER_DPS.super*g.ad});
       }
     });
@@ -22461,12 +22470,12 @@ function mmMinionBlocked(mn){
    · 챔피언은 사거리 안의 적 미니언을 때려 라인을 밀어준다 (스파크·체력 감소·사망) */
 /* 미니언 초당 피해 — 실제 롤처럼 같은 웨이브가 20게임초 안에 서로 정리된다
    (마법사 3 + 원거리 3 = 15.6HP/게임초 → 156HP 웨이브가 약 19게임초) */
-const MM_MINION_DPS={melee:1.75,ranged:1.25,cannon:2.9,baron:2.3,super:10.5};
+const MM_MINION_DPS={melee:2.0,ranged:1.45,cannon:3.6,baron:3.6,super:15.5};
 const MM_CHAMP_DPS={melee:44,ranged:46};          /* 실제 라인 클리어 템포 — 막타 경쟁이 남도록 미니언 화력과 비슷하게 */
 const MM_TURRET_DPS=16;                            /* 포탑 = 미니언 1기당 약 1.9게임초 (푸시가 눈에 보이게) */
 /* 미니언 → 포탑 피해 (포탑 HP 0~100 기준 · 게임초당)
    6기 웨이브(근접3+원거리3)가 붙어 약 20게임초에 100을 다 깎는다 — 실제 롤 템포 */
-const MM_MINION_TOWER_DPS={melee:1.2,ranged:1.0,cannon:2.2,baron:1.8,super:7.0};
+const MM_MINION_TOWER_DPS={melee:1.2,ranged:1.0,cannon:2.2,baron:2.4,super:9.0};
 const MM_TW_SIEGE_FROM=480;                        /* 8분 전에는 포탑 방패 — 미니언이 포탑을 부수지 못한다 */
 const MM_TW_PLATE_UNTIL=720;                       /* ~12분 포탑 방패(플레이트): 피해 45% 감소 */
 const MM_TW_PLATE_MUL=0.55;
@@ -23337,13 +23346,16 @@ function mmUpdate(dt){
     /* 푸시 주도권 — 2기 이상 수적 우위면 남은 미니언이 밀고 들어가는 속도가 붙는다 */
     const balr=mmBal[mn.lane]||{me:0,opp:0};
     const adv=(mn.side==='me')?(balr.me-balr.opp):(balr.opp-balr.me);
-    const pushMul=(adv>=2?1.18:adv>=4?1.26:1)*((typeof v32BaronSpeedMul==='function')?v32BaronSpeedMul(mn.side):1)*(mn.endPush?1.22:1);
+    const pushMul=(adv>=2?1.22:adv>=4?1.32:1)*((typeof v32BaronSpeedMul==='function')?v32BaronSpeedMul(mn.side):1)*(mn.endPush?1.24:1)*(mn.super?1.06:1);
     /* V32 — 슈퍼 미니언도 전선을 무시하지 않는다.
        적 미니언·포탑을 만나면 멈춰서 싸우고 웨이브와 함께 전진한다 (체력·공성 딜만 훨씬 세다) */
     /* 전진 판단 — 앞에 적 미니언이 있으면 멈춰 싸우고, 없으면 상대 첫 타워 앞까지 민다 */
     let blocked=false;
     try{ blocked=mmMinionBlocked(mn); }catch(e){}
-    if(!blocked&&mmMinionAllyAhead(mn,0.005)) blocked=true;   /* 아군 대열 뒤에 줄을 선다 (간격은 좁게 — 대열이 빨리 붙는다) */
+    /* V34.15 — 대열 간격을 개인 공간(0.0026)으로 좁혔다.
+       예전 0.005 는 앞 미니언 1기만 멈춰도 뒤 웨이브 전체를 일렬로 세우는 병목이었다. */
+    const allyGap=(typeof v3415MinionGap==='function')?v3415MinionGap(mn):0.0028;
+    if(!blocked&&mmMinionAllyAhead(mn,allyGap)) blocked=true;   /* 아군 대열 뒤에 줄을 선다 (간격은 좁게 — 대열이 빨리 붙는다) */
     if(!blocked){
       const lim=mmMinionPushLimit(mn.side,mn.lane);
       const canGo=(mn.side==='me')?(mn.t<lim):(mn.t>lim);
@@ -23465,6 +23477,8 @@ function mmUpdate(dt){
   try{ if(typeof v32Tick==='function') v32Tick(sec,step); }catch(e){}
   try{ if(typeof v33Tick==='function') v33Tick(sec,step); }catch(e){}
   try{ if(typeof v34Tick==='function') v34Tick(sec,step); }catch(e){}
+  /* V34.15 — 둥지 몬스터 실체 전투(HP·반격·강타 막타) */
+  try{ if(typeof v3415Tick==='function') v3415Tick(sec,gameDt); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='pit:'+String(e); }
   if(typeof MMD!=='undefined'&&MMD.clash>0&&Math.random()<step*2.4) mmSpawnProjectile();
   for(let i=MM.proj.length-1;i>=0;i--){
     const p=MM.proj[i];
@@ -24251,7 +24265,8 @@ function mmDraw(dt){
     ctx.fillStyle='#ffe4ab'; ctx.textAlign='left'; ctx.textBaseline='middle';
     ctx.fillText(txt,13,h-15);
   }
-  /* V33 — 전장의 안개 레이어 (유닛 위에 덮어 시야 밖을 어둡게) */
+  /* ---------- 전장의 안개 레이어 (유닛 위에 덮어 시야 밖을 어둡게) ---------- */
+  try{ if(typeof v3415Draw==='function') v3415Draw(ctx,w,h,sec); }catch(e){}
   try{ if(typeof v33DrawFog==='function') v33DrawFog(ctx,w,h); }catch(e){}
   ctx.restore();
   /* V33 — 미니맵 핑 파동 (안개 위에서도 보이게 화면 좌표계에 그린다) */
@@ -34724,9 +34739,11 @@ function mxWaveSlot(lane,side,role,s){
   }catch(e){}
   return macroLaneSlot(lane,side,role);
 }
-/* 느린 드리프트 — 정지해 있는 유닛도 라인을 조금씩 정리하러 움직인다 */
+/* 느린 드리프트 — 정지해 있는 유닛도 라인을 조금씩 정리하러 움직인다
+   V34.15 — 진폭을 0.046 → 0.014 로 줄였다. 예전 값은 라인에서 0.09 이상 떨어져
+   유닛을 적 정글 한가운데로 밀어내는 원인이었다. */
 function mxDrift(role,s){
-  const period=26, amp=0.046;
+  const period=26, amp=0.014;
   const v=Math.sin(((s%period)/period)*Math.PI*2);
   const dir={TOP:[0.60,-0.80],MID:[-0.90,0.90],ADC:[0.95,0.30],SUP:[-0.40,0.92],JGL:[0.24,-0.97]}[role]||[0,0];
   return [dir[0]*v*amp, dir[1]*v*amp];
@@ -34734,11 +34751,11 @@ function mxDrift(role,s){
 /* 마이크로 로테이션 — 7게임초마다 한 발씩 자리를 바꾼다
    (실제 프로 선수가 사거리 밖·부시 옆으로 계속 자리 잡는 움직임) */
 const MX_PATROL={
-  TOP:[[0.058,0.022],[-0.022,0.058],[0.014,-0.046],[-0.058,-0.020]],
-  MID:[[0.062,0.006],[-0.030,0.048],[0.020,-0.055],[-0.052,0.008]],
-  ADC:[[0.054,0.036],[-0.042,0.022],[0.006,-0.054],[-0.046,-0.030]],
-  SUP:[[0.044,0.052],[-0.050,0.030],[0.020,-0.052],[-0.040,-0.042]],
-  JGL:[[0.062,0.044],[-0.052,0.052],[0.032,-0.060],[-0.058,-0.034]],
+  TOP:[[0.026,0.010],[-0.010,0.026],[0.006,-0.021],[-0.026,-0.009]],
+  MID:[[0.028,0.003],[-0.013,0.021],[0.009,-0.024],[-0.023,0.004]],
+  ADC:[[0.024,0.016],[-0.019,0.010],[0.003,-0.024],[-0.020,-0.013]],
+  SUP:[[0.020,0.023],[-0.022,0.013],[0.009,-0.023],[-0.018,-0.019]],
+  JGL:[[0.028,0.020],[-0.023,0.023],[0.014,-0.026],[-0.026,-0.015]],
 };
 function mxPatrol(role,s){
   const leg=7;
@@ -39158,7 +39175,9 @@ function v32SmiteContest(kind,team,m){
 function v32SmiteText(side){
   const st=V32.smite[side];
   if(!st) return '강타 —';
-  return '⚡ 강타 '+st.n+'/2';
+  let d=600;
+  try{ d=v32SmiteDmg(side); }catch(e){ d=600; }
+  return '⚡ 강타 '+st.n+'/2 · '+d;
 }
 
 /* ---------- 점멸 (300초) ---------- */
@@ -39403,7 +39422,7 @@ function v32CareTick(sec){
 }
 
 /* ---------- 협곡의 전령 — 실제 유닛 소환 · 라인 전진 · 포탑 박치기 ---------- */
-const V32_HERALD_HP=2600;
+const V32_HERALD_HP=3200;
 function v32HeraldLane(side){
   /* 이기는 사이드 중 가장 앞선 라인에 전령을 쓴다 (없으면 미드) */
   try{
@@ -39423,7 +39442,7 @@ function v32HeraldSpawn(side,sec){
   const lane=v32HeraldLane(side);
   const front=(side==='me')?0.52:0.48;
   V32.herald={side:side, lane:lane, t:front, hp:V32_HERALD_HP, hpMax:V32_HERALD_HP,
-    at:sec, until:sec+240, x:0.5, y:0.5, smashAt:0, hits:0, killed:false};
+    at:sec, until:sec+240, x:0.5, y:0.5, smashAt:0, hits:0, killed:false, dmgAt:sec, smashN:0};
   try{
     const tag=side==='me'?myTeam().tag:T(M.oppId).tag;
     logEvent(side==='me'?'blue':'red','🕳 <b>협곡의 전령 소환</b> — '+tag+'이(가) '+({TOP:'탑',MID:'미드',BOT:'봇'}[lane]||'미드')+' 라인으로 전령을 풀어놓습니다!');
@@ -39458,31 +39477,84 @@ function v32HeraldTick(sec){
   if(!h) return 0;
   if(!M.running&&!M.over) return 0;
   if(s>=h.until){ v32HeraldKill('지속시간 만료'); return 0; }
-  /* 전진 */
+  /* 전진 — 살아있는 포탑을 지나칠 수는 없다 (박치기 동안은 멈춘다) */
   const dir=(h.side==='me')?1:-1;
   const spd=0.0042;
+  let tgtNow=null;
+  try{ tgtNow=(typeof mmSiegeTarget==='function')?mmSiegeTarget(h.side,h.lane):null; }catch(e){ tgtNow=null; }
   if(!(h.smashAt&&s<h.smashAt)) h.t=v32Clamp(h.t+dir*spd*(s-(h.lastT==null?s-1:h.lastT)),0.03,0.97);
   h.lastT=s;
+  if(tgtNow&&isFinite(tgtNow.param)){
+    if(h.side==='me'&&h.t>tgtNow.param-0.020) h.t=Math.max(0.03,tgtNow.param-0.020);
+    if(h.side!=='me'&&h.t<tgtNow.param+0.020) h.t=Math.min(0.97,tgtNow.param+0.020);
+  }
   const p=mmPathPoint(LANE_PATH[h.lane],h.t);
   h.x=p[0]; h.y=p[1];
-  /* 적 챔피언이 전령을 공격한다 */
+  /* 박치기 모션 — 포탑 쪽으로 들이받았다가 돌아온다 (포탑 앞에서만 굳어 서 있지 않게) */
+  if(h.smashFx!=null){
+    const age=s-h.smashFx;
+    if(age>=0&&age<1.15){
+      const ld=laneDir(h.lane,h.t);
+      const sg=(h.side==='me')?1:-1;
+      const k=(age<0.30)?(age/0.30):Math.max(0,1-(age-0.30)/0.85);
+      h.x=v32Clamp(h.x+ld[0]*sg*0.020*k,0.03,0.97);
+      h.y=v32Clamp(h.y+ld[1]*sg*0.020*k,0.03,0.97);
+      h.smashK=k;
+    }else h.smashK=0;
+  }
+  /* 수비 챔피언이 전령을 최우선 목표로 삼아 실제로 때린다 (V34.15)
+     · 전령이 밀고 들어오는 라인의 수비수·포탑 근처 수비수·반경 안의 아군이 달려든다
+     · 실제 챔피언 ad/ap 를 반영한 DPS 로 h.hp 가 줄어든다 (미니맵 체력바에 그대로 보인다) */
   const enemy=h.side==='me'?'opp':'me';
+  const hdt=(h.dmgAt==null)?0:v32Clamp(s-h.dmgAt,0,2);
+  h.dmgAt=s;
+  let defDps=0, defN=0;
   ROLES.forEach(function(r){
     const e=MM.units[enemy+'-'+r];
-    if(!e||!e.alive||e.tp) return;
+    if(!e||!e.alive||e.tp||e.recallT) return;
     const d=Math.hypot(e.x-h.x,e.y-h.y);
-    if(d>0.045) return;
-    h.hp-=h.hpMax*(0.012+Math.random()*0.010);
-    if(Math.random()<0.35) mmAddFx({type:'hit',x:h.x,y:h.y,col:'#ff9aa9',life:240});
+    const reach=(typeof mmUnitRanged==='function'&&mmUnitRanged(e))?0.075:0.058;
+    if(d>reach) return;
+    defN++;
+    let dps=30;
+    try{
+      const st=(typeof v32StatsFor==='function')?v32StatsFor(enemy,r):null;
+      if(st) dps=(Number(st.ad)||60)*0.22+(Number(st.ap)||0)*0.16+(Number(st.lv)||1)*1.1;
+    }catch(e2){}
+    defDps+=dps;
+    if((e.engageUntil||0)<s+1.2) e.engageUntil=s+1.6;
+    if(Math.random()<0.45) mmAddFx({type:'hit',x:h.x+(Math.random()-0.5)*0.012,y:h.y+(Math.random()-0.5)*0.012,col:'#ff9aa9',life:240});
   });
+  if(defDps>0&&hdt>0){
+    h.hp-=defDps*hdt;
+    if(Math.random()<0.25&&typeof MM!=='undefined'&&MM.proj&&MM.proj.length<40){
+      try{
+        const e0=MM.units[enemy+'-'+((h.lane==='BOT')?'ADC':h.lane)]||null;
+        const src=e0&&e0.alive?e0:null;
+        if(src) MM.proj.push({x:src.x,y:src.y,tx:h.x,ty:h.y,side:enemy,kind:'skill',spd:1.4,col:enemy==='me'?'#7cf7ff':'#ff9aa9',life:0,target:null,skill:true,dmg:0});
+      }catch(e2){}
+    }
+    if(defN>0&&(V32.heraldFocus||0)<=0){ V32.heraldFocus=1; V32.stats.heraldFocus=(V32.stats.heraldFocus||0)+1; }
+  }
   if(h.hp<=0){ V32.stats.heraldSwing++; v32HeraldKill('적 챔피언에게 처치'); return 0; }
-  /* 포탑 박치기 — 큰 피해로 포탑을 부순다 */
-  const tgt=(typeof mmSiegeTarget==='function')?mmSiegeTarget(h.side,h.lane):null;
-  if(tgt&&Math.abs(h.t-tgt.param)<0.028&&(!h.smashAt||s>=h.smashAt)){
+  /* 포탑 박치기 — 큰 피해로 포탑을 부순다. 박치기할 때마다 전령 체력이 크게 준다 (V34.15) */
+  const tgt=tgtNow;
+  if(tgt&&Math.abs(h.t-tgt.param)<0.040&&(!h.smashAt||s>=h.smashAt)){
     h.smashAt=s+3.2;
+    h.smashFx=s;
+    h.smashN=(h.smashN||0)+1;
+    /* 박치기 1회 = 현재 체력의 66% 감소 (처치 직전 수준까지만) */
+    const before=h.hp;
+    h.hp=Math.max(1,Math.round(h.hp*0.34));
+    V32.stats.heraldSmash=(V32.stats.heraldSmash||0)+1;
+    if(isFinite(h.hp)&&h.hp>=1&&before>1){
+      try{
+        logEvent('sys','💥 전령 박치기 — 포탑을 들이받고 전령 체력이 '+Math.round((h.hp/h.hpMax)*100)+'%로 줄어듭니다.');
+      }catch(e){}
+    }
     const keyLane=tgt.nx?'NEXUS':h.lane;
     const cur=(typeof v6TwHpAt==='function')?v6TwHpAt(enemy,keyLane,tgt.tier):100;
-    const hp=cur-38-Math.random()*10;
+    const hp=cur-58-Math.random()*14;
     mmAddFx({type:'burst',x:h.x,y:h.y,col:'#b98cff',life:900,label:'박치기'});
     mmAddFx({type:'ring',x:h.x,y:h.y,col:'#ffc94a',life:700,r:0.05});
     if(hp>0){ try{ v6TwSetHp(enemy,keyLane,tgt.tier,hp); }catch(e){} }
@@ -44898,6 +44970,739 @@ function v3414NoteSide(){
 function v3414Boot(){ /* 부팅 시 별도 작업 없음 — 진영은 경기 시작(mmReset)에서 정해진다 */ }
 
 /* ============================================================================
+   V34.15 — 둥지 몬스터 실체 전투 · 전령 체력 · 강타 600/900/1200 막타
+             · 라인 경로 이동(적 정글 직선 횡단 금지) · 한타 합류
+   ----------------------------------------------------------------------------
+   원장 제보 (2026-11-21)
+     ① "전령 박을 때마다 체력이 안 깎이네, 그리고 아무도 전령을 안 쳐"
+     ② "둥지 몬스터(드래곤·공허 유충·전령·바론·장로)도 실제 HP 와 미니맵 체력바를
+         달아서, 챔피언들이 실제로 때려서 깎고 강타(600/900/1200) 막타 타이밍에
+         뺏고 뺏기게"
+     ③ "제카랑 로머는 뭐 하는 거임?" — 한타 교전 중인데 미드 라이너가 적 정글에 고립
+
+   구조
+     · 라이브 미니맵 경기에서만 동작한다 (경기 스킵·즉시 결과는 engine.js 기존 로직).
+       engine.js 는 해당 분에 '몬스터 스폰'만 하고 판정을 미룬다(v3415SpawnPit).
+     · 실제 처치·획득은 몬스터 HP 가 0 이 되는 순간 v3415Kill → v3415Award 로 확정된다.
+       골드·경험치·스택·영혼·바론 버프·타임라인·전령 소환 연계는 engine.js 와 동일하게
+       한 번만 실행된다 (중복 발동 없음).
+     · 챔피언 DPS 는 v32StatsFor(레벨·아이템 반영 ad/ap) 로 계산하고,
+       몬스터는 근접 챔피언에게 반격한다 (바론·장로 리스크).
+     · 미니맵에는 아이콘 + 실제 HP 바 + 숫자가 뜨고, 전장의 안개에서는
+       시야가 닿지 않은 핏의 HP 감소가 보이지 않는다.
+   ========================================================================== */
+const V3415={
+  ver:'34.15',
+  live:[],                       /* 살아있는 둥지 몬스터 목록 */
+  stats:{spawn:0,smite:0,steal:0,kill:0,heraldSmash:0,heraldFocus:0},
+  lastLogAt:-99, routeAt:0, joinAt:0, at:0,
+};
+
+/* ---------- 공통 ---------- */
+function v3415Clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function v3415Sec(){
+  try{ return (typeof mmGameSec==='function')?mmGameSec():((M&&M.sec)||0); }catch(e){ return (M&&M.sec)||0; }
+}
+function v3415Min(){ return (M&&typeof M.minute==='number')?M.minute:Math.floor(v3415Sec()/60); }
+function v3415Tag(side){
+  try{ return side==='me'?myTeam().tag:T(M.oppId).tag; }catch(e){ return side==='me'?'우리 팀':'상대 팀'; }
+}
+function v3415Name(side,role){
+  try{ const l=lineupAt(side,role); return (l&&l.name)||ROLE_KR[role]||role; }catch(e){ return role; }
+}
+/* 라이브 미니맵 경기인가 — 경기 스킵/즉시 결과에서는 engine.js 기존 판정을 쓴다 */
+function v3415Live(){
+  try{ return !!(typeof MM!=='undefined'&&MM&&MM.started&&!(typeof MMFAST!=='undefined'&&MMFAST)); }catch(e){ return false; }
+}
+function v3415PitPt(kind){
+  try{
+    if(kind==='dragon'||kind==='elder') return PIT.dragon;
+    return PIT.baron;
+  }catch(e){ return [0.5,0.5]; }
+}
+function v3415PitKey(kind){ return (kind==='dragon'||kind==='elder')?'dragon':'baron'; }
+const V3415_KR={dragon:'드래곤',grub:'공허 유충',herald:'협곡의 전령',baron:'바론 내셔',elder:'장로 드래곤'};
+
+/* ---------- 몬스터 체력표 ----------
+   원장 승인 사양: 드래곤 초반 5,500 → 중후반 9,500 · 유충 1마리 1,800~2,200(3마리)
+   · 전령 7,500 · 바론 11,500~15,500 · 장로 12,500~16,500 */
+function v3415HpFor(kind,min){
+  const m=Number(min)||0;
+  if(kind==='grub') return 1800+Math.round(Math.random()*400);
+  if(kind==='dragon') return Math.round(5500+Math.max(0,m-5)*170);
+  if(kind==='herald') return 7500;
+  if(kind==='baron') return Math.round(Math.min(15500,11500+Math.max(0,m-20)*334));
+  if(kind==='elder'){
+    const base=Number((M&&M.elderAt)||m)||m;
+    return Math.round(Math.min(16500,12500+Math.max(0,m-base)*430));
+  }
+  return 5000;
+}
+
+/* ============================================================================
+   1. 스폰 — engine.js 가 부른다 (라이브일 때만 true 를 돌려주고 원래 판정을 건너뛴다)
+   ========================================================================== */
+function v3415SpawnPit(kind,m){
+  if(!v3415Live()) return false;
+  if(!M||M.over) return false;
+  const pit=v3415PitKey(kind);
+  /* 같은 핏에 남아 있는 몬스터는 정리한다 — 새 오브젝트가 나오면 이전 것은 사라진다 */
+  V3415.live.slice().forEach(function(mn){
+    if(mn.pit!==pit||!mn.alive) return;
+    v3415ResolveStale(mn,m);
+  });
+  const pt=v3415PitPt(kind);
+  const sec=v3415Sec();
+  const make=function(off){
+    const hp=v3415HpFor(kind,m);
+    return {kind:kind, pit:pit,
+      x:v3415Clamp(pt[0]+(off||0),0.03,0.97), y:v3415Clamp(pt[1]+(off?off*0.6:0),0.03,0.97),
+      hp:hp, hpMax:hp, born:sec, alive:true, dmg:{me:0,opp:0}, lastHit:null,
+      noHit:0, resetAt:0, size:(kind==='grub')?0.62:1};
+  };
+  if(kind==='grub'){
+    /* 공허 유충 3마리 — 하나씩 깎여 1/2/3스택 부분 처치 */
+    const offs=[[-0.016,-0.006],[0.014,-0.010],[0.000,0.016]];
+    for(let i=0;i<3;i++){ const mn=make(0); mn.x=v3415Clamp(pt[0]+offs[i][0],0.03,0.97); mn.y=v3415Clamp(pt[1]+offs[i][1],0.03,0.97); mn.idx=i; V3415.live.push(mn); }
+  }else{
+    const mn=make(0); mn.idx=0; V3415.live.push(mn);
+  }
+  V3415.stats.spawn++;
+  /* 게임플랜·매크로가 쓰는 오브젝트 창구 (engine.js 와 같은 모양) */
+  try{
+    const macro=(typeof macroDecision==='function')?macroDecision(kind,m):{me:'contest',opp:'contest'};
+    M.objMacro={kind:kind,at:m,me:macro.me,opp:macro.opp};
+  }catch(e){}
+  /* 스폰 로그 — 엔진이 하던 '등장' 안내를 여기서 한 번만 남긴다 */
+  try{
+    const line={
+      grub:'🪱 <b>공허 유충 등장</b> — 탑 강가 둥지에 3마리. 탑·미드·정글이 실제로 때려 깎고 마지막 한 마리를 강타로 가져갑니다.',
+      dragon:'🐉 <b>드래곤 등장</b> — 봇 강가 둥지. 체력 '+Math.round(v3415HpFor('dragon',m)).toLocaleString('en-US')+', 막타 강타 타이밍을 노립니다.',
+      herald:'🕳 <b>협곡의 전령 등장</b> — 14분 탑 강가 둥지. 처치하면 라인을 밀고 포탑에 박치기합니다.',
+      baron:'👁 <b>바론 내셔 등장</b> — 20분 탑 강가 둥지. 화력이 세고 반격이 아픕니다.',
+      elder:'🐲 <b>장로 드래곤 등장</b> — 처형 버프가 걸린 마지막 오브젝트.',
+    }[kind];
+    if(line) logEvent('sys',line);
+  }catch(e){}
+  try{ if(typeof mmAddFx==='function'){ const p=v3415PitPt(kind); mmAddFx({type:'ring',x:p[0],y:p[1],col:'#ffc94a',life:1100,r:0.06}); } }catch(e){}
+  return true;
+}
+/* 아무도 못 잡고 다음 오브젝트가 나올 때 — 데미지를 가장 많이 넣은 팀에 귀속, 없으면 소멸 */
+function v3415ResolveStale(mn,m){
+  if(!mn||!mn.alive) return;
+  const a=mn.dmg.me||0, b=mn.dmg.opp||0;
+  const ratio=mn.hp/mn.hpMax;
+  if((a+b)>mn.hpMax*0.55||ratio<=0.55){
+    const team=a>=b?'me':'opp';
+    v3415Kill(mn,team,'stale');
+    return;
+  }
+  mn.alive=false;
+  try{ logEvent('sys','⌛ '+V3415_KR[mn.kind]+'이(가) 핏에서 리셋되었습니다 — 아무도 끝까지 때리지 못했습니다.'); }catch(e){}
+}
+
+/* ============================================================================
+   2. 몬스터 전투 — 챔피언 딜 · 반격 · 강타 막타/스틸
+   ========================================================================== */
+/* 챔피언이 오브젝트에 넣는 게임초당 피해 (레벨·아이템 반영 ad/ap) */
+function v3415ChampDps(side,role){
+  let st=null;
+  try{ st=(typeof v32StatsFor==='function')?v32StatsFor(side,role):null; }catch(e){ st=null; }
+  const ad=st?Number(st.ad)||60:60;
+  const ap=st?Number(st.ap)||0:0;
+  const lv=st?Number(st.lv)||1:1;
+  let dps=ad*0.22+ap*0.16+lv*1.1;
+  if(role==='JGL') dps*=1.16;                    /* 정글 아이템·강타 특화 */
+  return Math.max(14,dps);
+}
+/* 몬스터가 근접 챔피언에게 주는 게임초당 최대체력 비율 */
+const V3415_RET={grub:0.004,dragon:0.0095,herald:0.013,baron:0.019,elder:0.023};
+function v3415SmiteOf(side){
+  try{ return (typeof v32SmiteDmg==='function')?v32SmiteDmg(side):600; }catch(e){ return 600; }
+}
+function v3415SmiteReady(side){
+  try{ return !!(V32&&V32.smite&&V32.smite[side]&&V32.smite[side].n>0); }catch(e){ return false; }
+}
+function v3415SmiteUse(side){
+  try{
+    const s=v3415Sec();
+    const st=V32.smite[side];
+    if(!st||st.n<=0) return false;
+    st.n--; st.at=s;
+    return true;
+  }catch(e){ return false; }
+}
+/* 반응 점수 — OVR·멘탈·시야·거리 (강타 싸움 승률) */
+function v3415SmiteReact(side,role,mn){
+  let sc=0.35+Math.random()*0.45;
+  try{
+    const l=lineupAt(side,role); const p=l&&S&&S.players?S.players[l.name]:null;
+    if(p){
+      const ovr=(typeof rawOverall==='function')?rawOverall(p):70;
+      const men=(p.stats&&p.stats.mental)||70;
+      sc+=((ovr-70)/30)*0.16+((men-70)/30)*0.10;
+    }
+  }catch(e){}
+  try{ const u=MM.units[side+'-'+role]; if(u){ const d=Math.hypot(u.x-mn.x,u.y-mn.y); sc+=(d<0.035?0.10:d<0.055?0.03:-0.08); } }catch(e){}
+  try{ if(typeof v33VisibleAt==='function'&&V33&&V33.fog&&V33.fog!=='all'){
+    if(V33.fog===side) sc+=0.06; else sc-=0.04;
+  } }catch(e){}
+  return v3415Clamp(sc,0.05,0.95);
+}
+/* 강타 판정 — HP 가 강타 데미지 이하로 내려오면 정글러가 즉시 쓴다 */
+function v3415SmiteCheck(mn,sec){
+  if(!mn||!mn.alive) return false;
+  const cands=[];
+  ['me','opp'].forEach(function(side){
+    const role='JGL';
+    const u=MM.units[side+'-'+role];
+    if(!u||!u.alive||u.tp) return;
+    if(!v3415SmiteReady(side)) return;
+    const d=Math.hypot(u.x-mn.x,u.y-mn.y);
+    if(d>0.075) return;
+    const dmg=v3415SmiteOf(side);
+    if(mn.hp>dmg) return;
+    cands.push({side:side,role:role,d:d,dmg:dmg,react:v3415SmiteReact(side,role,mn)});
+  });
+  if(!cands.length) return false;
+  cands.sort(function(a,b){ return b.react-a.react; });
+  const win=cands[0];
+  if(cands.length>1){
+    const lose=cands[1];
+    /* 진 쪽도 강타를 쓸 수 있다 — 확률적으로 헛강타(스택 소모)만 */
+    if(Math.random()<0.45){ v3415SmiteUse(lose.side); }
+    V3415.stats.steal++;
+    try{
+      logEvent(win.side==='me'?'blue':'red','⚡ <b>강타 싸움 승리!</b> '+v3415Tag(win.side)+' '+v3415Name(win.side,'JGL')+
+        '가 '+win.dmg+' 강타로 '+V3415_KR[mn.kind]+' 막타를 가져갑니다 — '+v3415Tag(lose.side)+' 정글러가 한 발 늦었습니다.');
+    }catch(e){}
+  }else{
+    try{
+      logEvent(win.side==='me'?'blue':'red','⚡ <b>강타 막타</b> — '+v3415Name(win.side,'JGL')+'가 '+win.dmg+' 강타로 '+
+        V3415_KR[mn.kind]+'을(를) 확정합니다.');
+    }catch(e){}
+  }
+  v3415SmiteUse(win.side);
+  V3415.stats.smite++;
+  try{ if(typeof V32!=='undefined'&&V32.stats){ V32.stats.smiteSecure++; } }catch(e){}
+  mn.hp=0;
+  mn.lastHit=win.side;
+  v3415Kill(mn,win.side,'smite',win.dmg);
+  return true;
+}
+/* 프레임마다 도는 몬스터 전투 */
+function v3415Tick(sec,gameDt){
+  if(!v3415Live()) return 0;
+  if(!M||M.over) return 0;
+  if(!V3415.live.length) return 0;
+  const s=(sec==null)?v3415Sec():Number(sec)||0;
+  const dt=v3415Clamp(Number(gameDt)||0,0,1.4);
+  let n=0;
+  V3415.live.slice().forEach(function(mn){
+    if(!mn||!mn.alive) return;
+    /* 공격자 집계 */
+    const atk={me:[],opp:[]};
+    ['me','opp'].forEach(function(side){
+      ROLES.forEach(function(role){
+        const u=MM.units[side+'-'+role];
+        if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+        const d=Math.hypot(u.x-mn.x,u.y-mn.y);
+        const reach=(typeof mmUnitRanged==='function'&&mmUnitRanged(u))?0.070:0.050;
+        if(d>reach) return;
+        atk[side].push({role:role,u:u,d:d});
+      });
+    });
+    const nMe=atk.me.length, nOp=atk.opp.length;
+    if(!nMe&&!nOp){
+      /* 아무도 없으면 6게임초 뒤 풀 회복 (리셋) */
+      mn.noHit=(mn.noHit||0)+dt;
+      if(mn.noHit>=6&&mn.hp<mn.hpMax){
+        mn.hp=Math.min(mn.hpMax,mn.hp+mn.hpMax*0.16*dt);
+        if(mn.hp>=mn.hpMax-1){ mn.hp=mn.hpMax; mn.dmg.me=0; mn.dmg.opp=0; }
+      }
+      return;
+    }
+    mn.noHit=0;
+    /* 적 챔피언이 붙어 있으면 오브젝트 딜이 줄어든다 (서로 먼저 친다) */
+    const clash=(nMe>0&&nOp>0);
+    let dps={me:0,opp:0};
+    ['me','opp'].forEach(function(side){
+      const other=side==='me'?'opp':'me';
+      atk[side].forEach(function(a){
+        let raw=v3415ChampDps(side,a.role);
+        /* 교전 중에는 절반은 적 챔피언에게 쓴다 */
+        if(atk[other].length){
+          let foeNear=0;
+          atk[other].forEach(function(b){ if(Math.hypot(a.u.x-b.u.x,a.u.y-b.u.y)<0.055) foeNear++; });
+          if(foeNear) raw*=0.45;
+        }
+        dps[side]+=raw;
+      });
+    });
+    const total=dps.me+dps.opp;
+    if(dt>0&&total>0){
+      mn.hp-=total*dt;
+      if(dps.me) mn.dmg.me=(mn.dmg.me||0)+dps.me*dt;
+      if(dps.opp) mn.dmg.opp=(mn.dmg.opp||0)+dps.opp*dt;
+      /* 때리는 소리·타격 이펙트 (가끔) */
+      if(Math.random()<0.30){
+        try{ mmAddFx({type:'hit',x:mn.x+(Math.random()-0.5)*0.02,y:mn.y+(Math.random()-0.5)*0.02,
+          col:dps.me>=dps.opp?'#7cf7ff':'#ff9aa9',life:220}); }catch(e){}
+      }
+    }
+    /* 반격 — 가장 가까운 챔피언이 크게, 주변은 조금 (체력 18% 아래로는 떨어뜨리지 않는다) */
+    const ret=V3415_RET[mn.kind]||0.006;
+    ['me','opp'].forEach(function(side){
+      if(!atk[side].length) return;
+      atk[side].sort(function(a,b){ return a.d-b.d; });
+      atk[side].forEach(function(a,idx){
+        const hp=(a.u.hp||0)/(a.u.hpMax||100);
+        if(hp<=0.18) return;
+        const mul=(idx===0?1:0.32)*(mn.kind==='baron'||mn.kind==='elder'?1.15:1);
+        const drop=ret*mul*100*dt;
+        a.u.hp=Math.max((a.u.hpMax||100)*0.18,(a.u.hp||0)-drop);
+        a.u.lastHitAt=(typeof performance!=='undefined')?performance.now():Date.now();
+      });
+    });
+    /* 몬스터 응시 방향 — 핏 안에서 조금씩 흔들린다 */
+    if(Math.random()<0.05){
+      mn.wx=(Math.random()-0.5)*0.012; mn.wy=(Math.random()-0.5)*0.012;
+    }
+    v3415SmiteCheck(mn,s);
+    if(mn.hp<=0){
+      /* 강타 없이 딜로 처치 — 마지막으로 많이 때린 팀 */
+      const team=(mn.dmg.me||0)>=(mn.dmg.opp||0)?'me':'opp';
+      v3415Kill(mn,team,'dps');
+    }
+    n++;
+  });
+  return n;
+}
+/* 처치 확정 */
+function v3415Kill(mn,team,how,smiteDmg){
+  if(!mn||!mn.alive) return;
+  mn.alive=false; mn.killedAt=v3415Sec();
+  V3415.stats.kill++;
+  const s=v3415Sec();
+  try{
+    mmAddFx({type:'burst',x:mn.x,y:mn.y,col:team==='me'?'#7cf7ff':'#ff9aa9',life:1100,label:V3415_KR[mn.kind]});
+    mmAddFx({type:'ring',x:mn.x,y:mn.y,col:'#ffc94a',life:900,r:0.06});
+  }catch(e){}
+  if(how==='stale'){
+    try{ logEvent('sys','⌛ '+V3415_KR[mn.kind]+'이(가) 리셋 직전 '+v3415Tag(team)+' 소유로 정리됩니다.'); }catch(e){}
+  }else if(how==='dps'&&s-(V3415.lastLogAt||-99)>=0){
+    V3415.lastLogAt=s;
+    try{
+      logEvent(team==='me'?'blue':'red','🗡 <b>'+V3415_KR[mn.kind]+' 처치</b> — '+v3415Tag(team)+'이(가) 강타 없이 화력으로 마무리했습니다.');
+    }catch(e){}
+  }
+  v3415Award(mn.kind,team,v3415Min(),mn);
+  /* 목록에서 제거 */
+  V3415.live=V3415.live.filter(function(x){ return x!==mn; });
+}
+
+/* ============================================================================
+   3. 획득 판정 — engine.js 의 보상과 동일한 효과를 한 번만 실행
+   ========================================================================== */
+function v3415SideIdx(side){ return side==='me'?0:1; }
+function v3415Award(kind,team,m,mn){
+  if(!M||!team) return;
+  const idx=v3415SideIdx(team);
+  const meta=(S&&S.meta&&S.meta.obj)?S.meta.obj:{dragon:1,baron:1,grub:1,tower:1};
+  const tag=v3415Tag(team);
+  const nameOf=function(side){ return side==='me'?M.myName:M.oppName; };
+  try{ if(typeof bountyObjective==='function') bountyObjective(team,kind,m); }catch(e){}
+  if(kind==='grub'){
+    /* 유충 1마리 = 1스택 (engine 은 3스택 한 번에 줬다 → 총량은 같게) */
+    M.grubs[idx]=(M.grubs[idx]||0)+1;
+    try{ addGold(team,Math.round(190*(meta.grub||1)/3)); }catch(e){}
+    try{ ROLES.forEach(function(r){ lvAddXpEv(team,r,5); }); }catch(e){}
+    try{
+      tlEmit({kind:'obj', obj:'grub', team:team,
+        label:'공허 유충 '+(M.grubs[idx]||0)+'스택 — <em>'+esc(tag)+'</em>',
+        lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 🪱 공허 유충 처치 — <b>'+nameOf(team)+'</b> ('+(M.grubs[idx]||0)+'스택)'}],
+        mmKind:'obj', mm:{obj:'grub',team:team}});
+    }catch(e){}
+    try{ if(typeof v6NumComment==='function'&&(M.grubs[idx]||0)%3===0) v6NumComment('grub',team); }catch(e){}
+    return;
+  }
+  if(kind==='dragon'){
+    const n=(M.dragons[idx]||0)+1;
+    M.dragons[idx]=n;
+    const elems=(typeof DRAKE_ELEMENTS!=='undefined')?DRAKE_ELEMENTS:[{k:'infernal'}];
+    const elem=(n>=4&&M.soulType[team])?M.soulType[team]:pickOf(elems).k;
+    M.dragonElems[team].push(elem);
+    if(n===3&&!M.soulType[team]) M.soulType[team]=elem;
+    try{ addGold(team,380*(meta.dragon||1)); }catch(e){}
+    try{ ROLES.forEach(function(r){ lvAddXpEv(team,r,18); }); }catch(e){}
+    M._tlDragon={team:team,elem:elem,n:n};
+    const lines=[];
+    if(n>=4&&!M.soulGranted[team]){
+      M.soulGranted[team]=true; M.soulType[team]=M.soulType[team]||elem; M.elderAt=m+6;
+      lines.push({kind:team==='me'?'blue':'red', text:m+'분 · 💠 <b>드래곤 영혼 획득!</b> '+nameOf(team)+'이(가) '+drakeName(M.soulType[team])+'의 영혼을 흡수했습니다'});
+      lines.push({kind:'sys', text:'🎤 전용준: 드래곤 영혼! '+drakeName(M.soulType[team])+' 영혼이 '+nameOf(team)+' 손에 들어옵니다!'});
+    }else if(n===3&&M.soulType[team]&&!M.soulGranted[team]){
+      lines.push({kind:team==='me'?'blue':'red', text:m+'분 · <b>3용</b> — '+nameOf(team)+'의 드래곤 영혼 예고: <b>'+drakeName(elem)+'의 영혼</b>'});
+    }else{
+      lines.push({kind:team==='me'?'blue':'red', text:m+'분 · '+drakeIcon(elem)+' '+drakeName(elem)+' 드래곤 처치 — <b>'+nameOf(team)+'</b> ('+n+'스택)'});
+    }
+    const label=(n>=4&&M.soulGranted[team])?'드래곤 영혼':(drakeName(elem)+' 드래곤');
+    try{ tlEmit({kind:'obj', obj:'dragon', team:team, elem:elem, lines:lines,
+      label:label+' — <em>'+esc(tag)+'</em>', mmKind:'obj', mm:{obj:'dragon',team:team,elem:elem}}); }
+    catch(e){ lines.forEach(function(l){ try{ logEvent(l.kind,l.text); }catch(e2){} }); }
+    return;
+  }
+  if(kind==='elder'){
+    M.elder[team]=true; M.elderUntil[team]=m+3;
+    M.elderCount[idx]=(M.elderCount[idx]||0)+1;
+    try{ addGold(team,600); }catch(e){}
+    try{
+      tlEmit({kind:'obj', obj:'elder', team:team, label:'장로 드래곤 — <em>'+esc(tag)+'</em> 처형 버프',
+        lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 🐲 <b>장로 드래곤 처치!</b> '+nameOf(team)+'이(가) 처형 버프를 얻습니다 (3분)'}],
+        mmKind:'obj', mm:{obj:'elder',team:team}});
+    }catch(e){}
+    return;
+  }
+  if(kind==='herald'){
+    M.heralds[idx]=(M.heralds[idx]||0)+1;
+    try{ addGold(team,450); }catch(e){}
+    try{
+      tlEmit({kind:'obj', obj:'herald', team:team, label:'협곡의 전령 — <em>'+esc(tag)+'</em> 확보',
+        lines:[{kind:team==='me'?'blue':'red', text:m+'분 · 🕯 <b>협곡의 전령 처치</b> — '+nameOf(team)+'이(가) 전령을 확보해 타워 압박에 나섭니다.'}],
+        mmKind:'obj', mm:{obj:'herald',team:team}});
+    }catch(e){}
+    try{ if(typeof v6NumComment==='function') v6NumComment('herald',team); }catch(e){}
+    return;
+  }
+  if(kind==='baron'){
+    M.barons[idx]=(M.barons[idx]||0)+1;
+    try{ addGold(team,1200*(meta.baron||1)); }catch(e){}
+    try{ ROLES.forEach(function(r){ lvAddXpEv(team,r,22); }); }catch(e){}
+    try{ if(typeof v5BaronTaken==='function') v5BaronTaken(team,m); }catch(e){}
+    try{
+      tlEmit({kind:'obj', obj:'baron', team:team, label:'바론 — <em>'+esc(tag)+'</em> 확보',
+        lines:[{kind:team==='me'?'blue':'red', text:m+'분 · <b>바론 처치!</b> '+nameOf(team)+'이(가) 바론 버프로 공성을 시작합니다 — 3분간 2차·3차 타워 압박'}],
+        mmKind:'obj', mm:{obj:'baron',team:team}});
+    }catch(e){}
+    try{ if(typeof v6NumComment==='function') v6NumComment('baron',team); }catch(e){}
+    return;
+  }
+}
+
+/* ============================================================================
+   4. 미니맵 표시 — 아이콘 + 실제 HP 바 + 숫자 (전장의 안개 존중)
+   ========================================================================== */
+function v3415PitVisible(obs,x,y){
+  if(!M) return true;
+  try{ if(typeof V33==='undefined'||!V33||V33.fog==='all') return true; }catch(e){ return true; }
+  try{
+    if(typeof v33VisibleAt!=='function') return true;
+    return v33VisibleAt(obs,x,y)!==false;
+  }catch(e){ return true; }
+}
+function v3415Draw(ctx,w,h,sec){
+  if(!M||!ctx) return;
+  const obs=(function(){ try{ return (typeof V33!=='undefined'&&V33&&V33.fog&&V33.fog!=='all')?V33.fog:null; }catch(e){ return null; } })();
+  V3415.live.forEach(function(mn){
+    if(!mn||!mn.alive) return;
+    const pt=v3415PitPt(mn.kind);
+    let x=pt[0];
+    let y=pt[1];
+    if(mn.kind==='grub'){
+      /* 유충 3마리는 핏 안에서 조금씩 떨어져 그린다 */
+      const ang=(-Math.PI/2)+mn.idx*(Math.PI*2/3);
+      x=pt[0]+Math.cos(ang)*0.020; y=pt[1]+Math.sin(ang)*0.016;
+    }
+    mn.dx=x; mn.dy=y;
+    const known=v3415PitVisible(obs,x,y);
+    const r=Math.max(7,w*0.026)*(mn.kind==='grub'?0.72:1);
+    ctx.save();
+    if(!known){
+      /* 시야 밖 — 아이콘만 흐리게, 체력 정보 없음 */
+      ctx.globalAlpha=0.22;
+      ctx.beginPath(); ctx.arc(x*w,y*h,r,0,7);
+      ctx.fillStyle='rgba(30,36,48,.9)'; ctx.fill();
+      ctx.strokeStyle='rgba(150,160,180,.6)'; ctx.lineWidth=1; ctx.stroke();
+      ctx.restore(); return;
+    }
+    const col=(mn.kind==='baron')?'#b98cff':(mn.kind==='elder')?'#ff5c9a':(mn.kind==='grub')?'#ffc94a':(mn.kind==='herald')?'#ffd98f':'#ff8a5c';
+    const glow=ctx.createRadialGradient(x*w,y*h,r*0.5,x*w,y*h,r*2.2);
+    glow.addColorStop(0,col+'55'); glow.addColorStop(1,col+'00');
+    ctx.fillStyle=glow; ctx.beginPath(); ctx.arc(x*w,y*h,r*2.2,0,7); ctx.fill();
+    ctx.beginPath(); ctx.arc(x*w,y*h,r,0,7);
+    ctx.fillStyle='rgba(14,18,28,.94)'; ctx.fill();
+    ctx.strokeStyle=col; ctx.lineWidth=1.8; ctx.stroke();
+    const icon={dragon:'🐉',grub:'🪱',herald:'🕳',baron:'👁',elder:'🐲'}[mn.kind]||'◆';
+    ctx.font=`${Math.round(r*1.25)}px sans-serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.globalAlpha=0.95; ctx.fillStyle='#fff'; ctx.fillText(icon,x*w,y*h); ctx.globalAlpha=1;
+    /* HP 바 + 숫자 */
+    const hpr=v3415Clamp((mn.hp||0)/(mn.hpMax||1),0,1);
+    const bw=Math.max(24,r*3.0), bh=Math.max(3.4,r*0.42);
+    const by=y*h-r-bh-3.2;
+    if(typeof mmRoundRect==='function'){ mmRoundRect(ctx,x*w-bw/2,by,bw,bh,1.4); ctx.fillStyle='rgba(0,0,0,.8)'; ctx.fill(); }
+    if(hpr>0){
+      if(typeof mmRoundRect==='function') mmRoundRect(ctx,x*w-bw/2+0.6,by+0.6,Math.max(0.6,(bw-1.2)*hpr),bh-1.2,1);
+      ctx.fillStyle=hpr>0.55?'#3ddc97':hpr>0.28?'#ffc94a':'#ff4d6d'; ctx.fill();
+    }
+    ctx.strokeStyle='rgba(255,255,255,.32)'; ctx.lineWidth=.6;
+    if(typeof mmRoundRect==='function'){ mmRoundRect(ctx,x*w-bw/2,by,bw,bh,1.4); ctx.stroke(); }
+    /* 남은 체력 숫자 — 실제 HP */
+    const num=Math.max(0,Math.round(mn.hp)).toLocaleString('en-US');
+    ctx.font=`900 ${Math.max(6,Math.round(w*0.016))}px Pretendard,sans-serif`;
+    ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillStyle=mn.hp<=(mn.smiteLo||0)?'#ffd98f':'#e8eefc';
+    ctx.fillText(num,x*w,by-1.4);
+    /* 강타 사거리 표시 — HP 가 어느 한쪽 강타 데미지 이하로 내려오면 경고 링 */
+    let lo=9e9;
+    ['me','opp'].forEach(function(side){ if(v3415SmiteReady(side)) lo=Math.min(lo,v3415SmiteOf(side)); });
+    if(lo<9e9&&mn.hp<=lo){
+      ctx.strokeStyle='rgba(255,201,74,.95)'; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.arc(x*w,y*h,r*1.9,0,7); ctx.stroke();
+      ctx.fillStyle='#ffe9a8'; ctx.font=`900 ${Math.max(6,Math.round(w*0.017))}px Pretendard,sans-serif`;
+      ctx.textAlign='center'; ctx.textBaseline='top';
+      ctx.fillText('⚡강타',x*w,y*h+r*1.95);
+    }
+    ctx.restore();
+  });
+}
+
+/* ============================================================================
+   5. 한타 합류 — 교전이 열리면 미드 라이너가 적 정글에 혼자 남지 않는다
+   ========================================================================== */
+/* 지금 열린 교전 지점 (mmd 비트 · 보류 킬 · 교전 잠금) */
+function v3415FightPoint(sec){
+  const s=Number(sec)||0;
+  try{
+    if(typeof mmdActiveBeats==='function'){
+      const bs=mmdActiveBeats(s)||[];
+      for(let i=0;i<bs.length;i++){
+        const b=bs[i];
+        if(!b||b.kind!=='fight') continue;
+        if(s>=b.at-(b.pre||10)&&s<=b.at+3) return {x:b.x,y:b.y,at:b.at};
+      }
+    }
+  }catch(e){}
+  /* 보류 킬 — 지도에서 만나기 전 교전 */
+  try{
+    if(M&&M.killQ&&M.killQ.length){
+      const q=M.killQ[0];
+      const p=q&&q.pt?q.pt:null;
+      if(p&&isFinite(p[0])&&isFinite(p[1])) return {x:p[0],y:p[1],at:s};
+    }
+  }catch(e){}
+  return null;
+}
+const V3415_NOJOIN={recall:1,recallWalk:1,backdoor:1};
+function v3415FightJoin(sec){
+  if(!M||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return 0;
+  const s=(sec==null)?v3415Sec():Number(sec)||0;
+  if(s<240) return 0;
+  const fp=v3415FightPoint(s);
+  if(!fp) return 0;
+  let n=0;
+  ['me','opp'].forEach(function(side){
+    ROLES.forEach(function(role){
+      const k=side+'-'+role, u=MM.units[k];
+      if(!u||!u.alive||u.tp) return;
+      if(V3415_NOJOIN[u.mode]) return;
+      if(u.recallT||u.recallSpot) return;
+      const d=Math.hypot(u.x-fp.x,u.y-fp.y);
+      if(d<=0.055) { if(u.mode!=='fight'){ u.mode='fight'; } return; }
+      /* 팬 오프셋 — 같은 점에 겹치지 않게 역할별로 벌린다 */
+      const fan={TOP:[-0.022,0.014],MID:[0.016,-0.010],ADC:[0.026,0.020],SUP:[0.034,-0.004],JGL:[0,0.020]}[role]||[0,0];
+      const sgn=(side==='me')?1:-1;
+      /* 이미 붙어 있는 교전 상대가 있으면 그 자리를 지킨다 */
+      if((u.engageUntil||0)>s) return;
+      MM.tgt[k]={x:v3415Clamp(fp.x+fan[0]*sgn,0.03,0.97),y:v3415Clamp(fp.y+fan[1]*sgn,0.03,0.97)};
+      u.mode='fight';
+      u._joinAt=s;
+      n++;
+    });
+  });
+  V3415.stats.join=(V3415.stats.join||0)+n;
+  return n;
+}
+
+/* ============================================================================
+   6. 안전 경로 — 사이드로 갈 때 적 정글을 직선 횡단하지 않는다
+   ========================================================================== */
+/* 이 지점이 어느 라인에 가까운가 */
+function v3415NearLane(x,y,maxD){
+  let best=null,bd=maxD;
+  ['TOP','MID','BOT'].forEach(function(L){
+    const p=mmPointFront(L,x,y);
+    if(p.dist<bd){ bd=p.dist; best={lane:L,dist:p.dist,param:p.param,front:p.front}; }
+  });
+  return best;
+}
+/* 진영 기준 '우리 쪽' 라인 진입점 — front(0=내 본진, 1=적 본진) 0.56 이하 */
+function v3415LaneEntry(lane,x,y){
+  let best=null,bd=9;
+  const maxF=0.56;
+  for(let i=0;i<=44;i++){
+    const t=i/44;
+    const f=(typeof mmFrontFromParam==='function')?mmFrontFromParam(lane,t):t;
+    if(f>maxF) continue;
+    const p=mmPathPoint(LANE_PATH[lane],t);
+    const d=Math.hypot(p[0]-x,p[1]-y);
+    if(d<bd){ bd=d; best=[p[0],p[1]]; }
+  }
+  return best;
+}
+const V3415_DEEP={backdoor:1,dive:1,invade:1,gank:1,obj:1,fight:1,siege:1,split:1};
+const V3415_ROUTE_SKIP={recall:1,recallWalk:1,recallSpot:1};
+function v3415RouteGuard(sec){
+  if(!M||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return 0;
+  const s=(sec==null)?v3415Sec():Number(sec)||0;
+  if(s<200) return 0;
+  let n=0;
+  ['me','opp'].forEach(function(side){
+    ROLES.forEach(function(role){
+      const k=side+'-'+role, u=MM.units[k];
+      if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+      if(V3415_ROUTE_SKIP[u.mode]) return;
+      const t=MM.tgt[k]; if(!t) return;
+      /* 목표가 라인 위 지점일 때만 경로를 만든다 */
+      const tl=v3415NearLane(t.x,t.y,0.095);
+      if(!tl) return;
+      const cl=mmPointFront(tl.lane,u.x,u.y);
+      if(cl.dist<=0.055) return;                     /* 이미 그 라인 위 — 그대로 */
+      const dpc=Math.hypot(t.x-u.x,t.y-u.y);
+      if(dpc<0.10) return;                           /* 가까우면 굳이 돌아가지 않는다 */
+      const entry=v3415LaneEntry(tl.lane,u.x,u.y);
+      if(!entry) return;
+      const de=Math.hypot(entry[0]-u.x,entry[1]-u.y);
+      if(de<0.035) return;                           /* 진입점에 거의 도착 — 다음 프레임에 라인을 탄다 */
+      /* 진입점이 목표보다 뒤쪽(내 진영)일 때만 경유한다 */
+      const ef=(typeof mmPointFront==='function')?mmPointFront(tl.lane,entry[0],entry[1]).front:0.5;
+      if(ef>tl.front+0.02) return;
+      MM.tgt[k]={x:entry[0],y:entry[1]};
+      if(u.mode!=='rotate') u.mode='rotate';
+      u._routeTo={x:t.x,y:t.y};
+      n++;
+    });
+  });
+  /* 라인 타입 모드의 목표가 라인에서 너무 멀리 떨어져 있으면 라인으로 되돌린다
+     (드리프트·패트롤 오프셋이 유닛을 정글 한복판으로 밀어내는 것 방지) */
+  const laneModes={lane:1,split:1,siege:1,rotate:1,defend:1};
+  ['me','opp'].forEach(function(side){
+    ROLES.forEach(function(role){
+      const k=side+'-'+role, u=MM.units[k];
+      if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+      if(!laneModes[u.mode]) return;
+      const t=MM.tgt[k]; if(!t) return;
+      const nl=v3415NearLane(t.x,t.y,0.20);
+      if(!nl) return;
+      if(nl.dist<=0.045) return;
+      const p=mmPathPoint(LANE_PATH[nl.lane],nl.param);
+      const dir=laneDir(nl.lane,nl.param);
+      const off=0.028;
+      MM.tgt[k]={x:v3415Clamp(p[0]-dir[1]*off,0.03,0.97),y:v3415Clamp(p[1]+dir[0]*off,0.03,0.97)};
+    });
+  });
+  return n;
+}
+
+/* ============================================================================
+   7. 핏 대치 — 몬스터가 살아 있으면 배정 인원이 실제로 핏을 친다
+   ========================================================================== */
+function v3415PitDrive(sec){
+  if(!M||!V3415.live.length) return 0;
+  const s=(sec==null)?v3415Sec():Number(sec)||0;
+  let n=0;
+  V3415.live.forEach(function(mn){
+    if(!mn||!mn.alive) return;
+    /* 오래 방치된(2분 이상, 체력 거의 그대로) 몬스터에는 인원을 묶지 않는다 */
+    if(s-(mn.born||0)>120&&mn.hp>mn.hpMax*0.80) return;
+    const kind=mn.kind;
+    const roles=(typeof mmdObjRoles==='function')?mmdObjRoles(kind,s):['TOP','JGL','MID','ADC','SUP'];
+    ['me','opp'].forEach(function(side){
+      const enemy=side==='me'?'opp':'me';
+      /* 교환(trade) 중인 팀은 오지 않는다 */
+      const macro=(M.objMacro&&Math.abs((M.objMacro.at||0)-v3415Min())<=1)?M.objMacro:null;
+      if(macro&&macro[side]==='trade'&&macro.kind===kind) return;
+      /* 상대가 이미 잡고 있는데 수적 열세면 들어가지 않는다 */
+      let mine=0, theirs=0;
+      roles.forEach(function(r){
+        const a=MM.units[side+'-'+r]; const b=MM.units[enemy+'-'+r];
+        if(a&&a.alive&&Math.hypot(a.x-mn.x,a.y-mn.y)<0.075) mine++;
+        if(b&&b.alive&&Math.hypot(b.x-mn.x,b.y-mn.y)<0.075) theirs++;
+      });
+      const near=(M.objMacro&&macro&&macro[side]==='contest');
+      if(theirs>=2&&mine===0&&!near&&Math.random()<0.98) return;
+      roles.forEach(function(r){
+        const k=side+'-'+r, u=MM.units[k];
+        if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+        if(V3415_NOJOIN[u.mode]) return;
+        if((u.engageUntil||0)>s) return;
+        const d=Math.hypot(u.x-mn.x,u.y-mn.y);
+        if(d<=0.045) return;
+        /* 핏 입구 → 핏으로 접근 (원거리는 조금 뒤에서) */
+        const fan={JGL:[0.010,0.008],TOP:[-0.012,0.010],MID:[0.014,-0.008],ADC:[0.022,0.014],SUP:[0.028,-0.004]}[r]||[0,0];
+        const ranged=(typeof mmUnitRanged==='function'&&mmUnitRanged(u));
+        const mul=ranged?1.6:1;
+        const x=v3415Clamp(mn.x+fan[0]*mul,0.03,0.97), y=v3415Clamp(mn.y+fan[1]*mul,0.03,0.97);
+        MM.tgt[k]={x:x,y:y};
+        u.mode='obj';
+        n++;
+      });
+    });
+  });
+  return n;
+}
+
+/* ============================================================================
+   7b. 전령 수비 — 소환된 전령이 라인을 밀면 그 라인 수비수가 전령으로 달려든다
+   (v32HeraldTick 이 거리 안의 수비수에게 실제 피해를 준다)
+   ========================================================================== */
+function v3415HeraldDefend(sec){
+  if(!M||typeof MM==='undefined'||!MM||!MM.units||!MM.tgt) return 0;
+  const h=(typeof V32!=='undefined')?V32.herald:null;
+  if(!h) return 0;
+  const s=(sec==null)?v3415Sec():Number(sec)||0;
+  const enemy=(h.side==='me')?'opp':'me';
+  let n=0;
+  ROLES.forEach(function(role){
+    const k=enemy+'-'+role, u=MM.units[k];
+    if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+    const d=Math.hypot(u.x-h.x,u.y-h.y);
+    /* 수비 대상 판단 — 그 라인 수비수 · 포탑 근처 · 반경 0.18 안 */
+    const laneRole=((h.lane==='BOT')?(role==='ADC'||role==='SUP'):(role===h.lane))?1:0;
+    let nearTower=0;
+    try{
+      const tg=(typeof mmSiegeTarget==='function')?mmSiegeTarget(h.side,h.lane):null;
+      if(tg){ const p=mmPathPoint(LANE_PATH[h.lane],tg.param); if(Math.hypot(u.x-p[0],u.y-p[1])<0.17) nearTower=1; }
+    }catch(e){}
+    if(d>0.18&&!laneRole&&!nearTower) return;
+    const reach=(typeof mmUnitRanged==='function'&&mmUnitRanged(u))?0.070:0.050;
+    if(d<=reach) { if(u.mode!=='fight'){ u.mode='fight'; } if((u.engageUntil||0)<s+1.2) u.engageUntil=s+1.6; return; }
+    const fan={TOP:[-0.016,0.010],MID:[0.014,-0.008],ADC:[0.024,0.016],SUP:[0.030,-0.004],JGL:[0.006,0.014]}[role]||[0,0];
+    const sg=(enemy==='me')?1:-1;
+    MM.tgt[k]={x:v3415Clamp(h.x+fan[0]*sg,0.03,0.97),y:v3415Clamp(h.y+fan[1]*sg,0.03,0.97)};
+    u.mode='fight';
+    n++;
+  });
+  return n;
+}
+
+/* 미니언 대열 간격 — 뒤 미니언이 병목 없이 사거리까지 붙도록 개인 공간만 둔다 */
+function v3415MinionGap(mn){
+  if(!mn) return 0.0028;
+  if(mn.kind==='super') return 0.0044;
+  if(mn.kind==='cannon') return 0.0030;
+  if(mn.ranged||mn.kind==='baron') return 0.0024;
+  return 0.0028;
+}
+
+/* ---------- 리셋 ---------- */
+function v3415Reset(){
+  V3415.live=[];
+  V3415.stats={spawn:0,smite:0,steal:0,kill:0,heraldSmash:0,heraldFocus:0};
+  V3415.lastLogAt=-99; V3415.at=0;
+}
+function v3415Boot(){ V3415.ver='34.15'; return V3415.ver; }
+
+/* ============================================================================
    V35 — 팀 표기 공통 링크
    ----------------------------------------------------------------------------
    원칙
@@ -45145,6 +45950,7 @@ try{v33Boot();}catch(e){}
 try{v34Boot();}catch(e){}
 try{v3413Boot();}catch(e){}
 try{v3414Boot();}catch(e){}
+try{v3415Boot();}catch(e){}
 try{cloudBoot();}catch(e){}
 renderTitle();
 try{tiBind();}catch(e){}
