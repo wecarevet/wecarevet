@@ -45611,8 +45611,18 @@ function v3415RouteGuard(sec){
 function v3415PitDrive(sec){
   if(!M||!V3415.live.length) return 0;
   const s=(sec==null)?v3415Sec():Number(sec)||0;
+  /* 동시에 두 핏이 열려 있으면 한 유닛을 두 곳에 보내지 않는다 —
+     적이 붙어 있는 핏 → 가장 최근에 나온 핏 순으로 우선순위를 정해 한 번만 배정 */
+  const order=V3415.live.filter(function(m){ return m&&m.alive; }).sort(function(a,b){
+    const ca=(typeof v6CountAt==='function')?((v6CountAt(a.kind).me||0)+(v6CountAt(a.kind).opp||0)):0;
+    const cb=(typeof v6CountAt==='function')?((v6CountAt(b.kind).me||0)+(v6CountAt(b.kind).opp||0)):0;
+    if(ca!==cb) return cb-ca;
+    return (b.born||0)-(a.born||0);
+  });
+  if(!order.length) return 0;
+  const taken={};
   let n=0;
-  V3415.live.forEach(function(mn){
+  order.forEach(function(mn){
     if(!mn||!mn.alive) return;
     /* 3분 이상 아무도 때리지 않은 몬스터에는 인원을 계속 묶지 않는다 (그사이 다음 오브젝트가 나온다) */
     if(s-(mn.born||0)>180&&mn.hp>mn.hpMax*0.95) return;
@@ -45635,6 +45645,7 @@ function v3415PitDrive(sec){
       roles.forEach(function(r){
         const k=side+'-'+r, u=MM.units[k];
         if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+        if(taken[k]) return;
         if(V3415_NOJOIN[u.mode]) return;
         if((u.engageUntil||0)>s) return;
         const d=Math.hypot(u.x-mn.x,u.y-mn.y);
@@ -45646,6 +45657,7 @@ function v3415PitDrive(sec){
         const x=v3415Clamp(mn.x+fan[0]*mul,0.03,0.97), y=v3415Clamp(mn.y+fan[1]*mul,0.03,0.97);
         MM.tgt[k]={x:x,y:y};
         u.mode='obj';
+        taken[k]=1;
         n++;
       });
     });
