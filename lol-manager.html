@@ -22125,6 +22125,8 @@ function mmComputeTargets(){
   if(typeof v3416CallDrive==='function'){ try{ v3416CallDrive(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='call:'+String(e); } }
   /* V34.16 — 상대 AI 전술 성향이 상대 유닛 동선을 바꾼다 (성향 전환도 여기서) */
   if(typeof v3416OppTick==='function'){ try{ v3416OppTick(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='opptick:'+String(e); } }
+  /* V34.16 — 로테이션 중 미드·탑이 정글에 오래 남지 않고 라인으로 복귀 */
+  if(typeof v3416LaneReturn==='function'){ try{ v3416LaneReturn(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='lret:'+String(e); } }
   if(typeof v3416OppTargets==='function'){ try{ v3416OppTargets(mmGameSec()); }catch(e){ if(typeof MMD!=='undefined') MMD.lastErr='oppai:'+String(e); } }
   /* 귀환 고정 — B를 차는 중이거나 귀환 지점으로 걷는 중이면 다른 동선이 목표를 빼앗지 않는다 */
   try{ mmRecallPin(); }catch(e){}
@@ -46438,6 +46440,48 @@ function v3416OppChip(){
 function v3416OppChipHTML(){
   if(!M||!V3416AI.cur) return '';
   return '<span class="opp-tac" title="'+esc(V3416AI.cur.desc||'')+'">'+v3416OppChip()+'</span>';
+}
+
+/* ============================================================================
+   4b. 라인 복귀 — 로테이션 중 정글에 오래 머물지 않는다
+   (전령 콜 뒤·오브젝트 사이드 정리 뒤에 미드·탑이 정글 한복판에 남는 것 방지)
+   ========================================================================== */
+function v3416LaneReturn(sec){
+  if(!M||typeof MM==='undefined'||!MM.units||!MM.tgt) return 0;
+  if(typeof LANE_PATH==='undefined'||typeof mmPointFront!=='function') return 0;
+  const s=(sec==null)?v3416Sec():Number(sec)||0;
+  if(s<840) return 0;
+  let win=null;
+  try{ win=(typeof mmObjectiveWindow==='function')?mmObjectiveWindow(M.minute||0):null; }catch(e){}
+  if(win) return 0;                       /* 오브젝트 창에는 개입하지 않는다 */
+  let n=0;
+  ['me','opp'].forEach(function(side){
+    ROLES.forEach(function(role){
+      const k=side+'-'+role, u=MM.units[k];
+      if(!u||!u.alive||u.tp||u.recallT||u.recallWalk) return;
+      if(u.mode!=='rotate') return;
+      if((u.engageUntil||0)>s) return;
+      if(V3416_NOJOIN[u.mode]) return;
+      let bd=9, lane=null;
+      ['TOP','MID','BOT'].forEach(function(L){
+        const p=mmPointFront(L,u.x,u.y);
+        if(p.dist<bd){ bd=p.dist; lane=L; }
+      });
+      if(!lane||bd<=0.085) return;
+      const tg=MM.tgt[k]; if(!tg) return;
+      /* 목표가 핏 쪽이면 그대로 (바론·드래곤·전령 진입) */
+      const pitD=Math.min(Math.hypot(tg.x-PIT.dragon[0],tg.y-PIT.dragon[1]),Math.hypot(tg.x-PIT.baron[0],tg.y-PIT.baron[1]));
+      if(pitD<0.10) return;
+      /* 목표 자리도 라인 위면 그대로 둔다 */
+      let td=9;
+      ['TOP','MID','BOT'].forEach(function(L){ const p=mmPointFront(L,tg.x,tg.y); if(p.dist<td) td=p.dist; });
+      if(td<0.09) return;
+      const p=mmLaneFrontPos(lane,side,role==='SUP'?0.035:0.028);
+      MM.tgt[k]={x:p[0],y:p[1]};
+      n++;
+    });
+  });
+  return n;
 }
 
 /* 상대 전술이 실제 동선을 바꾼다 — 파이프라인 마지막(귀환 고정 직전)에 호출 */
