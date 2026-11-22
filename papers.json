@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-21 05:04 UTC",
+  "updated": "2026-11-22 04:30 UTC",
   "total": 340,
   "papers": [
     {
@@ -255,6 +255,66 @@
       ]
     },
     {
+      "id": "43046634",
+      "title": "Retrospective Description of the Outcomes of Dogs With Intraperitoneal Dissemination of Bladder Uroliths and Septic Uroabdomen: Eight Cases From Four Hospitals (2014-2024).",
+      "authors": "Mattioli G, Bigazzi V, Montinaro V, Cino M, Magno SD",
+      "journal": "JVECC",
+      "type": "vet",
+      "date": "2026 Nov 17",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43046634/",
+      "abstract": "To describe the clinical features, diagnosis, treatment, and prognosis for dogs diagnosed with septic uroabdomen secondary to bladder rupture and dissemination of uroliths in the peritoneal cavity. Retrospective study. Two veterinary teaching hospitals and two private referral hospitals. Eight adult client-owned dogs. Bladder rupture and migration of uroliths in the abdomen were observed intraoperatively in all eight dogs. Free abdominal uroliths were detected preoperatively by abdominal ultraso",
+      "summary_ko": "[핵심 결론] 방광 파열로 인한 복막염과 복강 내 요석 산재는 철저한 복강 탐색을 통해 좋은 예후를 기대할 수 있으며, 본 연구에서는 8마리 모두 생존 퇴원했고 심각한 합병증이 없었다.\n[방법·수치] 2014-2024년 4개 병원의 후향적 증례 연구로 성견 8마리를 대상으로 했다. 수술 소견상 모든 개에서 방광 파열과 요석 산재 확인, 초음파로 3/8마리, 방사선으로 2/5마리에서만 요석 검출, 7/8마리에서 부분 방광절제술 시행, 복강액 배양에서 7/8마리 양성(포도상구균 5/7마리 가장 흔함), 스트루바이트 요석이 가장 많았다.\n[임상 적용·한계] 방광 파열로 인한 급성 복막염 의심 시 초음파나 방사선에서 요석이 보이지 않더라도 적극적인 수술적 복강 탐색을 권장하며, 본 연구는 소규모 후향적 증례 보고로 제한된다.",
+      "specialty": [
+        "신장/비뇨",
+        "응급/중환자"
+      ]
+    },
+    {
+      "id": "43042570",
+      "title": "Retrospective Evaluation of the Prognostic Value of Neutrophil-to-Lymphocyte Ratio and Platelet-to-Lymphocyte Ratio in Cats With Trauma and Their Relationship With the Animal Trauma Triage Score: 60 Cats (2024-2025).",
+      "authors": "Parlak K, Akyol ET, Erdogan NZ, Yazıcı S, Besoluk FC",
+      "journal": "JVECC",
+      "type": "vet",
+      "date": "2026 Nov 17",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43042570/",
+      "abstract": "To evaluate the prognostic use of the neutrophil-to-lymphocyte ratio (NLR), platelet-to-lymphocyte ratio (PLR), and blood lactate concentration at admission in cats with trauma. Additionally, we investigated the correlation between these biomarkers and the Animal Trauma Triage (ATT) score. Retrospective study conducted between June 2024 and June 2025. University animal hospital. Medical records of 60 cats with trauma and 47 clinically healthy control cats undergoing preanesthetic screening were ",
+      "summary_ko": "[핵심 결론] 외상 고양이에서 혈소판-림프구 비율(PLR)은 사망 예측의 프로그노스틱 인자로 가치가 있으나(ROC AUC=0.701, 절단값=174.80), 호중구-림프구 비율(NLR)은 예측 가치가 없었다(AUC=0.435). 극도로 낮은 NLR은 중증 면역 역조절을 나타낼 수 있다.\n[방법·수치] 2024년 6월~2025년 6월 대학 동물병원에서 외상 고양이 60마리와 건강한 대조군 고양이 47마리를 대상으로 한 후향적 연구. 외상군에서 중앙값 NLR과 PLR이 대조군보다 유의하게 높았다(p<0.001). 사망군에서 PLR이 더 높았으나(p=0.013), NLR은 차이가 없었다(p=0.422). PLR은 사망률 예측에 유의한 차이를 보였으나 NLR은 보이지 않았다.\n[임상 적용·한계] PLR을 외상 고양이의 조기 위험도 층화에 사용할 수 있으나, 단일 기관 후향적 소규모 연구로 전향적 검증이 필요하다. 혈청 락테이트 농도는 생존군과 사망군 간 유의한 차이가 없었다(p=0.246).",
+      "specialty": [
+        "응급/중환자",
+        "고양이"
+      ]
+    },
+    {
+      "id": "43042548",
+      "title": "Transmural and Intraluminal Gallbladder Hemorrhage (Hemocholecyst) in a Dog Following Snakebite Envenomation.",
+      "authors": "Thompson BL, Dreese K, Hawkins IK, Semenova V, Peper K",
+      "journal": "JVECC",
+      "type": "vet",
+      "date": "2026 Nov 17",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43042548/",
+      "abstract": "To describe a case of hemocholecyst as a sequela to snake envenomation in a dog. A 2-year-old neutered male mixed-breed dog was hospitalized for 4&#xa0;days after a suspected crotaline envenomation and possible anaphylactic reaction. Significant clinical findings included coagulopathy, thrombocytopenia, hyperbilirubinemia, anemia, multiorgan dysfunction, and hypotension. Point-of-care ultrasound was suggestive of gallbladder wall thickening, a finding frequently associated with anaphylaxis or in",
+      "summary_ko": "[핵심 결론] 개에서 뱀 독(크로탈린) 중독 후 혈종담낭증(hemocholecyst)이 발생한 첫 임상 증례로, 독액 유발 응고장애에 동반된 심각한 고빌리루빈혈증의 감별진단으로 담낭 출혈성 괴사를 고려해야 한다.\n[방법·수치] 2세 중성화 수컷 믹스견 1례, 의심 크로탈린 중독 후 4일간 입원; 주요 소견은 응고장애, 혈소판감소증, 고빌리루빈혈증, 빈혈, 다장기부전, 저혈압이며 초음파에서 담낭벽 비후가 관찰됨; 항독소, 혈액제제, 집중치료에도 불구하고 심폐정지 발생.\n[임상 적용·한계] 뱀 독으로 인한 출혈성 질환의 응급 치료 시 담낭 출혈성 괴사와 함께 고빌리루빈혈증의 감별진단으로 혈종담낭증을 추가 고려해야 하며, 단일 증례 보고로 임상적 빈도나 예후 판단에 제한이 있다.",
+      "specialty": [
+        "응급/중환자",
+        "기타"
+      ]
+    },
+    {
+      "id": "43041205",
+      "title": "Acute Tracheal Narrowing due to Suspected Intramural Tracheal Hemorrhage in a Dog With Hemophilia A.",
+      "authors": "Kang A, Gonzalez AL, Mazzaferro EM",
+      "journal": "JVECC",
+      "type": "vet",
+      "date": "2026 Nov 17",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43041205/",
+      "abstract": "To describe a case of spontaneous intramural tracheal hemorrhage with subsequent tracheal narrowing leading to a respiratory crisis in a dog with hemophilia A (factor VIII deficiency). A 5-year-old neutered male Havanese presented in respiratory distress following acute-onset cough. The dog had a known history of hemophilia A and had been evaluated at a different facility the day prior, where thoracic radiographs showed severe tracheal attenuation, leading to a presumptive diagnosis of tracheal ",
+      "summary_ko": "[핵심 결론] 혈우병 A 환자견에서 자발적 기관 벽내 출혈로 인한 급성 기관 협착이 호흡곤란을 유발할 수 있으며, 이는 기관허탈과 유사하게 나타나므로 감별진단으로 고려되어야 한다.\n[방법·수치] 5세 중성화된 하바니즈견의 증례 보고로, 제8인자 결핍증(혈우병 A) 병력이 있던 환자가 급성 기침 후 호흡곤란으로 내원했다. 흉부 방사선 검사에서 심한 기관 협착이 관찰되었고, 혈액 검사에서 빈혈 발생 및 활성화 부분 트롬보플라스틴 시간의 연장이 확인되었다. 동결침전물 수혈 후 1주일 후속 검사에서 기관 협착이 완전히 해결되었다.\n[임상 적용·한계] 기관 협착을 보이는 환자에서 특히 만성 기침 병력이 없거나 기관허탈의 표준 치료에 반응하지 않는 경우, 출혈을 감별진단으로 고려해야 한다. 혈우병 A 확진 환자는 임상 증상과 관계없이 출혈 위험이 있다고 가정하고 조기에 제8인자 함유 혈액제제를 투여해야 한다. 단일 증례 보고로 제한된다.",
+      "specialty": [
+        "응급/중환자",
+        "기타"
+      ]
+    },
+    {
       "id": "43041144",
       "title": "EXPRESS: Dysbiosis correlates with more severe changes in intestinal function in cats with chronic enteropathy.",
       "authors": "Chen CC, Moraiti KT, Giordano MV, Blake AB, Pilla R",
@@ -368,66 +428,6 @@
       "summary_ko": "[핵심 결론] 석회화된 관상동맥병변의 치료에서 초고압 비순응풍선(SH-NCB)은 혈관내쇄석술(IVL)과 비교하여 스텐트 확장 측면에서 열등하지 않으며 유사한 안전성을 보였다.\n[방법·수치] 2022년 12월~2025년 8월 사이 18세 이상의 석회화된 관상동맥병변 환자 278명을 대상으로 한 무작위 대조시험으로, SH-NCB군과 IVL군(1:1)에 배정되어 광학간섭단층촬영(OCT)으로 평가되었다. 1차 평가항목은 최종 스텐트 확장율이었으며, SH-NCB는 85%, IVL은 84%로 비열등성 입증(P<0.0001), 30일 추적관찰에서 목표혈관실패는 SH-NCB군 2.8%(4명), IVL군 5.7%(8명)이었다(HR: 0.50; 95% CI: 0.15-1.66; P=0.26).\n[임상 적용·한계] 경험 많은 술자가 혈관내영상을 사용하는 경우 석회화 병변 치료 시 SH-NCB가 IVL의 대안으로 사용 가능하며, 절차 소요시간과 보조장치 사용은 SH-NCB가 더 효율적이었다. 단일 시점의 추적관찰, 개방표지 설계, 선택된 경험 많은 센터의 결과로서 일반화의 제한이 있다.",
       "specialty": [
         "심장"
-      ]
-    },
-    {
-      "id": "43046634",
-      "title": "Retrospective Description of the Outcomes of Dogs With Intraperitoneal Dissemination of Bladder Uroliths and Septic Uroabdomen: Eight Cases From Four Hospitals (2014-2024).",
-      "authors": "Mattioli G, Bigazzi V, Montinaro V, Cino M, Magno SD",
-      "journal": "JVECC",
-      "type": "vet",
-      "date": "2026 Nov 17",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43046634/",
-      "abstract": "To describe the clinical features, diagnosis, treatment, and prognosis for dogs diagnosed with septic uroabdomen secondary to bladder rupture and dissemination of uroliths in the peritoneal cavity. Retrospective study. Two veterinary teaching hospitals and two private referral hospitals. Eight adult client-owned dogs. Bladder rupture and migration of uroliths in the abdomen were observed intraoperatively in all eight dogs. Free abdominal uroliths were detected preoperatively by abdominal ultraso",
-      "summary_ko": "[핵심 결론] 방광 파열로 인한 복막염과 복강 내 요석 산재는 철저한 복강 탐색을 통해 좋은 예후를 기대할 수 있으며, 본 연구에서는 8마리 모두 생존 퇴원했고 심각한 합병증이 없었다.\n[방법·수치] 2014-2024년 4개 병원의 후향적 증례 연구로 성견 8마리를 대상으로 했다. 수술 소견상 모든 개에서 방광 파열과 요석 산재 확인, 초음파로 3/8마리, 방사선으로 2/5마리에서만 요석 검출, 7/8마리에서 부분 방광절제술 시행, 복강액 배양에서 7/8마리 양성(포도상구균 5/7마리 가장 흔함), 스트루바이트 요석이 가장 많았다.\n[임상 적용·한계] 방광 파열로 인한 급성 복막염 의심 시 초음파나 방사선에서 요석이 보이지 않더라도 적극적인 수술적 복강 탐색을 권장하며, 본 연구는 소규모 후향적 증례 보고로 제한된다.",
-      "specialty": [
-        "신장/비뇨",
-        "응급/중환자"
-      ]
-    },
-    {
-      "id": "43042570",
-      "title": "Retrospective Evaluation of the Prognostic Value of Neutrophil-to-Lymphocyte Ratio and Platelet-to-Lymphocyte Ratio in Cats With Trauma and Their Relationship With the Animal Trauma Triage Score: 60 Cats (2024-2025).",
-      "authors": "Parlak K, Akyol ET, Erdogan NZ, Yazıcı S, Besoluk FC",
-      "journal": "JVECC",
-      "type": "vet",
-      "date": "2026 Nov 17",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43042570/",
-      "abstract": "To evaluate the prognostic use of the neutrophil-to-lymphocyte ratio (NLR), platelet-to-lymphocyte ratio (PLR), and blood lactate concentration at admission in cats with trauma. Additionally, we investigated the correlation between these biomarkers and the Animal Trauma Triage (ATT) score. Retrospective study conducted between June 2024 and June 2025. University animal hospital. Medical records of 60 cats with trauma and 47 clinically healthy control cats undergoing preanesthetic screening were ",
-      "summary_ko": "[핵심 결론] 외상 고양이에서 혈소판-림프구 비율(PLR)은 사망 예측의 프로그노스틱 인자로 가치가 있으나(ROC AUC=0.701, 절단값=174.80), 호중구-림프구 비율(NLR)은 예측 가치가 없었다(AUC=0.435). 극도로 낮은 NLR은 중증 면역 역조절을 나타낼 수 있다.\n[방법·수치] 2024년 6월~2025년 6월 대학 동물병원에서 외상 고양이 60마리와 건강한 대조군 고양이 47마리를 대상으로 한 후향적 연구. 외상군에서 중앙값 NLR과 PLR이 대조군보다 유의하게 높았다(p<0.001). 사망군에서 PLR이 더 높았으나(p=0.013), NLR은 차이가 없었다(p=0.422). PLR은 사망률 예측에 유의한 차이를 보였으나 NLR은 보이지 않았다.\n[임상 적용·한계] PLR을 외상 고양이의 조기 위험도 층화에 사용할 수 있으나, 단일 기관 후향적 소규모 연구로 전향적 검증이 필요하다. 혈청 락테이트 농도는 생존군과 사망군 간 유의한 차이가 없었다(p=0.246).",
-      "specialty": [
-        "응급/중환자",
-        "고양이"
-      ]
-    },
-    {
-      "id": "43042548",
-      "title": "Transmural and Intraluminal Gallbladder Hemorrhage (Hemocholecyst) in a Dog Following Snakebite Envenomation.",
-      "authors": "Thompson BL, Dreese K, Hawkins IK, Semenova V, Peper K",
-      "journal": "JVECC",
-      "type": "vet",
-      "date": "2026 Nov 17",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43042548/",
-      "abstract": "To describe a case of hemocholecyst as a sequela to snake envenomation in a dog. A 2-year-old neutered male mixed-breed dog was hospitalized for 4&#xa0;days after a suspected crotaline envenomation and possible anaphylactic reaction. Significant clinical findings included coagulopathy, thrombocytopenia, hyperbilirubinemia, anemia, multiorgan dysfunction, and hypotension. Point-of-care ultrasound was suggestive of gallbladder wall thickening, a finding frequently associated with anaphylaxis or in",
-      "summary_ko": "[핵심 결론] 개에서 뱀 독(크로탈린) 중독 후 혈종담낭증(hemocholecyst)이 발생한 첫 임상 증례로, 독액 유발 응고장애에 동반된 심각한 고빌리루빈혈증의 감별진단으로 담낭 출혈성 괴사를 고려해야 한다.\n[방법·수치] 2세 중성화 수컷 믹스견 1례, 의심 크로탈린 중독 후 4일간 입원; 주요 소견은 응고장애, 혈소판감소증, 고빌리루빈혈증, 빈혈, 다장기부전, 저혈압이며 초음파에서 담낭벽 비후가 관찰됨; 항독소, 혈액제제, 집중치료에도 불구하고 심폐정지 발생.\n[임상 적용·한계] 뱀 독으로 인한 출혈성 질환의 응급 치료 시 담낭 출혈성 괴사와 함께 고빌리루빈혈증의 감별진단으로 혈종담낭증을 추가 고려해야 하며, 단일 증례 보고로 임상적 빈도나 예후 판단에 제한이 있다.",
-      "specialty": [
-        "응급/중환자",
-        "기타"
-      ]
-    },
-    {
-      "id": "43041205",
-      "title": "Acute Tracheal Narrowing due to Suspected Intramural Tracheal Hemorrhage in a Dog With Hemophilia A.",
-      "authors": "Kang A, Gonzalez AL, Mazzaferro EM",
-      "journal": "JVECC",
-      "type": "vet",
-      "date": "2026 Nov 17",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43041205/",
-      "abstract": "To describe a case of spontaneous intramural tracheal hemorrhage with subsequent tracheal narrowing leading to a respiratory crisis in a dog with hemophilia A (factor VIII deficiency). A 5-year-old neutered male Havanese presented in respiratory distress following acute-onset cough. The dog had a known history of hemophilia A and had been evaluated at a different facility the day prior, where thoracic radiographs showed severe tracheal attenuation, leading to a presumptive diagnosis of tracheal ",
-      "summary_ko": "[핵심 결론] 혈우병 A 환자견에서 자발적 기관 벽내 출혈로 인한 급성 기관 협착이 호흡곤란을 유발할 수 있으며, 이는 기관허탈과 유사하게 나타나므로 감별진단으로 고려되어야 한다.\n[방법·수치] 5세 중성화된 하바니즈견의 증례 보고로, 제8인자 결핍증(혈우병 A) 병력이 있던 환자가 급성 기침 후 호흡곤란으로 내원했다. 흉부 방사선 검사에서 심한 기관 협착이 관찰되었고, 혈액 검사에서 빈혈 발생 및 활성화 부분 트롬보플라스틴 시간의 연장이 확인되었다. 동결침전물 수혈 후 1주일 후속 검사에서 기관 협착이 완전히 해결되었다.\n[임상 적용·한계] 기관 협착을 보이는 환자에서 특히 만성 기침 병력이 없거나 기관허탈의 표준 치료에 반응하지 않는 경우, 출혈을 감별진단으로 고려해야 한다. 혈우병 A 확진 환자는 임상 증상과 관계없이 출혈 위험이 있다고 가정하고 조기에 제8인자 함유 혈액제제를 투여해야 한다. 단일 증례 보고로 제한된다.",
-      "specialty": [
-        "응급/중환자",
-        "기타"
       ]
     },
     {
@@ -971,35 +971,6 @@
       ]
     },
     {
-      "id": "43002382",
-      "title": "Myocardial Responses to Eplontersen in Transthyretin Amyloid Cardiomyopathy: The CARDIO-TTRansform CMR study.",
-      "authors": "Razvi Y, Solomon SD, Cuddy SAM, Venneri L, Martinez-Naharro A",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Nov 9",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43002382/",
-      "abstract": "Transthyretin-lowering therapies target the underlying cause of transthyretin amyloid cardiomyopathy (ATTR-CM), but their effects on myocardial amyloid burden and cardiac remodelling remain incompletely characterized. We evaluated the myocardial effects of sustained transthyretin suppression with eplontersen using serial multiparametric cardiovascular magnetic resonance (CMR). This CMR study was a pre-specified, international, prospective study embedded within the randomized, placebo-controlled ",
-      "summary_ko": "[핵심 결론] 에플론터센을 통한 지속적인 트랜스티레틴 억제는 위약군 대비 심근 세포외용적 감소, 좌심실 질량 감소, 양심실 수축 기능 및 변형 개선을 유도하며, 심근 아밀로이드 퇴행을 12.5% 달성하여 질병 진행을 억제한다.\n[방법·수치] 무작위 대조 3상 임상시험에 내장된 국제 다기관 전향적 CMR 연구로 120명 참여자(에플론터센 58명, 위약 62명, 평균 나이 76.7±6.5세, 남성 95%)를 140주까지 추적 평가했다. 140주차 에플론터센군에서 세포외용적 -6.7%-point (P<0.001), 원본 T1 -25.9ms (P=0.002), 좌심실 질량 -19.1g (P<0.001), 좌심실 박출률 +5.1% (P=0.002)로 위약군 대비 유의한 개선을 보였다. 심근 아밀로이드 퇴행은 에플론터센 12.5% vs 위약 0%, 진행은 에플론터센 12.5% vs 위약 76%였다.\n[임상 적용·한계] 직렬 다중모수 CMR은 ATTR-CM 치료 반응 평가의 객관적 지표로 활용 가능하며, 에플론터센이 질병 진행을 호전시키는 근거를 제공한다. 기저치에서 안정화제 사용률이 낮은(12.5%) 특정 환자군 연구로 다양한 치료 배경을 가진 환자군에서의 효과 평가 필요성이 있다.",
-      "specialty": [
-        "심장",
-        "영상"
-      ]
-    },
-    {
-      "id": "43002247",
-      "title": "Effects of Eplontersen on Cardiac Structure and Function in Patients With Transthyretin Amyloidosis With Cardiomyopathy: Insights from the CARDIO-TTRansform Trial.",
-      "authors": "Jering KS, Skali H, Claggett B, Prasad N, Chen J",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Nov 9",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43002247/",
-      "abstract": "In CARDIO-TTRansform, the TTR (transthyretin) silencer eplontersen did not significantly reduce the primary end point of cardiovascular death and recurrent cardiovascular events in patients with TTR amyloidosis with cardiomyopathy, although treatment effects varied by baseline TTR stabilizer use. Whether eplontersen favorably affects cardiac structure and function is unknown. CARDIO-TTRansform randomized 1432 patients with TTR amyloidosis with cardiomyopathy to eplontersen (45 mg) subcutaneously",
-      "summary_ko": "```json\n{\n  \"specialty\": [\"심장\"],\n  \"summary_ko\": \"[핵심 결론] Eplontersen은 TTR 아밀로이드증 심근병증 환자에서 좌심실 벽 두께 증가를 억제하고 좌심실 뇌졸중용적, 심근 수축분획, 평균 E/e', 우심실 유출로 속도-시간 적분의 감소를 완화시켰으나, 이러한 효과는 기저치에서 안정화제를 사용하지 않은 환자에서만 관찰되었다.\\n[방법·수치] CARDIO-TTRansform 시험에 TTR 아밀로이드증 심근병증 환자 1432명을 무작위 배정하였고, eplontersen 45 mg 또는 위약을 4주마다 피하주사하였다. 심초음파는 기저치, 61주, 97주, 140주에 시행하였다. 140주 평가에서 eplontersen 군 554명, 위약 군 506명의 심초음파 자료가 있었다. 좌심실 벽 두께 증가 감소(-0.24 mm, 95% CI -0.48~-0.01), 좌심실 뇌졸중용적 감소 완화(1.88 mL, 95% CI 0.07-3.69), 심근 수축분획 개선(0.88%, 95% CI 0.25-1.57), 평균 E/e' 개선(-0.71, 95% CI -1.36~-0.07), 우심실 유출로 속도-시간 적분 개선(0.42, 95% CI 0.00-0.85)이 위약 대비 관찰되었다.\\n[임상 적용·한계] TTR 아밀로이드증 심근병증 환자의 카디악 기능 악화 진행을 TTR 침묵화가 완화할 수 있음을 시사하며, 특히 기존 안정화제 미사용 환자에서 유용할 수 있다. 그러나 주요 임상 종료점(심혈관 사망, 반복적 심혈관 사건)에 대한 유의미한 감소를 보이지 않았으며, 140주 추적 완료율이 약 40",
-      "specialty": [
-        "심장"
-      ]
-    },
-    {
       "id": "43004866",
       "title": "Accessing Emergency Surgery: Perceptions of the Challenges, Gaps, and Training by ACVECC Community-Associated Veterinarians.",
       "authors": "Bethel H, Berg A, Rozanski E",
@@ -1026,6 +997,35 @@
       "summary_ko": "[핵심 결론] SIRS 진단 개에서 qSOFA 점수는 초기 위험도 계층화의 실용적 도구가 될 수 있으나, 독립적으로 사용할 경우 예후 예측 능력이 제한적이다.\n[방법·수치] 2017-2023년 SIRS 기준을 만족하는 개 112마리의 후향적 분석; 입원 중 사망률 60% (65/112마리); qSOFA 점수 ≥2는 단변량 분석에서 사망과 연관 (p<0.001)이나, 다변량 로지스틱 회귀 후 독립적 예후 인자 아님 (OR: 2.24, 95% CI: 0.71-7.06, p=0.172); ROC 곡선 분석 결과 AUC 0.73 (95% CI: 0.63-0.84), 민감도 72%, 특이도 75%.\n[임상 적용·한계] SIRS 환자의 초기 위험도 평가 시 간단한 선별 도구로 활용 가능하나, 단독으로는 예후 판정 근거로 부족하며 다른 임상 변수와 함께 고려해야 함; 후향적 단일 기관 연구로서 외적 타당도 제한.",
       "specialty": [
         "응급/중환자"
+      ]
+    },
+    {
+      "id": "43002382",
+      "title": "Myocardial Responses to Eplontersen in Transthyretin Amyloid Cardiomyopathy: The CARDIO-TTRansform CMR study.",
+      "authors": "Razvi Y, Solomon SD, Cuddy SAM, Venneri L, Martinez-Naharro A",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Nov 9",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43002382/",
+      "abstract": "Transthyretin-lowering therapies target the underlying cause of transthyretin amyloid cardiomyopathy (ATTR-CM), but their effects on myocardial amyloid burden and cardiac remodelling remain incompletely characterized. We evaluated the myocardial effects of sustained transthyretin suppression with eplontersen using serial multiparametric cardiovascular magnetic resonance (CMR). This CMR study was a pre-specified, international, prospective study embedded within the randomized, placebo-controlled ",
+      "summary_ko": "[핵심 결론] 에플론터센을 통한 지속적인 트랜스티레틴 억제는 위약군 대비 심근 세포외용적 감소, 좌심실 질량 감소, 양심실 수축 기능 및 변형 개선을 유도하며, 심근 아밀로이드 퇴행을 12.5% 달성하여 질병 진행을 억제한다.\n[방법·수치] 무작위 대조 3상 임상시험에 내장된 국제 다기관 전향적 CMR 연구로 120명 참여자(에플론터센 58명, 위약 62명, 평균 나이 76.7±6.5세, 남성 95%)를 140주까지 추적 평가했다. 140주차 에플론터센군에서 세포외용적 -6.7%-point (P<0.001), 원본 T1 -25.9ms (P=0.002), 좌심실 질량 -19.1g (P<0.001), 좌심실 박출률 +5.1% (P=0.002)로 위약군 대비 유의한 개선을 보였다. 심근 아밀로이드 퇴행은 에플론터센 12.5% vs 위약 0%, 진행은 에플론터센 12.5% vs 위약 76%였다.\n[임상 적용·한계] 직렬 다중모수 CMR은 ATTR-CM 치료 반응 평가의 객관적 지표로 활용 가능하며, 에플론터센이 질병 진행을 호전시키는 근거를 제공한다. 기저치에서 안정화제 사용률이 낮은(12.5%) 특정 환자군 연구로 다양한 치료 배경을 가진 환자군에서의 효과 평가 필요성이 있다.",
+      "specialty": [
+        "심장",
+        "영상"
+      ]
+    },
+    {
+      "id": "43002247",
+      "title": "Effects of Eplontersen on Cardiac Structure and Function in Patients With Transthyretin Amyloidosis With Cardiomyopathy: Insights from the CARDIO-TTRansform Trial.",
+      "authors": "Jering KS, Skali H, Claggett B, Prasad N, Chen J",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Nov 9",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43002247/",
+      "abstract": "In CARDIO-TTRansform, the TTR (transthyretin) silencer eplontersen did not significantly reduce the primary end point of cardiovascular death and recurrent cardiovascular events in patients with TTR amyloidosis with cardiomyopathy, although treatment effects varied by baseline TTR stabilizer use. Whether eplontersen favorably affects cardiac structure and function is unknown. CARDIO-TTRansform randomized 1432 patients with TTR amyloidosis with cardiomyopathy to eplontersen (45 mg) subcutaneously",
+      "summary_ko": "```json\n{\n  \"specialty\": [\"심장\"],\n  \"summary_ko\": \"[핵심 결론] Eplontersen은 TTR 아밀로이드증 심근병증 환자에서 좌심실 벽 두께 증가를 억제하고 좌심실 뇌졸중용적, 심근 수축분획, 평균 E/e', 우심실 유출로 속도-시간 적분의 감소를 완화시켰으나, 이러한 효과는 기저치에서 안정화제를 사용하지 않은 환자에서만 관찰되었다.\\n[방법·수치] CARDIO-TTRansform 시험에 TTR 아밀로이드증 심근병증 환자 1432명을 무작위 배정하였고, eplontersen 45 mg 또는 위약을 4주마다 피하주사하였다. 심초음파는 기저치, 61주, 97주, 140주에 시행하였다. 140주 평가에서 eplontersen 군 554명, 위약 군 506명의 심초음파 자료가 있었다. 좌심실 벽 두께 증가 감소(-0.24 mm, 95% CI -0.48~-0.01), 좌심실 뇌졸중용적 감소 완화(1.88 mL, 95% CI 0.07-3.69), 심근 수축분획 개선(0.88%, 95% CI 0.25-1.57), 평균 E/e' 개선(-0.71, 95% CI -1.36~-0.07), 우심실 유출로 속도-시간 적분 개선(0.42, 95% CI 0.00-0.85)이 위약 대비 관찰되었다.\\n[임상 적용·한계] TTR 아밀로이드증 심근병증 환자의 카디악 기능 악화 진행을 TTR 침묵화가 완화할 수 있음을 시사하며, 특히 기존 안정화제 미사용 환자에서 유용할 수 있다. 그러나 주요 임상 종료점(심혈관 사망, 반복적 심혈관 사건)에 대한 유의미한 감소를 보이지 않았으며, 140주 추적 완료율이 약 40",
+      "specialty": [
+        "심장"
       ]
     },
     {
@@ -3142,6 +3142,21 @@
       ]
     },
     {
+      "id": "42878630",
+      "title": "Clinical Presentation, Acute Clinical Response, Drug Tolerability, and Short-Term Outcome of Cats Treated for Acute Congestive Heart Failure With Pimobendan (2017-2022): 71 Cases.",
+      "authors": "Murphy LA, Stepien RL, Loeber S, Tjostheim SS, Kellihan HB",
+      "journal": "JVECC",
+      "type": "vet",
+      "date": "2026 Oct 15",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42878630/",
+      "abstract": "To describe clinical effects, drug tolerability, and short-term outcomes of cats treated with pimobendan (PB) in conjunction with other therapies for acute congestive heart failure (CHF). Retrospective single-center study (2017 &#xa0;to 2022). Academic teaching and referral hospital. Seventy-one cats with acute CHF treated with PB and furosemide. Treatment included dobutamine (DB) in 15 cases. Physical examination results, laboratory results, and radiographic pulmonary infiltrate scoring were as",
+      "summary_ko": "[핵심 결론] 급성 울혈성 심부전 고양이에서 피모벤단 치료는 잘 견디어지며 좋은 단기 예후를 보였고, 72시간 이내 대부분 퇴원했다. 도부타민 병용은 생존율을 개선하지 못했으며 47%에서 부작용을 유발했다.\n[방법·수치] 2017-2022년 단일 학술기관 후향적 연구, 급성 울혈성 심부전 고양이 71마리, 피모벤단과 푸로세미드 병용 치료(15마리는 도부타민 추가). 24시간 후 호흡수와 흉부방사선 폐침윤 점수 감소(p<0.0001), 퇴원생존율 76%, 도부타민 병용군과 비병용군 간 생존율 차이 없음(p=0.17).\n[임상 적용·한계] 급성 울혈성 심부전 고양이의 초기 치료로 피모벤단이 안전하고 효과적이며, 도부타민 추가는 임상 개선을 제공하지 않으므로 선택적 사용 권장. 단일 기관 후향적 연구이고 도부타민 적응증 명시 부재로 약물 선택 기준 불명확.",
+      "specialty": [
+        "심장",
+        "고양이"
+      ]
+    },
+    {
       "id": "43050825",
       "title": "Resolution of suspected neuraxial morphine-induced myoclonus and hyperalgesia in two dogs following intravenous ketamine.",
       "authors": "Ching-Wai Lau D, Ishihara T, Mascarenhas C, Castro D, Hofmeister EH",
@@ -3198,21 +3213,6 @@
       "specialty": [
         "심장",
         "기타"
-      ]
-    },
-    {
-      "id": "42878630",
-      "title": "Clinical Presentation, Acute Clinical Response, Drug Tolerability, and Short-Term Outcome of Cats Treated for Acute Congestive Heart Failure With Pimobendan (2017-2022): 71 Cases.",
-      "authors": "Murphy LA, Stepien RL, Loeber S, Tjostheim SS, Kellihan HB",
-      "journal": "JVECC",
-      "type": "vet",
-      "date": "2026 Oct 15",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42878630/",
-      "abstract": "To describe clinical effects, drug tolerability, and short-term outcomes of cats treated with pimobendan (PB) in conjunction with other therapies for acute congestive heart failure (CHF). Retrospective single-center study (2017 &#xa0;to 2022). Academic teaching and referral hospital. Seventy-one cats with acute CHF treated with PB and furosemide. Treatment included dobutamine (DB) in 15 cases. Physical examination results, laboratory results, and radiographic pulmonary infiltrate scoring were as",
-      "summary_ko": "[핵심 결론] 급성 울혈성 심부전 고양이에서 피모벤단 치료는 잘 견디어지며 좋은 단기 예후를 보였고, 72시간 이내 대부분 퇴원했다. 도부타민 병용은 생존율을 개선하지 못했으며 47%에서 부작용을 유발했다.\n[방법·수치] 2017-2022년 단일 학술기관 후향적 연구, 급성 울혈성 심부전 고양이 71마리, 피모벤단과 푸로세미드 병용 치료(15마리는 도부타민 추가). 24시간 후 호흡수와 흉부방사선 폐침윤 점수 감소(p<0.0001), 퇴원생존율 76%, 도부타민 병용군과 비병용군 간 생존율 차이 없음(p=0.17).\n[임상 적용·한계] 급성 울혈성 심부전 고양이의 초기 치료로 피모벤단이 안전하고 효과적이며, 도부타민 추가는 임상 개선을 제공하지 않으므로 선택적 사용 권장. 단일 기관 후향적 연구이고 도부타민 적응증 명시 부재로 약물 선택 기준 불명확.",
-      "specialty": [
-        "심장",
-        "고양이"
       ]
     },
     {
@@ -3818,20 +3818,6 @@
       ]
     },
     {
-      "id": "43018504",
-      "title": "Comparison of Outcomes Between Men and Women Treated With Left Atrial Appendage Closure or Oral Anticoagulation After Catheter Ablation for Atrial Fibrillation: An OPTION Subanalysis.",
-      "authors": "Mdaihly M, Phillips KP, Tabaja C, Nair D, Saliba WI",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Oct 6",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/43018504/",
-      "abstract": "Women sex is an established, nonmodifiable risk factor for adverse outcomes in patients with atrial fibrillation (AF). Left atrial appendage closure (LAAC) has been proposed as an alternative to oral anticoagulation (OAC) for stroke prevention in patients with AF; however, there are limited data on sex-based outcomes of LAAC following catheter ablation. This study sought to compare outcomes of LAAC vs OAC after AF ablation in men and women. Patients with AF and CHA2DS2-VASc &#x2265;2 in men and ",
-      "summary_ko": "[핵심 결론] 심방세동 절제술 후 좌심방귀 폐쇄(LAAC)와 경구항응고제(OAC)는 남성과 여성 모두에서 뇌졸중, 색전증, 사망률에서 유의한 차이가 없었으나, 출혈 감소 효과는 남성에서 더 뚜렷했다.\n[방법·수치] OPTION 시험의 사전 계획된 하위분석으로 1,053명의 남성과 546명의 여성을 대상으로 절제술+LAAC 또는 절제술+OAC에 1:1로 무작위 배정하였다. 36개월 추적 결과, 주요 효능 평가 지표는 남성(HR 0.96, 95% CI 0.56-1.65, P=0.88)과 여성(HR 0.81, 95% CI 0.41-1.62, P=0.55)에서 비슷했고, 주요 안전성 평가 지표(출혈)는 남성에서 LAAC 군이 의미있게 낮았으나(HR 0.34, 95% CI 0.23-0.50, P<0.0001) 여성에서는 비유의성 경향(HR 0.68, 95% CI 0.42-1.09, P=0.11)을 보였다. 성별 치료 상호작용은 유의했다(P=0.02).\n[임상 적용·한계] 심방세동 절제술 후 고위험군 환자의 뇌졸중 예방 전략 선택 시 성별을 고려해야 하며, 특히 남성에서 LAAC의 출혈 감소 이점이 더 크다. 단일 임상시험의 사후분석이고 여성 환자 수가 남성보다 적은 한계가 있다.",
-      "specialty": [
-        "심장"
-      ]
-    },
-    {
       "id": "42836558",
       "title": "Sodium Administration and the Contribution of Fluid Creep to the Sodium Burden of Hospitalized Dogs in the ICU.",
       "authors": "McNally AE, Llewellyn E",
@@ -3844,6 +3830,20 @@
       "specialty": [
         "응급/중환자",
         "내과/내분비"
+      ]
+    },
+    {
+      "id": "43018504",
+      "title": "Comparison of Outcomes Between Men and Women Treated With Left Atrial Appendage Closure or Oral Anticoagulation After Catheter Ablation for Atrial Fibrillation: An OPTION Subanalysis.",
+      "authors": "Mdaihly M, Phillips KP, Tabaja C, Nair D, Saliba WI",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Oct 6",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43018504/",
+      "abstract": "Women sex is an established, nonmodifiable risk factor for adverse outcomes in patients with atrial fibrillation (AF). Left atrial appendage closure (LAAC) has been proposed as an alternative to oral anticoagulation (OAC) for stroke prevention in patients with AF; however, there are limited data on sex-based outcomes of LAAC following catheter ablation. This study sought to compare outcomes of LAAC vs OAC after AF ablation in men and women. Patients with AF and CHA2DS2-VASc &#x2265;2 in men and ",
+      "summary_ko": "[핵심 결론] 심방세동 절제술 후 좌심방귀 폐쇄(LAAC)와 경구항응고제(OAC)는 남성과 여성 모두에서 뇌졸중, 색전증, 사망률에서 유의한 차이가 없었으나, 출혈 감소 효과는 남성에서 더 뚜렷했다.\n[방법·수치] OPTION 시험의 사전 계획된 하위분석으로 1,053명의 남성과 546명의 여성을 대상으로 절제술+LAAC 또는 절제술+OAC에 1:1로 무작위 배정하였다. 36개월 추적 결과, 주요 효능 평가 지표는 남성(HR 0.96, 95% CI 0.56-1.65, P=0.88)과 여성(HR 0.81, 95% CI 0.41-1.62, P=0.55)에서 비슷했고, 주요 안전성 평가 지표(출혈)는 남성에서 LAAC 군이 의미있게 낮았으나(HR 0.34, 95% CI 0.23-0.50, P<0.0001) 여성에서는 비유의성 경향(HR 0.68, 95% CI 0.42-1.09, P=0.11)을 보였다. 성별 치료 상호작용은 유의했다(P=0.02).\n[임상 적용·한계] 심방세동 절제술 후 고위험군 환자의 뇌졸중 예방 전략 선택 시 성별을 고려해야 하며, 특히 남성에서 LAAC의 출혈 감소 이점이 더 크다. 단일 임상시험의 사후분석이고 여성 환자 수가 남성보다 적은 한계가 있다.",
+      "specialty": [
+        "심장"
       ]
     },
     {
