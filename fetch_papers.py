@@ -5,6 +5,7 @@ import json
 import time
 import os
 import re
+import sys
 import hashlib
 import html as html_lib
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -114,7 +115,7 @@ def build_prompt(title, abstract):
         '{"specialty": ["태그"], "summary_ko": "[핵심 결론] ...\\n[방법·수치] ...\\n[임상 적용·한계] ..."}\n\n'
         "규칙:\n"
         f"- specialty: {tags} 중에서 이 논문 주제에 맞는 태그 1~2개만 배열로. 해당 주제가 고양이 연구면 \"고양이\"도 함께 넣어.\n"
-        "- summary_ko: 정확히 세 줄. 각 줄은 반드시 아래 라벨로 시작하고, 라벨당 1~3문장.\n"
+        "- summary_ko: 정확히 세 줄. 각 줄은 반드시 아래 라벨로 시작하고, 라벨당 1~2문장(전체 600자 이내).\n"
         "  [핵심 결론] 이 연구가 밝혀낸 결론\n"
         "  [방법·수치] 연구 설계, 대상(종/수/집단), 주요 수치(민감도·특이도·P값·위험비·용량 등)\n"
         "  [임상 적용·한계] 실제 진료에서 어떻게 쓸지와 한계(후향적·소규모·단일기관 등)\n"
@@ -124,19 +125,169 @@ def build_prompt(title, abstract):
     )
 
 
-def extract_json(text):
-    """코드펜스/설명이 섞인 응답에서 첫 JSON 객체를 꺼낸다."""
+# ── 모델 응답에서 JSON·요약 꺼내기 ──
+# 모델이 코드펜스(```json ... ```)로 감싸 보내거나, 앞뒤에 설명을 붙이거나,
+# max_tokens에 걸려 JSON이 중간에서 잘려 오는 경우가 있다.
+# 그때도 논문 카드에 원문 JSON이 그대로 노출되지 않도록 단계적으로 복구한다.
+_CODE_FENCE_RE = re.compile(r'```[a-zA-Z0-9_+-]*\s*\n?(.*?)(?:```|\Z)', re.DOTALL)
+_SUMMARY_KEY_RE = re.compile(r'"summary_ko"\s*:\s*"')
+_SPECIALTY_KEY_RE = re.compile(r'"specialty"\s*:\s*\[([^\]]*)\]', re.DOTALL)
+
+
+def _strip_fences(text):
+    """응답 어디에 있든 코드펜스 표기(```json 등)를 걷어낸다."""
+    return re.sub(r'```[a-zA-Z0-9_+-]*', '', text or '').strip()
+
+
+def _relax_json(text):
+    """사소한 문법 오류를 고쳐 한 번 더 파싱을 시도한다.
+    - 문자열 안에 이스케이프 없이 들어온 줄바꿈·탭을 이스케이프
+    - 객체·배열 끝의 마지막 쉼표 제거"""
+    out = []
+    in_str = False
+    esc = False
+    for ch in text:
+        if in_str:
+            if esc:
+                out.append(ch)
+                esc = False
+            elif ch == "\\":
+                out.append(ch)
+                esc = True
+            elif ch == '"':
+                out.append(ch)
+                in_str = False
+            elif ch == "\n":
+                out.append("\\n")
+            elif ch == "\r":
+                continue
+            elif ch == "\t":
+                out.append("\\t")
+            else:
+                out.append(ch)
+            continue
+        if ch == '"':
+            in_str = True
+        out.append(ch)
+    return re.sub(r',\s*([}\]])', r'\1', "".join(out))
+
+
+def _json_candidates(text):
+    """응답에서 JSON 객체로 보이는 후보들을 넓은 것부터 만들어 둔다."""
     t = (text or "").strip()
-    t = re.sub(r'^```[a-zA-Z]*\s*', '', t)
-    t = re.sub(r'\s*```\s*$', '', t).strip()
-    start, end = t.find("{"), t.rfind("}")
-    if start == -1 or end <= start:
-        return None
+    cands = []
+
+    def add(value):
+        value = (value or "").strip()
+        if value and value not in cands:
+            cands.append(value)
+
+    # 1) 코드펜스 안쪽
+    for m in _CODE_FENCE_RE.finditer(t):
+        add(m.group(1))
+    # 2) 펜스를 걷어낸 전체
+    plain = _strip_fences(t)
+    add(plain)
+    # 3) 첫 { 부터 마지막 } 까지 / 4) 첫 { 부터 끝까지(잘린 응답)
+    for src in list(cands):
+        start, end = src.find("{"), src.rfind("}")
+        if start != -1 and end > start:
+            add(src[start:end + 1])
+        if start != -1:
+            add(src[start:])
+    # 5) 중괄호 짝이 처음 맞는 블록
+    for src in list(cands):
+        start = src.find("{")
+        if start == -1:
+            continue
+        depth = 0
+        for i in range(start, len(src)):
+            if src[i] == "{":
+                depth += 1
+            elif src[i] == "}":
+                depth -= 1
+                if depth == 0:
+                    add(src[start:i + 1])
+                    break
+    return cands
+
+
+def extract_json(text):
+    """코드펜스/설명/꼬리 텍스트가 섞인 응답에서 첫 JSON 객체를 꺼낸다."""
+    for cand in _json_candidates(text):
+        for attempt in (cand, _relax_json(cand)):
+            try:
+                obj = json.loads(attempt)
+            except ValueError:
+                continue
+            if isinstance(obj, dict):
+                return obj
+    return None
+
+
+def _unescape_json_string(raw):
+    """따옴표 없이 꺼낸 JSON 문자열 본문의 이스케이프를 되돌린다."""
     try:
-        obj = json.loads(t[start:end + 1])
+        return json.loads('"' + raw + '"')
     except ValueError:
-        return None
-    return obj if isinstance(obj, dict) else None
+        return (raw.replace('\\n', '\n').replace('\\"', '"')
+                   .replace('\\\\', '\\').replace('\\t', '\t'))
+
+
+def salvage_summary_fields(text):
+    """JSON이 깨져 json.loads가 실패할 때(잘린 응답 등) 필드 값을 정규식으로 건져낸다."""
+    out = {}
+    m = _SPECIALTY_KEY_RE.search(text or "")
+    if m:
+        out["specialty"] = re.findall(r'"([^"]*)"', m.group(1))
+    m = _SUMMARY_KEY_RE.search(text or "")
+    if m:
+        rest = (text or "")[m.end():]
+        # 이스케이프되지 않은 다음 따옴표(없으면 응답 끝)까지가 값
+        end = len(rest)
+        i = 0
+        while i < len(rest):
+            if rest[i] == "\\":
+                i += 2
+                continue
+            if rest[i] == '"':
+                end = i
+                break
+            i += 1
+        out["summary_ko"] = _unescape_json_string(rest[:end])
+    return out
+
+
+def looks_like_raw_json(text):
+    """카드에 그대로 두면 안 되는 원문 JSON·코드펜스 문자열인지 판별한다."""
+    s = (text or "").strip()
+    if not s:
+        return False
+    if s.startswith("```") or s.startswith("{"):
+        return True
+    return '"summary_ko"' in s or '"specialty"' in s
+
+
+def parse_summary_response(text):
+    """모델 응답에서 (한글 요약, 진료과목 태그)를 꺼낸다. 못 꺼내면 ("", []).
+
+    정상 JSON → 문법을 살짝 고쳐 재시도 → 잘린 JSON에서 필드만 건져내기 → 평문 응답 순서로
+    시도하고, 그래도 원문 JSON 모양이면 버린다(카드 노출 방지)."""
+    summary, tags = "", []
+    parsed = extract_json(text)
+    if parsed:
+        summary = clean_summary(str(parsed.get("summary_ko") or ""))
+        tags = normalize_specialty(parsed.get("specialty"))
+    if not summary:
+        salvaged = salvage_summary_fields(text)
+        summary = clean_summary(salvaged.get("summary_ko") or "")
+        tags = tags or normalize_specialty(salvaged.get("specialty"))
+    if not summary and not looks_like_raw_json(text):
+        # JSON이 아닌 평문 응답은 그대로 정리해 쓴다
+        summary = clean_summary(text)
+    if summary and looks_like_raw_json(summary):
+        summary = ""
+    return summary, tags
 
 
 def normalize_specialty(value):
@@ -203,7 +354,8 @@ def summarize_ko(title, abstract):
     try:
         payload = json.dumps({
             "model": "claude-haiku-4-5-20251001",
-            "max_tokens": 700,
+            # 700이면 긴 논문에서 응답이 중간에 잘려 JSON이 깨졌다(2026-11-23 확인).
+            "max_tokens": 1200,
             "messages": [{"role": "user", "content": build_prompt(title, abstract)}]
         }).encode()
         data = call_claude(payload)
@@ -213,18 +365,12 @@ def summarize_ko(title, abstract):
         ).strip()
         if not text:
             return "", fallback_tags
+        if data.get("stop_reason") == "max_tokens":
+            print("  요약 응답이 max_tokens에서 잘렸습니다. 남은 부분까지 복구해 사용합니다.")
 
-        parsed = extract_json(text)
-        if parsed:
-            summary = clean_summary(str(parsed.get("summary_ko") or ""))
-            tags = normalize_specialty(parsed.get("specialty"))
-            if summary:
-                return summary, (tags or fallback_tags)
-
-        # JSON이 아니거나 비어 있으면 본문을 그대로 정리해 쓴다
-        summary = clean_summary(text)
-        if summary and not summary.lstrip().startswith("{"):
-            return summary, fallback_tags
+        summary, tags = parse_summary_response(text)
+        if summary:
+            return summary, (tags or fallback_tags)
         return "", fallback_tags
     except Exception as e:
         print(f"  요약 오류: {e}")
@@ -285,6 +431,30 @@ def get_papers(journal):
             "specialty": [],
         })
     return papers
+
+
+def repair_paper_summaries(items, verbose=True):
+    """이미 저장된 항목의 깨진 summary_ko(LLM 원문 JSON 문자열)를 제자리에서 복구한다.
+
+    merge_papers·merge_cb_articles는 기존 summary_ko를 그대로 살리므로, 한 번 깨져
+    저장된 항목은 코드를 고쳐도 그대로 남는다. 매 실행 전에 이 함수를 돌려 누적
+    papers.json 안의 깨진 값을 정상 텍스트로 바꿔 둔다.
+    """
+    fixed = 0
+    for p in items:
+        raw = p.get("summary_ko") or ""
+        if not looks_like_raw_json(raw):
+            continue
+        summary, tags = parse_summary_response(raw)
+        p["summary_ko"] = summary
+        if tags:
+            p["specialty"] = tags
+        elif not normalize_specialty(p.get("specialty")):
+            p["specialty"] = guess_specialties(f"{p.get('title', '')} {p.get('abstract', '')}")
+        fixed += 1
+        if verbose:
+            print(f"  요약 복구: {paper_key(p)} ({len(raw)}자 → {len(summary)}자)")
+    return fixed
 
 
 def summarize_papers(papers, label=""):
@@ -419,6 +589,53 @@ def merge_papers(fresh, previous):
         seen.add(k)
         merged.append(p)
     return merged, added
+
+def _load_papers_json():
+    with open("papers.json", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def repair_existing():
+    """papers.json만 제자리에서 복구한다(PubMed 수집·API 호출 없음).
+    실행: python fetch_papers.py --repair"""
+    try:
+        data = _load_papers_json()
+    except (OSError, ValueError) as e:
+        print(f"papers.json을 읽지 못했습니다: {e}")
+        return 1
+    fixed = repair_paper_summaries(data.get("papers", []))
+    fixed += repair_paper_summaries(data.get("clinicians_brief", []))
+    if fixed:
+        with open("papers.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    print(f"복구 {fixed}건")
+    return check_existing() if fixed else 0
+
+
+def check_existing():
+    """papers.json에 카드용이 아닌 원문 JSON 문자열이 남았는지 검사한다.
+    실행: python fetch_papers.py --check (깨진 값이 있으면 종료코드 1)"""
+    try:
+        data = _load_papers_json()
+    except (OSError, ValueError) as e:
+        print(f"papers.json을 읽지 못했습니다: {e}")
+        return 1
+    broken = []
+    for group in ("papers", "clinicians_brief"):
+        for item in data.get(group, []):
+            if looks_like_raw_json(item.get("summary_ko")):
+                broken.append((group, paper_key(item) or item.get("url", "")))
+            if not isinstance(item.get("specialty"), list):
+                print(f"  specialty 형식 이상(목록 아님): {paper_key(item) or item.get('url', '')}")
+    print(f"검사 대상: 논문 {len(data.get('papers', []))}편 + CB {len(data.get('clinicians_brief', []))}편")
+    if broken:
+        print(f"원문 JSON이 남은 항목 {len(broken)}건:")
+        for group, key in broken:
+            print(f"  - [{group}] {key}")
+        return 1
+    print("원문 JSON이 남은 항목 0건")
+    return 0
+
 
 def load_previous_cb():
     """이전 papers.json의 CB 아티클을 URL → 항목으로 불러온다."""
@@ -623,6 +840,11 @@ def main():
     if previous_papers:
         print(f"  → 기존 {len(previous_papers)}편 보존 + 신규 {added}편 = {len(all_papers)}편")
 
+    # 예전에 깨져 저장된 요약(원문 JSON 문자열)은 여기서 복구하고 나서 빈 요약만 다시 만든다
+    repaired = repair_paper_summaries(all_papers)
+    if repaired:
+        print(f"  → 깨진 요약 {repaired}건 복구")
+
     summarize_papers(all_papers, "PubMed ")
     for p in all_papers:
         p["abstract"] = (p.get("abstract") or "")[:500]
@@ -635,6 +857,7 @@ def main():
         cb_articles = previous_cb_items()
         if cb_articles:
             print(f"  → CB 수집 실패: 기존 CB {len(cb_articles)}편을 유지합니다.")
+    repair_paper_summaries(cb_articles)
 
     output = {
         "updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"),
@@ -649,4 +872,8 @@ def main():
     print(f"\n완료! 논문 {len(all_papers)}편 + CB {len(cb_articles)}편 저장됨 → papers.json")
 
 if __name__ == "__main__":
+    if "--repair" in sys.argv:
+        sys.exit(repair_existing())
+    if "--check" in sys.argv:
+        sys.exit(check_existing())
     main()

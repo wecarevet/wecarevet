@@ -1,0 +1,173 @@
+"""fetch_papers.py의 LLM 응답 파싱·복구 로직 테스트.
+
+실행: python -m unittest discover -s tests   (또는 python tests/test_fetch_papers.py)
+네트워크·API 호출 없이 돌아간다.
+"""
+import os
+import sys
+import unittest
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+import fetch_papers as fp  # noqa: E402
+
+GOOD = (
+    "[핵심 결론] 결론입니다.\n"
+    "[방법·수치] 방법입니다.\n"
+    "[임상 적용·한계] 적용입니다."
+)
+
+
+class ExtractJsonTest(unittest.TestCase):
+    def test_plain_json(self):
+        obj = fp.extract_json('{"specialty": ["심장"], "summary_ko": "요약"}')
+        self.assertEqual(obj["summary_ko"], "요약")
+
+    def test_fenced_json(self):
+        text = '```json\n{\n  "specialty": ["심장"],\n  "summary_ko": "요약"\n}\n```'
+        obj = fp.extract_json(text)
+        self.assertEqual(obj["specialty"], ["심장"])
+
+    def test_fence_with_preface_and_tail(self):
+        text = (
+            "다음과 같이 정리했습니다.\n\n"
+            '```json\n{"specialty": ["영상"], "summary_ko": "요약"}\n```\n\n'
+            "필요한 부분이 있으면 알려주세요."
+        )
+        obj = fp.extract_json(text)
+        self.assertEqual(obj["summary_ko"], "요약")
+
+    def test_json_with_raw_newlines_inside_string(self):
+        text = '{"specialty": ["심장"], "summary_ko": "[핵심 결론] 결과.\n[방법·수치] 방법."}'
+        obj = fp.extract_json(text)
+        self.assertIsNotNone(obj)
+        self.assertIn("[방법·수치]", obj["summary_ko"])
+
+    def test_json_with_trailing_comma(self):
+        text = '{"specialty": ["심장"], "summary_ko": "요약",}'
+        obj = fp.extract_json(text)
+        self.assertEqual(obj["summary_ko"], "요약")
+
+    def test_truncated_json_returns_none(self):
+        text = '```json\n{\n  "specialty": ["심장"],\n  "summary_ko": "[핵심 결론] 잘린 응답'
+        self.assertIsNone(fp.extract_json(text))
+
+
+class ParseSummaryResponseTest(unittest.TestCase):
+    def test_normal_response(self):
+        text = '{"specialty": ["심장", "영상"], "summary_ko": "%s"}' % GOOD.replace("\n", "\\n")
+        summary, tags = fp.parse_summary_response(text)
+        self.assertEqual(summary, GOOD)
+        self.assertEqual(tags, ["심장", "영상"])
+
+    def test_truncated_response_is_salvaged_without_fence(self):
+        text = (
+            '```json\n{\n  "specialty": ["마취/진통"],\n'
+            '  "summary_ko": "[핵심 결론] 진정 효과가 있었다.\\n'
+            '[방법·수치] 개 53마리, Z0.6-SC 4/11마리에 추가 진정.\\n'
+            '[임상 적용·한계] 더 높은 용량이 필요할 수 있으'
+        )
+        summary, tags = fp.parse_summary_response(text)
+        self.assertFalse(fp.looks_like_raw_json(summary))
+        self.assertIn("[핵심 결론]", summary)
+        self.assertIn("[방법·수치]", summary)
+        self.assertIn("[임상 적용·한계]", summary)
+        self.assertNotIn("```", summary)
+        self.assertNotIn('"summary_ko"', summary)
+        self.assertEqual(tags, ["마취/진통"])
+
+    def test_fence_only_blob_is_never_returned(self):
+        text = '```json\n{"specialty": ["심장"], "summary_ko": ""}\n```'
+        summary, _ = fp.parse_summary_response(text)
+        self.assertEqual(summary, "")
+
+    def test_broken_json_without_summary_key_is_dropped(self):
+        text = "```json\n{\n  \"specialty\": [\n```"
+        summary, _ = fp.parse_summary_response(text)
+        self.assertEqual(summary, "")
+
+    def test_plain_prose_response_still_used(self):
+        summary, tags = fp.parse_summary_response(GOOD)
+        self.assertEqual(summary, GOOD)
+        self.assertEqual(tags, [])
+
+    def test_unknown_specialty_filtered(self):
+        text = '{"specialty": ["존재하지않는태그", "심장"], "summary_ko": "요약"}'
+        summary, tags = fp.parse_summary_response(text)
+        self.assertEqual(summary, "요약")
+        self.assertEqual(tags, ["심장"])
+
+
+class RepairTest(unittest.TestCase):
+    def test_repair_broken_entry(self):
+        broken = (
+            '```json\n{\n  "specialty": ["심장"],\n'
+            '  "summary_ko": "[핵심 결론] 결론.\\n[방법·수치] 방법.\\n[임상 적용·한계] 적용'
+        )
+        papers = [{
+            "id": "43002247", "title": "t", "abstract": "a",
+            "summary_ko": broken, "specialty": ["기타"],
+        }]
+        fixed = fp.repair_paper_summaries(papers, verbose=False)
+        self.assertEqual(fixed, 1)
+        self.assertFalse(fp.looks_like_raw_json(papers[0]["summary_ko"]))
+        self.assertTrue(papers[0]["summary_ko"].startswith("[핵심 결론]"))
+        self.assertEqual(papers[0]["specialty"], ["심장"])
+
+    def test_repair_leaves_clean_entry_alone(self):
+        papers = [{"id": "1", "summary_ko": GOOD, "specialty": ["심장"]}]
+        self.assertEqual(fp.repair_paper_summaries(papers, verbose=False), 0)
+        self.assertEqual(papers[0]["summary_ko"], GOOD)
+
+
+class SummarizeKoTest(unittest.TestCase):
+    """API 응답을 가짜로 바꿔 summarize_ko가 원문 JSON을 저장하지 않는지 확인."""
+
+    def _run(self, text, stop_reason="end_turn"):
+        def fake_call(payload, attempts=1):
+            return {"content": [{"type": "text", "text": text}], "stop_reason": stop_reason}
+        old_key, old_call = fp.ANTHROPIC_API_KEY, fp.call_claude
+        fp.ANTHROPIC_API_KEY = "test"
+        fp.call_claude = fake_call
+        try:
+            return fp.summarize_ko("제목", "초록")
+        finally:
+            fp.ANTHROPIC_API_KEY, fp.call_claude = old_key, old_call
+
+    def test_fenced_json_is_parsed(self):
+        text = '```json\n{"specialty": ["신장/비뇨"], "summary_ko": "%s"}\n```' % GOOD.replace("\n", "\\n")
+        summary, tags = self._run(text)
+        self.assertEqual(summary, GOOD)
+        self.assertEqual(tags, ["신장/비뇨"])
+
+    def test_truncated_json_is_salvaged_not_stored_raw(self):
+        text = ('```json\n{\n  "specialty": ["심장"],\n  "summary_ko": "[핵심 결론] 결론.\\n'
+                '[방법·수치] 방법.\\n[임상 적용·한계] 잘린 부')
+        summary, tags = self._run(text, stop_reason="max_tokens")
+        self.assertFalse(fp.looks_like_raw_json(summary))
+        self.assertIn("[핵심 결론]", summary)
+        self.assertEqual(tags, ["심장"])
+
+    def test_empty_and_broken_returns_empty_summary(self):
+        summary, tags = self._run('```json\n{"specialty": ["심장"]')
+        self.assertEqual(summary, "")
+        self.assertTrue(tags)  # 키워드 기반 대체 태그
+
+
+class PapersJsonTest(unittest.TestCase):
+    """저장된 papers.json에 원문 JSON이 남아 있지 않은지 확인(파일이 있을 때만)."""
+
+    def test_no_raw_json_in_papers_json(self):
+        path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "papers.json")
+        if not os.path.exists(path):
+            self.skipTest("papers.json 없음")
+        import json
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        broken = [p.get("id") for p in data.get("papers", []) if fp.looks_like_raw_json(p.get("summary_ko"))]
+        broken += [a.get("id") for a in data.get("clinicians_brief", []) if fp.looks_like_raw_json(a.get("summary_ko"))]
+        self.assertEqual(broken, [])
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
