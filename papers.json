@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-22 04:30 UTC",
-  "total": 340,
+  "updated": "2026-11-23 05:05 UTC",
+  "total": 349,
   "papers": [
     {
       "id": "42833272",
@@ -29,6 +29,93 @@
       "specialty": [
         "피부",
         "기타"
+      ]
+    },
+    {
+      "id": "43068792",
+      "title": "Clinical Efficacy of Cordycepin in Feline Upper Respiratory Infection: A Randomized Trial.",
+      "authors": "Li J, Xu G, Zhang K, Zhang J, Guo Z",
+      "journal": "Vet J",
+      "type": "vet",
+      "date": "2026 Nov 22",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43068792/",
+      "abstract": "Presenting predominantly with upper airway, oral, and ocular anomalies, feline upper respiratory infection (FURI) is highly pervasive among cat populations. Given its substantial morbidity and tendency to trigger severe secondary conditions like pneumonia, it persists as a formidable hurdle in feline medicine. We investigated the therapeutic impact of cordycepin, a major active component of Cordyceps militaris, on the clinical progression and physiological recovery of cats with FURI. Our data re",
+      "summary_ko": "[핵심 결론] 14일간의 경구 코디셉핑 투여는 고양이 상기도감염(FURI)의 호흡기 증상을 유의하게 완화하고, 전신 염증 감소, 산화환원 균형 회복, 특히 황색포도상구균의 상대적 풍도를 감소시켰으며, 이러한 개선이 IgA, CAT, GSH-Px 등 숙주방어인자 증가와 임상점수 저하와 연관되었다.\n[방법·수치] 무작위배정 시험으로 고양이 상기도감염 모델에서 코디셉핑의 치료 효과를 평가했으며, 메타게노믹 분석 및 상관분석을 통해 황색포도상구균 감소와 숙주방어인자 증가 간의 유의한 연관성을 확인했으나 구체적인 수치(감소율, P값 등)는 제시되지 않음.\n[임상 적용·한계] 항염증, 항산화, 면역증강, 미생물생태계 조절의 다중 기전을 통해 고양이 상기도감염의 임상 관리에 활용 가능한 치료제 후보를 제시했으나, 초록만으로는 대조군 설정, 표본 규모, 통계적 유의성 등 상세 정보 부족으로 임상 적용 판단에 제한이 있다.",
+      "specialty": [
+        "고양이",
+        "기타"
+      ]
+    },
+    {
+      "id": "43066609",
+      "title": "Environmental noise and cardiometabolic health: a transatlantic perspective.",
+      "authors": "Münzel T, Osborne MT, Basner M, Röösli M, Angell SY",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Nov 21",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43066609/",
+      "abstract": "Environmental noise is a pervasive but under-recognized cardiovascular and metabolic risk factor. Drawing on prior expert reviews and large-scale epidemiologic and mechanistic studies, this review synthesizes evidence on the burden, major clinical associations, biological pathways, vulnerable populations, and mitigation strategies relevant to cardiovascular health. Road traffic noise is consistently and dose-dependently associated with higher risks of ischaemic heart disease, stroke, heart failu",
+      "summary_ko": "[핵심 결론] 환경소음은 심혈관 및 대사질환의 과소평가된 위험요인으로, 특히 도로교통소음이 허혈성심질환, 뇌졸중, 심부전, 당뇨병, 수면장애와 용량-반응 관계로 일관되게 연관되어 있으며, 철도 및 항공기 소음도 중요한 연관성이 보고되고 있다.\n[방법·수치] 대규모 역학연구, 중개 인체영상 연구, 대조군 노출 실험, 동물모델을 종합한 체계적 고찰이다. 만성 및 간헐적 소음노출은 스트레스 반응 신경회로 활성화, 교감신경 및 시상하부-뇌하수체-부신축 활동 증가, 산화스트레스, 내피기능장애, 혈관염증을 유발하는 공통 경로를 통해 심대사질환을 가속화하며, 대기오염, 열, 사회경제적 취약 환경과 복합 노출될 경우 심혈관 위험이 가산적으로 증가한다. 수치 제시 없음.\n[임상 적용·한계] 현재 심혈관 위험평가도구, 예방지침, 임상상담에서 환경소음이 거의 반영되지 않고 있어 위험감소의 기회를 놓치고 있다. 음원감소, 보건기반 도시 및 교통계획, 개인보호를 포함한 위계적 중재전략이 필요하다. 역학 연구 기반이므로 인과관계 확립에 추가 임상 증거가 필요하고, 개인 보호 방법의 효과 크기에 대한 구체적 수치가 부족하다.",
+      "specialty": [
+        "심장",
+        "내과/내분비"
+      ]
+    },
+    {
+      "id": "43067099",
+      "title": "Intra-arterial vinblastine is well tolerated for the treatment of urothelial cell carcinomas and prostatic carcinomas in dogs.",
+      "authors": "Vigouroux O, Horton A, O'Keeffe J, Letwin L, McLauchlan G",
+      "journal": "AJVR",
+      "type": "vet",
+      "date": "2026 Nov 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43067099/",
+      "abstract": "To describe the treatment and outcome for dogs with lower urinary tract carcinoma or prostatic carcinoma treated with intra-arterial vinblastine. 14 client-owned dogs from a single private referral center identified through a search of the medical records as having either urothelial cell carcinoma (n = 8) or prostatic carcinoma (6) treated with intra-arterial vinblastine from September 1, 2016, through September 30, 2023. The most commonly reported clinical signs were pollakiuria, stranguria, an",
+      "summary_ko": "[핵심 결론] 개의 요로상피세포암종과 전립선암종에 대한 동맥 내 빈블래스틴 치료는 잘 견디어지며 임상적 개선에 기여할 수 있다.\n[방법·수치] 단일 민간 종양 전문 센터에서 2016년 9월~2023년 9월 사이 요로상피세포암종(8마리) 또는 전립선암종(6마리)으로 동맥 내 빈블래스틴 치료를 받은 개 14마리를 대상으로 한 의료기록 검색 연구이며, 중앙 체중 14.85kg, 중앙 나이 8세, 거세수컷 9마리와 중성화 암컷 5마리였고, 치료 전 임상증상 중앙 지속 기간은 5주(1~18주)였으며, 임상 결과가 보고된 10마리 중 9마리는 개선, 1마리는 안정적 증상을 보였고, 재검사 가능한 8마리 중 부분관해 2마리, 안정질환 4마리, 진행성질환 2마리였다.\n[임상 적용·한계] 동맥 내 빈블래스틴은 모든 경우에 내장골동맥을 통해 성공적으로 투여되었으며 급속한 임상 개선에 기여할 수 있으나, 단일 기관의 소규모 증례 보고이므로 추가 연구가 필요하다.",
+      "specialty": [
+        "종양",
+        "기타"
+      ]
+    },
+    {
+      "id": "43067100",
+      "title": "Prophylactic paracostal gastropexy in a canine.",
+      "authors": "Garland M, Grimes JA",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Nov 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43067100/",
+      "abstract": "To demonstrate a paracostal approach for prophylactic gastropexy in a dog. A healthy client-owned canine was used for demonstration, with informed client consent. The surgical site is clipped and aseptically prepared from cranial to the last rib to mid-abdomen on the right ventrolateral side. The skin is incised caudal and parallel to the 13th rib. The abdominal musculature is identified and transected to open the abdominal cavity. The pyloric antrum is identified, and stay sutures are placed at",
+      "summary_ko": "[핵심 결론] 늑골곁(paracostal) 접근법을 이용한 예방적 위고정술은 위팽대-염전증 고위험 견에서 미래의 위팽대-염전증을 예방할 수 있으며, 복부 정중선 접근법보다 더 작은 절개로 수술을 수행할 수 있다.\n[방법·수치] 건강한 개를 대상으로 한 술식 시연 연구로, 13번째 늑골 뒤쪽 복부 측면에 4cm의 위수장막근층 절개를 만들고, 2-0 흡수성 봉합사를 이용하여 위의 수장막근층을 복횡근에 단순 연속 봉합하는 방식으로 시행하였다. 수치 제시 없음.\n[임상 적용·한계] 가슴이 깊은 견에서 위팽대-염전증 고위험군에 대한 예방적 위고정술의 적응증이 있으며, 복부 정중선 접근법 대비 더 작은 절개로 수술할 수 있다는 장점이 있다. 단일 증례 시연 연구로 술식의 안전성 및 장기 추적 결과 데이터가 부족하다.",
+      "specialty": [
+        "외과/정형"
+      ]
+    },
+    {
+      "id": "43067098",
+      "title": "Infections following dental extractions in dogs are rare both with and without antimicrobial therapy based on a 10-year retrospective study.",
+      "authors": "Volk A, Goldschmidt S, Park L, Soltero-Rivera M, Blandino A",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Nov 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43067098/",
+      "abstract": "To report postoperative local infection rates in dogs undergoing dental extractions with versus without antimicrobial treatment. Medical records were reviewed for dogs undergoing dental extractions at a single institution between 2014 and 2024. Use of prophylactic antimicrobials and presence of postoperative infection were recorded. The impact of different risk factors on the presence of infection was assessed with logistic regression. The number needed to treat to prevent infection in 1 dog was",
+      "summary_ko": "[핵심 결론] 개의 치아 발거 후 술후감염은 항균제 사용 여부와 관계없이 매우 드물며(전체 0.66%), 면역능이 정상인 개에서는 예방적 항균제 사용이 권장되지 않음.\n[방법·수치] 2014~2024년 단일 기관 후향적 의료기록 검토, 913마리 개 대상; 항균제 사용군 0.2% vs 미사용군 1.5% 감염률(OR 0.16), 감염 1건 예방을 위해 76마리를 불필요하게 항균제로 치료해야 함(95% CI 30~399); 발거 개수, 치주질환 심도는 오히려 보호인자(OR 0.1~0.2); 술중·술후 합병증 각각 5.4%, 4.9%.\n[임상 적용·한계] 면역능 정상 개의 치아 발거에서 예방적 항균제 투여는 비용-효과 측면에서 부정적이며, 술후감염 발생 시에만 치료적 항균제 사용 권장; 단일기관 후향적 연구로 선택편향 가능성 있고 면역저하 개는 제외됨.",
+      "specialty": [
+        "기타"
+      ]
+    },
+    {
+      "id": "43067097",
+      "title": "Diamond burr debridement with bandage contact lens placement may be a minimally invasive treatment option for selected cats with superficial corneal sequestra.",
+      "authors": "Ahn J, Kim G, Seo K, Kang S",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Nov 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43067097/",
+      "abstract": "To evaluate the clinical outcomes of diamond burr debridement (DBD) combined with bandage contact lens (BCL) placement for treatment of feline corneal sequestra (FCS). Medical records of client-owned cats diagnosed with superficial FCS and treated with DBD and BCL between October 1, 2022, and April 1, 2026, were retrospectively reviewed. Diamond burr debridement was performed under topical anesthesia using a handheld diamond burr, followed by BCL placement. Clinical assessments included lesion w",
+      "summary_ko": "[핵심 결론] 다이아몬드 버 박리술과 밴드 콘택트렌즈 병용은 선택된 고양이의 표재성 각막 격자체(FCS)에 대한 최소침습적 치료 옵션이 될 수 있으며, 17안 중 14안(82.4%)이 2주 내 완전한 각막상피화를 달성했다.\n[방법·수치] 2022년 10월~2026년 4월 표재성 FCS로 진단받고 다이아몬드 버 박리술과 밴드 콘택트렌즈로 치료받은 고양이 17마리(17안)의 의무기록을 후향적 검토. 평균 연령 8.0±3.0세, 76.4%(13/17)가 단두종. 완전 상피화는 2주에 14안, 4주에 3안에서 달성. 재발률 23.5%(4/17), 병변 크기와 재발 간 양의 상관(ρ=0.684), 병변 크기와 재검 시 렌즈 존재 간 음의 상관(ρ=-0.502), 재발과 렌즈 존재 간 음의 상관(ρ=-0.523).\n[임상 적용·한계] 표재성 FCS에서 다이아몬도 버 박리술은 신중한 증례 선별 시 최소침습적 선택지가 될 수 있으나, 각막층 깊이 평가와 엄격한 케이스 선별이 필수적이고, 더 깊은 기질 침범은 완전 격자체 제거 및 구조 복구가 필요할 수 있으며, 표층각막절제가 여전히 금표준 치료. 후향적 단일기관 소규모 연구로 대규모 전향적 연구 필요.",
+      "specialty": [
+        "고양이"
       ]
     },
     {
@@ -1146,6 +1233,21 @@
       ]
     },
     {
+      "id": "43066664",
+      "title": "AI-Enabled Echocardiography Identifies Prominent Epicardial Adipose Tissue Associated With an Adverse Cardiometabolic Profile.",
+      "authors": "Aminorroaya A, Coppi A, McNamara RL, Lima JAC, Krumholz HM",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Nov 7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43066664/",
+      "abstract": "Excess epicardial adipose tissue (EAT) is associated with cardiovascular-kidney-metabolic dysfunction, but its assessment has traditionally required advanced imaging. We investigated whether artificial intelligence (AI)-enabled echocardiography could characterize epicardial adiposity and identify residual cardiometabolic risk. We developed PanAdipo, a video-based deep learning model in 1,114,441 videos from 28,797 studies across the Yale-New Haven Health System (YNHHS) (2016-2022), using report-",
+      "summary_ko": "```json\n{\n  \"specialty\": [\"심장\", \"영상\"],\n  \"summary_ko\": \"[핵심 결론] AI 기반 심초음파 모델(PanAdipo)은 심외막지방(EAT)을 정확히 식별하며, 이는 인슐린 저항성, 지방간질환, 고지혈증 등 불리한 대사 프로필과 연관됨을 보여 심초음파를 대사 위험 계층화에 활용할 수 있음을 시사함.\\n[방법·수치] 28,797건의 초음파 연구(1,114,441개 동영상)로 개발된 딥러닝 모델을 5개 테스트 코호트에서 평가(YNHHS n=4,588, 응급실 POC 초음파 n=10,957, MIMIC-IV n=4,549, MESA n=2,740, CT 쌍을 이룬 환자 n=5,167). PanAdipo는 임상 보고서 기반 현저한 EAT 식별 시 AUROC 0.86(95% CI: 0.82-0.91), CT 정의 고용적 EAT 판별 시 AUROC 0.90(95% CI: 0.89-0.92) 달성. 용적 지정 EAT와의 상관(Spearman ρ=0.76)이 BMI(ρ=0.41)보다 강함. MESA에서 높은 점수는 HOMA-IR 증가(β=0.17 per SD; 95% CI: 0.11-0.22)와 연관, 지방간질환(pooled HR: 1.33 per SD; 95% CI: 1.11-1.59)과 고지혈증(HR: 1.11; 95% CI: 1.04-1.18)의 새로운 진단과도 관련.\\n[임상 적용·한계] 표준 심초음파 영상으로 별도의 고급 영상 없이 심외막지방을 비침습적으로 평가할 수 있어 대규모 임상 적용에 용이하나, 탐색적 코호트 분석에서 정밀도가 낮고(신뢰구간이 1을 넘음), 단일 기관 개발 모델의 외부 검증이 제한적이며 인과 관",
+      "specialty": [
+        "영상",
+        "심장"
+      ]
+    },
+    {
       "id": "42994099",
       "title": "Surgical outcomes of congenital cleft palate repair in dogs: a scoping review.",
       "authors": "Elazegui E, Wolfs E",
@@ -1685,21 +1787,6 @@
       ]
     },
     {
-      "id": "42633785",
-      "title": "A newly derived formula outperforms published formulae for estimating urine osmolality in healthy dogs receiving intravenous fluids.",
-      "authors": "Jeong Y, Qu Y, Kim MS, Her J",
-      "journal": "AJVR",
-      "type": "vet",
-      "date": "2026 Nov 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42633785/",
-      "abstract": "To derive a formula to estimate urine osmolality (Uosm) in dogs with urine sodium, potassium, glucose, and urea nitrogen and to compare the performance of the derived formula with published formulae. A prospective observational study was conducted using purpose-bred Beagles housed at a university research facility. Healthy dogs, confirmed by physical examination and laboratory testing, received isotonic or hypotonic IV fluids in a randomized sequence for 48 hours, with a 10-day washout period be",
-      "summary_ko": "[핵심 결론] 새로운 요삼투질 추정 공식(Uosm = 2×나트륨 + 1.8×칼륨 + 요소질소2.5 + 포도당3.9)은 건강한 개에서 기존 공식들보다 우수한 성능을 보였으며, 요삼투질 측정이 불가능할 때 신장 수분 처리능과 농축능 평가에 유용하다.\n[방법·수치] 목적 사육 비글 9마리에서 등장액 또는 저장액 정맥수액을 48시간 투여하면서 89개의 요 샘플을 수집하여 선형혼합모델로 공식을 도출했다. 제안된 공식의 일치상관계수(CCC)는 0.96(95% CI, 0.94~0.97)이었고, 고정편향은 +7.99 mOsm/kg였으며, Passing-Bablok 회귀분석에서 비례 편향이나 상수 편향이 없었다.\n[임상 적용·한계] 임상에서 요삼투질을 직접 측정할 수 없는 상황에서 간단한 계산으로 신장의 수분 조절 능력을 평가할 수 있다. 그러나 건강한 개만 대상으로 한 소규모 연구(9마리)이므로 질병 상태에서의 추가 검증이 필요하다.",
-      "specialty": [
-        "신장/비뇨",
-        "내과/내분비"
-      ]
-    },
-    {
       "id": "42968222",
       "title": "EXPRESS: Hyperammonemia in cats with acute (on chronic) kidney disease: associations with urea cycle amino acids, azotemia and acid-base status.",
       "authors": "McFadden K, Labato MA, Linder DE, Webster CR",
@@ -1757,6 +1844,21 @@
       "specialty": [
         "심장",
         "영상"
+      ]
+    },
+    {
+      "id": "42633785",
+      "title": "A newly derived formula outperforms published formulae for estimating urine osmolality in healthy dogs receiving intravenous fluids.",
+      "authors": "Jeong Y, Qu Y, Kim MS, Her J",
+      "journal": "AJVR",
+      "type": "vet",
+      "date": "2026 Nov 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42633785/",
+      "abstract": "To derive a formula to estimate urine osmolality (Uosm) in dogs with urine sodium, potassium, glucose, and urea nitrogen and to compare the performance of the derived formula with published formulae. A prospective observational study was conducted using purpose-bred Beagles housed at a university research facility. Healthy dogs, confirmed by physical examination and laboratory testing, received isotonic or hypotonic IV fluids in a randomized sequence for 48 hours, with a 10-day washout period be",
+      "summary_ko": "[핵심 결론] 새로운 요삼투질 추정 공식(Uosm = 2×나트륨 + 1.8×칼륨 + 요소질소2.5 + 포도당3.9)은 건강한 개에서 기존 공식들보다 우수한 성능을 보였으며, 요삼투질 측정이 불가능할 때 신장 수분 처리능과 농축능 평가에 유용하다.\n[방법·수치] 목적 사육 비글 9마리에서 등장액 또는 저장액 정맥수액을 48시간 투여하면서 89개의 요 샘플을 수집하여 선형혼합모델로 공식을 도출했다. 제안된 공식의 일치상관계수(CCC)는 0.96(95% CI, 0.94~0.97)이었고, 고정편향은 +7.99 mOsm/kg였으며, Passing-Bablok 회귀분석에서 비례 편향이나 상수 편향이 없었다.\n[임상 적용·한계] 임상에서 요삼투질을 직접 측정할 수 없는 상황에서 간단한 계산으로 신장의 수분 조절 능력을 평가할 수 있다. 그러나 건강한 개만 대상으로 한 소규모 연구(9마리)이므로 질병 상태에서의 추가 검증이 필요하다.",
+      "specialty": [
+        "신장/비뇨",
+        "내과/내분비"
       ]
     },
     {
@@ -1861,6 +1963,21 @@
       "summary_ko": "[핵심 결론] 고양이 혈액수혈 전 적용하는 포인트오브케어 젤 칼럼 교혈검사는 기준 실험실의 튜브 교혈검사와 중등도의 일치를 보였으며, 임상 현장에서의 접근성을 개선할 수 있는 대안이 될 수 있다.\n[방법·수치] 수혈이 필요할 가능성이 있는 고양이 95쌍의 공여자-수혜자 혈액을 대상으로 튜브 교혈검사와 젤 칼럼 교혈검사를 동시에 수행했다. 카파 일치도 0.581(95% 신뢰구간: 0.378~0.785), 전체 일치율 86.3%, 양성 일치율 93.2%, 음성 일치율 61.9%였다.\n[임상 적용·한계] 포인트오브케어 젤 칼럼 검사는 임상현장에서 직접 수행 가능하여 교혈검사의 접근성을 높일 수 있으나, 음성 일치율이 61.9%로 낮아 불일치 사례가 많아 추가 검증이 필요하고, 임상적 의미 있는 불일치 사례를 더 포함한 추후 연구가 권장된다.",
       "specialty": [
         "기타"
+      ]
+    },
+    {
+      "id": "42240562",
+      "title": "Effect of vertical distance between the heart base and the cuff on arterial blood pressure measurements using PetMAP in anaesthetised dogs.",
+      "authors": "McConomy R, Pinnok H, Adami C",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Nov",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
+      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement ab",
+      "summary_ko": "[핵심 결론] 마취 중 진동식 혈압계(PetMAP)로 측정할 때 커프 위치가 심장 기저부로부터 수직으로 단 3cm 벗어나도 평균동맥혈압이 최대 6mmHg의 임상적으로 의미 있는 오차가 발생한다.\n[방법·수치] 마취된 건강한 개 22마리를 대등척 자세에서 흉지와 골반지에 커프를 적용하여 심장 기저부, 기저부 위쪽, 기저부 아래쪽(각각 흉곽 깊이의 20%)에서 혈압을 측정했다. 흉지를 낮췄을 때 수축기혈압과 평균동맥혈압이 유의하게 증가했고(P=0.02, P=0.047), 골반지를 올렸을 때 수축기/평균/이완기혈압이 유의하게 감소했다(모두 P<0.03). 평균동맥혈압의 오차는 체중과 양의 상관관계를 보였다(P<0.001).\n[임상 적용·한계] 마취 중 혈압 측정 시 커프를 반드시 심장 기저부(상완골 대결절 높이)에 정렬하여 위치 편차를 최소화해야 한다. 단일 기관의 소규모 연구로 다양한 품종과 임상 상황에서의 검증이 필요하다.",
+      "specialty": [
+        "마취/진통",
+        "응급/중환자"
       ]
     },
     {
@@ -3627,20 +3744,6 @@
       ]
     },
     {
-      "id": "42843409",
-      "title": "Should veterinarians apply a 2-step framework to classify adiposity and diagnose clinical obesity in dogs and cats?",
-      "authors": "Ward E, Churchill J",
-      "journal": "JAVMA",
-      "type": "vet",
-      "date": "2026 Oct 7",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42843409/",
-      "abstract": "Obesity drugs are entering veterinary trials, and prescribing them should follow a diagnosis. Body condition score is not a diagnosis; it describes a patient's adiposity, not whether it is causing illness. This Viewpoint proposes 2 steps for diagnosing clinical obesity in dogs and cats: describe, then diagnose. Step 1 describes adiposity as overweight or obesity. Step 2, applied only when obesity is documented, assigns a disease stage; clinical obesity requires a documented, clinically meaningfu",
-      "summary_ko": "[핵심 결론] 개와 고양이의 임상적 비만 진단을 위해 2단계 프레임워크를 적용해야 한다: 1단계에서 체지방도를 과체중 또는 비만으로 기술하고, 2단계에서 체지방도로 인한 임상적으로 의미 있는 이상이 증명될 때만 질병 단계를 진단한다.\n[방법·수치] 이 연구는 현행 체형점수 평가의 한계를 분석한 관점 논문으로, 비만 치료제의 수의학적 임상시험 도입을 배경으로 2단계 진단 프레임워크를 제시한다. 수치 제시 없음.\n[임상 적용·한계] 체형점수는 비만 진단이 아닌 체지방도 기술이므로, 구조화된 감량 프로그램은 과체중 단계부터 시작하고 모든 환자에 영양 평가를 적용해야 한다. 이 프레임워크는 합의와 검증이 필요한 제안이며, 한계는 현재 임상 실습에서의 적용 가능성이 미검증된 관점 논문이다.",
-      "specialty": [
-        "내과/내분비"
-      ]
-    },
-    {
       "id": "42843446",
       "title": "Vitamin D supplementation in dogs with chronic biliary tract diseases.",
       "authors": "Habermaass V, Cogozzo A, Bartoli F, Rocca DJ, Dini R",
@@ -3710,6 +3813,20 @@
       "summary_ko": "[핵심 결론] 당뇨병 개와 고양이에서 농피증은 드문 합병증이며, 당뇨병 단독으로 인한 농피증은 개 0.25%, 고양이 0.27%에 불과하고, 대부분 알레르기성 피부염 등의 동반질환이 주요 위험인자임을 밝혔다.\n[방법·수치] 2019년 8월~2022년 11월 두 대학 병원의 후향적 연구로 개 805마리(농피증 61마리, 7.6%), 고양이 372마리(농피증 15마리, 4.0%)를 대상으로 세포학적으로 확진된 농피증과 동반질환(알레르기, 갑상선/부신질환, 종양 등)을 분석하였다. 개에서 동반질환 없는 경우 오즈비 0.06(95% CI 0.01-0.29, p<0.001), 알레르기성피부염 오즈비 9.15(95% CI 4.25-19.72, p<0.001)였고, 고양이에서 동반질환 없는 경우 오즈비 0.04(95% CI 0.01-0.34, p=0.003), 알레르기성피부염 오즈비 18.67(95% CI 4.81-72.44, p<0.001)이었다.\n[임상 적용·한계] 당뇨병 환자의 농피증은 주로 알레르기 질환 등 동반질환 관리가 필수이며, 순수 당뇨병으로 인한 농피증은 매우 드물어 감별진단 시 고려사항이다. 단일 기관 중심의 소규모 고양이 연구(n=15)로 고양이에서의 임상 적용이 제한적이다.",
       "specialty": [
         "피부",
+        "내과/내분비"
+      ]
+    },
+    {
+      "id": "42843409",
+      "title": "Should veterinarians apply a 2-step framework to classify adiposity and diagnose clinical obesity in dogs and cats?",
+      "authors": "Ward E, Churchill J",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Oct 7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42843409/",
+      "abstract": "Obesity drugs are entering veterinary trials, and prescribing them should follow a diagnosis. Body condition score is not a diagnosis; it describes a patient's adiposity, not whether it is causing illness. This Viewpoint proposes 2 steps for diagnosing clinical obesity in dogs and cats: describe, then diagnose. Step 1 describes adiposity as overweight or obesity. Step 2, applied only when obesity is documented, assigns a disease stage; clinical obesity requires a documented, clinically meaningfu",
+      "summary_ko": "[핵심 결론] 개와 고양이의 임상적 비만 진단을 위해 2단계 프레임워크를 적용해야 한다: 1단계에서 체지방도를 과체중 또는 비만으로 기술하고, 2단계에서 체지방도로 인한 임상적으로 의미 있는 이상이 증명될 때만 질병 단계를 진단한다.\n[방법·수치] 이 연구는 현행 체형점수 평가의 한계를 분석한 관점 논문으로, 비만 치료제의 수의학적 임상시험 도입을 배경으로 2단계 진단 프레임워크를 제시한다. 수치 제시 없음.\n[임상 적용·한계] 체형점수는 비만 진단이 아닌 체지방도 기술이므로, 구조화된 감량 프로그램은 과체중 단계부터 시작하고 모든 환자에 영양 평가를 적용해야 한다. 이 프레임워크는 합의와 검증이 필요한 제안이며, 한계는 현재 임상 실습에서의 적용 가능성이 미검증된 관점 논문이다.",
+      "specialty": [
         "내과/내분비"
       ]
     },
@@ -3935,21 +4052,6 @@
       ]
     },
     {
-      "id": "42826750",
-      "title": "Dogs and cats undergoing surgery for penetrating thoracic trauma have high survival despite frequent complications, and imaging may underestimate injury severity.",
-      "authors": "Pathak N, Lozano B, Wang YW, Berns C, Ahn R",
-      "journal": "JAVMA",
-      "type": "vet",
-      "date": "2026 Oct 2",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42826750/",
-      "abstract": "To describe clinical and radiographic findings in dogs and cats with surgically confirmed penetrating thoracic trauma and evaluate associations with outcomes. This retrospective, multicenter observational study reviewed records from 5 referral hospitals to identify dogs and cats with surgically confirmed penetrating thoracic trauma between July 1, 2010, and July 31, 2025. Inclusion required thoracic radiographs, surgical reports, and perioperative records. A total of 86 dogs and 5 cats were iden",
-      "summary_ko": "[핵심 결론] 개와 고양이의 관통성 흉부외상 수술 환자는 78.0%의 높은 생존율을 보였으나, 술중·술후 합병증이 각각 56%, 51.7%에서 발생했으며, 추적 관찰 시 20%에서 외상 관련 합병증이 지속되었다.\n[방법·수치] 5개 응급 의료 센터의 후향적 다기관 관찰 연구로 2010년 7월~2025년 7월 사이 수술 확진된 개 86마리, 고양이 5마리를 대상했다. 생존자의 외상 중증도 점수(5.2±2.5)가 비생존자(7.6±2.4)보다 유의하게 낮았고, 흉부방사선에서 기흉(73.6%), 폐 타박상(65.9%), 갈비뼈 골절(62.6%)이 가장 흔했으며, 폐엽절제술은 비생존자에서 더 많았다(45.0% vs 18.3%).\n[임상 적용·한계] CT 검사는 방사선 사진보다 더 많은 손상을 발견하여 치료 계획 변경 가능성이 높으므로, 임상의는 초기 영상검사 소견보다 심한 손상을 예상해야 한다. 외상 중증도 점수가 예후 판단의 유용한 지표이며 긴밀한 추적 관찰이 필요하나, 단일 종(고양이 5마리)에 대한 데이터 부족과 후향적 설계의 한계가 있다.",
-      "specialty": [
-        "외과/정형",
-        "응급/중환자"
-      ]
-    },
-    {
       "id": "42827366",
       "title": "EXPRESS: Evaluation of Left Atrial Reservoir Strain by Two-Dimensional Speckle-Tracking Echocardiography in Cats with Stage B1 Hypertrophic Cardiomyopathy.",
       "authors": "Algan D, Varlik T, Bach MBT, Gleerup CH, Yilmaz Z",
@@ -3977,6 +4079,21 @@
       "specialty": [
         "종양",
         "외과/정형"
+      ]
+    },
+    {
+      "id": "42826750",
+      "title": "Dogs and cats undergoing surgery for penetrating thoracic trauma have high survival despite frequent complications, and imaging may underestimate injury severity.",
+      "authors": "Pathak N, Lozano B, Wang YW, Berns C, Ahn R",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Oct 2",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42826750/",
+      "abstract": "To describe clinical and radiographic findings in dogs and cats with surgically confirmed penetrating thoracic trauma and evaluate associations with outcomes. This retrospective, multicenter observational study reviewed records from 5 referral hospitals to identify dogs and cats with surgically confirmed penetrating thoracic trauma between July 1, 2010, and July 31, 2025. Inclusion required thoracic radiographs, surgical reports, and perioperative records. A total of 86 dogs and 5 cats were iden",
+      "summary_ko": "[핵심 결론] 개와 고양이의 관통성 흉부외상 수술 환자는 78.0%의 높은 생존율을 보였으나, 술중·술후 합병증이 각각 56%, 51.7%에서 발생했으며, 추적 관찰 시 20%에서 외상 관련 합병증이 지속되었다.\n[방법·수치] 5개 응급 의료 센터의 후향적 다기관 관찰 연구로 2010년 7월~2025년 7월 사이 수술 확진된 개 86마리, 고양이 5마리를 대상했다. 생존자의 외상 중증도 점수(5.2±2.5)가 비생존자(7.6±2.4)보다 유의하게 낮았고, 흉부방사선에서 기흉(73.6%), 폐 타박상(65.9%), 갈비뼈 골절(62.6%)이 가장 흔했으며, 폐엽절제술은 비생존자에서 더 많았다(45.0% vs 18.3%).\n[임상 적용·한계] CT 검사는 방사선 사진보다 더 많은 손상을 발견하여 치료 계획 변경 가능성이 높으므로, 임상의는 초기 영상검사 소견보다 심한 손상을 예상해야 한다. 외상 중증도 점수가 예후 판단의 유용한 지표이며 긴밀한 추적 관찰이 필요하나, 단일 종(고양이 5마리)에 대한 데이터 부족과 후향적 설계의 한계가 있다.",
+      "specialty": [
+        "외과/정형",
+        "응급/중환자"
       ]
     },
     {
@@ -4285,6 +4402,20 @@
       "specialty": [
         "내과/내분비",
         "고양이"
+      ]
+    },
+    {
+      "id": "42557850",
+      "title": "The hormonal effects of owner-cat interactions on pet cats of different potential attachment styles.",
+      "authors": "He X, Huang H, Chang H, Xu W, Gui C",
+      "journal": "JFMS",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42557850/",
+      "abstract": "The aim of the present study was to investigate how different owner-cat interaction types influence stress and owner-bonding in pet cats with different potential attachment styles, using salivary cortisol and oxytocin as physiological indicators. Twenty pet cats were classified into potential secure, insecure-anxious or insecure-avoidant attachment styles using the Secure Base Test. Owners engaged in four types of interactions with their cats at home on separate days. Saliva samples were collect",
+      "summary_ko": "[핵심 결론] 고양이의 애착 유형과 보호자와의 상호작용 방식에 따라 스트레스 호르몬(코르티솔)과 유대감 호르몬(옥시토신) 수치가 달라지며, 안정적 애착 고양이가 불안정 애착 고양이보다 상호작용에 더 긍정적인 호르몬 반응을 보인다.\n[방법·수치] 20마리 고양이를 Secure Base Test로 안정적 애착(secure), 불안-초조형(insecure-anxious), 불안-회피형(insecure-avoidant)으로 분류하고, 4가지 유형의 보호자-고양이 상호작용 전후에 타액 샘플을 채취하여 코르티솔과 옥시토신 농도를 측정했다. 수동적 상호작용은 옥시토신 증가와 코르티솔 감소를 보였고, 강압적 상호작용은 반대 패턴을 나타냈다.\n[임상 적용·한계] 임상에서 고양이의 개별 애착 유형을 고려한 맞춤형 상호작용 전략을 권장하면 고양이 복지와 인간-고양이 관계 개선에 도움이 될 수 있다. 단일 기관의 소규모 연구이고 초록에 통계 유의성 수치(P값)는 제시되지 않았다.",
+      "specialty": [
+        "기타"
       ]
     },
     {
