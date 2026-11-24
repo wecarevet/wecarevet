@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-23 05:05 UTC",
-  "total": 349,
+  "updated": "2026-11-24 07:52 UTC",
+  "total": 359,
   "papers": [
     {
       "id": "42833272",
@@ -32,6 +32,92 @@
       ]
     },
     {
+      "id": "43071796",
+      "title": "Right Ventricular Reverse Remodeling Without Pulmonary Vascular Unloading During Sotatercept Therapy: An Invasive Pressure-Volume Loop Study.",
+      "authors": "Kremer N, Lemay SE, Valasarajan C, Thal BR, Harth S",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Nov 24",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43071796/",
+      "abstract": "Sotatercept improves hemodynamics and functional capacity in pulmonary arterial hypertension; however, its direct actions on the right ventricle (RV) remain poorly understood. We investigated whether sotatercept exerts intrinsic RV protective effects beyond pulmonary vascular unloading. In this registry-based cohort study, 28 consecutive patients with pulmonary arterial hypertension between April 2024 and September 2025 underwent right-heart catheterization with conductance-catheter RV pressure-",
+      "summary_ko": "[핵심 결론] 소타터셉트는 폐혈관 언로딩 없이도 우심실의 역리모델링(질량 및 용적 감소)을 유도하며, 이는 심근에 대한 직접 보호 효과를 시사한다. 혈역학 반응자에서만 운동 능력이 개선되었다.\n[방법·수치] 폐동맥 고혈압 환자 28명을 대상으로 소타터셉트 투여 전후(중앙값 6.1개월)에 도관 카테터를 이용한 우심실 압력-용적 분석을 수행했다. 반응자(n=21, 75%)에서 평균 폐동맥압 52→39 mmHg(P<0.001), 폐혈관저항 10.7→6.7 Wood units(P<0.001) 감소, 우심실 용적 222→160 mL(P<0.001), 우심실 질량 42.8→33.1 g(P<0.001) 감소, 6분 보행거리 +64 m(P=0.002) 개선. 비반응자(n=7, 25%)에서는 폐혈관저항이 지속적으로 상승했음에도 우심실 질량 56.1→46.4 g(P=0.003) 감소(운동능력 개선 없음).\n[임상 적용·한계] 소타터셉트의 우심실 보호 효과는 폐혈관 언로딩과 독립적이므로, 혈역학 비반응자에서도 구조적 개선이 기대된다. 그러나 운동 능력 개선은 혈역학 반응자에만 한정되어 임상 예후와의 관계 규명이 필요하다. 단일 기관 소규모 연구(n=28)로 추적 기간이 짧으며 검증 코호트의 영상 방식 차이가 있다.",
+      "specialty": [
+        "심장"
+      ]
+    },
+    {
+      "id": "43073020",
+      "title": "Description of a transtemporal surgical approach to the mandibular coronoid process region in two dogs with oral pain.",
+      "authors": "Pang YY, Hertel B, Logothetou V",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Nov 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43073020/",
+      "abstract": "Conditions affecting the mandibular coronoid process and surgical approaches to it are rarely described in veterinary medicine. We describe and illustrate an alternative surgical approach to the mandibular coronoid process in two dogs. Two dogs presented with a chronic history of pain while opening the mouth. Computed tomography identified unilateral contrast-enhancing soft tissues around the proximal mandibular coronoid process. The mandibular coronoid process in each dog was approached via a t",
+      "summary_ko": "[핵심 결론] 하악 관상돌기 주변 병변에 대해 광대뼈 골절단 없이 측두근 접근법(transtemporal muscular approach)을 통해 안전하게 접근 가능하며, 이 기법은 조직 손상을 최소화하고 빠른 회복을 제공한다.\n[방법·수치] 개 2마리에서 개입 개구 시 만성 동통을 보였고, CT상 하악 관상돌기 근위부 주변에 조영증강되는 연부조직이 확인되었다. 광대뼈궁 배측의 측두근을 통한 경측두 접근법으로 관상돌기의 근위 내측 및 외측에 접근했으며, 1례에서는 이물질이 적출되었고 다른 1례에서는 적출할 이물질이 없었다. 술후 6개월까지 임상증상이 완전히 소실되었다.\n[임상 적용·한계] 하악 관상돌기 병변에 대한 진료 시 광대뼈 골절단을 피하면서도 양측 접근이 가능한 유용한 술식이다. 그러나 증례 수가 2례로 매우 제한적이고, 술기의 안전성과 효과를 평가하기 위해서는 더 많은 증례 축적이 필요하다.",
+      "specialty": [
+        "외과/정형"
+      ]
+    },
+    {
+      "id": "43072603",
+      "title": "Evaluation of the association of serum paraoxonase-1 and butyrylcholinesterase activities with ultrasonographic gastrointestinal changes in dogs with acute pancreatitis.",
+      "authors": "Cordon B, Tvarijonaviciute A, Soler M, Agut A",
+      "journal": "Vet J",
+      "type": "vet",
+      "date": "2026 Nov 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43072603/",
+      "abstract": "Gastrointestinal ultrasonographic (USGI) abnormalities are frequently detected in dogs with acute pancreatitis (AP), but their relationship with systemic biochemical changes has not been well studied. This retrospective study evaluated the association between serum paraoxonase-1 (PON1) and butyrylcholinesterase (BChE) activities and the presence and severity of USGI abnormalities in dogs with AP. The medical records of dogs diagnosed with AP between January 1, 2017, and January 1, 2026, were rev",
+      "summary_ko": "[핵심 결론] 급성 췌장염 개에서 위장관 초음파 이상소견이 있는 경우 혈청 PON1과 BChE 활성도가 유의하게 낮았으며, 특히 BChE 활성도만이 위장관 초음파 중증도와 중등도의 음의 상관관계를 보였다.\n[방법·수치] 2017년 1월~2026년 1월 급성 췌장염 진단 개 57마리를 대상으로 한 후향적 연구이며, 6시간 이내에 임상검사·혈액검사·복부초음파를 시행한 35마리(61.4%)에서 위장관 초음파 이상소견이 발견되었다. USGI 이상 군에서 PON1과 BChE 활성도 모두 유의하게 낮았고(p<0.05), BChE 활성도는 UGASS와 중등도의 음의 상관관계를 보였다(r=-0.460, p=0.005). PON1과 BChE는 양의 상관관계를 나타냈다(r=0.340, p=0.009).\n[임상 적용·한계] 급성 췌장염 개에서 혈청 BChE 활성도 측정이 위장관 초음파 중증도 평가의 보조지표로 활용될 수 있으나, 개별 수치 간 상당한 겹침이 관찰되어 단독 진단도구로는 제한적이다. 단일기관 후향적 연구이고 샘플 크기가 제한적이다.",
+      "specialty": [
+        "내과/내분비"
+      ]
+    },
+    {
+      "id": "43070096",
+      "title": "RECOVER CPR Guidelines: Preparedness and Prevention. Updated Evidence, Recommendations, Knowledge Gap Analysis, and Clinical Guidelines for Veterinary CPR Teams.",
+      "authors": "McMichael MA, Herring J, Burkitt-Creedon JM, Hoehne SN, Fletcher DJ",
+      "journal": "JVECC",
+      "type": "vet",
+      "date": "2026 Nov 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43070096/",
+      "abstract": "To systematically review the evidence on, update existing and create new recommendations for, and identify critical knowledge gaps regarding veterinary resuscitation team communication, composition, and training. Standardized, systematic evaluation of literature pertinent to veterinary CPR team or \"resuscitation team\" communication, composition, and training, following the Grading of Recommendations, Assessment, Development, and Evaluation methodology. Identified evidence pertinent to prioritize",
+      "summary_ko": "[핵심 결론] 수의 심폐소생술팀의 최적 구성은 경험 있는 리더가 이끄는 4-8명의 구조자이며, 표준화된 팀 훈련과 팀원 간 체계적 소통이 권장된다.\n[방법·수치] GRADE 방법론을 따른 체계적 문헌 검토로 팀 구성, 소통, 훈련에 관한 5개의 PICO 질문을 다루었다. 7개 권고안 중 2개는 강한 권고(1개 저확실도 근거), 5개는 약한 권고(6개 매우 저확실도 근거)로 도출되었다.\n[임상 적용·한계] 임상 적용 시 CPR팀 구성 최적화와 표준화 훈련 프로토콜 도입이 필요하나, 대부분의 질문에서 수의 임상 결과 데이터가 부재하며 개와 고양이에서 팀 준비성이 실제 CPR 수행과 결과를 개선하는지 입증하는 추가 연구가 필수적이다.",
+      "specialty": [
+        "응급/중환자"
+      ]
+    },
+    {
+      "id": "43070025",
+      "title": "Retrospective Evaluation of Injury Severity, Use of Blood Products, and Surgical Intervention in 293 Dogs With Gunshot Wounds: A VetCOT Registry Study (2017-2024).",
+      "authors": "Bleuet JVN, Davros AM, Brainard BM",
+      "journal": "JVECC",
+      "type": "vet",
+      "date": "2026 Nov 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43070025/",
+      "abstract": "To evaluate injury severity scores and outcomes in dogs with gunshot wounds (GSWs) and to assess the use of blood products and surgical interventions in this population. Retrospective evaluation of veterinary trauma registry data. Veterinary Committee on Trauma (VetCOT)-identified veterinary trauma centers. A total of 293 canine trauma patients suffering from GSWs with data entered in the VetCOT trauma registry from April 1, 2017, to October 1, 2024. Variables evaluated included injury severity ",
+      "summary_ko": "[핵심 결론] 총상 외상견에서 높은 ATT 점수와 낮은 mGCS 점수는 생존율 감소와 연관되었으며, 수술적 개입은 생존율 향상과 연관되었다.\n[방법·수치] 2017년 4월부터 2024년 10월까지 VetCOT 외상 레지스트리에 등록된 총상 외상견 293례를 후향적으로 평가했다. 51%에서 수술을 시행했으며, 수술군에서 생존율 향상 및 수혈 가능성 증가가 관찰되었다. 흉강 삼출액 존재는 생존율 감소 및 수혈 가능성 증가와 연관되었으나, 복강 삼출액은 유의한 연관성이 없었다.\n[임상 적용·한계] ATT 및 mGCS 점수를 활용한 중증도 평가와 조기 수술 개입이 총상 외상견의 치료 결정에 도움이 될 수 있다. 그러나 이 연구는 후향적 분석이며, 수술 여부에 따른 초기 중증도 차이 가능성과 수혈의 장기 예후에 미치는 영향을 명확히 하기 위한 전향적 연구가 필요하다.",
+      "specialty": [
+        "응급/중환자",
+        "외과/정형"
+      ]
+    },
+    {
+      "id": "43070043",
+      "title": "Preliminary Investigation of Ilunocitinib Versus Prednisolone for the Management of Atopic Dermatitis in Client-Owned Dogs: A Double-Blind, Randomised Comparative Study.",
+      "authors": "Menegon FG, Risse SD, Lima ACC, Gmyterco VC, Ludwig LA",
+      "journal": "Vet Dermatol",
+      "type": "vet",
+      "date": "2026 Nov 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43070043/",
+      "abstract": "Canine atopic dermatitis (cAD) is a chronic, inflammatory and pruritic skin disease characterised by skin barrier dysfunction and T-cell dysregulation. Ilunocitinib, a nonselective Janus kinase (JAK) inhibitor, is a promising therapeutic option for the control of cAD. To perform a preliminary comparison of the clinical efficacy and safety of ilunocitinib and prednisolone in cAD. Twenty dogs with cAD were randomly allocated into two experimental groups (n&#x2009;=&#x2009;10 each). Group 1 receive",
+      "summary_ko": "[핵심 결론] JAK 억제제인 일루노시티닙은 프레드니솔론과 비교하여 개의 아토피성 피부염에서 가려움증과 피부병변 개선에 더 효과적이며, 임상 관리에서의 잠재적 역할을 지지한다.\n[방법·수치] 아토피성 피부염을 가진 개 20마리를 두 그룹(각 10마리)으로 무작위 배정하여 이중맹검 비교연구 수행. 프레드니솔론군은 0.5-1 mg/kg을 60일간 감량 투여, 일루노시티닙군은 0.6-0.8 mg/kg을 60일간 매일 투여. 가려움증(pVAS)은 프레드니솔론군에서 9→4.5로, 일루노시티닙군에서 9.5→2.5로 감소. CADESI-4 점수는 프레드니솔론군에서 40→17로, 일루노시티닙군에서 35.5→5.5로 감소(D15, D60에서 유의차).\n[임상 적용·한계] 일루노시티닙은 프레드니솔론의 고용량 감량 필요성을 피하면서 더 우수한 가려움증 완화를 제공할 수 있으나, 소규모 예비연구로서 더 큰 규모 임상시험 필요. 프레드니솔론은 피브리노겐 및 중성지방 증가를 보였으며 일루노시티닙은 호산구감소증을 나타냄.",
+      "specialty": [
+        "피부",
+        "기타"
+      ]
+    },
+    {
       "id": "43068792",
       "title": "Clinical Efficacy of Cordycepin in Feline Upper Respiratory Infection: A Randomized Trial.",
       "authors": "Li J, Xu G, Zhang K, Zhang J, Guo Z",
@@ -44,6 +130,35 @@
       "specialty": [
         "고양이",
         "기타"
+      ]
+    },
+    {
+      "id": "43069691",
+      "title": "Effects of laparoscopic vertical sleeve gastrectomy on weight and glucose regulation in a feline obesity model.",
+      "authors": "Buote NJ, Loftus JP, Reuter MA, Dakin G, Cummings BP",
+      "journal": "Vet Surg",
+      "type": "vet",
+      "date": "2026 Nov 22",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43069691/",
+      "abstract": "To determine the safety and impact of laparoscopic vertical sleeve gastrectomy (LVSG) on bodyweight and glucose regulation in an obese feline model. Prospective experimental study. Seven adult cats. After obesity induction, an oral glucose tolerance test (OGTT) was performed, with blood glucose, insulin, and glucagon-like peptide-1 (GLP-1) measured before surgery, at 1&#x2009;and 6&#x2009;months postoperatively. A LVSG was performed, and surgical data were recorded. After LVSG, bodyweight was mo",
+      "summary_ko": "[핵심 결론] 복강경 수직 소매 위절제술(LVSG)은 비만 고양이 모델에서 안전하며 유의미한 체중 감소를 달성했고, 혈당은 변화 없었으나 GLP-1 분비 증가(1개월)와 인슐린 분비 증가(6개월)로 대사 조절 개선 가능성을 시사했다.\n[방법·수치] 비만 유도된 성묘 7마리를 대상으로 한 전향적 실험 연구; 수술 시간 중앙값 75분(IQR 55-78.5); 술 전후 경구 포도당 내성검사(OGTT) 시행; 6개월 추적 관찰 결과 체중 감소(p=.006), GLP-1 분비 1개월 후 증가(p=.031), 인슐린 분비 6개월 후 증가(p=.046); 술 중·술 후 합병증 없음.\n[임상 적용·한계] 임상 비만 고양이의 체중 감소 치료 및 당뇨병 고양이의 대사 조절 개선에 적용 가능성이 있으나, 소규모 실험 연구(n=7)이고 단일 모델 시스템으로 임상 비만 고양이에서의 효과 검증이 필요하며 장기 추적 데이터 부족.",
+      "specialty": [
+        "외과/정형",
+        "고양이"
+      ]
+    },
+    {
+      "id": "43069688",
+      "title": "Evaluation of post-occlusion hepatofugal blood flow on surgeon decision making during ligation of portosystemic shunts in 53 dogs.",
+      "authors": "Ray SE, Folk CA, Bechtold MA, Center SA, Flanders JA",
+      "journal": "Vet Surg",
+      "type": "vet",
+      "date": "2026 Nov 22",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43069688/",
+      "abstract": "To determine whether hepatofugal contrast flow or caudal vena cava (CdVC) contrast filling during post-occlusion intraoperative mesenteric portovenography (PO-IOMP) were associated with the degree of extrahepatic portosystemic shunt (EHPSS) ligation performed. Retrospective observational cohort study. A total of 53 dogs. Data were collected retrospectively for dogs that underwent suture ligation of a single EHPSS with concurrent intraoperative mesenteric portovenography (IOMP). Review of IOMP st",
+      "summary_ko": "[핵심 결론] 폐쇄 후 간외향 혈류(hepatofugal contrast flow)가 술중 장간막 문맥조영술에서 관찰되면 외간문맥단락의 불완전 결찰을 시행할 가능성이 7배 증가하며, 이는 외간문맥단락 결찰 정도 결정에 중요한 영상 소견입니다.\n[방법·수치] 외간문맥단락 단일 결찰을 받은 개 53마리의 후향적 관찰 코호트 연구로, 술중 문맥 폐쇄 후 장간막 문맥조영술 영상을 맹검 검토했습니다. 완전 결찰 37마리(69.8%), 부분 결찰 13마리(24.5%), 비결찰 3마리(5.7%)였으며, 간외향 혈류는 21마리(39.6%)에서 관찰되었고 불완전 결찰과의 연관성은 OR 7.06(95% CI: 1.49-33.44, p=0.014)이었습니다.\n[임상 적용·한계] 술중 폐쇄 후 간외향 혈류 소견은 각 환자별 맞춤형 결찰 결정에 도움이 될 수 있으나, 단일 기관 후향적 소규모 연구이고 외간문맥단락 완전 결찰이 항상 필요한지 부분 결찰의 임상적 결과가 동등한지에 대한 추가 평가가 필요합니다.",
+      "specialty": [
+        "외과/정형"
       ]
     },
     {
@@ -1218,21 +1333,6 @@
       ]
     },
     {
-      "id": "42998238",
-      "title": "Long-Term Survival After Initial Invasive or Conservative Management of Stable Coronary Disease in Patients With Advanced Chronic Kidney Disease: ISCHEMIA-CKD EXTEND.",
-      "authors": "Bangalore S, Maron DJ, Anthopolos R, Reynolds HR, Xu Y",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Nov 7",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42998238/",
-      "abstract": "In the ISCHEMIA-CKD trial (International Study of Comparative Health Effectiveness With Medical and Invasive Approaches-Chronic Kidney Disease), at a median follow-up of 2.2 years, the primary composite outcome of death or nonfatal myocardial infarction was similar between an initial invasive strategy (INV) compared with an initial conservative strategy (CON) in patients with moderate or severe myocardial ischemia and advanced chronic kidney disease. However, the long-term outcomes comparing the",
-      "summary_ko": "[핵심 결론] 중등도 이상의 심근 허혈을 가진 말기 만성신부전 환자에서 초기 침습적 전략(관상동맥조영술 및 재관류술)은 초기 보존적 치료 전략에 비해 전체 사망률 또는 심혈관 사망률을 감소시키는 장기 이득이 없었다.\n[방법·수치] ISCHEMIA-CKD 무작위배정 시험에서 침습적 전략 388명, 보존적 전략 389명의 총 777명을 중앙 8년 추적 관찰하였으며, 전체 사망 429명(55%)이 발생했다. 누적 전체 사망률 57.4% vs 56.8%(adjusted HR 1.05, 95% CI 0.87-1.28), 심혈관 사망률 40.3% vs 38.4%(adjusted HR 1.06, 95% CI 0.84-1.34)로 두 군 간 차이가 없었다. 제한된 평균 생존 시간은 침습적 1941일 vs 보존적 1990일로 조정 차이 -99일(-245~46)이었다.\n[임상 적용·한계] 진행된 신기능 감소 환자에서 무증상 심근 허혈 발견 시 침습적 재관류 치료의 생존 이득이 명확하지 않으므로 개별화된 치료 결정이 필요하다. 본 연구는 고위험 환자군 대상이므로 다른 환자군에의 외삽 가능성 제한이 있다.",
-      "specialty": [
-        "심장",
-        "신장/비뇨"
-      ]
-    },
-    {
       "id": "43066664",
       "title": "AI-Enabled Echocardiography Identifies Prominent Epicardial Adipose Tissue Associated With an Adverse Cardiometabolic Profile.",
       "authors": "Aminorroaya A, Coppi A, McNamara RL, Lima JAC, Krumholz HM",
@@ -1245,6 +1345,21 @@
       "specialty": [
         "심장",
         "영상"
+      ]
+    },
+    {
+      "id": "42998238",
+      "title": "Long-Term Survival After Initial Invasive or Conservative Management of Stable Coronary Disease in Patients With Advanced Chronic Kidney Disease: ISCHEMIA-CKD EXTEND.",
+      "authors": "Bangalore S, Maron DJ, Anthopolos R, Reynolds HR, Xu Y",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Nov 7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42998238/",
+      "abstract": "In the ISCHEMIA-CKD trial (International Study of Comparative Health Effectiveness With Medical and Invasive Approaches-Chronic Kidney Disease), at a median follow-up of 2.2 years, the primary composite outcome of death or nonfatal myocardial infarction was similar between an initial invasive strategy (INV) compared with an initial conservative strategy (CON) in patients with moderate or severe myocardial ischemia and advanced chronic kidney disease. However, the long-term outcomes comparing the",
+      "summary_ko": "[핵심 결론] 중등도 이상의 심근 허혈을 가진 말기 만성신부전 환자에서 초기 침습적 전략(관상동맥조영술 및 재관류술)은 초기 보존적 치료 전략에 비해 전체 사망률 또는 심혈관 사망률을 감소시키는 장기 이득이 없었다.\n[방법·수치] ISCHEMIA-CKD 무작위배정 시험에서 침습적 전략 388명, 보존적 전략 389명의 총 777명을 중앙 8년 추적 관찰하였으며, 전체 사망 429명(55%)이 발생했다. 누적 전체 사망률 57.4% vs 56.8%(adjusted HR 1.05, 95% CI 0.87-1.28), 심혈관 사망률 40.3% vs 38.4%(adjusted HR 1.06, 95% CI 0.84-1.34)로 두 군 간 차이가 없었다. 제한된 평균 생존 시간은 침습적 1941일 vs 보존적 1990일로 조정 차이 -99일(-245~46)이었다.\n[임상 적용·한계] 진행된 신기능 감소 환자에서 무증상 심근 허혈 발견 시 침습적 재관류 치료의 생존 이득이 명확하지 않으므로 개별화된 치료 결정이 필요하다. 본 연구는 고위험 환자군 대상이므로 다른 환자군에의 외삽 가능성 제한이 있다.",
+      "specialty": [
+        "심장",
+        "신장/비뇨"
       ]
     },
     {
@@ -1511,21 +1626,6 @@
       ]
     },
     {
-      "id": "42974684",
-      "title": "Long-Term Impact of Vutrisiran in Patients With TTR Amyloidosis With Cardiomyopathy: 1-Year Efficacy and Safety Outcomes From the HELIOS-B Open-Label Extension.",
-      "authors": "Garcia-Pavia P, Witteles R, Morbach C, Delgado D, Kitaoka H",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Nov 3",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42974684/",
-      "abstract": "In HELIOS-B (A Study to Evaluate Vutrisiran in Patients With Transthyretin Amyloidosis With Cardiomyopathy), vutrisiran reduced the risk of all-cause mortality (ACM) and recurrent cardiovascular events and slowed disease progression measures versus placebo in patients with TTR (transthyretin) amyloidosis with cardiomyopathy after 33 to 36 months. We report the long-term efficacy and safety of vutrisiran from an ongoing open-label extension of HELIOS-B. Patients who completed HELIOS-B could enrol",
-      "summary_ko": "[핵심 결론] TTR 심장 아밀로이드증 환자에서 48개월까지 지속적 vutrisiran 투여는 전사망 사망률과 심혈관 사건을 37% 감소시키고, 초기 위약군에서 나중에 vutrisiran을 시작한 군보다 우수한 임상 결과를 보였다.\n[방법·수치] HELIOS-B 대조약 시험의 공개 확장 연구로, 466명(지속 vutrisiran 243명, 위약/vutrisiran 전환 223명)이 등록되었다. 지속 vutrisiran 군에서 심혈관 사건 또는 전사망 사망률 위험비 0.63(95% CI 0.51-0.79, P=0.0001), 전사망 사망률 위험비 0.63(95% CI 0.46-0.84, P=0.0023), Kansas City 심근병증 설문 평균 차이 9.0점(95% CI 5.3-12.6, P<0.0001), NT-proBNP와 troponin I 기하평균 비 각각 0.66(P<0.0001)과 0.71(P<0.0001)이었다.\n[임상 적용·한계] TTR 심장 아밀로이드증의 조기 진단 및 치료로 사망률, 심혈관 사건, 생활 질 개선이 입증되었으나, 단일 임상시험의 개방형 확장이므로 대조군 추적이 제한적이고 48개월까지만 분석되었다.",
-      "specialty": [
-        "심장",
-        "기타"
-      ]
-    },
-    {
       "id": "43043327",
       "title": "Outcomes of Transcatheter Aortic Valve Replacement for Aortic Regurgitation in LVAD Patients: The JENA-VAD Study.",
       "authors": "Ramana R, Uriel N, Yadav P, Satler L, Ranard LS",
@@ -1552,6 +1652,21 @@
       "summary_ko": "[핵심 결론] SAPIEN M3 시스템을 이용한 경피적 경중격 승모판 치환술(TMVR)은 2년 추적에서 97.0%의 환자에서 1+ 이하의 승모판 역류를 유지하였으며, 생존 환자에서 기능 및 건강상태 개선이 지속되었다.\n[방법·수치] 증상이 있는 3+ 이상 승모판 역류 환자 299명(평균 나이 75.5±9.3세, 남성 50.8%)을 대상으로 한 ENCIRCLE 임상시험의 2년 결과 분석으로, 추적률은 96.2%(202/210명)였다. 2년 복합종료점(전체사망 또는 심부전 입원)은 35.6% (전체사망 25.1%, 심부전 입원 23.0%)였으며, 연도별 분석에서 1-2년 전체사망은 13.0%, 심부전 입원은 10.6%였다. 뇌졸중 6.6%, 판막 혈전증 7.1%, 용혈 7.6% 발생했고, NYHA 기능분류 I/II 비율은 87.0% (P<0.001), Kansas City Cardiomyopathy Questionnaire 점수 증가는 17.2점(P<0.001)이었다.\n[임상 적용·한계] 수술 불가능하거나 경피적 판막 가장자리 중재술에 부적절한 고위험 증상 승모판 역류 환자의 치료 선택지로 활용 가능하나, 단일 장치 평가이고 장기 내구성 데이터는 2년까지만 제시되었으며 선별된 환자군 대상 연구의 한계가 있다.",
       "specialty": [
         "심장"
+      ]
+    },
+    {
+      "id": "42974684",
+      "title": "Long-Term Impact of Vutrisiran in Patients With TTR Amyloidosis With Cardiomyopathy: 1-Year Efficacy and Safety Outcomes From the HELIOS-B Open-Label Extension.",
+      "authors": "Garcia-Pavia P, Witteles R, Morbach C, Delgado D, Kitaoka H",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Nov 3",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42974684/",
+      "abstract": "In HELIOS-B (A Study to Evaluate Vutrisiran in Patients With Transthyretin Amyloidosis With Cardiomyopathy), vutrisiran reduced the risk of all-cause mortality (ACM) and recurrent cardiovascular events and slowed disease progression measures versus placebo in patients with TTR (transthyretin) amyloidosis with cardiomyopathy after 33 to 36 months. We report the long-term efficacy and safety of vutrisiran from an ongoing open-label extension of HELIOS-B. Patients who completed HELIOS-B could enrol",
+      "summary_ko": "[핵심 결론] TTR 심장 아밀로이드증 환자에서 48개월까지 지속적 vutrisiran 투여는 전사망 사망률과 심혈관 사건을 37% 감소시키고, 초기 위약군에서 나중에 vutrisiran을 시작한 군보다 우수한 임상 결과를 보였다.\n[방법·수치] HELIOS-B 대조약 시험의 공개 확장 연구로, 466명(지속 vutrisiran 243명, 위약/vutrisiran 전환 223명)이 등록되었다. 지속 vutrisiran 군에서 심혈관 사건 또는 전사망 사망률 위험비 0.63(95% CI 0.51-0.79, P=0.0001), 전사망 사망률 위험비 0.63(95% CI 0.46-0.84, P=0.0023), Kansas City 심근병증 설문 평균 차이 9.0점(95% CI 5.3-12.6, P<0.0001), NT-proBNP와 troponin I 기하평균 비 각각 0.66(P<0.0001)과 0.71(P<0.0001)이었다.\n[임상 적용·한계] TTR 심장 아밀로이드증의 조기 진단 및 치료로 사망률, 심혈관 사건, 생활 질 개선이 입증되었으나, 단일 임상시험의 개방형 확장이므로 대조군 추적이 제한적이고 48개월까지만 분석되었다.",
+      "specialty": [
+        "심장",
+        "기타"
       ]
     },
     {
@@ -1787,6 +1902,35 @@
       ]
     },
     {
+      "id": "42633785",
+      "title": "A newly derived formula outperforms published formulae for estimating urine osmolality in healthy dogs receiving intravenous fluids.",
+      "authors": "Jeong Y, Qu Y, Kim MS, Her J",
+      "journal": "AJVR",
+      "type": "vet",
+      "date": "2026 Nov 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42633785/",
+      "abstract": "To derive a formula to estimate urine osmolality (Uosm) in dogs with urine sodium, potassium, glucose, and urea nitrogen and to compare the performance of the derived formula with published formulae. A prospective observational study was conducted using purpose-bred Beagles housed at a university research facility. Healthy dogs, confirmed by physical examination and laboratory testing, received isotonic or hypotonic IV fluids in a randomized sequence for 48 hours, with a 10-day washout period be",
+      "summary_ko": "[핵심 결론] 새로운 요삼투질 추정 공식(Uosm = 2×나트륨 + 1.8×칼륨 + 요소질소2.5 + 포도당3.9)은 건강한 개에서 기존 공식들보다 우수한 성능을 보였으며, 요삼투질 측정이 불가능할 때 신장 수분 처리능과 농축능 평가에 유용하다.\n[방법·수치] 목적 사육 비글 9마리에서 등장액 또는 저장액 정맥수액을 48시간 투여하면서 89개의 요 샘플을 수집하여 선형혼합모델로 공식을 도출했다. 제안된 공식의 일치상관계수(CCC)는 0.96(95% CI, 0.94~0.97)이었고, 고정편향은 +7.99 mOsm/kg였으며, Passing-Bablok 회귀분석에서 비례 편향이나 상수 편향이 없었다.\n[임상 적용·한계] 임상에서 요삼투질을 직접 측정할 수 없는 상황에서 간단한 계산으로 신장의 수분 조절 능력을 평가할 수 있다. 그러나 건강한 개만 대상으로 한 소규모 연구(9마리)이므로 질병 상태에서의 추가 검증이 필요하다.",
+      "specialty": [
+        "신장/비뇨",
+        "내과/내분비"
+      ]
+    },
+    {
+      "id": "42612701",
+      "title": "Fixation of proximal humeral Salter-Harris type 1 fractures in a 3-dimensionally printed skeletally immature canine bone model: a biomechanical assessment of fully threaded headless cannulated screws.",
+      "authors": "Hwang TW, Kang E, Kim JM, Kim HY",
+      "journal": "AJVR",
+      "type": "vet",
+      "date": "2026 Nov 1",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42612701/",
+      "abstract": "To compare the biomechanical stability of 4 fixation techniques for proximal humeral physeal fractures in skeletally immature canines using 3-D-printed models. This experimental in vitro study was conducted from September 25, 2025, through April 22, 2026. To strictly control biological variability, identical 3-D-printed models of juvenile canine proximal humeral Salter-Harris type 1 fractures (CT-derived from a 6-month-old 26-kg Labrador Retriever) were evaluated across 4 groups: pin and tension",
+      "summary_ko": "[핵심 결론] 완전나선형 무두부 중공나선(FTHCS)을 Kirschner 선과 함께 사용한 고정법이 3D 프린팅 모델에서 근위상완골 Salter-Harris type 1 골절의 견인 변위에 대한 저항성이 가장 우수했으며, 근위부 골 붕괴를 완화시킬 수 있는 견고한 대안으로 제시되었다.\n[방법·수치] 6개월령 26kg 라브라도 레트리버의 CT 기반 3D 프린팅 근위상완골 골절 모델 24개를 4개 군으로 분류(각 n=6): A군(핀+긴장밴드 와이어), B군(부분나선형 중공나선), C군(FTHCS 단독), D군(FTHCS+1.6mm K-선). 105도 각도에서 10mm/분 속도의 견인 하중을 적용했을 때, D군이 1mm 변위(663.95 N)와 2mm 변위(1,080.33 N) 시 다른 모든 군보다 유의하게 높은 저항성을 보였다(P<0.0083). 최대 파괴 하중은 유의한 차이 없음.\n[임상 적용·한계] 미성숙 개의 조기 재활을 위해 충분한 단독 안정성을 제공할 수 있으나, 본 연구는 3D 프린팅 모델을 사용한 생체 외(in vitro) 실험으로 생물학적 변동성을 배제한 한계가 있으며 임상 추적 결과 없음.",
+      "specialty": [
+        "외과/정형"
+      ]
+    },
+    {
       "id": "42968222",
       "title": "EXPRESS: Hyperammonemia in cats with acute (on chronic) kidney disease: associations with urea cycle amino acids, azotemia and acid-base status.",
       "authors": "McFadden K, Labato MA, Linder DE, Webster CR",
@@ -1844,21 +1988,6 @@
       "specialty": [
         "심장",
         "영상"
-      ]
-    },
-    {
-      "id": "42633785",
-      "title": "A newly derived formula outperforms published formulae for estimating urine osmolality in healthy dogs receiving intravenous fluids.",
-      "authors": "Jeong Y, Qu Y, Kim MS, Her J",
-      "journal": "AJVR",
-      "type": "vet",
-      "date": "2026 Nov 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42633785/",
-      "abstract": "To derive a formula to estimate urine osmolality (Uosm) in dogs with urine sodium, potassium, glucose, and urea nitrogen and to compare the performance of the derived formula with published formulae. A prospective observational study was conducted using purpose-bred Beagles housed at a university research facility. Healthy dogs, confirmed by physical examination and laboratory testing, received isotonic or hypotonic IV fluids in a randomized sequence for 48 hours, with a 10-day washout period be",
-      "summary_ko": "[핵심 결론] 새로운 요삼투질 추정 공식(Uosm = 2×나트륨 + 1.8×칼륨 + 요소질소2.5 + 포도당3.9)은 건강한 개에서 기존 공식들보다 우수한 성능을 보였으며, 요삼투질 측정이 불가능할 때 신장 수분 처리능과 농축능 평가에 유용하다.\n[방법·수치] 목적 사육 비글 9마리에서 등장액 또는 저장액 정맥수액을 48시간 투여하면서 89개의 요 샘플을 수집하여 선형혼합모델로 공식을 도출했다. 제안된 공식의 일치상관계수(CCC)는 0.96(95% CI, 0.94~0.97)이었고, 고정편향은 +7.99 mOsm/kg였으며, Passing-Bablok 회귀분석에서 비례 편향이나 상수 편향이 없었다.\n[임상 적용·한계] 임상에서 요삼투질을 직접 측정할 수 없는 상황에서 간단한 계산으로 신장의 수분 조절 능력을 평가할 수 있다. 그러나 건강한 개만 대상으로 한 소규모 연구(9마리)이므로 질병 상태에서의 추가 검증이 필요하다.",
-      "specialty": [
-        "신장/비뇨",
-        "내과/내분비"
       ]
     },
     {
@@ -1963,21 +2092,6 @@
       "summary_ko": "[핵심 결론] 고양이 혈액수혈 전 적용하는 포인트오브케어 젤 칼럼 교혈검사는 기준 실험실의 튜브 교혈검사와 중등도의 일치를 보였으며, 임상 현장에서의 접근성을 개선할 수 있는 대안이 될 수 있다.\n[방법·수치] 수혈이 필요할 가능성이 있는 고양이 95쌍의 공여자-수혜자 혈액을 대상으로 튜브 교혈검사와 젤 칼럼 교혈검사를 동시에 수행했다. 카파 일치도 0.581(95% 신뢰구간: 0.378~0.785), 전체 일치율 86.3%, 양성 일치율 93.2%, 음성 일치율 61.9%였다.\n[임상 적용·한계] 포인트오브케어 젤 칼럼 검사는 임상현장에서 직접 수행 가능하여 교혈검사의 접근성을 높일 수 있으나, 음성 일치율이 61.9%로 낮아 불일치 사례가 많아 추가 검증이 필요하고, 임상적 의미 있는 불일치 사례를 더 포함한 추후 연구가 권장된다.",
       "specialty": [
         "기타"
-      ]
-    },
-    {
-      "id": "42240562",
-      "title": "Effect of vertical distance between the heart base and the cuff on arterial blood pressure measurements using PetMAP in anaesthetised dogs.",
-      "authors": "McConomy R, Pinnok H, Adami C",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Nov",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
-      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement ab",
-      "summary_ko": "[핵심 결론] 마취 중 진동식 혈압계(PetMAP)로 측정할 때 커프 위치가 심장 기저부로부터 수직으로 단 3cm 벗어나도 평균동맥혈압이 최대 6mmHg의 임상적으로 의미 있는 오차가 발생한다.\n[방법·수치] 마취된 건강한 개 22마리를 대등척 자세에서 흉지와 골반지에 커프를 적용하여 심장 기저부, 기저부 위쪽, 기저부 아래쪽(각각 흉곽 깊이의 20%)에서 혈압을 측정했다. 흉지를 낮췄을 때 수축기혈압과 평균동맥혈압이 유의하게 증가했고(P=0.02, P=0.047), 골반지를 올렸을 때 수축기/평균/이완기혈압이 유의하게 감소했다(모두 P<0.03). 평균동맥혈압의 오차는 체중과 양의 상관관계를 보였다(P<0.001).\n[임상 적용·한계] 마취 중 혈압 측정 시 커프를 반드시 심장 기저부(상완골 대결절 높이)에 정렬하여 위치 편차를 최소화해야 한다. 단일 기관의 소규모 연구로 다양한 품종과 임상 상황에서의 검증이 필요하다.",
-      "specialty": [
-        "마취/진통",
-        "응급/중환자"
       ]
     },
     {
@@ -2569,6 +2683,21 @@
       "summary_ko": "[핵심 결론] 개의 간질량에 대한 복강경 간절제술에서 en bloc hilum 혈관다발 제어(EHPC) 기법을 적용하면 개복술로의 전환 없이 안전하게 시행할 수 있으며, 양호한 단기 및 장기 임상 결과를 얻을 수 있다.\n[방법·수치] 개 10마리를 대상으로 한 전향적 연구이며, hilar pedicle, hepatic vein, caudal vena cava를 침범하지 않은 간질량에 대해 복강경 간절제술을 시행했다. 중앙 수술 시간 165분(범위: 90-230분), 중앙 입원 기간 3일(범위: 2-4일), 조직병리학적으로 간세포암종 9예, 선종 1예, 결절성 과형성 2예가 확인되었다.\n[임상 적용·한계] Pringle 조작 후 서맥과 저혈압이 3예에서 발생했고, 1예에서는 의인성 횡격막손상으로 긴장성 기흉이 발생했으나 모든 개가 퇴원했다. 소규모 전향적 단일기관 연구이며, hilar pedicle, hepatic vein, caudal vena cava 침범이 없는 간질량을 가진 개에서만 적용 가능하다.",
       "specialty": [
         "외과/정형"
+      ]
+    },
+    {
+      "id": "42240562",
+      "title": "Effect of vertical distance between the heart base and the cuff on arterial blood pressure measurements using PetMAP in anaesthetised dogs.",
+      "authors": "McConomy R, Pinnok H, Adami C",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Nov",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
+      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement ab",
+      "summary_ko": "[핵심 결론] 마취 중 진동식 혈압계(PetMAP)로 측정할 때 커프 위치가 심장 기저부로부터 수직으로 단 3cm 벗어나도 평균동맥혈압이 최대 6mmHg의 임상적으로 의미 있는 오차가 발생한다.\n[방법·수치] 마취된 건강한 개 22마리를 대등척 자세에서 흉지와 골반지에 커프를 적용하여 심장 기저부, 기저부 위쪽, 기저부 아래쪽(각각 흉곽 깊이의 20%)에서 혈압을 측정했다. 흉지를 낮췄을 때 수축기혈압과 평균동맥혈압이 유의하게 증가했고(P=0.02, P=0.047), 골반지를 올렸을 때 수축기/평균/이완기혈압이 유의하게 감소했다(모두 P<0.03). 평균동맥혈압의 오차는 체중과 양의 상관관계를 보였다(P<0.001).\n[임상 적용·한계] 마취 중 혈압 측정 시 커프를 반드시 심장 기저부(상완골 대결절 높이)에 정렬하여 위치 편차를 최소화해야 한다. 단일 기관의 소규모 연구로 다양한 품종과 임상 상황에서의 검증이 필요하다.",
+      "specialty": [
+        "마취/진통",
+        "응급/중환자"
       ]
     },
     {
@@ -3919,21 +4048,6 @@
       ]
     },
     {
-      "id": "42838284",
-      "title": "Cat Stress Score and hair cortisol concentrations are not associated with subclinical hypertrophic cardiomyopathy in cats.",
-      "authors": "Seo J, Williams M, Munday JS, Connolly DJ, Hunt H",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Oct 6",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42838284/",
-      "abstract": "Hypertrophic cardiomyopathy (HCM) is a common heart disease in domestic cats, but most lack an identifiable cause. This prospective case-control study tested the hypothesis that chronic stress predisposes cats to HCM. Ten cats with echocardiographically confirmed subclinical HCM were compared with 10 healthy cats, HCM-negative cats matched for husbandry, age, sex, and neuter status. Stress was assessed via visual Cat-Stress-Score and hair cortisol concentrations, measured using an enzyme-linked ",
-      "summary_ko": "[핵심 결론] 임상 전 단계의 비후성 심근병증(HCM)이 있는 고양이에서 만성 스트레스와의 연관성이 없으며, 스트레스가 HCM의 위험요인이 아님을 시사한다.\n[방법·수치] 초음파로 확진된 임상 전 HCM 고양이 10마리와 나이·성별·중성화 상태가 일치하는 건강한 고양이 10마리의 전향적 대조군 연구로, Cat-Stress-Score(HCM군 중앙값 23.3 대 대조군 25.5, P=0.241)와 모낭 코르티솔 농도(HCM군 중앙값 0.25 ng/mL 대 대조군 0.19 ng/mL, P=0.267)를 비교하였다.\n[임상 적용·한계] 임상 현장에서 HCM 발생 예측 시 스트레스 관리의 우선순위를 낮출 수 있으나, 소규모 표본(각 군 10마리)이고 단일 기관 연구이며 임상 전 단계만 대상으로 하였다는 한계가 있다.",
-      "specialty": [
-        "심장",
-        "고양이"
-      ]
-    },
-    {
       "id": "42836558",
       "title": "Sodium Administration and the Contribution of Fluid Creep to the Sodium Burden of Hospitalized Dogs in the ICU.",
       "authors": "McNally AE, Llewellyn E",
@@ -3960,6 +4074,21 @@
       "summary_ko": "[핵심 결론] 심방세동 절제술 후 좌심방귀 폐쇄(LAAC)와 경구항응고제(OAC)는 남성과 여성 모두에서 뇌졸중, 색전증, 사망률에서 유의한 차이가 없었으나, 출혈 감소 효과는 남성에서 더 뚜렷했다.\n[방법·수치] OPTION 시험의 사전 계획된 하위분석으로 1,053명의 남성과 546명의 여성을 대상으로 절제술+LAAC 또는 절제술+OAC에 1:1로 무작위 배정하였다. 36개월 추적 결과, 주요 효능 평가 지표는 남성(HR 0.96, 95% CI 0.56-1.65, P=0.88)과 여성(HR 0.81, 95% CI 0.41-1.62, P=0.55)에서 비슷했고, 주요 안전성 평가 지표(출혈)는 남성에서 LAAC 군이 의미있게 낮았으나(HR 0.34, 95% CI 0.23-0.50, P<0.0001) 여성에서는 비유의성 경향(HR 0.68, 95% CI 0.42-1.09, P=0.11)을 보였다. 성별 치료 상호작용은 유의했다(P=0.02).\n[임상 적용·한계] 심방세동 절제술 후 고위험군 환자의 뇌졸중 예방 전략 선택 시 성별을 고려해야 하며, 특히 남성에서 LAAC의 출혈 감소 이점이 더 크다. 단일 임상시험의 사후분석이고 여성 환자 수가 남성보다 적은 한계가 있다.",
       "specialty": [
         "심장"
+      ]
+    },
+    {
+      "id": "42838284",
+      "title": "Cat Stress Score and hair cortisol concentrations are not associated with subclinical hypertrophic cardiomyopathy in cats.",
+      "authors": "Seo J, Williams M, Munday JS, Connolly DJ, Hunt H",
+      "journal": "Vet J",
+      "type": "vet",
+      "date": "2026 Oct 6",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42838284/",
+      "abstract": "Hypertrophic cardiomyopathy (HCM) is a common heart disease in domestic cats, but most lack an identifiable cause. This prospective case-control study tested the hypothesis that chronic stress predisposes cats to HCM. Ten cats with echocardiographically confirmed subclinical HCM were compared with 10 healthy cats, HCM-negative cats matched for husbandry, age, sex, and neuter status. Stress was assessed via visual Cat-Stress-Score and hair cortisol concentrations, measured using an enzyme-linked ",
+      "summary_ko": "[핵심 결론] 임상 전 단계의 비후성 심근병증(HCM)이 있는 고양이에서 만성 스트레스와의 연관성이 없으며, 스트레스가 HCM의 위험요인이 아님을 시사한다.\n[방법·수치] 초음파로 확진된 임상 전 HCM 고양이 10마리와 나이·성별·중성화 상태가 일치하는 건강한 고양이 10마리의 전향적 대조군 연구로, Cat-Stress-Score(HCM군 중앙값 23.3 대 대조군 25.5, P=0.241)와 모낭 코르티솔 농도(HCM군 중앙값 0.25 ng/mL 대 대조군 0.19 ng/mL, P=0.267)를 비교하였다.\n[임상 적용·한계] 임상 현장에서 HCM 발생 예측 시 스트레스 관리의 우선순위를 낮출 수 있으나, 소규모 표본(각 군 10마리)이고 단일 기관 연구이며 임상 전 단계만 대상으로 하였다는 한계가 있다.",
+      "specialty": [
+        "심장",
+        "고양이"
       ]
     },
     {
@@ -4415,6 +4544,20 @@
       "summary_ko": "[핵심 결론] 고양이의 애착 유형과 보호자와의 상호작용 방식에 따라 스트레스 호르몬(코르티솔)과 유대감 호르몬(옥시토신) 수치가 달라지며, 안정적 애착 고양이가 불안정 애착 고양이보다 상호작용에 더 긍정적인 호르몬 반응을 보인다.\n[방법·수치] 20마리 고양이를 Secure Base Test로 안정적 애착(secure), 불안-초조형(insecure-anxious), 불안-회피형(insecure-avoidant)으로 분류하고, 4가지 유형의 보호자-고양이 상호작용 전후에 타액 샘플을 채취하여 코르티솔과 옥시토신 농도를 측정했다. 수동적 상호작용은 옥시토신 증가와 코르티솔 감소를 보였고, 강압적 상호작용은 반대 패턴을 나타냈다.\n[임상 적용·한계] 임상에서 고양이의 개별 애착 유형을 고려한 맞춤형 상호작용 전략을 권장하면 고양이 복지와 인간-고양이 관계 개선에 도움이 될 수 있다. 단일 기관의 소규모 연구이고 초록에 통계 유의성 수치(P값)는 제시되지 않았다.",
       "specialty": [
         "기타"
+      ]
+    },
+    {
+      "id": "42544949",
+      "title": "Evaluation of the clinical course of immune-mediated polyneuropathy in cats after treatment with human intravenous immunoglobulins.",
+      "authors": "Schmitz AK, Sablotni Aguilera AP, Buhmann G, van Renen J, Parzefall B",
+      "journal": "JFMS",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42544949/",
+      "abstract": "Immune-mediated polyneuropathy (IMPN) manifests with generalised lower motor neuron (LMN) weakness and a remittent or relapsing clinical course. Evidence-based treatment recommendations for severely or chronically affected cats are limited. The objective of this study was to evaluate the clinical course and outcome of cats with IMPN after treatment with human intravenous immunoglobulins (hIVIg). Medical records from two veterinary referral hospitals were reviewed (2018-2025) for cats with IMPN t",
+      "summary_ko": "[핵심 결론] 고양이 면역매개 다발신경병증에 대한 인간 정맥 면역글로불린(hIVIg) 치료는 8/9마리에서 임상 개선을 보였으며, 중앙값 4일 내에 보행 가능 상태(5보 이상)에 도달했고 완전 회복까지 중앙값 20일이 소요되었다.\n[방법·수치] 2018-2025년 두 개의 동물병원 의료 기록 후향 검토, 총 9마리 고양이(급성 발병 4마리, 만성 4마리) 대상, 1-2g/kg hIVIg를 2-4일에 걸쳐 투여(0.5g/kg/일), 최소 추적 기간 8개월(범위 8-51개월, 중앙값 17개월), 부분 회복 중앙값 14일, 4마리에서 재발 관찰(재발 시 증상이 경증이었고 모두 회복).\n[임상 적용·한계] hIVIg는 급성 및 만성 발병 고양이 면역매개 다발신경병증에 치료 옵션으로 고려될 수 있으며 양호한 내약성을 보였다. 다만 본 연구는 소규모(9마리) 후향 연구로 대조군, 무치료군, 코르티코스테로이드 비교 연구가 필요하다.",
+      "specialty": [
+        "고양이"
       ]
     },
     {
