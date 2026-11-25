@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-24 07:52 UTC",
-  "total": 359,
+  "updated": "2026-11-25 06:25 UTC",
+  "total": 363,
   "papers": [
     {
       "id": "42833272",
@@ -115,6 +115,49 @@
       "specialty": [
         "피부",
         "기타"
+      ]
+    },
+    {
+      "id": "43074166",
+      "title": "NR6A1 Drives Cardiac Remodeling by Transcriptionally Activating the Mineralocorticoid Receptor.",
+      "authors": "Zhang Z, Zhuang H, Chang X, Chen T, Zhao X",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Nov 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43074166/",
+      "abstract": "Activation of the renin-angiotensin-aldosterone system (RAAS) and mineralocorticoid receptor (MR/NR3C2) signaling is a central driver of pathologic cardiac remodeling and heart failure (HF). The transcriptional regulation of NR3C2 and the amplification of RAAS-driven cardiac remodeling remain poorly understood. Transcriptome and single-cell RNA sequencing data, along with HF samples from humans and mice, were used for gene expression analysis. Cardiomyocyte-specific Nr6a1 transgenic (Nr6a1-cTG) ",
+      "summary_ko": "[핵심 결론] NR6A1은 심부전 시 미네랄로코르티코이드 수용체(MR/NR3C2)의 전사를 직접 활성화하며, 안지오텐신II/AT1R 신호에 의해 STAT1 의존적으로 증가하여 레닌-앙기오텐신-알도스테론계(RAAS)의 피드포워드 증폭 메커니즘을 형성한다.\n[방법·수치] 심부전 환자 및 마우스 심장 조직, 심근세포 특이적 Nr6a1 과발현(Nr6a1-cTG) 및 knockout(Nr6a1-cKO) 마우스를 대동맥궁협착(transverse aortic constriction) 모델에 적용하여 평가했으며, RNA 염기서열 분석, 크로마틴 면역침전, 루시퍼라제 분석을 통해 메커니즘을 검증했다. NR6A1 발현은 인간 및 마우스 심부전 심장에서 증가되었고, Nr6a1 knockout은 심부전과 심실 재형성으로부터 보호하는 반면 과발현은 좌심실 기능부전, 비대 및 섬유화를 악화시켰다(수치 제시 없음).\n[임상 적용·한계] NR6A1-MR/NR3C2 축은 RAAS 경로의 새로운 치료 표적이 될 수 있으며, MR 길항제와 함께 NR6A1 억제가 지속적인 MR 활성화를 보이는 심부전 치료에 활용될 수 있다. 그러나 동물 모델 중심의 연구로 인간 임상 적용까지는 추가 임상시험이 필요하다.",
+      "specialty": [
+        "심장"
+      ]
+    },
+    {
+      "id": "43074161",
+      "title": "VAD Wean Recovery Network: Long-Term Outcomes of LVAD Weaning for Myocardial Recovery.",
+      "authors": "Patel SR, Potapov E, Kanwar M, Sun B, Selzman CH",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Nov 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43074161/",
+      "abstract": "Myocardial recovery facilitated by the combination of a left ventricular assist device (LVAD) and guideline-directed medical therapy can lead to sufficient myocardial improvement. This in turn may allow LVAD weaning in appropriately selected patients with chronic advanced heart failure. However, sufficient data on the long-term outcomes of this therapeutic strategy are lacking, thereby hindering widespread adoption of LVAD weaning. We present the primary results from the VAD Wean Myocardial Reco",
+      "summary_ko": "[핵심 결론] 적절히 선별된 만성 고도 심부전 환자에서 LVAD 지지 하에 심근 회복을 달성한 후 LVAD 제거 시 우수한 장기 생존율을 보였으며, 이는 심장이식 연결 전략과 유사한 장기 생존을 나타냈다.\n[방법·수치] 60개 국제 센터에서 LVAD 제거 대상 만성 고도 심부전 환자 603명을 분석했다. 평균 연령 42±15세, 여성 33%, 허혈성 심근병증 9.4%였으며, LVAD 지지 기간 중앙값 440일이었다. 제거 시점의 좌심실 박출률 중앙값 50%, 좌심실 내경 이완기 직경 48mm였다. 제거 후 1년 생존율 91%, 재LVAD 필요 2.3%, 심장이식 필요 3.7%였다.\n[임상 적용·한계] LVAD 제거를 통한 심근 회복 전략이 선별된 환자에서 효과적임을 시사하며, 현재 과소이용되는 LVAD 심근 회복 전략의 임상 적용 확대를 뒷받침한다. 다만 국제 멀티센터 관찰 연구로 선별 편향이 있을 수 있으며, 추가 전향적 검증이 필요하다.",
+      "specialty": [
+        "심장",
+        "응급/중환자"
+      ]
+    },
+    {
+      "id": "43074159",
+      "title": "Transcatheter Edge-to-Edge Repair for Severe Isolated Tricuspid Regurgitation After Extended Follow-Up: The TRI-FR Randomized Clinical Trial.",
+      "authors": "Donal E, Dreyfus J, Leurent G, Nejjari M, Auffret V",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Nov 23",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43074159/",
+      "abstract": "Transcatheter tricuspid edge-to-edge repair (T-TEER) improves symptoms and health status at 1 year in patients with severe tricuspid regurgitation, but its association with clinical events during longer follow-up remains uncertain. This secondary analysis reports extended follow-up of TRI-FR (URL: https://www.clinicaltrials.gov; Unique identifier: NCT04646811), a prospectively registered, multicenter randomized trial comparing T-TEER plus optimized medical therapy (OMT) with OMT alone in patient",
+      "summary_ko": "[핵심 결론] 경카테터 삼첨판 절제술(T-TEER)과 최적의약물치료(OMT)를 병용한 환자는 OMT 단독 치료 환자에 비해 중앙추적기간 30.8개월 동안 첫 복합사건(심부전 입원, 삼첨판 수술, 심혈관 사망)의 위험도가 유의하게 감소했다.\n[방법·수치] 300명의 중증 증상성 삼첨판역류 환자를 무작위 배정(T-TEER+OMT군 152명, OMT 단독군 148명)하여 비교한 다기관 무작위대조시험으로, 중앙추적기간 30.8개월(최대 56.4개월) 동안 평가했다. T-TEER+OMT군이 첫 복합사건 위험도 감소(위험비 0.56, 95% CI 0.36-0.88, P=0.0109), 반복적 심부전 입원 감소(rate ratio 0.52, P=0.0073)를 나타냈으며, 마지막 평가에서 심각도 이상의 역류 발생은 T-TEER+OMT군 6.77% vs OMT 단독군 53.5%(P<0.0001)였다.\n[임상 적용·한계] 중증 증상성 삼첨판역류 환자의 장기 임상 관리에서 경카테터 절제술은 약물치료 단독보다 심부전 입원과 역류 악화를 효과적으로 예방하는 치료 옵션으로 고려할 수 있다. 다만 심혈관 사망이나 추가 수술 필요성에는 유의한 차이가 없었으며, 단기 임상 개선 이후 장기 추적 데이터의 축적이 필요하다.",
+      "specialty": [
+        "심장"
       ]
     },
     {
@@ -246,6 +289,21 @@
       "specialty": [
         "심장",
         "고양이"
+      ]
+    },
+    {
+      "id": "43073872",
+      "title": "Efficacy and safety of atinvicitinib and oclacitinib in the control of pruritus in canine allergic dermatitis: a randomized, examiner-masked, positive-controlled multicenter clinical trial.",
+      "authors": "Heinau LK, Zschiesche E, Hakala M, Kavrik D, Hala P",
+      "journal": "BMC Vet Res",
+      "type": "vet",
+      "date": "2026 Nov 20",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43073872/",
+      "abstract": "Atinvicitinib is a Janus kinase 1-selective-inhibitor approved for the treatment of pruritus associated with allergic dermatitis, including canine atopic dermatitis (cAD). An examiner-masked, randomized study assessed safety and clinical improvement in pruritus and dermatitis severity in dogs with allergic dermatitis following treatment with atinvicitinib (Numelvi&#xae; tablets, MSD Animal Health) or oclacitinib (Apoquel&#xae; chewable tablets, Zoetis). Client-owned dogs (n&#x2009;=&#x2009;69) w",
+      "summary_ko": "[핵심 결론] Atinvicitinib은 JAK1 선택적 억제제로, 개의 알레르기성 피부염 소양증 치료에 있어 오클라시티닙과 비교하여 비열등함을 보였으며, 1일 1회 투여로 안전하고 효과적입니다.\n[방법·수치] 포르투갈과 스페인의 9개 동물병원에서 PVAS 점수 ≥6인 알레르기성 피부염 환자견 69마리(atinvicitinib군 34마리, oclacitinib군 35마리)를 대상으로 28일간 비교 임상시험을 실시했습니다. Atinvicitinib은 0.8-1.2 mg/kg 1일 1회, oclacitinib은 0.4-0.6 mg/kg 2일간 1일 2회 후 1일 1회 투여했으며, D28에 atinvicitinib군 70%, oclacitinib군 65%에서 PVAS<2(정상)을 달성했고, 두 치료 모두 DVAS 74% 감소를 보였습니다.\n[임상 적용·한계] 한 번의 일일 투여와 식이와 함께 투여하는 편의성으로 임상에서 순응도 향상을 기대할 수 있으나, 단일 지역 다기관 연구이고 샘플 크기가 제한적이며, 장기 추적 데이터 및 다양한 환경에서의 유효성 검증이 필요합니다.",
+      "specialty": [
+        "피부",
+        "기타"
       ]
     },
     {
@@ -1318,21 +1376,6 @@
       ]
     },
     {
-      "id": "42998293",
-      "title": "Multimodality Cardiac Imaging Substudy of the DAPT-SHOCK-AMI Randomized Trial: Echocardiographic and Cardiac Magnetic Resonance Assessment of Cangrelor versus Crushed Ticagrelor in Cardiogenic Shock Complicating Acute Myocardial Infarction.",
-      "authors": "Motovska Z, Ionita O, Guglielmo M, Hromadka M, Baxa J",
-      "journal": "Circulation",
-      "type": "human",
-      "date": "2026 Nov 7",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42998293/",
-      "abstract": "In acute myocardial infarction complicated by cardiogenic shock (AMI-CS), the myocardium sustains a dual injury: ischemia of the culprit territory and global hypoperfusion from low cardiac output. Whether platelet inhibition at reperfusion affects the microcirculation, the infarct, the noninfarcted myocardium, and ventricular function, and over what time course, has not been examined with serial imaging. The prespecified multimodality imaging substudy of the randomized DAPT-SHOCK-AMI trial (intr",
-      "summary_ko": "[핵심 결론] 급성 심근경색 동반 심인성 쇼크에서 캉그렐러는 분쇄 티카그렐러 대비 급성 미세혈관폐색(MVO) 발생을 유의하게 감소시켰으며, 1년 추적에서 좌심실 사출률 회복이 더 우수하고 원격 심근의 조직 손상이 경미했다. [방법·수치] DAPT-SHOCK-AMI 무작위 대조시험의 사전계획 영상 분석으로, 심초음파 208명(급성기 175명, 1개월 120명, 1년 99명) 및 심자기공명 93명(73명, 68명, 63명) 대상; 급성 MVO 발생률은 캉그렐러군에서 유의하게 낮음(보정 승산비 0.27, 95% CI 0.08-0.98, P=0.023), 1년 좌심실 사출률 증가는 캉그렐러군에서 더 큼(심초음파 37.9% vs 21.7%, P=0.046; 심자기공명 15.8% vs 2.1%, P=0.027), 원격 심근 T1값은 캉그렐러군에서 낮음(1114 vs 1171 ms, P=0.005). [임상 적용·한계] 심인성 쇼크 동반 급성 심근경색 환자에서 캉그렐러 사용이 미세혈관 보호와 심실 기능 회복에 유리할 가능성을 시사하나, 사전동력분석이 없는 부분연구이고 기전이 확실하지 않으므로 추가 대규모 연구가 필요하다.",
-      "specialty": [
-        "심장",
-        "응급/중환자"
-      ]
-    },
-    {
       "id": "43066664",
       "title": "AI-Enabled Echocardiography Identifies Prominent Epicardial Adipose Tissue Associated With an Adverse Cardiometabolic Profile.",
       "authors": "Aminorroaya A, Coppi A, McNamara RL, Lima JAC, Krumholz HM",
@@ -1345,6 +1388,21 @@
       "specialty": [
         "심장",
         "영상"
+      ]
+    },
+    {
+      "id": "42998293",
+      "title": "Multimodality Cardiac Imaging Substudy of the DAPT-SHOCK-AMI Randomized Trial: Echocardiographic and Cardiac Magnetic Resonance Assessment of Cangrelor versus Crushed Ticagrelor in Cardiogenic Shock Complicating Acute Myocardial Infarction.",
+      "authors": "Motovska Z, Ionita O, Guglielmo M, Hromadka M, Baxa J",
+      "journal": "Circulation",
+      "type": "human",
+      "date": "2026 Nov 7",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42998293/",
+      "abstract": "In acute myocardial infarction complicated by cardiogenic shock (AMI-CS), the myocardium sustains a dual injury: ischemia of the culprit territory and global hypoperfusion from low cardiac output. Whether platelet inhibition at reperfusion affects the microcirculation, the infarct, the noninfarcted myocardium, and ventricular function, and over what time course, has not been examined with serial imaging. The prespecified multimodality imaging substudy of the randomized DAPT-SHOCK-AMI trial (intr",
+      "summary_ko": "[핵심 결론] 급성 심근경색 동반 심인성 쇼크에서 캉그렐러는 분쇄 티카그렐러 대비 급성 미세혈관폐색(MVO) 발생을 유의하게 감소시켰으며, 1년 추적에서 좌심실 사출률 회복이 더 우수하고 원격 심근의 조직 손상이 경미했다. [방법·수치] DAPT-SHOCK-AMI 무작위 대조시험의 사전계획 영상 분석으로, 심초음파 208명(급성기 175명, 1개월 120명, 1년 99명) 및 심자기공명 93명(73명, 68명, 63명) 대상; 급성 MVO 발생률은 캉그렐러군에서 유의하게 낮음(보정 승산비 0.27, 95% CI 0.08-0.98, P=0.023), 1년 좌심실 사출률 증가는 캉그렐러군에서 더 큼(심초음파 37.9% vs 21.7%, P=0.046; 심자기공명 15.8% vs 2.1%, P=0.027), 원격 심근 T1값은 캉그렐러군에서 낮음(1114 vs 1171 ms, P=0.005). [임상 적용·한계] 심인성 쇼크 동반 급성 심근경색 환자에서 캉그렐러 사용이 미세혈관 보호와 심실 기능 회복에 유리할 가능성을 시사하나, 사전동력분석이 없는 부분연구이고 기전이 확실하지 않으므로 추가 대규모 연구가 필요하다.",
+      "specialty": [
+        "심장",
+        "응급/중환자"
       ]
     },
     {
@@ -2095,6 +2153,21 @@
       ]
     },
     {
+      "id": "42240562",
+      "title": "Effect of vertical distance between the heart base and the cuff on arterial blood pressure measurements using PetMAP in anaesthetised dogs.",
+      "authors": "McConomy R, Pinnok H, Adami C",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Nov",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
+      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement ab",
+      "summary_ko": "[핵심 결론] 마취 중 진동식 혈압계(PetMAP)로 측정할 때 커프 위치가 심장 기저부로부터 수직으로 단 3cm 벗어나도 평균동맥혈압이 최대 6mmHg의 임상적으로 의미 있는 오차가 발생한다.\n[방법·수치] 마취된 건강한 개 22마리를 대등척 자세에서 흉지와 골반지에 커프를 적용하여 심장 기저부, 기저부 위쪽, 기저부 아래쪽(각각 흉곽 깊이의 20%)에서 혈압을 측정했다. 흉지를 낮췄을 때 수축기혈압과 평균동맥혈압이 유의하게 증가했고(P=0.02, P=0.047), 골반지를 올렸을 때 수축기/평균/이완기혈압이 유의하게 감소했다(모두 P<0.03). 평균동맥혈압의 오차는 체중과 양의 상관관계를 보였다(P<0.001).\n[임상 적용·한계] 마취 중 혈압 측정 시 커프를 반드시 심장 기저부(상완골 대결절 높이)에 정렬하여 위치 편차를 최소화해야 한다. 단일 기관의 소규모 연구로 다양한 품종과 임상 상황에서의 검증이 필요하다.",
+      "specialty": [
+        "마취/진통",
+        "응급/중환자"
+      ]
+    },
+    {
       "id": "42803120",
       "title": "Echocardiographic prevalence and attachment-site patterns of left ventricular bands in cats.",
       "authors": "Van den Noortgate G, Zablotski Y, Wess G",
@@ -2683,21 +2756,6 @@
       "summary_ko": "[핵심 결론] 개의 간질량에 대한 복강경 간절제술에서 en bloc hilum 혈관다발 제어(EHPC) 기법을 적용하면 개복술로의 전환 없이 안전하게 시행할 수 있으며, 양호한 단기 및 장기 임상 결과를 얻을 수 있다.\n[방법·수치] 개 10마리를 대상으로 한 전향적 연구이며, hilar pedicle, hepatic vein, caudal vena cava를 침범하지 않은 간질량에 대해 복강경 간절제술을 시행했다. 중앙 수술 시간 165분(범위: 90-230분), 중앙 입원 기간 3일(범위: 2-4일), 조직병리학적으로 간세포암종 9예, 선종 1예, 결절성 과형성 2예가 확인되었다.\n[임상 적용·한계] Pringle 조작 후 서맥과 저혈압이 3예에서 발생했고, 1예에서는 의인성 횡격막손상으로 긴장성 기흉이 발생했으나 모든 개가 퇴원했다. 소규모 전향적 단일기관 연구이며, hilar pedicle, hepatic vein, caudal vena cava 침범이 없는 간질량을 가진 개에서만 적용 가능하다.",
       "specialty": [
         "외과/정형"
-      ]
-    },
-    {
-      "id": "42240562",
-      "title": "Effect of vertical distance between the heart base and the cuff on arterial blood pressure measurements using PetMAP in anaesthetised dogs.",
-      "authors": "McConomy R, Pinnok H, Adami C",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Nov",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
-      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement ab",
-      "summary_ko": "[핵심 결론] 마취 중 진동식 혈압계(PetMAP)로 측정할 때 커프 위치가 심장 기저부로부터 수직으로 단 3cm 벗어나도 평균동맥혈압이 최대 6mmHg의 임상적으로 의미 있는 오차가 발생한다.\n[방법·수치] 마취된 건강한 개 22마리를 대등척 자세에서 흉지와 골반지에 커프를 적용하여 심장 기저부, 기저부 위쪽, 기저부 아래쪽(각각 흉곽 깊이의 20%)에서 혈압을 측정했다. 흉지를 낮췄을 때 수축기혈압과 평균동맥혈압이 유의하게 증가했고(P=0.02, P=0.047), 골반지를 올렸을 때 수축기/평균/이완기혈압이 유의하게 감소했다(모두 P<0.03). 평균동맥혈압의 오차는 체중과 양의 상관관계를 보였다(P<0.001).\n[임상 적용·한계] 마취 중 혈압 측정 시 커프를 반드시 심장 기저부(상완골 대결절 높이)에 정렬하여 위치 편차를 최소화해야 한다. 단일 기관의 소규모 연구로 다양한 품종과 임상 상황에서의 검증이 필요하다.",
-      "specialty": [
-        "마취/진통",
-        "응급/중환자"
       ]
     },
     {
@@ -5265,6 +5323,69 @@
   ],
   "clinicians_brief": [
     {
+      "id": "cb_3b5590bd9e1a",
+      "title": "Mechanisms of Leukogram Patterns",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Internal Medicine",
+      "type": "cb",
+      "date": "2026-11-25",
+      "url": "https://www.cliniciansbrief.com/article/leukogram-patterns-mechanisms-cats-dogs",
+      "abstract": "What causes a stress leukogram? Learn how neutrophil pools and lymphocyte kinetics explain common CBC patterns in dogs and cats.",
+      "summary_ko": "[핵심 결론] 스트레스 백혈구증(stress leukogram)은 호중구 풀의 재분포와 림프구 동태 변화로 설명되며, 개와 고양이에서 공통적인 CBC 패턴을 나타낸다.\n[방법·수치] 개와 고양이의 호중구 풀 역학과 림프구 동태에 대한 메커니즘 분석 연구이며, 수치 제시 없음.\n[임상 적용·한계] 임상의는 CBC 패턴 해석 시 스트레스로 인한 호중구증과 림프구감소증의 생리적 기전을 이해하여 진단 오류를 줄일 수 있다. 초록만으로는 임상 사례나 진단 정확도 데이터가 부족하다.",
+      "specialty": [
+        "내과/내분비",
+        "기타"
+      ]
+    },
+    {
+      "id": "cb_202d79ea6392",
+      "title": "Hyperparathyroidism Diagnosis & Treatment in Veterinary Patients",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Endocrinology & Metabolic Diseases",
+      "type": "cb",
+      "date": "2026-11-25",
+      "url": "https://www.cliniciansbrief.com/article/quiz-hyperparathyroidism-diagnosis-treatment-dogs-cats",
+      "abstract": "Test your knowledge of primary, renal secondary, nutritional secondary, and tertiary hyperparathyroidism in dogs and cats with 5 cases.",
+      "summary_ko": "[핵심 결론] 개와 고양이의 1차성, 신장성 2차성, 영양성 2차성, 3차성 부갑상선기능항진증을 감별진단하고 치료하는 방법을 임상사례 중심으로 제시한다.\n[방법·수치] 개와 고양이를 대상으로 5개의 임상증례를 통해 각 부갑상선기능항진증 유형별 진단 및 치료 접근법을 제시하였으며, 수치 제시 없음.\n[임상 적용·한계] 부갑상선기능항진증의 4가지 유형별 감별진단과 치료원칙을 임상현장에서 직접 적용할 수 있으나, 증례기반 보고로 대규모 데이터 근거가 부족하고 장기 추적 결과는 제시되지 않음.",
+      "specialty": [
+        "내과/내분비",
+        "고양이"
+      ]
+    },
+    {
+      "id": "cb_4f8dffde05a5",
+      "title": "Blood-Borne Parasites in Dogs & Cats",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Clinical Pathology",
+      "type": "cb",
+      "date": "2026-11-25",
+      "url": "https://www.cliniciansbrief.com/article/blood-parasites-dogs-cats-identification",
+      "abstract": "How do you identify blood parasites on a smear? Compare 8 parasites in dogs and cats by morphology, vector, and best confirmatory test.",
+      "summary_ko": "[핵심 결론] 개와 고양이의 혈액 기생충 8종을 형태학적 특징, 매개동물, 최적 확진 검사법으로 비교하여 혈액 도말 검경에서의 식별 방법을 제시한다.\n[방법·수치] 개와 고양이에서 발견되는 혈액 기생충 8종에 대한 형태학적 특징 비교 및 각각의 매개동물과 확진 검사법을 기술한 비교 분석 연구이며, 수치 제시 없음.\n[임상 적용·한계] 임상 현장에서 혈액 도말 검경 시 기생충 동정의 정확도를 높일 수 있으며, 각 기생충별 최적 확진 검사법을 선택하여 진단의 신속성과 정확성을 향상시킬 수 있다. 초록만으로는 민감도·특이도 등 정량적 임상 근거가 제한적이다.",
+      "specialty": [
+        "기타",
+        "고양이"
+      ]
+    },
+    {
+      "id": "cb_c8504fc10e3b",
+      "title": "Recognizing & Managing Acute Respiratory Distress Syndrome in Veterinary Patients",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Emergency Medicine & Critical Care",
+      "type": "cb",
+      "date": "2026-11-25",
+      "url": "https://www.cliniciansbrief.com/article/ards-dogs-cats-diagnosis-management",
+      "abstract": "What factors indicate ARDS in dogs and cats, and how is it managed? See the 5 criteria, risk factors, treatment, and prognosis.",
+      "summary_ko": "[핵심 결론] 개와 고양이의 급성호흡곤란증후군(ARDS)은 5가지 진단 기준, 위험인자, 치료법, 예후 판정을 통해 인식하고 관리할 수 있다.\n[방법·수치] 개와 고양이를 대상으로 ARDS의 진단 기준 5가지, 관련 위험인자, 치료 방법, 예후에 대해 종설적으로 검토하였으며 수치 제시 없음.\n[임상 적용·한계] ARDS 환자의 조기 인식과 적절한 관리 프로토콜 수립에 도움이 되나, 종설 논문으로서 대규모 임상 데이터 부족 및 개별 환자의 반응성 차이에 대한 고찰이 제한적이다.",
+      "specialty": [
+        "응급/중환자"
+      ]
+    },
+    {
       "id": "cb_9d7556ee2b81",
       "title": "Canine & Feline Urinary Tract Disease: Practical Guidance for General Practice",
       "authors": "Clinician's Brief",
@@ -5371,6 +5492,21 @@
       ]
     },
     {
+      "id": "cb_20f999e23914",
+      "title": "Xenotransfusion of Canine Plasma Products to Cats",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Emergency Medicine & Critical Care",
+      "type": "cb",
+      "date": "2026-11-17",
+      "url": "https://www.cliniciansbrief.com/article/canine-plasma-products-cats-xenotransfusion",
+      "abstract": "Can canine plasma products be administered to cats? This study reviews xenotransfusion cases, including reactions, outcomes, and alternatives.",
+      "summary_ko": "본 연구는 고양이에 개의 혈장제제를 수혈하는 이종수혈(xenotransfusion)의 임상적 타당성을 검토한 것으로, 수혈 반응 발생률, 임상 결과, 그리고 대체 치료법들을 분석했습니다. 긴급상황에서 혈액제제 부족 시 개의 혈장 사용 가능성을 평가하되, 종간 면역반응과 안전성이 주요 고려사항입니다. 이종수혈 시행 전에 동종수혈 대안(신선냉동혈장, 혈액대체제 등)을 우선적으로 검토할 것을 권장합니다.",
+      "specialty": [
+        "고양이"
+      ]
+    },
+    {
       "id": "cb_1d7f5d5ba4a0",
       "title": "Periods of Low & High Interstitial Glucose Concentration in Healthy Dogs",
       "authors": "Clinician's Brief",
@@ -5399,81 +5535,6 @@
       "specialty": [
         "외과/정형",
         "고양이"
-      ]
-    },
-    {
-      "id": "cb_903f7134c089",
-      "title": "Broth Turbidity Test for Aminopenicillin-Resistant Uropathogens",
-      "authors": "Clinician's Brief",
-      "journal": "Clinician's Brief",
-      "category": "Urology & Nephrology",
-      "type": "cb",
-      "date": "2026-11-17",
-      "url": "https://www.cliniciansbrief.com/article/broth-turbidity-test-uti-dogs-cats",
-      "abstract": "This study reviews if a 16-24 hour broth turbidity test can screen for ampicillin-resistant uropathogens ahead of culture results.",
-      "summary_ko": "본 연구는 16-24시간 배양액 혼탁도 검사를 통해 암피실린 내성 요로병원균을 배양 결과보다 조기에 선별할 수 있는지를 평가했습니다. 이는 요로감염에서 경험적 항생제 치료를 조정하고 불필요한 광범위 항생제 사용을 줄이는 데 임상적으로 유용할 수 있습니다.",
-      "specialty": [
-        "기타"
-      ]
-    },
-    {
-      "id": "cb_20f999e23914",
-      "title": "Xenotransfusion of Canine Plasma Products to Cats",
-      "authors": "Clinician's Brief",
-      "journal": "Clinician's Brief",
-      "category": "Emergency Medicine & Critical Care",
-      "type": "cb",
-      "date": "2026-11-17",
-      "url": "https://www.cliniciansbrief.com/article/canine-plasma-products-cats-xenotransfusion",
-      "abstract": "Can canine plasma products be administered to cats? This study reviews xenotransfusion cases, including reactions, outcomes, and alternatives.",
-      "summary_ko": "본 연구는 고양이에 개의 혈장제제를 수혈하는 이종수혈(xenotransfusion)의 임상적 타당성을 검토한 것으로, 수혈 반응 발생률, 임상 결과, 그리고 대체 치료법들을 분석했습니다. 긴급상황에서 혈액제제 부족 시 개의 혈장 사용 가능성을 평가하되, 종간 면역반응과 안전성이 주요 고려사항입니다. 이종수혈 시행 전에 동종수혈 대안(신선냉동혈장, 혈액대체제 등)을 우선적으로 검토할 것을 권장합니다.",
-      "specialty": [
-        "고양이"
-      ]
-    },
-    {
-      "id": "cb_99e262eac406",
-      "title": "Podcast: The Calm Before the Procedure: Sedation Success With Dr. Crocker",
-      "authors": "Clinician's Brief",
-      "journal": "Clinician's Brief",
-      "category": "Anesthesia",
-      "type": "cb",
-      "date": "2026-11-17",
-      "url": "https://www.cliniciansbrief.com/article/podcast-calm-before-procedure-sedation-success-dr-crocker",
-      "abstract": "",
-      "summary_ko": "",
-      "specialty": [
-        "마취/진통"
-      ]
-    },
-    {
-      "id": "cb_d4904185f664",
-      "title": "Feline Hyperthyroidism: Debunking 5 Common Myths",
-      "authors": "Clinician's Brief",
-      "journal": "Clinician's Brief",
-      "category": "Endocrinology & Metabolic Diseases",
-      "type": "cb",
-      "date": "2026-11-17",
-      "url": "https://www.cliniciansbrief.com/article/feline-hyperthyroidism-debunking-common-myths",
-      "abstract": "",
-      "summary_ko": "",
-      "specialty": [
-        "고양이"
-      ]
-    },
-    {
-      "id": "cb_52a23e0a1d0a",
-      "title": "Top 6 Signs of Neuropathic Pain",
-      "authors": "Clinician's Brief",
-      "journal": "Clinician's Brief",
-      "category": "Anesthesiology & Pain Management",
-      "type": "cb",
-      "date": "2026-11-17",
-      "url": "https://www.cliniciansbrief.com/article/top-signs-neuropathic-pain",
-      "abstract": "",
-      "summary_ko": "",
-      "specialty": [
-        "기타"
       ]
     },
     {
@@ -5562,6 +5623,66 @@
       "url": "https://www.cliniciansbrief.com/article/podcast-cooling-wraps-migraine-masks-emerging-toxicity-risk-dogs",
       "abstract": "Dr. Swanson discusses a cluster of severe toxicity cases in dogs linked to products found in many homes: hydrogel cooling wraps and migraine masks. Tune in as she walks through how acrylamide was identified as the toxic agent, what the clinical picture looks like, and what clinicians can do when they suspect exposure.",
       "summary_ko": "가정용 수냉식 젤 패드(hydrogel cooling wraps, migraine masks)에 함유된 아크릴아마이드(acrylamide)로 인한 개의 중독 사례가 집단 발생했으며, 신경독성 임상증상을 보이는 환자에서 이 제품들에 대한 노출력 확인이 중요하다. 임상수의사는 아크릴아마이드 중독의 특징적 임상 양상을 인식하고 의심 사례에서 적절한 진단 및 치료 접근이 필요하다.",
+      "specialty": [
+        "기타"
+      ]
+    },
+    {
+      "id": "cb_903f7134c089",
+      "title": "Broth Turbidity Test for Aminopenicillin-Resistant Uropathogens",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Urology & Nephrology",
+      "type": "cb",
+      "date": "2026-11-17",
+      "url": "https://www.cliniciansbrief.com/article/broth-turbidity-test-uti-dogs-cats",
+      "abstract": "This study reviews if a 16-24 hour broth turbidity test can screen for ampicillin-resistant uropathogens ahead of culture results.",
+      "summary_ko": "본 연구는 16-24시간 배양액 혼탁도 검사를 통해 암피실린 내성 요로병원균을 배양 결과보다 조기에 선별할 수 있는지를 평가했습니다. 이는 요로감염에서 경험적 항생제 치료를 조정하고 불필요한 광범위 항생제 사용을 줄이는 데 임상적으로 유용할 수 있습니다.",
+      "specialty": [
+        "기타"
+      ]
+    },
+    {
+      "id": "cb_99e262eac406",
+      "title": "Podcast: The Calm Before the Procedure: Sedation Success With Dr. Crocker",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Anesthesia",
+      "type": "cb",
+      "date": "2026-11-17",
+      "url": "https://www.cliniciansbrief.com/article/podcast-calm-before-procedure-sedation-success-dr-crocker",
+      "abstract": "",
+      "summary_ko": "",
+      "specialty": [
+        "마취/진통"
+      ]
+    },
+    {
+      "id": "cb_d4904185f664",
+      "title": "Feline Hyperthyroidism: Debunking 5 Common Myths",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Endocrinology & Metabolic Diseases",
+      "type": "cb",
+      "date": "2026-11-17",
+      "url": "https://www.cliniciansbrief.com/article/feline-hyperthyroidism-debunking-common-myths",
+      "abstract": "",
+      "summary_ko": "",
+      "specialty": [
+        "고양이"
+      ]
+    },
+    {
+      "id": "cb_52a23e0a1d0a",
+      "title": "Top 6 Signs of Neuropathic Pain",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Anesthesiology & Pain Management",
+      "type": "cb",
+      "date": "2026-11-17",
+      "url": "https://www.cliniciansbrief.com/article/top-signs-neuropathic-pain",
+      "abstract": "",
+      "summary_ko": "",
       "specialty": [
         "기타"
       ]
