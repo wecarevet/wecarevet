@@ -120,6 +120,7 @@
     color: #1a3a5c;
     line-height: 1.55;
     margin-bottom: 8px;
+    overflow-wrap: anywhere;
   }
   .paper-title a { color: inherit; text-decoration: none; }
   .paper-title a:hover { color: #2e6da8; text-decoration: underline; }
@@ -137,8 +138,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
     margin-top: 14px;
   }
+  .footer-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
   .pubmed-link {
     font-size: 12px;
     color: #2e6da8;
@@ -146,6 +150,7 @@
     border: 1px solid #c8dff5;
     border-radius: 6px;
     padding: 4px 12px;
+    margin-left: auto;
   }
   .pubmed-link:hover { background: #e8f3fb; }
 
@@ -247,6 +252,35 @@
   .filter-btn.toggle { white-space: nowrap; }
   .filter-btn.toggle.active { background: #2e6da8; color: #fff; border-color: #2e6da8; }
   .filter-btn.toggle.bookmark-toggle.active { background: #f59e0b; border-color: #f59e0b; color: #fff; }
+  .filter-btn.guide-filter { background: #f5f1ff; border-color: #c4b5fd; color: #6b46c1; }
+  .filter-btn.guide-filter.active { background: #6b46c1; border-color: #6b46c1; color: #fff; }
+
+  /* ── 전문 분야 미독 빠른 보기 ── */
+  .quick-bar {
+    background: #fff;
+    border-bottom: 1px solid #e0e8f5;
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .quick-bar.hidden { display: none !important; }
+  .quick-btn {
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 1px solid #b8e0d0;
+    background: #f0fbf6;
+    color: #1f7a55;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .quick-btn b { color: #2a9d6e; }
+  .quick-btn:hover, .quick-btn.active { background: #2a9d6e; color: #fff; border-color: #2a9d6e; }
+  .quick-btn:hover b, .quick-btn.active b { color: #fff; }
+  .quick-hint { font-size: 11.5px; color: #a8b4c0; }
 
   .spec-badge {
     font-size: 10.5px;
@@ -259,6 +293,17 @@
     white-space: nowrap;
   }
   .spec-badge.heart { background: #fdeef2; color: #b33a5b; border-color: #f6d3dd; }
+
+  .guide-badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 4px;
+    background: #f5f1ff;
+    color: #6b46c1;
+    border: 1px solid #e3d9fb;
+    white-space: nowrap;
+  }
 
   .study-note {
     background: #f4f9ff;
@@ -322,6 +367,7 @@
   }
   .translate-btn:hover { background: #e8f3fb; }
   .translate-btn.loading { color: #aaa; border-color: #e0e8f5; cursor: default; }
+  .translate-btn:disabled { color: #aaa; border-color: #e0e8f5; cursor: default; }
 
   .translated-title {
     font-size: 13.5px;
@@ -355,6 +401,182 @@
   }
   .filter-bar { display: flex; }
   .filter-bar.hidden { display: none !important; }
+
+  /* ── 원문 초록 ── */
+  .abstract-box {
+    margin-top: 12px;
+    background: #fbfcfe;
+    border: 1px solid #e5edf7;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .abstract-box[hidden] { display: none !important; }
+  .abs-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #8aa3bd;
+    margin-bottom: 6px;
+  }
+  .abs-text {
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: #47586b;
+    overflow-wrap: anywhere;
+  }
+  .abs-ko {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #dbe6f3;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #1f4d7a;
+    overflow-wrap: anywhere;
+  }
+  .abs-ko[hidden] { display: none !important; }
+  .abs-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .abs-actions a { font-size: 11px; color: #2e6da8; text-decoration: none; }
+  .abs-actions a:hover { text-decoration: underline; }
+
+  /* ── 논문 메모 ── */
+  .note-preview {
+    margin-top: 10px;
+    font-size: 12.5px;
+    color: #7a5c0a;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 7px 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .note-preview[hidden] { display: none !important; }
+  .note-preview span { font-weight: 600; }
+  .note-editor { margin-top: 10px; }
+  .note-editor[hidden] { display: none !important; }
+  .note-editor textarea {
+    width: 100%;
+    min-height: 64px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 10px 12px;
+    border: 1px solid #c8dff5;
+    border-radius: 8px;
+    background: #fff;
+    color: #1a3a5c;
+    outline: none;
+  }
+  .note-editor textarea:focus {
+    border-color: #2e6da8;
+    box-shadow: 0 0 0 3px rgba(46,109,168,0.08);
+  }
+  .note-actions { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+
+  .mini-btn {
+    font-size: 11.5px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid #c8dff5;
+    background: #fff;
+    color: #2e6da8;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .mini-btn:hover { background: #e8f3fb; }
+  .mini-btn.primary { background: #2e6da8; border-color: #2e6da8; color: #fff; }
+  .mini-btn.primary:hover { background: #255c92; }
+  .mini-btn.danger { color: #c0392b; border-color: #f5c6c6; }
+  .mini-btn.danger:hover { background: #fff5f5; }
+
+  /* ── 더 보기 ── */
+  .more-wrap { text-align: center; margin: 18px 0 8px; }
+  .more-btn {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2e6da8;
+    background: #fff;
+    border: 1px solid #c8dff5;
+    border-radius: 22px;
+    padding: 11px 26px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .more-btn:hover { background: #2e6da8; color: #fff; border-color: #2e6da8; }
+
+  /* ── 기기 간 동기화 ── */
+  .sync-wrap { margin-bottom: 14px; }
+  .sync-toggle {
+    width: 100%;
+    text-align: left;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #2e6da8;
+    background: #fff;
+    border: 1px solid #dbe6f3;
+    border-radius: 10px;
+    padding: 11px 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+  .sync-toggle:hover { background: #f9fbfe; }
+  .sync-toggle .chev { color: #a8b4c0; font-size: 11px; }
+  .sync-panel {
+    border: 1px solid #dbe6f3;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    background: #fff;
+    padding: 14px 16px;
+    margin-top: -1px;
+  }
+  .sync-panel[hidden] { display: none !important; }
+  .sync-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .sync-btn {
+    font-size: 12px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #c8dff5;
+    background: #f9fbfe;
+    color: #2e6da8;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .sync-btn:hover { background: #e8f3fb; }
+  .sync-info { font-size: 12px; color: #2a9d6e; margin: 6px 0; min-height: 1em; line-height: 1.6; }
+  .sync-info.error { color: #c0392b; }
+  .sync-help { font-size: 11.5px; color: #8899aa; line-height: 1.75; margin-top: 8px; }
+
+  /* ── 토스트 ── */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 28px;
+    transform: translate(-50%, 12px);
+    background: rgba(26,58,92,0.95);
+    color: #fff;
+    font-size: 13px;
+    padding: 11px 20px;
+    border-radius: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 100;
+    max-width: 90vw;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
   .our-paper-section {
     max-width: 900px;
@@ -434,6 +656,26 @@
     font-size: 12px;
     color: #bbb;
   }
+
+  @media (max-width: 640px) {
+    header { padding: 26px 18px 22px; }
+    header h1 { font-size: 22px; }
+    header p { font-size: 13px; }
+    #tab-vet, #tab-human, #tab-cb {
+      font-size: 11.5px !important;
+      padding: 13px 4px !important;
+      letter-spacing: 0 !important;
+    }
+    .search-bar, .filter-bar, .quick-bar { padding: 10px 14px; }
+    .search-input { flex: 1 1 100%; }
+    .sort-select { margin-left: 0; }
+    .filter-tab-btn { padding: 11px 20px; }
+    .our-paper-section { margin-top: 20px; padding: 0 12px; }
+    .container { margin: 20px auto; padding: 0 12px; }
+    .paper-card { padding: 18px 16px; }
+    .our-paper-card { padding: 20px 18px; }
+    .paper-title { font-size: 15px; }
+  }
 </style>
 </head>
 <body>
@@ -455,6 +697,10 @@
        style="font-size:12px;color:#1a3a5c;background:#7ec8e3;border:1px solid #7ec8e3;border-radius:6px;padding:5px 14px;text-decoration:none;font-weight:700;">
       💉 CRI 계산기
     </a>
+    <button onclick="openSync()"
+       style="font-family:inherit;font-size:12px;color:#7ec8e3;border:1px solid #7ec8e3;border-radius:6px;padding:6px 14px;background:transparent;cursor:pointer;">
+      🔄 폰 ↔ PC 동기화
+    </button>
   </div>
 </header>
 
@@ -479,6 +725,15 @@
          oninput="onSearch(this.value)">
   <button class="filter-btn toggle bookmark-toggle" id="toggle-bookmark" onclick="toggleOnly('bookmark')">⭐ 북마크만</button>
   <button class="filter-btn toggle" id="toggle-unread" onclick="toggleOnly('unread')">📖 안 읽은 논문만</button>
+  <button class="filter-btn toggle guide-filter" id="toggle-guide" onclick="toggleGuideline()">📌 가이드라인만</button>
+</div>
+
+<div class="quick-bar" id="quick-bar">
+  <button class="quick-btn" id="expert-btn" onclick="toggleExpert()"
+          title="심장·신장/비뇨·영상 논문 중 아직 읽지 않은 논문만 봅니다">
+    🩺 심장·신장·영상 미독 <b id="expert-count">0</b>편
+  </button>
+  <span class="quick-hint" id="expert-hint"></span>
 </div>
 
 <div class="filter-tab" id="section-vet">
@@ -570,6 +825,31 @@
 </div>
 
 <div class="container">
+  <div class="sync-wrap">
+    <button class="sync-toggle" onclick="toggleSync()">
+      <span>🔄 폰 ↔ PC 동기화 <span id="sync-summary" style="font-weight:600;color:#8aa3bd;font-size:11.5px;"></span></span>
+      <span class="chev" id="sync-chev">▼</span>
+    </button>
+    <div class="sync-panel" id="sync-panel" hidden>
+      <div class="sync-row">
+        <button class="sync-btn" onclick="exportData()">⬇️ JSON으로 내보내기</button>
+        <button class="sync-btn" onclick="document.getElementById('import-file').click()">⬆️ JSON 불러오기</button>
+        <input type="file" id="import-file" accept="application/json,.json" hidden onchange="importFile(this)">
+      </div>
+      <div class="sync-row">
+        <button class="sync-btn" onclick="copySyncLink()">🔗 동기화 링크 복사</button>
+        <button class="sync-btn" onclick="pasteSyncLink()">📋 링크로 불러오기</button>
+      </div>
+      <div class="sync-info" id="sync-info"></div>
+      <p class="sync-help">
+        읽음 표시·북마크·메모는 이 브라우저에 저장됩니다. 폰과 PC를 맞추려면 <b>① 내보낸 JSON 파일을 다른 기기에서 불러오기</b> 하거나
+        <b>② 동기화 링크를 복사해 다른 기기의 '링크로 불러오기'에 붙여넣기</b> 하세요.
+        두 방법 모두 <b>합쳐지는 방식</b>이라 이미 표시해 둔 논문이 지워지지 않습니다.
+        동기화 링크에는 읽음·북마크·메모 내용이 담기므로 다른 사람에게 보내지 마세요.
+      </p>
+    </div>
+  </div>
+
   <div class="update-info">
     <span class="update-dot"></span>
     <span id="update-time">논문을 불러오는 중...</span>
@@ -582,6 +862,8 @@
     </div>
   </div>
 </div>
+
+<div class="toast" id="toast"></div>
 
 <footer>© 위케어동물의료센터 · 데이터 출처: PubMed (NCBI), Clinician's Brief</footer>
 
@@ -603,6 +885,21 @@ const SPECIALTY_KEYWORDS = {
 const STUDY_LABELS = ['핵심 결론', '방법·수치', '임상 적용·한계'];
 const STUDY_CLASS = { '핵심 결론': 'concl', '방법·수치': 'method', '임상 적용·한계': 'apply' };
 
+// 원장님 전문 분야 — 미독 모아보기 대상
+const EXPERT_SPECS = ['심장', '신장/비뇨', '영상'];
+
+// 가이드라인 성격 논문 판별 (제목 기준 · 오탐 방지용으로 규칙을 좁게 유지)
+const GUIDELINE_RULES = [
+  /\bconsensus\b/i,
+  /\bguidelines?\b/i,
+  /\b(WSAVA|AAHA|ACVIM|ICADA)\b[^.]{0,60}\b(consensus|guideline|guidelines|statement)\b/i,
+  /\b(scientific|position|consensus)\s+statement\b/i,
+  /\bRECOVER\b/,
+  /\bpractice guidelines?\b/i
+];
+
+const PAGE_SIZE = 25;
+
 let vetPapers = [];
 let humanPapers = [];
 let cbPapers = [];
@@ -617,9 +914,47 @@ let currentSort = 'date_desc';
 let searchQuery = '';
 let onlyBookmarked = false;
 let onlyUnread = false;
+let onlyGuideline = false;
+let focusExpert = false;
+let renderedCount = 0;
 
-let readSet = new Set(JSON.parse(localStorage.getItem('readPapers') || '[]'));
-let bookmarkSet = new Set(JSON.parse(localStorage.getItem('bookmarkPapers') || '[]'));
+/* ── 저장소 (localStorage) ── */
+function storeGet(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw == null ? fallback : JSON.parse(raw);
+  } catch (e) { return fallback; }
+}
+function storeSet(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+}
+
+let readSet = new Set(storeGet('readPapers', []) || []);
+let bookmarkSet = new Set(storeGet('bookmarkPapers', []) || []);
+
+// 메모는 { id: { t: 내용, u: 수정시각 } } 형태. 예전 문자열 형식도 읽어 준다.
+let noteMap = (function () {
+  const raw = storeGet('paperNotes', {}) || {};
+  const out = {};
+  Object.keys(raw).forEach(function (id) {
+    const v = raw[id];
+    if (typeof v === 'string' && v.trim()) out[id] = { t: v.trim(), u: 0 };
+    else if (v && typeof v === 'object' && typeof v.t === 'string' && v.t.trim()) {
+      out[id] = { t: v.t.trim(), u: Number(v.u) || 0 };
+    }
+  });
+  return out;
+})();
+
+// 초록 번역 캐시 { id: 번역문 }
+let absKoCache = storeGet('abstractKo', {}) || {};
+
+// 펼쳐 둔 초록 (다시 그려도 유지)
+const openAbstracts = new Set();
+
+function persistRead() { storeSet('readPapers', [...readSet]); }
+function persistBookmark() { storeSet('bookmarkPapers', [...bookmarkSet]); }
+function persistNotes() { storeSet('paperNotes', noteMap); }
 
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
@@ -647,6 +982,25 @@ function isNew(dateStr) {
   return (Date.now() - d) < 14 * 24 * 60 * 60 * 1000;
 }
 
+function abstractOf(p) {
+  return String((p && p.abstract) || '').trim();
+}
+
+function isGuideline(p) {
+  const title = String((p && p.title) || '');
+  if (!title) return false;
+  return GUIDELINE_RULES.some(re => re.test(title));
+}
+
+function journalLabel(p) {
+  return (p.type === 'cb' && p.category) ? p.category : p.journal;
+}
+
+function noteText(id) {
+  const n = noteMap[id];
+  return n && n.t ? n.t : '';
+}
+
 // ── 스터디 노트 렌더링 ──
 // [핵심 결론]/[방법·수치]/[임상 적용·한계] 구조면 라벨별로, 예전 평문 요약이면 그대로 보여준다.
 function summaryHTML(p) {
@@ -672,19 +1026,54 @@ function summaryHTML(p) {
   return `<div class="study-note">${introHTML}${rows}</div>`;
 }
 
+function abstractHTML(p, i) {
+  const abs = abstractOf(p);
+  if (!abs) return '';
+  const open = openAbstracts.has(p.id);
+  const ko = absKoCache[p.id] || '';
+  return `
+      <div class="abstract-box" id="abs-${i}" ${open ? '' : 'hidden'}>
+        <div class="abs-title">ABSTRACT · 원문 초록</div>
+        <div class="abs-text" id="abs-text-${i}">${esc(abs)}</div>
+        <div class="abs-ko" id="abs-ko-${i}" ${ko ? '' : 'hidden'}>${esc(ko)}</div>
+        <div class="abs-actions">
+          <button class="translate-btn" id="abs-tr-${i}" onclick="translateAbstract(${i}, this)">${ko ? '🇰🇷 번역 접기' : '🇰🇷 초록 번역'}</button>
+          <a href="${esc(p.url)}" target="_blank" rel="noopener">PubMed 전체 초록 →</a>
+        </div>
+      </div>`;
+}
+
+function noteHTML(p, i) {
+  const text = noteText(p.id);
+  return `
+      <div class="note-preview" id="note-prev-${i}" ${text ? '' : 'hidden'}>📝 <span>${esc(text)}</span></div>
+      <div class="note-editor" id="note-editor-${i}" hidden>
+        <textarea id="note-ta-${i}" placeholder="이 논문에서 기억할 점 · 진료 적용 메모" rows="2"></textarea>
+        <div class="note-actions">
+          <button class="mini-btn primary" onclick="saveNote(${i})">저장</button>
+          <button class="mini-btn" onclick="closeNote(${i})">취소</button>
+          <button class="mini-btn danger" onclick="deleteNote(${i})">메모 삭제</button>
+        </div>
+      </div>`;
+}
+
 function cardHTML(p, i) {
   const isRead = readSet.has(p.id);
   const isBookmarked = bookmarkSet.has(p.id);
   const specs = specialtyOf(p);
-  const journal = (p.type === 'cb' && p.category) ? p.category : p.journal;
+  const journal = journalLabel(p);
+  const hasAbs = !!abstractOf(p);
+  const hasNote = !!noteText(p.id);
   const badges = specs.map(s =>
     `<span class="spec-badge ${s === '심장' ? 'heart' : ''}">${esc(s)}</span>`
   ).join('');
+  const guideBadge = isGuideline(p) ? '<span class="guide-badge">📌 가이드라인</span>' : '';
   return `
     <div class="paper-card ${isRead ? 'read' : ''}" id="card-${i}">
       <div class="paper-meta">
         <span class="journal-badge">${esc(journal)}</span>
         ${badges}
+        ${guideBadge}
         <span class="date-badge">${esc(p.date || '')}</span>
         ${isNew(p.date) ? '<span class="new-badge">NEW</span>' : ''}
         <span class="read-badge ${isRead ? 'visible' : ''}" id="read-badge-${i}">✓ 읽음</span>
@@ -697,11 +1086,16 @@ function cardHTML(p, i) {
       <div class="translated-title" id="trans-${i}"></div>
       ${summaryHTML(p)}
       <div class="paper-authors">${esc(p.authors || '')}</div>
+      ${noteHTML(p, i)}
+      ${abstractHTML(p, i)}
       <div class="paper-footer">
-        <div style="display:flex;gap:6px;align-items:center;">
+        <div class="footer-actions">
           <button class="mark-read-btn ${isRead ? 'done' : ''}" id="read-btn-${i}"
                   onclick="toggleRead(${i})">${isRead ? '✓ 읽음' : '읽음 표시'}</button>
-          <button class="translate-btn" onclick="translate(${i}, this)">🇰🇷 한글 번역</button>
+          ${hasAbs ? `<button class="translate-btn" id="abs-toggle-${i}" onclick="toggleAbstract(${i})">${openAbstracts.has(p.id) ? '📄 초록 접기' : '📄 초록 보기'}</button>` : ''}
+          <button class="translate-btn" id="note-btn-${i}" onclick="openNote(${i})">${hasNote ? '✏️ 메모 수정' : '✏️ 메모'}</button>
+          <button class="translate-btn" id="copy-btn-${i}" onclick="copySummary(${i}, this)">📋 요약+출처 복사</button>
+          <button class="translate-btn" onclick="translateTitle(${i}, this)">🇰🇷 한글 번역</button>
         </div>
         <a class="pubmed-link" href="${esc(p.url)}" target="_blank" rel="noopener">${p.type === 'cb' ? "Clinician's Brief에서 보기 →" : 'PubMed에서 보기 →'}</a>
       </div>
@@ -721,13 +1115,14 @@ function applyReadState(i) {
     btn.textContent = isRead ? '✓ 읽음' : '읽음 표시';
     btn.classList.toggle('done', isRead);
   }
+  updateExpertBadge();
 }
 
 function markRead(i) {
   const p = viewPapers[i];
   if (!p || readSet.has(p.id)) return;
   readSet.add(p.id);
-  localStorage.setItem('readPapers', JSON.stringify([...readSet]));
+  persistRead();
   applyReadState(i);
 }
 
@@ -736,7 +1131,7 @@ function toggleRead(i) {
   if (!p) return;
   if (readSet.has(p.id)) readSet.delete(p.id);
   else readSet.add(p.id);
-  localStorage.setItem('readPapers', JSON.stringify([...readSet]));
+  persistRead();
   applyReadState(i);
   // '안 읽은 논문만' 보기 중에는 읽음으로 바꾼 카드를 목록에서 뺀다
   if (onlyUnread) renderPapers();
@@ -747,16 +1142,245 @@ function toggleBookmark(i) {
   if (!p) return;
   if (bookmarkSet.has(p.id)) bookmarkSet.delete(p.id);
   else bookmarkSet.add(p.id);
-  localStorage.setItem('bookmarkPapers', JSON.stringify([...bookmarkSet]));
+  persistBookmark();
   const btn = document.getElementById('bm-btn-' + i);
   if (btn) {
     btn.textContent = bookmarkSet.has(p.id) ? '⭐' : '☆';
     btn.classList.toggle('active', bookmarkSet.has(p.id));
   }
+  updateSyncSummary();
   // '북마크만 보기' 중에는 해제한 카드를 목록에서 뺀다
   if (onlyBookmarked) renderPapers();
 }
 
+/* ── 메모 ── */
+function openNote(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const box = document.getElementById('note-editor-' + i);
+  const ta = document.getElementById('note-ta-' + i);
+  const btn = document.getElementById('note-btn-' + i);
+  if (!box || !ta) return;
+  ta.value = noteText(p.id);
+  box.hidden = false;
+  if (btn) btn.textContent = '✏️ 메모 접기';
+  ta.focus();
+  ta.setSelectionRange(ta.value.length, ta.value.length);
+}
+
+function closeNote(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const box = document.getElementById('note-editor-' + i);
+  const btn = document.getElementById('note-btn-' + i);
+  if (box) box.hidden = true;
+  if (btn) btn.textContent = noteText(p.id) ? '✏️ 메모 수정' : '✏️ 메모';
+}
+
+function saveNote(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const ta = document.getElementById('note-ta-' + i);
+  if (!ta) return;
+  const text = ta.value.trim();
+  if (text) noteMap[p.id] = { t: text, u: Date.now() };
+  else delete noteMap[p.id];
+  persistNotes();
+  updateNotePreview(i);
+  closeNote(i);
+  updateSyncSummary();
+  showToast(text ? '✏️ 메모를 저장했습니다' : '메모를 지웠습니다');
+}
+
+function deleteNote(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  delete noteMap[p.id];
+  persistNotes();
+  const ta = document.getElementById('note-ta-' + i);
+  if (ta) ta.value = '';
+  updateNotePreview(i);
+  closeNote(i);
+  updateSyncSummary();
+  showToast('메모를 지웠습니다');
+}
+
+function updateNotePreview(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const box = document.getElementById('note-prev-' + i);
+  if (!box) return;
+  const text = noteText(p.id);
+  box.hidden = !text;
+  box.innerHTML = text ? '📝 <span>' + esc(text) + '</span>' : '';
+}
+
+/* ── 초록 펼치기 · 번역 ── */
+function toggleAbstract(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const box = document.getElementById('abs-' + i);
+  const btn = document.getElementById('abs-toggle-' + i);
+  if (!box) return;
+  if (box.hidden) {
+    box.hidden = false;
+    openAbstracts.add(p.id);
+    if (btn) btn.textContent = '📄 초록 접기';
+  } else {
+    box.hidden = true;
+    openAbstracts.delete(p.id);
+    if (btn) btn.textContent = '📄 초록 보기';
+  }
+}
+
+function splitForTranslate(text, max) {
+  max = max || 450;
+  const sentences = String(text).match(/[^.!?]+[.!?]+["')\]]?\s*|[^.!?]+$/g) || [String(text)];
+  const chunks = [];
+  let cur = '';
+  sentences.forEach(function (rawSentence) {
+    const s = rawSentence;
+    if (s.length > max) {
+      if (cur.trim()) { chunks.push(cur.trim()); cur = ''; }
+      for (let k = 0; k < s.length; k += max) chunks.push(s.slice(k, k + max).trim());
+    } else if ((cur + s).length > max) {
+      if (cur.trim()) chunks.push(cur.trim());
+      cur = s;
+    } else {
+      cur += s;
+    }
+  });
+  if (cur.trim()) chunks.push(cur.trim());
+  return chunks.filter(Boolean);
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function mmTranslate(text) {
+  const url = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=en|ko';
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('번역 서버 오류 (' + res.status + ')');
+  const data = await res.json();
+  if (data && data.quotaFinished) throw new Error('무료 번역 한도를 초과했습니다. 잠시 후 다시 시도해 주세요.');
+  const t = data && data.responseData && data.responseData.translatedText;
+  if (!t) throw new Error('번역 결과가 없습니다. 잠시 후 다시 시도해 주세요.');
+  if (/MYMEMORY WARNING/i.test(t)) throw new Error('무료 번역 한도를 초과했습니다. 잠시 후 다시 시도해 주세요.');
+  return t;
+}
+
+async function translateAbstract(i, btn) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const abs = abstractOf(p);
+  const koBox = document.getElementById('abs-ko-' + i);
+  if (!koBox || !abs) return;
+
+  if (!koBox.hidden) {          // 번역문 접기
+    koBox.hidden = true;
+    btn.textContent = '🇰🇷 초록 번역';
+    return;
+  }
+  if (koBox.textContent.trim()) {   // 캐시/이미 번역된 내용 펼치기
+    koBox.hidden = false;
+    btn.textContent = '🇰🇷 번역 접기';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = '번역 중...';
+  btn.classList.add('loading');
+  koBox.hidden = false;
+  koBox.textContent = '초록을 번역하고 있습니다...';
+  try {
+    const chunks = splitForTranslate(abs, 450);
+    const out = [];
+    for (let k = 0; k < chunks.length; k++) {
+      out.push(await mmTranslate(chunks[k]));
+      if (k < chunks.length - 1) await sleep(250);
+    }
+    const translated = out.join(' ').replace(/\s+/g, ' ').trim();
+    absKoCache[p.id] = translated;
+    storeSet('abstractKo', absKoCache);
+    koBox.textContent = '🇰🇷 ' + translated;
+    btn.textContent = '🇰🇷 번역 접기';
+  } catch (e) {
+    koBox.textContent = '⚠️ ' + (e && e.message ? e.message : '번역 중 오류가 발생했습니다.');
+    btn.textContent = '🇰🇷 다시 시도';
+  }
+  btn.disabled = false;
+  btn.classList.remove('loading');
+}
+
+/* ── 복사 ── */
+function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text);
+  }
+  return new Promise(function (resolve, reject) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try {
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      ok ? resolve() : reject(new Error('복사 실패'));
+    } catch (e) {
+      document.body.removeChild(ta);
+      reject(e);
+    }
+  });
+}
+
+function summaryCopyText(p) {
+  const journal = journalLabel(p);
+  const lines = [];
+  lines.push(p.title || '');
+  lines.push([journal, p.date].filter(Boolean).join(' · '));
+  const summary = String(p.summary_ko || '').trim();
+  if (summary) {
+    lines.push('');
+    lines.push(summary.replace(/\[(핵심 결론|방법·수치|임상 적용·한계)\]\s*/g, '$1: '));
+  }
+  if (p.url) {
+    lines.push('');
+    lines.push(p.url);
+  }
+  return lines.join('\n').trim();
+}
+
+function copySummary(i, btn) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const text = summaryCopyText(p);
+  copyText(text).then(function () {
+    if (btn) {
+      const original = '📋 요약+출처 복사';
+      btn.textContent = '✓ 복사됨';
+      btn.classList.add('loading');
+      setTimeout(function () { btn.textContent = original; btn.classList.remove('loading'); }, 1600);
+    }
+    showToast('📋 요약과 출처를 복사했습니다');
+  }).catch(function () {
+    showToast('복사에 실패했습니다 — 브라우저 권한을 확인해 주세요');
+  });
+}
+
+let toastTimer = null;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
+}
+
+/* ── 정렬 · 필터 ── */
 function getSorted(papers) {
   const arr = [...papers];
   if (currentSort === 'date_desc') arr.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -782,34 +1406,78 @@ function getFilteredPapers() {
     papers = papers.filter(p => [p.title, p.authors, p.abstract, p.summary_ko, p.journal, p.category]
       .filter(Boolean).join(' ').toLowerCase().includes(q));
   }
+  if (onlyGuideline) papers = papers.filter(isGuideline);
+  if (focusExpert) papers = papers.filter(p => specialtyOf(p).some(s => EXPERT_SPECS.includes(s)));
   if (onlyBookmarked) papers = papers.filter(p => bookmarkSet.has(p.id));
   if (onlyUnread) papers = papers.filter(p => !readSet.has(p.id));
 
   return getSorted(papers);
 }
 
-function renderPapers() {
+function moreButtonHTML(remain) {
+  if (remain <= 0) return '';
+  return `<div class="more-wrap"><button class="more-btn" onclick="loadMore()">더 보기 (남은 ${remain}편)</button></div>`;
+}
+
+function renderPapers(reset) {
+  if (reset !== false) renderedCount = PAGE_SIZE;
   const list = document.getElementById('paper-list');
+  if (!list) return;
   const papers = getFilteredPapers();
   viewPapers = papers;
+
+  if (renderedCount < PAGE_SIZE) renderedCount = PAGE_SIZE;
+  const shown = papers.slice(0, renderedCount);
 
   const countEl = document.getElementById('result-count');
   if (countEl) {
     const filtered = (currentMainTab === 'vet' && currentTab === 'category' && currentSpecialty !== 'all')
-      || searchQuery.trim() || onlyBookmarked || onlyUnread
+      || searchQuery.trim() || onlyBookmarked || onlyUnread || onlyGuideline || focusExpert
       || (currentMainTab === 'vet' && currentTab === 'journal' && currentJournal !== 'all')
       || (currentMainTab === 'human' && currentHumanJournal !== 'all');
     countEl.textContent = (filtered ? `${papers.length} / ${tabPapers.length}편` : `${tabPapers.length}편`);
   }
+
+  updateExpertBadge();
+  updateSyncSummary();
 
   if (!papers.length) {
     list.innerHTML = '<div class="no-result">조건에 맞는 논문이 없습니다.<br>검색어나 필터를 바꿔보세요.</div>';
     return;
   }
 
-  list.innerHTML = papers.map((p, i) => cardHTML(p, i)).join('');
+  list.innerHTML = shown.map((p, i) => cardHTML(p, i)).join('') + moreButtonHTML(papers.length - shown.length);
 }
 
+function loadMore() {
+  renderedCount += PAGE_SIZE;
+  renderPapers(false);
+}
+
+function updateExpertBadge() {
+  const btn = document.getElementById('expert-btn');
+  const countEl = document.getElementById('expert-count');
+  const hintEl = document.getElementById('expert-hint');
+  if (!btn || !countEl) return;
+  const expert = vetPapers.filter(p => specialtyOf(p).some(s => EXPERT_SPECS.includes(s)));
+  const unread = expert.filter(p => !readSet.has(p.id));
+  countEl.textContent = unread.length;
+  btn.classList.toggle('active', focusExpert);
+  if (hintEl) {
+    hintEl.textContent = expert.length
+      ? '심장·신장·영상 전체 ' + expert.length + '편 중 안 읽은 논문'
+      : '';
+  }
+}
+
+function updateSyncSummary() {
+  const el = document.getElementById('sync-summary');
+  if (!el) return;
+  const noteCount = Object.keys(noteMap).length;
+  el.textContent = '· 읽음 ' + readSet.size + ' · 북마크 ' + bookmarkSet.size + ' · 메모 ' + noteCount;
+}
+
+/* ── 탭 · 필터 핸들러 ── */
 function switchMainTab(tab) {
   currentMainTab = tab;
   ['vet', 'human', 'cb'].forEach(t => {
@@ -824,6 +1492,8 @@ function switchMainTab(tab) {
   });
   const secVetFilter = document.getElementById('section-vet');
   if (secVetFilter) secVetFilter.style.display = tab === 'vet' ? '' : 'none';
+  const quickBar = document.getElementById('quick-bar');
+  if (quickBar) quickBar.classList.toggle('hidden', tab !== 'vet');
   const ourPaper = document.getElementById('our-paper-section');
   if (ourPaper) ourPaper.style.display = tab === 'vet' ? 'block' : 'none';
 
@@ -874,7 +1544,7 @@ let searchTimer = null;
 function onSearch(val) {
   searchQuery = val || '';
   clearTimeout(searchTimer);
-  searchTimer = setTimeout(renderPapers, 120);
+  searchTimer = setTimeout(function () { renderPapers(); }, 120);
 }
 
 function toggleOnly(kind) {
@@ -888,39 +1558,230 @@ function toggleOnly(kind) {
   renderPapers();
 }
 
-async function translate(i, btn) {
+function toggleGuideline() {
+  onlyGuideline = !onlyGuideline;
+  document.getElementById('toggle-guide').classList.toggle('active', onlyGuideline);
+  renderPapers();
+}
+
+function toggleExpert() {
+  focusExpert = !focusExpert;
+  renderPapers();
+}
+
+/* ── 제목 번역 (기존 기능) ── */
+// 주의: 함수 이름을 translate 로 두면 크로미움의 HTMLElement.translate 속성과
+// 인라인 핸들러 스코프에서 충돌해 "translate is not a function" 오류가 난다.
+async function translateTitle(i, btn) {
   const p = viewPapers[i];
   if (!p) return;
   const box = document.getElementById('trans-' + i);
   if (!box) return;
-  if (box.classList.contains('visible')) {
+  const visible = box.classList.contains('visible') || box.style.display === 'block';
+  if (visible) {
     box.classList.remove('visible');
+    box.style.display = 'none';
     btn.textContent = '🇰🇷 한글 번역';
     return;
   }
   if (box.textContent) {
     box.classList.add('visible');
+    box.style.display = 'block';
     btn.textContent = '번역 닫기';
     return;
   }
   btn.textContent = '번역 중...';
   btn.classList.add('loading');
   try {
-    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(p.title)}&langpair=en|ko`;
-    const res = await fetch(url);
-    const data = await res.json();
-    const translated = data.responseData?.translatedText || '번역 실패';
+    const translated = await mmTranslate(p.title);
     box.textContent = '🇰🇷 ' + translated;
-    box.classList.add('visible');
-    btn.textContent = '번역 닫기';
   } catch (e) {
-    box.textContent = '번역 중 오류가 발생했습니다.';
-    box.classList.add('visible');
-    btn.textContent = '번역 닫기';
+    box.textContent = '⚠️ ' + (e && e.message ? e.message : '번역 중 오류가 발생했습니다.');
   }
+  box.classList.add('visible');
+  box.style.display = 'block';
+  btn.textContent = '번역 닫기';
   btn.classList.remove('loading');
 }
 
+/* ── 기기 간 동기화 (JSON 파일 · 동기화 링크) ── */
+function toggleSync() {
+  const panel = document.getElementById('sync-panel');
+  const chev = document.getElementById('sync-chev');
+  if (!panel) return;
+  panel.hidden = !panel.hidden;
+  if (chev) chev.textContent = panel.hidden ? '▼' : '▲';
+  updateSyncSummary();
+}
+
+function openSync() {
+  const panel = document.getElementById('sync-panel');
+  if (panel && panel.hidden) {
+    panel.hidden = false;
+    const chev = document.getElementById('sync-chev');
+    if (chev) chev.textContent = '▲';
+  }
+  const wrap = document.querySelector('.sync-wrap');
+  if (wrap && wrap.scrollIntoView) wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  updateSyncSummary();
+}
+
+function syncMsg(msg, isError) {
+  const el = document.getElementById('sync-info');
+  if (!el) return;
+  el.textContent = msg || '';
+  el.classList.toggle('error', !!isError);
+}
+
+function buildPayload() {
+  const notes = {};
+  Object.keys(noteMap).forEach(function (id) {
+    const n = noteMap[id];
+    if (n && n.t) notes[id] = { t: n.t, u: n.u || 0 };
+  });
+  return {
+    app: 'wecare-research',
+    version: 1,
+    exported: new Date().toISOString(),
+    read: [...readSet],
+    bookmark: [...bookmarkSet],
+    notes: notes
+  };
+}
+
+// 다른 기기 데이터를 합친다 (읽음·북마크는 합집합, 메모는 수정시각이 최신인 것)
+function applyPayload(payload) {
+  const result = { addedRead: 0, addedBookmark: 0, addedNotes: 0 };
+  if (!payload || typeof payload !== 'object') return result;
+  (payload.read || []).forEach(function (id) {
+    if (id && !readSet.has(id)) { readSet.add(id); result.addedRead++; }
+  });
+  (payload.bookmark || []).forEach(function (id) {
+    if (id && !bookmarkSet.has(id)) { bookmarkSet.add(id); result.addedBookmark++; }
+  });
+  const incoming = payload.notes || {};
+  Object.keys(incoming).forEach(function (id) {
+    const inc = incoming[id];
+    const text = typeof inc === 'string' ? inc : (inc && inc.t);
+    const when = (inc && inc.u) || 0;
+    if (!text || !String(text).trim()) return;
+    const cur = noteMap[id];
+    if (!cur || when > (cur.u || 0)) {
+      noteMap[id] = { t: String(text).trim(), u: when };
+      result.addedNotes++;
+    }
+  });
+  persistRead();
+  persistBookmark();
+  persistNotes();
+  return result;
+}
+
+function resultText(r) {
+  return '읽음 ' + r.addedRead + '편 · 북마크 ' + r.addedBookmark + '편 · 메모 ' + r.addedNotes + '건 추가';
+}
+
+function exportData() {
+  const data = buildPayload();
+  const name = 'wecare-papers-sync-' + new Date().toISOString().slice(0, 10) + '.json';
+  try {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 3000);
+    syncMsg('파일을 내려받았습니다: ' + name);
+  } catch (e) {
+    syncMsg('내보내기에 실패했습니다: ' + e.message, true);
+  }
+}
+
+function importFile(input) {
+  const file = input.files && input.files[0];
+  input.value = '';
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function () {
+    try {
+      const data = JSON.parse(reader.result);
+      const r = applyPayload(data);
+      renderPapers();
+      syncMsg('불러왔습니다 — ' + resultText(r));
+      showToast('동기화 완료 — ' + resultText(r));
+    } catch (e) {
+      syncMsg('파일을 읽을 수 없습니다: ' + e.message, true);
+    }
+  };
+  reader.onerror = function () { syncMsg('파일을 읽는 중 오류가 발생했습니다', true); };
+  reader.readAsText(file, 'utf-8');
+}
+
+function toB64Url(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => { bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function fromB64Url(s) {
+  let v = String(s).replace(/-/g, '+').replace(/_/g, '/');
+  while (v.length % 4) v += '=';
+  const bin = atob(v);
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function syncLink() {
+  const payload = buildPayload();
+  delete payload.exported;      // 링크 길이를 줄인다
+  return location.origin + location.pathname + '#sync=' + toB64Url(JSON.stringify(payload));
+}
+
+function copySyncLink() {
+  const link = syncLink();
+  copyText(link).then(function () {
+    syncMsg('동기화 링크를 복사했습니다 — 다른 기기에서 "링크로 불러오기"에 붙여넣으세요');
+    showToast('🔗 동기화 링크를 복사했습니다');
+  }).catch(function () {
+    prompt('아래 링크를 복사해 다른 기기에서 붙여넣으세요', link);
+  });
+}
+
+function pasteSyncLink() {
+  const raw = prompt('다른 기기에서 복사한 동기화 링크를 붙여넣으세요');
+  if (!raw) return;
+  const m = String(raw).match(/#sync=([A-Za-z0-9\-_]+)/) || String(raw).match(/^([A-Za-z0-9\-_]{40,})$/);
+  if (!m) { syncMsg('동기화 링크 형식이 아닙니다', true); return; }
+  try {
+    const data = JSON.parse(fromB64Url(m[1]));
+    const r = applyPayload(data);
+    renderPapers();
+    syncMsg('가져왔습니다 — ' + resultText(r));
+    showToast('동기화 완료 — ' + resultText(r));
+  } catch (e) {
+    syncMsg('링크를 읽을 수 없습니다 — 링크가 잘리지 않았는지 확인해 주세요', true);
+  }
+}
+
+function applySyncFromHash() {
+  const m = location.hash.match(/^#sync=(.+)$/);
+  if (!m) return null;
+  try {
+    const data = JSON.parse(fromB64Url(m[1]));
+    const r = applyPayload(data);
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    return r;
+  } catch (e) {
+    syncMsg('동기화 링크를 읽을 수 없습니다 — 링크가 잘리지 않았는지 확인해 주세요', true);
+    return null;
+  }
+}
+
+/* ── 초기화 ── */
 async function init() {
   try {
     const res = await fetch('papers.json');
@@ -933,7 +1794,12 @@ async function init() {
     tabPapers = vetPapers;
     document.getElementById('update-time').textContent =
       `마지막 업데이트: ${data.updated} · 수의학 ${vetPapers.length}편 · 인의학 심장 ${humanPapers.length}편 · CB ${cbPapers.length}편`;
+
+    const synced = applySyncFromHash();
     renderPapers();
+    if (synced && (synced.addedRead || synced.addedBookmark || synced.addedNotes)) {
+      setTimeout(function () { showToast('동기화 링크에서 ' + resultText(synced)); }, 400);
+    }
   } catch (e) {
     document.getElementById('paper-list').innerHTML =
       '<div class="error-box">논문 데이터를 불러올 수 없습니다.<br>papers.json 파일이 저장소에 있는지 확인해주세요.</div>';
@@ -943,6 +1809,14 @@ async function init() {
 
 init();
 
+// 같은 탭에서 주소만 바뀌는 경우(해시 이동)에도 링크를 바로 적용한다
+window.addEventListener('hashchange', function () {
+  if (location.hash.indexOf('#sync=') !== 0) return;
+  const r = applySyncFromHash();
+  if (!r) return;
+  renderPapers();
+  showToast('동기화 링크에서 ' + resultText(r));
+});
 </script>
 </body>
 </html>
