@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-25 06:25 UTC",
-  "total": 363,
+  "updated": "2026-11-26 06:18 UTC",
+  "total": 371,
   "papers": [
     {
       "id": "42833272",
@@ -29,6 +29,93 @@
       "specialty": [
         "피부",
         "기타"
+      ]
+    },
+    {
+      "id": "43082252",
+      "title": "Canine Hypercalcaemia: part 1, Pathophysiology and Causes.",
+      "authors": "Cardoso M, Ward PM, Ramsey IK",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Nov 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43082252/",
+      "abstract": "Hypercalcaemia is an important metabolic abnormality that has been associated with a wide range of conditions in the dog. This paper reviews calcium regulation, the pathophysiological mechanisms leading to increased calcium concentrations and the clinical consequences. It then provides a narrative review of all reported causes of canine hypercalcaemia. Although neoplasia, particularly lymphoma, is the most frequently recognised cause, there are also important endocrine (hyperparathyroidism and h",
+      "summary_ko": "[핵심 결론] 개의 고칼슘혈증은 종양(특히 림프종), 부갑상선항진증, 부신피질기능저하증, 신장질환, 염증성질환, 독성물질 등 다양한 원인에서 발생하며, 칼슘 조절 메커니즘의 이해가 진단과 치료의 기초를 이룬다.\n[방법·수치] 개의 고칼슘혈증 원인에 대한 내러티브 문헌 고찰로, 칼슘 조절 생리와 고칼슘혈증의 병태생리 메커니즘을 종합적으로 검토했다. 수치 제시 없음.\n[임상 적용·한계] 종양이 가장 흔한 원인이므로 먼저 감별하되, 내분비질환과 염증성질환도 주의 깊게 평가해야 하며, 임상증상과 혈청 칼슘 농도에 따라 적절한 진단 및 치료 전략을 수립해야 한다. 본 고찰은 병태생리 중심이므로 구체적인 진단 및 치료 방법은 2부에서 다룬다.",
+      "specialty": [
+        "내과/내분비"
+      ]
+    },
+    {
+      "id": "43084916",
+      "title": "Prospective clinical evaluation of an impaction interference bolt design for intramedullary nail fracture fixation in dogs.",
+      "authors": "Hanlon J, Kim SE",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Nov 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43084916/",
+      "abstract": "To evaluate clinical application and postoperative outcomes of traumatic, long bone fractures repaired using intramedullary nails locked with novel impaction interference design (IID) bolts. Dogs presented with traumatic long bone fractures amenable to intramedullary nail fixation were consecutively enrolled between July 2023 and December 2025. Intramedullary nails were implanted and stabilized using IID bolts in all patients enrolled. Surgery time, bolt implantation complications, drilling accu",
+      "summary_ko": "[핵심 결론] 새로운 impaction interference design(IID) bolt를 사용한 골수내 못 고정은 안전하게 식립되며 각도 안정성을 제공하고 양호한 임상 결과를 보였다.\n[방법·수치] 2023년 7월~2025년 12월 장골 골절 13두 14예(대퇴골 10예, 경골 4예)에 대해 IID bolt로 고정한 전향적 임상 평가 연구이며, 중앙 수술 시간 105분, bolt 완전 식립 54/55예(98.2%), 양측 피질골 engagement 53/55예(96.4%), drilling 정확도 100%, 방사선학적 유합까지 중앙 8.5주, bolt 이완 및 촉진 감응성 없음을 보였다.\n[임상 적용·한계] IID bolt는 기존 골수내 못 고정의 대안이 될 수 있으나, 단일 기관의 소규모 연구이고 중기 추적 관찰 결과로서 장기 성적 평가와 더 많은 환자군에서의 추가 검증이 필요하다.",
+      "specialty": [
+        "외과/정형"
+      ]
+    },
+    {
+      "id": "43083520",
+      "title": "Process, Heterogeneity, and Modifiable Risk Factors of Postoperative Recovery After Cardiac Surgery.",
+      "authors": "Sun R, Jiao Z, Chen S, Rao C, Zhao Y",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Nov 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43083520/",
+      "abstract": "Cardiac surgery improves clinical endpoints but imposes challenges in recovery. Understanding patient-reported postoperative recovery is crucial for optimal care. The goal of this study was to reveal the process, heterogeneity, and modifiable risk factors of patient-reported postoperative recovery. In this multicenter prospective cohort study involving patients undergoing nonemergent cardiac surgery, patient-reported outcomes were assessed using the Fuwai-Cardiac Recovery Scale (a 9-item scale i",
+      "summary_ko": "[핵심 결론] 심장수술 후 회복은 시간에 따라 진행되는 역동적 과정이며 환자 간 이질성이 크고, 조기 인식과 중재를 위한 기회를 제공한다. 흡연, 비만, 빈혈이 수정 가능한 위험인자로 확인되었다.\n[방법·수치] 중국 8개 센터의 2,993명 대상 전향적 다기관 코호트 연구로, Fuwai-Cardiac Recovery Scale(9개 항목)을 수술 후 1-4일, 2-3주, 1-3개월에 평가했다. 총점 ≤30(3개월 미계획 재입원 가능성 낮음)을 달성한 환자는 퇴원 시 77.4%, 3개월 시 97.7%였다. 흡연(호흡곤란, OR: 1.55), 비만(운동성 저하, OR: 1.52), 빈혈(식욕부진 OR: 1.47, 피로 OR: 1.36)이 불량 회복의 위험인자였다.\n[임상 적용·한계] 회복 궤적의 이질성 파악으로 고위험 환자를 조기 선별하고 개인화된 중재가 가능하다. 중국 단일 지역 다기관 연구이고 비응급 수술 환자만 포함하여 응급 수술이나 다른 지역 적용성에 제한이 있다.",
+      "specialty": [
+        "심장",
+        "응급/중환자"
+      ]
+    },
+    {
+      "id": "43084245",
+      "title": "Diastolic dysfunction in adults with congenital heart disease.",
+      "authors": "Ratwatte S, Miranda WR, Valente AM, El Sayed M, Elgamal SM",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Nov 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43084245/",
+      "abstract": "Diastolic dysfunction is a major determinant of cardiovascular symptoms, quality of life, and overall prognosis in adults with acquired heart disease. The global burden of disease is increasing, and substantial progress has been made in developing standardized multimodality approaches for the assessment of left ventricular diastolic function. In adults with congenital heart disease (ACHD) diastolic dysfunction is substantially more prevalent than in the general population; however, it remains co",
+      "summary_ko": "[핵심 결론] 성인 선천성 심장질환 환자에서 이완기 기능 부전은 일반인보다 훨씬 높은 유병률을 보이지만 과소진단되고 과소치료되고 있으며, 기존의 후천성 심장질환 가이드라인을 직접 적용하기에는 부적절하다.\n[방법·수치] 성인 선천성 심장질환(ACHD) 환자에서 이완기 기능 부전의 평가 및 관리에 대한 현황 검토 논문으로, 기저 해부학적 구조, 선행 수술 및 잔존 혈역학적 병변이 심실 충만 생리에 미치는 영향을 고려한 다중영상 접근법의 표준화된 평가 방법 검토; 수치 제시 없음.\n[임상 적용·한계] ACHD 환자의 질환 특이적 이완기 기능 부전 평가를 위해 환자의 근본적인 해부학적 특성을 고려한 맞춤형 진단 및 치료 프레임워크 제시가 필요하며, 현재까지 단일 가이드라인 적용의 한계가 있어 병변 특이적 고려사항이 중요함.",
+      "specialty": [
+        "심장"
+      ]
+    },
+    {
+      "id": "43080183",
+      "title": "Macrophage CD40 signalling inhibition improves cardiac function after myocardial infarction by limiting fibroblast activation.",
+      "authors": "Lang A, Ampem G, Witkowski S, Wernet C, Duplessis AJ",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Nov 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43080183/",
+      "abstract": "Myocardial infarction (MI) triggers a dynamic immune response transitioning through inflammatory, reparative, and fibrotic phases. While CD40L-CD40 signalling is central to immune activation, its role in macrophage-driven fibrosis post-MI remains poorly understood. Plasma soluble (s)CD40L was determined in patients with ST-segment elevation MI (STEMI; n = 360). Left ventricular (LV) function was quantified by cardiac magnetic resonance imaging (CMR) at 5 days and 6 months post-MI. In a murine mo",
+      "summary_ko": "[핵심 결론] 심근경색 후 CD40-TRAF6 신호 경로를 통한 대식세포의 활성화가 심실 재형성과 섬유화를 유도하며, TRAF-STOP으로 이를 억제하면 좌심실 기능이 개선된다.\n[방법·수치] STEMI 환자 360명에서 혈장 sCD40L을 측정하고 심자기공명영상으로 좌심실 기능을 평가했으며, 마우스 재관류 심근경색 모델에서 TRAF-STOP 투여 후 심초음파, 조직학, qPCR, scRNA-seq, 공동배양 실험을 수행했다. 환자에서 sCD40L은 입원 5일째 최고조에 달했고 흉터 크기, 좌심실 재형성, 6개월 재입원과 연관됐으며, 마우스에서 TRAF-STOP 치료는 CD40+SPP1+ 대식세포를 감소시키고 섬유화 유전자 발현을 약화시켰다.\n[임상 적용·한계] 심근경색 초급성기(5일째) 혈장 sCD40L 측정이 예후 예측 바이오마커로 활용 가능하며, CD40-TRAF6 경로 차단이 섬유화 제한 치료 표적이 될 수 있다. 다만 환자 연구는 관찰 연구이고 마우스 모델 결과의 임상 번역 가능성은 추가 임상시험으로 검증이 필요하다.",
+      "specialty": [
+        "심장",
+        "기타"
+      ]
+    },
+    {
+      "id": "43078422",
+      "title": "Cysteinyl leukotriene profiles in obstructive and non-obstructive feline lower urinary tract disease.",
+      "authors": "Bayendur SH, Tunç AC, Dinçer PFP, Saraçlı S, Acar A",
+      "journal": "Vet J",
+      "type": "vet",
+      "date": "2026 Nov 24",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43078422/",
+      "abstract": "Feline lower urinary tract disease is a complex syndrome characterized by high recurrence rates, and standard treatments targeting the cyclooxygenase pathway often lack efficacy. This suggests that alternative inflammatory mechanisms are involved in the pathology. This study aimed to investigate the role of the 5-lipoxygenase pathway and its byproducts, cysteinyl leukotrienes, along with the pro-inflammatory cytokine interleukin-18, in the pathophysiology of obstructive and non-obstructive felin",
+      "summary_ko": "[핵심 결론] 고양이 하부요로질환의 폐쇄성과 비폐쇄성 표현형 모두에서 5-리폭시게나제 경로와 시스테이닐 류코트리엔, 인터루킨-18이 활성화되며, 폐쇄성은 국소 염증(뇨 염증매개물 증가), 비폐쇄성은 전신 염증(혈청 류코트리엔B4 증가)이 우세함을 규명했다.\n[방법·수치] 60마리 수컷 고양이(폐쇄성 20마리, 비폐쇄성 20마리, 건강 대조군 20마리)의 혈청과 뇨 샘플을 분석했다. 질병군 모두에서 류코트리엔과 인터루킨-18이 대조군 대비 현저히 증가했으며, 인공지능 분류 모델의 정확도는 85%였다. 폐쇄성은 뇨 인터루킨-18이 주요 예측인자, 비폐쇠성은 혈청 류코트리엔B4가 주요 지표였다.\n[임상 적용·한계] 사이클로옥시게나제 경로를 표적하는 표준 치료에 반응이 없는 고양이 하부요로질환 환자에서 5-리폭시게나제 경로 억제제 개발의 근거를 제공하며, 폐쇄성과 비폐쇄성 표현형을 구분하는 바이오마커로 활용 가능하다. 그러나 염증매개물의 세포 기원과 임상 번역을 위해서는 종단 연구가 필요하다.",
+      "specialty": [
+        "신장/비뇨",
+        "고양이"
       ]
     },
     {
@@ -162,7 +249,7 @@
     },
     {
       "id": "43068792",
-      "title": "Clinical Efficacy of Cordycepin in Feline Upper Respiratory Infection: A Randomized Trial.",
+      "title": "Clinical efficacy of cordycepin in feline upper respiratory infection: A randomized trial.",
       "authors": "Li J, Xu G, Zhang K, Zhang J, Guo Z",
       "journal": "Vet J",
       "type": "vet",
@@ -284,7 +371,7 @@
       "type": "vet",
       "date": "2026 Nov 20",
       "url": "https://pubmed.ncbi.nlm.nih.gov/43064105/",
-      "abstract": "Myxomatous mitral valve disease (MMVD) is common in Cavalier King Charles Spaniels (CKCS) and may involve activation of the renin-angiotensin-aldosterone system (RAAS). This study evaluated serum aldosterone concentrations across ACVIM MMVD stages in CKCS and its association with selected echocardiographic indices. Eighty-four client-owned CKCS were staged according to ACVIM guidelines (A, n = 11; B1, n = 58; B2, n = 7; C, n = 8), and serum aldosterone was measured using the LIAISON&#xae; Aldost",
+      "abstract": "Myxomatous mitral valve disease (MMVD) is common in Cavalier King Charles Spaniels (CKCS) and may involve activation of the renin-angiotensin-aldosterone system (RAAS). This study evaluated serum aldosterone concentrations across ACVIM MMVD stages in CKCS and its association with selected echocardiographic indices. Eighty-four client-owned CKCS were staged according to ACVIM guidelines (A, n&#x202f;=&#x202f;11; B1, n&#x202f;=&#x202f;58; B2, n&#x202f;=&#x202f;7; C, n&#x202f;=&#x202f;8), and serum",
       "summary_ko": "[핵심 결론] 캐벌리 킹 찰스 스패니얼의 점액종성 승모판막질환에서 혈청 알도스테론 농도는 ACVIM 단계별로 차이를 보였으나, 다변량 분석에서는 통계적 유의성에 도달하지 못했으며, 심초음파 지표와의 연관성도 다중검정 보정 후 확인되지 않았다.\n[방법·수치] 캐벌리 킹 찰스 스패니얼 84마리를 ACVIM 단계별로 분류(A n=11, B1 n=58, B2 n=7, C n=8)하여 혈청 알도스테론을 측정했다. 비보정 비교에서 B2+C군의 중앙값 707.0 pmol/L vs A+B1군 469.5 pmol/L (p=0.045, r_rb=0.332)로 통계적 차이를 보였으나, 다변량 분석에서는 유의하지 않았다(p=0.072).\n[임상 적용·한계] 임상적으로 유용성 판단이 제한적이며, 본 결과는 가설 생성적이고 예비적이므로 향후 더 큰 규모의 전향적 연구가 필요하다. 다중검정 보정으로 인해 심초음파 지표와의 연관성이 소실된 점이 한계이다.",
       "specialty": [
         "심장",
@@ -1931,6 +2018,20 @@
       ]
     },
     {
+      "id": "43085193",
+      "title": "Frequency of arrhythmias detected in 53,708 canine electrocardiograms by breed, life stage, and sex.",
+      "authors": "Gentile-Solomon J, Castaneda EL, Grimaldi DA, Spake AK, Estrada AH",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Nov 2",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43085193/",
+      "abstract": "The purpose of this study was to describe the frequency of arrhythmias detected in unsedated canine patients from general practice settings. A total of 57,950 canine electrocardiograms (ECGs) were retrospectively collected, of which 53,708 met the inclusion criteria. Recordings were evaluated by a board-certified cardiologist. If an arrhythmia was present in the ECG tracing, the cardiologist categorized the arrhythmia using pre-established keywords. The number of dogs with at least one arrhythmi",
+      "summary_ko": "[핵심 결론] 53,708건의 개 심전도에서 3.3%의 개가 최소 1개 이상의 부정맥을 보였으며, 심실기외수축(1.4%), 심방기외수축(0.7%), 1도 방실전도 차단(0.6%)이 가장 흔했다. Whippet 견종과 노령견에서 부정맥 발생률이 유의하게 높았고, 중성화/불임 개에서 미처리 개보다 부정맥이 더 흔했다.\n[방법·수치] 일반 진료 환경의 무진정 개 환자 57,950건의 심전도를 후향적으로 수집하여 53,708건을 분석했다. 전문 심장 전문의가 평가했으며, 부정맥 검출률 1758/53,708(3.3%), Whippet의 교차비 5.31(95% CI: 2.07-12.34, P=0.039), 노령견의 교차비 1.93(95% CI: 1.67-2.22, P<0.001)이다.\n[임상 적용·한계] 임상 현장에서 무진정 상태의 심전도 검사 시 Whippet 견종과 노령견에서 부정맥 발견의 가능성이 높으므로 주의 깊은 평가가 필요하다. 그러나 부정맥의 존재 자체만으로는 심장질환을 의미하지 않으며, 견종과 심장 건강의 연관성에 대한 추가 연구가 필요하다는 한계가 있다.",
+      "specialty": [
+        "심장"
+      ]
+    },
+    {
       "id": "42971172",
       "title": "Therapeutic approaches to the companion animal pneumothorax: A review for veterinary practice.",
       "authors": "Nishigaki AM, DeRoche MW, Strickland R, Rossanese M, Previdelli RL",
@@ -2150,21 +2251,6 @@
       "summary_ko": "[핵심 결론] 고양이 혈액수혈 전 적용하는 포인트오브케어 젤 칼럼 교혈검사는 기준 실험실의 튜브 교혈검사와 중등도의 일치를 보였으며, 임상 현장에서의 접근성을 개선할 수 있는 대안이 될 수 있다.\n[방법·수치] 수혈이 필요할 가능성이 있는 고양이 95쌍의 공여자-수혜자 혈액을 대상으로 튜브 교혈검사와 젤 칼럼 교혈검사를 동시에 수행했다. 카파 일치도 0.581(95% 신뢰구간: 0.378~0.785), 전체 일치율 86.3%, 양성 일치율 93.2%, 음성 일치율 61.9%였다.\n[임상 적용·한계] 포인트오브케어 젤 칼럼 검사는 임상현장에서 직접 수행 가능하여 교혈검사의 접근성을 높일 수 있으나, 음성 일치율이 61.9%로 낮아 불일치 사례가 많아 추가 검증이 필요하고, 임상적 의미 있는 불일치 사례를 더 포함한 추후 연구가 권장된다.",
       "specialty": [
         "기타"
-      ]
-    },
-    {
-      "id": "42240562",
-      "title": "Effect of vertical distance between the heart base and the cuff on arterial blood pressure measurements using PetMAP in anaesthetised dogs.",
-      "authors": "McConomy R, Pinnok H, Adami C",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Nov",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
-      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement ab",
-      "summary_ko": "[핵심 결론] 마취 중 진동식 혈압계(PetMAP)로 측정할 때 커프 위치가 심장 기저부로부터 수직으로 단 3cm 벗어나도 평균동맥혈압이 최대 6mmHg의 임상적으로 의미 있는 오차가 발생한다.\n[방법·수치] 마취된 건강한 개 22마리를 대등척 자세에서 흉지와 골반지에 커프를 적용하여 심장 기저부, 기저부 위쪽, 기저부 아래쪽(각각 흉곽 깊이의 20%)에서 혈압을 측정했다. 흉지를 낮췄을 때 수축기혈압과 평균동맥혈압이 유의하게 증가했고(P=0.02, P=0.047), 골반지를 올렸을 때 수축기/평균/이완기혈압이 유의하게 감소했다(모두 P<0.03). 평균동맥혈압의 오차는 체중과 양의 상관관계를 보였다(P<0.001).\n[임상 적용·한계] 마취 중 혈압 측정 시 커프를 반드시 심장 기저부(상완골 대결절 높이)에 정렬하여 위치 편차를 최소화해야 한다. 단일 기관의 소규모 연구로 다양한 품종과 임상 상황에서의 검증이 필요하다.",
-      "specialty": [
-        "마취/진통",
-        "응급/중환자"
       ]
     },
     {
@@ -2756,6 +2842,36 @@
       "summary_ko": "[핵심 결론] 개의 간질량에 대한 복강경 간절제술에서 en bloc hilum 혈관다발 제어(EHPC) 기법을 적용하면 개복술로의 전환 없이 안전하게 시행할 수 있으며, 양호한 단기 및 장기 임상 결과를 얻을 수 있다.\n[방법·수치] 개 10마리를 대상으로 한 전향적 연구이며, hilar pedicle, hepatic vein, caudal vena cava를 침범하지 않은 간질량에 대해 복강경 간절제술을 시행했다. 중앙 수술 시간 165분(범위: 90-230분), 중앙 입원 기간 3일(범위: 2-4일), 조직병리학적으로 간세포암종 9예, 선종 1예, 결절성 과형성 2예가 확인되었다.\n[임상 적용·한계] Pringle 조작 후 서맥과 저혈압이 3예에서 발생했고, 1예에서는 의인성 횡격막손상으로 긴장성 기흉이 발생했으나 모든 개가 퇴원했다. 소규모 전향적 단일기관 연구이며, hilar pedicle, hepatic vein, caudal vena cava 침범이 없는 간질량을 가진 개에서만 적용 가능하다.",
       "specialty": [
         "외과/정형"
+      ]
+    },
+    {
+      "id": "42240562",
+      "title": "Effect of vertical distance between the heart base and the cuff on arterial blood pressure measurements using PetMAP in anaesthetised dogs.",
+      "authors": "McConomy R, Pinnok H, Adami C",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Nov",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
+      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement ab",
+      "summary_ko": "[핵심 결론] 마취 중 진동식 혈압계(PetMAP)로 측정할 때 커프 위치가 심장 기저부로부터 수직으로 단 3cm 벗어나도 평균동맥혈압이 최대 6mmHg의 임상적으로 의미 있는 오차가 발생한다.\n[방법·수치] 마취된 건강한 개 22마리를 대등척 자세에서 흉지와 골반지에 커프를 적용하여 심장 기저부, 기저부 위쪽, 기저부 아래쪽(각각 흉곽 깊이의 20%)에서 혈압을 측정했다. 흉지를 낮췄을 때 수축기혈압과 평균동맥혈압이 유의하게 증가했고(P=0.02, P=0.047), 골반지를 올렸을 때 수축기/평균/이완기혈압이 유의하게 감소했다(모두 P<0.03). 평균동맥혈압의 오차는 체중과 양의 상관관계를 보였다(P<0.001).\n[임상 적용·한계] 마취 중 혈압 측정 시 커프를 반드시 심장 기저부(상완골 대결절 높이)에 정렬하여 위치 편차를 최소화해야 한다. 단일 기관의 소규모 연구로 다양한 품종과 임상 상황에서의 검증이 필요하다.",
+      "specialty": [
+        "마취/진통",
+        "응급/중환자"
+      ]
+    },
+    {
+      "id": "43085194",
+      "title": "Pharmacological cardioversion of atrial flutter with oral sotalol in a dog.",
+      "authors": "Cavalleri G, Oricco S, Quintavalla C, Apolloni I, Crosara S",
+      "journal": "JVCS",
+      "type": "vet",
+      "date": "2026 Oct 31",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43085194/",
+      "abstract": "A nine-year-old male Cane corso was referred for a tachyarrhythmia in the absence of symptoms. The electrocardiogram showed a narrow-QRS tachycardia with regular rhythm at 360 beats per minute. A positive atrial deflection in the ST segment was evident in leads I, II, III, augmented Vector Foot (aVF), and V2-V6. Based on these findings, typical reverse or atypical atrial flutter with 1:1 conduction was suspected. After oral administration of sotalol, the ventricular rate decreased, and flutter w",
+      "summary_ko": "[핵심 결론] 경구 소탈롤 투여로 심방세동(atrial flutter)을 약물학적으로 복귀시켜 정상 동율동을 회복한 사례이며, 추적 관찰 기간 중 정상 리듬이 유지되었다.\n[방법·수치] 9세 수컷 케인 코르소 1마리에서 360회/분의 협소 QRS 빈맥을 보였고, ST 분절에서 양성 심방 편향(I, II, III, aVF, V2-V6 유도)이 관찰되어 전형적 역방향 또는 비전형적 심방세동 1:1 전도를 의심했다. 경구 소탈롤 투여 후 심실율 감소 및 심방세동파 확인(2:1~6:1 전도비)되었으며 5시간 후 동율동 복귀, 초음파에서 전역 저수축성 및 수축 기능 부전 확인되었다.\n[임상 적용·한계] 약물 복귀가 불가능한 심방세동에 경구 소탈롤이 효과적인 약물학적 선택지가 될 수 있으며, 피모벤단 병용으로 장기간 리듬 조절이 가능하다. 그러나 단일 증례 보고로 광범위한 임상 적용에는 제한이 있다.",
+      "specialty": [
+        "심장",
+        "기타"
       ]
     },
     {
@@ -3828,21 +3944,6 @@
       ]
     },
     {
-      "id": "42854718",
-      "title": "Predictors of carbapenem-resistant Enterobacterales enteric colonization among patients admitted to a companion animal intensive care unit.",
-      "authors": "Hidalgo Montealegre D, King CA, Mollenkopf DF, Van Balen JC, Cooper ES",
-      "journal": "JAVMA",
-      "type": "vet",
-      "date": "2026 Oct 9",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42854718/",
-      "abstract": "To estimate prevalence and identify factors associated with carbapenem-resistant Enterobacterales (CRE) enteric colonization in companion animals admitted to an ICU. The study population included canine and feline patients admitted to The Ohio State University Veterinary Medical Center ICU between January 2024 and June 2025. In total, 5,552 rectal swabs were collected from 3,834 patients during routine screening. A retrospective case-control study included all CRE-positive patients (n = 61) and ",
-      "summary_ko": "[핵심 결론] 반려동물 ICU 입원 환자에서 카바페넴 내성 장내세균(CRE) 집락화율은 1.59%이며, blaNDM을 보유한 대장균이 78.7%로 가장 흔한 분리균이다. CRE 집락화의 위험 인자는 높은 동반질환 부담, 번식능력 유지(중성화 미시행), 장기 입원, 최근 수술, 지난 3개월 내 항균제 사용이다.\n[방법·수치] Ohio State University 수의학교육병원 ICU에 2024년 1월~2025년 6월 입원한 개와 고양이 대상 후향적 증례-대조군 연구(CRE 양성 61명, CRE 음성 대조군 137명, 총 3,834명 환자에서 5,552건 직장 도말 검체). 위험도 비(OR): 동반질환 1.96, 미중성화 4.39, 입원 기간당 1.31, 최근 수술 2.72, 최근 3개월 항균제 사용 2.71.\n[임상 적용·한계] CRE 집락화 고위험 환자(특히 미중성화, 최근 수술, 항균제 노출력)에 대한 감염관리 강화와 항균제 절약이 필수적이다. 단일기관 연구이고 CRE 감염(집락화 아님)으로의 진행률이 제시되지 않아 임상적 중요성을 평가하기 위한 추가 연구가 필요하다.",
-      "specialty": [
-        "기타",
-        "응급/중환자"
-      ]
-    },
-    {
       "id": "42854821",
       "title": "Development of a feline Cetuximab with therapeutic potential against feline oral squamous cell carcinoma.",
       "authors": "Altamura G, Finizio A, Napolano A, Capasso C, Raia M",
@@ -3855,6 +3956,21 @@
       "specialty": [
         "종양",
         "고양이"
+      ]
+    },
+    {
+      "id": "42854718",
+      "title": "Predictors of carbapenem-resistant Enterobacterales enteric colonization among patients admitted to a companion animal intensive care unit.",
+      "authors": "Hidalgo Montealegre D, King CA, Mollenkopf DF, Van Balen JC, Cooper ES",
+      "journal": "JAVMA",
+      "type": "vet",
+      "date": "2026 Oct 9",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42854718/",
+      "abstract": "To estimate prevalence and identify factors associated with carbapenem-resistant Enterobacterales (CRE) enteric colonization in companion animals admitted to an ICU. The study population included canine and feline patients admitted to The Ohio State University Veterinary Medical Center ICU between January 2024 and June 2025. In total, 5,552 rectal swabs were collected from 3,834 patients during routine screening. A retrospective case-control study included all CRE-positive patients (n = 61) and ",
+      "summary_ko": "[핵심 결론] 반려동물 ICU 입원 환자에서 카바페넴 내성 장내세균(CRE) 집락화율은 1.59%이며, blaNDM을 보유한 대장균이 78.7%로 가장 흔한 분리균이다. CRE 집락화의 위험 인자는 높은 동반질환 부담, 번식능력 유지(중성화 미시행), 장기 입원, 최근 수술, 지난 3개월 내 항균제 사용이다.\n[방법·수치] Ohio State University 수의학교육병원 ICU에 2024년 1월~2025년 6월 입원한 개와 고양이 대상 후향적 증례-대조군 연구(CRE 양성 61명, CRE 음성 대조군 137명, 총 3,834명 환자에서 5,552건 직장 도말 검체). 위험도 비(OR): 동반질환 1.96, 미중성화 4.39, 입원 기간당 1.31, 최근 수술 2.72, 최근 3개월 항균제 사용 2.71.\n[임상 적용·한계] CRE 집락화 고위험 환자(특히 미중성화, 최근 수술, 항균제 노출력)에 대한 감염관리 강화와 항균제 절약이 필수적이다. 단일기관 연구이고 CRE 감염(집락화 아님)으로의 진행률이 제시되지 않아 임상적 중요성을 평가하기 위한 추가 연구가 필요하다.",
+      "specialty": [
+        "기타",
+        "응급/중환자"
       ]
     },
     {
@@ -4092,20 +4208,6 @@
       ]
     },
     {
-      "id": "42838285",
-      "title": "Procedural sedation with subcutaneously administered medetomidine-vatinoxan-butorphanol in dogs - A randomized, controlled, clinical dose-finding study.",
-      "authors": "Honkavaara J, Lindh E, Turunen H, Mäki T, Välimäki E",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Oct 6",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42838285/",
-      "abstract": "Subcutaneous (SC) drug administration may be better tolerated when compared with the intramuscular (IM) route in some dogs. This study investigated the dose-response to subcutaneously administered medetomidine-vatinoxan-butorphanol in producing sedation for orthopedic radiography. Fifty-three privately-owned, healthy dogs were randomly allocated to receive IM medetomidine 0.6&#x202f;mg/m2 (M0.6-IM), IM medetomidine/vatinoxan 0.6/12&#x202f;mg/m2 (Z0.6-IM), SC medetomidine/vatinoxan 0.6/12 (Z0.6-S",
-      "summary_ko": "[핵심 결론] 피하 투여 메데토미딘-바티녹산-부토르파놀 조합은 건강한 개에서 진정 효과를 나타내었으나 근육주사 투여보다는 효력이 약했으며, 바티녹산의 혈역학 개선 효과는 피하 투여에서도 유지되었다.\n[방법·수치] 건강한 개 53마리를 대상으로 근육주사 메데토미딘 0.6mg/m2(M0.6-IM), 근육주사 메데토미딘/바티녹산 0.6/12mg/m2(Z0.6-IM), 피하주사 0.6/12, 0.9/18, 1.2/24mg/m2 그룹(Z0.6-SC, Z0.9-SC, Z1.2-SC)에 모두 부토르파놀 0.2mg/kg을 병용 투여하였다. 근육주사 그룹에서 더 빠른 진정 발현을 보였고, 추가 진정이 필요한 개는 Z0.6-SC에서 4/11마리, Z0.9-SC에서 2/10마리, Z1.2-SC에서 1/10마리, Z0.6-IM에서 0/11마리, M0.6-IM에서 1/11마리였다. 모든 그룹에서 심박수 감소가 있었으나 저혈압(MAP<60mmHg)은 관찰되지 않았고, M0.6-IM 그룹의 레이저 도플러 혈류량(LDF) 및 조직 헤모글로빈 산소포화도(T-HbO2)가 바티녹산 함유 그룹들보다 유의하게 낮았다.\n[임상 적용·한계] 피하 투여는 근육주사가 어렵거나 내약성이 문제인 개에서 정형 방사선촬영 진정의 대안이 될 수 있으나, 같은 진정 깊이를 얻으려면 더 높은 용량이 필요할 수 있다. 건강한 개 53마리만 대상으로 한 단일 연구로, 질환을 가진 개나 다른 병용 진정제에서의 효과·안전성은 추가 연구가 필요하다.",
-      "specialty": [
-        "마취/진통"
-      ]
-    },
-    {
       "id": "42836558",
       "title": "Sodium Administration and the Contribution of Fluid Creep to the Sodium Burden of Hospitalized Dogs in the ICU.",
       "authors": "McNally AE, Llewellyn E",
@@ -4132,6 +4234,20 @@
       "summary_ko": "[핵심 결론] 심방세동 절제술 후 좌심방귀 폐쇄(LAAC)와 경구항응고제(OAC)는 남성과 여성 모두에서 뇌졸중, 색전증, 사망률에서 유의한 차이가 없었으나, 출혈 감소 효과는 남성에서 더 뚜렷했다.\n[방법·수치] OPTION 시험의 사전 계획된 하위분석으로 1,053명의 남성과 546명의 여성을 대상으로 절제술+LAAC 또는 절제술+OAC에 1:1로 무작위 배정하였다. 36개월 추적 결과, 주요 효능 평가 지표는 남성(HR 0.96, 95% CI 0.56-1.65, P=0.88)과 여성(HR 0.81, 95% CI 0.41-1.62, P=0.55)에서 비슷했고, 주요 안전성 평가 지표(출혈)는 남성에서 LAAC 군이 의미있게 낮았으나(HR 0.34, 95% CI 0.23-0.50, P<0.0001) 여성에서는 비유의성 경향(HR 0.68, 95% CI 0.42-1.09, P=0.11)을 보였다. 성별 치료 상호작용은 유의했다(P=0.02).\n[임상 적용·한계] 심방세동 절제술 후 고위험군 환자의 뇌졸중 예방 전략 선택 시 성별을 고려해야 하며, 특히 남성에서 LAAC의 출혈 감소 이점이 더 크다. 단일 임상시험의 사후분석이고 여성 환자 수가 남성보다 적은 한계가 있다.",
       "specialty": [
         "심장"
+      ]
+    },
+    {
+      "id": "42838285",
+      "title": "Procedural sedation with subcutaneously administered medetomidine-vatinoxan-butorphanol in dogs - A randomized, controlled, clinical dose-finding study.",
+      "authors": "Honkavaara J, Lindh E, Turunen H, Mäki T, Välimäki E",
+      "journal": "Vet J",
+      "type": "vet",
+      "date": "2026 Oct 6",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42838285/",
+      "abstract": "Subcutaneous (SC) drug administration may be better tolerated when compared with the intramuscular (IM) route in some dogs. This study investigated the dose-response to subcutaneously administered medetomidine-vatinoxan-butorphanol in producing sedation for orthopedic radiography. Fifty-three privately-owned, healthy dogs were randomly allocated to receive IM medetomidine 0.6&#x202f;mg/m2 (M0.6-IM), IM medetomidine/vatinoxan 0.6/12&#x202f;mg/m2 (Z0.6-IM), SC medetomidine/vatinoxan 0.6/12 (Z0.6-S",
+      "summary_ko": "[핵심 결론] 피하 투여 메데토미딘-바티녹산-부토르파놀 조합은 건강한 개에서 진정 효과를 나타내었으나 근육주사 투여보다는 효력이 약했으며, 바티녹산의 혈역학 개선 효과는 피하 투여에서도 유지되었다.\n[방법·수치] 건강한 개 53마리를 대상으로 근육주사 메데토미딘 0.6mg/m2(M0.6-IM), 근육주사 메데토미딘/바티녹산 0.6/12mg/m2(Z0.6-IM), 피하주사 0.6/12, 0.9/18, 1.2/24mg/m2 그룹(Z0.6-SC, Z0.9-SC, Z1.2-SC)에 모두 부토르파놀 0.2mg/kg을 병용 투여하였다. 근육주사 그룹에서 더 빠른 진정 발현을 보였고, 추가 진정이 필요한 개는 Z0.6-SC에서 4/11마리, Z0.9-SC에서 2/10마리, Z1.2-SC에서 1/10마리, Z0.6-IM에서 0/11마리, M0.6-IM에서 1/11마리였다. 모든 그룹에서 심박수 감소가 있었으나 저혈압(MAP<60mmHg)은 관찰되지 않았고, M0.6-IM 그룹의 레이저 도플러 혈류량(LDF) 및 조직 헤모글로빈 산소포화도(T-HbO2)가 바티녹산 함유 그룹들보다 유의하게 낮았다.\n[임상 적용·한계] 피하 투여는 근육주사가 어렵거나 내약성이 문제인 개에서 정형 방사선촬영 진정의 대안이 될 수 있으나, 같은 진정 깊이를 얻으려면 더 높은 용량이 필요할 수 있다. 건강한 개 53마리만 대상으로 한 단일 연구로, 질환을 가진 개나 다른 병용 진정제에서의 효과·안전성은 추가 연구가 필요하다.",
+      "specialty": [
+        "마취/진통"
       ]
     },
     {
@@ -5323,6 +5439,36 @@
   ],
   "clinicians_brief": [
     {
+      "id": "cb_13972fec8c5c",
+      "title": "Podcast: Osteoarthritis in the Growing Dog: Same Disease, Different Approach",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Orthopedics",
+      "type": "cb",
+      "date": "2026-11-26",
+      "url": "https://www.cliniciansbrief.com/article/podcast-osteoarthritis-growing-dog-same-disease-different-approach",
+      "abstract": "",
+      "summary_ko": "",
+      "specialty": [
+        "기타"
+      ]
+    },
+    {
+      "id": "cb_1142d3ff799b",
+      "title": "Respiratory Disease: A Brief Review of Medication Therapies",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Drugs & Therapeutics",
+      "type": "cb",
+      "date": "2026-11-26",
+      "url": "https://www.cliniciansbrief.com/article/respiratory-disease-medication-therapies",
+      "abstract": "A brief overview of medication therapies for respiratory disease in veterinary patients.",
+      "summary_ko": "[핵심 결론] 수의 호흡기질환의 약물치료에 대한 개괄적 검토를 제시하며, 다양한 치료 옵션과 임상적 활용을 정리했다.\n[방법·수치] 호흡기질환의 약물치료에 대한 문헌 검토 형식의 연구이며, 수치 제시 없음.\n[임상 적용·한계] 호흡기질환 약물치료의 일반적 개요를 제공하므로 다양한 동물종의 임상 현장에서 참고자료로 활용 가능하나, 특정 질환이나 약물에 대한 심화된 근거 제시가 제한적일 수 있다.",
+      "specialty": [
+        "기타"
+      ]
+    },
+    {
       "id": "cb_3b5590bd9e1a",
       "title": "Mechanisms of Leukogram Patterns",
       "authors": "Clinician's Brief",
@@ -5355,6 +5501,21 @@
       ]
     },
     {
+      "id": "cb_c8504fc10e3b",
+      "title": "Recognizing & Managing Acute Respiratory Distress Syndrome in Veterinary Patients",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Emergency Medicine & Critical Care",
+      "type": "cb",
+      "date": "2026-11-25",
+      "url": "https://www.cliniciansbrief.com/article/ards-dogs-cats-diagnosis-management",
+      "abstract": "What factors indicate ARDS in dogs and cats, and how is it managed? See the 5 criteria, risk factors, treatment, and prognosis.",
+      "summary_ko": "[핵심 결론] 개와 고양이의 급성호흡곤란증후군(ARDS)은 5가지 진단 기준, 위험인자, 치료법, 예후 판정을 통해 인식하고 관리할 수 있다.\n[방법·수치] 개와 고양이를 대상으로 ARDS의 진단 기준 5가지, 관련 위험인자, 치료 방법, 예후에 대해 종설적으로 검토하였으며 수치 제시 없음.\n[임상 적용·한계] ARDS 환자의 조기 인식과 적절한 관리 프로토콜 수립에 도움이 되나, 종설 논문으로서 대규모 임상 데이터 부족 및 개별 환자의 반응성 차이에 대한 고찰이 제한적이다.",
+      "specialty": [
+        "응급/중환자"
+      ]
+    },
+    {
       "id": "cb_4f8dffde05a5",
       "title": "Blood-Borne Parasites in Dogs & Cats",
       "authors": "Clinician's Brief",
@@ -5368,21 +5529,6 @@
       "specialty": [
         "기타",
         "고양이"
-      ]
-    },
-    {
-      "id": "cb_c8504fc10e3b",
-      "title": "Recognizing & Managing Acute Respiratory Distress Syndrome in Veterinary Patients",
-      "authors": "Clinician's Brief",
-      "journal": "Clinician's Brief",
-      "category": "Emergency Medicine & Critical Care",
-      "type": "cb",
-      "date": "2026-11-25",
-      "url": "https://www.cliniciansbrief.com/article/ards-dogs-cats-diagnosis-management",
-      "abstract": "What factors indicate ARDS in dogs and cats, and how is it managed? See the 5 criteria, risk factors, treatment, and prognosis.",
-      "summary_ko": "[핵심 결론] 개와 고양이의 급성호흡곤란증후군(ARDS)은 5가지 진단 기준, 위험인자, 치료법, 예후 판정을 통해 인식하고 관리할 수 있다.\n[방법·수치] 개와 고양이를 대상으로 ARDS의 진단 기준 5가지, 관련 위험인자, 치료 방법, 예후에 대해 종설적으로 검토하였으며 수치 제시 없음.\n[임상 적용·한계] ARDS 환자의 조기 인식과 적절한 관리 프로토콜 수립에 도움이 되나, 종설 논문으로서 대규모 임상 데이터 부족 및 개별 환자의 반응성 차이에 대한 고찰이 제한적이다.",
-      "specialty": [
-        "응급/중환자"
       ]
     },
     {
@@ -5522,22 +5668,6 @@
       ]
     },
     {
-      "id": "cb_b67887dcdb35",
-      "title": "Stenotic Nares Treatment in Brachycephalic Cats",
-      "authors": "Clinician's Brief",
-      "journal": "Clinician's Brief",
-      "category": "Surgery, Soft Tissue",
-      "type": "cb",
-      "date": "2026-11-17",
-      "url": "https://www.cliniciansbrief.com/article/ala-vestibuloplasty-stenotic-nares-surgery-cats",
-      "abstract": "This study reviews stenotic nares surgery in 37 brachycephalic cats, including complications, quality of life, and surgical options.",
-      "summary_ko": "단두종 고양이의 협착된 비공 수술 치료에 대한 연구로, 37마리의 환자를 대상으로 수술 방법, 합병증, 그리고 삶의 질 개선 정도를 평가했습니다. 본 연구는 단두종 고양이에서 비공협착증의 외과적 치료 옵션과 그에 따른 임상적 결과 및 예후를 제시하는 데 초점을 두었습니다.",
-      "specialty": [
-        "외과/정형",
-        "고양이"
-      ]
-    },
-    {
       "id": "cb_1b5000f21a72",
       "title": "Hepatobiliary Disease: A Brief Review of Medication Therapies",
       "authors": "Clinician's Brief",
@@ -5598,21 +5728,6 @@
       ]
     },
     {
-      "id": "cb_4d5e55075d7e",
-      "title": "Red Light, Green Light: Oral Methimazole for Feline Hyperthyroidism",
-      "authors": "Clinician's Brief",
-      "journal": "Clinician's Brief",
-      "category": "Drugs & Therapeutics",
-      "type": "cb",
-      "date": "2026-11-17",
-      "url": "https://www.cliniciansbrief.com/article/red-light-green-light-oral-methimazole-feline-hyperthyroidism",
-      "abstract": "",
-      "summary_ko": "",
-      "specialty": [
-        "고양이"
-      ]
-    },
-    {
       "id": "cb_e6cd9c200d13",
       "title": "Podcast: Cooling Wraps, Migraine Masks, & an Emerging Toxicity Risk in Dogs",
       "authors": "Clinician's Brief",
@@ -5625,6 +5740,37 @@
       "summary_ko": "가정용 수냉식 젤 패드(hydrogel cooling wraps, migraine masks)에 함유된 아크릴아마이드(acrylamide)로 인한 개의 중독 사례가 집단 발생했으며, 신경독성 임상증상을 보이는 환자에서 이 제품들에 대한 노출력 확인이 중요하다. 임상수의사는 아크릴아마이드 중독의 특징적 임상 양상을 인식하고 의심 사례에서 적절한 진단 및 치료 접근이 필요하다.",
       "specialty": [
         "기타"
+      ]
+    },
+    {
+      "id": "cb_b67887dcdb35",
+      "title": "Stenotic Nares Treatment in Brachycephalic Cats",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Surgery, Soft Tissue",
+      "type": "cb",
+      "date": "2026-11-17",
+      "url": "https://www.cliniciansbrief.com/article/ala-vestibuloplasty-stenotic-nares-surgery-cats",
+      "abstract": "This study reviews stenotic nares surgery in 37 brachycephalic cats, including complications, quality of life, and surgical options.",
+      "summary_ko": "단두종 고양이의 협착된 비공 수술 치료에 대한 연구로, 37마리의 환자를 대상으로 수술 방법, 합병증, 그리고 삶의 질 개선 정도를 평가했습니다. 본 연구는 단두종 고양이에서 비공협착증의 외과적 치료 옵션과 그에 따른 임상적 결과 및 예후를 제시하는 데 초점을 두었습니다.",
+      "specialty": [
+        "외과/정형",
+        "고양이"
+      ]
+    },
+    {
+      "id": "cb_4d5e55075d7e",
+      "title": "Red Light, Green Light: Oral Methimazole for Feline Hyperthyroidism",
+      "authors": "Clinician's Brief",
+      "journal": "Clinician's Brief",
+      "category": "Drugs & Therapeutics",
+      "type": "cb",
+      "date": "2026-11-17",
+      "url": "https://www.cliniciansbrief.com/article/red-light-green-light-oral-methimazole-feline-hyperthyroidism",
+      "abstract": "",
+      "summary_ko": "",
+      "specialty": [
+        "고양이"
       ]
     },
     {
