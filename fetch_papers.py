@@ -414,6 +414,63 @@ def summarize_ko(title, abstract):
         print(f"  요약 오류: {e}")
         return "", fallback_tags
 
+def fetch_efetch_xml(ids, timeout=30):
+    """efetch(초록 포함 XML)로 받아온 원문을 돌려준다."""
+    url = f"{BASE}efetch.fcgi?db=pubmed&id={','.join(ids)}&retmode=xml&rettype=abstract"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read().decode()
+
+
+def _block_id(block, idtype):
+    """PubmedArticle 블록의 <ArticleId IdType="..."> 값을 꺼낸다."""
+    m = re.search(r'<ArticleId IdType="%s"[^>]*>\s*([^<]+?)\s*</ArticleId>' % idtype, block)
+    return m.group(1).strip() if m else ""
+
+
+def parse_efetch(xml):
+    """efetch XML을 pmid별 {abstract, pmc_id, doi}로 변환한다.
+
+    - abstract: AbstractText 여러 섹션(Background/Methods…)을 공백으로 이어 붙이고
+      HTML 엔티티(&#xa0; 등)를 실제 문자로 되돌린다.
+    - pmc_id: 무료 전문(PMC) ID. 없으면 빈 문자열 → 화면에 '무료 전문' 배지를 달지 않는다.
+    - doi: ArticleId의 doi, 없으면 ELocationID의 doi.
+    """
+    out = {}
+    for block in re.findall(r'<PubmedArticle>(.*?)</PubmedArticle>', xml or "", re.DOTALL):
+        pmid_m = re.search(r'<PMID[^>]*>(\d+)</PMID>', block)
+        if not pmid_m:
+            continue
+        abs_m = re.findall(r'<AbstractText[^>]*>(.*?)</AbstractText>', block, re.DOTALL)
+        abstract = ' '.join(re.sub(r'<[^>]+>', '', a) for a in abs_m)
+        abstract = html_lib.unescape(re.sub(r'\s+', ' ', abstract)).replace('\u00a0', ' ').strip()
+        doi = _block_id(block, "doi")
+        if not doi:
+            m = re.search(r'<ELocationID[^>]*EIdType="doi"[^>]*>\s*([^<]+?)\s*</ELocationID>', block)
+            doi = m.group(1).strip() if m else ""
+        out[pmid_m.group(1)] = {
+            "abstract": abstract,
+            "pmc_id": _block_id(block, "pmc"),
+            "doi": doi,
+        }
+    return out
+
+
+def esummary_pmc_id(item):
+    """esummary JSON의 articleids에서 PMC ID를 꺼낸다(XML에 없을 때 대체)."""
+    for aid in (item or {}).get("articleids", []) or []:
+        if str(aid.get("idtype", "")).lower() == "pmc" and aid.get("value"):
+            return str(aid["value"]).strip()
+    return ""
+
+
+def esummary_doi(item):
+    for aid in (item or {}).get("articleids", []) or []:
+        if str(aid.get("idtype", "")).lower() == "doi" and aid.get("value"):
+            return str(aid["value"]).strip()
+    return ""
+
+
 def get_papers(journal):
     date_from = (datetime.now() - timedelta(days=60)).strftime("%Y/%m/%d")
     date_to = datetime.now().strftime("%Y/%m/%d")
@@ -428,35 +485,27 @@ def get_papers(journal):
     time.sleep(0.4)
 
     # abstract 포함해서 가져오기
-    fetch_url = f"{BASE}efetch.fcgi?db=pubmed&id={','.join(ids)}&retmode=xml&rettype=abstract"
-    req = urllib.request.Request(fetch_url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=15) as r:
-        xml = r.read().decode()
+    xml = fetch_efetch_xml(ids)
 
     summary = fetch(f"{BASE}esummary.fcgi?db=pubmed&id={','.join(ids)}&retmode=json")
     result = summary.get("result", {})
 
-    # XML에서 abstract 파싱
-    abstracts = {}
-    art_blocks = re.findall(r'<PubmedArticle>(.*?)</PubmedArticle>', xml, re.DOTALL)
-    for block in art_blocks:
-        pmid_m = re.search(r'<PMID[^>]*>(\d+)</PMID>', block)
-        abs_m = re.findall(r'<AbstractText[^>]*>(.*?)</AbstractText>', block, re.DOTALL)
-        if pmid_m and abs_m:
-            abstracts[pmid_m.group(1)] = ' '.join(re.sub(r'<[^>]+>', '', a) for a in abs_m)
+    # XML에서 초록·PMC ID·DOI 파싱
+    extra = parse_efetch(xml)
 
     papers = []
     for pid in ids:
         item = result.get(pid)
         if not item:
             continue
-        abstract = (abstracts.get(pid, "") or "").strip()
+        info = extra.get(pid, {})
+        abstract = (info.get("abstract", "") or "").strip()
         # 초록이 없는 편집자 노트·서평 등은 스터디 피드에서 제외
         if not abstract:
             continue
         title = item.get("title", "").replace("<b>", "").replace("</b>", "")
 
-        papers.append({
+        paper = {
             "id": pid,
             "title": title,
             "authors": ", ".join(a.get("name", "") for a in item.get("authors", [])[:5]),
@@ -467,7 +516,19 @@ def get_papers(journal):
             "abstract": abstract,
             "summary_ko": "",
             "specialty": [],
-        })
+        }
+        # 무료 전문(PMC)·DOI: 있는 경우만 저장한다(없으면 키를 만들지 않아 파일을 가볍게 유지)
+        if info.get("pmc_id"):
+            paper["pmc_id"] = info["pmc_id"]
+        else:
+            pmc = esummary_pmc_id(item)
+            if pmc:
+                paper["pmc_id"] = pmc
+        if info.get("doi"):
+            paper["doi"] = info["doi"]
+        elif esummary_doi(item):
+            paper["doi"] = esummary_doi(item)
+        papers.append(paper)
     return papers
 
 
@@ -584,6 +645,7 @@ def merge_papers(fresh, previous):
 
     - 고유 키(pmid/id/url)가 같은 논문은 이미 만들어 둔 summary_ko·specialty를 그대로 살린다.
       (summarize_papers가 summary_ko 있는 논문을 건너뛰므로 API 비용도 다시 들지 않는다)
+    - 빈 값은 덮어쓰지 않으므로, 새 수집에 pmc_id·doi가 없어도 예전에 받아 둔 값이 남는다.
     - 이번 수집 범위(retmax=30, 최근 60일) 밖으로 밀려난 과거 논문도 하나도 버리지 않고 유지한다.
     - 반환값: (병합된 전체 목록, 이번에 새로 추가된 편수). 정렬은 호출 쪽에서 한다.
     """
@@ -631,6 +693,97 @@ def merge_papers(fresh, previous):
 def _load_papers_json():
     with open("papers.json", encoding="utf-8") as f:
         return json.load(f)
+
+
+# ── 기존 papers.json 초록·PMC ID 소급 채우기 ──
+# efetch는 한 번에 여러 PMID를 받을 수 있다. 150편씩 묶으면 370여 편도 3번에 끝난다.
+EFETCH_BATCH = 150
+MIN_BACKFILL_ABSTRACT = 500  # 이보다 짧은 초록은 예전 500자 하드컷으로 잘린 것으로 본다
+
+
+def fetch_abstracts_by_pmids(pmids, batch=EFETCH_BATCH, pause=0.4):
+    """pmid 목록을 batch 단위로 efetch에 묶어 보내 {pmid: {abstract, pmc_id, doi}}를 만든다.
+    한 묶음이 실패해도 나머지 묶음은 계속 진행한다."""
+    ids = [str(p).strip() for p in pmids if str(p).strip()]
+    out = {}
+    for start in range(0, len(ids), max(1, batch)):
+        chunk = ids[start:start + batch]
+        try:
+            out.update(parse_efetch(fetch_efetch_xml(chunk)))
+            print(f"  efetch {start + 1}~{start + len(chunk)}편 완료 ({len(out)}편 수집)")
+        except Exception as e:
+            print(f"  efetch 실패 ({start + 1}~{start + len(chunk)}): {e}")
+        time.sleep(pause)
+    return out
+
+
+def apply_backfill(papers, fetched):
+    """기존 논문 목록에 efetch 결과를 조용히 덧입힌다.
+
+    - abstract: 받아온 초록이 지금보다 길 때만 교체(2,000자·문장 경계). 절대 짧아지지 않는다.
+    - pmc_id·doi: 비어 있을 때만 채운다(기존 값을 덮어쓰지 않는다).
+    - summary_ko·specialty·title·date·journal 등 나머지 필드는 건드리지 않는다.
+    반환: {"abstract": 늘린 편수, "pmc": 추가한 편수, "doi": 추가한 편수, "missing": 미수집 편수}
+    """
+    stats = {"abstract": 0, "pmc": 0, "doi": 0, "missing": 0}
+    for p in papers:
+        info = fetched.get(paper_key(p))
+        if not info:
+            stats["missing"] += 1
+            continue
+        new_abs = truncate_abstract(info.get("abstract"))
+        old_abs = (p.get("abstract") or "").strip()
+        if new_abs and len(new_abs) > len(old_abs):
+            p["abstract"] = new_abs
+            stats["abstract"] += 1
+        pmc = (info.get("pmc_id") or "").strip()
+        if pmc and not (p.get("pmc_id") or "").strip():
+            p["pmc_id"] = pmc
+            stats["pmc"] += 1
+        doi = (info.get("doi") or "").strip()
+        if doi and not (p.get("doi") or "").strip():
+            p["doi"] = doi
+            stats["doi"] += 1
+    return stats
+
+
+def backfill_existing(path="papers.json", batch=EFETCH_BATCH):
+    """papers.json의 PubMed 논문 초록을 2,000자까지 다시 받아 채우고 pmc_id·doi를 채운다.
+    요약· 진료과목·날짜는 그대로 두고 초록과 식별자만 보강한다.
+    실행: python fetch_papers.py --backfill"""
+    try:
+        data = _load_papers_json()
+    except (OSError, ValueError) as e:
+        print(f"papers.json을 읽지 못했습니다: {e}")
+        return 1
+    papers = data.get("papers", [])
+    targets = [p for p in papers if paper_key(p).isdigit()]
+    if not targets:
+        print("소급 채울 PubMed 논문이 없습니다.")
+        return 0
+
+    short_cut = [p for p in targets if len((p.get("abstract") or "")) <= MIN_BACKFILL_ABSTRACT]
+    no_pmc = [p for p in targets if not (p.get("pmc_id") or "").strip()]
+    print(f"대상 {len(targets)}편 — 500자 이하로 잘렸거나 짧은 초록 {len(short_cut)}편, "
+          f"PMC ID 없는 편 {len(no_pmc)}편")
+
+    fetched = fetch_abstracts_by_pmids([paper_key(p) for p in targets], batch=batch)
+    if not fetched:
+        print("efetch에서 아무 것도 받지 못했습니다 — papers.json을 그대로 둡니다.")
+        return 1
+
+    stats = apply_backfill(targets, fetched)
+    if stats["abstract"] or stats["pmc"] or stats["doi"]:
+        tmp = path + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        os.replace(tmp, path)
+    print(f"초록 늘림 {stats['abstract']}편 · PMC ID {stats['pmc']}편 · DOI {stats['doi']}편 추가 "
+          f"(응답 없음 {stats['missing']}편)")
+    lengths = [len(p.get("abstract") or "") for p in targets]
+    if lengths:
+        print(f"초록 길이: 최소 {min(lengths)}자 / 중앙값 {sorted(lengths)[len(lengths) // 2]}자 / 최대 {max(lengths)}자")
+    return 0
 
 
 def repair_existing():
@@ -911,6 +1064,8 @@ def main():
 if __name__ == "__main__":
     if "--repair" in sys.argv:
         sys.exit(repair_existing())
+    if "--backfill" in sys.argv:
+        sys.exit(backfill_existing())
     if "--check" in sys.argv:
         sys.exit(check_existing())
     main()

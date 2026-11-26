@@ -222,6 +222,110 @@ class AbstractTrimTest(unittest.TestCase):
         self.assertEqual(papers[2]["abstract"], "")
 
 
+class EfetchParseTest(unittest.TestCase):
+    """efetch XML에서 초록·PMC ID·DOI를 꺼내는지 확인(네트워크 없음)."""
+
+    XML = """<PubmedArticleSet>
+<PubmedArticle>
+  <MedlineCitation><PMID Version="1">42833272</PMID><Article>
+    <ELocationID EIdType="doi" ValidYN="Y">10.9999/fallback</ELocationID>
+    <Abstract>
+      <AbstractText Label="OBJECTIVE">To describe outcomes in 82 dogs.</AbstractText>
+      <AbstractText Label="METHODS">Records were reviewed&#xa0;between 2017 and 2025 &amp; analyzed.</AbstractText>
+    </Abstract>
+  </Article></MedlineCitation>
+  <PubmedData><ArticleIdList>
+    <ArticleId IdType="pubmed">42833272</ArticleId>
+    <ArticleId IdType="pmc">PMC1234567</ArticleId>
+    <ArticleId IdType="doi">10.2460/ajvr.25.11.0407</ArticleId>
+  </ArticleIdList></PubmedData>
+</PubmedArticle>
+<PubmedArticle>
+  <MedlineCitation><PMID>111</PMID><Article>
+    <ELocationID EIdType="doi">10.1/eloc</ELocationID>
+    <Abstract><AbstractText>Short text without ids.</AbstractText></Abstract>
+  </Article></MedlineCitation>
+</PubmedArticle>
+</PubmedArticleSet>"""
+
+    def test_abstract_pmc_and_doi(self):
+        parsed = fp.parse_efetch(self.XML)
+        first = parsed["42833272"]
+        self.assertIn("To describe outcomes in 82 dogs.", first["abstract"])
+        self.assertIn("Records were reviewed", first["abstract"])
+        self.assertNotIn("AbstractText", first["abstract"])
+        # AbstractText 여러 섹션을 이어 붙이고 HTML 엔티티를 되돌린다
+        self.assertNotIn("&#xa0;", first["abstract"])
+        self.assertIn("& analyzed", first["abstract"])
+        self.assertEqual(first["pmc_id"], "PMC1234567")
+        self.assertEqual(first["doi"], "10.2460/ajvr.25.11.0407")
+
+    def test_missing_pmc_is_empty_and_doi_falls_back_to_elocation(self):
+        second = fp.parse_efetch(self.XML)["111"]
+        self.assertEqual(second["pmc_id"], "")
+        self.assertEqual(second["doi"], "10.1/eloc")
+
+    def test_esummary_articleids(self):
+        item = {"articleids": [{"idtype": "pubmed", "value": "1"},
+                               {"idtype": "pmc", "value": "PMC99"},
+                               {"idtype": "doi", "value": "10.5/y"}]}
+        self.assertEqual(fp.esummary_pmc_id(item), "PMC99")
+        self.assertEqual(fp.esummary_doi(item), "10.5/y")
+        self.assertEqual(fp.esummary_pmc_id({}), "")
+
+
+class BackfillTest(unittest.TestCase):
+    """기존 papers.json 소급 채우기 — 초록만 늘리고 나머지는 건드리지 않는다."""
+
+    def _paper(self, **kw):
+        base = {"id": "43000001", "title": "T", "journal": "AJVR", "type": "vet",
+                "date": "2026 Nov 20", "url": "https://pubmed.ncbi.nlm.nih.gov/43000001/",
+                "abstract": "Old cut abstract.", "summary_ko": "[핵심 결론] 요약.", "specialty": ["심장"]}
+        base.update(kw)
+        return base
+
+    def test_extends_abstract_and_keeps_summary(self):
+        paper = self._paper()
+        long_abs = ("The study enrolled 82 dogs with lymphoma. " * 90).strip()
+        stats = fp.apply_backfill([paper], {"43000001": {"abstract": long_abs, "pmc_id": "PMC42", "doi": "10.1/z"}})
+        self.assertGreater(len(paper["abstract"]), 1500)
+        self.assertLessEqual(len(paper["abstract"]), 2000)
+        self.assertTrue(paper["abstract"].endswith("."))
+        self.assertTrue(paper["abstract"].startswith("The study enrolled 82 dogs"))
+        self.assertEqual(paper["summary_ko"], "[핵심 결론] 요약.")
+        self.assertEqual(paper["specialty"], ["심장"])
+        self.assertEqual(paper["date"], "2026 Nov 20")
+        self.assertEqual(paper["pmc_id"], "PMC42")
+        self.assertEqual(paper["doi"], "10.1/z")
+        self.assertEqual(stats, {"abstract": 1, "pmc": 1, "doi": 1, "missing": 0})
+
+    def test_never_shortens_and_never_overwrites_ids(self):
+        long_abs = "A" * 1200
+        paper = self._paper(abstract=long_abs, pmc_id="PMC_OLD", doi="10.old/x")
+        stats = fp.apply_backfill([paper], {"43000001": {"abstract": "Too short.",
+                                                        "pmc_id": "PMC_NEW", "doi": "10.new/y"}})
+        self.assertEqual(paper["abstract"], long_abs)
+        self.assertEqual(paper["pmc_id"], "PMC_OLD")
+        self.assertEqual(paper["doi"], "10.old/x")
+        self.assertEqual(stats["abstract"], 0)
+
+    def test_missing_pmid_is_counted(self):
+        paper = self._paper()
+        stats = fp.apply_backfill([paper], {})
+        self.assertEqual(stats["missing"], 1)
+        self.assertEqual(paper["abstract"], "Old cut abstract.")
+
+    def test_merge_keeps_pmc_id_when_fresh_lacks_it(self):
+        prev = [self._paper(pmc_id="PMC1", doi="10.1/a")]
+        fresh = [{"id": "43000001", "title": "T2", "abstract": "new abs", "pmc_id": "", "doi": ""}]
+        merged, added = fp.merge_papers(fresh, prev)
+        self.assertEqual(added, 0)
+        self.assertEqual(merged[0]["pmc_id"], "PMC1")
+        self.assertEqual(merged[0]["doi"], "10.1/a")
+        self.assertEqual(merged[0]["title"], "T2")
+        self.assertEqual(merged[0]["summary_ko"], "[핵심 결론] 요약.")
+
+
 class PapersJsonTest(unittest.TestCase):
     """저장된 papers.json에 원문 JSON이 남아 있지 않은지 확인(파일이 있을 때만)."""
 

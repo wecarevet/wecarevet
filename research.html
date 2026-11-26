@@ -255,6 +255,137 @@
   .filter-btn.guide-filter { background: #f5f1ff; border-color: #c4b5fd; color: #6b46c1; }
   .filter-btn.guide-filter.active { background: #6b46c1; border-color: #6b46c1; color: #fff; }
 
+  /* ── 스마트 바: 관심 키워드 · 무료 전문 · 글감 ── */
+  .smart-bar {
+    background: #fbfcfe;
+    border-bottom: 1px solid #e0e8f5;
+    padding: 9px 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-btn.kw-toggle { background: #f5f1ff; border-color: #c4b5fd; color: #6b46c1; white-space: nowrap; }
+  .filter-btn.kw-toggle.active { background: #7c3aed; border-color: #7c3aed; color: #fff; }
+  .filter-btn.free-toggle { background: #ecfdf5; border-color: #a7f3d0; color: #047857; white-space: nowrap; }
+  .filter-btn.free-toggle.active { background: #059669; border-color: #059669; color: #fff; }
+  .filter-btn.pick-toggle { background: #fff8e1; border-color: #fcd34d; color: #b45309; white-space: nowrap; }
+  .filter-btn.pick-toggle.active { background: #f59e0b; border-color: #f59e0b; color: #fff; }
+  .kw-manage-btn {
+    margin-left: auto;
+    font-size: 12px;
+    padding: 6px 13px;
+    border-radius: 20px;
+    border: 1px dashed #c4b5fd;
+    background: #fff;
+    color: #6b46c1;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .kw-manage-btn:hover, .kw-manage-btn.active { background: #f5f1ff; border-style: solid; }
+
+  .keyword-panel {
+    background: #fdfcff;
+    border-bottom: 1px solid #e0e8f5;
+    padding: 12px 40px 14px;
+  }
+  .keyword-panel[hidden] { display: none !important; }
+  .kw-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .kw-panel-title { font-size: 12.5px; font-weight: 700; color: #6b46c1; }
+  .kw-panel-count { color: #a78bfa; font-weight: 600; }
+  .kw-reset {
+    font-size: 11.5px;
+    color: #8b5cf6;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    font-family: inherit;
+  }
+  .kw-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .kw-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #5b21b6;
+    background: #f5f3ff;
+    border: 1px solid #ddd6fe;
+    border-radius: 14px;
+    padding: 3px 5px 3px 11px;
+  }
+  .kw-del {
+    border: none;
+    background: none;
+    color: #8b5cf6;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1;
+    padding: 0 4px;
+    font-family: inherit;
+  }
+  .kw-del:hover { color: #b91c1c; }
+  .kw-empty { font-size: 12px; color: #a8b4c0; }
+  .kw-input-row { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .kw-input-row input {
+    flex: 1 1 200px;
+    min-width: 140px;
+    font-family: inherit;
+    font-size: 12.5px;
+    padding: 7px 12px;
+    border-radius: 18px;
+    border: 1px solid #c4b5fd;
+    background: #fff;
+    color: #1a3a5c;
+    outline: none;
+  }
+  .kw-input-row input:focus { border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.08); }
+  .kw-add {
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 7px 16px;
+    border-radius: 18px;
+    border: 1px solid #7c3aed;
+    background: #7c3aed;
+    color: #fff;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .kw-add:hover { background: #6d28d9; }
+  .kw-help { font-size: 11.5px; color: #98a8b8; line-height: 1.6; margin-top: 8px; }
+
+  .kw-badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #ede9fe;
+    color: #6d28d9;
+    border: 1px solid #ddd6fe;
+    white-space: nowrap;
+  }
+  .free-link {
+    font-size: 11px;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+    background: #ecfdf5;
+    border-radius: 6px;
+    padding: 3px 10px;
+    text-decoration: none;
+  }
+  .free-link:hover { background: #d1fae5; }
+  .translate-btn.picked { background: #fff7e0; border-color: #fcd34d; color: #b45309; font-weight: 700; }
+
   /* ── 전문 분야 미독 빠른 보기 ── */
   .quick-bar {
     background: #fff;
@@ -666,7 +797,8 @@
       padding: 13px 4px !important;
       letter-spacing: 0 !important;
     }
-    .search-bar, .filter-bar, .quick-bar { padding: 10px 14px; }
+    .search-bar, .filter-bar, .quick-bar, .smart-bar, .keyword-panel { padding: 10px 14px; }
+    .kw-manage-btn { margin-left: 0; }
     .search-input { flex: 1 1 100%; }
     .sort-select { margin-left: 0; }
     .filter-tab-btn { padding: 11px 20px; }
@@ -726,6 +858,33 @@
   <button class="filter-btn toggle bookmark-toggle" id="toggle-bookmark" onclick="toggleOnly('bookmark')">⭐ 북마크만</button>
   <button class="filter-btn toggle" id="toggle-unread" onclick="toggleOnly('unread')">📖 안 읽은 논문만</button>
   <button class="filter-btn toggle guide-filter" id="toggle-guide" onclick="toggleGuideline()">📌 가이드라인만</button>
+</div>
+
+<div class="smart-bar" id="smart-bar">
+  <button class="filter-btn toggle kw-toggle" id="toggle-keyword" onclick="toggleKeywordOnly()"
+          title="등록한 관심 키워드가 제목·초록·한글 요약에 나오는 논문만 모아 봅니다">⭐ 관심 키워드만</button>
+  <button class="filter-btn toggle free-toggle" id="toggle-free" onclick="toggleFreeOnly()"
+          title="PMC 무료 전문이 공개된 논문만 모아 봅니다">📖 무료 전문만</button>
+  <button class="filter-btn toggle pick-toggle" id="toggle-blogpick" onclick="toggleBlogPickOnly()"
+          title="블로그·보호자 설명 글감으로 찜해 둔 논문만 봅니다">✍️ 글감 보관함 (<b id="blogpick-count">0</b>편)</button>
+  <button class="kw-manage-btn" id="kw-manage-btn" onclick="toggleKeywordPanel()">⚙️ 관심 키워드 관리</button>
+</div>
+
+<div class="keyword-panel" id="keyword-panel" hidden>
+  <div class="kw-panel-head">
+    <span class="kw-panel-title">⭐ 관심 키워드 (<span id="keyword-count" class="kw-panel-count">0</span>)</span>
+    <button class="kw-reset" onclick="resetKeywords()">기본값으로 되돌리기</button>
+  </div>
+  <div class="kw-chips" id="kw-chips"></div>
+  <div class="kw-input-row">
+    <input id="kw-input" type="text" maxlength="40" placeholder="키워드 추가 (예: NT-proBNP, 고양이 심근병증)"
+           onkeydown="if(event.key==='Enter'){event.preventDefault();addKeyword();}">
+    <button class="kw-add" onclick="addKeyword()">추가</button>
+  </div>
+  <p class="kw-help">
+    제목·초록·한글 요약에 이 단어가 들어간 논문에 ⭐ 배지를 달아 표시합니다.<br>
+    키워드는 이 브라우저에 저장되고, JSON 내보내기·동기화 링크에도 함께 담깁니다.
+  </p>
 </div>
 
 <div class="quick-bar" id="quick-bar">
@@ -888,6 +1047,9 @@ const STUDY_CLASS = { '핵심 결론': 'concl', '방법·수치': 'method', '임
 // 원장님 전문 분야 — 미독 모아보기 대상
 const EXPERT_SPECS = ['심장', '신장/비뇨', '영상'];
 
+// 관심 키워드 기본값 (전문 분야 중심). 화면에서 직접 추가·삭제할 수 있다.
+const DEFAULT_INTEREST_KEYWORDS = ['MMVD', 'HCM', 'CKD', 'IRIS', 'pimobendan', 'echocardiography', 'Doppler', 'SGLT2'];
+
 // 가이드라인 성격 논문 판별 (제목 기준 · 오탐 방지용으로 규칙을 좁게 유지)
 const GUIDELINE_RULES = [
   /\bconsensus\b/i,
@@ -916,6 +1078,9 @@ let onlyBookmarked = false;
 let onlyUnread = false;
 let onlyGuideline = false;
 let focusExpert = false;
+let onlyKeyword = false;    // ⭐ 관심 키워드가 걸린 논문만
+let onlyFree = false;       // 📖 PMC 무료 전문이 있는 논문만
+let onlyBlogPick = false;   // ✍️ 글감으로 찜한 논문만
 let renderedCount = 0;
 
 /* ── 저장소 (localStorage) ── */
@@ -949,12 +1114,25 @@ let noteMap = (function () {
 // 초록 번역 캐시 { id: 번역문 }
 let absKoCache = storeGet('abstractKo', {}) || {};
 
+// 관심 키워드 (없으면 기본값). 화면에서 고친 값만 저장소에 남긴다.
+let interestKeywords = (function () {
+  const saved = storeGet('interestKeywords', null);
+  if (!Array.isArray(saved)) return DEFAULT_INTEREST_KEYWORDS.slice();
+  return saved.filter(k => typeof k === 'string' && k.trim()).map(k => k.trim());
+})();
+let kwRegexList = null;   // 키워드가 바뀌면 null로 두고 다시 만든다
+
+// 블로그 글감으로 찜한 논문 id
+let blogPickSet = new Set(storeGet('blogPicks', []) || []);
+
 // 펼쳐 둔 초록 (다시 그려도 유지)
 const openAbstracts = new Set();
 
 function persistRead() { storeSet('readPapers', [...readSet]); }
 function persistBookmark() { storeSet('bookmarkPapers', [...bookmarkSet]); }
 function persistNotes() { storeSet('paperNotes', noteMap); }
+function persistKeywords() { storeSet('interestKeywords', interestKeywords); }
+function persistBlogPicks() { storeSet('blogPicks', [...blogPickSet]); }
 
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({
@@ -999,6 +1177,138 @@ function journalLabel(p) {
 function noteText(id) {
   const n = noteMap[id];
   return n && n.t ? n.t : '';
+}
+
+/* ── 관심 키워드 ── */
+// 영문·숫자 키워드는 단어 단위로만 걸리게 한다 (CKD가 CKDu에, HCM이 HCMV에 붙지 않도록).
+// 한글 키워드는 그대로 부분 일치.
+function keywordRegex(kw) {
+  const escaped = String(kw).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (/^[A-Za-z0-9 .+_\/-]+$/.test(kw)) {
+    return new RegExp('(?:^|[^A-Za-z0-9])' + escaped + '(?:[^A-Za-z0-9]|$)', 'i');
+  }
+  return new RegExp(escaped, 'i');
+}
+
+function keywordMatchers() {
+  if (!kwRegexList) {
+    kwRegexList = interestKeywords.map(function (kw) {
+      try { return { kw: kw, re: keywordRegex(kw) }; } catch (e) { return null; }
+    }).filter(Boolean);
+  }
+  return kwRegexList;
+}
+
+// 카드에 표시할, 이 논문에 걸린 관심 키워드 목록
+function matchedKeywords(p) {
+  const matchers = keywordMatchers();
+  if (!matchers.length) return [];
+  const text = ' ' + [p.title, p.abstract, p.summary_ko].filter(Boolean).join(' ') + ' ';
+  return matchers.filter(m => m.re.test(text)).map(m => m.kw);
+}
+
+function renderKeywordPanel() {
+  const countEl = document.getElementById('keyword-count');
+  if (countEl) countEl.textContent = interestKeywords.length;
+  const chips = document.getElementById('kw-chips');
+  if (!chips) return;
+  if (!interestKeywords.length) {
+    chips.innerHTML = '<span class="kw-empty">등록된 키워드가 없습니다. 키워드를 추가해 보세요.</span>';
+    return;
+  }
+  chips.innerHTML = interestKeywords.map(function (kw, idx) {
+    return `<span class="kw-chip">${esc(kw)}<button class="kw-del" id="kw-del-${idx}"`
+      + ` onclick="removeKeywordAt(${idx})" title="${esc(kw)} 삭제">×</button></span>`;
+  }).join('');
+}
+
+function toggleKeywordPanel() {
+  const panel = document.getElementById('keyword-panel');
+  const btn = document.getElementById('kw-manage-btn');
+  if (!panel) return;
+  panel.hidden = !panel.hidden;
+  if (btn) btn.classList.toggle('active', !panel.hidden);
+  if (!panel.hidden) {
+    renderKeywordPanel();
+    const input = document.getElementById('kw-input');
+    if (input) input.focus();
+  }
+}
+
+function addKeyword() {
+  const input = document.getElementById('kw-input');
+  if (!input) return;
+  const value = String(input.value || '').trim().replace(/\s+/g, ' ');
+  if (!value) { showToast('추가할 키워드를 입력해 주세요'); input.focus(); return; }
+  if (interestKeywords.some(k => k.toLowerCase() === value.toLowerCase())) {
+    showToast('이미 등록된 키워드입니다');
+    input.value = '';
+    input.focus();
+    return;
+  }
+  interestKeywords.push(value);
+  kwRegexList = null;
+  persistKeywords();
+  renderKeywordPanel();
+  renderPapers(false);
+  input.value = '';
+  input.focus();
+  showToast('⭐ ' + value + ' 키워드를 추가했습니다');
+}
+
+function removeKeywordAt(idx) {
+  const kw = interestKeywords[idx];
+  if (kw == null) return;
+  interestKeywords = interestKeywords.filter((_, i) => i !== idx);
+  kwRegexList = null;
+  persistKeywords();
+  renderKeywordPanel();
+  renderPapers(false);
+  showToast('⭐ ' + kw + ' 키워드를 지웠습니다');
+}
+
+function resetKeywords() {
+  interestKeywords = DEFAULT_INTEREST_KEYWORDS.slice();
+  kwRegexList = null;
+  persistKeywords();
+  renderKeywordPanel();
+  renderPapers(false);
+  showToast('관심 키워드를 기본값으로 되돌렸습니다');
+}
+
+/* ── 블로그 글감 찜 ── */
+function toggleBlogPick(i) {
+  const p = viewPapers[i];
+  if (!p) return;
+  const picked = !blogPickSet.has(p.id);
+  if (picked) blogPickSet.add(p.id);
+  else blogPickSet.delete(p.id);
+  persistBlogPicks();
+  updatePickButton(i);
+  updateSmartBar();
+  updateSyncSummary();
+  showToast(picked ? '✍️ 글감으로 찜했습니다 (' + blogPickSet.size + '편)' : '글감 찜을 해제했습니다');
+  if (onlyBlogPick) renderPapers(false);
+}
+
+function updatePickButton(i) {
+  const p = viewPapers[i];
+  const btn = document.getElementById('pick-btn-' + i);
+  if (!p || !btn) return;
+  const picked = blogPickSet.has(p.id);
+  btn.textContent = picked ? '✍️ 찜됨' : '✍️ 글감 찜';
+  btn.classList.toggle('picked', picked);
+}
+
+function updateSmartBar() {
+  const kwBtn = document.getElementById('toggle-keyword');
+  if (kwBtn) kwBtn.classList.toggle('active', onlyKeyword);
+  const freeBtn = document.getElementById('toggle-free');
+  if (freeBtn) freeBtn.classList.toggle('active', onlyFree);
+  const pickBtn = document.getElementById('toggle-blogpick');
+  if (pickBtn) pickBtn.classList.toggle('active', onlyBlogPick);
+  const cnt = document.getElementById('blogpick-count');
+  if (cnt) cnt.textContent = blogPickSet.size;
 }
 
 // ── 스터디 노트 렌더링 ──
@@ -1068,11 +1378,21 @@ function cardHTML(p, i) {
     `<span class="spec-badge ${s === '심장' ? 'heart' : ''}">${esc(s)}</span>`
   ).join('');
   const guideBadge = isGuideline(p) ? '<span class="guide-badge">📌 가이드라인</span>' : '';
+  const matched = matchedKeywords(p);
+  const shownKw = matched.slice(0, 3);
+  const kwBadges = shownKw.map(kw => `<span class="kw-badge">⭐ ${esc(kw)}</span>`).join('')
+    + (matched.length > shownKw.length ? `<span class="kw-badge">+${matched.length - shownKw.length}</span>` : '');
+  const pmcId = String(p.pmc_id || '').trim();
+  const freeLink = pmcId
+    ? `<a class="free-link" id="free-link-${i}" href="https://pmc.ncbi.nlm.nih.gov/articles/${esc(pmcId)}/" target="_blank" rel="noopener">📖 무료 전문</a>`
+    : '';
+  const isPicked = blogPickSet.has(p.id);
   return `
     <div class="paper-card ${isRead ? 'read' : ''}" id="card-${i}">
       <div class="paper-meta">
         <span class="journal-badge">${esc(journal)}</span>
         ${badges}
+        ${kwBadges}
         ${guideBadge}
         <span class="date-badge">${esc(p.date || '')}</span>
         ${isNew(p.date) ? '<span class="new-badge">NEW</span>' : ''}
@@ -1095,6 +1415,9 @@ function cardHTML(p, i) {
           ${hasAbs ? `<button class="translate-btn" id="abs-toggle-${i}" onclick="toggleAbstract(${i})">${openAbstracts.has(p.id) ? '📄 초록 접기' : '📄 초록 보기'}</button>` : ''}
           <button class="translate-btn" id="note-btn-${i}" onclick="openNote(${i})">${hasNote ? '✏️ 메모 수정' : '✏️ 메모'}</button>
           <button class="translate-btn" id="copy-btn-${i}" onclick="copySummary(${i}, this)">📋 요약+출처 복사</button>
+          <button class="translate-btn" id="owner-btn-${i}" onclick="copyOwnerFriendly(${i}, this)">🗣️ 보호자용 복사</button>
+          <button class="translate-btn ${isPicked ? 'picked' : ''}" id="pick-btn-${i}" onclick="toggleBlogPick(${i})">${isPicked ? '✍️ 찜됨' : '✍️ 글감 찜'}</button>
+          ${freeLink}
           <button class="translate-btn" onclick="translateTitle(${i}, this)">🇰🇷 한글 번역</button>
         </div>
         <a class="pubmed-link" href="${esc(p.url)}" target="_blank" rel="noopener">${p.type === 'cb' ? "Clinician's Brief에서 보기 →" : 'PubMed에서 보기 →'}</a>
@@ -1370,6 +1693,64 @@ function copySummary(i, btn) {
   });
 }
 
+/* ── 보호자 설명·블로그 글감용 복사 ── */
+function summaryParts(p) {
+  const text = String((p && p.summary_ko) || '').trim();
+  const re = /\[(핵심 결론|방법·수치|임상 적용·한계)\]\s*([\s\S]*?)(?=\s*\[(?:핵심 결론|방법·수치|임상 적용·한계)\]|$)/g;
+  const out = {};
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    const body = m[2].trim();
+    if (body) out[m[1]] = body;
+  }
+  return out;
+}
+
+// 보호자 설명이나 위케어 블로그 초단으로 바로 옮길 수 있는 형식
+function ownerCopyText(p) {
+  const parts = summaryParts(p);
+  const summary = String((p && p.summary_ko) || '').trim();
+  const lines = [];
+  lines.push('■ 논문 제목');
+  lines.push(String((p && p.title) || '').trim() || '(제목 없음)');
+  lines.push('');
+  lines.push('■ 한눈에 보는 핵심');
+  lines.push(parts['핵심 결론'] || summary || '요약 준비 중입니다. (원문 초록 참고)');
+  lines.push('');
+  lines.push('■ 보호자 설명 포인트');
+  lines.push(parts['임상 적용·한계'] || '진료 현장 적용 포인트는 원장님 코멘트로 보강해 주세요.');
+  if (parts['방법·수치']) {
+    lines.push('');
+    lines.push('■ 근거 (참고)');
+    lines.push(parts['방법·수치']);
+  }
+  lines.push('');
+  lines.push('■ 출처');
+  if (p && p.url) lines.push(p.url);
+  const pmc = String((p && p.pmc_id) || '').trim();
+  if (pmc) lines.push('무료 전문(PMC): https://pmc.ncbi.nlm.nih.gov/articles/' + pmc + '/');
+  lines.push('');
+  lines.push('■ 위케어 코멘트');
+  lines.push('(여기에 병원 코멘트를 적어 주세요)');
+  return lines.join('\n').trim();
+}
+
+function copyOwnerFriendly(i, btn) {
+  const p = viewPapers[i];
+  if (!p) return;
+  copyText(ownerCopyText(p)).then(function () {
+    if (btn) {
+      const original = '🗣️ 보호자용 복사';
+      btn.textContent = '✓ 복사됨';
+      btn.classList.add('loading');
+      setTimeout(function () { btn.textContent = original; btn.classList.remove('loading'); }, 1600);
+    }
+    showToast('🗣️ 보호자 설명용 문구를 복사했습니다');
+  }).catch(function () {
+    showToast('복사에 실패했습니다 — 브라우저 권한을 확인해 주세요');
+  });
+}
+
 let toastTimer = null;
 function showToast(msg) {
   const el = document.getElementById('toast');
@@ -1408,6 +1789,9 @@ function getFilteredPapers() {
   }
   if (onlyGuideline) papers = papers.filter(isGuideline);
   if (focusExpert) papers = papers.filter(p => specialtyOf(p).some(s => EXPERT_SPECS.includes(s)));
+  if (onlyKeyword) papers = papers.filter(p => matchedKeywords(p).length > 0);
+  if (onlyFree) papers = papers.filter(p => String(p.pmc_id || '').trim());
+  if (onlyBlogPick) papers = papers.filter(p => blogPickSet.has(p.id));
   if (onlyBookmarked) papers = papers.filter(p => bookmarkSet.has(p.id));
   if (onlyUnread) papers = papers.filter(p => !readSet.has(p.id));
 
@@ -1433,6 +1817,7 @@ function renderPapers(reset) {
   if (countEl) {
     const filtered = (currentMainTab === 'vet' && currentTab === 'category' && currentSpecialty !== 'all')
       || searchQuery.trim() || onlyBookmarked || onlyUnread || onlyGuideline || focusExpert
+      || onlyKeyword || onlyFree || onlyBlogPick
       || (currentMainTab === 'vet' && currentTab === 'journal' && currentJournal !== 'all')
       || (currentMainTab === 'human' && currentHumanJournal !== 'all');
     countEl.textContent = (filtered ? `${papers.length} / ${tabPapers.length}편` : `${tabPapers.length}편`);
@@ -1440,6 +1825,8 @@ function renderPapers(reset) {
 
   updateExpertBadge();
   updateSyncSummary();
+  updateSmartBar();
+  renderKeywordPanel();
 
   if (!papers.length) {
     list.innerHTML = '<div class="no-result">조건에 맞는 논문이 없습니다.<br>검색어나 필터를 바꿔보세요.</div>';
@@ -1474,7 +1861,8 @@ function updateSyncSummary() {
   const el = document.getElementById('sync-summary');
   if (!el) return;
   const noteCount = Object.keys(noteMap).length;
-  el.textContent = '· 읽음 ' + readSet.size + ' · 북마크 ' + bookmarkSet.size + ' · 메모 ' + noteCount;
+  el.textContent = '· 읽음 ' + readSet.size + ' · 북마크 ' + bookmarkSet.size
+    + ' · 메모 ' + noteCount + ' · 글감 ' + blogPickSet.size;
 }
 
 /* ── 탭 · 필터 핸들러 ── */
@@ -1564,6 +1952,21 @@ function toggleGuideline() {
   renderPapers();
 }
 
+function toggleKeywordOnly() {
+  onlyKeyword = !onlyKeyword;
+  renderPapers();
+}
+
+function toggleFreeOnly() {
+  onlyFree = !onlyFree;
+  renderPapers();
+}
+
+function toggleBlogPickOnly() {
+  onlyBlogPick = !onlyBlogPick;
+  renderPapers();
+}
+
 function toggleExpert() {
   focusExpert = !focusExpert;
   renderPapers();
@@ -1641,17 +2044,20 @@ function buildPayload() {
   });
   return {
     app: 'wecare-research',
-    version: 1,
+    version: 2,
     exported: new Date().toISOString(),
     read: [...readSet],
     bookmark: [...bookmarkSet],
-    notes: notes
+    notes: notes,
+    keywords: interestKeywords.slice(),
+    blogPicks: [...blogPickSet]
   };
 }
 
-// 다른 기기 데이터를 합친다 (읽음·북마크는 합집합, 메모는 수정시각이 최신인 것)
+// 다른 기기 데이터를 합친다 (읽음·북마크·글감은 합집합, 메모는 수정시각이 최신인 것,
+// 관심 키워드는 양쪽 키워드를 모두 남기는 합집합)
 function applyPayload(payload) {
-  const result = { addedRead: 0, addedBookmark: 0, addedNotes: 0 };
+  const result = { addedRead: 0, addedBookmark: 0, addedNotes: 0, addedKeywords: 0, addedPicks: 0 };
   if (!payload || typeof payload !== 'object') return result;
   (payload.read || []).forEach(function (id) {
     if (id && !readSet.has(id)) { readSet.add(id); result.addedRead++; }
@@ -1674,11 +2080,27 @@ function applyPayload(payload) {
   persistRead();
   persistBookmark();
   persistNotes();
+  (payload.keywords || []).forEach(function (kw) {
+    if (typeof kw !== 'string' || !kw.trim()) return;
+    const v = kw.trim();
+    if (interestKeywords.some(k => k.toLowerCase() === v.toLowerCase())) return;
+    interestKeywords.push(v);
+    result.addedKeywords++;
+  });
+  kwRegexList = null;
+  persistKeywords();
+  (payload.blogPicks || []).forEach(function (id) {
+    if (id && !blogPickSet.has(id)) { blogPickSet.add(id); result.addedPicks++; }
+  });
+  persistBlogPicks();
   return result;
 }
 
 function resultText(r) {
-  return '읽음 ' + r.addedRead + '편 · 북마크 ' + r.addedBookmark + '편 · 메모 ' + r.addedNotes + '건 추가';
+  let text = '읽음 ' + r.addedRead + '편 · 북마크 ' + r.addedBookmark + '편 · 메모 ' + r.addedNotes + '건 추가';
+  if (r.addedKeywords) text += ' · 키워드 ' + r.addedKeywords + '개';
+  if (r.addedPicks) text += ' · 글감 ' + r.addedPicks + '편';
+  return text;
 }
 
 function exportData() {
@@ -1797,7 +2219,8 @@ async function init() {
 
     const synced = applySyncFromHash();
     renderPapers();
-    if (synced && (synced.addedRead || synced.addedBookmark || synced.addedNotes)) {
+    if (synced && (synced.addedRead || synced.addedBookmark || synced.addedNotes
+      || synced.addedKeywords || synced.addedPicks)) {
       setTimeout(function () { showToast('동기화 링크에서 ' + resultText(synced)); }, 400);
     }
   } catch (e) {
