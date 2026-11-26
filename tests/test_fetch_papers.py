@@ -154,6 +154,74 @@ class SummarizeKoTest(unittest.TestCase):
         self.assertTrue(tags)  # 키워드 기반 대체 태그
 
 
+class AbstractTrimTest(unittest.TestCase):
+    """원문 초록 저장 길이(2,000자 상한)와 문장 경계 처리."""
+
+    def test_limit_is_2000(self):
+        self.assertEqual(fp.ABSTRACT_MAX_CHARS, 2000)
+
+    def test_short_abstract_kept_as_is(self):
+        text = "Dogs with lymphoma were treated. Median survival was 660 days."
+        self.assertEqual(fp.truncate_abstract(text), text)
+
+    def test_abstract_between_500_and_2000_is_not_cut(self):
+        # 예전 500자 하드컷에서 잘려 나가던 길이의 초록은 그대로 저장돼야 한다
+        text = ("To evaluate outcomes in dogs, medical records were reviewed. " * 12).strip()
+        self.assertGreater(len(text), 500)
+        self.assertLessEqual(len(text), 2000)
+        self.assertEqual(fp.truncate_abstract(text), text)
+
+    def test_exactly_at_limit_kept(self):
+        text = "A" * 1999 + "."
+        self.assertEqual(len(text), 2000)
+        self.assertEqual(fp.truncate_abstract(text), text)
+
+    def test_long_abstract_cut_at_sentence_boundary(self):
+        text = ("The dog was treated and improved markedly after therapy. " * 60).strip()
+        self.assertGreater(len(text), 2000)
+        cut = fp.truncate_abstract(text)
+        self.assertLessEqual(len(cut), 2000)
+        self.assertTrue(cut.endswith("."))
+        self.assertTrue(text.startswith(cut))
+        # 문장 중간(단어 일부)에서 끊기지 않는다
+        self.assertIn(cut[-1], ".!?")
+
+    def test_no_sentence_end_falls_back_to_word_boundary(self):
+        # 문장부호가 없이 긴 한 문장이면 단어 경계에서 자르고 말줄임표를 붙인다
+        text = " ".join(["word"] * 600)
+        cut = fp.truncate_abstract(text)
+        self.assertLessEqual(len(cut), 2000)
+        self.assertTrue(cut.endswith("…"))
+        self.assertFalse(cut.endswith("wor…"))
+        self.assertIn(cut[:-1][-1], "d")  # 마지막 단어가 온전히 남는다
+
+    def test_short_last_sentence_uses_sentence_boundary(self):
+        # 마지막 문장이 아주 길어도 그 앞 문장들이 상한 절반을 넘으면 문장 경계에서 자른다
+        text = ("Short report. " * 200) + ("x" * 3000)
+        cut = fp.truncate_abstract(text)
+        self.assertLessEqual(len(cut), 2000)
+        self.assertTrue(cut.endswith("report."))
+
+    def test_decimal_numbers_do_not_end_sentence(self):
+        text = ("Doses of 0.5 mg/kg were given. " * 80).strip()
+        cut = fp.truncate_abstract(text)
+        self.assertLessEqual(len(cut), 2000)
+        self.assertNotIn("0.", cut[-6:])
+
+    def test_trim_abstracts_applies_to_every_paper(self):
+        long_text = ("Sentence about the study cohort. " * 100).strip()
+        papers = [
+            {"id": "1", "abstract": long_text},
+            {"id": "2", "abstract": "Short one."},
+            {"id": "3"},
+        ]
+        fp.trim_abstracts(papers)
+        self.assertLessEqual(len(papers[0]["abstract"]), 2000)
+        self.assertGreater(len(papers[0]["abstract"]), 500)
+        self.assertEqual(papers[1]["abstract"], "Short one.")
+        self.assertEqual(papers[2]["abstract"], "")
+
+
 class PapersJsonTest(unittest.TestCase):
     """저장된 papers.json에 원문 JSON이 남아 있지 않은지 확인(파일이 있을 때만)."""
 

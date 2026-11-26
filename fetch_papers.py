@@ -16,6 +16,8 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 # 소수 병렬로 돌려 5~6분 안에 끝내고(자동 업데이트 실행 시간 단축), 429는 재시도한다.
 SUMMARY_WORKERS = int(os.environ.get("SUMMARY_WORKERS", "6") or 6)
 SUMMARY_ATTEMPTS = 4
+# 초록 저장 상한. 예전에는 500자로 잘라 문장이 중간에서 끊겼다(2,000자로 상향).
+ABSTRACT_MAX_CHARS = 2000
 
 JOURNALS = [
     {"name": "AJVR",         "query": '"Am J Vet Res"[jour]',                          "type": "vet"},
@@ -106,6 +108,42 @@ def clean_summary(text):
     text = re.sub(r'^\s*#{1,6}[^\n]*\n*', '', text, count=1)
     text = text.replace("**", "").replace("__", "")
     return re.sub(r'\n{2,}', '\n', text).strip()
+
+# 문장이 끝나는 지점: 마침표·물음표·느낌표 뒤에 닫는 따옴표·괄호가 붙고 그다음이 공백.
+# 소수점(0.5 mg)이나 약어(e.g., vs.)는 뒤에 공백이 있어도 문장 끝으로 볼 수 있지만,
+# 자르는 지점은 상한에 가장 가까운 마지막 경계를 쓰므로 중간의 약어는 영향이 없다.
+_SENTENCE_END_RE = re.compile(r'[.!?。？！][)"\'”’\]]*\s')
+
+
+def truncate_abstract(text, limit=ABSTRACT_MAX_CHARS):
+    """원문 초록을 limit자 안으로 저장한다.
+
+    - limit 이하면 그대로 둔다.
+    - 넘으면 limit 안에서 가장 가까운 문장 끝(마침표·물음표·느낌표)에서 자른다.
+    - 그런 문장 끝이 limit의 절반보다 앞이면(마지막 문장이 너무 길면) 단어 경계에서
+      자르고 말줄임표(…)를 붙여 잘렸음을 표시한다.
+    """
+    text = (text or "").strip()
+    if len(text) <= limit:
+        return text
+    head = text[:limit]
+    cut = 0
+    for m in _SENTENCE_END_RE.finditer(head):
+        cut = m.end()
+    if cut >= limit // 2:
+        return head[:cut].rstrip()
+    space = head.rfind(" ")
+    if space >= limit // 2:
+        head = head[:space]
+    return head.rstrip()[:limit - 1].rstrip() + "…"
+
+
+def trim_abstracts(papers):
+    """저장 직전에 논문 목록의 초록을 모두 ABSTRACT_MAX_CHARS 안으로 맞춘다."""
+    for p in papers:
+        p["abstract"] = truncate_abstract(p.get("abstract"))
+    return papers
+
 
 def build_prompt(title, abstract):
     tags = "[" + ", ".join('"%s"' % t for t in SPECIALTY_TAGS) + "]"
@@ -846,8 +884,7 @@ def main():
         print(f"  → 깨진 요약 {repaired}건 복구")
 
     summarize_papers(all_papers, "PubMed ")
-    for p in all_papers:
-        p["abstract"] = (p.get("abstract") or "")[:500]
+    trim_abstracts(all_papers)
 
     all_papers.sort(key=lambda x: parse_pub_date(x.get("date")), reverse=True)
 
