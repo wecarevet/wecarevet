@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-26 06:18 UTC",
-  "total": 371,
+  "updated": "2026-11-27 06:07 UTC",
+  "total": 377,
   "papers": [
     {
       "id": "42833272",
@@ -35,6 +35,37 @@
       "doi": "10.1111/vde.70128"
     },
     {
+      "id": "43098316",
+      "title": "Urinary extracellular vesicle microRNA profile in dogs with visceral leishmaniasis: differential expression and exploratory associations with renal Doppler indices and proteinuria.",
+      "authors": "Guimarães MA, Rebech GT, Ito LTS, Umino GM, Boas JSV",
+      "journal": "Vet J",
+      "type": "vet",
+      "date": "2026 Nov 26",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43098316/",
+      "abstract": "Canine visceral leishmaniasis (CVL) is a systemic zoonosis caused by Leishmania infantum, for which dogs are the main urban reservoir. Infected dogs may present non-specific clinical signs and, in advanced cases, die of chronic kidney disease. This study evaluated urinary microRNAs (miRNAs) as candidate biomarkers of renal injury in naturally infected dogs. Fifteen dogs were included: five healthy controls and ten untreated dogs at the moderate stage of disease according to the LeishVet guidelines. All dogs underwent clinical and laboratory assessment, renal Doppler ultrasonography, and serological and molecular diagnosis of CVL. The CVL group showed typical clinical signs, including onychogryphosis, lymphadenomegaly, and cutaneous lesions, as well as laboratory abnormalities such as hyperglobulinemia. Ultrasonography revealed increased renal echogenicity and an elevated peak systolic velocity in the left kidney. Urinary extracellular vesicles were isolated for RNA extraction and miRNA sequencing (RNA-Seq), followed by bioinformatic analysis. Twenty-one differentially expressed miRNAs were identified, including three with previously described physiological renal expression: miR-486 and miR-378 (up-regulated) and cfa-let-7f (down-regulated). The differentially expressed miRNAs were correlated with renal Doppler indices and the urinary protein-to-creatinine ratio (UPC). Pearson correlation analyses were performed in the infected group, without correction for multiple comparisons. These exploratory analyses identified six statistically significant associations involving five miRNAs: miR-222 was negatively correlated with the resistive index (RI) of both kidneys; miR-95 was negatively correlated with the RI of the left kidney; miR-221 was negatively correlated with the RI of the right kidney; cfa-let-7a-2 was positively correlated with the RI of the left kidney; and cfa-let-7g was negatively correlated with UPC.",
+      "summary_ko": "[핵심 결론] 개의 내장 리슈마니아증(CVL)에서 뇨 중 세포외소낭 miRNA 프로파일이 변화하며, 특히 miR-486, miR-378 상향조절과 cfa-let-7f 하향조절이 관찰되었고, 이들이 신장 도플러 지수 및 단백뇨와 연관성을 보여 신손상의 비침습적 바이오마커 후보로 제시된다.\n[방법·수치] 건강한 대조견 5마리와 CVL 중등도 감염견 10마리를 대상으로 임상검사, 신장 도플러 초음파, 혈청/분자 진단 시행 후 뇨 세포외소낭에서 miRNA를 추출하여 RNA-Seq 수행, 21개의 차등발현 miRNA 확인; miR-222는 양쪽 신장의 저항지수(RI)와 음의 상관(P값 제시 없음), cfa-let-7g은 단백뇨-크레아티닌 비(UPC)와 음의 상관.\n[임상 적용·한계] CVL 감염견의 신손상 모니터링을 위한 뇨 miRNA의 임상 활용 가능성을 제시하나, 소규모 표본(n=10), 상관분석에 다중비교 보정 미시행, 인과관계 미확립으로 추가 대규모 연구 필요.",
+      "specialty": [
+        "신장/비뇨",
+        "기타"
+      ],
+      "doi": "10.1016/j.tvjl.2026.106983"
+    },
+    {
+      "id": "43096922",
+      "title": "ST-elevation myocardial infarction in Europe (2022-24): the EuroHeart Acute Coronary Syndromes-Percutaneous Coronary Interventions Programme.",
+      "authors": "Erlinge D, Batra G, Eriksson N, Bhatty A, Chappel S",
+      "journal": "Eur Heart J",
+      "type": "human",
+      "date": "2026 Nov 26",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43096922/",
+      "abstract": "The European Unified Registries on Heart Care Evaluation And Randomized Trials (EuroHeart) collaboration of national registries evaluates contemporary care of common cardiovascular diseases in Europe. This report summarizes care of patients with ST-elevation myocardial infarction (STEMI) across 13 countries using EuroHeart Acute Coronary Syndromes-Percutaneous Coronary Interventions registry data. Aggregated data were analysed from national registries in the EuroHeart Acute Coronary Syndromes-Percutaneous Coronary Interventions registry collaboration, expanding from six countries in 2022 to 13 in 2024. Baseline characteristics, acute reperfusion, discharge medications, and in-hospital outcomes were collected for STEMI admissions. Key quality indicators were evaluated. In total, 146 958 STEMI admissions were collected between 2022 and 2024. Mean age across all countries was 65.4 years (lowest and highest individual country mean: 62.0; 69.3); 27.9% were female (18.2; 36.2), 37.8% current smoker (22.4; 58.7), 58.2% had hypertension (42.9; 76.2), 22.5% diabetes (12.8; 35.2), and 8.9% prior heart failure (3.0; 31.2). The proportion of patients reperfused was high [95.0% (90.6; 100)], with radial artery access in 87.6% (73.2; 95.1). Only 63.9% (34.3; 95.5) received reperfusion within 90 min of diagnostic ECG, with large variability between countries. Prescriptions at discharge were high for aspirin [90.3% (83.2; 98.5)], P2Y12 inhibitors [95.1% (92.0; 100.0)], and statins [93.2% (86.5; 97.1)], but lower for ezetimibe [23.4% (12.9; 34.2)] and sodium-glucose co-transporter 2 inhibitors [32.7% (16.7; 42.3)]. In-hospital mortality was 6.4% (1.6; 9.5). The EuroHeart Acute Coronary Syndromes-Percutaneous Coronary Interventions registry provides continuous monitoring of standards of care for patients with STEMI.",
+      "summary_ko": "[핵심 결론] 유럽 13개국의 ST상승 심근경색(STEMI) 환자에서 재관류 치료율은 높으나(95.0%), 90분 이내 재관류는 63.9%에 불과하며, 퇴원 시 에제티미브와 SGLT2 억제제 처방률이 낮아 개선이 필요함.\n[방법·수치] 2022-2024년 EuroHeart 급성관동맥증후군-경피관상동맥중재술 레지스트리에서 146,958명의 STEMI 입원 환자를 분석; 평균 연령 65.4세, 여성 27.9%, 고혈압 58.2%, 당뇨 22.5%; 요골동맥 접근 87.6%, 퇴원 시 아스피린 90.3%, P2Y12 억제제 95.1%, 스타틴 93.2%, 원내 사망률 6.4%.\n[임상 적용·한계] STEMI 환자의 재관류 성공률 모니터링과 국가 간 질 관리 비교에 유용하며, 90분 문제시간 목표 달성과 고위험 약제(SGLT2 억제제, 에제티미브) 처방 개선의 임상적 필요성을 제시함. 국가 간 큰 편차가 있어 지역별 맞춤 개선 전략 필요.",
+      "specialty": [
+        "심장"
+      ],
+      "doi": "10.1093/eurheartj/ehag790"
+    },
+    {
       "id": "43082252",
       "title": "Canine Hypercalcaemia: part 1, Pathophysiology and Causes.",
       "authors": "Cardoso M, Ward PM, Ramsey IK",
@@ -63,6 +94,53 @@
         "외과/정형"
       ],
       "doi": "10.2460/javma.26.08.0623"
+    },
+    {
+      "id": "43094270",
+      "title": "Technical note on fenestrated clamp-guided hand-sewn ileocolic functional end-to-end anastomosis during subtotal colectomy in cats: Description and clinical application in 12 cases.",
+      "authors": "Yamada E, Okamoto Y",
+      "journal": "Vet Surg",
+      "type": "vet",
+      "date": "2026 Nov 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43094270/",
+      "abstract": "This Technical Note describes a fenestrated clamp-guided method (FCGM) for hand-sewn ileocolic functional end-to-end anastomosis (FEEA) and its clinical application in 12 client-owned cats with idiopathic megacolon undergoing subtotal colectomy. The technique uses a fenestrated intestinal clamp to maintain parallel intestinal alignment and guide common-channel creation. A continuous seromuscular suture layer was placed before full-thickness enterotomy through the clamp fenestration, followed by two-layer closure of the common opening and intraoperative hydrostatic leak testing. Postoperative outcomes were evaluated through postoperative day 180. The FCGM was completed as planned in all 12 cats without conversion to another anastomotic technique, and no major complications were identified during follow-up. Initial leak testing showed no leakage in 10/12 cats. In the remaining 2/12 cats, leakage near the center of the closure line of the common opening resolved after placement of one additional interrupted Lembert suture in each cat. No leakage from the cut edges of the common channel was detected. Soft-formed or formed feces were observed in 12/12 cats by postoperative day 30. Constipation recurred in 3/12 cats and was managed medically without revision surgery. In this case series, the FCGM was feasible and may provide a practical means of maintaining intestinal alignment and guiding common-channel creation during hand-sewn ileocolic FEEA in cats undergoing subtotal colectomy.",
+      "summary_ko": "[핵심 결론] 창 있는 클램프 유도 방법(FCGM)을 이용한 손수 회맹장 기능적 단단 문합은 특발성 거대결장증 고양이의 전체 결장절제술에서 실행 가능하며, 모든 증례에서 계획된 대로 완료되었고 추적 관찰 중 주요 합병증이 없었다.\n[방법·수치] 특발성 거대결장증으로 전체 결장절제술을 받은 12마리 고양이를 대상으로 했다. 창이 있는 장 클램프로 장 정렬을 유지하고 공통 채널 생성을 유도했으며, 연속 장막근층 봉합 후 전층 장절개를 시행하고 2층 폐쇄 및 수술 중 정수압 누수 검사를 실시했다. 초기 누수 검사에서 12/12마리 중 10마리에서 누수가 없었고, 2/12마리에서는 추가 Lembert 봉합으로 해결되었다. 술 후 30일까지 12/12마리 모두에서 정상 또는 약간 무른 대변이 관찰되었으나, 3/12마리에서 변비가 재발하여 약물 치료로 관리했다.\n[임상 적용·한계] 이 기법은 고양이의 회맹장 기능적 단단 문합 시 장 정렬 유지와 공통 채널 생성을 위한 실용적인 방법을 제공할 수 있다. 그러나 12마리의 소규모 증례 시리즈이며 장기 추적 관찰 자료가 제한적이고, 단일 기관 경험에 기반한 연구라는 한계가 있다.",
+      "specialty": [
+        "외과/정형",
+        "고양이"
+      ],
+      "doi": "10.1111/vsu.70187"
+    },
+    {
+      "id": "43094257",
+      "title": "Electromyographic evaluation and response to electrical stimulation of the cricoarytenoideus dorsalis muscle in dogs with idiopathic laryngeal paralysis.",
+      "authors": "Colón-Acevedo CS, Hardie RJ, Rylander H",
+      "journal": "Vet Surg",
+      "type": "vet",
+      "date": "2026 Nov 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43094257/",
+      "abstract": "To describe the electromyographic (EMG) activity and the responsiveness to direct electrical stimulation of the cricoarytenoideus dorsalis (CAD) muscle in dogs with idiopathic laryngeal paralysis (LP). Prospective clinical study. A total of 10 adult client-owned dogs with idiopathic LP and four young adult Beagles (reference dogs). A standardized anesthetic protocol was used. A left lateral approach to the larynx was performed, and the left CAD muscle was exposed. The endotracheal tube was temporarily removed. Electromyography and electrical stimulation of the CAD muscle was performed. Stimulation ranged from 2 to 20 mA and was progressively increased in 2 mA increments. Response of the left arytenoid cartilage was recorded using a video laparoscope. Response to electrical stimulation was categorized as \"yes\" or \"no\". The \"yes\" responses were further categorized as \"weak,\" \"strong,\" or \"excessive\" based on a subjective grading system. All LP dogs had EMG changes consistent with denervation of the CAD muscle including fibrillation potentials and positive sharp waves. All reference dogs had normal EMGs. All LP and reference dogs had a \"yes\" response to stimulation. Stimulation levels of 6-14 mA produced the most \"strong\" responses in the LP dogs based on our grading system. The CAD muscle in dogs with LP has the ability to respond to electrical stimulation despite EMG changes consistent with denervation. The results of this study provide the foundation for future investigation of the use of laryngeal pacemakers for the treatment of idiopathic LP in dogs.",
+      "summary_ko": "[핵심 결론] 개의 특발성 후두마비에서 윤상피열배근(CAD)은 신경퇴행성 변화(활동전위, 양성예리파)를 보이지만 직접 전기자극에 반응할 수 있는 능력을 유지하고 있으며, 이는 향후 후두심박조율기 치료 개발의 기초를 제공한다.\n[방법·수치] 특발성 후두마비 성견 10두와 대조군 비글 4두에서 표준화된 마취 프로토콜 하에 좌측 윤상피열배근을 노출하고 근전도 검사 및 2~20 mA의 전기자극을 2 mA씩 증가시키며 수행했다. 모든 후두마비 개는 신경퇴행성 변화를 보였고, 모든 대조군은 정상 근전도를 나타냈으며, 6~14 mA에서 가장 강한 반응을 보였다.\n[임상 적용·한계] 후두마비 개에서 근육의 반응성이 유지되어 있으므로 전기자극 기반 치료법 개발이 가능할 것으로 예상되나, 소규모 전향적 연구이고 임상 치료 효과를 직접 입증하지 못했으며 추가 연구가 필요하다.",
+      "specialty": [
+        "응급/중환자",
+        "기타"
+      ],
+      "doi": "10.1111/vsu.70189"
+    },
+    {
+      "id": "43094213",
+      "title": "Postoperative complications and long-term incisional outcomes after a three-pointed star abdominal incision in dogs: A retrospective case series of 104 procedures in 102 dogs.",
+      "authors": "Asano K, Ishigaki K, Negishi A, Hayakawa T, Iida K",
+      "journal": "Vet Surg",
+      "type": "vet",
+      "date": "2026 Nov 25",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43094213/",
+      "abstract": "To describe short-term incision-related outcomes and 1-year incisional status after a three-pointed star abdominal incision in dogs. Retrospective case series. A total of 102 client-owned dogs undergoing 104 three-pointed star incision procedures. Medical records were reviewed for incision-related findings from surgery through skin suture removal or the last wound examination. Exploratory univariable analyses evaluated associations between delayed healing/skin dehiscence and selected variables. One-year incisional status was assessed using medical records or telephone follow-up. Four dogs died within three postoperative days, leaving 100 evaluable procedures in 98 dogs. Erythema (57%) and ecchymosis (54%) were most frequent. Delayed healing/skin dehiscence occurred after 12 procedures (12%). Six of the 12 wounds with delayed healing/skin dehiscence required re-suturing. No evaluated variable was significantly associated with this outcome. No clinically apparent incisional hernia was identified after 85 procedures in 84 dogs with confirmed 1-year status. In 15 postoperative intervals ending in death before 1 year, no incisional dehiscence or hernia was documented during available follow-up (median, 143 days; range: 20-345 days). Delayed healing/skin dehiscence was documented after 12% of evaluable procedures, and no clinically apparent incisional hernia was identified among dogs with confirmed 1-year assessment. These findings provide descriptive short-term and 1-year incision-related outcome estimates for this approach. Prospective comparative studies are needed to determine relative morbidity, postoperative pain, and optimal indications.",
+      "summary_ko": "[핵심 결론] 개의 삼각별 모양 복부절개술은 단기 합병증으로 홍반(57%)과 반상출혈(54%)이 주로 발생했으며, 12%에서 지연된 치유/피부열개가 발생했으나 1년 추적에서 임상적으로 명백한 절개부 탈장은 관찰되지 않았다.\n[방법·수치] 102마리 개(104건의 절개술)를 대상으로 한 후향적 사례 연구로, 수술부터 피부봉합 제거 또는 최종 상처 검사까지 절개 관련 소견을 검토했으며, 1년 절개부 상태는 의료기록 또는 전화 추적으로 평가했다. 평가 가능한 100건 중 지연된 치유/피부열개는 12건(12%), 이 중 6건은 재봉합이 필요했으며, 85건(1년 확인)에서 임상적 탈장은 없었다.\n[임상 적용·한계] 삼각별 절개술은 단기적으로 비교적 안전한 절개법으로 보이나, 후향적 소규모 연구이고 비교 대상 절개술이 없으며 통증 평가가 부재하다. 최적의 적응증 결정과 상대적 이환율 비교를 위해 전향적 비교 연구가 필요하다.",
+      "specialty": [
+        "외과/정형"
+      ],
+      "doi": "10.1111/vsu.70191"
     },
     {
       "id": "43083520",
@@ -166,7 +244,7 @@
       "type": "vet",
       "date": "2026 Nov 23",
       "url": "https://pubmed.ncbi.nlm.nih.gov/43072603/",
-      "abstract": "Gastrointestinal ultrasonographic (USGI) abnormalities are frequently detected in dogs with acute pancreatitis (AP), but their relationship with systemic biochemical changes has not been well studied. This retrospective study evaluated the association between serum paraoxonase-1 (PON1) and butyrylcholinesterase (BChE) activities and the presence and severity of USGI abnormalities in dogs with AP. The medical records of dogs diagnosed with AP between January 1, 2017, and January 1, 2026, were reviewed. Dogs were included if a clinical examination, laboratory testing and abdominal ultrasonography were performed within a 6-hour period. Gastrointestinal ultrasonographic findings were graded using the Ultrasonographic Gastrointestinal Assessment Severity Score (UGASS) developed for this study. Fifty-seven dogs met the inclusion criteria, and 35 of them (61.4%) showed USGI abnormalities, with the stomach being the most frequently affected segment. Dogs with USGI changes had significantly lower serum PON1 and BChE activities than those without USGI abnormalities (p < 0.05), although considerable overlap in individual values was observed between groups. PON1 activity was not significantly correlated with UGASS, whereas BChE activity showed a moderate negative correlation with UGASS (r = -0.460, p = 0.005). Serum PON1 and BChE activities were positively correlated (r = 0.340, p = 0.009). In conclusion, USGI abnormalities were common in dogs with AP and were associated with lower serum PON1 and BChE activities. Only BChE activity correlated significantly with the severity of USGI abnormalities, as assessed using the UGASS.",
+      "abstract": "Gastrointestinal ultrasonographic (USGI) abnormalities are frequently detected in dogs with acute pancreatitis (AP), but their relationship with systemic biochemical changes has not been well studied. This retrospective study evaluated the association between serum paraoxonase-1 (PON1) and butyrylcholinesterase (BChE) activities and the presence and severity of USGI abnormalities in dogs with AP. The medical records of dogs diagnosed with AP between January 1, 2017, and January 1, 2026, were reviewed. Dogs were included if a clinical examination, laboratory testing and abdominal ultrasonography were performed within a 6-hour period. Gastrointestinal ultrasonographic findings were graded using the Ultrasonographic Gastrointestinal Assessment Severity Score (UGASS) developed for this study. Fifty-seven dogs met the inclusion criteria, and 35 of them (61.4%) showed USGI abnormalities, with the stomach being the most frequently affected segment. Dogs with USGI changes had significantly lower serum PON1 and BChE activities than those without USGI abnormalities (p < 0.05), although considerable overlap in individual values was observed between groups. PON1 activity was not significantly correlated with UGASS, whereas BChE activity showed a moderate negative correlation with UGASS (r = -0.460, p = 0.005). Serum PON1 and BChE activities were positively correlated (r = 0.340, p = 0.009). In conclusion, USGI abnormalities were common in dogs with AP and were associated with lower serum PON1 and BChE activities. Only BChE activity correlated significantly with the severity of USGI abnormalities, as assessed using the UGASS.",
       "summary_ko": "[핵심 결론] 급성 췌장염 개에서 위장관 초음파 이상소견이 있는 경우 혈청 PON1과 BChE 활성도가 유의하게 낮았으며, 특히 BChE 활성도만이 위장관 초음파 중증도와 중등도의 음의 상관관계를 보였다.\n[방법·수치] 2017년 1월~2026년 1월 급성 췌장염 진단 개 57마리를 대상으로 한 후향적 연구이며, 6시간 이내에 임상검사·혈액검사·복부초음파를 시행한 35마리(61.4%)에서 위장관 초음파 이상소견이 발견되었다. USGI 이상 군에서 PON1과 BChE 활성도 모두 유의하게 낮았고(p<0.05), BChE 활성도는 UGASS와 중등도의 음의 상관관계를 보였다(r=-0.460, p=0.005). PON1과 BChE는 양의 상관관계를 나타냈다(r=0.340, p=0.009).\n[임상 적용·한계] 급성 췌장염 개에서 혈청 BChE 활성도 측정이 위장관 초음파 중증도 평가의 보조지표로 활용될 수 있으나, 개별 수치 간 상당한 겹침이 관찰되어 단독 진단도구로는 제한적이다. 단일기관 후향적 연구이고 샘플 크기가 제한적이다.",
       "specialty": [
         "내과/내분비"
@@ -457,13 +535,13 @@
     },
     {
       "id": "43057461",
-      "title": "Computed tomography extracellular volume fraction in canine hepatic fibrosis: a retrospective preliminary study.",
+      "title": "Computed tomography extracellular volume fraction in canine hepatic fibrosis: A retrospective preliminary study.",
       "authors": "Goda Y, Seki A, Hanazono K, Tamura M, Yamamoto S",
       "journal": "Vet J",
       "type": "vet",
       "date": "2026 Nov 19",
       "url": "https://pubmed.ncbi.nlm.nih.gov/43057461/",
-      "abstract": "Liver biopsy remains the gold standard for diagnosing hepatic fibrosis in dogs; however, its invasive nature limits suitability for repeated assessment. Computed tomography-extracellular volume fraction (CT-ECV) has been investigated as a quantitative imaging measure associated with hepatic fibrosis in humans; however, its characteristics in dogs with spontaneous hepatic fibrosis remain incompletely understood. This retrospective study aimed to compare hepatic CT-ECV between dogs with only histopathologically normal biopsied hepatic lobes and dogs with at least one biopsied hepatic lobe showing clinically significant fibrosis, and to explore the ability of CT-ECV to discriminate between these groups. Thirty-six client-owned dogs that underwent triple-phase contrast-enhanced CT and liver biopsy were analyzed. Histopathologic examination identified 47 histopathologically normal hepatic lobes from 26 dogs and 27 hepatic lobes with fibrosis from 11 dogs; one dog contributed hepatic lobes to both categories. CT-ECV was calculated from changes in hepatic and aortic attenuation between pre-contrast and equilibrium phase images, with correction for hematocrit. For the principal doglevel analysis, 25 dogs were classified as normal and 11 as fibrotic, and dog-level CTECV was calculated as the mean across all biopsied hepatic lobes. Mean dog-level CT-ECV was 21.46 ± 3.02% in the normal group and 32.75 ± 10.67% in the fibrosis group. After adjustment for CT scanner, CT-ECV was significantly higher in the fibrosis group, with an estimated mean difference of 12.10 percentage points (robust 95% CI, 4.60-19.59; P =.002). Dog-level receiver operating characteristic analysis yielded an area under the curve of 0.865 (95% CI, 0.726-1.000). An exploratory candidate threshold of 29.56% provided a sensitivity of 63.6% (95% CI, 30.8-89.1%) and a specificity of 100% (95% CI, 86.3-100%). Intra-observer repeatability was high (intraclass correlation coefficient, 0.886).",
+      "abstract": "Liver biopsy remains the gold standard for diagnosing hepatic fibrosis in dogs; however, its invasive nature limits suitability for repeated assessment. Computed tomography-extracellular volume fraction (CT-ECV) has been investigated as a quantitative imaging measure associated with hepatic fibrosis in humans; however, its characteristics in dogs with spontaneous hepatic fibrosis remain incompletely understood. This retrospective study aimed to compare hepatic CT-ECV between dogs with only histopathologically normal biopsied hepatic lobes and dogs with at least one biopsied hepatic lobe showing clinically significant fibrosis, and to explore the ability of CT-ECV to discriminate between these groups. Thirty-six client-owned dogs that underwent triple-phase contrast-enhanced CT and liver biopsy were analyzed. Histopathologic examination identified 47 histopathologically normal hepatic lobes from 26 dogs and 27 hepatic lobes with fibrosis from 11 dogs; one dog contributed hepatic lobes to both categories. CT-ECV was calculated from changes in hepatic and aortic attenuation between pre-contrast and equilibrium phase images, with correction for hematocrit. For the principal doglevel analysis, 25 dogs were classified as normal and 11 as fibrotic, and dog-level CTECV was calculated as the mean across all biopsied hepatic lobes. Mean dog-level CT-ECV was 21.46 ± 3.02% in the normal group and 32.75 ± 10.67% in the fibrosis group. After adjustment for CT scanner, CT-ECV was significantly higher in the fibrosis group, with an estimated mean difference of 12.10 %age points (robust 95% CI, 4.60-19.59; P = .002). Dog-level receiver operating characteristic analysis yielded an area under the curve of 0.865 (95% CI, 0.726-1.000). An exploratory candidate threshold of 29.56% provided a sensitivity of 63.6% (95% CI, 30.8-89.1%) and a specificity of 100% (95% CI, 86.3-100%). Intra-observer repeatability was high (intraclass correlation coefficient, 0.886).",
       "summary_ko": "[핵심 결론] CT 세외용적분획(CT-ECV)은 개의 임상적으로 유의한 간 섬유화와 연관이 있으며, 조직검사를 대체할 수 있는 비침습적 영상 지표로 가능성을 보였다.\n[방법·수치] 삼중영상 조영 증강 CT와 간 생검을 받은 36마리 개(정상군 25마리, 섬유화군 11마리)를 대상으로 후향적 분석 수행. 정상군 평균 CT-ECV 21.46±3.02%, 섬유화군 32.75±10.67% (P=0.002, 조정된 평균 차이 12.10 백분율 포인트). ROC 분석 결과 AUC 0.865, 임계값 29.56%에서 민감도 63.6%, 특이도 100%. 관찰자 내 반복성 높음(ICC 0.886).\n[임상 적용·한계] CT-ECV는 간 섬uno화 진단의 비침습적 모니터링 도구로 활용 가능하나, 단일기관 후향적 소규모 연구(간 섬유화 11마리만 포함)이고 표준화된 영상 프로토콜 부재로 추가 검증 연구 필요. 임계값의 임상적 유효성 확인도 별도 대규모 독립 임상군에서 필요함.",
       "specialty": [
         "영상",
@@ -2437,6 +2515,23 @@
       "doi": "10.1111/jsap.70152"
     },
     {
+      "id": "42240562",
+      "title": "Effect of vertical distance between the heart base and the cuff on arterial blood pressure measurements using PetMAP in anaesthetised dogs.",
+      "authors": "McConomy R, Pinnok H, Adami C",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Nov",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
+      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement above and below the heart base. Measurements were taken in the thoracic and pelvic limbs with the cuff aligned with the heart base, and with the cuff positioned above and below the heart base by the deviation, always with the dogs in dorsal recumbency. Both systolic (P = .02) and mean arterial blood pressure (P = .047) values were significantly increased when the thoracic limb was lowered compared to heart base. The absolute difference in mean arterial blood pressure between heart base and values measured below the heart base was 3.7 (3.0 to 8.3) mmHg and positively correlated with the dogs' body weight (P < .001). For systolic (P = .030), mean (P = .015) and diastolic arterial blood pressure (P = .025), values were significantly decreased when the pelvic limb was elevated compared to heart base. The absolute difference in mean arterial blood pressure between heart base and values above the heart base was 6.1 (1.6 to 10.6) mmHg. Deviations as little as 3 cm above or below the heart base resulted in mean arterial blood pressure misreadings of up to 6 mmHg, representing a clinically relevant discrepancy.",
+      "summary_ko": "[핵심 결론] 마취 중 진동식 혈압계(PetMAP)로 측정할 때 커프 위치가 심장 기저부로부터 수직으로 단 3cm 벗어나도 평균동맥혈압이 최대 6mmHg의 임상적으로 의미 있는 오차가 발생한다.\n[방법·수치] 마취된 건강한 개 22마리를 대등척 자세에서 흉지와 골반지에 커프를 적용하여 심장 기저부, 기저부 위쪽, 기저부 아래쪽(각각 흉곽 깊이의 20%)에서 혈압을 측정했다. 흉지를 낮췄을 때 수축기혈압과 평균동맥혈압이 유의하게 증가했고(P=0.02, P=0.047), 골반지를 올렸을 때 수축기/평균/이완기혈압이 유의하게 감소했다(모두 P<0.03). 평균동맥혈압의 오차는 체중과 양의 상관관계를 보였다(P<0.001).\n[임상 적용·한계] 마취 중 혈압 측정 시 커프를 반드시 심장 기저부(상완골 대결절 높이)에 정렬하여 위치 편차를 최소화해야 한다. 단일 기관의 소규모 연구로 다양한 품종과 임상 상황에서의 검증이 필요하다.",
+      "specialty": [
+        "마취/진통",
+        "응급/중환자"
+      ],
+      "pmc_id": "PMC13728961",
+      "doi": "10.1111/jsap.70148"
+    },
+    {
       "id": "42803120",
       "title": "Echocardiographic prevalence and attachment-site patterns of left ventricular bands in cats.",
       "authors": "Van den Noortgate G, Zablotski Y, Wess G",
@@ -3076,23 +3171,6 @@
         "외과/정형"
       ],
       "doi": "10.1111/vsu.70124"
-    },
-    {
-      "id": "42240562",
-      "title": "Effect of vertical distance between the heart base and the cuff on arterial blood pressure measurements using PetMAP in anaesthetised dogs.",
-      "authors": "McConomy R, Pinnok H, Adami C",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Nov",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42240562/",
-      "abstract": "To evaluate how variations in limb positioning, when compared with standard position at the heart base, affect oscillometric arterial blood pressure measurements in 22 anaesthetised healthy dogs. The thoracic vertical depth was measured in each dog from the caudal angle of the scapula to the body of the sternum caudal to the olecranon, and 20% of this length was used as deviation from the heart base level, identified by the humerus greater tubercle, for the arterial blood pressure measurement above and below the heart base. Measurements were taken in the thoracic and pelvic limbs with the cuff aligned with the heart base, and with the cuff positioned above and below the heart base by the deviation, always with the dogs in dorsal recumbency. Both systolic (P = .02) and mean arterial blood pressure (P = .047) values were significantly increased when the thoracic limb was lowered compared to heart base. The absolute difference in mean arterial blood pressure between heart base and values measured below the heart base was 3.7 (3.0 to 8.3) mmHg and positively correlated with the dogs' body weight (P < .001). For systolic (P = .030), mean (P = .015) and diastolic arterial blood pressure (P = .025), values were significantly decreased when the pelvic limb was elevated compared to heart base. The absolute difference in mean arterial blood pressure between heart base and values above the heart base was 6.1 (1.6 to 10.6) mmHg. Deviations as little as 3 cm above or below the heart base resulted in mean arterial blood pressure misreadings of up to 6 mmHg, representing a clinically relevant discrepancy.",
-      "summary_ko": "[핵심 결론] 마취 중 진동식 혈압계(PetMAP)로 측정할 때 커프 위치가 심장 기저부로부터 수직으로 단 3cm 벗어나도 평균동맥혈압이 최대 6mmHg의 임상적으로 의미 있는 오차가 발생한다.\n[방법·수치] 마취된 건강한 개 22마리를 대등척 자세에서 흉지와 골반지에 커프를 적용하여 심장 기저부, 기저부 위쪽, 기저부 아래쪽(각각 흉곽 깊이의 20%)에서 혈압을 측정했다. 흉지를 낮췄을 때 수축기혈압과 평균동맥혈압이 유의하게 증가했고(P=0.02, P=0.047), 골반지를 올렸을 때 수축기/평균/이완기혈압이 유의하게 감소했다(모두 P<0.03). 평균동맥혈압의 오차는 체중과 양의 상관관계를 보였다(P<0.001).\n[임상 적용·한계] 마취 중 혈압 측정 시 커프를 반드시 심장 기저부(상완골 대결절 높이)에 정렬하여 위치 편차를 최소화해야 한다. 단일 기관의 소규모 연구로 다양한 품종과 임상 상황에서의 검증이 필요하다.",
-      "specialty": [
-        "마취/진통",
-        "응급/중환자"
-      ],
-      "pmc_id": "PMC13728961",
-      "doi": "10.1111/jsap.70148"
     },
     {
       "id": "43085194",
@@ -4520,22 +4598,6 @@
       "doi": "10.1111/jsap.70207"
     },
     {
-      "id": "42838287",
-      "title": "The canine tumour micro-environment and advances in antitumour therapy in canine melanoma.",
-      "authors": "Hindriks E, Zandvliet MMJM, Sijts AJAM, Broere F",
-      "journal": "Vet J",
-      "type": "vet",
-      "date": "2026 Oct 6",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42838287/",
-      "abstract": "Cancer poses a substantial health burden in both humans and dogs. Despite significant advances, durable tumour control is often not achieved, highlighting the need for novel targeted therapies and immunotherapies. However, translation of these approaches into human and veterinary oncology has been slow. Comparative oncology offers a valuable translational strategy, as naturally occurring cancers in dogs share significant clinical, molecular, and genetic similarities with human malignancies. This review provides an overview of the canine tumour microenvironment (TME), with a primary focus on melanoma as an aggressive and immunogenic tumour model. Key immune components, including T cells, B cells, natural killer cells, tumour-associated macrophages, and myeloid-derived suppressor cells, are discussed in the context of tumour progression and immune evasion. Furthermore, current advances in immunotherapeutic strategies, such as immune checkpoint inhibitors and therapeutic cancer vaccines, as well as receptor tyrosine kinase-targeted therapies, are evaluated in canine cancers. While these approaches have shown promise, challenges such as tumour heterogeneity, immunosuppressive TMEs, and therapeutic resistance are difficult to overcome, resulting in limited clinical efficacy. Integrating insights from human and veterinary oncology underscores the potential of comparative approaches to improve translational success and develop more effective combination therapies for both species.",
-      "summary_ko": "[핵심 결론] 개의 흑색종은 인간 악성종양과 임상적·분자생물학적·유전적 유사성을 공유하는 공격적이고 면역원성이 높은 종양으로, 비교종양학을 통한 면역항암치료 및 표적치료 개발의 가치있는 모델을 제공한다.\n[방법·수치] 개의 종양 미세환경(TME) 및 흑색종에서 T세포, B세포, NK세포, 종양연관대식세포, 골수유래억제세포 등 주요 면역구성요소와 면역 회피 메커니즘을 검토하고, 면역관문억제제, 치료용 암백신, 수용체 티로신키나아제 표적치료 등 현재 진행 중인 면역치료 전략을 평가했다(수치 제시 없음).\n[임상 적용·한계] 비교종양학적 접근을 통해 인간과 수의학 종양학의 통합은 번역적 성공을 개선하고 양 종에서 더 효과적인 병합치료 개발을 가능하게 할 수 있으나, 종양 이질성, 면역억제 TME, 치료 저항성 등의 과제로 인해 현재 임상 효능이 제한적이다.",
-      "specialty": [
-        "종양",
-        "고양이"
-      ],
-      "doi": "10.1016/j.tvjl.2026.106919"
-    },
-    {
       "id": "42836558",
       "title": "Sodium Administration and the Contribution of Fluid Creep to the Sodium Burden of Hospitalized Dogs in the ICU.",
       "authors": "McNally AE, Llewellyn E",
@@ -4565,6 +4627,22 @@
         "심장"
       ],
       "doi": "10.1016/j.jacc.2026.09.011"
+    },
+    {
+      "id": "42838287",
+      "title": "The canine tumour micro-environment and advances in antitumour therapy in canine melanoma.",
+      "authors": "Hindriks E, Zandvliet MMJM, Sijts AJAM, Broere F",
+      "journal": "Vet J",
+      "type": "vet",
+      "date": "2026 Oct 6",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42838287/",
+      "abstract": "Cancer poses a substantial health burden in both humans and dogs. Despite significant advances, durable tumour control is often not achieved, highlighting the need for novel targeted therapies and immunotherapies. However, translation of these approaches into human and veterinary oncology has been slow. Comparative oncology offers a valuable translational strategy, as naturally occurring cancers in dogs share significant clinical, molecular, and genetic similarities with human malignancies. This review provides an overview of the canine tumour microenvironment (TME), with a primary focus on melanoma as an aggressive and immunogenic tumour model. Key immune components, including T cells, B cells, natural killer cells, tumour-associated macrophages, and myeloid-derived suppressor cells, are discussed in the context of tumour progression and immune evasion. Furthermore, current advances in immunotherapeutic strategies, such as immune checkpoint inhibitors and therapeutic cancer vaccines, as well as receptor tyrosine kinase-targeted therapies, are evaluated in canine cancers. While these approaches have shown promise, challenges such as tumour heterogeneity, immunosuppressive TMEs, and therapeutic resistance are difficult to overcome, resulting in limited clinical efficacy. Integrating insights from human and veterinary oncology underscores the potential of comparative approaches to improve translational success and develop more effective combination therapies for both species.",
+      "summary_ko": "[핵심 결론] 개의 흑색종은 인간 악성종양과 임상적·분자생물학적·유전적 유사성을 공유하는 공격적이고 면역원성이 높은 종양으로, 비교종양학을 통한 면역항암치료 및 표적치료 개발의 가치있는 모델을 제공한다.\n[방법·수치] 개의 종양 미세환경(TME) 및 흑색종에서 T세포, B세포, NK세포, 종양연관대식세포, 골수유래억제세포 등 주요 면역구성요소와 면역 회피 메커니즘을 검토하고, 면역관문억제제, 치료용 암백신, 수용체 티로신키나아제 표적치료 등 현재 진행 중인 면역치료 전략을 평가했다(수치 제시 없음).\n[임상 적용·한계] 비교종양학적 접근을 통해 인간과 수의학 종양학의 통합은 번역적 성공을 개선하고 양 종에서 더 효과적인 병합치료 개발을 가능하게 할 수 있으나, 종양 이질성, 면역억제 TME, 치료 저항성 등의 과제로 인해 현재 임상 효능이 제한적이다.",
+      "specialty": [
+        "종양",
+        "고양이"
+      ],
+      "doi": "10.1016/j.tvjl.2026.106919"
     },
     {
       "id": "42838285",
@@ -4976,6 +5054,22 @@
       "doi": "10.1111/jsap.70147"
     },
     {
+      "id": "42210038",
+      "title": "Severe post-GDV gastroparesis managed with sleeve-type gastrectomy in a dog.",
+      "authors": "Hatzav M, Zemer O, Benzioni-Bar H, Biton E, Gibson I",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42210038/",
+      "abstract": "A Belgian Malinois dog developed advanced gastroparesis with gastric atony and progressive dilatation following surgical correction of gastric dilatation-volvulus. Following gastric dilatation-volvulus, the dog developed recurrent gastric distension, vomiting of undigested food and progressive weight loss. Imaging and endoscopy demonstrated a markedly enlarged, static stomach with a patent pylorus, refractory to prokinetic therapy. Exploratory laparotomy revealed global gastric atony, and a radical sleeve-type gastrectomy was performed. Histopathology identified interstitial fibrosis and sparsely distributed nerve plexuses. Although delayed gastric emptying persisted postoperatively on barium contrast study, the dog regained weight, tolerated liquid meals and remained clinically stable without further vomiting or dilatation at 12 months follow-up. Severe gastroparesis with chronic gastric dilatation can occur as a delayed complication of gastric dilatation-volvulus, likely related to truncal vagal injury. Sleeve-type gastrectomy might represent a salvage option for dogs with end-stage, medically refractory gastric atony.",
+      "summary_ko": "[핵심 결론] 위확장염전 수술 후 발생한 중증 위무력증은 미주신경 손상으로 인한 지연성 합병증이며, 보존적 치료에 불응하는 말기 위무력증 환자에서 슬리브형 위절제술이 구출용 수술 방법이 될 수 있다.\n[방법·수치] 벨기에 말리노이즈견 1마리를 대상으로 한 증례 보고. 위확장염전 외과적 교정 후 반복되는 위팽만, 미소화 음식물의 구토, 진행성 체중감소 발생. 영상검사와 내시경 검사에서 거대하고 운동 불능인 위 확인, 프로키네틱 약물 치료 불응. 수치 제시 없음.\n[임상 적용·한계] 위확장염전 수술 후 보존적 치료에 불응하는 중증 위무력증 환자에서 슬리브형 위절제술 고려 가능. 술 후 12개월 추적관찰 시 체중 회복, 액상 식이 허용, 구토나 위팽만 미재발으로 임상적 안정성 입증. 단일 증례 보고로 후향적 치료 평가의 한계 있으며, 술 후에도 지연된 위배출이 지속되어 완전한 정상화는 달성하지 못함.",
+      "specialty": [
+        "외과/정형",
+        "기타"
+      ],
+      "doi": "10.1111/jsap.70150"
+    },
+    {
       "id": "42829981",
       "title": "Clotting and Coagulation Disorders in Cats: A clinical review of causes, diagnosis and management.",
       "authors": "Evans J, Li RHL",
@@ -5204,23 +5298,6 @@
         "외과/정형"
       ],
       "doi": "10.1111/vsu.70120"
-    },
-    {
-      "id": "42047465",
-      "title": "Biomechanical evaluation of carpal joint ligaments in the cat: An experimental and radiographic cadaveric study.",
-      "authors": "Candela Andrade M, Meinck P, Slunsky P, Brunnberg L",
-      "journal": "Vet Surg",
-      "type": "vet",
-      "date": "2026 Oct",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42047465/",
-      "abstract": "To define the stabilizing role of feline carpal ligaments through selective transection and radiographic assessment of joint angulation under standardized loading. Experimental ex vivo cadaveric study. Sixty carpal joints from 30 adult cats without orthopedic disease. Carpi were mounted in a custom radiolucent clamping device and subjected to standardized 20 N varus, valgus, and extension loads. Measurement tolerances were 3.5° for varus, 6.4° for valgus, and 6° for extension. Individual ligaments or ligament complexes were sequentially transected, and stability changes were quantified radiographically using dorsopalmar and mediolateral projections. Transection of the medial collateral ligament produced only minor valgus increase below tolerance thresholds. Palmar radiocarpal ligament desmotomy caused valgus and hyperextension instability with consistent radiocarpal subluxation. Additional flexor retinaculum transection increased extension by up to 27.9° and resulted in antebrachiocarpal luxation. Lateral collateral ligament transection produced marked varus instability (+16.8°) with ulnocarpal subluxation, and the ulnopalmar and accessory ulnar ligaments acted as secondary stabilizers. Distal palmar carpometacarpal ligament transection caused hyperextension (+12.3°) with mediocarpal and carpometacarpal subluxation. Isolated flexor myotomy or tenotomy did not produce measurable instability unless fascial structures were disrupted. Feline carpal stability depends on coordinated ligamentous and fascial interactions rather than a single dominant stabilizer. This reproducible multiplanar testing model provides a biomechanical basis to improve diagnosis and treatment of feline carpal injuries, which are often extrapolated from canine data. These data highlight that isolated ligament repair may not adequately restore carpal stability in cats. Clinicians should consider the integrated role of ligamentous and fascial structures when diagnosing and managing carpal injuries.",
-      "summary_ko": "[핵심 결론] 고양이 손목 안정성은 단일 인대가 아닌 인대와 근막의 조화로운 상호작용에 의존하며, 특히 장측 요골손목인대와 외측 측부인대가 주요 안정화 구조임을 규명했다.\n[방법·수치] 30마리 성묘의 60개 손목관절을 대상으로 한 외체 생역학 연구로, 표준화된 20N의 외반, 내반, 신전 하중을 적용하고 선택적 인대 절단 후 방사선학적으로 관절 각도 변화를 측정했다(허용오차: 외반 3.5°, 내반 6.4°, 신전 6°). 장측 요골손목인대 절단시 외반 및 과신전 불안정성과 일관된 요골손목 아탈구가 발생했고, 외측 측부인대 절단시 현저한 내반 불안정성(+16.8°)과 척골손목 아탈구가 유발되었으며, 원위 장측 중수손목인대 절단시 과신전(+12.3°)이 발생했다.\n[임상 적용·한계] 고양이 손목 손상 진단 및 치료시 개의 데이터 외삽을 피하고 인대와 근막 구조의 통합적 역할을 고려해야 하며, 단순 인대 복구만으로는 손목 안정성을 충분히 회복하지 못할 수 있다. 외체 연구로 임상 적용에는 추가 검증이 필요하다.",
-      "specialty": [
-        "외과/정형",
-        "고양이"
-      ],
-      "pmc_id": "PMC13643615",
-      "doi": "10.1111/vsu.70114"
     },
     {
       "id": "42536135",
@@ -5520,6 +5597,23 @@
       ],
       "pmc_id": "PMC13318191",
       "doi": "10.1111/vde.70087"
+    },
+    {
+      "id": "42047465",
+      "title": "Biomechanical evaluation of carpal joint ligaments in the cat: An experimental and radiographic cadaveric study.",
+      "authors": "Candela Andrade M, Meinck P, Slunsky P, Brunnberg L",
+      "journal": "Vet Surg",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42047465/",
+      "abstract": "To define the stabilizing role of feline carpal ligaments through selective transection and radiographic assessment of joint angulation under standardized loading. Experimental ex vivo cadaveric study. Sixty carpal joints from 30 adult cats without orthopedic disease. Carpi were mounted in a custom radiolucent clamping device and subjected to standardized 20 N varus, valgus, and extension loads. Measurement tolerances were 3.5° for varus, 6.4° for valgus, and 6° for extension. Individual ligaments or ligament complexes were sequentially transected, and stability changes were quantified radiographically using dorsopalmar and mediolateral projections. Transection of the medial collateral ligament produced only minor valgus increase below tolerance thresholds. Palmar radiocarpal ligament desmotomy caused valgus and hyperextension instability with consistent radiocarpal subluxation. Additional flexor retinaculum transection increased extension by up to 27.9° and resulted in antebrachiocarpal luxation. Lateral collateral ligament transection produced marked varus instability (+16.8°) with ulnocarpal subluxation, and the ulnopalmar and accessory ulnar ligaments acted as secondary stabilizers. Distal palmar carpometacarpal ligament transection caused hyperextension (+12.3°) with mediocarpal and carpometacarpal subluxation. Isolated flexor myotomy or tenotomy did not produce measurable instability unless fascial structures were disrupted. Feline carpal stability depends on coordinated ligamentous and fascial interactions rather than a single dominant stabilizer. This reproducible multiplanar testing model provides a biomechanical basis to improve diagnosis and treatment of feline carpal injuries, which are often extrapolated from canine data. These data highlight that isolated ligament repair may not adequately restore carpal stability in cats. Clinicians should consider the integrated role of ligamentous and fascial structures when diagnosing and managing carpal injuries.",
+      "summary_ko": "[핵심 결론] 고양이 손목 안정성은 단일 인대가 아닌 인대와 근막의 조화로운 상호작용에 의존하며, 특히 장측 요골손목인대와 외측 측부인대가 주요 안정화 구조임을 규명했다.\n[방법·수치] 30마리 성묘의 60개 손목관절을 대상으로 한 외체 생역학 연구로, 표준화된 20N의 외반, 내반, 신전 하중을 적용하고 선택적 인대 절단 후 방사선학적으로 관절 각도 변화를 측정했다(허용오차: 외반 3.5°, 내반 6.4°, 신전 6°). 장측 요골손목인대 절단시 외반 및 과신전 불안정성과 일관된 요골손목 아탈구가 발생했고, 외측 측부인대 절단시 현저한 내반 불안정성(+16.8°)과 척골손목 아탈구가 유발되었으며, 원위 장측 중수손목인대 절단시 과신전(+12.3°)이 발생했다.\n[임상 적용·한계] 고양이 손목 손상 진단 및 치료시 개의 데이터 외삽을 피하고 인대와 근막 구조의 통합적 역할을 고려해야 하며, 단순 인대 복구만으로는 손목 안정성을 충분히 회복하지 못할 수 있다. 외체 연구로 임상 적용에는 추가 검증이 필요하다.",
+      "specialty": [
+        "외과/정형",
+        "고양이"
+      ],
+      "pmc_id": "PMC13643615",
+      "doi": "10.1111/vsu.70114"
     },
     {
       "id": "41948785",
