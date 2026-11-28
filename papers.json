@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-27 06:07 UTC",
-  "total": 377,
+  "updated": "2026-11-28 05:48 UTC",
+  "total": 381,
   "papers": [
     {
       "id": "42833272",
@@ -35,6 +35,21 @@
       "doi": "10.1111/vde.70128"
     },
     {
+      "id": "43102283",
+      "title": "Risk factors for complications in dogs treated with transpalpebral or transconjunctival enucleation.",
+      "authors": "Kakuta S, Vlachomitrou E, Dawson C, Everson R, Kulendra N",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Nov 27",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43102283/",
+      "abstract": "To determine the prevalence and risk factors of complications in a dog population in the United Kingdom, following transpalpebral or transconjunctival enucleation. Medical records of 333 client-owned dogs that underwent 351 enucleations, from two specialist veterinary referral centres, met the inclusion criteria. Preoperative, intraoperative and postoperative variables (including signalment, indication for enucleation, comorbidities, surgical technique, intraorbital prosthesis, duration of surgery and anaesthesia among others) were assessed as risk factors for the development of surgical site infection and/or other complications. All dogs were followed until healing was deemed to be complete or a complication occurred. Postoperative antimicrobials were used in 73.5% of the enucleations, with cefalexin being the most frequently used. Systemic cefalexin for 4 to 7 days was used postoperatively in 52.1% of these enucleations (range 2 to 28 days). The overall prevalence of combined moderate or severe complications was low (5/351, 1.4%); all five dogs developed surgical site infection, with one dog requiring open wound management. Revision surgery was required following enucleation in two dogs (2/351, 0.5%). A lacrimal cyst was identified on histopathology in one case. None of the dogs with orbital prostheses developed complications. The incidence of surgical site infection in bilateral single-stage enucleation was low (1/14, 7.1%). No variables were clearly identified as predictive factors for postoperative complications in this study. The complication rate in the studied cohort of dogs following enucleation was substantially lower than previously reported. The type of surgical technique, duration of anaesthesia or surgeon experience did not appear to affect dogs' outcomes or complication rates. Further prospective studies are warranted to validate these results due to data limitations in the presented study.",
+      "summary_ko": "[핵심 결론] 개의 안구적출술(경검판 또는 경결막) 후 합병증 발생률은 1.4%로 매우 낮으며, 모든 합병증은 수술부위감염이었고 궤도 보철물 삽입 사례에서는 합병증이 발생하지 않았다.\n[방법·수치] 영국 전문 의뢰센터 2곳에서 333마리 개 351안구(일측/양측)에 대한 의료기록 후향적 검토; 술후 항생제 사용률 73.5%(세팔렉신 최다 사용, 중앙값 4-7일), 중등도 이상 합병증 1.4%(5/351, 모두 수술부위감염), 개정 수술 필요 0.5%(2/351), 양측 일회 적출술 감염률 7.1%(1/14).\n[임상 적용·한계] 술기 유형, 마취 지속시간, 술자 경험이 예후에 영향을 주지 않았으며 현재 결과 검증을 위해 전향적 연구가 필요함; 후향적 설계와 데이터 제한이 주요 한계로, 소수 센터 기반 연구임.",
+      "specialty": [
+        "외과/정형"
+      ],
+      "doi": "10.1111/jsap.70224"
+    },
+    {
       "id": "43098316",
       "title": "Urinary extracellular vesicle microRNA profile in dogs with visceral leishmaniasis: differential expression and exploratory associations with renal Doppler indices and proteinuria.",
       "authors": "Guimarães MA, Rebech GT, Ito LTS, Umino GM, Boas JSV",
@@ -49,6 +64,38 @@
         "기타"
       ],
       "doi": "10.1016/j.tvjl.2026.106983"
+    },
+    {
+      "id": "43099914",
+      "title": "Development and preliminary in silico and three-dimensional model assessment of a feline universal sacroiliac guide (FUSIG): An exploratory morphometric study.",
+      "authors": "Reinaldos IQ, Danielski A, Solano MA",
+      "journal": "Vet Surg",
+      "type": "vet",
+      "date": "2026 Nov 26",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43099914/",
+      "abstract": "To characterize feline sacral morphometry and to develop and perform a preliminary internal assessment of a feline universal sacroiliac guide (FUSIG) intended to assist screw placement within the feline sacral safe corridor. Retrospective, exploratory morphometric study with in silico and three-dimensional (3D)-printed model assessment. A total of 34 client-owned cats. Computed tomography studies of the sacrum were segmented, and multiplanar morphometric analysis identified a corridor-derived geometric reference point (B) at the center of the predefined sacral safe corridor. Linear distances of the sacral articular surface and angular inclinations were measured. A population-based guide was subsequently designed, mirrored for laterality, and assessed virtually using a simulated 2.7-mm screw path. Physical assessment used 3D-printed sacra and guides. The primary outcome was the proportion of screw paths fully contained within the sacral safe corridor; secondary outcomes were the direction of cortical breach and descriptive morphometric variability. A total of 61 hemisacra were analyzed. Sacral articular surface width and length were 12.9 ± 0.6 mm and 14.1 ± 0.7 mm, respectively, with a safe-corridor length of 23.6 ± 1.8 mm. Linear measurements showed low interindividual variability (%CV 4.9%-7.8%). Mean dorsoventral and craniocaudal inclinations were 19.0 ± 2.2° and 20.1 ± 2.4°. In silico and 3D-model assessment each achieved 98% screw containment, with one minor deviation per phase. Feline sacral morphometry showed relatively low variability across this study population, supporting the development of a single population-based guide. Under idealized conditions, the FUSIG produced screw trajectories contained within the sacral corridor in in silico simulations and 3D-printed feline sacral models. The FUSIG may represent a reusable, anatomy-driven method for accurate sacroiliac stabilization in cats. Cadaveric studies are required before clinical application.",
+      "summary_ko": "[핵심 결론] 고양이 천골의 형태학적 변이가 낮아 단일 집단 기반 가이드 개발이 가능하며, FUSIG는 이상적 조건에서 천골 안전 통로 내에 나사 경로를 98% 포함시켜 천골장골 안정화에 유용할 수 있음.\n[방법·수치] 34마리 고양이의 CT 영상에서 천골을 분할하여 61개 반측 천골 분석, 관절면 너비 12.9±0.6mm, 길이 14.1±0.7mm, 안전 통로 길이 23.6±1.8mm, 선형 측정의 변이계수 4.9%-7.8%로 낮음, 등배 기울기 19.0±2.2°, 두미 기울기 20.1±2.4°; 인실리코 및 3D 프린팅 모델에서 각각 98% 나사 포함 달성.\n[임상 적용·한계] FUSIG는 고양이의 천골장골 고정에 재사용 가능한 해부학 기반 방법으로 임상 적용 전 시체 연구가 필수적이며, 이상적 조건에서의 성능 평가이므로 실제 임상 상황에서의 효과는 추가 검증 필요.",
+      "specialty": [
+        "외과/정형",
+        "고양이"
+      ],
+      "doi": "10.1111/vsu.70197"
+    },
+    {
+      "id": "43099831",
+      "title": "Do canine elbow arthroplasty implants demonstrate morphological conformity for use in companion pigs with osteoarthritis?",
+      "authors": "Matassa G, Biedrzycki AH, Guiot LP, McOnie RC, Mulon PY",
+      "journal": "Vet Surg",
+      "type": "vet",
+      "date": "2026 Nov 26",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/43099831/",
+      "abstract": "To identify whether the largest commercially available canine cementless total elbow arthroplasty system (TATE size 19 mm) demonstrates morphological conformity with the elbows of companion miniature pig elbows with osteoarthritis (OA). Retrospective, cross-sectional, comparative morphometric study. Computed tomography (CT) scans from university veterinary hospitals were retrospectively evaluated in groups according to the presence or absence of OA. Companion pig elbows without OA (n = 75) and with OA (n = 78). Humeral and radial medial-lateral articular widths were measured from CT images. Three-dimensional models were subsequently generated by segmentation and used to quantify the resurfacing depth and radius of curvature (RoC) of the medial and lateral aspects of the humeral and radial condyles. The presence of OA was associated with the humerus RoC (F = 51.9, partial η2 = 0.151, p-value = <0.001). The estimated OA humeral RoC mean was 14.2 mm (95% CI: 9.80-18.7 mm), partially exceeding the implant's humeral component RoC. There was no OA, weight, or age effect on the radius RoC measures. The estimated OA radius RoC mean was 17.8 mm (95% CI=11.9-52.8 mm). OA was also associated with the humerus (F = 20.6, partial η2 = 0.125, p-value = <0.001) and radius (F = 23.7, partial η2 = 0.142, p-value = <0.001) resurface depths. The estimated mean for the OA humerus and radius resurface depths were 4.9 mm (95% CI 95%: 2.7-7.1 mm) and 4.8 mm (95% CI: 2.4-7.2 mm), respectively. This measure includes resurface depths beyond the theoretical 4 mm resurface depth for each bone. Lastly, there was no association with OA to humerus and radius medio-lateral width, but both estimated means were larger than the medio-lateral width of the corresponding implant components.",
+      "summary_ko": "[핵심 결론] 개용 주관절 전치환술 임플란트(TATE size 19 mm)는 골관절염을 가진 미니어처 돼지의 주관절 형태와 적합하지 않으며, 돼지 종에 특화된 임플란트 개발이 필요함을 시사한다.\n[방법·수치] 대학 수의병원의 CT 영상을 후향적으로 분석하여 골관절염이 없는 돼지 주관절 75개, 골관절염이 있는 주관절 78개를 측정했다. 3D 모델 세분화를 통해 상완골 및 요골의 내외측 관절 폭, 곡률반경(RoC), 재표면화 깊이를 정량화했다. 골관절염은 상완골 RoC와 유의한 연관성을 보였으며(F=51.9, p<0.001), 골관절염 상완골 RoC 평균 14.2 mm(95% CI: 9.80-18.7 mm)로 임플란트 상완골 성분의 RoC를 부분적으로 초과했다. 골관절염 요골 RoC 평균은 17.8 mm(95% CI: 11.9-52.8 mm)였고, 재표면화 깊이는 상완골 4.9 mm(95% CI: 2.7-7.1 mm), 요골 4.8 mm(95% CI: 2.4-7.2 mm)로 이론적 4 mm를 초과했다.\n[임상 적용·한계] 미니어처 돼지의 주관절 형태가 개용 임플란트와 현저히 다르므로 돼지 특화형 임플란트 개발을 고려해야 한다. 본 연구는 후향적 단면 비교 연구로 돼지 주관절염의 임상적 치료 효과는 평가하지 않았으며, 단일 종과 크기 범위의 제한이 있다.",
+      "specialty": [
+        "외과/정형",
+        "기타"
+      ],
+      "doi": "10.1111/vsu.70179"
     },
     {
       "id": "43096922",
@@ -220,6 +267,22 @@
       ],
       "pmc_id": "PMC13792361",
       "doi": "10.1161/CIRCULATIONAHA.126.080698"
+    },
+    {
+      "id": "42886083",
+      "title": "Occupational Disparities in Cardiovascular Risk and Management in Contemporary China.",
+      "authors": "Zhao Z, Li M, Wang Z, Jiang T, Wang Z",
+      "journal": "JACC",
+      "type": "human",
+      "date": "2026 Nov 24",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42886083/",
+      "abstract": "Although occupational disparities in cardiovascular health are increasingly recognized, a comprehensive understanding of cardiovascular health across contemporary occupational contexts-particularly in rapidly transitioning economies-remains limited. This study aimed to characterize geographic and occupational patterns of cardiovascular risk, risk-factor management, and potential prevention opportunities among employed adults in contemporary China. In this nationwide cross-sectional study, we analyzed 1,421,390 employees aged 20 to 65 years who underwent health examinations at 167 centers across 24 provinces in China between 2021 and 2023. Eighteen occupations were defined based on participants' employer registration and industry affiliation, and were classified into primary, secondary, and tertiary sectors, with the tertiary sector further subclassified into modern, public, and life services. Age- and sex-standardized prevalence of coronary heart disease (CHD) and cardiometabolic risk factors was estimated, along with age- and sex-standardized rates of treatment and control for hypertension and diabetes, and treatment for hypercholesterolemia and low-density lipoprotein cholesterol (LDL-C) control. Ten-year atherosclerotic cardiovascular disease (ASCVD) risk was calculated using the Prediction for ASCVD Risk in China model. We then assessed changes in the proportion of individuals classified as having moderate-to-high 10-year ASCVD risk under simulated scenarios that set elevated blood pressure and total cholesterol to target levels and current smoking to noncurrent smoking and compared these reductions across occupations. The mean age of participants was 33.8 years, and 53.4% were male. Overall, the age- and sex-standardized prevalence of CHD was 1.33% (95% CI: 1.29%-1.37%) and demonstrated a pronounced north-south gradient (P < 0.001), with the highest in the North and the lowest in the South.",
+      "summary_ko": "[핵심 결론] 중국의 직업군별로 심혈관질환 위험도와 위험인자 관리율이 현저히 다르며, 현대 서비스업종은 질병 부담은 낮으나 위험인자 관리가 부실한 반면 1차 산업과 2차 산업(에너지·수도 공급)에서 가장 높은 심혈관질환 유병률을 보였다.\n[방법·수치] 중국 24개 성 167개 센터에서 2021-2023년 건강검진을 받은 20-65세 직장인 1,421,390명을 대상으로 한 횡단면 연구; 연령·성별 표준화 관상동맥질환 유병률 1.33% (95% CI: 1.29%-1.37%), 고혈압 치료율 29.5%, 조절률 20.8%, 당뇨 치료율 36.6%, 조절률 21.9%, 고콜레스테롤혈증 치료율 17.0%, LDL-C 조절률 9.5%; 35세 이상에서 중등도 이상 10년 ASCVD 위험도 23.3% (농림축산어업 30.4%, 첨단 제조 서비스업 14.7%).\n[임상 적용·한계] 직업군별 맞춤형 심혈관질환 예방 전략 수립에 활용 가능하며, 특히 관리율이 낮은 현대 서비스업과 질병 부담이 높은 에너지·수도 공급 업종에 대한 집중 중재가 필요함; 단일 국가, 건강검진 수검자(건강 근로자 편향), 2021-2023년 단기간 자료의 한계가 있음.",
+      "specialty": [
+        "심장",
+        "내과/내분비"
+      ],
+      "doi": "10.1016/j.jacc.2026.09.012"
     },
     {
       "id": "43073020",
@@ -4851,22 +4914,6 @@
       "doi": "10.1016/j.jacc.2026.09.009"
     },
     {
-      "id": "42886083",
-      "title": "Occupational Disparities in Cardiovascular Risk and Management in Contemporary China.",
-      "authors": "Zhao Z, Li M, Wang Z, Jiang T, Wang C",
-      "journal": "JACC",
-      "type": "human",
-      "date": "2026 Oct 1",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42886083/",
-      "abstract": "Although occupational disparities in cardiovascular health are increasingly recognized, a comprehensive understanding of cardiovascular health across contemporary occupational contexts-particularly in rapidly transitioning economies-remains limited. This study aimed to characterize geographic and occupational patterns of cardiovascular risk, risk-factor management, and potential prevention opportunities among employed adults in contemporary China. In this nationwide cross-sectional study, we analyzed 1,421,390 employees aged 20 to 65 years who underwent health examinations at 167 centers across 24 provinces in China between 2021 and 2023. Eighteen occupations were defined based on participants' employer registration and industry affiliation, and were classified into primary, secondary, and tertiary sectors, with the tertiary sector further subclassified into modern, public, and life services. Age- and sex-standardized prevalence of coronary heart disease (CHD) and cardiometabolic risk factors was estimated, along with age- and sex-standardized rates of treatment and control for hypertension and diabetes, and treatment for hypercholesterolemia and low-density lipoprotein cholesterol (LDL-C) control. Ten-year atherosclerotic cardiovascular disease (ASCVD) risk was calculated using the Prediction for ASCVD Risk in China model. We then assessed changes in the proportion of individuals classified as having moderate-to-high 10-year ASCVD risk under simulated scenarios that set elevated blood pressure and total cholesterol to target levels and current smoking to noncurrent smoking and compared these reductions across occupations. The mean age of participants was 33.8 years, and 53.4% were male. Overall, the age- and sex-standardized prevalence of CHD was 1.33% (95% CI: 1.29%-1.37%) and demonstrated a pronounced north-south gradient (P < 0.001), with the highest in the North and the lowest in the South.",
-      "summary_ko": "[핵심 결론] 중국의 직업군별로 심혈관질환 위험도와 위험인자 관리율이 현저히 다르며, 현대 서비스업종은 질병 부담은 낮으나 위험인자 관리가 부실한 반면 1차 산업과 2차 산업(에너지·수도 공급)에서 가장 높은 심혈관질환 유병률을 보였다.\n[방법·수치] 중국 24개 성 167개 센터에서 2021-2023년 건강검진을 받은 20-65세 직장인 1,421,390명을 대상으로 한 횡단면 연구; 연령·성별 표준화 관상동맥질환 유병률 1.33% (95% CI: 1.29%-1.37%), 고혈압 치료율 29.5%, 조절률 20.8%, 당뇨 치료율 36.6%, 조절률 21.9%, 고콜레스테롤혈증 치료율 17.0%, LDL-C 조절률 9.5%; 35세 이상에서 중등도 이상 10년 ASCVD 위험도 23.3% (농림축산어업 30.4%, 첨단 제조 서비스업 14.7%).\n[임상 적용·한계] 직업군별 맞춤형 심혈관질환 예방 전략 수립에 활용 가능하며, 특히 관리율이 낮은 현대 서비스업과 질병 부담이 높은 에너지·수도 공급 업종에 대한 집중 중재가 필요함; 단일 국가, 건강검진 수검자(건강 근로자 편향), 2021-2023년 단기간 자료의 한계가 있음.",
-      "specialty": [
-        "심장",
-        "내과/내분비"
-      ],
-      "doi": "10.1016/j.jacc.2026.09.012"
-    },
-    {
       "id": "42561469",
       "title": "Pulmonary valve sinus aneurysm associated with pulmonic stenosis and patent ductus arteriosus in a dog.",
       "authors": "Vázquez DMP, Rodríguez JEV, Serrano PP",
@@ -5054,22 +5101,6 @@
       "doi": "10.1111/jsap.70147"
     },
     {
-      "id": "42210038",
-      "title": "Severe post-GDV gastroparesis managed with sleeve-type gastrectomy in a dog.",
-      "authors": "Hatzav M, Zemer O, Benzioni-Bar H, Biton E, Gibson I",
-      "journal": "JSAP",
-      "type": "vet",
-      "date": "2026 Oct",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42210038/",
-      "abstract": "A Belgian Malinois dog developed advanced gastroparesis with gastric atony and progressive dilatation following surgical correction of gastric dilatation-volvulus. Following gastric dilatation-volvulus, the dog developed recurrent gastric distension, vomiting of undigested food and progressive weight loss. Imaging and endoscopy demonstrated a markedly enlarged, static stomach with a patent pylorus, refractory to prokinetic therapy. Exploratory laparotomy revealed global gastric atony, and a radical sleeve-type gastrectomy was performed. Histopathology identified interstitial fibrosis and sparsely distributed nerve plexuses. Although delayed gastric emptying persisted postoperatively on barium contrast study, the dog regained weight, tolerated liquid meals and remained clinically stable without further vomiting or dilatation at 12 months follow-up. Severe gastroparesis with chronic gastric dilatation can occur as a delayed complication of gastric dilatation-volvulus, likely related to truncal vagal injury. Sleeve-type gastrectomy might represent a salvage option for dogs with end-stage, medically refractory gastric atony.",
-      "summary_ko": "[핵심 결론] 위확장염전 수술 후 발생한 중증 위무력증은 미주신경 손상으로 인한 지연성 합병증이며, 보존적 치료에 불응하는 말기 위무력증 환자에서 슬리브형 위절제술이 구출용 수술 방법이 될 수 있다.\n[방법·수치] 벨기에 말리노이즈견 1마리를 대상으로 한 증례 보고. 위확장염전 외과적 교정 후 반복되는 위팽만, 미소화 음식물의 구토, 진행성 체중감소 발생. 영상검사와 내시경 검사에서 거대하고 운동 불능인 위 확인, 프로키네틱 약물 치료 불응. 수치 제시 없음.\n[임상 적용·한계] 위확장염전 수술 후 보존적 치료에 불응하는 중증 위무력증 환자에서 슬리브형 위절제술 고려 가능. 술 후 12개월 추적관찰 시 체중 회복, 액상 식이 허용, 구토나 위팽만 미재발으로 임상적 안정성 입증. 단일 증례 보고로 후향적 치료 평가의 한계 있으며, 술 후에도 지연된 위배출이 지속되어 완전한 정상화는 달성하지 못함.",
-      "specialty": [
-        "외과/정형",
-        "기타"
-      ],
-      "doi": "10.1111/jsap.70150"
-    },
-    {
       "id": "42829981",
       "title": "Clotting and Coagulation Disorders in Cats: A clinical review of causes, diagnosis and management.",
       "authors": "Evans J, Li RHL",
@@ -5202,6 +5233,23 @@
       ],
       "pmc_id": "PMC13735154",
       "doi": "10.1177/1098612X261478277"
+    },
+    {
+      "id": "42454743",
+      "title": "Factors associated with antimicrobial drug prescription in cats receiving outpatient care at a veterinary teaching hospital.",
+      "authors": "Thane K, Kwong M, DeStefano I, Sweigart B, Beaulac K",
+      "journal": "JFMS",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42454743/",
+      "abstract": "ObjectivesInvestigations of factors associated with antimicrobial drug prescription(s) (ADP) in cats receiving outpatient care are lacking, which limits antimicrobial stewardship efforts and benchmarking of veterinary antimicrobial use. This study aimed to identify factors associated with ADP in cats receiving outpatient care at a veterinary teaching hospital.MethodsA retrospective analysis of electronic medical record data from cats receiving outpatient care at a veterinary teaching hospital in 2022 was performed. Subjects included 2245 cats with 3973 outpatient visits. The primary study outcome was receipt of at least one systemic ADP during or immediately after an outpatient visit; an exploratory outcome was receipt of a 'Watch' or 'Reserve' (WR) ADP using the World Health Organization (WHO) Access-Watch-Reserve (AWaRe) classification adapted to include veterinary agents. Independent variables, including patient demographics, hospital service and owner sociodemographic factors, were identified for model fitting using univariable logistic regression; multivariable models were built using generalized estimating equations.ResultsOf outpatient visit records, 367/3973 (9.2%) were associated with one or more ADP. Factors significantly associated with receipt of ADP included patient sex, hospital service visited, veterinarian training status, visit duration and urine culture performed. Among patients receiving any antimicrobial drugs, factors associated with receipt of WHO-WR ADP included hospital service, visit date, receipt of more than one ADP and history of a visit to any hospital service within the prior month.Conclusions and relevanceThese findings expand our understanding of antimicrobial usage in cats.",
+      "summary_ko": "[핵심 결론] 고양이 외래 진료에서 항미생물제 처방률은 9.2%(3973건 중 367건)이며, 환자 성별, 내원 진료과, 수의사 경력, 진료 시간, 요배양 검사 시행 여부 등이 처방과 유의하게 연관되어 있다.\n[방법·수치] 2022년 수의대학 부속 동물병원 외래진료 기록 2245마리 고양이의 3973건 내원 데이터에 대한 후향적 분석; 일변량 로지스틱 회귀분석과 일반화추정방정식을 이용한 다변량 분석 시행; WHO AWaRe 분류에 따른 주요/예약용 항미생물제 처방 연관 요인 추가 분석.\n[임상 적용·한계] 항미생물제 적절사용 지침 개발 및 병원 내 처방 관행 개선, 수의학 항미생물 감시체계 구축에 활용 가능하나, 단일 대학 부속 병원 데이터의 후향적 분석으로 외래진료 환경만 대상이고, 고양이 항미생물제 사용에 관한 국내 데이터 부족으로 직접 비교 해석에 제한이 있다.",
+      "specialty": [
+        "내과/내분비",
+        "고양이"
+      ],
+      "pmc_id": "PMC13735153",
+      "doi": "10.1177/1098612X261471153"
     },
     {
       "id": "42639852",
@@ -5599,23 +5647,6 @@
       "doi": "10.1111/vde.70087"
     },
     {
-      "id": "42047465",
-      "title": "Biomechanical evaluation of carpal joint ligaments in the cat: An experimental and radiographic cadaveric study.",
-      "authors": "Candela Andrade M, Meinck P, Slunsky P, Brunnberg L",
-      "journal": "Vet Surg",
-      "type": "vet",
-      "date": "2026 Oct",
-      "url": "https://pubmed.ncbi.nlm.nih.gov/42047465/",
-      "abstract": "To define the stabilizing role of feline carpal ligaments through selective transection and radiographic assessment of joint angulation under standardized loading. Experimental ex vivo cadaveric study. Sixty carpal joints from 30 adult cats without orthopedic disease. Carpi were mounted in a custom radiolucent clamping device and subjected to standardized 20 N varus, valgus, and extension loads. Measurement tolerances were 3.5° for varus, 6.4° for valgus, and 6° for extension. Individual ligaments or ligament complexes were sequentially transected, and stability changes were quantified radiographically using dorsopalmar and mediolateral projections. Transection of the medial collateral ligament produced only minor valgus increase below tolerance thresholds. Palmar radiocarpal ligament desmotomy caused valgus and hyperextension instability with consistent radiocarpal subluxation. Additional flexor retinaculum transection increased extension by up to 27.9° and resulted in antebrachiocarpal luxation. Lateral collateral ligament transection produced marked varus instability (+16.8°) with ulnocarpal subluxation, and the ulnopalmar and accessory ulnar ligaments acted as secondary stabilizers. Distal palmar carpometacarpal ligament transection caused hyperextension (+12.3°) with mediocarpal and carpometacarpal subluxation. Isolated flexor myotomy or tenotomy did not produce measurable instability unless fascial structures were disrupted. Feline carpal stability depends on coordinated ligamentous and fascial interactions rather than a single dominant stabilizer. This reproducible multiplanar testing model provides a biomechanical basis to improve diagnosis and treatment of feline carpal injuries, which are often extrapolated from canine data. These data highlight that isolated ligament repair may not adequately restore carpal stability in cats. Clinicians should consider the integrated role of ligamentous and fascial structures when diagnosing and managing carpal injuries.",
-      "summary_ko": "[핵심 결론] 고양이 손목 안정성은 단일 인대가 아닌 인대와 근막의 조화로운 상호작용에 의존하며, 특히 장측 요골손목인대와 외측 측부인대가 주요 안정화 구조임을 규명했다.\n[방법·수치] 30마리 성묘의 60개 손목관절을 대상으로 한 외체 생역학 연구로, 표준화된 20N의 외반, 내반, 신전 하중을 적용하고 선택적 인대 절단 후 방사선학적으로 관절 각도 변화를 측정했다(허용오차: 외반 3.5°, 내반 6.4°, 신전 6°). 장측 요골손목인대 절단시 외반 및 과신전 불안정성과 일관된 요골손목 아탈구가 발생했고, 외측 측부인대 절단시 현저한 내반 불안정성(+16.8°)과 척골손목 아탈구가 유발되었으며, 원위 장측 중수손목인대 절단시 과신전(+12.3°)이 발생했다.\n[임상 적용·한계] 고양이 손목 손상 진단 및 치료시 개의 데이터 외삽을 피하고 인대와 근막 구조의 통합적 역할을 고려해야 하며, 단순 인대 복구만으로는 손목 안정성을 충분히 회복하지 못할 수 있다. 외체 연구로 임상 적용에는 추가 검증이 필요하다.",
-      "specialty": [
-        "외과/정형",
-        "고양이"
-      ],
-      "pmc_id": "PMC13643615",
-      "doi": "10.1111/vsu.70114"
-    },
-    {
       "id": "41948785",
       "title": "Applying the Health Belief Model to Identify Factors Associated With Owner Persistence to Allergen-Specific Immunotherapy.",
       "authors": "Williams C, Milum AW, Andritsch S, von Fricken ME, Painter M",
@@ -5631,6 +5662,39 @@
       ],
       "pmc_id": "PMC13569391",
       "doi": "10.1111/vde.70072"
+    },
+    {
+      "id": "42210038",
+      "title": "Severe post-GDV gastroparesis managed with sleeve-type gastrectomy in a dog.",
+      "authors": "Hatzav M, Zemer O, Benzioni-Bar H, Biton E, Gibson I",
+      "journal": "JSAP",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42210038/",
+      "abstract": "A Belgian Malinois dog developed advanced gastroparesis with gastric atony and progressive dilatation following surgical correction of gastric dilatation-volvulus. Following gastric dilatation-volvulus, the dog developed recurrent gastric distension, vomiting of undigested food and progressive weight loss. Imaging and endoscopy demonstrated a markedly enlarged, static stomach with a patent pylorus, refractory to prokinetic therapy. Exploratory laparotomy revealed global gastric atony, and a radical sleeve-type gastrectomy was performed. Histopathology identified interstitial fibrosis and sparsely distributed nerve plexuses. Although delayed gastric emptying persisted postoperatively on barium contrast study, the dog regained weight, tolerated liquid meals and remained clinically stable without further vomiting or dilatation at 12 months follow-up. Severe gastroparesis with chronic gastric dilatation can occur as a delayed complication of gastric dilatation-volvulus, likely related to truncal vagal injury. Sleeve-type gastrectomy might represent a salvage option for dogs with end-stage, medically refractory gastric atony.",
+      "summary_ko": "[핵심 결론] 위확장염전 수술 후 발생한 중증 위무력증은 미주신경 손상으로 인한 지연성 합병증이며, 보존적 치료에 불응하는 말기 위무력증 환자에서 슬리브형 위절제술이 구출용 수술 방법이 될 수 있다.\n[방법·수치] 벨기에 말리노이즈견 1마리를 대상으로 한 증례 보고. 위확장염전 외과적 교정 후 반복되는 위팽만, 미소화 음식물의 구토, 진행성 체중감소 발생. 영상검사와 내시경 검사에서 거대하고 운동 불능인 위 확인, 프로키네틱 약물 치료 불응. 수치 제시 없음.\n[임상 적용·한계] 위확장염전 수술 후 보존적 치료에 불응하는 중증 위무력증 환자에서 슬리브형 위절제술 고려 가능. 술 후 12개월 추적관찰 시 체중 회복, 액상 식이 허용, 구토나 위팽만 미재발으로 임상적 안정성 입증. 단일 증례 보고로 후향적 치료 평가의 한계 있으며, 술 후에도 지연된 위배출이 지속되어 완전한 정상화는 달성하지 못함.",
+      "specialty": [
+        "외과/정형",
+        "기타"
+      ],
+      "doi": "10.1111/jsap.70150"
+    },
+    {
+      "id": "42047465",
+      "title": "Biomechanical evaluation of carpal joint ligaments in the cat: An experimental and radiographic cadaveric study.",
+      "authors": "Candela Andrade M, Meinck P, Slunsky P, Brunnberg L",
+      "journal": "Vet Surg",
+      "type": "vet",
+      "date": "2026 Oct",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42047465/",
+      "abstract": "To define the stabilizing role of feline carpal ligaments through selective transection and radiographic assessment of joint angulation under standardized loading. Experimental ex vivo cadaveric study. Sixty carpal joints from 30 adult cats without orthopedic disease. Carpi were mounted in a custom radiolucent clamping device and subjected to standardized 20 N varus, valgus, and extension loads. Measurement tolerances were 3.5° for varus, 6.4° for valgus, and 6° for extension. Individual ligaments or ligament complexes were sequentially transected, and stability changes were quantified radiographically using dorsopalmar and mediolateral projections. Transection of the medial collateral ligament produced only minor valgus increase below tolerance thresholds. Palmar radiocarpal ligament desmotomy caused valgus and hyperextension instability with consistent radiocarpal subluxation. Additional flexor retinaculum transection increased extension by up to 27.9° and resulted in antebrachiocarpal luxation. Lateral collateral ligament transection produced marked varus instability (+16.8°) with ulnocarpal subluxation, and the ulnopalmar and accessory ulnar ligaments acted as secondary stabilizers. Distal palmar carpometacarpal ligament transection caused hyperextension (+12.3°) with mediocarpal and carpometacarpal subluxation. Isolated flexor myotomy or tenotomy did not produce measurable instability unless fascial structures were disrupted. Feline carpal stability depends on coordinated ligamentous and fascial interactions rather than a single dominant stabilizer. This reproducible multiplanar testing model provides a biomechanical basis to improve diagnosis and treatment of feline carpal injuries, which are often extrapolated from canine data. These data highlight that isolated ligament repair may not adequately restore carpal stability in cats. Clinicians should consider the integrated role of ligamentous and fascial structures when diagnosing and managing carpal injuries.",
+      "summary_ko": "[핵심 결론] 고양이 손목 안정성은 단일 인대가 아닌 인대와 근막의 조화로운 상호작용에 의존하며, 특히 장측 요골손목인대와 외측 측부인대가 주요 안정화 구조임을 규명했다.\n[방법·수치] 30마리 성묘의 60개 손목관절을 대상으로 한 외체 생역학 연구로, 표준화된 20N의 외반, 내반, 신전 하중을 적용하고 선택적 인대 절단 후 방사선학적으로 관절 각도 변화를 측정했다(허용오차: 외반 3.5°, 내반 6.4°, 신전 6°). 장측 요골손목인대 절단시 외반 및 과신전 불안정성과 일관된 요골손목 아탈구가 발생했고, 외측 측부인대 절단시 현저한 내반 불안정성(+16.8°)과 척골손목 아탈구가 유발되었으며, 원위 장측 중수손목인대 절단시 과신전(+12.3°)이 발생했다.\n[임상 적용·한계] 고양이 손목 손상 진단 및 치료시 개의 데이터 외삽을 피하고 인대와 근막 구조의 통합적 역할을 고려해야 하며, 단순 인대 복구만으로는 손목 안정성을 충분히 회복하지 못할 수 있다. 외체 연구로 임상 적용에는 추가 검증이 필요하다.",
+      "specialty": [
+        "외과/정형",
+        "고양이"
+      ],
+      "pmc_id": "PMC13643615",
+      "doi": "10.1111/vsu.70114"
     },
     {
       "id": "42815534",
